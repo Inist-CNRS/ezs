@@ -1,0 +1,30 @@
+{
+  "name": "ezs",
+  "version": "1.0.0",
+  "description": "A wrapper to build Stream transformers with functional style",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "istanbul test ./node_modules/.bin/_mocha -- -R spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/touv/node-ezs.git"
+  },
+  "keywords": [
+    "stream",
+    "transformer"
+  ],
+  "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/touv/node-ezs/issues"
+  },
+  "homepage": "https://github.com/touv/node-ezs#readme",
+  "devDependencies": {
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0"
+  }
+}
