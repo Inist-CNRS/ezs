@@ -3,6 +3,7 @@
 const assert = require('assert');
 const Transform = require('stream').Transform;
 
+
 class Feed {
   constructor(push, done) {
     this.push = push;
@@ -20,6 +21,10 @@ class Feed {
     this.write(something);
     this.end();
   }
+  close() {
+    this.write(null);
+    this.end();
+  }
 }
 
 class Engine extends Transform {
@@ -28,6 +33,7 @@ class Engine extends Transform {
     let self = this;
     self.func = func;
     self.scope = {
+      stream : self,
       index : 0,
       options : opts
     };
@@ -48,6 +54,8 @@ class Engine extends Transform {
       self.push(data);
     }
     let feed = new Feed(push, done);
+    self.scope.isFirst = function() { return (self.scope.index === 1); };
+    self.scope.isLast = function() { return (chunk === null); };
     self.func.call(self.scope, chunk, feed)
 
   }
@@ -60,7 +68,6 @@ function isStatement(name) {
 }
 
 function ezs(name, opts) {
-
   if (isStatement(name)) {
     return new Engine(name, opts);
   }
@@ -71,6 +78,7 @@ function ezs(name, opts) {
     throw new Error('`' + name +'` unknown');
   }
 }
+
 ezs.plugins = {};
 ezs.use = function(module) {
   let self = this;
