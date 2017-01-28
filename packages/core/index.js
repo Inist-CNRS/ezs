@@ -87,8 +87,11 @@ ezs.use = function(module) {
     if (isStatement(module[moduleName])) {
       ezs.plugins[moduleName] = module[moduleName];
     }
+    else {
+      throw new Error('`' + moduleName + '` is not loaded. It\'s not a valid statement.')
+    }
   });
-  return this;
+  return ezs;
 };
 
 
