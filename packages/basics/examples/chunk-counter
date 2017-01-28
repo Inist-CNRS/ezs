@@ -1,0 +1,20 @@
+#!/usr/bin/env node
+'use strict';
+
+const ezs = require('ezs').use(require('..'));
+
+process.stdin.resume();
+process.stdin.setEncoding('utf8');
+process.stdin
+  .pipe(ezs(function (data, feed) {
+    if (this.isLast()) {
+      feed.write(this.getIndex());
+      feed.close();
+    }
+    else {
+      feed.end();
+    }
+  }))
+  .pipe(ezs('stringify'))
+  .pipe(process.stdout);
+

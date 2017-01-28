@@ -1,0 +1,30 @@
+{
+  "name": "ezs-basics",
+  "version": "1.0.0",
+  "description": "Basics statements form EZS",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/touv/node-ezs-basics.git"
+  },
+  "keywords": [
+    "ezs"
+  ],
+  "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/touv/node-ezs-basics/issues"
+  },
+  "homepage": "https://github.com/touv/node-ezs-basics#readme",
+  "dependencies": {
+    "csv-string": "^2.3.0",
+    "jbj": "^7.1.4",
+    "xml-splitter": "^1.2.1"
+  },
+  "devDependencies": {
+    "ezs": "^1.1.0"
+  }
+}
