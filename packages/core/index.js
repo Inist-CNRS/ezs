@@ -28,19 +28,17 @@ class Feed {
 }
 
 class Engine extends Transform {
-  constructor(func, opts) {
+  constructor(func, params) {
     super( { objectMode: true })
     let self = this;
     self.func = func;
-    self.scope = {
-      stream : self,
-      index : 0,
-      options : opts
-    };
+    self.index = 0;
+    self.params = params || {};
+    self.scope = {};
   }
 
   _transform(chunk, encoding, done) {
-    this.scope.index++;
+    this.index++;
     this.execWith(chunk, done);
   }
 
@@ -54,8 +52,11 @@ class Engine extends Transform {
       self.push(data);
     }
     let feed = new Feed(push, done);
-    self.scope.isFirst = function() { return (self.scope.index === 1); };
+    self.scope.isFirst = function() { return (self.index === 1); };
+    self.scope.getIndex = function() { return self.index; };
     self.scope.isLast = function() { return (chunk === null); };
+    self.scope.getParams = function() { return self.params; };
+    self.scope.getParam = function(name, defval) { return self.params[name] ? self.params[name] : defval; };
     self.func.call(self.scope, chunk, feed)
 
   }
