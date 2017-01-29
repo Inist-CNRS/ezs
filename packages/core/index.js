@@ -49,6 +49,9 @@ class Engine extends Transform {
   execWith(chunk, done) {
     let self = this;
     let push = function(data) {
+      if (data instanceof Error) {
+        data = self.createError(data);
+      }
       self.push(data);
     }
     let feed = new Feed(push, done);
@@ -61,15 +64,19 @@ class Engine extends Transform {
       self.func.call(self.scope, chunk, feed)
     }
     catch(e) {
-      e.index = self.index;
-      e.scope = self.scope;
-      // e.chunk = chunk; mmmm it's bad idea...
-      e.toString = function() {
-        return 'At index #' + self.index + '\n'  + e.stack;
-      }
-      self.push(e);
+      self.push(self.createError(e));
     }
+  }
 
+  createError(e) {
+    let self = this;
+    e.index = self.index;
+    e.scope = self.scope;
+    // e.chunk = chunk; mmmm it's bad idea...
+    e.toString = function() {
+      return '\nAt index #' + self.index + '\n'  + e.stack;
+    }
+    return e;
   }
 
 }
