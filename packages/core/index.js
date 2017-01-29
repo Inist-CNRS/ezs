@@ -72,9 +72,10 @@ class Engine extends Transform {
     let self = this;
     e.index = self.index;
     e.scope = self.scope;
+    e.errmsg = '\nAt index #' + self.index + '\n'  + e.stack;
     // e.chunk = chunk; mmmm it's bad idea...
     e.toString = function() {
-      return '\nAt index #' + self.index + '\n'  + e.stack;
+      return e.errmsg;
     }
     return e;
   }
