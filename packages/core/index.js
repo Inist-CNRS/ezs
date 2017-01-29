@@ -57,7 +57,18 @@ class Engine extends Transform {
     self.scope.isLast = function() { return (chunk === null); };
     self.scope.getParams = function() { return self.params; };
     self.scope.getParam = function(name, defval) { return self.params[name] ? self.params[name] : defval; };
-    self.func.call(self.scope, chunk, feed)
+    try {
+      self.func.call(self.scope, chunk, feed)
+    }
+    catch(e) {
+      e.index = self.index;
+      e.scope = self.scope;
+      // e.chunk = chunk; mmmm it's bad idea...
+      e.toString = function() {
+        return 'At index #' + self.index + '\n'  + e.stack;
+      }
+      self.push(e);
+    }
 
   }
 
