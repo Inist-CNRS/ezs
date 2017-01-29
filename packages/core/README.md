@@ -41,9 +41,9 @@ Use [mocha](https://github.com/visionmedia/mocha) to run the tests.
 
 # API Documentation
 
-## ezs(statement : Mixed, [option : Object]) : Stream
+## ezs(statement : Mixed, [params : Object]) : Stream
 
-Converts a transform stream with existing function or adhic function.
+Converts a transform stream with existing function or adhoc function.
 ```javascript
 	const ezs = require('ezs'),
 	let trasnformer = ezs(function(input, output) {
@@ -51,6 +51,26 @@ Converts a transform stream with existing function or adhic function.
 	})
 
 ```
+
+### Scope
+
+Each statement function have its own scope and can access to few methods :
+
+  - this.isLast()
+  - this.isFirst()
+  - this.getIndex()
+  - this.getParam(name, defaultValue)
+  - this.getParams()
+
+### Output Object
+
+Output object is an object with few methods :
+
+ - output.write(something)
+ - output.end()
+ - output.send(something)
+ - output.close()
+
 
 ### use(module: Function) : None
 
@@ -72,6 +92,7 @@ Adding bundle of statements. see the avaible modules here : https://www.npmjs.co
 * https://github.com/dominictarr/event-stream
 * https://github.com/ZJONSSON/streamz
 * https://github.com/ZJONSSON/etl
+* https://github.com/chbrown/streaming
 
 
 # License
