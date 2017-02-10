@@ -1,0 +1,31 @@
+{
+  "name": "ezs-istex",
+  "version": "1.0.0",
+  "description": "istex statements form EZS",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/touv/node-ezs-istex.git"
+  },
+  "keywords": [
+    "ezs"
+  ],
+  "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/touv/node-ezs-istex/issues"
+  },
+  "homepage": "https://github.com/touv/node-ezs-istex#readme",
+  "dependencies": {
+    "dot-prop": "^4.1.0",
+    "qs": "^6.3.0",
+    "request": "^2.79.0"
+  },
+  "devDependencies": {
+    "ezs": "^1.1.0",
+    "ezs-basics": "^1.0.0"
+  }
+}

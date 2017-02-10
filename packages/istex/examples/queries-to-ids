@@ -1,0 +1,37 @@
+#!/usr/bin/env node
+'use strict';
+
+const fs = require('fs');
+const path = require('path');
+
+const ezs = require('ezs');
+ezs.use(require('ezs-basics'));
+ezs.use(require('..'));
+
+const input = path.resolve(__dirname,'./queries/input.tsv')
+
+fs.createReadStream(input)
+  .pipe(ezs('CSVParse', { separator: "\t" }))
+  .pipe(ezs('CSVObject'))
+  .pipe(ezs('ISTEXQuery'))
+  .pipe(ezs('ISTEXHarvest'))
+  .pipe(ezs('ISTEXRequest'))
+  .pipe(ezs('ISTEXHits'))
+  .pipe(ezs('jsonify'))
+  .pipe(process.stdout)
+;
+
+
+/*
+CSVObject     > {q : "MATHEMATICS"}
+ISTEXQuery    > https://api.istex.fr/document/?q=%22MATHEMATICS%22&output=id
+ISTEXHarvest  > https://api.istex.fr/document/?q=%22MATHEMATICS%22&size=10&output=id&from=10
+              > https://api.istex.fr/document/?q=%22MATHEMATICS%22&size=10&output=id&from=20
+              > https://api.istex.fr/document/?q=%22MATHEMATICS%22&size=10&output=id&from=30
+              > https://api.istex.fr/document/?q=%22MATHEMATICS%22&size=10&output=id&from=40
+              > https://api.istex.fr/document/?q=%22MATHEMATICS%22&size=10&output=id&from=50
+              > https://api.istex.fr/document/?q=%22MATHEMATICS%22&size=10&output=id&from=60
+ISTEXRequest  > { total :x, hits: [...] }
+ISTEXHits     > { id: "871F1F166CA3BCBADFEB471B536923912C0EC023", score: 1.6207086, total :  }
+*/
+
