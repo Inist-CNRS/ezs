@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/touv/node-ezs-istex#readme",
   "dependencies": {
+    "clone": "^2.1.0",
     "dot-prop": "^4.1.0",
     "qs": "^6.3.0",
     "request": "^2.79.0"
