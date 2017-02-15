@@ -28,18 +28,32 @@ class Feed {
 }
 
 class Engine extends Transform {
-  constructor(func, params) {
+  constructor(func, params, tagname) {
     super( { objectMode: true })
     let self = this;
     self.func = func;
     self.index = 0;
+    self.tagname = tagname;
     self.params = params || {};
     self.scope = {};
   }
 
   _transform(chunk, encoding, done) {
     this.index++;
-    this.execWith(chunk, done);
+    if (this.tagname && chunk.tagName && this.tagname === chunk.tagName()) {
+      this.execWith(chunk, done);
+    }
+    else if (this.tagname && chunk.tagName && this.tagname !== chunk.tagName()) {
+      this.push(chunk);
+      done();
+    }
+    else if (this.tagname && !chunk.tagName) {
+      this.push(chunk);
+      done();
+    }
+    else {
+      this.execWith(chunk, done);
+    }
   }
 
   _flush(done) {
@@ -51,6 +65,9 @@ class Engine extends Transform {
     let push = function(data) {
       if (data instanceof Error) {
         data = self.createError(data);
+      }
+      if (self.tagname && chunk && chunk.tagName) {
+        data.tagName = chunk.tagName;
       }
       self.push(data);
     }
@@ -64,20 +81,21 @@ class Engine extends Transform {
       self.func.call(self.scope, chunk, feed)
     }
     catch(e) {
+      console.error(self.createError(e));
       self.push(self.createError(e));
     }
   }
 
   createError(e) {
     let self = this;
-    e.index = self.index;
-    e.scope = self.scope;
-    e.errmsg = '\nAt index #' + self.index + '\n'  + e.stack;
+    let err = new Error('At index #' + self.index + ' > '  + e.stack);
+//    err.index = self.index;
+//    err.scope = self.scope;
     // e.chunk = chunk; mmmm it's bad idea...
-    e.toString = function() {
+    /*e.toString = function() {
       return e.errmsg;
-    }
-    return e;
+    }*/
+    return err;
   }
 
 }
@@ -101,7 +119,6 @@ function ezs(name, opts) {
 
 ezs.plugins = {};
 ezs.use = function(module) {
-  let self = this;
   assert.equal(typeof module, 'object');
   Object.keys(module).forEach(moduleName => {
     if (isStatement(module[moduleName])) {
@@ -113,6 +130,36 @@ ezs.use = function(module) {
   });
   return ezs;
 };
+
+ezs.tag = function(tagname, func) {
+  assert.equal(typeof tagname, 'string');
+  assert.equal(typeof func, 'function');
+  return new Transform({
+    objectMode: true,
+
+    transform(chunk, encoding, callback) {
+      if (func(chunk)) {
+        chunk.tagName = function() { return tagname; }
+      }
+      callback(null, chunk);
+    }
+  });
+  return ezs;
+};
+
+ezs.has = function(tagname, name, opts) {
+    if (isStatement(name)) {
+    return new Engine(name, opts, tagname);
+  }
+  else if (typeof name === 'string' && ezs.plugins[name]) {
+    return new Engine(ezs.plugins[name], opts, tagname);
+  }
+  else {
+    throw new Error('`' + name +'` unknown');
+  }
+};
+
+
 
 
 module.exports = ezs;
