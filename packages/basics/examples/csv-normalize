@@ -1,0 +1,13 @@
+#!/usr/bin/env node
+'use strict';
+
+const ezs = require('ezs').use(require('..'));
+
+process.stdin.resume();
+process.stdin.setEncoding('utf8');
+process.stdin
+  .pipe(ezs('CSVParse'))
+  .pipe(ezs('CSVObject'))
+  .pipe(ezs('CSVString', {format:'semicolon'}))
+  .pipe(process.stdout);
+
