@@ -21,7 +21,9 @@
   "homepage": "https://github.com/touv/node-ezs-basics#readme",
   "dependencies": {
     "csv-string": "^2.3.0",
+    "flat": "^2.0.1",
     "jbj": "^7.1.4",
+    "tmp-filepath": "^2.0.0",
     "xml-splitter": "^1.2.1"
   },
   "devDependencies": {

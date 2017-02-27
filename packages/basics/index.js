@@ -2,6 +2,8 @@ module.exports =  {
   bufferify: require('./lib/bufferify.js'),
   stringify: require('./lib/stringify.js'),
   jsonify: require('./lib/jsonify.js'),
+  standardize: require('./lib/standardize.js'),
+  flatten: require('./lib/flatten.js'),
   split: require('./lib/segmenter.js'),
   segmenter: require('./lib/segmenter.js'),
   TXTParse: require('./lib/segmenter.js'),
