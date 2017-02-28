@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/touv/node-ezs-basics#readme",
   "dependencies": {
-    "csv-string": "^2.3.0",
+    "csv-string": "^2.3.1",
     "flat": "^2.0.1",
     "jbj": "^7.1.4",
     "tmp-filepath": "^2.0.0",

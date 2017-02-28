@@ -1,4 +1,3 @@
-const flatten = require('flat');
 const tmpFilepath = require('tmp-filepath');
 const fs = require('fs');
 const ezs = require('ezs').use(require('..'));
@@ -51,15 +50,12 @@ module.exports = function (data1, feed1) {
       }))
   }
   else {
-    let obj = flatten(data1, {
-      delimiter : self.getParam('separator', '/')
-    })
-    Object.keys(obj).forEach(k => {
+    Object.keys(data1).forEach(k => {
       if (self.struct.indexOf(k) === -1) {
         self.struct.push(k);
       }
     })
-    writeOn(self.tmpStream, new Buffer(JSON.stringify(obj)).toString('base64').concat('\n'), function() {
+    writeOn(self.tmpStream, new Buffer(JSON.stringify(data1)).toString('base64').concat('\n'), function() {
       feed1.end();
     });
   }
