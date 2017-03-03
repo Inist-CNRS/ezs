@@ -12,5 +12,6 @@ module.exports =  {
   CSVObject: require('./lib/csv-object.js'),
   CSVString: require('./lib/csv-string.js'),
   JBJInject: require('./lib/jbj-inject.js'),
-  JBJRender: require('./lib/jbj-render.js')
+  JBJRender: require('./lib/jbj-render.js'),
+  SKOSObject: require('./lib/skos-object')
 }
