@@ -31,22 +31,24 @@ module.exports = function (data1, feed1) {
           feed2.close();
         }
       }))
-      .pipe(ezs(function(data2, feed2) {
-        let vv = {};
-        self.struct.forEach(k => {
-          if (!data2[k]) {
-            vv[k] = '';
-          }
-          else {
-            vv[k] = data2[k];
-          }
-        });
-        feed1.write(vv);
+      .pipe(ezs(function(data3, feed3) {
         if (this.isLast()) {
           feed1.close();
           fs.unlink(self.tmpFile);
         }
-        feed2.end();
+        else {
+          let vv = {};
+          self.struct.forEach(k => {
+            if (!data3[k]) {
+              vv[k] = '';
+            }
+            else {
+              vv[k] = data3[k];
+            }
+          });
+          feed1.write(vv);
+        }
+        feed3.end();
       }))
   }
   else {
