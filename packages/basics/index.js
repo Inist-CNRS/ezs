@@ -13,5 +13,6 @@ module.exports =  {
   CSVString: require('./lib/csv-string.js'),
   JBJInject: require('./lib/jbj-inject.js'),
   JBJRender: require('./lib/jbj-render.js'),
-  SKOSObject: require('./lib/skos-object')
+  SKOSObject: require('./lib/skos-object'),
+  JSONParse: require('./lib/json-parse')
 }

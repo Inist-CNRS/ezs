@@ -4,9 +4,9 @@ const ezs = require('ezs').use(require('..'));
 
 function writeOn (stream, data, cb) {
   if (!stream.write(data)) {
-    stream.once('drain', cb)
+    stream.once('drain', cb);
   } else {
-    process.nextTick(cb)
+    process.nextTick(cb);
   }
 }
 
@@ -21,7 +21,7 @@ module.exports = function (data1, feed1) {
   }
   else if (self.isLast()) {
     fs.createReadStream(self.tmpFile)
-      .pipe(ezs('TXTParse', { separator: "\n" }))
+      .pipe(ezs('TXTParse', { separator: '\n' }))
       .pipe(ezs(function(data2, feed2) {
         if (!this.isLast()) {
           var buf = new Buffer(data2, 'base64');
@@ -33,8 +33,9 @@ module.exports = function (data1, feed1) {
       }))
       .pipe(ezs(function(data3, feed3) {
         if (this.isLast()) {
-          feed1.close();
-          fs.unlink(self.tmpFile);
+          fs.unlink(self.tmpFile, function() {
+            feed1.close();
+          });
         }
         else {
           let vv = {};
@@ -49,16 +50,19 @@ module.exports = function (data1, feed1) {
           feed1.write(vv);
         }
         feed3.end();
-      }))
+      }));
   }
   else {
     Object.keys(data1).forEach(k => {
       if (self.struct.indexOf(k) === -1) {
         self.struct.push(k);
       }
-    })
-    writeOn(self.tmpStream, new Buffer(JSON.stringify(data1)).toString('base64').concat('\n'), function() {
-      feed1.end();
     });
+    writeOn(self.tmpStream,
+      new Buffer(JSON.stringify(data1)).toString('base64').concat('\n'),
+      function() {
+        feed1.end();
+      }
+    );
   }
-}
+};

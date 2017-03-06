@@ -1,11 +1,11 @@
 const CSV  = require('csv-string');
 
 function tocsv(data) {
-  let line = '', q = new RegExp('"', 'g'), s = "";
+  let line = '', q = new RegExp('"', 'g'), s = '';
   Object.keys(data).forEach(key => {
-    line += s + '"' + data[key].replace(q, '""') + '"';
-    s = ";";
-  })
+    line += s + '"' + data[key].toString().replace(q, '""') + '"';
+    s = ';';
+  });
   return line + '\n';
 }
 
@@ -21,10 +21,10 @@ module.exports = function(data, feed) {
     feed.close();
   }
   else if (this.isFirst()) {
-      feed.write(func(Object.keys(data)));
-      feed.send(func(data));
+    feed.write(func(Object.keys(data)));
+    feed.send(func(data));
   }
   else {
     feed.send(func(data));
   }
-}
+};
