@@ -1,0 +1,58 @@
+{
+  "total": 1090216,
+  "nextPageURI": "https://api.istex.fr/document/?q=MATHEMATICS&size=10&defaultOperator=OR&from=10",
+  "firstPageURI": "https://api.istex.fr/document/?q=MATHEMATICS&size=10&defaultOperator=OR&from=0",
+  "lastPageURI": "https://api.istex.fr/document/?q=MATHEMATICS&size=10&defaultOperator=OR&from=1090206",
+  "hits": [
+    {
+      "title": "[Edinburgh almanack, For the year M.DCCXLVI....].",
+      "id": "4244BC3CE79C5A67E9C0948EA1A9EF77F624B1DB",
+      "score": 1.730621
+    },
+    {
+      "title": "Mathematical essays on several subjects: containing new improvements and discoveries in the mathematics. By the Rev. John Hellins.",
+      "id": "BADDE53A5D195C45269A487B625939890627CCE4",
+      "score": 1.6947756
+    },
+    {
+      "title": "Thomæ Hobbes quadratura circuli, cubatio sphære, duplicatio cubi, confutata",
+      "id": "56D833F81CE1F18134F370CF0E2F6D441E485AA6",
+      "score": 1.6708566
+    },
+    {
+      "title": "Mathematical lucubrations: containing new improvements in various branches of the mathematics. By John Landen.",
+      "id": "8C5EEF47B407AFE95AF73E670DF963B2AF343B36",
+      "score": 1.6584861
+    },
+    {
+      "title": "Institutes of arithmetic, for the use of schools and academies. By Alexander Ewing, teacher of mathematics in Edinburgh.",
+      "id": "DF0C6E7C4D585621A9C0060CEA4C860E5D4CBB48",
+      "score": 1.6524463
+    },
+    {
+      "title": "The principles of mathematics and natural philosophy. In four volumes. ...",
+      "id": "4CAAA069B1500AB4A3B9CD034FC7D34F478B2D82",
+      "score": 1.6357572
+    },
+    {
+      "title": "The principles of mathematics and natural philosophy. In four volumes. ...",
+      "id": "37E7E578468004F65D3572794EB526D25E8B98A6",
+      "score": 1.6357572
+    },
+    {
+      "title": "Mathematics. With eleven copper-plates. By the late Rev. Mr. Wm. West of Exeter. Revised by John Rowe.",
+      "id": "FF1B088434E0D888A65A915E1F0CCC647742C326",
+      "score": 1.6357572
+    },
+    {
+      "title": "The principles of mathematics and natural philosophy. In four volumes. ...",
+      "id": "07B1BFA0F74B63A7BB69D293DEAB40061D209261",
+      "score": 1.6316451
+    },
+    {
+      "title": "The principles of mathematics and natural philosophy. In four volumes. ...",
+      "id": "65CC8BD7370F926C41237C1D7123FE72A1215B68",
+      "score": 1.6316451
+    }
+  ]
+}

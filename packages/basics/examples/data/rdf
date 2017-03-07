@@ -1,0 +1,323 @@
+<rdf:RDF
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <rdf:Description rdf:about="http://www.degruyter.com/view/j/popore.2010.31.issue-3/v10183-010-0002-4/v10183-010-0002-4.xml">
+        <dc:title>Meteorological and biometeorological conditions in the Hornsund area (Spitsbergen) during the warm season</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Araźny, Andrzej</dc:creator>
+        <dc:creator>Migała, Krzysztof</dc:creator>
+        <dc:creator>Sikora, Sebastian</dc:creator>
+        <dc:creator>Budzik, Tomasz</dc:creator>
+        <dc:date>2010-01-1</dc:date>
+        <dc:identifier>ISSN 2081-8262, 0138-0338</dc:identifier>
+        <dc:identifier>DOI 10.2478/v10183-010-0002-4</dc:identifier>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://doi.wiley.com/10.1029/2009JC005996">
+        <dc:title>Barotropic instability in the West Spitsbergen Current</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Teigen, S. H.</dc:creator>
+        <dc:creator>Nilsen, F.</dc:creator>
+        <dc:creator>Gjevik, B.</dc:creator>
+        <dc:date>2010-07-24</dc:date>
+        <dc:identifier>ISSN 0148-0227</dc:identifier>
+        <dc:identifier>DOI 10.1029/2009JC005996</dc:identifier>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.degruyter.com/view/j/popore.2012.33.issue-4/v10183-012-0018-z/v10183-012-0018-z.xml">
+        <dc:title>Photosynthetic activity in three vascular species of Spitsbergen vegetation during summer season in response to microclimate</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Barták, Miloš</dc:creator>
+        <dc:creator>Váczi, Peter</dc:creator>
+        <dc:creator>Hájek, Josef</dc:creator>
+        <dc:date>2012-01-1</dc:date>
+        <dc:identifier>ISSN 2081-8262, 0138-0338</dc:identifier>
+        <dc:identifier>DOI 10.2478/v10183-012-0018-z</dc:identifier>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.degruyter.com/view/j/popore.2010.31.issue-4/v10183-010-0009-x/v10183-010-0009-x.xml">
+        <dc:title>Summer 2009 thermal and bioclimatic conditions in Ebba Valley, central Spitsbergen</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Bednorz, Ewa</dc:creator>
+        <dc:creator>Kolendowicz, Leszek</dc:creator>
+        <dc:date>2010-01-1</dc:date>
+        <dc:identifier>ISSN 2081-8262, 0138-0338</dc:identifier>
+        <dc:identifier>DOI 10.2478/v10183-010-0009-x</dc:identifier>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://doi.wiley.com/10.1029/2008JC005106">
+        <dc:title>Eddy overturning across a shelf edge front: Kongsfjorden, west Spitsbergen</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Tverberg, V.</dc:creator>
+        <dc:creator>Nøst, O. A.</dc:creator>
+        <dc:date>2009-04-30</dc:date>
+        <dc:identifier>ISSN 0148-0227</dc:identifier>
+        <dc:identifier>DOI 10.1029/2008JC005106</dc:identifier>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.sciencedirect.com/science/article/pii/S0176161799801242">
+        <dc:title>Factors controlling the formation of UV-absorbing mycosporine-like amino acids in the marine red alga Palmaria palmata from Spitsbergen (Norway)</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Karsten, Ulf</dc:creator>
+        <dc:creator>Wiencke, Christian</dc:creator>
+        <dc:date>1999</dc:date>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://academic.oup.com/gji/article-lookup/doi/10.1111/j.1365-246X.2005.02593.x">
+        <dc:title>Crustal structure of northern Spitsbergen along the deep seismic transect between the Molloy Deep and Nordaustlandet</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Czuba, Wojciech</dc:creator>
+        <dc:creator>Ritzmann, Oliver</dc:creator>
+        <dc:creator>Nishimura, Yuichi</dc:creator>
+        <dc:creator>Grad, Marek</dc:creator>
+        <dc:creator>Mjelde, Rolf</dc:creator>
+        <dc:creator>Guterch, Aleksander</dc:creator>
+        <dc:creator>Jokat, Wilfried</dc:creator>
+        <dc:date>05/2005</dc:date>
+        <dc:identifier>ISSN 0956540X, 1365246X</dc:identifier>
+        <dc:identifier>DOI 10.1111/j.1365-246X.2005.02593.x</dc:identifier>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.degruyter.com/view/j/popore.2012.33.issue-2/v10183-012-0010-7/v10183-012-0010-7.xml">
+        <dc:title>Surface and bed morphology of Hansbreen, a tidewater glacier in Spitsbergen</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Grabiec, Mariusz</dc:creator>
+        <dc:creator>Jania, Jacek</dc:creator>
+        <dc:creator>Puczko, Dariusz</dc:creator>
+        <dc:creator>Kolondra, Leszek</dc:creator>
+        <dc:creator>Budzik, Tomasz</dc:creator>
+        <dc:date>2012-01-1</dc:date>
+        <dc:identifier>ISSN 2081-8262, 0138-0338</dc:identifier>
+        <dc:identifier>DOI 10.2478/v10183-012-0010-7</dc:identifier>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://onlinelibrary.wiley.com/doi/10.1111/j.1747-5457.2011.00493.x/full">
+        <dc:title>CARBONIFEROUS NON-MARINE SOURCE ROCKS FROM SPITSBERGEN AND BJØRNØYA: COMPARISON WITH THE WESTERN ARCTIC</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Van Koeverden, J. H.</dc:creator>
+        <dc:creator>Karlsen, D. A.</dc:creator>
+        <dc:creator>Backer-Owe, K.</dc:creator>
+        <dc:date>2011</dc:date>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.degruyter.com/view/j/popore.2010.31.issue-3/v10183-010-0005-1/v10183-010-0005-1.xml">
+        <dc:title>Relationships between development of organic-rich shallow shelf facies and variation in isotopic composition of pyrite (Middle Triassic, Spitsbergen)</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Karcz, Przemysław</dc:creator>
+        <dc:date>2010-01-1</dc:date>
+        <dc:identifier>ISSN 2081-8262, 0138-0338</dc:identifier>
+        <dc:identifier>DOI 10.2478/v10183-010-0005-1</dc:identifier>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.degruyter.com/view/j/popore.2011.32.issue-2/v10183-011-0012-x/v10183-011-0012-x.xml">
+        <dc:title>Analysis of cultivable aerobic bacteria isolated from bottom sediments in the Wijdefjorden region, Spitsbergen</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Konieczna, Iwona</dc:creator>
+        <dc:creator>Wojtasik, Barbara</dc:creator>
+        <dc:creator>Kwinkowski, Marek</dc:creator>
+        <dc:creator>Burska, Dorota</dc:creator>
+        <dc:creator>Nowiński, Kamil</dc:creator>
+        <dc:creator>Żarnowiec, Paulina</dc:creator>
+        <dc:creator>Kaca, Wiesław</dc:creator>
+        <dc:date>2011-01-1</dc:date>
+        <dc:identifier>ISSN 2081-8262, 0138-0338</dc:identifier>
+        <dc:identifier>DOI 10.2478/v10183-011-0012-x</dc:identifier>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://doi.wiley.com/10.1029/2009JD013039">
+        <dc:title>Lidar measurements of the Kasatochi aerosol plume in August and September 2008 in Ny-Ålesund, Spitsbergen</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Hoffmann, A.</dc:creator>
+        <dc:creator>Ritter, C.</dc:creator>
+        <dc:creator>Stock, M.</dc:creator>
+        <dc:creator>Maturilli, M.</dc:creator>
+        <dc:creator>Eckhardt, S.</dc:creator>
+        <dc:creator>Herber, A.</dc:creator>
+        <dc:creator>Neuber, R.</dc:creator>
+        <dc:date>2010-10-07</dc:date>
+        <dc:identifier>ISSN 0148-0227</dc:identifier>
+        <dc:identifier>DOI 10.1029/2009JD013039</dc:identifier>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://gji.oxfordjournals.org/content/67/3/599.short">
+        <dc:title>Palaeomagnetism of some late Mesozoic dolerite dykes of South Spitsbergen</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Vincenz, S. A.</dc:creator>
+        <dc:creator>Cossack, D.</dc:creator>
+        <dc:creator>Duda, S. J.</dc:creator>
+        <dc:creator>Birkenmajer, K.</dc:creator>
+        <dc:creator>Jeleńska, M.</dc:creator>
+        <dc:creator>Kadzia\lko-Hofmokl, M.</dc:creator>
+        <dc:creator>Kruczyk, J.</dc:creator>
+        <dc:date>1981</dc:date>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.degruyter.com/view/j/popore.2012.33.issue-4/v10183-012-0021-4/v10183-012-0021-4.xml">
+        <dc:title>Impact of warming on Nostoc colonies (Cyanobacteria) in a wet hummock meadow, Spitsbergen</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Elster, Josef</dc:creator>
+        <dc:creator>Kvíderová, Jana</dc:creator>
+        <dc:creator>Hájek, Tomáš</dc:creator>
+        <dc:creator>Láska, Kamil</dc:creator>
+        <dc:creator>Šimek, Miloslav</dc:creator>
+        <dc:date>2012-01-1</dc:date>
+        <dc:identifier>ISSN 2081-8262, 0138-0338</dc:identifier>
+        <dc:identifier>DOI 10.2478/v10183-012-0021-4</dc:identifier>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.degruyter.com/view/j/popore.2012.33.issue-4/v10183-012-0025-0/v10183-012-0025-0.xml">
+        <dc:title>Weather patterns of the coastal zone of Petuniabukta, central Spitsbergen in the period 2008–2010</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Láska, Kamil</dc:creator>
+        <dc:creator>Witoszová, Denisa</dc:creator>
+        <dc:creator>Prošek, Pavel</dc:creator>
+        <dc:date>2012-01-1</dc:date>
+        <dc:identifier>ISSN 2081-8262, 0138-0338</dc:identifier>
+        <dc:identifier>DOI 10.2478/v10183-012-0025-0</dc:identifier>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.degruyter.com/view/j/bgeo.2012.5.issue-1/v10250-012-0004-7/v10250-012-0004-7.xml">
+        <dc:title>Exposure-Dependent Variations in Air Temperature and Humidity on the Moraine of the Aavatsmark Glacier (Nw Spitsbergen) in the Summer Season of 2010</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Araźny, Andrzej</dc:creator>
+        <dc:creator>Przybylak, Rajmund</dc:creator>
+        <dc:date>2012-01-28</dc:date>
+        <dc:identifier>ISSN 2080-7686</dc:identifier>
+        <dc:identifier>DOI 10.2478/v10250-012-0004-7</dc:identifier>
+    </rdf:Description>
+    <rdf:Description rdf:nodeID="n255">
+        <dc:title>Interrelations between chemical composition and light scattering of the atmospheric aerosol at NYA˚ lesund, Spitsbergen</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Maenhaut, Willy</dc:creator>
+        <dc:creator>Rajta, I.</dc:creator>
+        <dc:creator>Beyaert, Koen</dc:creator>
+        <dc:creator>Leck, C.</dc:creator>
+        <dc:creator>Holmen, K.</dc:creator>
+        <dc:creator>Hanssen, J. E.</dc:creator>
+        <dc:date>1999</dc:date>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.degruyter.com/view/j/popore.2011.32.issue-3/v10183-011-0017-5/v10183-011-0017-5.xml">
+        <dc:title>Schmidt hammer tests across a recently deglacierized rocky coastal zone in Spitsbergen - is there a &quot;coastal amplification&quot; of rock weathering in polar climates?</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Strzelecki, Mateusz</dc:creator>
+        <dc:date>2011-01-1</dc:date>
+        <dc:identifier>ISSN 2081-8262, 0138-0338</dc:identifier>
+        <dc:identifier>DOI 10.2478/v10183-011-0017-5</dc:identifier>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.degruyter.com/view/j/popore.2011.32.issue-4/v10183-011-0023-7/v10183-011-0023-7.xml">
+        <dc:title>Occurrence and temporal variations of groundwater outflows in the Petuniabukta region, Spitsbergen</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Szczucińska, Anna</dc:creator>
+        <dc:date>2011-01-1</dc:date>
+        <dc:identifier>ISSN 2081-8262, 0138-0338</dc:identifier>
+        <dc:identifier>DOI 10.2478/v10183-011-0023-7</dc:identifier>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://icesjms.oxfordjournals.org/content/64/6/1246.short">
+        <dc:title>Spring diet of ringed seals (Phoca hispida) from northwestern Spitsbergen, Norway</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Labansen, Aili L.</dc:creator>
+        <dc:creator>Lydersen, Christian</dc:creator>
+        <dc:creator>Haug, Tore</dc:creator>
+        <dc:creator>Kovacs, Kit M.</dc:creator>
+        <dc:date>2007</dc:date>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.degruyter.com/view/j/popore.2012.33.issue-4/v10183-012-0023-2/v10183-012-0023-2.xml">
+        <dc:title>What do Holocene sediments in Petuniabukta, Spitsbergen reveal?</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Bernardová, Alexandra</dc:creator>
+        <dc:creator>Košnar, Jiří</dc:creator>
+        <dc:date>2012-01-1</dc:date>
+        <dc:identifier>ISSN 2081-8262, 0138-0338</dc:identifier>
+        <dc:identifier>DOI 10.2478/v10183-012-0023-2</dc:identifier>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.degruyter.com/view/j/popore.2012.33.issue-4/v10183-012-0024-1/v10183-012-0024-1.xml">
+        <dc:title>Cyanobacterial diversity of Petuniabukta, Billefjorden, central Spitsbergen</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Komárek, Jiří</dc:creator>
+        <dc:creator>Kováčik, Lubomír</dc:creator>
+        <dc:creator>Elster, Josef</dc:creator>
+        <dc:creator>Komárek, Ondřej</dc:creator>
+        <dc:date>2012-01-1</dc:date>
+        <dc:identifier>ISSN 2081-8262, 0138-0338</dc:identifier>
+        <dc:identifier>DOI 10.2478/v10183-012-0024-1</dc:identifier>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.degruyter.com/view/j/popore.2012.33.issue-4/v10183-012-0020-5/v10183-012-0020-5.xml">
+        <dc:title>Biogeography of Phormidium autumnale (Oscillatoriales, Cyanobacteria) in western and central Spitsbergen</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Strunecký, Otakar</dc:creator>
+        <dc:creator>Komárek, Jiří</dc:creator>
+        <dc:creator>Elster, Josef</dc:creator>
+        <dc:date>2012-01-1</dc:date>
+        <dc:identifier>ISSN 2081-8262, 0138-0338</dc:identifier>
+        <dc:identifier>DOI 10.2478/v10183-012-0020-5</dc:identifier>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.degruyter.com/view/j/popore.2012.33.issue-4/v10183-012-0019-y/v10183-012-0019-y.xml">
+        <dc:title>Clonal growth forms in Arctic plants and their habitat preferences: a study from Petuniabukta, Spitsbergen</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Klimešová, Jitka</dc:creator>
+        <dc:creator>Doležal, Jiří</dc:creator>
+        <dc:creator>Prach, Karel</dc:creator>
+        <dc:creator>Košnar, Jiří</dc:creator>
+        <dc:date>2012-01-1</dc:date>
+        <dc:identifier>ISSN 2081-8262, 0138-0338</dc:identifier>
+        <dc:identifier>DOI 10.2478/v10183-012-0019-y</dc:identifier>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://link.springer.com/content/pdf/10.1007/BF00442030.pdf">
+        <dc:title>Intertidal soft-bottom communities on the west coast of Spitsbergen</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Ambrose, William G.</dc:creator>
+        <dc:creator>Leinaas, Hans Petter</dc:creator>
+        <dc:date>1988</dc:date>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://onlinelibrary.wiley.com/doi/10.1111/j.1438-8677.1971.tb02354.x/full">
+        <dc:title>Notiz zur Ökologie der Steinring-Vegetation auf Spitzbergen</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Linskens, H. F.</dc:creator>
+        <dc:date>1970</dc:date>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.sciencedirect.com/science/article/pii/0011747173900909">
+        <dc:title>Year-long current measurements in the Greenland-Spitsbergen passage</dc:title>
+        <dc:type>conferencePaper</dc:type>
+        <dc:creator>Aagaard, Knut</dc:creator>
+        <dc:creator>Darnall, Clark</dc:creator>
+        <dc:creator>Greisman, Paul</dc:creator>
+        <dc:publisher>Elsevier</dc:publisher>
+        <dc:date>1973</dc:date>
+    </rdf:Description>
+    <rdf:Description rdf:nodeID="n256">
+        <dc:title>The origin of the West Spitsbergen Fold Belt from geological constraints and plate kinematics: implications for the Arctic—Reply</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Lyberis, Nikos</dc:creator>
+        <dc:creator>Manby, Geoff</dc:creator>
+        <dc:date>1994</dc:date>
+    </rdf:Description>
+    <rdf:Description rdf:nodeID="n257">
+        <dc:title>The evolution of polar stratospheric clouds above spitsbergen</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Biele, J.</dc:creator>
+        <dc:creator>Neuber, Roland</dc:creator>
+        <dc:creator>Warming, J.</dc:creator>
+        <dc:creator>Beninga, I.</dc:creator>
+        <dc:creator>Von der Gathen, P.</dc:creator>
+        <dc:creator>Notholt, J.</dc:creator>
+        <dc:creator>Stebel, K.</dc:creator>
+        <dc:creator>Schrems, O.</dc:creator>
+        <dc:date>1997</dc:date>
+    </rdf:Description>
+    <rdf:Description rdf:nodeID="n258">
+        <dc:title>Aerosol sampling depending on precipitation at Spitsbergen</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Kriews, Michael</dc:creator>
+        <dc:creator>Schrems, Otto</dc:creator>
+        <dc:date>1998</dc:date>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.sciencedirect.com/science/article/pii/S0021850299800718">
+        <dc:title>Interrelations between chemical composition and light scattering of the atmospheric aerosol at NYA˚lesund, Spitsbergen</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Maenhaut, W.</dc:creator>
+        <dc:creator>Rajta, I.</dc:creator>
+        <dc:creator>Beyaert, K.</dc:creator>
+        <dc:creator>Leck, C.</dc:creator>
+        <dc:creator>Holmen, K.</dc:creator>
+        <dc:creator>Hanssen, J. E.</dc:creator>
+        <dc:date>septembre 1, 1999</dc:date>
+        <dc:identifier>ISSN 0021-8502</dc:identifier>
+        <dc:identifier>DOI 10.1016/S0021-8502(99)80071-8</dc:identifier>
+    </rdf:Description>
+    <rdf:Description rdf:nodeID="n259">
+        <dc:title>Interrelations between chemical composition and light scattering of the atmospheric aerosol at NYA˚ lesund, Spitsbergen</dc:title>
+        <dc:type>journalArticle</dc:type>
+        <dc:creator>Maenhaut, Willy</dc:creator>
+        <dc:creator>Rajta, I.</dc:creator>
+        <dc:creator>Beyaert, Koen</dc:creator>
+        <dc:creator>Leck, C.</dc:creator>
+        <dc:creator>Holmen, K.</dc:creator>
+        <dc:creator>Hanssen, J. E.</dc:creator>
+        <dc:date>1999</dc:date>
+    </rdf:Description>
+</rdf:RDF>

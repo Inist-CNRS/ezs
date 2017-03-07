@@ -1,0 +1,710 @@
+<rdf:RDF xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:tps="http://www.termsciences.fr/-/2010/04/tapis/core#" xmlns:tmf="http://www.termsciences.fr/-/2005/10/tmf/core#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <skos:Concept rdf:about="/catsem/ESPA/">
+  <skos:prefLabel xml:lang="fr">ESPACE</skos:prefLabel>
+  <skos:definition xml:lang="fr">Ensembles complexes terrestres et célestes, biosphère, écosphère, galaxie</skos:definition>
+  <dc:identifier>ESPA</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/OBJC/">
+  <skos:prefLabel xml:lang="fr">Objet céleste</skos:prefLabel>
+  <skos:definition xml:lang="fr">Ensemble des objets présents dans l'univers</skos:definition>
+  <skos:broader rdf:resource="ESPA"/>
+  <dc:identifier>OBJC</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/ENVI/">
+  <skos:prefLabel xml:lang="fr">Environnement</skos:prefLabel>
+  <skos:definition xml:lang="fr">Tout ce qui est lié à la structure et à l'organisation de l'espace &quot;naturel&quot; terrestre et de la biosphère, environnement, géographie physique et humaine.</skos:definition>
+  <skos:broader rdf:resource="ESPA"/>
+  <dc:identifier>ENVI</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/SOLS/">
+  <skos:prefLabel xml:lang="fr">Sol</skos:prefLabel>
+  <skos:definition xml:lang="fr">Notion relative au domaine de la pédologie.</skos:definition>
+  <skos:example xml:lang="fr">Sol argileux, Terra Rossa</skos:example>
+  <skos:broader rdf:resource="ENVI"/>
+  <dc:identifier>SOLS</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/TOPO/">
+  <skos:prefLabel xml:lang="fr">Toponyme</skos:prefLabel>
+  <skos:definition xml:lang="fr">Pays, ville, lieu (nom propre)</skos:definition>
+  <skos:example xml:lang="fr">Irlande, Lac Majeur, Europe occidentale, Amérique du Nord, Etats-Unis, Asie, Bretagne, Route de la soie</skos:example>
+  <skos:broader rdf:resource="ESPA"/>
+  <dc:identifier>TOPO</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/LIMA/">
+  <skos:prefLabel xml:lang="fr">Lieu imaginaire</skos:prefLabel>
+  <skos:example xml:lang="fr">Atlantide, Eldorado, Hadès</skos:example>
+  <skos:broader rdf:resource="TOPO"/>
+  <dc:identifier>LIMA</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/CSPA/">
+  <skos:prefLabel xml:lang="fr">Concept spatial</skos:prefLabel>
+  <skos:definition xml:lang="fr">Notion liée à l'espace et aux lieux (noms communs)</skos:definition>
+  <skos:example xml:lang="fr">Trajectoire, Route maritime, Répartition spatiale, Sommet, Lieu de travail, Lieu de culte, Lieu saint, Voie de communication, Ville*</skos:example>
+  <skos:broader rdf:resource="CSPA"/>
+  <dc:identifier>CSPA</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/MMAT/">
+  <skos:prefLabel xml:lang="fr">MATERIAU/MATIERE/ETAT DE LA MATIERE</skos:prefLabel>
+  <dc:identifier>MMAT</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/CMAT/">
+  <skos:prefLabel xml:lang="fr">Composant de la matière</skos:prefLabel>
+  <skos:broader rdf:resource="MMAT"/>
+  <dc:identifier>CMAT</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/PART/">
+  <skos:prefLabel xml:lang="fr">Particule  élémentaire**</skos:prefLabel>
+  <skos:definition xml:lang="fr">Constituant fondamental de la matière</skos:definition>
+  <skos:example xml:lang="fr">Atome, Electron, Proton, Neutron, Muon</skos:example>
+  <skos:broader rdf:resource="CMAT"/>
+  <dc:identifier>PART</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/ECHI/">
+  <skos:prefLabel xml:lang="fr">Elément chimique/ion monoatomique/ isotope/corps pur élémentaire</skos:prefLabel>
+  <skos:definition xml:lang="fr">Elément appartenant à la classification, isotope, espèce chimique constituée d'un seul élément</skos:definition>
+  <skos:broader rdf:resource="CMAT"/>
+  <dc:identifier>ECHI</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/CCHI/">
+  <skos:prefLabel xml:lang="fr">Composé  chimique/ion polyatomique/corps simple</skos:prefLabel>
+  <skos:definition xml:lang="fr">Espèce chimique constituée de plusieurs éléments, identiques ou différents.</skos:definition>
+  <skos:example xml:lang="fr">Sulfate de calcium, Eau lourde, Oxygène*, Phosphate, Acétylure</skos:example>
+  <skos:broader rdf:resource="CMAT"/>
+  <dc:identifier>CCHI</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/CFON/">
+  <skos:prefLabel xml:lang="fr">Classe fonctionnelle</skos:prefLabel>
+  <skos:definition xml:lang="fr">Groupe fonctionnel chimique et classe structurale (ne définit pas l'activité du composant)</skos:definition>
+  <skos:example xml:lang="fr">Nitrile, Nitroxyle, Alcaloïde, Acide carboxylique, Hétérocycle azote , Dérivé de l'amantadine, Kétolide</skos:example>
+  <skos:broader rdf:resource="CCHI"/>
+  <dc:identifier>CFON</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/MEDI/">
+  <skos:prefLabel xml:lang="fr">Médicament (FR)</skos:prefLabel>
+  <skos:definition xml:lang="fr">Composé chimique ayant une fonction médicament</skos:definition>
+  <skos:example xml:lang="fr">Acide acétylsalicylique</skos:example>
+  <skos:broader rdf:resource="CCHI"/>
+  <dc:identifier>MEDI</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/TOXI/">
+  <skos:prefLabel xml:lang="fr">Toxique (FX)</skos:prefLabel>
+  <skos:definition xml:lang="fr">Composé chimique (ou biologique) ayant une fonction toxique</skos:definition>
+  <skos:example xml:lang="fr">Amiante*,  Ozone</skos:example>
+  <skos:broader rdf:resource="CCHI"/>
+  <dc:identifier>TOXI</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/PEST/">
+  <skos:prefLabel xml:lang="fr">Pesticide(FF )</skos:prefLabel>
+  <skos:example xml:lang="fr">DDT, Parathion</skos:example>
+  <skos:broader rdf:resource="PEST"/>
+  <dc:identifier>PEST</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/CBIO/">
+  <skos:prefLabel xml:lang="fr">Composé  biologique</skos:prefLabel>
+  <skos:definition xml:lang="fr">Constituants biologiques</skos:definition>
+  <skos:example xml:lang="fr">Vitamine D, Métabolite</skos:example>
+  <skos:broader rdf:resource="CCHI"/>
+  <dc:identifier>CBIO</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/ENZY/">
+  <skos:prefLabel xml:lang="fr">Enzyme et coenzyme (FE)</skos:prefLabel>
+  <skos:example xml:lang="fr">2-enoate reductase</skos:example>
+  <skos:broader rdf:resource="CBIO"/>
+  <dc:identifier>ENZY</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/HORM/">
+  <skos:prefLabel xml:lang="fr">Hormone</skos:prefLabel>
+  <skos:example xml:lang="fr">Parathormone</skos:example>
+  <skos:broader rdf:resource="CBIO"/>
+  <dc:identifier>HORM</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/GLUC/">
+  <skos:prefLabel xml:lang="fr">Glucide, carbohydrate</skos:prefLabel>
+  <skos:example xml:lang="fr">Glucose</skos:example>
+  <skos:broader rdf:resource="CBIO"/>
+  <dc:identifier>GLUC</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/LIPI/">
+  <skos:prefLabel xml:lang="fr">Lipide</skos:prefLabel>
+  <skos:example xml:lang="fr">Cholestérol, Triglycéride</skos:example>
+  <skos:broader rdf:resource="CBIO"/>
+  <dc:identifier>LIPI</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/PROT/">
+  <skos:prefLabel xml:lang="fr">Protéine, peptide, aminoacide</skos:prefLabel>
+  <skos:example xml:lang="fr">Alpha-synucléine, Myostatine</skos:example>
+  <skos:broader rdf:resource="CBIO"/>
+  <dc:identifier>PROT</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/NUCL/">
+  <skos:prefLabel xml:lang="fr">Acide nucléique, nucléotide, nucléoside</skos:prefLabel>
+  <skos:example xml:lang="fr">Cytosine, Guanine</skos:example>
+  <skos:broader rdf:resource="CBIO"/>
+  <dc:identifier>NUCL</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/MATE/">
+  <skos:prefLabel xml:lang="fr">Matériau, produit, substance</skos:prefLabel>
+  <skos:definition xml:lang="fr">Matière organique (bois), matière minérale (quartz), matière manufacturée (polystyrène), matière synthétique (plastique)</skos:definition>
+  <skos:example xml:lang="fr">Béton, Semiconducteur,  Pâte ciment, Amalgame dentaire, Matière plastique, Nacre, Sable, Résine, Terre cuite, Céramique*, Bain moussant, Rouge à lèvres, Dentifrice</skos:example>
+  <skos:broader rdf:resource="MMAT"/>
+  <dc:identifier>MATE</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/MATO/">
+  <skos:prefLabel xml:lang="fr">Matériau organique</skos:prefLabel>
+  <skos:example xml:lang="fr">Bois, Compost</skos:example>
+  <skos:broader rdf:resource="MATE"/>
+  <dc:identifier>MATO</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/MINE/">
+  <skos:prefLabel xml:lang="fr">Minéral</skos:prefLabel>
+  <skos:definition xml:lang="fr">Substance normalement inorganique, formée naturellement ou synthétisée artificiellement, définie par sa composition chimique et l'agencement de ses atomes selon une périodicité et une symétrie précises (selon l'un des 7 systèmes cristallins).</skos:definition>
+  <skos:example xml:lang="fr">Agate, Brazilianite, Quartz, Amiante*</skos:example>
+  <skos:broader rdf:resource="MATE"/>
+  <dc:identifier>MINE</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/ROCH/">
+  <skos:prefLabel xml:lang="fr">Roche</skos:prefLabel>
+  <skos:definition xml:lang="fr">Matériau formé par un agrégat naturel de minéraux, de fossiles, et/ou d'éléments d'autre(s) roche(s). Elle peut être formée d'une seule (calcite des calcaires) ou de plusieurs espèces minérales comme pour les granites, les basaltes, le gneiss.</skos:definition>
+  <skos:example xml:lang="fr">Ardoise, Granit, Basalte</skos:example>
+  <skos:broader rdf:resource="MATE"/>
+  <dc:identifier>ROCH</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/META/">
+  <skos:prefLabel xml:lang="fr">Métal et alliage métallique</skos:prefLabel>
+  <skos:example xml:lang="fr">Acier, Or</skos:example>
+  <skos:broader rdf:resource="MATE"/>
+  <dc:identifier>META</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/EMAT/">
+  <skos:prefLabel xml:lang="fr">Etat de la matière/milieu</skos:prefLabel>
+  <skos:definition xml:lang="fr">Etat physique ou structural dans lequel se trouve le matériau ou le milieu</skos:definition>
+  <skos:example xml:lang="fr">Etat liquide, Plasma, Nanoparticule, Cristal photonique, Gaz, Milieu liquide, Couche mince</skos:example>
+  <skos:broader rdf:resource="MMAT"/>
+  <dc:identifier>EMAT</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/OBJE/">
+  <skos:prefLabel xml:lang="fr">OBJET</skos:prefLabel>
+  <skos:definition xml:lang="fr">Entité définie dans un espace tridimensionnel, d'origine naturelle ou issue de la transformation par l'homme</skos:definition>
+  <skos:example xml:lang="fr">Chaise, Bouteille, Arc, Jarre, Pointe de flèche, Monnaie, Bijou, Sabre, Poutre,  Barque, Robe, Céramique *</skos:example>
+  <dc:identifier>OBJE</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/ALIM/">
+  <skos:prefLabel xml:lang="fr">Aliment</skos:prefLabel>
+  <skos:example xml:lang="fr">Miel, Fromage, Blé, Pomme*</skos:example>
+  <skos:broader rdf:resource="OBJE"/>
+  <dc:identifier>ALIM</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/MACH/">
+  <skos:prefLabel xml:lang="fr">Machine</skos:prefLabel>
+  <skos:broader rdf:resource="OBJE"/>
+  <dc:identifier>MACH</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/EQUI/">
+  <skos:prefLabel xml:lang="fr">Machine/équipement</skos:prefLabel>
+  <skos:definition xml:lang="fr">Ensemble d'appareils juxtaposés constituant une machine capable d'effectuer certaines tâches (notion implicite de &quot;Ensemble de…&quot;)</skos:definition>
+  <skos:example xml:lang="fr">Ordinateur, Moissonneuse,Téléscope, Scanner,Equipement frigorifique, Avion, Automobile, Train</skos:example>
+  <skos:broader rdf:resource="MACH"/>
+  <dc:identifier>EQUI</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/DISP/">
+  <skos:prefLabel xml:lang="fr">Dispositif/appareillage</skos:prefLabel>
+  <skos:definition xml:lang="fr">Pièces composant un appareil,  instrument de mesure (notion implicite de &quot;Partie de…&quot;)</skos:definition>
+  <skos:example xml:lang="fr">Lentille optique, Prisme optique, Laser, Capteur ampèrométrique, Oscillateur harmonique, Capteur mesure, Spectromètre , Frein</skos:example>
+  <skos:broader rdf:resource="MACH"/>
+  <dc:identifier>DISP</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/BATI/">
+  <skos:prefLabel xml:lang="fr">Bâtiment/infrastructure</skos:prefLabel>
+  <skos:definition xml:lang="fr">Construction destinée à l'habitation ou une à activité économique ou équipement collectif nécessaire à la vie économique (transports...)</skos:definition>
+  <skos:example xml:lang="fr">Maison vigneronne, Château, Autoroute, Barrage, Route,  Canalisation, Canal, Réseau ferroviaire, Caverne, Ville*</skos:example>
+  <skos:broader rdf:resource="OBJE"/>
+  <dc:identifier>BATI</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/EARC/">
+  <skos:prefLabel xml:lang="fr">Elément d'architecture ou de structure</skos:prefLabel>
+  <skos:definition xml:lang="fr">Elément constitutif d'un ouvrage ou d'une construction qu'il ait ou non une fonction architectonique</skos:definition>
+  <skos:example xml:lang="fr">Fenêtre, Mur, Linteau, Voûte en berceau, Charpente, Acrotère,  Poutre, Colonne, Appui fixe</skos:example>
+  <skos:broader rdf:resource="EARC"/>
+  <dc:identifier>EARC</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/EVIV/">
+  <skos:prefLabel xml:lang="fr">ETRE VIVANT</skos:prefLabel>
+  <skos:definition xml:lang="fr">Etre vivant ou ensemble d'êtres vivants</skos:definition>
+  <skos:example xml:lang="fr">Vie extraterrestre, Communauté microbienne,  Biocénose, Microorganisme</skos:example>
+  <dc:identifier>EVIV</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/HOMM/">
+  <skos:prefLabel xml:lang="fr">Homme</skos:prefLabel>
+  <skos:example xml:lang="fr">Adolescent, Nourrisson, Femme, Enfant, Personne âgée,  Homo Neanderthalensis*</skos:example>
+  <skos:broader rdf:resource="EVIV"/>
+  <dc:identifier>HOMM</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/ANIM/">
+  <skos:prefLabel xml:lang="fr">Animal</skos:prefLabel>
+  <skos:definition xml:lang="fr">On classe ici des termes ne nécessitant pas de génération de type Biosystématique, ces notions de systématique n'étant générées que par les termes classés dans les rubriques plus spécifiques: Vertébré et Invertébré</skos:definition>
+  <skos:example xml:lang="fr">Rat, Souris, Poisson chat, Lion, Chameau, Serpent, Faune, Animal de laboratoire, Animal d'élevage</skos:example>
+  <skos:broader rdf:resource="EVIV"/>
+  <dc:identifier>ANIM</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/VERT/">
+  <skos:prefLabel xml:lang="fr">Vertébré</skos:prefLabel>
+  <skos:definition xml:lang="fr">Animal à squelette osseux ou cartélagineux interne comportant une colonne vertébrale</skos:definition>
+  <skos:example xml:lang="fr">Mammalia, Rodentia, Canis lupus</skos:example>
+  <skos:broader rdf:resource="ANIM"/>
+  <dc:identifier>VERT</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/INVE/">
+  <skos:prefLabel xml:lang="fr">Invertébré</skos:prefLabel>
+  <skos:definition xml:lang="fr">Animal dépourvu de colonne vertébrale</skos:definition>
+  <skos:example xml:lang="fr">Annelida</skos:example>
+  <skos:broader rdf:resource="ANIM"/>
+  <dc:identifier>INVE</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/VEGT/">
+  <skos:prefLabel xml:lang="fr">Végétal</skos:prefLabel>
+  <skos:example xml:lang="fr">Platanus acerifolia, Fruit, Arbre, Vigne, Plante comestible, Pomme*, Fleur*, Flore</skos:example>
+  <skos:broader rdf:resource="EVIV"/>
+  <dc:identifier>VEGT</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/PRTZ/">
+  <skos:prefLabel xml:lang="fr">Protiste</skos:prefLabel>
+  <skos:definition xml:lang="fr">Comprend les protozoaires, les protophytes</skos:definition>
+  <skos:example xml:lang="fr">Polymyxa pilorum</skos:example>
+  <skos:broader rdf:resource="EVIV"/>
+  <dc:identifier>PRTZ</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/VIRU/">
+  <skos:prefLabel xml:lang="fr">Virus</skos:prefLabel>
+  <skos:example xml:lang="fr">Parvovirus</skos:example>
+  <skos:broader rdf:resource="EVIV"/>
+  <dc:identifier>VIRU</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/BACT/">
+  <skos:prefLabel xml:lang="fr">Bactérie</skos:prefLabel>
+  <skos:definition xml:lang="fr">Ensemble des procaryotes dont les Archaea</skos:definition>
+  <skos:example xml:lang="fr">Lactobacillus, Archaeobacteria</skos:example>
+  <skos:broader rdf:resource="EVIV"/>
+  <dc:identifier>BACT</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/CHAM/">
+  <skos:prefLabel xml:lang="fr">Champignon</skos:prefLabel>
+  <skos:example xml:lang="fr">Candida albicans, Basidiomycota</skos:example>
+  <skos:broader rdf:resource="EVIV"/>
+  <dc:identifier>CHAM</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/FOSS/">
+  <skos:prefLabel xml:lang="fr">Fossile</skos:prefLabel>
+  <skos:example xml:lang="fr">Ammonites, Homo Neanderthalensis*</skos:example>
+  <skos:broader rdf:resource="EVIV"/>
+  <dc:identifier>FOSS</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/SVIV/">
+  <skos:prefLabel xml:lang="fr">STRUCTURE DU VIVANT</skos:prefLabel>
+  <skos:definition xml:lang="fr">Etude de la structure , de la morphologie des êtres vivants, des cellules et de ses composants</skos:definition>
+  <skos:example xml:lang="fr">Greffon</skos:example>
+  <dc:identifier>SVIV</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/ANAT/">
+  <skos:prefLabel xml:lang="fr">Anatomie/organe/liquide biologique</skos:prefLabel>
+  <skos:definition xml:lang="fr">Peut s'envisager aussi sous la forme de la notion &quot;partie de…&quot;, en particulier dans le domaine végétal</skos:definition>
+  <skos:example xml:lang="fr">Foie, Lait, Urine, Liquide amniotique, Sang, Racine, Fleur*, Pomme*</skos:example>
+  <skos:broader rdf:resource="SVIV"/>
+  <dc:identifier>ANAT</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/CELL/">
+  <skos:prefLabel xml:lang="fr">Cellule/organite</skos:prefLabel>
+  <skos:example xml:lang="fr">Mitochondrie, Chloroplaste, Lignée cellulaire, Membrane cellulaire</skos:example>
+  <skos:broader rdf:resource="SVIV"/>
+  <dc:identifier>CELL</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/GENE/">
+  <skos:prefLabel xml:lang="fr">Gène/génome</skos:prefLabel>
+  <skos:example xml:lang="fr">Gène CD 36, Chromosome, Allèle</skos:example>
+  <skos:broader rdf:resource="SVIV"/>
+  <dc:identifier>GENE</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/TECH/">
+  <skos:prefLabel xml:lang="fr">TECHNIQUE/METHODE</skos:prefLabel>
+  <skos:definition xml:lang="fr">Connaissance technique appliquée à la fabrication d'un objet ou à la mise en œuvre d'un dispositif scientifique, type d'étude, méthodes d'exploration, technologies</skos:definition>
+  <skos:example xml:lang="fr">Internet, Nanotechnologie, Simulation, Comparaison internationale</skos:example>
+  <dc:identifier>TECH</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/AMES/">
+  <skos:prefLabel xml:lang="fr">Analyse/mesure</skos:prefLabel>
+  <skos:definition xml:lang="fr">Analyse, mesure, exploration</skos:definition>
+  <skos:example xml:lang="fr">Analyse thermogravimétrique, Radiotélémétrie, Essai triaxial, Analyse statistique, Analyse multivariée, Spectrométrie IR, Tomodensitométrie, Dopplérométrie, Microscopie électronique</skos:example>
+  <skos:broader rdf:resource="TECH"/>
+  <dc:identifier>AMES</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/TPSY/">
+  <skos:prefLabel xml:lang="fr">Test de psychométrie</skos:prefLabel>
+  <skos:broader rdf:resource="AMES"/>
+  <dc:identifier>TPSY</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/MODL/">
+  <skos:prefLabel xml:lang="fr">Modélisation/calcul</skos:prefLabel>
+  <skos:definition xml:lang="fr">Méthode permettant de simuler, contrôler , optimiser des propriétés ou phénomènes</skos:definition>
+  <skos:example xml:lang="fr">Méthode élémént fini, Méthode numérique, Modèle prévision, Simulation numérique, simulation ordinateur, Méthode fonctionnelle densité</skos:example>
+  <skos:broader rdf:resource="TECH"/>
+  <dc:identifier>MODL</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/TRAI/">
+  <skos:prefLabel xml:lang="fr">Traitement</skos:prefLabel>
+  <skos:definition xml:lang="fr">Traitement chimique, physique, médical, informatique</skos:definition>
+  <skos:example xml:lang="fr">Radiothérapie, Curiethérapie, Gravure électrochimique, Traitement surface, Recuit, Trempe, Traitement signal</skos:example>
+  <skos:broader rdf:resource="TECH"/>
+  <dc:identifier>TRAI</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/FABR/">
+  <skos:prefLabel xml:lang="fr">Conception</skos:prefLabel>
+  <skos:definition xml:lang="fr">Conception, fabrication, synthèse</skos:definition>
+  <skos:example xml:lang="fr">Tissage, Conception assistée, Damasquinage</skos:example>
+  <skos:broader rdf:resource="TECH"/>
+  <dc:identifier>FABR</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/PHPP/">
+  <skos:prefLabel xml:lang="fr">PHENOMENE/PROCESSUS/PROPRIETE</skos:prefLabel>
+  <dc:identifier>PHPP</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/PHNA/">
+  <skos:prefLabel xml:lang="fr">Phénomène naturel/induit</skos:prefLabel>
+  <skos:definition xml:lang="fr">Processus et phénomènes naturels ou causés par l'homme</skos:definition>
+  <skos:example xml:lang="fr">Marée noire, Pollution, Marée lunaire, Climat, Rayonnement UV, Ecoulement, Feu</skos:example>
+  <skos:broader rdf:resource="PHPP"/>
+  <dc:identifier>PHNA</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/PRPC/">
+  <skos:prefLabel xml:lang="fr">Propriété/paramètre/caractéristique</skos:prefLabel>
+  <skos:definition xml:lang="fr">Comprend les concepts quantitatifs et qualitatifs</skos:definition>
+  <skos:example xml:lang="fr">Densité, Vitesse, Température, Résistance, Activité catalytique, Poids, Multiparité, Aigu, Stade terminal, Valeur prédictive</skos:example>
+  <skos:broader rdf:resource="PHPP"/>
+  <dc:identifier>PRPC</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/AGEN/">
+  <skos:prefLabel xml:lang="fr">Agent/facteur</skos:prefLabel>
+  <skos:definition xml:lang="fr">Tout ce qui agit, opère dans un processus ou un phénomène</skos:definition>
+  <skos:example xml:lang="fr">Facteur de coagulation, Surfactant, Catalyseur, Agent alkylant</skos:example>
+  <skos:broader rdf:resource="PRPC"/>
+  <dc:identifier>AGEN</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/CFAR/">
+  <skos:prefLabel xml:lang="fr">Classe pharmacologique</skos:prefLabel>
+  <skos:definition xml:lang="fr">Définit l'activité du composant</skos:definition>
+  <skos:example xml:lang="fr">Antialzheimer, Hypocholestérolémiant, Antibiotique</skos:example>
+  <skos:broader rdf:resource="PRPC"/>
+  <dc:identifier>CFAR</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/MENT/">
+  <skos:prefLabel xml:lang="fr">Processus mental</skos:prefLabel>
+  <skos:definition xml:lang="fr">Issu du fonctionnement du cerveau</skos:definition>
+  <skos:example xml:lang="fr">Mémoire, Raisonnement, Calcul mental, Diagnostic, Consentement éclairé, Pronostic</skos:example>
+  <skos:broader rdf:resource="PHPP"/>
+  <dc:identifier>MENT</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/PBIO/">
+  <skos:prefLabel xml:lang="fr">Phénomène biologique/physiologique</skos:prefLabel>
+  <skos:definition xml:lang="fr">Tout ce qui relève du fonctionnement normal d'organismes</skos:definition>
+  <skos:example xml:lang="fr">Mort cellulaire, Sommeil, Stress oxydatif, Respiration, Phagocytose, Digestion, Activité enzymatique, Sénescence</skos:example>
+  <skos:broader rdf:resource="PHPP"/>
+  <dc:identifier>PBIO</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/PPPC/">
+  <skos:prefLabel xml:lang="fr">Processus physique/processus chimique</skos:prefLabel>
+  <skos:example xml:lang="fr">Comportement thermique, Combustion</skos:example>
+  <skos:broader rdf:resource="PHPP"/>
+  <dc:identifier>PPPC</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/REAC/">
+  <skos:prefLabel xml:lang="fr">Réaction chimique</skos:prefLabel>
+  <skos:definition xml:lang="fr">Processus qui a pour résultat la conversion d'une ou plusieurs espèces chimiques en une ou plusieurs autres espèces chimiques.</skos:definition>
+  <skos:example xml:lang="fr">Cycloaddition, Substitution nucléophile, Réaction Wittig</skos:example>
+  <skos:broader rdf:resource="PPPC"/>
+  <dc:identifier>REAC</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/PATO/">
+  <skos:prefLabel xml:lang="fr">Pathologie</skos:prefLabel>
+  <skos:definition xml:lang="fr">Tout ce qui relève d'un fonctionnement anormal de l'organisme</skos:definition>
+  <skos:example xml:lang="fr">Brûlure, Aberration chromosomique, Dystrophie musculaire, Tuberculose, Hépatite virale</skos:example>
+  <skos:broader rdf:resource="PHPP"/>
+  <dc:identifier>PATO</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/TEMP/">
+  <skos:prefLabel xml:lang="fr">TEMPS</skos:prefLabel>
+  <dc:identifier>TEMP</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/DATE/">
+  <skos:prefLabel xml:lang="fr">Date/évènement</skos:prefLabel>
+  <skos:example xml:lang="fr">Concile du Vatican II, Révocation de l' Edit de Nantes</skos:example>
+  <skos:broader rdf:resource="TEMP"/>
+  <dc:identifier>DATE</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/CHRO/">
+  <skos:prefLabel xml:lang="fr">Chronologie</skos:prefLabel>
+  <skos:example xml:lang="fr">Age du fer, Antiquité grecque, Période ptolémaïque, Epoque moderne, Moyen âge, Nouvel Empire, Dynastie Omeyyade</skos:example>
+  <skos:broader rdf:resource="TEMP"/>
+  <dc:identifier>CHRO</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/AGEO/">
+  <skos:prefLabel xml:lang="fr">Age géologique</skos:prefLabel>
+  <skos:example xml:lang="fr">Jurassique supérieur</skos:example>
+  <skos:broader rdf:resource="TEMP"/>
+  <dc:identifier>AGEO</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/AVIE/">
+  <skos:prefLabel xml:lang="fr">Age de la vie</skos:prefLabel>
+  <skos:example xml:lang="fr">Age scolaire, Jeunesse, Vieillesse</skos:example>
+  <skos:broader rdf:resource="TEMP"/>
+  <dc:identifier>AVIE</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/OBJT/">
+  <skos:prefLabel xml:lang="fr">Objet temporel</skos:prefLabel>
+  <skos:example xml:lang="fr">Femtoseconde, Nanoseconde</skos:example>
+  <skos:broader rdf:resource="TEMP"/>
+  <dc:identifier>OBJT</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/CTEM/">
+  <skos:prefLabel xml:lang="fr">Concept temporel</skos:prefLabel>
+  <skos:example xml:lang="fr">Age d'or, Variation temporelle, Echelle de temps</skos:example>
+  <skos:broader rdf:resource="TEMP"/>
+  <dc:identifier>CTEM</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/ACSO/">
+  <skos:prefLabel xml:lang="fr">ACTIVITE/COMPORTEMENT/SOCIETE</skos:prefLabel>
+  <skos:definition xml:lang="fr">Activités et de comportements qui s'appliquent aussi bien à des sociétés humaines qu'au vivant au sens large</skos:definition>
+  <skos:example xml:lang="fr">Famille, Education, Relation(s) sociale(s), Réseau social, Intégration sociale, Relation(s) familiale(s)</skos:example>
+  <dc:identifier>ACSO</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/ACTI/">
+  <skos:prefLabel xml:lang="fr">Activité</skos:prefLabel>
+  <skos:definition xml:lang="fr">Activités quotidiennes ou de loisirs, activités professionnelles, activités de production, commerciales, économiques et de service. Activités politiques et de réglementation</skos:definition>
+  <skos:example xml:lang="fr">Tennis, Travail, Emploi, Commerce, Activité animale, Catalogage, Construction automobile, Raffinerie, Agriculture, Aménagement du territoire, Horticulture. Politique de la ville, Politique sociale, Gestion du risque, Normalisation</skos:example>
+  <skos:broader rdf:resource="ACSO"/>
+  <dc:identifier>ACTI</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/PSOC/">
+  <skos:prefLabel xml:lang="fr">Phénomène socioculturel et économique</skos:prefLabel>
+  <skos:definition xml:lang="fr">Phénomène influençant le comportement des individus et qui s'inscrit dans un contexte social.</skos:definition>
+  <skos:example xml:lang="fr">Emigration rurale, Immigration, Pauvreté, Mondialisation, Chômage, Criminalité, Inégalité sociale, Exode</skos:example>
+  <skos:broader rdf:resource="ACSO"/>
+  <dc:identifier>PSOC</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/COMP/">
+  <skos:prefLabel xml:lang="fr">Comportement</skos:prefLabel>
+  <skos:definition xml:lang="fr">Comportements (individuels, collectifs,…)</skos:definition>
+  <skos:example xml:lang="fr">Agressivité, Comportement prédateur, Migration, Sexualité</skos:example>
+  <skos:broader rdf:resource="ACSO"/>
+  <dc:identifier>COMP</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/INTR/">
+  <skos:prefLabel xml:lang="fr">Interaction</skos:prefLabel>
+  <skos:definition xml:lang="fr">Tout terme mettant en relation deux concepts, ou indicateur de rôle ou de fonction</skos:definition>
+  <skos:example xml:lang="fr">Relation prédateur proie, Relation mère enfant, Parasitisme, Relation sol plante, Relation interspécifique, Relation hôte agent</skos:example>
+  <skos:broader rdf:resource="ACSO"/>
+  <dc:identifier>INTR</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/FONC/">
+  <skos:prefLabel xml:lang="fr">Fonction</skos:prefLabel>
+  <skos:definition xml:lang="fr">Fonction individuelle, sociale</skos:definition>
+  <skos:example xml:lang="fr">Evêque, Statut social, Parenté, Roi, Ouvrière insecte, Phytophage, Entomophage, Médecin, Agriculteur</skos:example>
+  <skos:broader rdf:resource="ACSO"/>
+  <dc:identifier>FONC</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/GRPE/">
+  <skos:prefLabel xml:lang="fr">Groupe d'individus</skos:prefLabel>
+  <skos:definition xml:lang="fr">Groupe d'individus partageant des caractéristiques communes physiques, culturelles, idéologiques, religieuses, environnementales…</skos:definition>
+  <skos:example xml:lang="fr">Essaim, Stoïciens, Musulmans, Réalistes, Handicapés, Méiofaune, Zooplancton</skos:example>
+  <skos:broader rdf:resource="ACSO"/>
+  <dc:identifier>GRPE</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/SYST/">
+  <skos:prefLabel xml:lang="fr">Système organisationnel</skos:prefLabel>
+  <skos:definition xml:lang="fr">Organisation socioéconomique, politique, religieuse</skos:definition>
+  <skos:example xml:lang="fr">Association de fidèles, Hiérarchie sociale, Marché du travail,  Organisation du travail, Economie, Politique, Organisation de la recherche, Milieu professionnel</skos:example>
+  <skos:broader rdf:resource="ACSO"/>
+  <dc:identifier>SYST</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/CECO/">
+  <skos:prefLabel xml:lang="fr">Concept ou système économique</skos:prefLabel>
+  <skos:definition xml:lang="fr">Comprend tout concept reposant sur une notion d'échange ou de valeur économique</skos:definition>
+  <skos:example xml:lang="fr">Aide financière, Subvention, Revenu, Salaire,  Valeur ajoutée, Indemnisation, Budget</skos:example>
+  <skos:broader rdf:resource="ACSO"/>
+  <dc:identifier>CECO</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/INST/">
+  <skos:prefLabel xml:lang="fr">Organisme/ institution</skos:prefLabel>
+  <skos:definition xml:lang="fr">Grandes institutions Laboratoires de recherche, instituts, sociétés savantes Sociétés professionnelles Organismes divers</skos:definition>
+  <skos:example xml:lang="fr">Eglise, Etat, Ecole CNRS,Centre de recherche, Institut de recherche, Société Française d'Optique AFPP (Association française de la protection des plantes) UNESCO, ONU</skos:example>
+  <dc:identifier>INST</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/IDEE/">
+  <skos:prefLabel xml:lang="fr">IDEE/ABSTRACTION</skos:prefLabel>
+  <dc:identifier>IDEE</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/CONC/">
+  <skos:prefLabel xml:lang="fr">Concept</skos:prefLabel>
+  <skos:definition xml:lang="fr">Objets mentaux, concepts, entités abstraites issues d'un processus intellectuel Emotions, sentiments</skos:definition>
+  <skos:example xml:lang="fr">Vérité, Moi, Esprit, Croyance, Absolu, Trinité, Loi divine Satisfaction, Amour, Bonheur, Espoir, Désir, Haine</skos:example>
+  <skos:broader rdf:resource="IDEE"/>
+  <dc:identifier>CONC</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/OBJM/">
+  <skos:prefLabel xml:lang="fr">Concept mathématique</skos:prefLabel>
+  <skos:definition xml:lang="fr">Un concept mathématique est un méta concept qui sert à désigner toutes les réalités abstraites que manipule le mathématicien dans son activité. Il s'agit d'un &quot;objet&quot; de l'univers des mathématiques et englobe donc tous les concepts mathématiques.</skos:definition>
+  <skos:example xml:lang="fr">Racine carrée, Dodécaèdre</skos:example>
+  <skos:broader rdf:resource="CONC"/>
+  <dc:identifier>OBJM</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/SYMB/">
+  <skos:prefLabel xml:lang="fr">Signe et symbole</skos:prefLabel>
+  <skos:definition xml:lang="fr">Motif porteur de sens ayant une valeur symbolique. Sont cependant exclus de cette catégorie les objets ou animaux pouvant avoir une portée symbolique mais de manière contextuelle.</skos:definition>
+  <skos:example xml:lang="fr">Ankh, Svastika, Idéogramme, Virgule, Alphabet, Pétroglyphe, Pictogramme</skos:example>
+  <skos:broader rdf:resource="CONC"/>
+  <dc:identifier>SYMB</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/OMET/">
+  <skos:prefLabel xml:lang="fr">Objet métrologique</skos:prefLabel>
+  <skos:definition xml:lang="fr">Définit une grandeur qui sert à quantifier les autre grandeurs</skos:definition>
+  <skos:example xml:lang="fr">Subnanomètre, Henry</skos:example>
+  <skos:broader rdf:resource="CONC"/>
+  <dc:identifier>OMET</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/RLOG/">
+  <skos:prefLabel xml:lang="fr">Structure ou élément du raisonnement logique</skos:prefLabel>
+  <skos:definition xml:lang="fr">Comprend à la fois les éléments composant un raisonnement, la structure et le type du raisonnement et le résultat auquel il aboutit</skos:definition>
+  <skos:example xml:lang="fr">Enoncé, Preuve, Syllogisme, Réfutation, Conclusion, Aporie</skos:example>
+  <skos:broader rdf:resource="CONC"/>
+  <dc:identifier>RLOG</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/THEM/">
+  <skos:prefLabel xml:lang="fr">Motif et thème littéraire et artistique</skos:prefLabel>
+  <skos:definition xml:lang="fr">Motifs et thèmes de l'art et de la littérature</skos:definition>
+  <skos:example xml:lang="fr">Scène de chasse, Arabesque, Portrait, Erotisme, Motif,  Motif végétal</skos:example>
+  <skos:broader rdf:resource="CONC"/>
+  <dc:identifier>THEM</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/CJUR/">
+  <skos:prefLabel xml:lang="fr">Concept juridique et principe du droit</skos:prefLabel>
+  <skos:definition xml:lang="fr">Conprend tous les types de droits définis par leur domaine d'application, leur nature, ainsi que les actes juridiques</skos:definition>
+  <skos:example xml:lang="fr">Droit de la femme, Droit d'auteur, Propriété intellectuelle, Servitude, Décision de justice</skos:example>
+  <skos:broader rdf:resource="IDEE"/>
+  <dc:identifier>CJUR</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/CLAS/">
+  <skos:prefLabel xml:lang="fr">Classification/nomenclature/norme</skos:prefLabel>
+  <skos:definition xml:lang="fr">Classification, nomenclature</skos:definition>
+  <skos:example xml:lang="fr">Typologie, Classe sociale, Formule chimique, Catégorie socioprofessionnelle, Classe d'âge, Norme AFNOR, Eurocode</skos:example>
+  <skos:broader rdf:resource="IDEE"/>
+  <dc:identifier>CLAS</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/PENS/">
+  <skos:prefLabel xml:lang="fr">Courant de pensée/doctrine</skos:prefLabel>
+  <skos:example xml:lang="fr">Bouddhisme, Catholicisme, Empirisme, Naturalisme, Réalisme,Marxisme, Structuralisme, Fonctionnalisme, Religion, Islam, Féminisme, Hindouisme, Théologie, Eucharistie, Nationalisme, Idéologie</skos:example>
+  <skos:broader rdf:resource="IDEE"/>
+  <dc:identifier>PENS</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/THEO/">
+  <skos:prefLabel xml:lang="fr">Théorie/modèle théorique</skos:prefLabel>
+  <skos:definition xml:lang="fr">Théories, modèles intellectuels</skos:definition>
+  <skos:example xml:lang="fr">Théorème de Gödel, Théorie des jeux, Loi de la relativité, Relativité, Darwinisme, Monisme,Hypothèse d'Avogadro, Loi de Planck, Modèle empirique, Modèle économique</skos:example>
+  <skos:broader rdf:resource="IDEE"/>
+  <dc:identifier>THEO</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/DISC/">
+  <skos:prefLabel xml:lang="fr">Discipline</skos:prefLabel>
+  <skos:definition xml:lang="fr">Matière d'enseignement</skos:definition>
+  <skos:example xml:lang="fr">Bibliothéconomie, Physique, Ethologie, Anthropologie, Epistémologie, Histoire, Philosophie, Acoustique, Optique</skos:example>
+  <skos:broader rdf:resource="IDEE"/>
+  <dc:identifier>DISC</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/DOCU/">
+  <skos:definition xml:lang="fr">Descripteurs qui ont une double catégorisation liée à la fois à un processus intellectuel et à des propriétés matérielles. Il s'agit d'un transfert intellectuel sur un objet. Cette catégorie concerne toutes les œuvres d'art (musique, cinéma, peinture…)</skos:definition>
+  <skos:example xml:lang="fr">ŒUVRE DOCUMENT</skos:example>
+  <dc:identifier>DOCU</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/TDOC/">
+  <skos:prefLabel xml:lang="fr">Type de document et d'oeuvre</skos:prefLabel>
+  <skos:definition xml:lang="fr">Désigne les types de documents ou d'œuvres selon leur support ou leur fonction</skos:definition>
+  <skos:example xml:lang="fr">Livre, Manuscrit, Base de données, Dictionnaire, Rapport d'activité, Article synthèse, Contrat, Correspondance, Papyrus, Œuvre d'art, Logiciel, Congrès, Kudurru</skos:example>
+  <skos:broader rdf:resource="DOCU"/>
+  <dc:identifier>TDOC</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/TITR/">
+  <skos:prefLabel xml:lang="fr">Titre de document et d'œuvre</skos:prefLabel>
+  <skos:definition xml:lang="fr">Désigne des œuvres ou des documents précis de toute nature (littérature, musique, cinéma…)</skos:definition>
+  <skos:example xml:lang="fr">Edit de Nantes, Bible, Actes apocryphes des apôtres, Electre, Code d'Hammurabi, Carmina Burana</skos:example>
+  <skos:broader rdf:resource="DOCU"/>
+  <dc:identifier>TITR</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/GELA/">
+  <skos:prefLabel xml:lang="fr">Genres littéraires et artistiques</skos:prefLabel>
+  <skos:definition xml:lang="fr">Désigne les productions littéraires et artistiques selon des critères de forme, de contenu, de style et d'effets.</skos:definition>
+  <skos:example xml:lang="fr">Roman policier, Musique pop, Fantaisie, Thriller</skos:example>
+  <skos:broader rdf:resource="DOCU"/>
+  <dc:identifier>GELA</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/LANG/">
+  <skos:prefLabel xml:lang="fr">LANGUE/ LANGAGE</skos:prefLabel>
+  <skos:definition xml:lang="fr">Langues, famille linguistique, langages divers (informatique par ex.)</skos:definition>
+  <skos:example xml:lang="fr">Langage JAVA</skos:example>
+  <dc:identifier>LANG</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/GLOT/">
+  <skos:prefLabel xml:lang="fr">Glottonyme</skos:prefLabel>
+  <skos:definition xml:lang="fr">Nom donné à une langue, à un dialecte ou à une famille de langues</skos:definition>
+  <skos:example xml:lang="fr">Moyen français, Arabe, Acadien, Adyghé, Russe</skos:example>
+  <skos:broader rdf:resource="LANG"/>
+  <dc:identifier>GLOT</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/GRAM/">
+  <skos:prefLabel xml:lang="fr">Concept grammatical</skos:prefLabel>
+  <skos:definition xml:lang="fr">Concept servant à décrire le fonctionnement de la langue à différents niveaux: phonologique, morphosyntaxique …</skos:definition>
+  <skos:example xml:lang="fr">Verbe, Syntagme, Absolutif, Accord grammatical, Article défini, Auxiliaire de modalité, Causatif, Complément d'agent</skos:example>
+  <skos:broader rdf:resource="LANG"/>
+  <dc:identifier>GRAM</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/AROL/">
+  <skos:prefLabel xml:lang="fr">Art oratoire et littéraire</skos:prefLabel>
+  <skos:definition xml:lang="fr">Comprend: rhétorique, stylistique, métrique, versification</skos:definition>
+  <skos:example xml:lang="fr">Litote, Synecdoque, Métaphore, Anacoluthe, Anaphore, Discours, Discours direct, Métonymie, Oxymore, Emphase, Hexamètre dactylique, Césure, Emjambement, Alexandrin</skos:example>
+  <skos:broader rdf:resource="LANG"/>
+  <dc:identifier>AROL</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/PERS/">
+  <skos:prefLabel xml:lang="fr">PERSONNALITE/DIVINITE</skos:prefLabel>
+  <dc:identifier>PERS</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/ANTH/">
+  <skos:prefLabel xml:lang="fr">Anthroponyme</skos:prefLabel>
+  <skos:definition xml:lang="fr">Personnalités, personnages historiques ou fictionnels (héros, architectes célècbres, peintres, ...)</skos:definition>
+  <skos:example xml:lang="fr">Rembrandt,  Parménide,  Ramsès II, Bernard de Clairvaux, Ulysse</skos:example>
+  <skos:broader rdf:resource="PERS"/>
+  <dc:identifier>ANTH</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/AUTR/">
+  <skos:prefLabel xml:lang="fr">Auteur</skos:prefLabel>
+  <skos:definition xml:lang="fr">Désigne le producteur d'un texte (littéraire ou non littéraire, oral ou écrit)</skos:definition>
+  <skos:example xml:lang="fr">Voltaire, Mallarmé</skos:example>
+  <skos:broader rdf:resource="ANTH"/>
+  <dc:identifier>AUTR</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/AIMA/">
+  <skos:prefLabel xml:lang="fr">Etre et animal imaginaire</skos:prefLabel>
+  <skos:definition xml:lang="fr">Personnages zoomorphes et animaux mythologiques</skos:definition>
+  <skos:example xml:lang="fr">Renard (personnage littéraire), Griffon,  Sphynx, Licorne, Pégase</skos:example>
+  <skos:broader rdf:resource="PERS"/>
+  <dc:identifier>AIMA</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/DIEU/">
+  <skos:prefLabel xml:lang="fr">Divinité</skos:prefLabel>
+  <skos:definition xml:lang="fr">Dieux et demi dieux</skos:definition>
+  <skos:example xml:lang="fr">Bouddha, Mercure,  Dieu, Shiva, Pan</skos:example>
+  <skos:broader rdf:resource="PERS"/>
+  <dc:identifier>DIEU</dc:identifier>
+ </skos:Concept>
+ <skos:Concept rdf:about="/catsem/ETHN/">
+  <skos:prefLabel xml:lang="fr">Peuple/Ethnie</skos:prefLabel>
+  <skos:example xml:lang="fr">Sioux, Mixtèque, Amérindien</skos:example>
+  <skos:broader rdf:resource="PERS"/>
+  <dc:identifier>ETHN</dc:identifier>
+ </skos:Concept>
+</rdf:RDF>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>LODEX</title>
+	<atom:link href="http://lodex.inist.fr/feed/" rel="self" type="application/rss+xml" />
+	<link>http://lodex.inist.fr</link>
+	<description>Linked Open Data Experiment - Relier ISTEX au web sémantique</description>
+	<lastBuildDate>Tue, 28 Feb 2017 16:28:50 +0000</lastBuildDate>
+	<language>fr-FR</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	
+
+<image>
+	<url>http://lodex.inist.fr/wp-content/uploads/2016/04/cropped-petit-logo-lodex-32x32.png</url>
+	<title>LODEX</title>
+	<link>http://lodex.inist.fr</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Revue Triplex n°1 : post LODEX</title>
+		<link>http://lodex.inist.fr/2017/02/revue-triplex-n1-post-lodex/</link>
+		<comments>http://lodex.inist.fr/2017/02/revue-triplex-n1-post-lodex/#respond</comments>
+		<pubDate>Tue, 28 Feb 2017 16:28:50 +0000</pubDate>
+		<dc:creator><![CDATA[François Parmentier]]></dc:creator>
+				<category><![CDATA[Sprint revues]]></category>
+		<category><![CDATA[Triplex]]></category>
+
+		<guid isPermaLink="false">http://lodex.inist.fr/?p=1107</guid>
+		<description><![CDATA[]]></description>
+		<wfw:commentRss>http://lodex.inist.fr/2017/02/revue-triplex-n1-post-lodex/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Virtuoso ezMasterisé</title>
+		<link>http://lodex.inist.fr/2017/02/virtuoso-ezmasterise/</link>
+		<comments>http://lodex.inist.fr/2017/02/virtuoso-ezmasterise/#respond</comments>
+		<pubDate>Fri, 17 Feb 2017 16:07:59 +0000</pubDate>
+		<dc:creator><![CDATA[François Parmentier]]></dc:creator>
+				<category><![CDATA[Aspects techniques]]></category>
+		<category><![CDATA[ezmaster]]></category>
+		<category><![CDATA[outils]]></category>
+		<category><![CDATA[SPARQL]]></category>
+		<category><![CDATA[Triple store]]></category>
+		<category><![CDATA[Triplex]]></category>
+
+		<guid isPermaLink="false">http://lodex.inist.fr/?p=1090</guid>
+		<description><![CDATA[Triplex a maintenant la possibilité d'expérimenter SPARQL via une adaptation de Virtuoso au système d'administration des applications web utilisé à l'Inist-CNRS: ezMaster.
+Voyons quelles possibilités cela ouvre.]]></description>
+		<wfw:commentRss>http://lodex.inist.fr/2017/02/virtuoso-ezmasterise/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Une nouvelle suite à LODex: Triplex (Triple store ISTEX)</title>
+		<link>http://lodex.inist.fr/2017/02/triplex-triple-store-istex/</link>
+		<pubDate>Fri, 03 Feb 2017 14:12:40 +0000</pubDate>
+		<dc:creator><![CDATA[François Parmentier]]></dc:creator>
+				<category><![CDATA[News]]></category>
+		<category><![CDATA[SPARQL]]></category>
+		<category><![CDATA[Triple store]]></category>
+		<category><![CDATA[Triplex]]></category>
+
+		<guid isPermaLink="false">http://lodex.inist.fr/?p=1078</guid>
+		<description><![CDATA[L'expérimentation LODex a vécu sa vie de janvier 2016 à fin 2016.
+C'est dans expérimentation que prennent racines deux nouveaux projets SCRUM : la pérennisation de l'outil lodex, et la mise à disposition dans un triple store de données ISTEX.
+C'est cette deuxième expérimentation que présente cet article.]]></description>
+		</item>
+		<item>
+		<title>Revue #1 pour la « Pérennisation du prototype LODEX »</title>
+		<link>http://lodex.inist.fr/2017/02/revue-1-pour-la-perennisation-du-prototype-lodex/</link>
+		<pubDate>Thu, 02 Feb 2017 14:15:04 +0000</pubDate>
+		<dc:creator><![CDATA[Nicolas Thouvenin]]></dc:creator>
+				<category><![CDATA[Sprint revues]]></category>
+
+		<guid isPermaLink="false">http://lodex.inist.fr/?p=1070</guid>
+		<description><![CDATA[&#160;]]></description>
+		</item>
+		<item>
+		<title>Guide utilisateur pour la création d&#8217;un identifiant ARK avec l&#8217;outil eZARK</title>
+		<link>http://lodex.inist.fr/2017/01/mode-operatoire-ezark/</link>
+		<pubDate>Wed, 18 Jan 2017 13:59:49 +0000</pubDate>
+		<dc:creator><![CDATA[team Lodex]]></dc:creator>
+				<category><![CDATA[News]]></category>
+		<category><![CDATA[application]]></category>
+		<category><![CDATA[ark]]></category>
+		<category><![CDATA[ezark]]></category>
+		<category><![CDATA[github]]></category>
+		<category><![CDATA[identifiant]]></category>
+		<category><![CDATA[lod.istex.fr]]></category>
+		<category><![CDATA[naan]]></category>
+
+		<guid isPermaLink="false">http://lodex.inist.fr/?p=1002</guid>
+		<description><![CDATA[Préambule : Dans la catégorie ezARK :  Voir les articles http://lodex.inist.fr/2016/12/ezark/ et http://lodex.inist.fr/2016/09/cracheur-ark-pret-soufflez/ Qu’est-ce que l’outil EzARK &#8220;EzArk&#8221; est un outil permettant de gérer un registre local de &#8220;sub publisher&#8221; pour un NAAN donné. Il permet également de générer des identifiants ARK et propose à partir d&#8217;un ARK de rediriger vers le service proposant la ressource identifiée. Le...</p><p><a class="excerpt-read-more btn btn-primary" href="http://lodex.inist.fr/2017/01/mode-operatoire-ezark/" title="ReadGuide utilisateur pour la création d&#8217;un identifiant ARK avec l&#8217;outil eZARK">Read More</a>]]></description>
+		</item>
+	</channel>
+</rss>
