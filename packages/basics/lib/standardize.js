@@ -13,13 +13,13 @@ function writeOn (stream, data, cb) {
 module.exports = function (data1, feed1) {
   let self = this;
 
-  if (self.isFirst()) {
+  if (!self.tmpFile) {
     self.tmpFile = tmpFilepath('.bin');
     self.struct = [];
     self.tmpStream = fs.createWriteStream(self.tmpFile);
-    feed1.end();
   }
-  else if (self.isLast()) {
+
+  if (self.isLast()) {
     fs.createReadStream(self.tmpFile)
       .pipe(ezs('TXTParse', { separator: '\n' }))
       .pipe(ezs(function(data2, feed2) {
