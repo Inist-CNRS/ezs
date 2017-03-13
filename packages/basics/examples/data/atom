@@ -1,163 +1,1610 @@
-<?xml version='1.0' encoding='UTF-8'?><?xml-stylesheet href="http://www.blogger.com/styles/atom.css" type="text/css"?><feed xmlns='http://www.w3.org/2005/Atom' xmlns:openSearch='http://a9.com/-/spec/opensearchrss/1.0/' xmlns:blogger='http://schemas.google.com/blogger/2008' xmlns:georss='http://www.georss.org/georss' xmlns:gd="http://schemas.google.com/g/2005" xmlns:thr='http://purl.org/syndication/thread/1.0'><id>tag:blogger.com,1999:blog-30322458</id><updated>2017-03-06T20:02:51.619+01:00</updated><category term="linux"/><category term="php"/><category term="shell"/><category term="xml"/><category term="web"/><category term="javascript"/><category term="SGV"/><category term="exposé"/><category term="C++"/><category term="pxxo"/><category term="windows"/><category term="git"/><category term="humeur"/><category term="nodejs"/><category term="pear"/><category term="plor"/><category term="xsl"/><category term="html"/><category term="http"/><category term="mysql"/><category term="perso"/><category term="veille"/><category term="css"/><category term="json"/><category term="liens"/><category term="makefile"/><category term="moblin"/><category term="ssh"/><category term="atom"/><category term="cvs"/><category term="internet"/><category term="java"/><category term="notules"/><category term="openoffice"/><category term="scrum"/><category term="svn"/><category term="unix"/><category term="xpath"/><title type='text'>Nicolas Thouvenin</title><subtitle type='html'>pour partager quelques idées numériques...</subtitle><link rel='http://schemas.google.com/g/2005#feed' type='application/atom+xml' href='http://blog.touv.fr/feeds/posts/default'/><link rel='self' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default'/><link rel='alternate' type='text/html' href='http://blog.touv.fr/'/><link rel='hub' href='http://pubsubhubbub.appspot.com/'/><link rel='next' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default?start-index=26&amp;max-results=25'/><author><name>Nicolas Thouvenin</name><email>noreply@blogger.com</email><gd:image rel='http://schemas.google.com/g/2005#thumbnail' width='32' height='32' src='//lh5.googleusercontent.com/-6fLVcOC0Vk0/AAAAAAAAAAI/AAAAAAAAHnY/8WxD_lAXSko/s512-c/photo.jpg'/></author><generator version='7.00' uri='http://www.blogger.com'>Blogger</generator><openSearch:totalResults>125</openSearch:totalResults><openSearch:startIndex>1</openSearch:startIndex><openSearch:itemsPerPage>25</openSearch:itemsPerPage><entry><id>tag:blogger.com,1999:blog-30322458.post-5018223672962714915</id><published>2013-09-13T23:57:00.000+02:00</published><updated>2013-09-17T21:37:36.224+02:00</updated><category scheme="http://www.blogger.com/atom/ns#" term="scrum"/><title type='text'>Scrum et Trello, le sprint backlog</title><summary type="text">Trello est un formidable outil de gestion de listes. A première vue, son interface rappelle un Scrum Board. Pour cette raison, il est tentant de vouloir l&#39;utiliser comme Board virtuel. Il y a quelques mois, je me suis également laissé tenter, j&#39;ai donc cherché une manière d&#39;utiliser Trello pour faire du Scrum. Voici le résulat de cette recherche.
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <link href="https://martinfowler.com/feed.atom" rel="self"/>
+  <link href="https://martinfowler.com"/>
+  <id>https://martinfowler.com/feed.atom</id>
+  <title>Martin Fowler</title>
+  <subtitle>Master feed of news and updates from martinfowler.com</subtitle>
+  <author>
+    <name>Martin Fowler</name>
+    <email>fowler@acm.org</email>
+    <uri>https://martinfowler.com</uri>
+  </author>
+  <updated>2017-02-14T13:36:00-05:00</updated>
+<entry>
+    <title>photostream 105</title>
+    <link href="https://martinfowler.com/photos/105.html"/>
+    <updated>2017-02-14T13:36:00-05:00</updated>
+    <id>tag:martinfowler.com,2017-02-14:photostream-105</id>
+    <content type="html">
+&lt;p&gt;&lt;a href = 'https://martinfowler.com/photos/105.html'&gt;&lt;img src = 'https://martinfowler.com/photos/105.jpg'&gt;&lt;/img&gt;&lt;/a&gt;&lt;/p&gt;
 
-L&#39;outil
-Pour mimer un Scrum Board avec Trello, il</summary><link rel='replies' type='application/atom+xml' href='http://blog.touv.fr/feeds/5018223672962714915/comments/default' title='Publier les commentaires'/><link rel='replies' type='text/html' href='http://blog.touv.fr/2013/09/scum-et-trello-le-sprint-backlog.html#comment-form' title='0 commentaires'/><link rel='edit' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/5018223672962714915'/><link rel='self' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/5018223672962714915'/><link rel='alternate' type='text/html' href='http://blog.touv.fr/2013/09/scum-et-trello-le-sprint-backlog.html' title='Scrum et Trello, le sprint backlog'/><author><name>Nicolas Thouvenin</name><uri>https://plus.google.com/100470147949342588997</uri><email>noreply@blogger.com</email><gd:image rel='http://schemas.google.com/g/2005#thumbnail' width='32' height='32' src='//lh5.googleusercontent.com/-6fLVcOC0Vk0/AAAAAAAAAAI/AAAAAAAAHnY/8WxD_lAXSko/s512-c/photo.jpg'/></author><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://3.bp.blogspot.com/-xGyJgM8pUCA/UjGniZLH02I/AAAAAAAAHmA/ty73668bKYI/s72-c/trello.png" height="72" width="72"/><thr:total>0</thr:total></entry><entry><id>tag:blogger.com,1999:blog-30322458.post-7719505037101835028</id><published>2012-02-23T14:13:00.000+01:00</published><updated>2012-03-27T22:22:11.984+02:00</updated><category scheme="http://www.blogger.com/atom/ns#" term="javascript"/><category scheme="http://www.blogger.com/atom/ns#" term="json"/><category scheme="http://www.blogger.com/atom/ns#" term="nodejs"/><category scheme="http://www.blogger.com/atom/ns#" term="xml"/><title type='text'>node-xml-mapping = xml2json.js &amp; json2xml.js</title><summary type="text">xml-mapping est un module NodeJS qui permet de transformer des données XML en une structure de données Javascript (JSON). Ce module permet également de réaliser l&#39;opération inverse en transformant une structure de données Javascript en XML. Ce module se caractérise par quelques avantages : 
-100% Javascript
-Bidirectionnel
-Prise en charge des Comments, des CDATA, des Processing Instructions 
-</summary><link rel='replies' type='application/atom+xml' href='http://blog.touv.fr/feeds/7719505037101835028/comments/default' title='Publier les commentaires'/><link rel='replies' type='text/html' href='http://blog.touv.fr/2012/02/node-xml-mapping-xml2jsonjs-json2xmljs.html#comment-form' title='1 commentaires'/><link rel='edit' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/7719505037101835028'/><link rel='self' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/7719505037101835028'/><link rel='alternate' type='text/html' href='http://blog.touv.fr/2012/02/node-xml-mapping-xml2jsonjs-json2xmljs.html' title='node-xml-mapping = xml2json.js &amp; json2xml.js'/><author><name>Nicolas Thouvenin</name><uri>https://plus.google.com/100470147949342588997</uri><email>noreply@blogger.com</email><gd:image rel='http://schemas.google.com/g/2005#thumbnail' width='32' height='32' src='//lh5.googleusercontent.com/-6fLVcOC0Vk0/AAAAAAAAAAI/AAAAAAAAHnY/8WxD_lAXSko/s512-c/photo.jpg'/></author><thr:total>1</thr:total></entry><entry><id>tag:blogger.com,1999:blog-30322458.post-1867704010468071410</id><published>2011-11-16T13:39:00.000+01:00</published><updated>2011-11-18T21:27:14.247+01:00</updated><category scheme="http://www.blogger.com/atom/ns#" term="javascript"/><category scheme="http://www.blogger.com/atom/ns#" term="nodejs"/><title type='text'>Lecture ligne par ligne avec NodeJS</title><summary type="text">Lire un fichier ou plus généralement un flux de données ligne par ligne est une opération triviale pour toutes les personnes connaissant la fonction fgets. Voici 4 méthodes pour résoudre cette problématique basique avec NodeJS : 
+&lt;p&gt;&lt;/p&gt;
 
-0. String &amp; SplitC&#39;est la méthode la plus simple, il suffit de charger la totalité du fichier dans une chaîne de caractères puis découper cette chaîne en fonction du </summary><link rel='replies' type='application/atom+xml' href='http://blog.touv.fr/feeds/1867704010468071410/comments/default' title='Publier les commentaires'/><link rel='replies' type='text/html' href='http://blog.touv.fr/2011/11/lecture-ligne-par-ligne-avec-nodejs.html#comment-form' title='1 commentaires'/><link rel='edit' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/1867704010468071410'/><link rel='self' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/1867704010468071410'/><link rel='alternate' type='text/html' href='http://blog.touv.fr/2011/11/lecture-ligne-par-ligne-avec-nodejs.html' title='Lecture ligne par ligne avec NodeJS'/><author><name>Nicolas Thouvenin</name><uri>https://plus.google.com/100470147949342588997</uri><email>noreply@blogger.com</email><gd:image rel='http://schemas.google.com/g/2005#thumbnail' width='32' height='32' src='//lh5.googleusercontent.com/-6fLVcOC0Vk0/AAAAAAAAAAI/AAAAAAAAHnY/8WxD_lAXSko/s512-c/photo.jpg'/></author><thr:total>1</thr:total></entry><entry><id>tag:blogger.com,1999:blog-30322458.post-3493321456196788520</id><published>2011-09-08T15:04:00.001+02:00</published><updated>2011-09-08T15:04:12.829+02:00</updated><category scheme="http://www.blogger.com/atom/ns#" term="javascript"/><category scheme="http://www.blogger.com/atom/ns#" term="nodejs"/><title type='text'>Underscore + JSONSelect = XPath for JSON ?</title><summary type="text">XML est largement utilisé pour formater, stocker, échanger des informations structurées. Et malgré l’étendu de ses capacités, il n&#39;en reste pas moins qu&#39;un support. Et en tant que support JSON n&#39;a rien à envier à XML. N&#39;importe quelle information peut-être stocker avec JSON. Par contre l&#39;écosystème XML est riche et on peut facilement transformer, valider, émietter nos données, ce qui semble moins</summary><link rel='replies' type='application/atom+xml' href='http://blog.touv.fr/feeds/3493321456196788520/comments/default' title='Publier les commentaires'/><link rel='replies' type='text/html' href='http://blog.touv.fr/2011/09/underscore-jsonselect-xpath-for-json.html#comment-form' title='2 commentaires'/><link rel='edit' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/3493321456196788520'/><link rel='self' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/3493321456196788520'/><link rel='alternate' type='text/html' href='http://blog.touv.fr/2011/09/underscore-jsonselect-xpath-for-json.html' title='Underscore + JSONSelect = XPath for JSON ?'/><author><name>Nicolas Thouvenin</name><uri>https://plus.google.com/100470147949342588997</uri><email>noreply@blogger.com</email><gd:image rel='http://schemas.google.com/g/2005#thumbnail' width='32' height='32' src='//lh5.googleusercontent.com/-6fLVcOC0Vk0/AAAAAAAAAAI/AAAAAAAAHnY/8WxD_lAXSko/s512-c/photo.jpg'/></author><thr:total>2</thr:total></entry><entry><id>tag:blogger.com,1999:blog-30322458.post-1150004639870474538</id><published>2011-09-06T15:01:00.000+02:00</published><updated>2011-11-18T21:03:25.725+01:00</updated><category scheme="http://www.blogger.com/atom/ns#" term="javascript"/><category scheme="http://www.blogger.com/atom/ns#" term="linux"/><category scheme="http://www.blogger.com/atom/ns#" term="nodejs"/><category scheme="http://www.blogger.com/atom/ns#" term="shell"/><title type='text'>Installer NodeJS dans son HOMEDIR avec STOW</title><summary type="text">Il y a quelque temps déjà, j&#39;avais présenté l&#39;utilitaire stow. Mais avec les distributions Linux récentes cet utilitaire avait peu d’intérêt tant l&#39;usage d&#39;apt-get install suffisait la majorité du temps. Mais voilà, avec NodeJS, on ne peut pas attendre que la dernière version soit packagée pour l&#39;utiliser. Il faut donc l&#39;installer soit même, et si il existe  plusieurs méthodes, aucune ne permet </summary><link rel='replies' type='application/atom+xml' href='http://blog.touv.fr/feeds/1150004639870474538/comments/default' title='Publier les commentaires'/><link rel='replies' type='text/html' href='http://blog.touv.fr/2011/09/installer-nodejs-dans-son-homedir-avec.html#comment-form' title='1 commentaires'/><link rel='edit' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/1150004639870474538'/><link rel='self' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/1150004639870474538'/><link rel='alternate' type='text/html' href='http://blog.touv.fr/2011/09/installer-nodejs-dans-son-homedir-avec.html' title='Installer NodeJS dans son HOMEDIR avec STOW'/><author><name>Nicolas Thouvenin</name><uri>https://plus.google.com/100470147949342588997</uri><email>noreply@blogger.com</email><gd:image rel='http://schemas.google.com/g/2005#thumbnail' width='32' height='32' src='//lh5.googleusercontent.com/-6fLVcOC0Vk0/AAAAAAAAAAI/AAAAAAAAHnY/8WxD_lAXSko/s512-c/photo.jpg'/></author><thr:total>1</thr:total></entry><entry><id>tag:blogger.com,1999:blog-30322458.post-144557601119881618</id><published>2011-08-26T11:14:00.007+02:00</published><updated>2011-08-26T11:53:11.956+02:00</updated><category scheme="http://www.blogger.com/atom/ns#" term="javascript"/><category scheme="http://www.blogger.com/atom/ns#" term="nodejs"/><title type='text'>HTTP request loop in NodeJS</title><summary type="text">
-Comment envoyer 200000 requêtes HTTP avec NodeJS ? A priori cette question semble facile ? Voyons si c&#39;est le cas ?
+&lt;p&gt;Providence, RI&lt;/p&gt;
+</content>
+  </entry>
 
-Commençons petit
+<entry>
+    <title>Bliki: FunctionAsObject</title>
+    <link href="https://martinfowler.com/bliki/FunctionAsObject.html"/>
+    <updated>2017-02-13T11:20:00-05:00</updated>
+    <id>https://martinfowler.com/bliki/FunctionAsObject.html</id>
+    <category term="bliki"/>
+    <content type="html">
+&lt;p&gt;In programming, the fundamental notion of an object is the bundling of data and
+  behavior. This provides a common data context when writing a set of related functions.
+  It also provides an interface to manipulating the data that allows the object to control
+  access to that data, making it easy to support derived data and prevent invalid
+  modifications of data. Many languages provide explicit syntax to define classes, which
+  act as definitions for objects. But if you have a language with first-class functions
+  and closures, you can use these constructs to create objects using the Function As
+  Object pattern (originally described by Eugene Wallingford).&lt;/p&gt;
 
-Avant d&#39;envoyer plusieurs centaines de requêtes voyons déjà comment en envoyer une seule :
+&lt;p&gt;Here is an example of a simplistic person object, done using the function-as-object
+  style in JavaScript. &lt;a href="#footnote-joda"&gt;[1]&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;function createPerson(name) {
+  let birthday;
+  return {
+    name: () =&amp;gt; name,
+    setName: (aString) =&amp;gt; name = aString,
+    birthday: () =&amp;gt; birthday,
+    setBirthday: (aLocalDate) =&amp;gt; birthday = aLocalDate,
+    age: age,
+    canTrust: canTrust,
+  };
+  function age() {
+    return birthday.until(clock.today(), ChronoUnit.YEARS);
+  }
+  function canTrust() {
+    return age() &amp;lt;= 30;
+  }
+}
+&lt;/pre&gt;
+
+&lt;p&gt;The outer form of a function-as-object is a function, which is called as a
+  constructor function. The result of the call is, in essence, a hashmap of functions
+  &lt;a href="#footnote-hashmap"&gt;[2]&lt;/a&gt; which acts as a method selector. This map captures the state
+  of any variables in the function in a closure, allowing the data to persist beyond a
+  single function invocation. This result hashmap can be treated like a classical object.
+  &lt;/p&gt;
+
+&lt;pre&gt;const kent = createPerson("kent");
+kent.setBirthday(LocalDate.parse("1961-03-31"));
+const youngEnoughToTrust = kent.canTrust();&lt;/pre&gt;
+
+&lt;p&gt;Looking at the function-as-object from a classical OO point of view:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;the fields of the object are represented by the parameters to the constructor
+    function &lt;code&gt;(name)&lt;/code&gt;together with the local variables &lt;code&gt;(birthday)&lt;/code&gt;.
+    &lt;/li&gt;
+
+&lt;li&gt;the methods of the object are the functions nested within the constructor
+    function. Like object methods they can freely call each other and manipulate the data
+    in these locally scoped variables (fields)&lt;/li&gt;
+
+&lt;li&gt;Nothing outside the constructor function can access the variables, preserving data
+    encapsulation. &lt;/li&gt;
+
+&lt;li&gt;The public methods of the object are those functions that are present in the
+    result hashmap.&lt;/li&gt;
+
+&lt;li&gt;Any functions nested inside the constructor function but not present in the result
+    hashmap are private methods&lt;/li&gt;
+
+&lt;li&gt;The names of the public methods are the keys of the result hashmap, not the names
+    of the functions within the constructor function. I prefer to keep the keys and
+    function names the same to avoid confusion (although it can be handy to alias
+    functions if needed). &lt;a href="#footnote-shorthand-property"&gt;[3]&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A common alternative implementation of this pattern is to return a function as the
+  method selector rather than the hashmap which is the natural method selector in
+  JavaScript. To use a function as the method selector, I'd return a function whose first
+  argument is the name of the method to invoke. The function body then switches on that
+  value (see &lt;a href="http://www.cs.uni.edu/~wallingf/patterns/envoy.pdf"&gt;Wallingford&lt;/a&gt; for more on this).&lt;/p&gt;
+
+&lt;p&gt;The function-as-object approach has been around for a long time, I've seen it
+  described in lisp many times, and it's been widely used in JavaScript (until ES6,
+  JavaScript had a very limited notion of classes). It's often used as an argument that a
+  specific syntax for classes isn't necessary, which is the equivalent of
+  object-aficionados arguing that you don't need first class functions when you can write
+  a class with a single "call" method. As a consequence many people in the JavaScript
+  world argue against using the ES6 class syntax. Personally, I like having both first
+  class functions and first class classes, and prefer ES6's class syntax.
+  &lt;/p&gt;
+
+&lt;div class="furtherReading"&gt;
+&lt;h2&gt;Further Reading&lt;/h2&gt;
+
+&lt;p&gt;Eugene Wallingford coined the name "Function as Object" in his &lt;a href="http://www.cs.uni.edu/~wallingf/patterns/envoy.pdf"&gt;1999 pattern language "Envoy"&lt;/a&gt;. His paper is worth reading for more
+    details on this, including using a function as the method selector and delegation to
+    support some notion of inheritance. The examples in the paper use Scheme.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="acknowledgements"&gt;
+&lt;h2&gt;Acknowledgements&lt;/h2&gt;
+
+&lt;p&gt;
+     Chris Ford, Fred George, James Shore, Kevin Yeung, Lucas Lego, Matteo Vaccari, 
+     Rob Miles, and Eugene Wallingford
+
+     commented on drafts of this post
+
+   &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="footnote-list"&gt;
+&lt;h2&gt;Notes&lt;/h2&gt;
+
+&lt;div class="footnote-list-item" id="footnote-joda"&gt;
+&lt;p&gt;&lt;span class="num"&gt;1: &lt;/span&gt;
+      For date handling I'm using &lt;a href="https://js-joda.github.io/js-joda/"&gt;js-joda&lt;/a&gt;, a port of the
+      Joda-Time library that cleaned up the appalling mess that was Java's date and time
+      handling. I'm glad joda-js is repeating the service of bringing sanity to date and
+      time handling.
+    &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="footnote-list-item" id="footnote-hashmap"&gt;
+&lt;p&gt;&lt;span class="num"&gt;2: &lt;/span&gt;
+      In JavaScript terminology it's called an object, although it is a JavaScript object,
+      not the classical object that we're trying to create. I'll thus refer to it as a
+      hashmap, to try and reduce the confusion.
+    &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="footnote-list-item" id="footnote-shorthand-property"&gt;
+&lt;p&gt;&lt;span class="num"&gt;3: &lt;/span&gt;
+      In ES6 I can use shorthand property names to remove the duplication by replacing
+      "&lt;code&gt;age:&#xA0;age,&lt;/code&gt;" with "&lt;code&gt;age,&lt;/code&gt;".
+    &lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="shares"&gt;
+&lt;div class="icons"&gt;&lt;span class="label"&gt;Share:&lt;/span&gt;&lt;a href="https://twitter.com/intent/tweet?url=https://martinfowler.com/bliki/FunctionAsObject.html&amp;amp;text=Bliki:%20FunctionAsObject%20%E2%9E%99%20" title="Share on Twitter"&gt;&lt;img src="/t_mini-a.png"&gt;&lt;/a&gt;&lt;a href="https://facebook.com/sharer.php?u=https://martinfowler.com/bliki/FunctionAsObject.html" title="Share on Facebook"&gt;&lt;img src="/fb-icon-20.png"&gt;&lt;/a&gt;&lt;a href="https://plus.google.com/share?url=https://martinfowler.com/bliki/FunctionAsObject.html" title="Share on Google Plus"&gt;&lt;img src="/gplus-16.png"&gt;&lt;/a&gt;&lt;/div&gt;
+
+&lt;div class="comment"&gt;if you found this article useful, please share it. I appreciate the feedback and encouragement&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="clear"&gt;&lt;/div&gt;
+</content>
+  </entry>
+
+<entry>
+    <title>Interview about the Agile Manifesto</title>
+    <link href="http://www.stitcher.com/podcast/the-agile-uprising-podcast/e/manifesto-coauthor-interview-martin-fowler-49106530?autoplay=true"/>
+    <updated>2017-02-13T11:18:00-05:00</updated>
+    <id>tag:martinfowler.com,2017-02-13:Interview-about-the-Agile-Manifesto</id>
+    <content type="html">
+&lt;p&gt;The &lt;a href = 'http://www.agileuprising.com'&gt;agile uprising&lt;/a&gt; podcast has been doing a series of interviews with the
+       authors of the agile manifesto. &lt;a href = 'http://www.stitcher.com/podcast/the-agile-uprising-podcast/e/manifesto-coauthor-interview-martin-fowler-49106530?autoplay=true'&gt;Here is my interview&lt;/a&gt;, where I reveal that I
+       remember little of the event, but can describe a bit about the context of the time
+       that led to it. We also talk a bit about how the agile world has developed
+       since.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href = 'http://www.stitcher.com/podcast/the-agile-uprising-podcast/e/manifesto-coauthor-interview-martin-fowler-49106530?autoplay=true'&gt;more&#x2026;&lt;/a&gt;&lt;/p&gt;</content>
+  </entry>
+
+<entry>
+    <title>What do you mean by &#x201C;Event-Driven&#x201D;</title>
+    <link href="https://martinfowler.com/articles/201701-event-driven.html"/>
+    <updated>2017-02-07T09:02:00-05:00</updated>
+    <id>tag:martinfowler.com,2017-02-07:What-do-you-mean-by--Event-Driven-</id>
+    <content type="html">
+&lt;p&gt;Towards the end of last year I attended a workshop with my colleagues in
+       ThoughtWorks to discuss the nature of &amp;#x201C;event-driven&amp;#x201D; applications. Over the last
+       few years we've been building lots of systems that make a lot of use of events, and
+       they've been often praised, and often damned. Our North American office organized a
+       summit, and ThoughtWorks senior developers from all over the world showed up to
+       share ideas.&lt;/p&gt;
+
+&lt;p&gt;The biggest outcome of the summit was recognizing that when people talk about
+       &amp;#x201C;events&amp;#x201D;, they actually mean some quite different things. So we spent a lot of time
+       trying to tease out what some useful patterns might be. This note is a brief
+       summary of the main ones we identified. &lt;/p&gt;
+
+&lt;p&gt;&lt;a href = 'https://martinfowler.com/articles/201701-event-driven.html'&gt;more&#x2026;&lt;/a&gt;&lt;/p&gt;</content>
+  </entry>
+
+<entry>
+    <title>Bliki: SyntheticMonitoring</title>
+    <link href="https://martinfowler.com/bliki/SyntheticMonitoring.html"/>
+    <updated>2017-01-25T09:46:00-05:00</updated>
+    <id>https://martinfowler.com/bliki/SyntheticMonitoring.html</id>
+    <category term="bliki"/>
+    <author>
+      <name>Fl&#xE1;via Fal&#xE9;</name>
+      <uri>https://uk.linkedin.com/in/flaviarodriguesf</uri>
+    </author>
+    <author>
+      <name>Serge Gebhardt</name>
+      <uri>https://www.thoughtworks.com/profiles/serge-gebhardt</uri>
+    </author>
+    <content type="html">
+&lt;p&gt;Synthetic monitoring (also called semantic monitoring &lt;a href="#footnote-etymology"&gt;[1]&lt;/a&gt;)
+  runs a subset of an application's
+  automated tests against the live production system on a regular basis. The results are
+  pushed into the monitoring service, which triggers alerts in case of failures. This
+  technique combines automated testing with monitoring in order to detect failing business
+  requirements in production.&lt;/p&gt;
+
+&lt;div class="photo" style="width: 800px"&gt;&lt;img src="https://martinfowler.com/bliki/images/syntheticMonitoring/sketch.png" width="800px"&gt;
+&lt;p&gt;&lt;i&gt;&lt;/i&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;In the age of small independent services and frequent deployments it's very difficult
+  to test pre-production with the exact same combination of versions as they
+  will later exist in production. One way to mitigate this problem is to extend
+  testability from pre-production into production environments - the idea behind
+  &lt;a href="https://www.thoughtworks.com/radar/techniques/qa-in-production"&gt;QA in production&lt;/a&gt;. Doing this shifts the mindset from a focus on
+  Mean-Time-Between-Failures (MTBF) towards &lt;a href="https://www.thoughtworks.com/radar/techniques/focus-on-mean-time-to-recovery"&gt;a focus on Mean-Time-To-Recovery&lt;/a&gt; (MTTR).&lt;/p&gt;
+
+&lt;div class="tweet tweet-sidebar"&gt;
+&lt;blockquote class="twitter-tweet" data-cards="hidden" lang="en"&gt;
+    MTTR &amp;gt; MTBF, for most types of F
+  &lt;a href="https://twitter.com/allspaw/status/1341515242672129"&gt;-- John Allspaw&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;&lt;/div&gt;
+
+&lt;p&gt;A technique for this is synthetic monitoring, which we used at a client who is a digital marketplace for cars with
+  millions of classifieds across a dozen countries. They have close to a hundred services
+  in production, each deployed multiple times a day. Tests are run in a &lt;a href="https://martinfowler.com/bliki/ContinuousDelivery.html"&gt;ContinuousDelivery&lt;/a&gt; pipeline before the service is deployed to production. The dependencies for the
+  integration tests do not use &lt;a href="https://martinfowler.com/bliki/TestDouble.html"&gt;TestDoubles&lt;/a&gt;, instead the tests run against components in
+  production.&lt;/p&gt;
+
+&lt;p&gt;Here is an example of these tests that's well suited for synthetic monitoring. It impersonates a user
+  adding a classified to her list of favourites. The steps she takes are as follows:&lt;/p&gt;
+
+&lt;table class="invisible"&gt;
+&lt;tr&gt;&lt;td&gt;Go to the homepage, log in and remove all favourites, if any. At this point
+        the favourites counter is zero.&lt;/td&gt;&lt;td style="width: 200px"&gt;&lt;img src="https://martinfowler.com/bliki/images/syntheticMonitoring/screen1.png"&gt;&lt;/td&gt;&lt;/tr&gt;
+
+&lt;tr&gt;&lt;td&gt;Select some filtering criteria and execute search.&lt;/td&gt;&lt;td&gt;&lt;img src="https://martinfowler.com/bliki/images/syntheticMonitoring/screen2.png"&gt;&lt;/td&gt;&lt;/tr&gt;
+
+&lt;tr&gt;&lt;td&gt;Add two entries from the results to the favourites by clicking the star. The stars
+      change from grey to yellow.&lt;/td&gt;&lt;td&gt;&lt;img src="https://martinfowler.com/bliki/images/syntheticMonitoring/screen3.png"&gt;&lt;/td&gt;&lt;/tr&gt;
+
+&lt;tr&gt;&lt;td&gt;Go to the homepage. At this point the favourites counter should be two.&lt;/td&gt;&lt;td&gt;&lt;img src="https://martinfowler.com/bliki/images/syntheticMonitoring/screen4.png"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;p&gt;In order to exclude test requests from analytics we add a parameter
+  (such as &lt;code&gt;excluderequests=true&lt;/code&gt;)
+  to the URL. The parameter is handed over transitively to all downstream services, each
+  of which suppresses analytics and third party scripts when it is set to true.&lt;/p&gt;
+
+&lt;p&gt;We could use the &lt;code&gt;excluderequests&lt;/code&gt;
+  parameter to mark the data as synthetic in the backend
+  datastores. In our case this isn't relevant since we re-use the same user account and
+  clean out its state at the beginning of the test. The downside is that we cannot run
+  this test concurrently. Alternatively, we could create a new user account for each test run.
+  To make the test users easily identifiable these accounts would have a specific pre or postfix in the email address.
+  Another option would be to have a custom HTTP header that would be sent in every request to identify it as a test, though
+  this is more common for APIs.&lt;/p&gt;
+
+&lt;p&gt;Our tests run with the Selenium webdriver and are executed with PhantomJS every 5 minutes against
+  the service in production. The test results are fed into the monitoring
+  system and displayed on the team's dashboard. Depending on the
+  importance of the tested feature, failures can also trigger alerts for
+  on-call duties.&lt;/p&gt;
+
+&lt;p&gt;A selection of &lt;a href="/bliki/BroadStackTest.html"&gt;Broad Stack Tests&lt;/a&gt; at the top of the &lt;a href="/bliki/TestPyramid.html"&gt;Test Pyramid&lt;/a&gt; are well suited to use for
+  synthetic monitoring. These would be UI tests, &lt;a href="/bliki/UserJourneyTest.html"&gt;User Journey Tests&lt;/a&gt;, User Acceptance tests
+  or End-to-End tests for web applications; or &lt;a href="http://martinfowler.com/articles/consumerDrivenContracts.html"&gt;Consumer-Driven Contract tests&lt;/a&gt; (CDCs) for
+  APIs. An alternative to running a suite of UI tests &#x2014; for example in the context of
+  batch processing jobs &#x2014; would be to feed a synthetic transaction into the system and
+  assert on its desired final state such as a database entry, a message on a queue or a
+  file in a directory.&lt;/p&gt;
+
+&lt;div class="furtherReading"&gt;
+&lt;h2&gt;Further Reading&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://samnewman.io/books/building_microservices/"&gt;Building Microservices: Designing Fine-Grained Systems&lt;/a&gt; -- by Sam Newman&lt;/li&gt;
+
+&lt;li&gt;&lt;a href="http://martinfowler.com/articles/microservice-testing/"&gt;Testing Strategies in a Microservice Architecture&lt;/a&gt; -- by Toby Clemson&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+
+&lt;div class="acknowledgements"&gt;
+&lt;h2&gt;Acknowledgements&lt;/h2&gt;
+
+&lt;p&gt;Thanks to &lt;a href="https://henrylawson.net/"&gt;Henry Lawson&lt;/a&gt; for his feedback.&lt;/p&gt;
+
+&lt;p&gt;And a special thanks to Martin Fowler for his support, suggestions and time spent helping us improve this Bliki.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="footnote-list"&gt;
+&lt;h2&gt;Notes&lt;/h2&gt;
+
+&lt;div class="footnote-list-item" id="footnote-etymology"&gt;
+&lt;p&gt;&lt;span class="num"&gt;1: &lt;/span&gt;&lt;a href="https://www.thoughtworks.com/profiles/ryan-murray"&gt;Ryan Murray&lt;/a&gt; coined the term "semantic monitoring"
+      and it appeared on the
+      &lt;a href="https://www.thoughtworks.com/radar/techniques/semantic-monitoring"&gt;ThoughtWorks Technology Radar&lt;/a&gt; in late 2012. However
+      "synthetic monitoring" seems to be the more widely used term, and usefully builds on
+      the notion of synthetic transactions.
+    &lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="shares"&gt;
+&lt;div class="icons"&gt;&lt;span class="label"&gt;Share:&lt;/span&gt;&lt;a href="https://twitter.com/intent/tweet?url=https://martinfowler.com/bliki/SyntheticMonitoring.html&amp;amp;text=Bliki:%20SyntheticMonitoring%20%E2%9E%99%20" title="Share on Twitter"&gt;&lt;img src="/t_mini-a.png"&gt;&lt;/a&gt;&lt;a href="https://facebook.com/sharer.php?u=https://martinfowler.com/bliki/SyntheticMonitoring.html" title="Share on Facebook"&gt;&lt;img src="/fb-icon-20.png"&gt;&lt;/a&gt;&lt;a href="https://plus.google.com/share?url=https://martinfowler.com/bliki/SyntheticMonitoring.html" title="Share on Google Plus"&gt;&lt;img src="/gplus-16.png"&gt;&lt;/a&gt;&lt;/div&gt;
+
+&lt;div class="comment"&gt;if you found this article useful, please share it. I appreciate the feedback and encouragement&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="clear"&gt;&lt;/div&gt;
+</content>
+  </entry>
+
+<entry>
+    <title>Bliki: ContinuousIntegrationCertification</title>
+    <link href="https://martinfowler.com/bliki/ContinuousIntegrationCertification.html"/>
+    <updated>2017-01-18T00:00:00-05:00</updated>
+    <id>https://martinfowler.com/bliki/ContinuousIntegrationCertification.html</id>
+    <category term="bliki"/>
+    <content type="html">
+&lt;p&gt;&lt;a href="/articles/continuousIntegration.html"&gt;Continuous Integration&lt;/a&gt; is a popular technique in software development. At conferences
+  many developers talk about how they use it, and Continuous Integration tools are common
+  in most development organizations. But we all know that any decent technique needs a certification
+  program &#x2014; and fortunately one does exist. Developed by one of the foremost experts in
+  continuous delivery and devops, it&#x2019;s known for being remarkably rapid to administer, yet
+  very insightful for its results. Although it&#x2019;s quite mature, it isn&#x2019;t as well known as
+  it should be, so as a fan of the technique I think it&#x2019;s important for me to share this
+  certification program with my readers. Are you ready to be certified for Continuous
+  Integration? And how
+  will you deal with the shocking truth that taking the test will reveal?&lt;/p&gt;
+
+&lt;p&gt;By now my regular readers are wondering if they&#x2019;ve come across a parody post &lt;a href="#footnote-certification"&gt;[1]&lt;/a&gt;, and yes
+  I am having a little fun with my opening teaser. But like any good joke there&#x2019;s an
+  important kernel of truth buried in it. There is a remarkably good test for proper
+  Continuous Integration that was created by &lt;a href="https://twitter.com/jezhumble"&gt;Jez Humble&lt;/a&gt; - and he certainly is a leading
+  expert in &lt;a href="https://martinfowler.com/bliki/ContinuousDelivery.html"&gt;ContinuousDelivery&lt;/a&gt;. It&#x2019;s also a rapid test, he often administers it to his
+  audience during his talks. The only problem is that I&#x2019;ve never heard him refer to it as a
+  certification test - which just shows his lack of vision for money-making schemes.&lt;/p&gt;
+
+&lt;p&gt;He usually begins the certification process by asking his audience to raise their
+  hands if they do Continuous Integration. Usually most of the audience raise their hands.&lt;/p&gt;
+
+&lt;p&gt;He then asks them to keep their hands up if everyone on their team commits and pushes
+  to a shared mainline (usually shared master in git) at least daily.&lt;/p&gt;
+
+&lt;p&gt;Over half the hands go down.&lt;/p&gt;
+
+&lt;p&gt;He then asks them to keep their hands up if each such commit causes an automated
+  build and test. Half the remaining hands are lowered.&lt;/p&gt;
+
+&lt;p&gt;Finally he asks if, when the build fails, it&#x2019;s usually back to green within ten
+  minutes. &lt;a href="#footnote-10-mins"&gt;[2]&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;With that last question only a few hands remain. Those are the people who pass his
+  certification test.&lt;/p&gt;
+
+&lt;div class="photo" style="width: 700px"&gt;&lt;img src="https://martinfowler.com/bliki/images/ci-certification/sketch.png" width="700px"&gt;
+&lt;p&gt;&lt;i&gt;&lt;/i&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;It&#x2019;s a simple set of questions, but it gets to the core of what Continuous
+  Integration is about. The whole idea is that nobody is working on a code base that
+  deviates significantly from anyone else&#x2019;s. Continuous Integration means the team knows
+  what the current state of the code truly is, we avoid big risky merges, and people can
+  refactor as much as they need to.&lt;/p&gt;
+
+&lt;p&gt;The reason so many people raise their hands at the beginning is the common view that
+  Continuous Integration means running some &#x201C;Continuous Integration Server&#x201D; against their
+  feature branches. But Continuous Integration &#x2014; as it was originally described and named
+  by Kent Beck as part of &lt;a href="https://martinfowler.com/bliki/ExtremeProgramming.html"&gt;ExtremeProgramming&lt;/a&gt; &#x2014; has nothing to do with tools. At the
+  beginning it was a human workflow and Jim Shore &lt;a href="http://www.jamesshore.com/Blog/Continuous-Integration-on-a-Dollar-a-Day.html"&gt;made an excellent argument&lt;/a&gt; that it
+  &lt;i&gt;should&lt;/i&gt; be that. The idea of running a daemon process against a source code
+  repository came later, and while it is helpful, it&#x2019;s only Continuous Integration if it&#x2019;s
+  run on a shared mainline that people commit to every day. Running such a daemon
+  otherwise, such as on every &lt;a href="https://martinfowler.com/bliki/FeatureBranch.html"&gt;FeatureBranch&lt;/a&gt;, is &lt;b&gt;Daemonic Continuous Integration&lt;/b&gt; that debases the name &lt;a href="#footnote-tbd"&gt;[3]&lt;/a&gt;, yielding a workflow that doesn't give you the benefits that make the whole
+  thing worth the effort.&lt;/p&gt;
+
+&lt;div class="furtherReading"&gt;
+&lt;h2&gt;Further Reading&lt;/h2&gt;
+
+&lt;p&gt;For more details on Continuous Integration, see &lt;a href="/articles/continuousIntegration.html"&gt;my main
+    article&lt;/a&gt;, while written in 2006 it's still a solid summary and definition of the
+    technique. Jez explains why &lt;a href="https://continuousdelivery.com/foundations/continuous-integration/"&gt;Continuous Integration is a foundation
+    for Continuous Delivery&lt;/a&gt;. He states the three questions in the FAQ on that page.
+    Paul Duvall wrote &lt;a href="/books/duvall.html"&gt;the definitive book&lt;/a&gt; on Continuous
+    Integration. Watch &lt;a href="https://www.youtube.com/watch?v=mBUJ-fg4EKA#t=16m27s"&gt;Jez administer the certification test&lt;/a&gt;
+    at GOTO Chicago in 2014 (sadly there was no camera on the audience).&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="acknowledgements"&gt;
+&lt;h2&gt;Acknowledgements&lt;/h2&gt;
+
+    All credit for the three questions go to Jez, whose talks I've always enjoyed. A
+    conversation with Paul Hammant triggered me to come up with the term Daemonic
+    Continuous Integration, which I hope will catch on for this particularly annoying
+    piece of cargo culting.
+  &lt;/div&gt;
+
+&lt;div class="footnote-list"&gt;
+&lt;h2&gt;Notes&lt;/h2&gt;
+
+&lt;div class="footnote-list-item" id="footnote-certification"&gt;
+&lt;p&gt;&lt;span class="num"&gt;1: &lt;/span&gt;
+      In general, I'm not a fan of software certification schemes, as they usually fail
+      the &lt;a href="https://martinfowler.com/bliki/CertificationCompetenceCorrelation.html"&gt;CertificationCompetenceCorrelation&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="footnote-list-item" id="footnote-10-mins"&gt;
+&lt;p&gt;&lt;span class="num"&gt;2: &lt;/span&gt;
+      For this step, "green" counts as passing the &lt;a href="/articles/continuousIntegration.html#commit-build"&gt;commit
+      build&lt;/a&gt;, typically compilation and unit tests. While we usually expect a full
+      &lt;a href="https://martinfowler.com/bliki/DeploymentPipeline.html"&gt;DeploymentPipeline&lt;/a&gt; to be run for release to production, a repository
+      should be fine for developers to work on after the commit build is green. You should
+      have a commit build that takes no more than ten minutes, so quickly fixing it and
+      re-running the commit build works if the fix is easy. If you can't fix and get a
+      green commit build within ten minutes, then you should revert to the last green build.
+    &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="footnote-list-item" id="footnote-tbd"&gt;
+&lt;p&gt;&lt;span class="num"&gt;3: &lt;/span&gt;
+      The problem of Daemonic Continuous
+  Integration leads some people to use the name &lt;a href="http://paulhammant.com/2013/04/05/what-is-trunk-based-development/"&gt;Trunk-Based Development&lt;/a&gt;, arguing that
+  &lt;a href="https://martinfowler.com/bliki/SemanticDiffusion.html"&gt;SemanticDiffusion&lt;/a&gt; has rendered the term &#x201C;Continuous Integration&#x201D; useless.
+  While I understand their view, I believe that we shouldn&#x2019;t give in to semantic
+  diffusion, instead we need to keep working at re-explaining the proper meaning of
+  Continuous Integration, just as we should with other terms under this kind of semantic
+  assault (such as &#x201C;agile&#x201D; and &#x201C;refactoring&#x201D;).
+    &lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="shares"&gt;
+&lt;div class="icons"&gt;&lt;span class="label"&gt;Share:&lt;/span&gt;&lt;a href="https://twitter.com/intent/tweet?url=https://martinfowler.com/bliki/ContinuousIntegrationCertification.html&amp;amp;text=Bliki:%20ContinuousIntegrationCertification%20%E2%9E%99%20" title="Share on Twitter"&gt;&lt;img src="/t_mini-a.png"&gt;&lt;/a&gt;&lt;a href="https://facebook.com/sharer.php?u=https://martinfowler.com/bliki/ContinuousIntegrationCertification.html" title="Share on Facebook"&gt;&lt;img src="/fb-icon-20.png"&gt;&lt;/a&gt;&lt;a href="https://plus.google.com/share?url=https://martinfowler.com/bliki/ContinuousIntegrationCertification.html" title="Share on Google Plus"&gt;&lt;img src="/gplus-16.png"&gt;&lt;/a&gt;&lt;/div&gt;
+
+&lt;div class="comment"&gt;if you found this article useful, please share it. I appreciate the feedback and encouragement&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="clear"&gt;&lt;/div&gt;
+</content>
+  </entry>
+
+<entry>
+    <title>My site is now on HTTPS</title>
+    <link href="https://martinfowler.com/articles/201701-https.html"/>
+    <updated>2017-01-06T17:38:00-05:00</updated>
+    <id>tag:martinfowler.com,2017-01-06:My-site-is-now-on-HTTPS</id>
+    <content type="html">
+&lt;p&gt;Today my site converted over to use HTTPS. Happy secure browsing.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href = 'https://martinfowler.com/articles/201701-https.html'&gt;more&#x2026;&lt;/a&gt;&lt;/p&gt;</content>
+  </entry>
+
+<entry>
+    <title>Basics of Web Application Security: Authorize Actions</title>
+    <link href="https://martinfowler.com/articles/web-security-basics.html#AuthorizeActions"/>
+    <updated>2017-01-05T09:40:00-05:00</updated>
+    <id>tag:martinfowler.com,2017-01-05:Basics-of-Web-Application-Security--Authorize-Actions</id>
+    <content type="html">
+&lt;div class = 'img'&gt;&lt;a href = 'https://martinfowler.com/articles/web-security-basics.html#AuthorizeActions'&gt;&lt;img src = 'https://martinfowler.com/articles/web-security-basics/card.png' width = '100%px'&gt;&lt;/img&gt;&lt;/a&gt;&lt;/div&gt;
+
+&lt;p&gt;Authentication means you know who your user is, protecting their session
+        ensures that information stays correct. Now Cade and Daniel move on to authorization:
+        checking that users only do what they are allowed to do. Authorization should
+        always be checked on the server and should deny by default. Actual authorization
+        schemes are domain-specific, but some common patterns help get you started.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href = 'https://martinfowler.com/articles/web-security-basics.html#AuthorizeActions'&gt;more&#x2026;&lt;/a&gt;&lt;/p&gt;</content>
+  </entry>
+
+<entry>
+    <title>photostream 104</title>
+    <link href="https://martinfowler.com/photos/104.html"/>
+    <updated>2016-12-03T09:55:00-05:00</updated>
+    <id>tag:martinfowler.com,2016-12-03:photostream-104</id>
+    <content type="html">
+&lt;p&gt;&lt;a href = 'https://martinfowler.com/photos/104.html'&gt;&lt;img src = 'https://martinfowler.com/photos/104.jpg'&gt;&lt;/img&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Regents Park, London, England&lt;/p&gt;
+</content>
+  </entry>
+
+<entry>
+    <title>Bliki: FunctionLength</title>
+    <link href="https://martinfowler.com/bliki/FunctionLength.html"/>
+    <updated>2016-11-30T08:58:00-05:00</updated>
+    <id>https://martinfowler.com/bliki/FunctionLength.html</id>
+    <category term="bliki"/>
+    <content type="html">
+&lt;p&gt;During my career, I've heard many arguments about how long a function should be. This
+  is a proxy for the more important question - when should we enclose code in its own
+  function?  Some of these guidelines were based on length, such as functions should be no
+  larger than fit on a screen &lt;a href="#footnote-printer"&gt;[1]&lt;/a&gt;. Some were based on reuse - any
+  code used more than once should be put in its own function, but code only used once
+  should be left inline. The argument that makes most sense to me, however, is the
+  &lt;b&gt;separation between intention and implementation&lt;/b&gt;. If you have to spend effort into
+  looking at a fragment of code to figure out &lt;i&gt;what&lt;/i&gt; it's doing, then you should
+  extract it into a function and name the function after that &#x201C;what&#x201D;. That way when you
+  read it again, the purpose of the function leaps right out at you, and most of the time
+  you won't need to care about how the function fulfills its purpose - which is the body
+  of the function.&lt;/p&gt;
+
+&lt;p&gt;Once I accepted this principle, I developed a habit of writing very small functions -
+  typically only a few lines long &lt;a href="#footnote-nested"&gt;[2]&lt;/a&gt;.
+  Any function more than half-a-dozen lines of code
+  starts to smell to me, and it's not unusual for me to have functions that are a single
+  line of code &lt;a href="#footnote-mine"&gt;[3]&lt;/a&gt;. The fact that size isn't important was brought
+  home to me by an example that Kent Beck showed me from the original Smalltalk system.
+  Smalltalk in those days ran on black-and-white systems. If you wanted to highlight some
+  text or graphics, you would reverse the video. Smalltalk's graphics class had a method
+  for this called 'highlight', whose implementation was just a call to the method
+  'reverse' &lt;a href="#footnote-highlight"&gt;[4]&lt;/a&gt;. The name of the method was longer than its
+  implementation - but that didn't matter because there was a big distance between the
+  intention of the code and its implementation.&lt;/p&gt;
+
+&lt;p&gt;Some people are concerned about short functions because they are worried about the
+  performance cost of a function call. When I was young, that was occasionally a factor,
+  but that's very rare now. Optimizing compilers often work better with shorter functions
+  which can be cached more easily. As ever, &lt;a href="/ieeeSoftware/yetOptimization.pdf"&gt;the general guidelines on performance
+  optimization&lt;/a&gt; are what counts. Sometimes inlining the function later is what you'll
+  need to do, but often smaller functions suggest other ways to speed things up. I remember
+  people objecting to having an &lt;code&gt;isEmpty&lt;/code&gt; method for a list when the
+  common idiom is to use &lt;code&gt;aList.length == 0&lt;/code&gt;. But here using the
+  intention-revealing name on a function may also support better performance if it's
+  faster to figure out if a collection is empty than to determine its length.&lt;/p&gt;
+
+&lt;p&gt;Small functions like this only work if the names are good, so you need to pay good
+  attention to naming. This takes practice, but once you get good at it, this approach can
+  make code remarkably self-documenting. Larger scale functions can read like a story, and
+  the reader can choose which functions to dive into for more detail as she needs it.&lt;/p&gt;
+
+&lt;div class="acknowledgements"&gt;
+&lt;h2&gt;Acknowledgements&lt;/h2&gt;
+
+&lt;p&gt;
+    Brandon Byars, Karthik Krishnan, Kevin Yeung, Luciano Ramalho, Pat Kua, Rebecca Parsons, Serge
+    Gebhardt, Srikanth Venugopalan, and Steven Lowe
+    
+    discussed drafts of this post on our internal mailing list.
+    &lt;/p&gt;
+
+&lt;p&gt;Christian Pekeler reminded me that nested functions don't fit my sizing observations.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="footnote-list"&gt;
+&lt;h2&gt;Notes&lt;/h2&gt;
+
+&lt;div class="footnote-list-item" id="footnote-printer"&gt;
+&lt;p&gt;&lt;span class="num"&gt;1: &lt;/span&gt;
+      Or in my first programming job: two pages of line printer paper - around 130 lines
+      of Fortran IV
+    &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="footnote-list-item" id="footnote-nested"&gt;
+&lt;p&gt;&lt;span class="num"&gt;2: &lt;/span&gt;
+      Many languages allow you to use functions to contain other functions. This is often
+      used as a scope reduction mechanism, such as using the &lt;a href="http://www.cs.uni.edu/~wallingf/patterns/envoy.pdf"&gt;Function as
+      Object&lt;/a&gt; pattern to implement a class. Such functions are naturally much
+      larger.
+    &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="footnote-list-item" id="footnote-mine"&gt;
+&lt;h3 class="head-text"&gt;3: Length of my functions&lt;/h3&gt;
+
+&lt;p&gt;Recently I got curious about function length in the toolchain that builds this
+      website. It's mostly Ruby and runs to about 15 KLOC. Here's a cumulative frequency
+      plot for the method body lengths&lt;/p&gt;
+&lt;img src="https://martinfowler.com/bliki/images/functionLength/my-method-counts.png"&gt;
+&lt;p&gt;As you see there's lots of small methods there - half of the methods in my
+      codebase are two lines or less. (lines here are non-comment, non-blank, and
+      excluding the &lt;code&gt;def&lt;/code&gt; and &lt;code&gt;end&lt;/code&gt; lines.)&lt;/p&gt;
+
+&lt;p&gt;Here's the data in a crude tabular form (I'm feeling too lazy to turn it into
+      proper HTML tables).&lt;/p&gt;
+
+&lt;pre&gt;
+              lines.freq lines.cumfreq lines.cumrelfreq
+[1,2)          875           875        0.4498715
+[2,3)          264          1139        0.5856041
+[3,4)          195          1334        0.6858612
+[4,5)          120          1454        0.7475578
+[5,6)          116          1570        0.8071979
+[6,7)           69          1639        0.8426735
+[7,8)           75          1714        0.8812339
+[8,9)           46          1760        0.9048843
+[9,10)          50          1810        0.9305913
+[10,15)         98          1908        0.9809769
+[15,20)         24          1932        0.9933162
+[20,50)         12          1944        0.9994859
+      &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class="footnote-list-item" id="footnote-highlight"&gt;
+&lt;p&gt;&lt;span class="num"&gt;4: &lt;/span&gt;
+      The example is in Kent's excellent &lt;a href="https://www.amazon.com/gp/product/013476904X?ie=UTF8&amp;amp;tag=martinfowlerc-20&amp;amp;linkCode=as2&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;creativeASIN=013476904X"&gt;Smalltalk Best Practice
+      Patterns&lt;/a&gt;&lt;img src="https://www.assoc-amazon.com/e/ir?t=martinfowlerc-20&amp;amp;l=as2&amp;amp;o=1&amp;amp;a=0321601912" width="1" height="1" border="0" alt="" style="width: 1px !important; height: 1px !important; border:none !important; margin:0px !important;"&gt; in Intention Revealing Message
+    &lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="translations"&gt;&lt;b&gt;Translations: &lt;/b&gt;&lt;a href="https://yaowenjie.github.io/coding/function-length"&gt;Chinese&lt;/a&gt;&lt;/div&gt;
+
+&lt;div class="shares"&gt;
+&lt;div class="icons"&gt;&lt;span class="label"&gt;Share:&lt;/span&gt;&lt;a href="https://twitter.com/intent/tweet?url=https://martinfowler.com/bliki/FunctionLength.html&amp;amp;text=Bliki:%20FunctionLength%20%E2%9E%99%20" title="Share on Twitter"&gt;&lt;img src="/t_mini-a.png"&gt;&lt;/a&gt;&lt;a href="https://facebook.com/sharer.php?u=https://martinfowler.com/bliki/FunctionLength.html" title="Share on Facebook"&gt;&lt;img src="/fb-icon-20.png"&gt;&lt;/a&gt;&lt;a href="https://plus.google.com/share?url=https://martinfowler.com/bliki/FunctionLength.html" title="Share on Google Plus"&gt;&lt;img src="/gplus-16.png"&gt;&lt;/a&gt;&lt;/div&gt;
+
+&lt;div class="comment"&gt;if you found this article useful, please share it. I appreciate the feedback and encouragement&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="clear"&gt;&lt;/div&gt;
+</content>
+  </entry>
+
+<entry>
+    <title>Bliki: HiddenPrecision</title>
+    <link href="https://martinfowler.com/bliki/HiddenPrecision.html"/>
+    <updated>2016-11-22T12:54:00-05:00</updated>
+    <id>https://martinfowler.com/bliki/HiddenPrecision.html</id>
+    <category term="bliki"/>
+    <content type="html">
+&lt;p&gt;Sometimes when I work with some data, that data is more precise than
+  I expect. One might think that would be a good thing, after all precision is good, so
+  more is better. But hidden precision can lead to some subtle bugs.&lt;/p&gt;
+
+&lt;pre&gt;const validityStart = new Date("2016-10-01");   // JavaScript
+const validityEnd = new Date("2016-11-08");
+const isWithinValidity = aDate =&amp;gt; (aDate &amp;gt;= validityStart &amp;amp;&amp;amp; aDate &amp;lt;= validityEnd);
+const applicationTime = new Date("2016-11-08 08:00");
+
+assert.notOk(isWithinValidity(applicationTime));  // NOT what I want&lt;/pre&gt;
+
+&lt;p&gt;What happened in the above code is that I intended to create an inclusive date range by
+  specifying the start and end dates. However I didn't actually specify dates, but
+  instants in time, so I'm not marking the end date as November 8th, I'm marking the end
+  as the time 00:00 on November 8th. As a consequence any time (other than midnight)
+  within November 8th falls outside the date range that's intended to include it.&lt;/p&gt;
+
+&lt;p&gt;Hidden precision is a common problem with dates, because it's sadly common to have a
+  date creation function that actually provides an instant like this. It's an example of
+  poor naming, and indeed general poor modeling of dates and times.&lt;/p&gt;
+
+&lt;p&gt;Dates are a good example of the problems of hidden precision, but another culprit
+  is floating point numbers.&lt;/p&gt;
+
+&lt;pre&gt;const tenCharges = [
+  0.10, 0.10, 0.10, 0.10, 0.10,
+  0.10, 0.10, 0.10, 0.10, 0.10,
+];
+const discountThreshold = 1.00;
+const totalCharge = tenCharges.reduce((acc, each) =&amp;gt; acc += each);
+assert.ok(totalCharge &amp;lt; discountThreshold);   // NOT what I want&lt;/pre&gt;
+
+&lt;p&gt;When I just ran it, a log statement showed &lt;code&gt;totalCharge&lt;/code&gt; was
+  &lt;code&gt;0.9999999999999999&lt;/code&gt;. This is because floating point doesn't exactly
+  represent many values, leading to a little invisible precision that can show up at
+  awkward times. &lt;/p&gt;
+
+&lt;p&gt;One conclusion from this is that you should be extremely wary of representing money
+  with a floating point number. (If you have a fractional currency part like cents, then
+  usually it's best to use integers on the fractional value, representing &#x20AC;5.00 with 500,
+  preferably within a &lt;a href="/eaaCatalog/money.html"&gt;money type&lt;/a&gt;)
+  The more general conclusion is that floating point is tricksy when it comes to
+  comparisons (which is why test framework asserts always have a precision for
+  comparisons). &lt;/p&gt;
+
+&lt;div class="acknowledgements"&gt;
+&lt;h2&gt;Acknowledgements&lt;/h2&gt;
+
+    Arun Murali, James Birnie, Ken McCormack, and Matteo Vaccari
+
+    discussed a draft of this post on our internal mailing list.
+  &lt;/div&gt;
+
+&lt;div class="shares"&gt;
+&lt;div class="icons"&gt;&lt;span class="label"&gt;Share:&lt;/span&gt;&lt;a href="https://twitter.com/intent/tweet?url=https://martinfowler.com/bliki/HiddenPrecision.html&amp;amp;text=Bliki:%20HiddenPrecision%20%E2%9E%99%20" title="Share on Twitter"&gt;&lt;img src="/t_mini-a.png"&gt;&lt;/a&gt;&lt;a href="https://facebook.com/sharer.php?u=https://martinfowler.com/bliki/HiddenPrecision.html" title="Share on Facebook"&gt;&lt;img src="/fb-icon-20.png"&gt;&lt;/a&gt;&lt;a href="https://plus.google.com/share?url=https://martinfowler.com/bliki/HiddenPrecision.html" title="Share on Google Plus"&gt;&lt;img src="/gplus-16.png"&gt;&lt;/a&gt;&lt;/div&gt;
+
+&lt;div class="comment"&gt;if you found this article useful, please share it. I appreciate the feedback and encouragement&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="clear"&gt;&lt;/div&gt;
+</content>
+  </entry>
+
+<entry>
+    <title>photostream 103</title>
+    <link href="https://martinfowler.com/photos/103.html"/>
+    <updated>2016-11-20T09:40:00-05:00</updated>
+    <id>tag:martinfowler.com,2016-11-20:photostream-103</id>
+    <content type="html">
+&lt;p&gt;&lt;a href = 'https://martinfowler.com/photos/103.html'&gt;&lt;img src = 'https://martinfowler.com/photos/103.jpg'&gt;&lt;/img&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Stoneham, MA&lt;/p&gt;
+</content>
+  </entry>
+
+<entry>
+    <title>Bliki: ValueObject</title>
+    <link href="https://martinfowler.com/bliki/ValueObject.html"/>
+    <updated>2016-11-14T10:39:00-05:00</updated>
+    <id>https://martinfowler.com/bliki/ValueObject.html</id>
+    <category term="bliki"/>
+    <content type="html">
+&lt;p&gt;When programming, I often find it's useful to represent things as a compound. A
+  2D coordinate consists of an x value and y value. An amount of money
+  consists of a number and a currency. A date range consists of start and end dates, which
+  themselves can be compounds of year, month, and day.&lt;/p&gt;
+
+&lt;p&gt;As I do this, I run into the question of whether two compound objects are the same.
+  If I have two point objects that both represent the Cartesian coordinates
+  of (2,3), it makes sense to treat them as equal. Objects that are equal due to the value
+  of their properties, in this case their x and y coordinates, are called value
+  objects.&lt;/p&gt;
+
+&lt;p&gt;But unless I'm careful when programming, I may not get that
+  behavior in my programs&lt;/p&gt;
+
+&lt;p&gt;Say I want to represent a point in JavaScript.&lt;/p&gt;
+
+&lt;pre&gt;const p1 = {x: 2, y: 3};
+const p2 = {x: 2, y: 3};
+assert(p1 !== p2);  // NOT what I want&lt;/pre&gt;
+
+&lt;p&gt;Sadly that test passes. It does so because JavaScript tests equality for js objects
+  by looking at their references, ignoring the values they contain. &lt;/p&gt;
+
+&lt;p&gt;In many situations using references rather than values makes sense. If I'm loading
+  and manipulating a bunch of sales orders, it makes sense to load each order into a
+  single place. If I then need to see if the Alice's latest order is in the next delivery,
+  I can take the memory reference, or identity, of Alice's order and see if that reference
+  is in the list of orders in the delivery. For this test, I don't have to worry about
+  what's in the order. Similarly I might rely on a unique order number, testing to see if
+  Alice's order number is on the delivery list.&lt;/p&gt;
+
+&lt;p&gt;Therefore I find it useful to think of two classes of object: value objects and reference
+  objects, depending on how I tell them apart &lt;a href="#footnote-entity"&gt;[1]&lt;/a&gt;. I need to ensure that I know how I expect each
+  object to handle equality and to program them so they behave according to my
+  expectations. How I do that depends on the programming language I'm working in.&lt;/p&gt;
+
+&lt;p&gt;Some languages treat all compound data as values. If I make a simple compound in Clojure, it
+  looks like this.&lt;/p&gt;
+
+&lt;pre&gt;&amp;gt; (= {:x 2, :y 3} {:x 2, :y 3})
+true
+&lt;/pre&gt;
+
+&lt;p&gt;That's the functional style - treating everything as immutable values.&lt;/p&gt;
+
+&lt;p&gt;But if I'm not in a functional language, I can still often create value objects. In
+  Java for example, the default point class behaves how I'd like. &lt;/p&gt;
+
+&lt;pre&gt;assertEquals(new Point(2, 3), new Point(2, 3)); // Java&lt;/pre&gt;
+
+&lt;p&gt;The way this works is that the point class overrides the default &lt;code&gt;equals&lt;/code&gt;
+  method with the tests for the values. &lt;a href="#footnote-equals-java-point"&gt;[2]&lt;/a&gt;&#xA0;&lt;a href="#footnote-java-equals-op"&gt;[3]&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I can do something similar in JavaScript.&lt;/p&gt;
+
+&lt;pre&gt;class Point {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+  equals (other) {
+    return this.x === other.x &amp;amp;&amp;amp; this.y === other.y;
+  }
+}
+&lt;/pre&gt;
+
+&lt;pre&gt;const p1 = new Point(2,3);
+const p2 = new Point(2,3);
+assert(p1.equals(p2));&lt;/pre&gt;
+
+&lt;p&gt;The problem with JavaScript here is that this equals method I defined is a mystery to
+  any other JavaScript library. &lt;/p&gt;
+
+&lt;pre&gt;const somePoints = [new Point(2,3)];
+const p = new Point(2,3);
+assert.isFalse(somePoints.includes(p)); // not what I want
+
+//so I have to do this
+assert(somePoints.some(i =&amp;gt; i.equals(p)));&lt;/pre&gt;
+
+&lt;p&gt;This isn't an issue in Java because
+  &lt;code&gt;Object.equals&lt;/code&gt; is defined in the core library and all other libraries use it
+  for comparisons (&lt;code&gt;==&lt;/code&gt; is usually used only for primitives). &lt;/p&gt;
+
+&lt;p&gt;One of the nice consequences of value objects is that I don't need to care about
+  whether I have a reference to the same object in memory or a different reference with an
+  equal value. However if I'm not careful that happy ignorance can lead to a problem,
+  which I'll illustrate with a bit of Java.&lt;/p&gt;
+
+&lt;pre&gt;Date retirementDate = new Date(Date.parse("Tue 1 Nov 2016"));
+
+// this means we need a retirement party
+Date partyDate = retirementDate;
+
+// but that date is a Tuesday, let's party on the weekend
+partyDate.setDate(5);
+
+assertEquals(new Date(Date.parse("Sat 5 Nov 2016")), retirementDate);
+// oops, now I have to work three more days :-(&lt;/pre&gt;
+
+&lt;p&gt;This is an example of an &lt;a href="/bliki/AliasingBug.html"&gt;Aliasing Bug&lt;/a&gt;, I change a date in one place
+  and it has consequences beyond what I expected &lt;a href="#footnote-java-date"&gt;[4]&lt;/a&gt;. To avoid
+  aliasing bugs I follow a simple but important rule: &lt;b&gt;value objects should be
+  immutable&lt;/b&gt;. If I want to change my party date, I create a new
+  object instead.&lt;/p&gt;
+
+&lt;pre&gt;Date retirementDate = new Date(Date.parse("Tue 1 Nov 2016"));
+Date partyDate = retirementDate;
+
+// treat date as immutable
+partyDate = new Date(Date.parse("Sat 5 Nov 2016"));
+
+// and I still retire on Tuesday
+assertEquals(new Date(Date.parse("Tue 1 Nov 2016")), retirementDate);&lt;/pre&gt;
+
+&lt;p&gt;Of course, it makes it much easier to treat value objects as immutable if they really
+  are immutable. With objects I can usually do this by simply not providing any setting
+  methods. So my earlier JavaScript class would look like this: &lt;a href="#footnote-freeze"&gt;[5]&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;class Point {
+  constructor(x, y) {
+    this._data = {x: x, y: y};
+  }
+  get x() {return this._data.x;}
+  get y() {return this._data.y;}
+  equals (other) {
+    return this.x === other.x &amp;amp;&amp;amp; this.y === other.y;
+  }
+}
+&lt;/pre&gt;
+
+&lt;p&gt;While immutability is my favorite technique to avoid aliasing bugs, it's also
+  possible to avoid them by ensuring assignments always make a copy. Some languages
+  provide this ability, such as structs in C#.&lt;/p&gt;
+
+&lt;p&gt;Whether to treat a concept as a reference object or value object depends on your
+  context. In many situations it's worth treating a postal address as a simple structure
+  of text with value equality. But a more sophisticated mapping system might link postal
+  addresses into a sophisticated hierarchic model where references make more sense. As
+  with most modeling problems, different contexts lead to different solutions. &lt;a href="#footnote-address"&gt;[6]&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;It's often a good idea to replace common primitives, such as strings, with appropriate
+  value objects. While I can represent a telephone number as a string, turning into a
+  telephone number object makes variables and parameters more explicit (with type checking
+  when the language supports it), a natural focus for validation, and avoiding
+  inapplicable behaviors (such as doing arithmetic on integer id numbers).&lt;/p&gt;
+
+&lt;p&gt;Small objects, such as points, monies, or ranges, are good examples of value objects.
+  But larger structures can often be programmed as value objects if they don't have any
+  conceptual identity or don't need share references around a program. This is a more
+  natural fit with functional languages that default to immutability. &lt;a href="#footnote-immutable-reference"&gt;[7]&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I find that value objects, particularly small ones, are often overlooked - seen as
+  too trivial to be worth thinking about. But once I've spotted a good set of value
+  objects, I find I can create a rich behavior over them. For taste of this try using a
+  &lt;a href="/eaaDev/Range.html"&gt;Range class&lt;/a&gt; and see how it prevents all sorts of duplicate
+  fiddling with start and end attributes by using richer behaviors. I often run into code
+  bases where domain-specific value objects like this can act as a focus for refactoring,
+  leading to a drastic simplification of a system. Such a simplification often surprises
+  people, until they've seen it a few times - by then it is a good friend.&lt;/p&gt;
+
+&lt;div class="acknowledgements"&gt;
+&lt;h2&gt;Acknowledgements&lt;/h2&gt;
+
+&lt;p&gt;James Shore, Beth Andres-Beck, and Pete Hodgson shared their experiences of using
+    value objects in JavaScript.&lt;/p&gt;
+
+&lt;p&gt;
+
+      Graham Brooks, James Birnie, Jeroen Soeters, Mariano Giuffrida, Matteo Vaccari, Ricardo
+    Cavalcanti, and Steven Lowe
 
 
-#!/usr/bin/env node
+    provided valuable comments on our internal mailing lists.&lt;/p&gt;
+&lt;/div&gt;
 
-var http = require(&#39;http&#39;);
+&lt;div class="furtherReading"&gt;
+&lt;h2&gt;Further Reading&lt;/h2&gt;
 
-var options = {
-  host: &#39;127.0.0.1&#39;,
-  port: 80,
-  path: &#39;/&#39;
-};
+&lt;p&gt;Vaughn Vernon's description is probably the &lt;a href="https://www.amazon.com/gp/product/0321834577?ie=UTF8&amp;amp;tag=martinfowlerc-20&amp;amp;linkCode=as2&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;creativeASIN=0321834577"&gt;best in-depth
+    discussion of value objects&lt;/a&gt;&lt;img src="https://www.assoc-amazon.com/e/ir?t=martinfowlerc-20&amp;amp;l=as2&amp;amp;o=1&amp;amp;a=0321601912" width="1" height="1" border="0" alt="" style="width: 1px !important; height: 1px !important; border:none !important; margin:0px !important;"&gt; from a DDD perspective. He covers how to decide
+    between values and entities, implementation tips, and the techniques for persisting
+    value objects.&lt;/p&gt;
 
-http.get(options, function(response) </summary><link rel='replies' type='application/atom+xml' href='http://blog.touv.fr/feeds/144557601119881618/comments/default' title='Publier les commentaires'/><link rel='replies' type='text/html' href='http://blog.touv.fr/2011/08/http-request-loop-in-nodejs.html#comment-form' title='0 commentaires'/><link rel='edit' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/144557601119881618'/><link rel='self' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/144557601119881618'/><link rel='alternate' type='text/html' href='http://blog.touv.fr/2011/08/http-request-loop-in-nodejs.html' title='HTTP request loop in NodeJS'/><author><name>Nicolas Thouvenin</name><uri>https://plus.google.com/100470147949342588997</uri><email>noreply@blogger.com</email><gd:image rel='http://schemas.google.com/g/2005#thumbnail' width='32' height='32' src='//lh5.googleusercontent.com/-6fLVcOC0Vk0/AAAAAAAAAAI/AAAAAAAAHnY/8WxD_lAXSko/s512-c/photo.jpg'/></author><thr:total>0</thr:total></entry><entry><id>tag:blogger.com,1999:blog-30322458.post-8842722702074200583</id><published>2011-08-19T13:27:00.020+02:00</published><updated>2011-11-18T21:26:48.605+01:00</updated><category scheme="http://www.blogger.com/atom/ns#" term="javascript"/><category scheme="http://www.blogger.com/atom/ns#" term="json"/><category scheme="http://www.blogger.com/atom/ns#" term="php"/><category scheme="http://www.blogger.com/atom/ns#" term="xml"/><title type='text'>Mapping XML - Array - JSON en PHP</title><summary type="text">
-Vouloir établir une correspondance entre JSON et XML n&#39;est pas nouveau. (cf. Converting Between XML and JSON). D&#39;ailleurs, le Zend Framework propose sa solution XML to JSON conversion. Cependant,  
+&lt;p&gt;The term started gaining traction in the early noughties. Two books that talk about
+    them from that time are are &lt;a href="/books/eaa.html"&gt;PoEAA&lt;/a&gt; and &lt;a href="https://www.amazon.com/gp/product/0321125215?ie=UTF8&amp;amp;tag=martinfowlerc-20&amp;amp;linkCode=as2&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;creativeASIN=0321125215"&gt;DDD&lt;/a&gt;&lt;img src="https://www.assoc-amazon.com/e/ir?t=martinfowlerc-20&amp;amp;l=as2&amp;amp;o=1&amp;amp;a=0321601912" width="1" height="1" border="0" alt="" style="width: 1px !important; height: 1px !important; border:none !important; margin:0px !important;"&gt;. There was also some interesting discussion on &lt;a href="http://c2.com/cgi/wiki?ValueObject"&gt;Ward's Wiki&lt;/a&gt;.&lt;/p&gt;
 
+&lt;p&gt;One source of terminological confusion is that around the turn of the century some
+    J2EE literature used "value object" for &lt;a href="/eaaCatalog/dataTransferObject.html"&gt;Data Transfer Object&lt;/a&gt;. That usage has
+    mostly disappeared by now, but you might run into it.&lt;/p&gt;
+&lt;/div&gt;
 
-  le format  est-il adapté ? 
-  l’opération inverse est-elle possible ? 
+&lt;div class="footnote-list"&gt;
+&lt;h2&gt;Notes&lt;/h2&gt;
 
+&lt;div class="footnote-list-item" id="footnote-entity"&gt;
+&lt;p&gt;&lt;span class="num"&gt;1: &lt;/span&gt;
+      In Domain-Driven Design the &lt;a href="/bliki/EvansClassification.html"&gt;Evans Classification&lt;/a&gt; contrasts value
+      objects with entities. I consider entities to be a common form of reference object,
+      but use the term "entity" only within domain models while the reference/value object
+      dichotomy is useful for all code.
+    &lt;/p&gt;
+&lt;/div&gt;
 
-Vouloir passer du XML au JSON revient en fait à transformer du XML en une structure mémoire de type tableau.
-</summary><link rel='replies' type='application/atom+xml' href='http://blog.touv.fr/feeds/8842722702074200583/comments/default' title='Publier les commentaires'/><link rel='replies' type='text/html' href='http://blog.touv.fr/2011/08/mapping-xml-array-json-en-php.html#comment-form' title='0 commentaires'/><link rel='edit' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/8842722702074200583'/><link rel='self' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/8842722702074200583'/><link rel='alternate' type='text/html' href='http://blog.touv.fr/2011/08/mapping-xml-array-json-en-php.html' title='Mapping XML - Array - JSON en PHP'/><author><name>Nicolas Thouvenin</name><uri>https://plus.google.com/100470147949342588997</uri><email>noreply@blogger.com</email><gd:image rel='http://schemas.google.com/g/2005#thumbnail' width='32' height='32' src='//lh5.googleusercontent.com/-6fLVcOC0Vk0/AAAAAAAAAAI/AAAAAAAAHnY/8WxD_lAXSko/s512-c/photo.jpg'/></author><thr:total>0</thr:total></entry><entry><id>tag:blogger.com,1999:blog-30322458.post-4341472105394311544</id><published>2011-07-10T22:31:00.002+02:00</published><updated>2011-07-11T21:57:33.798+02:00</updated><category scheme="http://www.blogger.com/atom/ns#" term="php"/><category scheme="http://www.blogger.com/atom/ns#" term="plor"/><title type='text'>PHP Universal Fetchor</title><summary type="text">
-Après avoir présenté des classes PHP comme PQO, CMD et PSO, voici un billet qui tente de les mettre en perspective à l&#39;aide d&#39;une question. Quel est le point commun entre :
+&lt;div class="footnote-list-item" id="footnote-equals-java-point"&gt;
+&lt;p&gt;&lt;span class="num"&gt;2: &lt;/span&gt;
+      Strictly this is done in awt.geom.Point2D, which is a superclass of awt.Point
+    &lt;/p&gt;
+&lt;/div&gt;
 
+&lt;div class="footnote-list-item" id="footnote-java-equals-op"&gt;
+&lt;p&gt;&lt;span class="num"&gt;3: &lt;/span&gt;
+      Most object comparisons in Java are done with &lt;code&gt;equals&lt;/code&gt; - which is
+      itself a bit awkward since I have to remember to use that rather than the equals
+      operator &lt;code&gt;==&lt;/code&gt;. This is annoying, but Java programmers soon get used to it
+      since String behaves the same way. Other OO languages can avoid this - Ruby uses the
+       &lt;code&gt;==&lt;/code&gt; operator, but allows it to be overridden.
+    &lt;/p&gt;
+&lt;/div&gt;
 
-exécuter une requête SQL
-exécuter une commande système
-découper une chaîne de caractères en petits bouts
-lire le contenu d&#39;un fichier ?
+&lt;div class="footnote-list-item" id="footnote-java-date"&gt;
+&lt;p&gt;&lt;span class="num"&gt;4: &lt;/span&gt;
+      There is robust competition for the worst feature of the pre-Java-8 date and
+      time system - but my vote would be this one. Thankfully we can avoid most of
+      this now with Java 8's &lt;code&gt;java.time&lt;/code&gt; package
+    &lt;/p&gt;
+&lt;/div&gt;
 
+&lt;div class="footnote-list-item" id="footnote-freeze"&gt;
+&lt;p&gt;&lt;span class="num"&gt;5: &lt;/span&gt;
+      This isn't strictly immutable since a client can manipulate the &lt;code&gt;_data&lt;/code&gt;
+      property. But a suitably disciplined team can make it immutable in practice.
+      If I was concerned that a team wouldn't be disciplined enough I might use use
+      &lt;code&gt;freeze&lt;/code&gt;. Indeed I could just use freeze on a simple JavaScript object,
+      but I prefer the explicitness of a class with declared accessors.
+    &lt;/p&gt;
+&lt;/div&gt;
 
-Avez-vous trouvé ?  Et bien, si toutes ces opérations sont différentes, l&#39;obtention </summary><link rel='replies' type='application/atom+xml' href='http://blog.touv.fr/feeds/4341472105394311544/comments/default' title='Publier les commentaires'/><link rel='replies' type='text/html' href='http://blog.touv.fr/2011/07/php-universal-fetchor.html#comment-form' title='2 commentaires'/><link rel='edit' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/4341472105394311544'/><link rel='self' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/4341472105394311544'/><link rel='alternate' type='text/html' href='http://blog.touv.fr/2011/07/php-universal-fetchor.html' title='PHP Universal Fetchor'/><author><name>Nicolas Thouvenin</name><uri>https://plus.google.com/100470147949342588997</uri><email>noreply@blogger.com</email><gd:image rel='http://schemas.google.com/g/2005#thumbnail' width='32' height='32' src='//lh5.googleusercontent.com/-6fLVcOC0Vk0/AAAAAAAAAAI/AAAAAAAAHnY/8WxD_lAXSko/s512-c/photo.jpg'/></author><thr:total>2</thr:total></entry><entry><id>tag:blogger.com,1999:blog-30322458.post-8740643929682606906</id><published>2011-07-08T22:24:00.004+02:00</published><updated>2011-07-08T22:55:24.412+02:00</updated><category scheme="http://www.blogger.com/atom/ns#" term="pear"/><category scheme="http://www.blogger.com/atom/ns#" term="php"/><title type='text'>Je RESPEAR en PHP</title><summary type="text">
-PEAR permet de regrouper dans un même paquet du code PHP.
- PIRUM permet de mettre facilement à disposition des paquets PEAR.
- Mais, comment passer de l&#39;un à l&#39;autre rapidement et automatiquement ? 
-Avec RESPEAR bien sur !
+&lt;div class="footnote-list-item" id="footnote-address"&gt;
+&lt;p&gt;&lt;span class="num"&gt;6: &lt;/span&gt;
+      There is more discussion of this in &lt;a href="https://www.amazon.com/gp/product/0321125215?ie=UTF8&amp;amp;tag=martinfowlerc-20&amp;amp;linkCode=as2&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;creativeASIN=0321125215"&gt;Evans's DDD book&lt;/a&gt;&lt;img src="https://www.assoc-amazon.com/e/ir?t=martinfowlerc-20&amp;amp;l=as2&amp;amp;o=1&amp;amp;a=0321601912" width="1" height="1" border="0" alt="" style="width: 1px !important; height: 1px !important; border:none !important; margin:0px !important;"&gt;. 
+    &lt;/p&gt;
+&lt;/div&gt;
 
-Interface REST
+&lt;div class="footnote-list-item" id="footnote-immutable-reference"&gt;
+&lt;p&gt;&lt;span class="num"&gt;7: &lt;/span&gt;
+      Immutability is valuable for reference objects too - if a sales order doesn't change
+      during a get request, then making it immutable is valuable; and that would make it
+      safe to copy it, if that were useful. But that wouldn't make the sales order be a
+      value object if I'm determining equality based on a unique order number.
+    &lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
 
-RESPEAR est une interface REST à Pirum. On va pouvoir ajouter (ou supprimer) des paquets PEAR à un serveur PIRUM à distance, simplement à l&#39;aide d&#39;une requête </summary><link rel='replies' type='application/atom+xml' href='http://blog.touv.fr/feeds/8740643929682606906/comments/default' title='Publier les commentaires'/><link rel='replies' type='text/html' href='http://blog.touv.fr/2011/07/je-respear-en-php.html#comment-form' title='0 commentaires'/><link rel='edit' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/8740643929682606906'/><link rel='self' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/8740643929682606906'/><link rel='alternate' type='text/html' href='http://blog.touv.fr/2011/07/je-respear-en-php.html' title='Je RESPEAR en PHP'/><author><name>Nicolas Thouvenin</name><uri>https://plus.google.com/100470147949342588997</uri><email>noreply@blogger.com</email><gd:image rel='http://schemas.google.com/g/2005#thumbnail' width='32' height='32' src='//lh5.googleusercontent.com/-6fLVcOC0Vk0/AAAAAAAAAAI/AAAAAAAAHnY/8WxD_lAXSko/s512-c/photo.jpg'/></author><thr:total>0</thr:total></entry><entry><id>tag:blogger.com,1999:blog-30322458.post-6535248537794464970</id><published>2011-05-17T13:18:00.003+02:00</published><updated>2011-07-08T14:23:21.471+02:00</updated><category scheme="http://www.blogger.com/atom/ns#" term="php"/><category scheme="http://www.blogger.com/atom/ns#" term="plor"/><title type='text'>CMD, une facade PHP pour les commandes système</title><summary type="text">
-Dans la lignée de mes précédents billets, voici une nouvelle classe de type Facade. Cette fois-ci, l&#39;idée est de pouvoir lancer des commandes système autrement qu&#39;avec les fonctions system, shell_exec, popen, etc.
-Car pour les rares habitués de ce blog, vous aurez remarqué que ma lubie du moment est de chercher à voir de quelle manière on peut écrire le moins de code PHP, tout en gardant un code</summary><link rel='replies' type='application/atom+xml' href='http://blog.touv.fr/feeds/6535248537794464970/comments/default' title='Publier les commentaires'/><link rel='replies' type='text/html' href='http://blog.touv.fr/2011/05/cmd-une-facade-php-pour-les-commandes.html#comment-form' title='4 commentaires'/><link rel='edit' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/6535248537794464970'/><link rel='self' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/6535248537794464970'/><link rel='alternate' type='text/html' href='http://blog.touv.fr/2011/05/cmd-une-facade-php-pour-les-commandes.html' title='CMD, une facade PHP pour les commandes système'/><author><name>Nicolas Thouvenin</name><uri>https://plus.google.com/100470147949342588997</uri><email>noreply@blogger.com</email><gd:image rel='http://schemas.google.com/g/2005#thumbnail' width='32' height='32' src='//lh5.googleusercontent.com/-6fLVcOC0Vk0/AAAAAAAAAAI/AAAAAAAAHnY/8WxD_lAXSko/s512-c/photo.jpg'/></author><thr:total>4</thr:total></entry><entry><id>tag:blogger.com,1999:blog-30322458.post-2586958105022895080</id><published>2011-05-05T07:23:00.001+02:00</published><updated>2011-05-05T09:21:05.623+02:00</updated><category scheme="http://www.blogger.com/atom/ns#" term="php"/><category scheme="http://www.blogger.com/atom/ns#" term="plor"/><title type='text'>PSOStream, string et stream enfin réuni</title><summary type="text">
-Il y a bien longtemps déjà, à l&#39;époque où j&#39;ai écrit Pxxo, j&#39;avais cherché à manipuler des buffers qui pouvait être indifféremment en mémoire ou sur disque. Pxxo intègre donc des classes qui implémentent plus ou moins bien cette idée.
+&lt;div class="shares"&gt;
+&lt;div class="icons"&gt;&lt;span class="label"&gt;Share:&lt;/span&gt;&lt;a href="https://twitter.com/intent/tweet?url=https://martinfowler.com/bliki/ValueObject.html&amp;amp;text=Bliki:%20ValueObject%20%E2%9E%99%20" title="Share on Twitter"&gt;&lt;img src="/t_mini-a.png"&gt;&lt;/a&gt;&lt;a href="https://facebook.com/sharer.php?u=https://martinfowler.com/bliki/ValueObject.html" title="Share on Facebook"&gt;&lt;img src="/fb-icon-20.png"&gt;&lt;/a&gt;&lt;a href="https://plus.google.com/share?url=https://martinfowler.com/bliki/ValueObject.html" title="Share on Google Plus"&gt;&lt;img src="/gplus-16.png"&gt;&lt;/a&gt;&lt;/div&gt;
 
-Jusqu&#39;à récemment, je n&#39;avais plus jamais eu besoin d&#39;un tel mécanisme. Mais voilà qu&#39;au détour d&#39;un besoin fonctionnel, celle-ci réapparaît ...
+&lt;div class="comment"&gt;if you found this article useful, please share it. I appreciate the feedback and encouragement&lt;/div&gt;
+&lt;/div&gt;
 
+&lt;div class="clear"&gt;&lt;/div&gt;
+</content>
+  </entry>
 
-Cette fois-ci, </summary><link rel='replies' type='application/atom+xml' href='http://blog.touv.fr/feeds/2586958105022895080/comments/default' title='Publier les commentaires'/><link rel='replies' type='text/html' href='http://blog.touv.fr/2011/05/psostream-string-et-stream-enfin-reuni.html#comment-form' title='0 commentaires'/><link rel='edit' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/2586958105022895080'/><link rel='self' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/2586958105022895080'/><link rel='alternate' type='text/html' href='http://blog.touv.fr/2011/05/psostream-string-et-stream-enfin-reuni.html' title='PSOStream, string et stream enfin réuni'/><author><name>Nicolas Thouvenin</name><uri>https://plus.google.com/100470147949342588997</uri><email>noreply@blogger.com</email><gd:image rel='http://schemas.google.com/g/2005#thumbnail' width='32' height='32' src='//lh5.googleusercontent.com/-6fLVcOC0Vk0/AAAAAAAAAAI/AAAAAAAAHnY/8WxD_lAXSko/s512-c/photo.jpg'/></author><thr:total>0</thr:total></entry><entry><id>tag:blogger.com,1999:blog-30322458.post-479502455297437747</id><published>2011-04-17T18:54:00.004+02:00</published><updated>2011-07-08T14:23:53.986+02:00</updated><category scheme="http://www.blogger.com/atom/ns#" term="php"/><category scheme="http://www.blogger.com/atom/ns#" term="plor"/><title type='text'>PQO une facade pour PDO</title><summary type="text">
-Si, comme moi, vous faites partie des cancres qui n&#39;utilisent pas une couche de persistance pour accéder à votre base de données alors ce billet a une chance de vous intéresser. La solution exposée ici, a comme unique but de me permettre de lancer des requêtes SQL encore plus simplement qu&#39;en utilisant l&#39;objet PHP standard PDOStatement.
+<entry>
+    <title>Bliki: AliasingBug</title>
+    <link href="https://martinfowler.com/bliki/AliasingBug.html"/>
+    <updated>2016-11-14T10:38:00-05:00</updated>
+    <id>https://martinfowler.com/bliki/AliasingBug.html</id>
+    <category term="bliki"/>
+    <content type="html">
+&lt;p&gt;Aliasing occurs when the same memory location is accessed through more than one
+  reference. Often this is a good thing, but frequently it occurs in an unexpected way,
+  which leads to confusing bugs. &lt;/p&gt;
 
+&lt;p&gt;Here's a simple example of the bug.&lt;/p&gt;
 
-Dans la lignée de mes précédents billets, mon objectif </summary><link rel='replies' type='application/atom+xml' href='http://blog.touv.fr/feeds/479502455297437747/comments/default' title='Publier les commentaires'/><link rel='replies' type='text/html' href='http://blog.touv.fr/2011/04/pqo-une-facade-pour-pdo.html#comment-form' title='1 commentaires'/><link rel='edit' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/479502455297437747'/><link rel='self' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/479502455297437747'/><link rel='alternate' type='text/html' href='http://blog.touv.fr/2011/04/pqo-une-facade-pour-pdo.html' title='PQO une facade pour PDO'/><author><name>Nicolas Thouvenin</name><uri>https://plus.google.com/100470147949342588997</uri><email>noreply@blogger.com</email><gd:image rel='http://schemas.google.com/g/2005#thumbnail' width='32' height='32' src='//lh5.googleusercontent.com/-6fLVcOC0Vk0/AAAAAAAAAAI/AAAAAAAAHnY/8WxD_lAXSko/s512-c/photo.jpg'/></author><thr:total>1</thr:total></entry><entry><id>tag:blogger.com,1999:blog-30322458.post-4369270212023320894</id><published>2011-04-17T14:29:00.002+02:00</published><updated>2011-07-08T14:24:21.135+02:00</updated><category scheme="http://www.blogger.com/atom/ns#" term="php"/><category scheme="http://www.blogger.com/atom/ns#" term="plor"/><title type='text'>PSO, Enchainer les traitements sur une chaîne de caractères en PHP</title><summary type="text">
-A force d&#39;utiliser jQuery, l&#39;envie est grande de travailler de la même manière en PHP. Voici donc une toute petite classe qui permet d’enchaîner les traitements sur une même chaîne de caractères.
+&lt;pre&gt;Date retirementDate = new Date(Date.parse("Tue 1 Nov 2016"));
 
-Démonstration
+// this means we need a retirement party
+Date partyDate = retirementDate;
 
+// but that date is a Tuesday, let's party on the weekend
+partyDate.setDate(5);
 
+assertEquals(new Date(Date.parse("Sat 5 Nov 2016")), retirementDate);
+// oops, now I have to work three more days :-(&lt;/pre&gt;
 
-$s = PSO::factory(&quot;\ttoto&quot;);
+&lt;p&gt;What's happening here is that when we do the assignment, the partyDate variable is
+  assigned a reference to the same object that the retirement data refers to. If I then
+  alter the internals of that object (with &lt;code&gt;setDate&lt;/code&gt;) then both variables are
+  updated, since they refer to the same thing.&lt;/p&gt;
 
-echo $s, PHP_EOL;
-//     toto
+&lt;div class="figure" style="width: 700px;"&gt;&lt;img src="https://martinfowler.com/bliki/images/aliasingBug/flow.png" width="700px"&gt;&lt;/div&gt;
 
-echo $s-&gt;trim()-&gt;md5(), PHP_EOL;
-// f71dbe52628a3f83a77ab494817525c6
+&lt;p&gt;Although aliasing is a problem in that example, in other contexts it's what I expect.&lt;/p&gt;
 
-echo $s-&gt;slice(3,2), PHP_EOL;
-// db
+&lt;pre&gt;Person me = new Person("Martin");
+me.setPhoneNumber("1234");
+Person articleAuthor = me;
+me.setPhoneNumber("999");
+assertEquals("999", articleAuthor.getPhoneNumber());&lt;/pre&gt;
 
-echo $s-&gt;isMatch</summary><link rel='replies' type='application/atom+xml' href='http://blog.touv.fr/feeds/4369270212023320894/comments/default' title='Publier les commentaires'/><link rel='replies' type='text/html' href='http://blog.touv.fr/2011/04/pso-enchainer-les-traitements-sur-une.html#comment-form' title='2 commentaires'/><link rel='edit' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/4369270212023320894'/><link rel='self' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/4369270212023320894'/><link rel='alternate' type='text/html' href='http://blog.touv.fr/2011/04/pso-enchainer-les-traitements-sur-une.html' title='PSO, Enchainer les traitements sur une chaîne de caractères en PHP'/><author><name>Nicolas Thouvenin</name><uri>https://plus.google.com/100470147949342588997</uri><email>noreply@blogger.com</email><gd:image rel='http://schemas.google.com/g/2005#thumbnail' width='32' height='32' src='//lh5.googleusercontent.com/-6fLVcOC0Vk0/AAAAAAAAAAI/AAAAAAAAHnY/8WxD_lAXSko/s512-c/photo.jpg'/></author><thr:total>2</thr:total></entry><entry><id>tag:blogger.com,1999:blog-30322458.post-3854088994303639496</id><published>2011-03-08T06:04:00.001+01:00</published><updated>2011-07-08T14:25:49.466+02:00</updated><category scheme="http://www.blogger.com/atom/ns#" term="atom"/><category scheme="http://www.blogger.com/atom/ns#" term="php"/><category scheme="http://www.blogger.com/atom/ns#" term="xml"/><title type='text'>ATOMWriter : Création d&#39;un flux ATOM en PHP</title><summary type="text">
-ATOM est un format XML conçu pour la syndication de contenu périodique. Voici une petite classe PHP sans prétention qui permet de produire rapidement un flux ATOM. L&#39;usage de cette classe permettra d&#39;éviter les erreurs de syntaxe XML, le flux produit est créé à l&#39;aide la classe XMLWriter qui permet de produire du XML intègre. La classe  permet de construire facilement un flux de données à l&#39;aide</summary><link rel='replies' type='application/atom+xml' href='http://blog.touv.fr/feeds/3854088994303639496/comments/default' title='Publier les commentaires'/><link rel='replies' type='text/html' href='http://blog.touv.fr/2011/03/atomwriter-creation-dun-flux-atom-en.html#comment-form' title='5 commentaires'/><link rel='edit' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/3854088994303639496'/><link rel='self' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/3854088994303639496'/><link rel='alternate' type='text/html' href='http://blog.touv.fr/2011/03/atomwriter-creation-dun-flux-atom-en.html' title='ATOMWriter : Création d&#39;un flux ATOM en PHP'/><author><name>Nicolas Thouvenin</name><uri>https://plus.google.com/100470147949342588997</uri><email>noreply@blogger.com</email><gd:image rel='http://schemas.google.com/g/2005#thumbnail' width='32' height='32' src='//lh5.googleusercontent.com/-6fLVcOC0Vk0/AAAAAAAAAAI/AAAAAAAAHnY/8WxD_lAXSko/s512-c/photo.jpg'/></author><thr:total>5</thr:total></entry><entry><id>tag:blogger.com,1999:blog-30322458.post-1102742345919733854</id><published>2010-08-27T14:07:00.009+02:00</published><updated>2011-07-08T14:26:22.876+02:00</updated><category scheme="http://www.blogger.com/atom/ns#" term="http"/><category scheme="http://www.blogger.com/atom/ns#" term="php"/><title type='text'>REST_Client et REST_Puller à la sauce Swift</title><summary type="text">
-Dans mes précédents billets, j&#39;ai présenté REST_Client et REST_Puller. Ces 2 classes PHP ont été écrites rapidement à plusieurs mois d&#39;intervalle dans des contextes différents puis rassemblées dans un unique package PEAR. La conséquence est un manque flagrant de cohérence. Et bien c&#39;est maintenant terminé !
+&lt;p&gt;It's common to want to share records like this, and then if it changes, it changes
+  for all references. This is why it's useful to think of &lt;i&gt;reference objects&lt;/i&gt;, which
+  we deliberately share &lt;a href="#footnote-entity"&gt;[1]&lt;/a&gt;, and &lt;a href="/bliki/ValueObject.html"&gt;Value Objects&lt;/a&gt; that we don't want this kind of shared update behavior. A good way to
+  avoid shared updates of value objects is to make value objects immutable.&lt;/p&gt;
 
-Refactoring
-Par la volonté et l&#39;aide de kerphi le package REST_Client a subit une grosse</summary><link rel='replies' type='application/atom+xml' href='http://blog.touv.fr/feeds/1102742345919733854/comments/default' title='Publier les commentaires'/><link rel='replies' type='text/html' href='http://blog.touv.fr/2010/08/restclient-et-restpuller-la-sauce-swift.html#comment-form' title='0 commentaires'/><link rel='edit' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/1102742345919733854'/><link rel='self' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/1102742345919733854'/><link rel='alternate' type='text/html' href='http://blog.touv.fr/2010/08/restclient-et-restpuller-la-sauce-swift.html' title='REST_Client et REST_Puller à la sauce Swift'/><author><name>Nicolas Thouvenin</name><uri>https://plus.google.com/100470147949342588997</uri><email>noreply@blogger.com</email><gd:image rel='http://schemas.google.com/g/2005#thumbnail' width='32' height='32' src='//lh5.googleusercontent.com/-6fLVcOC0Vk0/AAAAAAAAAAI/AAAAAAAAHnY/8WxD_lAXSko/s512-c/photo.jpg'/></author><thr:total>0</thr:total></entry><entry><id>tag:blogger.com,1999:blog-30322458.post-776384056576374652</id><published>2010-08-20T00:53:00.001+02:00</published><updated>2011-11-18T08:39:50.790+01:00</updated><category scheme="http://www.blogger.com/atom/ns#" term="http"/><category scheme="http://www.blogger.com/atom/ns#" term="php"/><title type='text'>REST_Puller, mitraillette HTTP en PHP</title><summary type="text">
-Dans un précédent billet, j&#39;ai présenté le package REST_Client. Comme je l&#39;avais laissé entendre, l&#39;intérêt principal de ce package n&#39;est pas de fournir une interface objet au module cURL. La fonctionnalité principale, celle que l&#39;on trouve difficilement sur le Net, est de fournir une classe capable de lancer des centaines de milliers de requêtes HTTP : REST_Puller
+&lt;p&gt;Functional languages, of course, prefer everything to be immutable. So if we want
+  changes to be shared, we need to handle that as the exception rather than the rule.
+  Immutability is a handy property, one that makes it harder to create several kinds of
+  bugs. But when things do need to change, immutability can introduce complexity, so it's
+  by no means a free breakfast.&lt;/p&gt;
 
-Explications
-Si vous </summary><link rel='replies' type='application/atom+xml' href='http://blog.touv.fr/feeds/776384056576374652/comments/default' title='Publier les commentaires'/><link rel='replies' type='text/html' href='http://blog.touv.fr/2010/08/restpuller-mitraillette-http-en-php.html#comment-form' title='0 commentaires'/><link rel='edit' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/776384056576374652'/><link rel='self' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/776384056576374652'/><link rel='alternate' type='text/html' href='http://blog.touv.fr/2010/08/restpuller-mitraillette-http-en-php.html' title='REST_Puller, mitraillette HTTP en PHP'/><author><name>Nicolas Thouvenin</name><uri>https://plus.google.com/100470147949342588997</uri><email>noreply@blogger.com</email><gd:image rel='http://schemas.google.com/g/2005#thumbnail' width='32' height='32' src='//lh5.googleusercontent.com/-6fLVcOC0Vk0/AAAAAAAAAAI/AAAAAAAAHnY/8WxD_lAXSko/s512-c/photo.jpg'/></author><thr:total>0</thr:total></entry><entry><id>tag:blogger.com,1999:blog-30322458.post-6388096287649620298</id><published>2010-08-18T00:36:00.003+02:00</published><updated>2011-11-18T08:39:50.772+01:00</updated><category scheme="http://www.blogger.com/atom/ns#" term="http"/><category scheme="http://www.blogger.com/atom/ns#" term="php"/><title type='text'>REST_Client, pour surfer la vague</title><summary type="text">
-Comme le titre le laisse supposer ;-), REST_Client est un package PHP compatible PEAR qui fournit quelques classes pour interroger un serveur REST.
+&lt;div class="acknowledgements"&gt;
+&lt;h2&gt;Acknowledgements&lt;/h2&gt;
 
-C&#39;est un client HTTP, et quand on parle client HTTP en PHP, on pense directement au module cURL.
+&lt;p&gt;Graham Brooks and James Birnie's comments on our internal mailing list led me to
+    write this post.&lt;/p&gt;
+&lt;/div&gt;
 
-Et bien cet ensemble de classe PHP propose une interface objet orientée REST pour cURL. Cela ne constitue pas l&#39;intérêt principal de ce package. Mais </summary><link rel='replies' type='application/atom+xml' href='http://blog.touv.fr/feeds/6388096287649620298/comments/default' title='Publier les commentaires'/><link rel='replies' type='text/html' href='http://blog.touv.fr/2010/08/restclient-pour-surfer-la-vague.html#comment-form' title='2 commentaires'/><link rel='edit' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/6388096287649620298'/><link rel='self' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/6388096287649620298'/><link rel='alternate' type='text/html' href='http://blog.touv.fr/2010/08/restclient-pour-surfer-la-vague.html' title='REST_Client, pour surfer la vague'/><author><name>Nicolas Thouvenin</name><uri>https://plus.google.com/100470147949342588997</uri><email>noreply@blogger.com</email><gd:image rel='http://schemas.google.com/g/2005#thumbnail' width='32' height='32' src='//lh5.googleusercontent.com/-6fLVcOC0Vk0/AAAAAAAAAAI/AAAAAAAAHnY/8WxD_lAXSko/s512-c/photo.jpg'/></author><thr:total>2</thr:total></entry><entry><id>tag:blogger.com,1999:blog-30322458.post-2805570776513054272</id><published>2010-07-09T14:44:00.010+02:00</published><updated>2011-11-18T08:39:50.730+01:00</updated><category scheme="http://www.blogger.com/atom/ns#" term="php"/><category scheme="http://www.blogger.com/atom/ns#" term="xml"/><title type='text'>Générer  indifféremment du XML ou du JSON</title><summary type="text">
-PHP propose la classe XMLWriter qui permet de produire des données en XML. Par exemple le code suivant :
+&lt;div class="furtherReading"&gt;
+&lt;h2&gt;Further Reading&lt;/h2&gt;
 
- 
-$w = new XMLWriter();
-$w-&gt;openUri(&#39;php://stdout&#39;);
-$w-&gt;setIndent(true);
-$w-&gt;setIndentString(&#39;    &#39;);
-$w-&gt;startDocument(&#39;1.0&#39;, &#39;utf-8&#39;, true);
-$w-&gt;writePI(&#39;xml-stylesheet&#39;, &#39;type=&quot;text/xsl&quot; media=&quot;screen&quot; href=&quot;test.xsl&quot;&#39;);
-$w-&gt;writeComment(&#39;Exemple&#39;);
-$w-&gt;startElementNS(&#39;rdf&#39;, &#39;RDF&#39;, &#39;http</summary><link rel='replies' type='application/atom+xml' href='http://blog.touv.fr/feeds/2805570776513054272/comments/default' title='Publier les commentaires'/><link rel='replies' type='text/html' href='http://blog.touv.fr/2010/07/generer-indifferemment-du-xml-ou-du.html#comment-form' title='3 commentaires'/><link rel='edit' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/2805570776513054272'/><link rel='self' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/2805570776513054272'/><link rel='alternate' type='text/html' href='http://blog.touv.fr/2010/07/generer-indifferemment-du-xml-ou-du.html' title='Générer  indifféremment du XML ou du JSON'/><author><name>Nicolas Thouvenin</name><uri>https://plus.google.com/100470147949342588997</uri><email>noreply@blogger.com</email><gd:image rel='http://schemas.google.com/g/2005#thumbnail' width='32' height='32' src='//lh5.googleusercontent.com/-6fLVcOC0Vk0/AAAAAAAAAAI/AAAAAAAAHnY/8WxD_lAXSko/s512-c/photo.jpg'/></author><thr:total>3</thr:total></entry><entry><id>tag:blogger.com,1999:blog-30322458.post-4345247278061170373</id><published>2010-05-07T22:42:00.003+02:00</published><updated>2010-05-07T22:51:12.352+02:00</updated><category scheme="http://www.blogger.com/atom/ns#" term="perso"/><title type='text'>Home sweet home</title><summary type="text"></summary><link rel='replies' type='application/atom+xml' href='http://blog.touv.fr/feeds/4345247278061170373/comments/default' title='Publier les commentaires'/><link rel='replies' type='text/html' href='http://blog.touv.fr/2010/05/home-sweet-home.html#comment-form' title='0 commentaires'/><link rel='edit' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/4345247278061170373'/><link rel='self' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/4345247278061170373'/><link rel='alternate' type='text/html' href='http://blog.touv.fr/2010/05/home-sweet-home.html' title='Home sweet home'/><author><name>Nicolas Thouvenin</name><uri>https://plus.google.com/100470147949342588997</uri><email>noreply@blogger.com</email><gd:image rel='http://schemas.google.com/g/2005#thumbnail' width='32' height='32' src='//lh5.googleusercontent.com/-6fLVcOC0Vk0/AAAAAAAAAAI/AAAAAAAAHnY/8WxD_lAXSko/s512-c/photo.jpg'/></author><thr:total>0</thr:total></entry><entry><id>tag:blogger.com,1999:blog-30322458.post-5014961594596168408</id><published>2010-04-07T16:16:00.009+02:00</published><updated>2010-08-27T15:40:32.897+02:00</updated><category scheme="http://www.blogger.com/atom/ns#" term="linux"/><category scheme="http://www.blogger.com/atom/ns#" term="pxxo"/><category scheme="http://www.blogger.com/atom/ns#" term="shell"/><title type='text'>Initialiser en 30&#39;&#39; un projet Pxxo / Pkgi</title><summary type="text">
-Démarrer un nouveau projet depuis rien est une tâche peu courante, et souvent on tente de se rappeler comment on avait procédé la dernière fois. Voici quelques lignes à copier coller pour démarrer en 30 secondes un projet de Pxxo associé à Pkgi sous Linux Debian/Ubuntu.
+&lt;p&gt;The term aliasing bug has been around for a while. It appears in Eric Raymond's
+    &lt;a href="http://www.catb.org/jargon/html/A/aliasing-bug.html"&gt;Jargon
+    file&lt;/a&gt; in the context of the C language where the raw memory accesses make it even more
+    unpleasant. &lt;/p&gt;
+&lt;/div&gt;
 
+&lt;div class="footnote-list"&gt;
+&lt;h2&gt;Notes&lt;/h2&gt;
 
-Création de l&#39;arborescence
-Pour pkgi
+&lt;div class="footnote-list-item" id="footnote-entity"&gt;
+&lt;p&gt;&lt;span class="num"&gt;1: &lt;/span&gt;
+      The &lt;a href="/bliki/EvansClassification.html"&gt;Evans Classification&lt;/a&gt; has the notion of Entity, which I see as a common form of
+      reference object.
+    &lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
 
-mkdir coolproj
-cd coolproj
-svn export https://subversion.cru.fr/pkgi/tags/2.23 pkgi
-./</summary><link rel='replies' type='application/atom+xml' href='http://blog.touv.fr/feeds/5014961594596168408/comments/default' title='Publier les commentaires'/><link rel='replies' type='text/html' href='http://blog.touv.fr/2010/04/initialiser-en-30-un-projet-pxxo-pkgi.html#comment-form' title='0 commentaires'/><link rel='edit' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/5014961594596168408'/><link rel='self' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/5014961594596168408'/><link rel='alternate' type='text/html' href='http://blog.touv.fr/2010/04/initialiser-en-30-un-projet-pxxo-pkgi.html' title='Initialiser en 30&#39;&#39; un projet Pxxo / Pkgi'/><author><name>Nicolas Thouvenin</name><uri>https://plus.google.com/100470147949342588997</uri><email>noreply@blogger.com</email><gd:image rel='http://schemas.google.com/g/2005#thumbnail' width='32' height='32' src='//lh5.googleusercontent.com/-6fLVcOC0Vk0/AAAAAAAAAAI/AAAAAAAAHnY/8WxD_lAXSko/s512-c/photo.jpg'/></author><thr:total>0</thr:total></entry><entry><id>tag:blogger.com,1999:blog-30322458.post-5933166490259297431</id><published>2010-03-30T10:44:00.009+02:00</published><updated>2010-04-02T22:42:36.488+02:00</updated><category scheme="http://www.blogger.com/atom/ns#" term="linux"/><category scheme="http://www.blogger.com/atom/ns#" term="SGV"/><category scheme="http://www.blogger.com/atom/ns#" term="svn"/><title type='text'>Numéroter automatiquement des branches svn</title><summary type="text">
-Créer une nouvelle version sur un projet géré par Subversion, c&#39;est très souvent créer une nouvelle branche. Afin d&#39;harmoniser le nom des branches on peut être tenté de respecter une convention de nommage et de les numéroter. 
+&lt;div class="shares"&gt;
+&lt;div class="icons"&gt;&lt;span class="label"&gt;Share:&lt;/span&gt;&lt;a href="https://twitter.com/intent/tweet?url=https://martinfowler.com/bliki/AliasingBug.html&amp;amp;text=Bliki:%20AliasingBug%20%E2%9E%99%20" title="Share on Twitter"&gt;&lt;img src="/t_mini-a.png"&gt;&lt;/a&gt;&lt;a href="https://facebook.com/sharer.php?u=https://martinfowler.com/bliki/AliasingBug.html" title="Share on Facebook"&gt;&lt;img src="/fb-icon-20.png"&gt;&lt;/a&gt;&lt;a href="https://plus.google.com/share?url=https://martinfowler.com/bliki/AliasingBug.html" title="Share on Google Plus"&gt;&lt;img src="/gplus-16.png"&gt;&lt;/a&gt;&lt;/div&gt;
 
- Exemple de structure attendue
+&lt;div class="comment"&gt;if you found this article useful, please share it. I appreciate the feedback and encouragement&lt;/div&gt;
+&lt;/div&gt;
 
-`-----trunk
- |      `-----fichier1
- |      `-----fichier2
-`-----branches
-        `-----VERSION_1
-        |     `-----fichier1
-        |</summary><link rel='replies' type='application/atom+xml' href='http://blog.touv.fr/feeds/5933166490259297431/comments/default' title='Publier les commentaires'/><link rel='replies' type='text/html' href='http://blog.touv.fr/2010/03/numeroter-automatiquement-des-branches.html#comment-form' title='0 commentaires'/><link rel='edit' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/5933166490259297431'/><link rel='self' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/5933166490259297431'/><link rel='alternate' type='text/html' href='http://blog.touv.fr/2010/03/numeroter-automatiquement-des-branches.html' title='Numéroter automatiquement des branches svn'/><author><name>Nicolas Thouvenin</name><uri>https://plus.google.com/100470147949342588997</uri><email>noreply@blogger.com</email><gd:image rel='http://schemas.google.com/g/2005#thumbnail' width='32' height='32' src='//lh5.googleusercontent.com/-6fLVcOC0Vk0/AAAAAAAAAAI/AAAAAAAAHnY/8WxD_lAXSko/s512-c/photo.jpg'/></author><thr:total>0</thr:total></entry><entry><id>tag:blogger.com,1999:blog-30322458.post-2497664040292102419</id><published>2010-02-08T23:58:00.005+01:00</published><updated>2010-02-10T08:29:17.154+01:00</updated><category scheme="http://www.blogger.com/atom/ns#" term="linux"/><category scheme="http://www.blogger.com/atom/ns#" term="moblin"/><category scheme="http://www.blogger.com/atom/ns#" term="openoffice"/><title type='text'>Installer OpenOffice sur Moblin 2</title><summary type="text">
-Voici une synthèse des informations que l&#39;on trouve un peu partout sur le Web pour installer OpenOffice en français sur Moblin.
+&lt;div class="clear"&gt;&lt;/div&gt;
+</content>
+  </entry>
 
+<entry>
+    <title>photostream 102</title>
+    <link href="https://martinfowler.com/photos/102.html"/>
+    <updated>2016-10-09T11:25:00-04:00</updated>
+    <id>tag:martinfowler.com,2016-10-09:photostream-102</id>
+    <content type="html">
+&lt;p&gt;&lt;a href = 'https://martinfowler.com/photos/102.html'&gt;&lt;img src = 'https://martinfowler.com/photos/102.jpg'&gt;&lt;/img&gt;&lt;/a&gt;&lt;/p&gt;
 
-Pour utiliser toutes les fonctions d&#39;OpenOffice, il faut installer Java. Pour cela il suffit de suivre cette procédure : Installer Java sur Moblin 2:
+&lt;p&gt;&lt;/p&gt;
 
+&lt;p&gt;Acadia N.P., ME&lt;/p&gt;
+</content>
+  </entry>
 
+<entry>
+    <title>photostream 101</title>
+    <link href="https://martinfowler.com/photos/101.html"/>
+    <updated>2016-09-18T20:19:00-04:00</updated>
+    <id>tag:martinfowler.com,2016-09-18:photostream-101</id>
+    <content type="html">
+&lt;p&gt;&lt;a href = 'https://martinfowler.com/photos/101.html'&gt;&lt;img src = 'https://martinfowler.com/photos/101.jpg'&gt;&lt;/img&gt;&lt;/a&gt;&lt;/p&gt;
 
+&lt;p&gt;&lt;/p&gt;
 
-wget -O OOo_3.1.0_LinuxIntel_install_fr.tar.gz http://mirrors.evolva.ro/openoffice.org/localized/fr/3.1.0/</summary><link rel='replies' type='application/atom+xml' href='http://blog.touv.fr/feeds/2497664040292102419/comments/default' title='Publier les commentaires'/><link rel='replies' type='text/html' href='http://blog.touv.fr/2010/02/installer-openoffice-sur-moblin-2.html#comment-form' title='0 commentaires'/><link rel='edit' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/2497664040292102419'/><link rel='self' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/2497664040292102419'/><link rel='alternate' type='text/html' href='http://blog.touv.fr/2010/02/installer-openoffice-sur-moblin-2.html' title='Installer OpenOffice sur Moblin 2'/><author><name>Nicolas Thouvenin</name><uri>https://plus.google.com/100470147949342588997</uri><email>noreply@blogger.com</email><gd:image rel='http://schemas.google.com/g/2005#thumbnail' width='32' height='32' src='//lh5.googleusercontent.com/-6fLVcOC0Vk0/AAAAAAAAAAI/AAAAAAAAHnY/8WxD_lAXSko/s512-c/photo.jpg'/></author><thr:total>0</thr:total></entry><entry><id>tag:blogger.com,1999:blog-30322458.post-9044682331002090078</id><published>2010-02-08T15:27:00.009+01:00</published><updated>2010-02-10T08:29:28.451+01:00</updated><category scheme="http://www.blogger.com/atom/ns#" term="java"/><category scheme="http://www.blogger.com/atom/ns#" term="linux"/><category scheme="http://www.blogger.com/atom/ns#" term="moblin"/><title type='text'>Installer Java sur Moblin 2</title><summary type="text">
-Voici quelques lignes  qui permettent d&#39;installer Java (jre) sur Linux Moblin 2.
-A copier coller dans un terminal.
+&lt;p&gt;Helvellyn, Lake District, England&lt;/p&gt;
+</content>
+  </entry>
 
+<entry>
+    <title>photostream 100</title>
+    <link href="https://martinfowler.com/photos/100.html"/>
+    <updated>2016-07-20T16:55:00-04:00</updated>
+    <id>tag:martinfowler.com,2016-07-20:photostream-100</id>
+    <content type="html">
+&lt;p&gt;&lt;a href = 'https://martinfowler.com/photos/100.html'&gt;&lt;img src = 'https://martinfowler.com/photos/100.jpg'&gt;&lt;/img&gt;&lt;/a&gt;&lt;/p&gt;
 
+&lt;p&gt;&lt;/p&gt;
 
-wget -O jre-6u18-linux-i586-rpm.bin http://javadl.sun.com/webapps/download/AutoDL?BundleId=37390
-chmod a+x jre-6u18-linux-i586-rpm.bin 
-sudo ./jre-6u18-linux-i586-rpm.bin 
+&lt;p&gt;Crater Lake, OR&lt;/p&gt;
+</content>
+  </entry>
 
+<entry>
+    <title>Bliki: BoiledCarrot</title>
+    <link href="https://martinfowler.com/bliki/BoiledCarrot.html"/>
+    <updated>2016-06-23T09:37:00-04:00</updated>
+    <id>https://martinfowler.com/bliki/BoiledCarrot.html</id>
+    <category term="bliki"/>
+    <content type="html">
+&lt;p&gt;I hated carrots when I was growing up, hating the smell and texture of the things.
+    But after I left home and started to cook for myself I started to like them. Nothing
+    changed about the carrots, nor did my taste buds get a radical overhaul, the
+    difference was in the cooking. My mother, like so many English people of her
+    generation, wasn't a great cook - particularly of vegetables. Her approach was to boil
+    carrots for twenty minutes or more. I since learned that if you cook them properly,
+    carrots are a totally different experience.&lt;/p&gt;
 
-Et pour activer Java dans Firefox :
+&lt;p&gt;This isn't a site about cooking, but about software development. But I find that
+    often a technique or tool is like the poor carrot - blamed for being awful when the
+    real problem is that the technique is being done incorrectly. &lt;/p&gt;
 
+&lt;p&gt;Let's take a couple of  examples. Several friends of mine
+commented how stored procedures were a disaster because they weren't
+kept in version control (instead they had names like GetCust01,
+GetCust02, GetCust02B etc). That's not a problem with stored
+procedures, that's a problem with people using bad practices with them.
+Similarly a criticism that TDD led to a brittle design on further
+questioning led to the discovery that the team in question hadn't done
+any refactoring - and refactoring is a critical step in TDD. &lt;/p&gt;
 
-cd /usr/lib/mozilla/plugins
-sudo ln -s /usr/java/latest/plugin/i386/</summary><link rel='replies' type='application/atom+xml' href='http://blog.touv.fr/feeds/9044682331002090078/comments/default' title='Publier les commentaires'/><link rel='replies' type='text/html' href='http://blog.touv.fr/2010/02/installer-java-sur-moblin-2.html#comment-form' title='0 commentaires'/><link rel='edit' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/9044682331002090078'/><link rel='self' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/9044682331002090078'/><link rel='alternate' type='text/html' href='http://blog.touv.fr/2010/02/installer-java-sur-moblin-2.html' title='Installer Java sur Moblin 2'/><author><name>Nicolas Thouvenin</name><uri>https://plus.google.com/100470147949342588997</uri><email>noreply@blogger.com</email><gd:image rel='http://schemas.google.com/g/2005#thumbnail' width='32' height='32' src='//lh5.googleusercontent.com/-6fLVcOC0Vk0/AAAAAAAAAAI/AAAAAAAAHnY/8WxD_lAXSko/s512-c/photo.jpg'/></author><thr:total>0</thr:total></entry><entry><id>tag:blogger.com,1999:blog-30322458.post-2789611796548019825</id><published>2010-02-02T12:50:00.001+01:00</published><updated>2010-02-03T14:57:52.604+01:00</updated><category scheme="http://www.blogger.com/atom/ns#" term="humeur"/><title type='text'>Le grand méchant Google</title><summary type="text">
-Ces derniers temps, une mayonnaise monte doucement et sûrement sur le WEB. Jusqu&#39;à présent, cette sauce ne concernait que les sîtes traitant d&#39;informatique et/ou des logiciels libres. Mais lundi 1 février, un article est paru en première page du Monde.fr.
-Cet article reprend en gros les différentes polémiques concernant Google parues ces derniers mois et déballe le tout aux yeux du grand public.</summary><link rel='replies' type='application/atom+xml' href='http://blog.touv.fr/feeds/2789611796548019825/comments/default' title='Publier les commentaires'/><link rel='replies' type='text/html' href='http://blog.touv.fr/2010/02/le-grand-mechant-google.html#comment-form' title='3 commentaires'/><link rel='edit' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/2789611796548019825'/><link rel='self' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/2789611796548019825'/><link rel='alternate' type='text/html' href='http://blog.touv.fr/2010/02/le-grand-mechant-google.html' title='Le grand méchant Google'/><author><name>Nicolas Thouvenin</name><uri>https://plus.google.com/100470147949342588997</uri><email>noreply@blogger.com</email><gd:image rel='http://schemas.google.com/g/2005#thumbnail' width='32' height='32' src='//lh5.googleusercontent.com/-6fLVcOC0Vk0/AAAAAAAAAAI/AAAAAAAAHnY/8WxD_lAXSko/s512-c/photo.jpg'/></author><thr:total>3</thr:total></entry><entry><id>tag:blogger.com,1999:blog-30322458.post-2965236872287337387</id><published>2009-12-09T15:19:00.000+01:00</published><updated>2009-12-09T10:15:48.359+01:00</updated><category scheme="http://www.blogger.com/atom/ns#" term="git"/><category scheme="http://www.blogger.com/atom/ns#" term="SGV"/><title type='text'>Pourquoi je préfére git à svn</title><summary type="text">
-J&#39;utilise presque quotidiennement svn et git, et au fil de mon usage, ma préférence va son contestation vers git, Pourquoi ?
+&lt;p&gt;Both of these are boiled carrots - useful tools that have been misused. I've seen
+  teams gain value out of both stored procedures and TDD. If we discard them without
+  taking their usage into account we lose useful tools from our toolbox.&lt;/p&gt;
 
-les répertoires .svn 
+&lt;p&gt;Not every failure of technique is a boiled carrot. I'm reliably informed that there's
+  no way to cook squirrels so they are appetizing to anyone who isn't desperate (which is
+  a shame considering what they've been doing to our garden this spring). If I come across
+  a team working on code in a shared folder, without any version control, there's no way
+  to cook that technique which isn't similarly appalling.&lt;/p&gt;
 
-Manipuler, déplacer ou renommer un répertoire dans une arborescence pose rapidement problème à partir du moment ou l&#39;on ne valide (commit) pas chaque opération ! 
-Copier des répertoires d&#39;un repository à un autre ou isoler un répertoire en dehors de</summary><link rel='replies' type='application/atom+xml' href='http://blog.touv.fr/feeds/2965236872287337387/comments/default' title='Publier les commentaires'/><link rel='replies' type='text/html' href='http://blog.touv.fr/2009/11/pourquoi-je-prefere-git-svn.html#comment-form' title='1 commentaires'/><link rel='edit' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/2965236872287337387'/><link rel='self' type='application/atom+xml' href='http://www.blogger.com/feeds/30322458/posts/default/2965236872287337387'/><link rel='alternate' type='text/html' href='http://blog.touv.fr/2009/11/pourquoi-je-prefere-git-svn.html' title='Pourquoi je préfére git à svn'/><author><name>Nicolas Thouvenin</name><uri>https://plus.google.com/100470147949342588997</uri><email>noreply@blogger.com</email><gd:image rel='http://schemas.google.com/g/2005#thumbnail' width='32' height='32' src='//lh5.googleusercontent.com/-6fLVcOC0Vk0/AAAAAAAAAAI/AAAAAAAAHnY/8WxD_lAXSko/s512-c/photo.jpg'/></author><thr:total>1</thr:total></entry></feed>
+&lt;p&gt;So when we hear of techniques failing, we need to ask a lot
+more questions.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Was it the technique itself that had problems, or was some
+other thing being missed out. Does the technique have an influence on
+this? (Version control is a separate thing to stored procedures, but
+it can be harder to use version control with stored procedures due to
+nature of tools involved.)&lt;/li&gt;
+
+&lt;li&gt;Was the technique used in a context that wasn't suitable for
+it? (Don't use wide-scale manual refactoring when you don't have
+tests.) Remember that software development is a very human activity,
+often techniques aren't suitable for a context because of culture and
+personality.&lt;/li&gt;
+
+&lt;li&gt;Were important pieces missed out of the technique?&lt;/li&gt;
+
+&lt;li&gt;Were people focused on outward signs that didn't correspond to
+the reality? This kind of thing is what Steve McConnell called &lt;a href="http://www.stevemcconnell.com/ieeesoftware/eic10.htm"&gt;Cargo Cult
+Software Engineering&lt;/a&gt;.&lt;/li&gt;
+
+&lt;li&gt;Is the technique something that works at some scale, but is being used outside its
+    zone of applicability? It's worth remembering Paracelsus's principle that the
+    difference between a medicine and a poison is the dosage. Testing a system through the
+    UI is useful with a few scenarios, but if you use it as your main testing approach
+    you'll end up with slow and brittle tests which will either slow you down or get ignored.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;An interesting aspect of this is whether certain techniques are
+  fragile; i.e are they hard to apply correctly and thus more prone
+  to a faulty application? If it's hard to use a technique properly,
+  that's a reasonable limitation on the technique, reducing the context
+  when it can be used. Some delicate foods have to left to a master chef. That doesn't
+  make them a bad technique, but it does reduce their applicability to more skillful
+  teams. I'd argue this is the fundamental problem with late integration of components.
+  While some teams can develop components to careful specifications that can integrate
+  together late in the day, in practice few teams are able to pull that off, and late
+  integration ends up being like Fugu.&lt;/p&gt;
+
+&lt;p&gt;While we need to be wary of boiled carrots, we also need to bear in mind we also get
+  the situation that I've observed as "no methodology has ever failed". With any failure
+  (assuming you can know &lt;a href="https://martinfowler.com/bliki/WhatIsFailure.html"&gt;WhatIsFailure&lt;/a&gt;) you can find some variation from the
+  methodology - which leads its defenders to say it wasn't followed and thus didn't fail.
+  There's a genuine tension here, one that can't be resolved without a deep understanding
+  of the deeper principles underlying a technique. The real point is that such techniques
+  aren't rigorously describable, just as Spaghetti Carbonara does not have one precise
+  recipe that can be followed without thinking. In the end what really counts is the dish,
+  the technique to prepare it can inspire and guide a good chef but cannot guarantee
+  success to someone without a certain degree of skill.&lt;/p&gt;
+
+&lt;p&gt;Like any profession, we can advance faster if we learn from each others' experiences.
+  Reports of people using techniques and tools are important so that we can judge what to
+  try in our own work. However a simple label usually isn't enough to go on. We are as
+  unable to measure compliance with the proper use of a technique as we are unable to
+  measure their successfulness. The important thing to do is whenever you hear of a
+  technique failing - always dig deeper to see if the carrot's been in the pot
+  too long. Otherwise we risk missing out on something worthwhile.&lt;/p&gt;
+
+&lt;div class="appendix"&gt;
+&lt;p&gt;I originally wrote about this topic under the heading "Faulty Technique Dichotomy", but
+  now feel the boiled carrot metaphor is more memorable.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="furtherReading"&gt;
+&lt;h2&gt;Further Reading&lt;/h2&gt;
+
+&lt;p&gt;I liked Ron Jeffries parable for a similar phenomenon &lt;a href="http://ronjeffries.com/xprog/articles/jatbaseball/"&gt;"We tried baseball and it didn't
+  work"&lt;/a&gt;. &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="acknowledgements"&gt;
+&lt;h2&gt;Acknowledgements&lt;/h2&gt;
+
+  Henrique Souza, Jeantine Mankelow, Karl Brown, Kief Morris, Kyle Hodgson, Matteo
+  Vaccari, Patrick Kua, Rebecca Parsons, Ricardo Cavalcanti, Roni Greenwood, Sriram Narayan,
+  and Steven Lowe
+
+  discussed drafts of this post on our internal mailing list.
+&lt;/div&gt;
+
+&lt;div class="shares"&gt;
+&lt;div class="icons"&gt;&lt;span class="label"&gt;Share:&lt;/span&gt;&lt;a href="https://twitter.com/intent/tweet?url=https://martinfowler.com/bliki/BoiledCarrot.html&amp;amp;text=Bliki:%20BoiledCarrot%20%E2%9E%99%20" title="Share on Twitter"&gt;&lt;img src="/t_mini-a.png"&gt;&lt;/a&gt;&lt;a href="https://facebook.com/sharer.php?u=https://martinfowler.com/bliki/BoiledCarrot.html" title="Share on Facebook"&gt;&lt;img src="/fb-icon-20.png"&gt;&lt;/a&gt;&lt;a href="https://plus.google.com/share?url=https://martinfowler.com/bliki/BoiledCarrot.html" title="Share on Google Plus"&gt;&lt;img src="/gplus-16.png"&gt;&lt;/a&gt;&lt;/div&gt;
+
+&lt;div class="comment"&gt;if you found this article useful, please share it. I appreciate the feedback and encouragement&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="clear"&gt;&lt;/div&gt;
+</content>
+  </entry>
+
+<entry>
+    <title>Bliki: BimodalIT</title>
+    <link href="https://martinfowler.com/bliki/BimodalIT.html"/>
+    <updated>2016-06-21T10:07:00-04:00</updated>
+    <id>https://martinfowler.com/bliki/BimodalIT.html</id>
+    <category term="bliki"/>
+    <content type="html">
+&lt;p&gt;Bimodal IT is the flawed notion that software systems should be divided into these
+  two distinct categories for management and control.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Front Office systems should be optimized for rapid feature development. These systems
+    of engagement need to react rapidly to changing customer needs and business
+    opportunities. Defects should be tolerated as the necessary cost for this rapid
+    development cycle.&lt;/li&gt;
+
+&lt;li&gt;Back Office systems should be optimized for reliability. As systems of record, it's
+    important that you don't get defects that damage the enterprise. Consequently you slow
+    down the rate of change.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The term &lt;a href="http://www.cio.com/article/2875803/cio-role/what-gartner-s-bimodal-it-model-means-to-enterprise-cios.html"&gt;Bimodal IT&lt;/a&gt; is used by Gartner &lt;a href="#footnote-gartner"&gt;[1]&lt;/a&gt;. McKinsey and Co talk about the same basic idea under the name &lt;a href="http://www.mckinsey.com/business-functions/business-technology/our-insights/a-two-speed-it-architecture-for-the-digital-enterprise"&gt;"Two Speed IT"&lt;/a&gt;. (I find it hard to resist calling it "Bipolar IT".)&lt;/p&gt;
+
+&lt;p&gt;When I first heard about this approach, I was pleased - thinking that these august
+  organizations had come to same conclusion that I had with my
+  &lt;a href="https://martinfowler.com/bliki/UtilityVsStrategicDichotomy.html"&gt;UtilityVsStrategicDichotomy&lt;/a&gt;, but as I read further I realized that Bimodal IT
+  was a different animal. And worse I think that Bimodal IT is really a path down the
+  wrong direction.&lt;/p&gt;
+
+&lt;p&gt;My first problem is that the separation is based on software systems rather than
+  business activity. If you want to rapidly cycle new ideas, you are going to need to
+  modify the back office systems of record just as frequently as the front office systems of
+  engagement. You can't come up with clever pricing plans without modifying the systems of
+  record that support them.&lt;/p&gt;
+
+&lt;p&gt;My second issue is that the bimodal idea is founded on the
+  &lt;a href="https://martinfowler.com/bliki/TradableQualityHypothesis.html"&gt;TradableQualityHypothesis&lt;/a&gt;, the idea that quality is something you trade-off
+  for speed. It's a common notion, but a false one. One of the striking things that we
+  learned at ThoughtWorks when we started using agile approaches for rapid feature
+  delivery is that we also saw a dramatic decline in production defects. It's not uncommon
+  to see us go live with an order of magnitude fewer defects than is usual for our
+  clients, even in their systems of record. The key point is that high quality (and low
+  defects) are a crucial enabler for rapid cycle-time. By not paying attention to quality,
+  people following a bimodal approach will actually end up slowing down their pace of
+  innovation in their "systems of engagement".&lt;/p&gt;
+
+&lt;p&gt;So my advice here that it is wise to use different management approaches to different
+  kinds of software projects, but don't make this distinction based on the bimodal
+  approach. Instead take a &lt;a href="https://martinfowler.com/bliki/BusinessCapabilityCentric.html"&gt;BusinessCapabilityCentric&lt;/a&gt; approach, and look at
+  whether your business capabilities are utility or strategic.&lt;/p&gt;
+
+&lt;div class="furtherReading"&gt;
+&lt;h2&gt;Further Reading&lt;/h2&gt;
+
+&lt;p&gt;Sriram Narayan's book - &lt;a href="https://www.amazon.com/gp/product/0133903354?ie=UTF8&amp;amp;tag=martinfowlerc-20&amp;amp;linkCode=as2&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;creativeASIN=0133903354"&gt;Agile IT Organization Design&lt;/a&gt;&lt;img src="https://www.assoc-amazon.com/e/ir?t=martinfowlerc-20&amp;amp;l=as2&amp;amp;o=1&amp;amp;a=0321601912" width="1" height="1" border="0" alt="" style="width: 1px !important; height: 1px !important; border:none !important; margin:0px !important;"&gt;
+    - looks at this kind of problem in much more depth.&lt;/p&gt;
+
+&lt;p&gt;Jez Humble provides a &lt;a href="https://continuousdelivery.com/2016/04/the-flaw-at-the-heart-of-bimodal-it/"&gt;worthwhile critique of Bimodal IT&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Simon Wardley &lt;a href="http://blog.gardeviance.org/2015/10/if-you-really-want-bimodal-then-youll.html"&gt;prefers
+    a three-level model&lt;/a&gt; of Pioneers, Settlers, and Town Planners.
+    &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="footnote-list"&gt;
+&lt;h2&gt;Notes&lt;/h2&gt;
+
+&lt;div class="footnote-list-item" id="footnote-gartner"&gt;
+&lt;p&gt;&lt;span class="num"&gt;1: &lt;/span&gt;
+      Sadly all their substantial material is available to subscribers only. 
+    &lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="acknowledgements"&gt;
+&lt;h2&gt;Acknowledgements&lt;/h2&gt;
+
+Brian Oxley, Dave Elliman, Jonny LeRoy, Ken McCormack, Mark Taylor, Patrick Kua, Paulo
+Caroli, and Praful J Todkar
+
+discussed drafts of this post on our internal mailing list
+  &lt;/div&gt;
+
+&lt;div class="shares"&gt;
+&lt;div class="icons"&gt;&lt;span class="label"&gt;Share:&lt;/span&gt;&lt;a href="https://twitter.com/intent/tweet?url=https://martinfowler.com/bliki/BimodalIT.html&amp;amp;text=Bliki:%20Bimodal%20IT%20%E2%9E%99%20" title="Share on Twitter"&gt;&lt;img src="/t_mini-a.png"&gt;&lt;/a&gt;&lt;a href="https://facebook.com/sharer.php?u=https://martinfowler.com/bliki/BimodalIT.html" title="Share on Facebook"&gt;&lt;img src="/fb-icon-20.png"&gt;&lt;/a&gt;&lt;a href="https://plus.google.com/share?url=https://martinfowler.com/bliki/BimodalIT.html" title="Share on Google Plus"&gt;&lt;img src="/gplus-16.png"&gt;&lt;/a&gt;&lt;/div&gt;
+
+&lt;div class="comment"&gt;if you found this article useful, please share it. I appreciate the feedback and encouragement&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="clear"&gt;&lt;/div&gt;
+</content>
+  </entry>
+
+<entry>
+    <title>Bliki: Serverless</title>
+    <link href="https://martinfowler.com/bliki/Serverless.html"/>
+    <updated>2016-06-20T11:08:00-04:00</updated>
+    <id>https://martinfowler.com/bliki/Serverless.html</id>
+    <category term="bliki"/>
+    <author>
+      <name>Badri Janakiraman</name>
+      <uri>https://twitter.com/badrij</uri>
+    </author>
+    <content type="html">
+&lt;p&gt;Serverless architectures are internet based systems where the application development
+  does not use the usual server process. Instead they rely solely on a combination of
+  third-party services, client-side logic, and service hosted remote procedure calls
+  (&lt;a href="/articles/serverless.html#unpacking-faas"&gt;FaaS&lt;/a&gt;).&lt;/p&gt;
+
+&lt;div class="figure" style="width: 700px;"&gt;&lt;img src="https://martinfowler.com/bliki/images/serverless/sketch.png" width="700px"&gt;&lt;/div&gt;
+
+&lt;p&gt;Serverless applications often make &lt;b&gt;extensive use of third party services&lt;/b&gt; to
+  accomplish tasks that are traditionally taken care of by servers. These services could
+  be rich ecosystems of services that interoperate, such as &lt;a href="https://aws.amazon.com/"&gt;Amazon AWS&lt;/a&gt; and &lt;a href="https://azure.microsoft.com/"&gt;Azure&lt;/a&gt;, or they could be a single service that
+  attempt to provide turnkey set of capabilities such a &lt;a href="https://parse.com/"&gt;Parse&lt;/a&gt; or &lt;a href="https://www.firebase.com/"&gt;Firebase&lt;/a&gt;.
+  The abstraction provided by these services could be infrastructural (such as message
+  queues, databases, edge caching&#x2026;) or higher-level (federated identity, role and
+  capability management, search&#x2026;).&lt;/p&gt;
+
+&lt;p&gt;One of the primary responsibilities of a general purpose server based web application
+  is to control the request-response cycle. Controllers on the server side process input,
+  invoke appropriate application behaviour and construct dynamic responses, typically
+  using a templating engine. In a serverless application, where application behaviour is
+  woven together from third party services, &lt;b&gt;client side control flow and dynamic
+  content generation&lt;/b&gt; replaces the server side controllers. Rich Javascript
+  applications, mobile applications (and increasingly, TV or embedded IoT applications)
+  coordinate the interaction between the various services by making API calls and using
+  client side UI frameworks to generate the dynamic content.&lt;/p&gt;
+
+&lt;p&gt;The most substantive part of a server based web application is the work that happens
+  between the controller and the infrastructure; the business logic. A long lived server
+  hosts the code that implements this logic and performs the required processing for as
+  long as the application stays alive. In serverless applications, &lt;b&gt;custom code
+  components have a lifecycle that is much shorter&lt;/b&gt;, closer to the timeline of a single
+  HTTP request/response cycle. The code activates when a request arrives, processes the
+  request and becomes dormant as soon as the activity dies down. This code often lives in
+  a managed environment such as &lt;a href="https://aws.amazon.com/lambda/"&gt;Amazon
+  Lambda&lt;/a&gt;, &lt;a href="https://azure.microsoft.com/en-us/services/functions/"&gt;Azure
+  Function&lt;/a&gt; or &lt;a href="https://cloud.google.com/functions/"&gt;Google Cloud
+  Functions&lt;/a&gt;, which takes care of the lifecycle management and scaling of the code.
+  (This style of organizing software is sometimes called &lt;a href="/articles/serverless.html#unpacking-faas"&gt;&#x201C;Function as a
+  Service&#x201D; - FaaS&lt;/a&gt;.) The short per-request lifecycle offers itself to a per-request
+  pricing model too, which results in significant cost savings for some teams. &lt;a href="#footnote-foreshadow"&gt;[1]&lt;/a&gt;&lt;/p&gt;
+
+&lt;div id="ANewStyleANewSetOfTradeoffs"&gt;&lt;hr class="topSection"&gt;
+&lt;h2&gt;A new style, a new set of tradeoffs&lt;/h2&gt;
+
+&lt;p&gt;All design is about tradeoffs. There are some distinct advantages to applications
+    built in this style and certainly some problems too.&lt;/p&gt;
+
+&lt;p&gt;The most commonly asserted benefit is cost. In systems with bursty traffic patterns, the cost of having a beefy server run cold the majority of the time in order to accomodate the bursts is both wasteful and expensive. The demand based pricing model of cloud based infrastructure services can offer &lt;b&gt;significant reduction in costs&lt;/b&gt; for teams that have to deal with this type of traffic. In addition, in a traditional server based application the scalability of the application and all associated infrastructural components are the responsibility of the development team. This is often harder than using services that scale transparently behind the simple abstraction of an API available over a URL. Thus teams often find that serverless applications can be made to &lt;b&gt;scale more easily&lt;/b&gt;.&lt;/p&gt;
+
+&lt;p&gt;On the other hand, there are some new costs. The &lt;b&gt;conceptual overhead of splitting a single application&lt;/b&gt; into something that woven from a fabric of services is significant and increases with the number and variety of services used. &lt;b&gt;Local development and unit testing is also harder&lt;/b&gt; when applications have significant parts implemented and running in external services. Teams often use &lt;a href="/bliki/BroadStackTest.html"&gt;Broad Stack Tests&lt;/a&gt; and &lt;a href="https://www.thoughtworks.com/radar/techniques/semantic-monitoring"&gt;semantic monitoring&lt;/a&gt; to offset this to some extent.&lt;/p&gt;
+
+&lt;p&gt;Lastly, there is a perceived benefit of serverless systems being &lt;b&gt;easier to
+    operate and maintain&lt;/b&gt;. Third-party services spend significant resources on
+    security, availability, scaling and performance. These things often require
+    specialized skills and may not be in the wheelhouse of smaller development teams. But
+    this doesn't mean teams can forget about operations. It still falls on development
+    teams to deal with the &lt;b&gt;problems caused by service outage&lt;/b&gt;, downtime, decomissioning
+    and slowdowns and to prevent these from having a cacading impact on their own
+    applications.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="furtherReading"&gt;
+&lt;h2&gt;Further Reading&lt;/h2&gt;
+
+&lt;p&gt;Mike Roberts is writing a more &lt;a href="/articles/serverless.html"&gt;detailed
+    article on serverless architectures&lt;/a&gt;, which includes examples, further
+    details on trade-offs and contrast with similar styles.&lt;/p&gt;
+
+&lt;p&gt;Patrick Debois talks more about the reality of operations for serverless
+    architectures in &lt;a href="http://www.slideshare.net/jedi4ever/from-serverless-to-service-full-how-the-role-of-devops-is-evolving"&gt;his talk from serverlessconf
+    2016&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="appendix"&gt;
+&lt;div id="Acknowledgements"&gt;&lt;hr class="topSection"&gt;
+&lt;h2&gt;Acknowledgements&lt;/h2&gt;
+
+&lt;p&gt;I would like to thank Martin Fowler for his help with the illustration, editorial
+      advice and guidance with this post. In addition, many thanks to Mike Roberts, Paul
+      Hammant and Ken McCormack for their input and to Chris Turner, Ian Carvell, Patrick
+      Debois and Jay Sandhaus for taking time to discuss their experiences building
+      serverless applications.
+
+      Jean-No&#xEB;l Rouvignac alerted me to some typos.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="footnote-list"&gt;
+&lt;h2&gt;Notes&lt;/h2&gt;
+
+&lt;div class="footnote-list-item" id="footnote-foreshadow"&gt;
+&lt;p&gt;&lt;span class="num"&gt;1: &lt;/span&gt;
+      Other automation services such as &lt;a href="https://zapier.com/"&gt;Zapier&lt;/a&gt; and &lt;a href="https://ifttt.com/"&gt;IFTTT&lt;/a&gt; seem to foreshadow in spirit, if not in their
+      developer friendliness, the sort of things that can be done with AWS Lambda, Azure
+      Function or Google Cloud Functions.
+    &lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="shares"&gt;
+&lt;div class="icons"&gt;&lt;span class="label"&gt;Share:&lt;/span&gt;&lt;a href="https://twitter.com/intent/tweet?url=https://martinfowler.com/bliki/Serverless.html&amp;amp;text=Bliki:%20Serverless%20%E2%9E%99%20" title="Share on Twitter"&gt;&lt;img src="/t_mini-a.png"&gt;&lt;/a&gt;&lt;a href="https://facebook.com/sharer.php?u=https://martinfowler.com/bliki/Serverless.html" title="Share on Facebook"&gt;&lt;img src="/fb-icon-20.png"&gt;&lt;/a&gt;&lt;a href="https://plus.google.com/share?url=https://martinfowler.com/bliki/Serverless.html" title="Share on Google Plus"&gt;&lt;img src="/gplus-16.png"&gt;&lt;/a&gt;&lt;/div&gt;
+
+&lt;div class="comment"&gt;if you found this article useful, please share it. I appreciate the feedback and encouragement&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="clear"&gt;&lt;/div&gt;
+</content>
+  </entry>
+
+<entry>
+    <title>photostream 99</title>
+    <link href="https://martinfowler.com/photos/99.html"/>
+    <updated>2016-06-19T09:25:00-04:00</updated>
+    <id>tag:martinfowler.com,2016-06-19:photostream-99</id>
+    <content type="html">
+&lt;p&gt;&lt;a href = 'https://martinfowler.com/photos/99.html'&gt;&lt;img src = 'https://martinfowler.com/photos/99.jpg'&gt;&lt;/img&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Canyon Creek Tr., OR&lt;/p&gt;
+</content>
+  </entry>
+
+<entry>
+    <title>photostream 98</title>
+    <link href="https://martinfowler.com/photos/98.html"/>
+    <updated>2016-06-11T10:09:00-04:00</updated>
+    <id>tag:martinfowler.com,2016-06-11:photostream-98</id>
+    <content type="html">
+&lt;p&gt;&lt;a href = 'https://martinfowler.com/photos/98.html'&gt;&lt;img src = 'https://martinfowler.com/photos/98.jpg'&gt;&lt;/img&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Bristol, RI&lt;/p&gt;
+</content>
+  </entry>
+
+<entry>
+    <title>photostream 97</title>
+    <link href="https://martinfowler.com/photos/97.html"/>
+    <updated>2016-05-28T12:46:00-04:00</updated>
+    <id>tag:martinfowler.com,2016-05-28:photostream-97</id>
+    <content type="html">
+&lt;p&gt;&lt;a href = 'https://martinfowler.com/photos/97.html'&gt;&lt;img src = 'https://martinfowler.com/photos/97.jpg'&gt;&lt;/img&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Arnold Arboretum, Boston, MA&lt;/p&gt;
+</content>
+  </entry>
+
+<entry>
+    <title>photostream 96</title>
+    <link href="https://martinfowler.com/photos/96.html"/>
+    <updated>2016-04-24T09:25:00-04:00</updated>
+    <id>tag:martinfowler.com,2016-04-24:photostream-96</id>
+    <content type="html">
+&lt;p&gt;&lt;a href = 'https://martinfowler.com/photos/96.html'&gt;&lt;img src = 'https://martinfowler.com/photos/96.jpg'&gt;&lt;/img&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Burano, Italy&lt;/p&gt;
+</content>
+  </entry>
+
+<entry>
+    <title>photostream 95</title>
+    <link href="https://martinfowler.com/photos/95.html"/>
+    <updated>2016-04-02T14:35:00-04:00</updated>
+    <id>tag:martinfowler.com,2016-04-02:photostream-95</id>
+    <content type="html">
+&lt;p&gt;&lt;a href = 'https://martinfowler.com/photos/95.html'&gt;&lt;img src = 'https://martinfowler.com/photos/95.jpg'&gt;&lt;/img&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Florence, Italy&lt;/p&gt;
+</content>
+  </entry>
+
+<entry>
+    <title>photostream 94</title>
+    <link href="https://martinfowler.com/photos/94.html"/>
+    <updated>2016-02-07T16:43:00-05:00</updated>
+    <id>tag:martinfowler.com,2016-02-07:photostream-94</id>
+    <content type="html">
+&lt;p&gt;&lt;a href = 'https://martinfowler.com/photos/94.html'&gt;&lt;img src = 'https://martinfowler.com/photos/94.jpg'&gt;&lt;/img&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Melrose, MA&lt;/p&gt;
+</content>
+  </entry>
+
+<entry>
+    <title>photostream 93</title>
+    <link href="https://martinfowler.com/photos/93.html"/>
+    <updated>2015-12-19T10:11:00-05:00</updated>
+    <id>tag:martinfowler.com,2015-12-19:photostream-93</id>
+    <content type="html">
+&lt;p&gt;&lt;a href = 'https://martinfowler.com/photos/93.html'&gt;&lt;img src = 'https://martinfowler.com/photos/93.jpg'&gt;&lt;/img&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Brattleboro, VT&lt;/p&gt;
+</content>
+  </entry>
+
+<entry>
+    <title>photostream 92</title>
+    <link href="https://martinfowler.com/photos/92.html"/>
+    <updated>2015-11-21T13:18:00-05:00</updated>
+    <id>tag:martinfowler.com,2015-11-21:photostream-92</id>
+    <content type="html">
+&lt;p&gt;&lt;a href = 'https://martinfowler.com/photos/92.html'&gt;&lt;img src = 'https://martinfowler.com/photos/92.jpg'&gt;&lt;/img&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Brattleboro, VT&lt;/p&gt;
+</content>
+  </entry>
+
+<entry>
+    <title>photostream 91</title>
+    <link href="https://martinfowler.com/photos/91.html"/>
+    <updated>2015-10-31T05:34:00-04:00</updated>
+    <id>tag:martinfowler.com,2015-10-31:photostream-91</id>
+    <content type="html">
+&lt;p&gt;&lt;a href = 'https://martinfowler.com/photos/91.html'&gt;&lt;img src = 'https://martinfowler.com/photos/91.jpg'&gt;&lt;/img&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Bristol, VT&lt;/p&gt;
+</content>
+  </entry>
+
+<entry>
+    <title>photostream 90</title>
+    <link href="https://martinfowler.com/photos/90.html"/>
+    <updated>2015-10-17T11:17:00-04:00</updated>
+    <id>tag:martinfowler.com,2015-10-17:photostream-90</id>
+    <content type="html">
+&lt;p&gt;&lt;a href = 'https://martinfowler.com/photos/90.html'&gt;&lt;img src = 'https://martinfowler.com/photos/90.jpg'&gt;&lt;/img&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Istanbul, Turkey&lt;/p&gt;
+</content>
+  </entry>
+
+</feed>
