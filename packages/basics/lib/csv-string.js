@@ -10,8 +10,12 @@ function tocsv(data) {
 }
 
 module.exports = function(data, feed) {
-  let func, format = this.getParam('format', 'standard');
+  let func;
+  let format = this.getParam('format', 'standard');
+  let sep = this.getParam('separator', ',');
+
   if (format === 'semicolon') {
+    sep = ';';
     func = tocsv;
   }
   else {
@@ -21,8 +25,8 @@ module.exports = function(data, feed) {
     feed.close();
   }
   else if (this.isFirst()) {
-    feed.write(func(Object.keys(data)));
-    feed.send(func(data));
+    feed.write(func(Object.keys(data), sep));
+    feed.send(func(data, sep));
   }
   else {
     feed.send(func(data));
