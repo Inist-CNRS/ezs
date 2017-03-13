@@ -29,6 +29,6 @@ module.exports = function(data, feed) {
     feed.send(func(data, sep));
   }
   else {
-    feed.send(func(data));
+    feed.send(func(data, sep));
   }
 };
