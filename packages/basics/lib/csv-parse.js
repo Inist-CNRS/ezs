@@ -11,6 +11,7 @@ module.exports = function(data, feed) {
     feed.end();
   }
   else {
+    this.handle.end();
     feed.close();
   }
 }
