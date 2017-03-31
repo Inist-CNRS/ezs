@@ -3,7 +3,7 @@ const request = require('request');
 const url = require('url');
 
 module.exports = function ISTESRequest(data, feed) {
-  const path = this.getParam('path', 'handle');
+  const path = this.getParam('path', 'ISTEX');
   const json = this.getParam('json', true);
   let handle = OBJ.get(data, path);
   if (handle === undefined) {

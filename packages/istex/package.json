@@ -23,7 +23,8 @@
     "clone": "^2.1.0",
     "dot-prop": "^4.1.0",
     "qs": "^6.3.0",
-    "request": "^2.79.0"
+    "request": "^2.79.0",
+    "xml-mapping": "^1.7.1"
   },
   "devDependencies": {
     "ezs": "^1.1.0",

@@ -47,7 +47,7 @@ module.exports = function ISTEXCorpus(data, feed) {
   if (istex && istex.query) {
     istex.query.forEach((q) => {
       const obj = clone(shared);
-      obj.handle = {
+      obj.ISTEX = {
         q,
         sortBy: 'host.doi',
       };

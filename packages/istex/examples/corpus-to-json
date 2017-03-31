@@ -18,6 +18,8 @@ fs.createReadStream(input)
   .pipe(ezs('ISTEXRequest'))
   .pipe(ezs('ISTEXMods'))
   .pipe(ezs('ISTEXRequest'))
+  .pipe(ezs('ISTEXParseXML'))
+  .pipe(ezs('flatten'))
   .pipe(ezs('jsonify'))
   .pipe(process.stdout)
 ;

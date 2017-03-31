@@ -4,5 +4,6 @@ module.exports =  {
   ISTEXHarvest: require('./lib/harvest.js'),
   ISTEXRequest: require('./lib/request.js'),
   ISTEXHits: require('./lib/hits.js'),
-  ISTEXMods: require('./lib/mods.js')
+  ISTEXMods: require('./lib/mods.js'),
+  ISTEXParseXML: require('./lib/parse-xml.js')
 }

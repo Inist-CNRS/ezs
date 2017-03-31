@@ -5,7 +5,7 @@ const OBJ = require('dot-prop');
 const clone = require('clone');
 
 module.exports = function harvest(data, feed) {
-  const path = this.getParam('path', 'handle');
+  const path = this.getParam('path', 'ISTEX');
   let handle = OBJ.get(data, path);
   if (handle === undefined) {
     handle = data;
