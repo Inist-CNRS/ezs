@@ -1,8 +1,7 @@
-module.exports = function (data, feed) {
+module.exports = function stringify(data, feed) {
   if (this.isLast()) {
     feed.close();
-  }
-  else {
+  } else {
     feed.send(data.toString());
   }
-}
+};
