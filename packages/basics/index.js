@@ -1,5 +1,6 @@
 module.exports =  {
   bufferify: require('./lib/bufferify.js'),
+  concat: require('./lib/concat.js'),
   stringify: require('./lib/stringify.js'),
   jsonify: require('./lib/jsonify.js'),
   standardize: require('./lib/standardize.js'),
