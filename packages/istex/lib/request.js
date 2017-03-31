@@ -2,8 +2,9 @@ const OBJ = require('dot-prop');
 const request = require('request');
 const url = require('url');
 
-module.exports = function(data, feed) {
-  let path = this.getParam('path', 'handle');
+module.exports = function ISTESRequest(data, feed) {
+  const path = this.getParam('path', 'handle');
+  const json = this.getParam('json', true);
   let handle = OBJ.get(data, path);
   if (handle === undefined) {
     handle = data;
@@ -11,27 +12,24 @@ module.exports = function(data, feed) {
 
   if (this.isLast()) {
     feed.close();
-  }
-  else {
-    let urlObj = {
-      url : url.format(handle),
-      method: "GET",
-      json: true
-    }
-    request(urlObj, function (error, response, body) {
-      if (!error && response.statusCode == 200) {
+  } else {
+    const urlObj = {
+      url: url.format(handle),
+      method: 'GET',
+      json,
+    };
+    request(urlObj, (error, response, body) => {
+      if (!error && response.statusCode === 200) {
         if (handle === undefined) {
           feed.send(body);
-        }
-        else {
+        } else {
           OBJ.set(data, path, body);
           feed.send(data);
         }
-      }
-      else {
+      } else {
         throw error;
       }
-    })
+    });
   }
-}
+};
 
