@@ -8,18 +8,17 @@ ezs.use(require('ezs-basics'));
 ezs.use(require('..'));
 
 const input = path.resolve(__dirname, './corpus/data.corpus');
-const output = 'corpusName,author,language,abstract,title,pmid,'
-             + 'genre,host,publicationDate,copyrightDate,id,'
-             + 'score,serie,fulltext';
 
 fs.createReadStream(input)
   .pipe(ezs('stringify'))
   .pipe(ezs('concat'))
   .pipe(ezs('ISTEXCorpus'))
-  .pipe(ezs('ISTEXQuery', { params: { output } }))
+  .pipe(ezs('ISTEXQuery'))
   .pipe(ezs('ISTEXHarvest'))
   .pipe(ezs('ISTEXRequest'))
-  .pipe(ezs('ISTEXHits'))
+  .pipe(ezs('ISTEXMods'))
+  .pipe(ezs('ISTEXRequest'))
+  .pipe(ezs('ISTEXParseXML'))
   .pipe(ezs('flatten'))
   .pipe(ezs('jsonify'))
   .pipe(process.stdout)

@@ -4,9 +4,15 @@ const QueryString = require('qs');
 
 module.exports = function ISTEXQuery(data, feed) {
   const path = this.getParam('path', 'ISTEX');
+  const params = this.getParam('params', {});
   let handle = OBJ.get(data, path);
   if (handle === undefined) {
     handle = data;
+  }
+  if (handle) {
+    Object.keys(params).forEach((key) => {
+      handle[key] = params[key];
+    });
   }
   const urlObj = {
     protocol: 'https:',

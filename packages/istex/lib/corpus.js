@@ -53,6 +53,15 @@ module.exports = function ISTEXCorpus(data, feed) {
       };
       feed.write(obj);
     });
+  } else if (istex && istex.id) {
+    istex.id.forEach((id) => {
+      const obj = clone(shared);
+      obj.ISTEX = {
+        q: 'id:'.concat(id),
+        sortBy: 'host.doi',
+      };
+      feed.write(obj);
+    });
   }
   feed.end();
 };
