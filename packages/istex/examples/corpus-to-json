@@ -1,18 +1,18 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
 const path = require('path');
 
 const ezs = require('ezs');
 ezs.use(require('ezs-basics'));
 ezs.use(require('..'));
 
-const input = path.resolve(__dirname, './corpus/data.corpus');
 const output = 'corpusName,author,language,abstract,title,pmid,'
              + 'genre,host,publicationDate,copyrightDate,id,'
              + 'score,serie,fulltext';
 
-fs.createReadStream(input)
+process.stdin.resume();
+process.stdin.setEncoding('utf8');
+process.stdin
   .pipe(ezs('stringify'))
   .pipe(ezs('concat'))
   .pipe(ezs('ISTEXCorpus'))
