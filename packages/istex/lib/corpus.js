@@ -6,7 +6,7 @@ module.exports = function ISTEXCorpus(data, feed) {
   }
   const regex = {
     section: /^\s*\[\s*([^\]]*)\s*\]\s*$/,
-    param: /^\s*([\w.\-_]+)\s+(.*?)\s*$/,
+    param: /^\s*([\w.\-_]+)\s*[=: ]\s*(.*?)\s*$/,
     comment: /^\s*[;#].*$/,
   };
   const value = {};
