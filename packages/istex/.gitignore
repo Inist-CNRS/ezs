@@ -4,4 +4,8 @@
 README.html
 node_modules
 coverage/
+examples/corpus/languages.*.corpus
 *.sw?
+.vscode
+yarn.lock
+examples/full/*

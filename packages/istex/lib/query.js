@@ -16,7 +16,7 @@ module.exports = function ISTEXQuery(data, feed) {
   }
   const urlObj = {
     protocol: 'https:',
-    host: 'api.istex.fr',
+    host: 'api-v5.istex.fr',
     pathname: '/document/',
     search: QueryString.stringify(handle),
   };

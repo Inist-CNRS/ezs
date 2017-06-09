@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+
+const ezs = require('ezs');
+ezs.use(require('ezs-basics'));
+ezs.use(require('..'));
+
+const output = 'language,doi,id';
+
+process.stdin.resume();
+process.stdin.setEncoding('utf8');
+process.stdin
+  .pipe(ezs('stringify'))
+  .pipe(ezs('ISTEXCorpus'))
+  .pipe(ezs('ISTEXQuery', { params: { output, }, }))
+  .pipe(ezs('ISTEXScroll'))
+  .pipe(ezs('ISTEXHits'))
+  .pipe(ezs('flatten'))
+  .pipe(ezs('ISTEXTriplify', {
+    properties: {
+      'ISTEX/doi/': 'http://purl.org/ontology/bibo/doi',
+      'ISTEX/language/': 'http://purl.org/dc/terms/language',
+    },
+    transforms: {
+      'ISTEX/language/': [
+        /([a-z]{3})/,
+        '<http://lexvo.org/id/iso639-3/$1>',
+      ],
+    },
+  }))
+  // .pipe(ezs('jsonify'))
+  .pipe(process.stdout)
+;
+

@@ -1,0 +1,62 @@
+#
+# Fichier corpus pour les langues de publication
+#
+title        Tout ISTEX
+author       François
+publisher    CNRS
+description  Requête globale
+licence      CC-By
+versionInfo  1
+
+[ISTEX]
+#query   *
+#query  language.raw:("eng")
+#query  language.raw:("ger")
+#query  language.raw:("fre")
+#query  language.raw:("lat")
+#query  language.raw:("spa")
+#query  language.raw:("ita")
+#query  language.raw:("dut")
+query  language.raw:("rus")
+#query  language.raw:("wel")
+#query  language.raw:("roa")
+#query  language.raw:("pol")
+#query  language.raw:("grc")
+#query  language.raw:("por")
+#query  language.raw:("heb")
+#query  language.raw:("gre")
+#query  language.raw:("mul")
+#query  language.raw:("und")
+#query  language.raw:("frm")
+#query  language.raw:("ara")
+#query  language.raw:("sco")
+#query  language.raw:("gla")
+#query  language.raw:("arc")
+#query  language.raw:("cze")
+#query  language.raw:("dan")
+#query  language.raw:("gle")
+#query  language.raw:("ang")
+#query  language.raw:("swe")
+#query  language.raw:("chi")
+#query  language.raw:("alg")
+#query  language.raw:("nai")
+#query  language.raw:("glv")
+#query  language.raw:("per")
+#query  language.raw:("syr")
+#query  language.raw:("nor")
+#query  language.raw:("cat")
+#query  language.raw:("fro")
+#query  language.raw:("new")
+#query  language.raw:("zxx")
+#query  language.raw:("tur")
+#query  language.raw:("pal")
+#query  language.raw:("amh")
+#query  language.raw:("arm")
+#query  language.raw:("glg")
+#query  language.raw:("gmh")
+#query  language.raw:("hun")
+#query  language.raw:("lit")
+#query  language.raw:("may")
+#query  language.raw:("moh")
+#query  language.raw:("peo")
+#query  language.raw:("san")

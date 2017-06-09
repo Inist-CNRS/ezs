@@ -1,0 +1,20 @@
+#!/usr/bin/env node
+
+// const fs = require('fs');
+// const path = require('path');
+
+const ezs = require('ezs');
+ezs.use(require('ezs-basics'));
+ezs.use(require('..'));
+
+process.stdin.resume();
+process.stdin.setEncoding('utf8');
+process.stdin
+  .pipe(ezs('stringify'))
+  .pipe(ezs('ISTEXCorpus'))
+  .pipe(ezs('ISTEXQuery'))
+  .pipe(ezs('ISTEXScroll'))
+  .pipe(ezs('ISTEXHits'))
+  .pipe(ezs('ISTEXFulltext'))
+  .pipe(process.stdout)
+;

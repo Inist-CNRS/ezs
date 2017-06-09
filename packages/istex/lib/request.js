@@ -27,7 +27,19 @@ module.exports = function ISTESRequest(data, feed) {
           feed.send(data);
         }
       } else {
-        throw error;
+        /* eslint-disable */
+        console.error('node-ezs-istex/lib/request urlObj:', urlObj);
+        console.error('                   request error:', error);
+        console.error('                   request response:',
+          response.statusCode,
+          response.statusMessage,
+          response.headers
+        );
+        // TODO: reinject that unsuccessful request into the feed
+        //       (if it's even possible)
+        feed.end();
+        /* eslint-enable */
+        // throw error;
       }
     });
   }

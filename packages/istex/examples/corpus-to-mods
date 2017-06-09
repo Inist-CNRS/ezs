@@ -11,7 +11,7 @@ const input = path.resolve(__dirname, './corpus/data.corpus');
 
 fs.createReadStream(input)
   .pipe(ezs('stringify'))
-  .pipe(ezs('concat'))
+  // .pipe(ezs('concat'))
   .pipe(ezs('ISTEXCorpus'))
   .pipe(ezs('ISTEXQuery'))
   .pipe(ezs('ISTEXHarvest'))

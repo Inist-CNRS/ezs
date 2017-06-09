@@ -17,7 +17,9 @@ module.exports = function ISTEXCorpus(data, feed) {
       if (regex.param.test(line)) {
         const match = line.match(regex.param);
         if (section && value[section][match[1]] === undefined) {
-          value[section][match[1]] = [match[2]];
+          value[section][match[1]] = [
+            match[2],
+          ];
         } else if (section && value[section][match[1]]) {
           value[section][match[1]] = value[section][match[1]].concat(match[2]);
         } else {
@@ -49,7 +51,6 @@ module.exports = function ISTEXCorpus(data, feed) {
       const obj = clone(shared);
       obj.ISTEX = {
         q,
-        sortBy: 'host.doi',
       };
       feed.write(obj);
     });
@@ -58,7 +59,6 @@ module.exports = function ISTEXCorpus(data, feed) {
       const obj = clone(shared);
       obj.ISTEX = {
         q: 'id:'.concat(id),
-        sortBy: 'host.doi',
       };
       feed.write(obj);
     });
