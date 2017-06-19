@@ -8,17 +8,30 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/touv/node-ezs-istex.git"
+    "url": "git+https://github.com/Inist-CNRS/node-ezs-istex.git"
   },
   "keywords": [
     "ezs"
   ],
-  "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
+   "contributors": [
+    {
+      "name": "François Parmentier",
+      "url": "https://github.com/parmentf"
+    },
+    {
+      "name": "Nicolas Thouvenin",
+      "url": "https://github.com/touv"
+    },
+    {
+      "name": "Nicolas Kieffer",
+      "url": "https://github.com/NicolasKieffer"
+    }
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/touv/node-ezs-istex/issues"
+    "url": "https://github.com/Inist-CNRS/node-ezs-istex/issues"
   },
-  "homepage": "https://github.com/touv/node-ezs-istex#readme",
+  "homepage": "https://github.com/Inist-CNRS/node-ezs-istex#readme",
   "dependencies": {
     "clone": "2.1.1",
     "co": "^4.6.0",
