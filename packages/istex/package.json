@@ -1,6 +1,6 @@
 {
   "name": "ezs-istex",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "istex statements form EZS",
   "main": "index.js",
   "directories": {
@@ -13,7 +13,7 @@
   "keywords": [
     "ezs"
   ],
-   "contributors": [
+  "contributors": [
     {
       "name": "François Parmentier",
       "url": "https://github.com/parmentf"
