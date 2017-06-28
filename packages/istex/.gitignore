@@ -9,3 +9,4 @@ examples/corpus/languages.*.corpus
 .vscode
 yarn.lock
 examples/full/*
+examples/Vieil_v2/*
