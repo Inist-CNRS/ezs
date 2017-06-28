@@ -11,6 +11,7 @@ process.stdin.resume();
 process.stdin.setEncoding('utf8');
 process.stdin
   .pipe(ezs('stringify'))
+  .pipe(ezs('concat'))
   .pipe(ezs('ISTEXCorpus'))
   .pipe(ezs('ISTEXQuery'))
   .pipe(ezs('ISTEXScroll'))
