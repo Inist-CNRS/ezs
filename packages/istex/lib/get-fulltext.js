@@ -21,7 +21,6 @@ module.exports = function getFulltext(data, feed) {
 
   co(function* () {
     for (let i = 0; i < data.hits.length; i += 1) {
-      console.log('i',i);
       const hit = data.hits[i];
       const id = hit.id;
       let fulltext;
