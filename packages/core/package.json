@@ -2,12 +2,16 @@
   "name": "ezs",
   "version": "1.1.3",
   "description": "A wrapper to build Stream transformers with functional style",
-  "main": "index.js",
   "directories": {
     "test": "test"
   },
+  "main": "./lib/index.js",
   "scripts": {
-    "test": "istanbul test ./node_modules/.bin/_mocha -- -R spec"
+    "test": "istanbul test ./node_modules/.bin/_mocha -- -R spec",
+    "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
+    "build": "babel src --out-dir lib",
+    "prepublish": "npm run build",
+    "pretest": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -24,7 +28,24 @@
   },
   "homepage": "https://github.com/touv/node-ezs#readme",
   "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-eslint": "^7.2.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "caporal": "^0.5.0",
+    "chai": "^3.5.0",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0"
+  },
+  "dependencies": {
+    "autocast": "0.0.4",
+    "filtrex": "^0.5.4",
+    "lodash": "^4.17.4",
+    "safe-eval": "^0.3.0"
   }
 }
