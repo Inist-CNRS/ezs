@@ -3,6 +3,7 @@ import Engine from './engine';
 import Pipeline from './pipeline';
 import Script from './script';
 import Tag from './tag';
+import Output from './output';
 import Plugins from './plugins';
 
 const getStatement = (ezs, input) => {
@@ -25,6 +26,7 @@ ezs.pipeline = (commands, options) => new Pipeline(ezs, commands, options);
 ezs.script = (commands, options) => new Pipeline(ezs, Script(commands), options);
 ezs.tag = (tagname, func) => new Tag(tagname, func);
 ezs.has = (tagname, name, opts) => new Engine(getStatement(ezs, name), opts, tagname);
+ezs.toBuffer = opts => new Output(opts);
 
 ezs.plugins = Plugins;
 

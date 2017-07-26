@@ -38,7 +38,7 @@ prog
       logger.warn('Reading standard input...');
       process.stdin.resume();
       process.stdin.setEncoding('utf8');
-      process.stdin.pipe(ezs.script(script)).pipe(process.stdout);
+      process.stdin.pipe(ezs.script(script)).pipe(ezs.toBuffer()).pipe(process.stdout);
   });
 
 prog.parse(process.argv);
