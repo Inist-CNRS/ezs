@@ -1,34 +1,47 @@
-const CSV  = require('csv-string');
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _csvString = require('csv-string');
+
+var _csvString2 = _interopRequireDefault(_csvString);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function tocsv(data) {
-  let line = '', q = new RegExp('"', 'g'), s = '';
-  Object.keys(data).forEach(key => {
-    line += s + '"' + data[key].toString().replace(q, '""') + '"';
-    s = ';';
-  });
-  return line + '\n';
+    var q = new RegExp('"', 'g');
+    var line = '';
+    var s = '';
+    Object.keys(data).forEach(function (key) {
+        line = line.concat(s.concat('"').concat(data[key].toString().replace(q, '""')).concat('"'));
+        s = ';';
+    });
+    return line.concat('\n');
 }
 
-module.exports = function(data, feed) {
-  let func;
-  let format = this.getParam('format', 'standard');
-  let sep = this.getParam('separator', ',');
+function CSVString(data, feed) {
+    var format = this.getParam('format', 'standard');
+    var func = void 0;
+    var sep = this.getParam('separator', ',');
 
-  if (format === 'semicolon') {
-    sep = ';';
-    func = tocsv;
-  }
-  else {
-    func = CSV.stringify;
-  }
-  if (this.isLast()) {
-    feed.close();
-  }
-  else if (this.isFirst()) {
-    feed.write(func(Object.keys(data), sep));
-    feed.send(func(data, sep));
-  }
-  else {
-    feed.send(func(data, sep));
-  }
+    if (format === 'semicolon') {
+        sep = ';';
+        func = tocsv;
+    } else {
+        func = _csvString2.default.stringify;
+    }
+    if (this.isLast()) {
+        feed.close();
+    } else if (this.isFirst()) {
+        feed.write(func(Object.keys(data), sep));
+        feed.send(func(data, sep));
+    } else {
+        feed.send(func(data, sep));
+    }
+}
+
+exports.default = {
+    CSVString: CSVString
 };

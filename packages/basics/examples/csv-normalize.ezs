@@ -1,0 +1,12 @@
+title = Take CSV input and normalize it
+
+# Parse csv input
+[CSVParse]
+
+# Transform each line on a object
+[CSVObject]
+
+# generate CSV line with new separator
+[CSVString]
+format = semicolon
+

@@ -1,22 +1,10 @@
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 function Concept(data, feed) {
-    var _this = this;
-
-    var obj = {};
-    Object.keys(data).forEach(function (key) {
-        var newkey = key.replace('skos$', '');
+    const obj = {};
+    Object.keys(data).forEach((key) => {
+        const newkey = key.replace('skos$', '');
         if (Array.isArray(data[key])) {
-            data[key].filter(function (x) {
-                return x.xml$lang;
-            }).forEach(function (item) {
-                var localkey = newkey.concat('@').concat(item.xml$lang);
+            data[key].filter(x => x.xml$lang).forEach((item) => {
+                const localkey = newkey.concat('@').concat(item.xml$lang);
                 obj[localkey] = item.$t;
             });
         } else if (data[key].rdf$resource && !obj[newkey]) {
@@ -24,7 +12,7 @@ function Concept(data, feed) {
         } else if (data[key].rdf$resource && obj[newkey]) {
             obj[newkey] = [obj[newkey], data[key].rdf$resource];
         } else if (data[key].$t && data[key].xml$lang) {
-            var localkey = newkey.concat('@').concat(data[key].xml$lang);
+            const localkey = newkey.concat('@').concat(data[key].xml$lang);
             obj[localkey] = data[key].$t;
         } else if (data[key].$t && Array.isArray(obj[newkey])) {
             obj[newkey].push(data[key].$t);
@@ -32,13 +20,14 @@ function Concept(data, feed) {
             obj[newkey] = [obj[newkey], data[key].$t];
         } else if (data[key].$t && !obj[newkey]) {
             obj[newkey] = data[key].$t;
-        } else if (_typeof(data[key]) === 'object') {
-            obj[newkey] = (_this.getIndex().toString(36) + Math.random().toString(36).substr(2, 5)).toUpperCase();
-            var counter = 0;
-            Object.keys(data[key]).forEach(function (key2) {
-                if (_typeof(data[key][key2]) === 'object') {
+        } else if (typeof data[key] === 'object') {
+            obj[newkey] = (this.getIndex().toString(36) + Math.random()
+                .toString(36).substr(2, 5)).toUpperCase();
+            let counter = 0;
+            Object.keys(data[key]).forEach((key2) => {
+                if (typeof data[key][key2] === 'object') {
                     data[key][key2].rdf$about = obj[newkey];
-                    Concept.call(_this, data[key][key2], feed);
+                    Concept.call(this, data[key][key2], feed);
                     counter += 1;
                 }
             });
@@ -61,6 +50,6 @@ function SKOSObject(data, feed) {
     }
 }
 
-exports.default = {
-    SKOSObject: SKOSObject
+export default {
+    SKOSObject,
 };

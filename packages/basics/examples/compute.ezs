@@ -1,0 +1,12 @@
+# ezs script to compute
+
+[assignement]
+key = a
+value = 3
+key = b
+value = 4
+
+[assignement]
+key = c
+value = compute('a * b')
+

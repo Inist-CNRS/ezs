@@ -1,0 +1,5 @@
+[XMLParse]
+separator = fix("/RDF/*", "/rdf:RDF/*")
+
+[JSONString]
+indent = true

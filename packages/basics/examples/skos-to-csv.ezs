@@ -1,0 +1,9 @@
+[XMLParse]
+separator = fix("/RDF/*", "/rdf:RDF/*")
+
+[SKOSObject]
+
+[OBJStandardize]
+
+[CSVString]
+format = semicolon

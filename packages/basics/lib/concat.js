@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function concat(data, feed) {
   if (this.buffer === undefined) {
     this.buffer = '';

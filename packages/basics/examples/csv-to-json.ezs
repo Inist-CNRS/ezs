@@ -1,0 +1,12 @@
+title = Take CSV input and get JSON
+
+# Parse CSV input
+[CSVParse]
+
+# Transform each line on a object
+[CSVObject]
+
+# generate JSON
+[JSONString]
+indent = true
+

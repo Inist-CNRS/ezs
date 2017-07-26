@@ -1,17 +1,17 @@
+'use strict';
+
 module.exports = function (data, feed) {
-  let output = '';
+  var output = '';
   if (this.isFirst()) {
     output = '[';
-  }
-  else {
+  } else {
     output = ',\n';
   }
-  if (! this.isLast()) {
+  if (!this.isLast()) {
     feed.write(output.concat(JSON.stringify(data)));
-  }
-  else {
+  } else {
     feed.write(']');
     feed.close();
   }
   feed.end();
-}
+};

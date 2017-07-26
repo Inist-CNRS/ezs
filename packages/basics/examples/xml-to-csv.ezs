@@ -1,0 +1,9 @@
+[XMLParse]
+separator = fix('/modsCollection/mods', '/teiCorpus/TEI', '/root/*', '/struct/*', '/rss/channel/item', '/feed/entry', '/rows/row')
+    
+[OBJFlatten]
+
+[OBJStandardize]
+
+[CSVString]
+format = semicolon

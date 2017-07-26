@@ -56,16 +56,6 @@ ezs('CSVParse',	{
 })
 ```
 
-
-
 ### CSVObject
 
 no argument.
-
-### JBJInject
-
-argument is the JBJ stylesheet.
-
-### JBJRender
-
-argument is the JBJ stylesheet.

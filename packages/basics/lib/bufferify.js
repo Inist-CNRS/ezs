@@ -1,3 +1,5 @@
+"use strict";
+
 module.exports = function (data, feed) {
 
   if (this.buf === undefined) {
@@ -5,10 +7,9 @@ module.exports = function (data, feed) {
   }
 
   if (this.isLast()) {
-//    feed.write(this.buf);
+    //    feed.write(this.buf);
     feed.close();
-  }
-  else {
+  } else {
     feed.send(Buffer.from(data));
     /*
     let curbuf = Buffer.from(data);
@@ -22,4 +23,4 @@ module.exports = function (data, feed) {
     feed.end();
     */
   }
-}
+};

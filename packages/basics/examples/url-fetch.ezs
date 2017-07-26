@@ -1,0 +1,8 @@
+[TXTConcat]
+
+[URLFetch]
+url = http://inist_tabcor_1.board.inist.fr/ESI_AllFields_20151023.json
+json  = true
+
+[JSONString]
+indent = true

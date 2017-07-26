@@ -1,0 +1,15 @@
+title = Take JSON to generate CSV
+
+# Parse JSON input (from elasticsearch result )
+[JSONParse]
+separator = hits.*
+
+# Simplify each object 
+[OBJFlatten]
+
+# make unformm each object
+[OBJStandardize]
+
+# genreate csv
+[CSVString]
+format = semicolon

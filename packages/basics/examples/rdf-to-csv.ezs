@@ -1,0 +1,9 @@
+[XMLParse]
+separator = fix("/RDF/*", "/rdf:RDF/*")
+
+[OBJFlatten]
+
+[OBJStandardize]
+
+[CSVString]
+format = semicolon

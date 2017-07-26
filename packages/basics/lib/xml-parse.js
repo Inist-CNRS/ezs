@@ -1,13 +1,28 @@
-const XMLSplitter = require('xml-splitter')
-module.exports = function (data, feed) {
-  if (!this.handle) {
-    this.handle = new XMLSplitter(this.getParam('separator', '/'));
-    this.handle.on('data', function(obj) {
-      feed.write(obj);
-    })
-  }
-  if (! this.isLast()) {
-    this.handle.stream.write(data);
-  }
-  feed.end();
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _xmlSplitter = require('xml-splitter');
+
+var _xmlSplitter2 = _interopRequireDefault(_xmlSplitter);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function XMLParse(data, feed) {
+    if (!this.handle) {
+        this.handle = new _xmlSplitter2.default(this.getParam('separator', '/'));
+        this.handle.on('data', function (obj) {
+            feed.write(obj);
+        });
+    }
+    if (!this.isLast()) {
+        this.handle.stream.write(data);
+    }
+    feed.end();
 }
+
+exports.default = {
+    XMLParse: XMLParse
+};
