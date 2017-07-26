@@ -24,7 +24,7 @@ export default class Pipeline extends Duplex {
             this.push(null);
         });
         this.tubin.on('error', (e) => {
-            console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxerror>', e);
+            console.error('Unlikely error', e);
         });
         this.tubout.pause();
     }

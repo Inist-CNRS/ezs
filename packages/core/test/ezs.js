@@ -53,7 +53,7 @@ describe('Build a pipeline', () => {
             });
     });
 
-    it('with error', (done) => {
+    it('with error(throw)', (done) => {
         const ten = new Decade();
         ten
             .pipe(ezs(() => {
@@ -66,6 +66,19 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
+
+    it('with error(send)', (done) => {
+        const ten = new Decade();
+        ten
+            .pipe(ezs('boum'))
+            .on('data', (chunk) => {
+                assert.ok(chunk instanceof Error);
+            })
+            .on('end', () => {
+                done();
+            });
+    });
+
 
     it('with definied transformation', (done) => {
         let res = 0;
@@ -402,6 +415,33 @@ describe('Build a pipeline', () => {
             })
             .on('end', () => {
                 assert.strictEqual(res.a, 'l\'école!');
+                done();
+            });
+    });
+
+    it('with error in the pipeline', (done) => {
+        const commands = `
+            # My first ezs script
+            title = FOR TEST
+            description = set local or global
+
+            [assignement]
+            key = a
+            value = b
+
+            [boum]
+
+        `;
+        const ten = new Decade();
+        ten
+            .pipe(ezs((input, output) => {
+                output.send({ val: input });
+            }))
+            .pipe(ezs.script(commands))
+            .on('data', (chunk) => {
+                assert.ok(chunk instanceof Error);
+            })
+            .on('end', () => {
                 done();
             });
     });

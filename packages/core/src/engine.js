@@ -36,6 +36,9 @@ export default class Engine extends Transform {
 
     execWith(chunk, done) {
         const push = (data) => {
+            if (data instanceof Error) {
+                return this.pushError(data);
+            }
             if (this.tagname && chunk && chunk.tagName) {
                 data.tagName = chunk.tagName;
             }
@@ -52,20 +55,19 @@ export default class Engine extends Transform {
                 (this.params[name] ? Shell(this.params[name], { ...this.scope, ...chunk }) : defval);
             this.func.call(this.scope, chunk, feed);
         } catch (e) {
-            const err = this.createError(e);
-            if (process.env.NODE_ENV !== 'production') {
-                console.error(err.message);
-            }
-            this.push(err);
+            this.pushError(e);
             done();
         }
     }
 
-    createError(e) {
+    pushError(e) {
         const msg = ' in item #'.concat(this.index);
         const stack = e.stack.split('\n').slice(0, 2);
         const err = new Error(stack[0].concat(msg).concat('\n').concat(stack[1]));
-        return err;
+        if (process.env.NODE_ENV !== 'production') {
+            console.error(err.message);
+        }
+        this.push(err);
     }
 
 }

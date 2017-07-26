@@ -2,6 +2,14 @@ function plus1(data, feed) {
     feed.send(data + 1);
 }
 
+function boum(data, feed) {
+    if (this.isLast()) {
+        return feed.send(data);
+    }
+    return feed.send(new Error('Boum!'));
+}
+
+
 function increment(data, feed) {
     if (!this.isLast()) {
         const step = this.getParam('step', 1);
@@ -24,6 +32,7 @@ function decrement(data, feed) {
 
 module.exports = {
     plus1,
+    boum,
     increment,
     decrement,
 };
