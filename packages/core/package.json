@@ -1,13 +1,13 @@
 {
   "name": "ezs",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "A wrapper to build Stream transformers with functional style",
   "directories": {
     "test": "test"
   },
   "main": "./lib/index.js",
   "bin": {
-      "ezs": "./bin/ezs"
+    "ezs": "./bin/ezs"
   },
   "scripts": {
     "test": "istanbul test ./node_modules/.bin/_mocha -- -R spec",
