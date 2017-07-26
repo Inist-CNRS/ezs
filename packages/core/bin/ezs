@@ -1,0 +1,44 @@
+#!/usr/bin/env node
+const fs = require('fs');
+const prog = require('caporal');
+const ezs = require('../lib');
+const { version } = require('../package.json');
+
+const isFile = (opt) => {
+    if (!fs.statSync(opt).isFile()) {
+        throw new Error(opt.concat(" doesn't exists."));
+    }
+    return fs.realpathSync(opt);
+};
+
+prog
+  .version(version)
+  .description('Run ezs script with standard input.')
+  .argument('<file>', 'ezs script file', isFile)
+  .option('--list', 'Show all active statements', prog.BOOL)
+  .option('--plug <plugins>', 'Load plugin', prog.LIST)
+  .action((args, options, logger) => {
+      if (options.list) {
+          logger.info('Statements list :');
+          Object.keys(ezs.plugins).forEach((moduleName) => {
+              logger.info('  - '.concat(moduleName));
+          });
+          process.exit(1);
+      }
+
+      if (Array.isArray(options.plug)) {
+          options.plug.forEach((plug) => {
+              const plugName = 'ezs-'.concat(plug.replace(/^ezs-/, ''));
+              const plugIn = require(plugName);
+              logger.debug(plugName.concat(' was plugged from '.concat(require.resolve(plugName))));
+              ezs.use(plugIn);
+          });
+      }
+      const script = fs.readFileSync(args.file).toString();
+      logger.warn('Reading standard input...');
+      process.stdin.resume();
+      process.stdin.setEncoding('utf8');
+      process.stdin.pipe(ezs.script(script)).pipe(process.stdout);
+  });
+
+prog.parse(process.argv);

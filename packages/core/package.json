@@ -6,6 +6,9 @@
     "test": "test"
   },
   "main": "./lib/index.js",
+  "bin": {
+      "ezs": "./bin/ezs"
+  },
   "scripts": {
     "test": "istanbul test ./node_modules/.bin/_mocha -- -R spec",
     "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
