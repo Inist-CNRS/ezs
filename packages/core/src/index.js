@@ -5,47 +5,42 @@ import Script from './script';
 import Tag from './tag';
 import Plugins from './plugins';
 
-
-const isStatement = name => typeof name === 'function';
-const isPlugin = (ezs, name) => typeof name === 'string' && ezs.plugins[name];
-
-const ezs = (name, opts) => {
-    if (isStatement(name)) {
-        return new Engine(name, opts);
-    }
-    if (isPlugin(ezs, name)) {
-        return new Engine(ezs.plugins[name], opts);
-    }
-    throw new Error(`'${name}' is not loaded. It's not a valid function or plugin function.`);
-};
-
-ezs.plugins = Plugins;
-
-ezs.use = (module) => {
-    assert.equal(typeof module, 'object');
-    Object.keys(module).forEach((moduleName) => {
-        if (isStatement(module[moduleName])) {
-            ezs.plugins[moduleName] = module[moduleName];
-        } else {
-            throw new Error(`${moduleName} is not loaded. It's not a valid plugin function.`);
+const getStatement = (ezs, input) => {
+    if (typeof input === 'function') {
+        return input;
+    } else if (typeof input === 'string' && ezs.plugins[input]) {
+        return ezs.plugins[input];
+    } else if (typeof input === 'object') {
+        const firstKey = Object.keys(input).slice(0, 1);
+        if (typeof input[firstKey] === 'function') {
+            return input[firstKey];
         }
-    });
-    return ezs;
+    }
+    throw new Error(`'${input}' is not loaded. It's not a valid statement function.`);
 };
 
+const ezs = (name, opts) => new Engine(getStatement(ezs, name), opts);
 
 ezs.pipeline = (commands, options) => new Pipeline(ezs, commands, options);
 ezs.script = (commands, options) => new Pipeline(ezs, Script(commands), options);
 ezs.tag = (tagname, func) => new Tag(tagname, func);
+ezs.has = (tagname, name, opts) => new Engine(getStatement(ezs, name), opts, tagname);
 
-ezs.has = (tagname, name, opts) => {
-    if (isStatement(name)) {
-        return new Engine(name, opts, tagname);
-    }
-    if (isPlugin(ezs, name)) {
-        return new Engine(ezs.plugins[name], opts, tagname);
-    }
-    throw new Error(`${name} is  unknown`);
+ezs.plugins = Plugins;
+
+ezs.use = (plugin) => {
+    assert.equal(typeof plugin, 'object');
+    const pluginList = plugin.default ? plugin.default : plugin; // ES6 hack
+    Object.keys(pluginList).forEach((pluginName) => {
+        if (typeof pluginList[pluginName] === 'function') {
+            ezs.plugins[pluginName] = pluginList[pluginName];
+        } else if (typeof pluginList[pluginName] === 'object') {
+            ezs.use(pluginList[pluginName]);
+        } else {
+            throw new Error(`${pluginName} is not loaded. It's not a valid plugin.`);
+        }
+    });
+    return ezs;
 };
 
 module.exports = ezs;
