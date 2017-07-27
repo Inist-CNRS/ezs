@@ -265,18 +265,18 @@ describe('Build a pipeline', () => {
     });
 
 
-    it('with assignement script pipeline', (done) => {
+    it('with attribute script pipeline', (done) => {
         let res = 0;
         const commands = `
             # My first ezs script
             title = FOR TEST
             description = set local or global
 
-            [assignement]
+            [attribute]
             key = a 
             value = fix('a')
 
-            [assignement]
+            [attribute]
             key = b.c
             value = fix('b.c')
         `;
@@ -296,14 +296,14 @@ describe('Build a pipeline', () => {
             });
     });
 
-    it('with assignement(multi) script pipeline', (done) => {
+    it('with attribute(multi) script pipeline', (done) => {
         let res = 0;
         const commands = `
             # My first ezs script
             title = FOR TEST
             description = set local or global
 
-            [assignement]
+            [attribute]
             key = a 
             value = fix('a')
             key = b.c
@@ -325,18 +325,18 @@ describe('Build a pipeline', () => {
             });
     });
 
-    it('with assignement script pipeline', (done) => {
+    it('with attribute script pipeline', (done) => {
         let res = 0;
         const commands = `
             # My first ezs script
             title = FOR TEST
             description = set local or global
 
-            [assignement]
+            [attribute]
             key = a
             value = fix('a')
 
-            [assignement]
+            [attribute]
             key = b
             value = fix('b')
         `;
@@ -357,20 +357,20 @@ describe('Build a pipeline', () => {
     });
 
 
-    it('with assignement with computation script pipeline', (done) => {
+    it('with attribute with computation script pipeline', (done) => {
         let res = 0;
         const commands = `
             # My first ezs script
             title = FOR TEST
             description = set local or global
 
-            [assignement]
+            [attribute]
             key = a
             value = 3
             key = b
             value = 4
 
-            [assignement]
+            [attribute]
             key = c
             value = compute('a * b')
 
@@ -392,14 +392,14 @@ describe('Build a pipeline', () => {
             });
     });
 
-    it('with assignement with quote script pipeline', (done) => {
+    it('with attribute with quote script pipeline', (done) => {
         let res = 0;
         const commands = `
             # My first ezs script
             title = FOR TEST
             description = set local or global
 
-            [assignement]
+            [attribute]
             key = a
             value = l'école!
 
@@ -425,7 +425,7 @@ describe('Build a pipeline', () => {
             title = FOR TEST
             description = set local or global
 
-            [assignement]
+            [attribute]
             key = a
             value = b
 

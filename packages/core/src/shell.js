@@ -1,20 +1,21 @@
 import autocast from 'autocast';
-import lodash from 'lodash';
+import _ from 'lodash';
 import safeEval from 'safe-eval';
 import mixins from './mixins';
 
 const parse = context => (value) => {
     const js = [];
-    js.push('lodash.chain(data).');
+    js.push('_.chain(data).');
     js.push(value.replace(/([)]\s*->\s*)/g, ').'));
     js.push('.value();');
     const code = js.join('');
-    lodash.mixin(mixins);
+    const data = _.omitBy(context, _.isFunction);
+    _.mixin(mixins);
     const result = safeEval(code, {
-        lodash,
-        data: context,
+        _,
+        data,
     });
-    return result;
+    return Array.isArray(result) ? [result] : result;
 };
 
 
