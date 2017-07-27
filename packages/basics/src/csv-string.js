@@ -1,24 +1,22 @@
 import CSV from 'csv-string';
 
-function tocsv(data) {
+function strict(data, sep) {
     const q = new RegExp('"', 'g');
     let line = '';
     let s = '';
     Object.keys(data).forEach((key) => {
         line = line.concat(s.concat('"').concat(data[key].toString().replace(q, '""')).concat('"'));
-        s = ';';
+        s = sep;
     });
-    return line.concat('\n');
+    return line.concat('\r\n');
 }
 
 function CSVString(data, feed) {
     const format = this.getParam('format', 'standard');
+    const sep = this.getParam('separator', ';');
     let func;
-    let sep = this.getParam('separator', ',');
-
-    if (format === 'semicolon') {
-        sep = ';';
-        func = tocsv;
+    if (format === 'strict') {
+        func = strict;
     } else {
         func = CSV.stringify;
     }
