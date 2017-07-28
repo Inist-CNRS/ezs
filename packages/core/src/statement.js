@@ -16,16 +16,21 @@ function get(ezs, plugin, opts) {
         const args = !Array.isArray(opts) ? [opts] : opts;
         args.forEach((arg) => {
             if (arg.plugin) {
-                const name = arg.plugin(v => v);
-                const plugName1 = 'ezs-'.concat(name.replace(/^ezs-/, ''));
-                const plugName2 = path.resolve(process.cwd(), name);
-                if (resolve(plugName1)) {
-                    ezs.use(require(plugName1));
-                } else if (resolve(plugName2)) {
-                    ezs.use(require(plugName2));
-                } else {
-                    throw new Error(`'${name}' is not loaded. It was not found (try to install it).`);
+                let names = arg.plugin(v => v);
+                if (!Array.isArray(names)) {
+                    names = [names];
                 }
+                names.forEach((name) => {
+                    const plugName1 = 'ezs-'.concat(name.replace(/^ezs-/, ''));
+                    const plugName2 = path.resolve(process.cwd(), name);
+                    if (resolve(plugName1)) {
+                        ezs.use(require(plugName1));
+                    } else if (resolve(plugName2)) {
+                        ezs.use(require(plugName2));
+                    } else {
+                        throw new Error(`'${name}' is not loaded. It was not found (try to install it).`);
+                    }
+                });
             }
         });
         return (data, feed) => feed.send(data);
