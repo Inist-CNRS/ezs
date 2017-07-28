@@ -19,7 +19,6 @@ function get(ezs, plugin, opts) {
                 const name = arg.plugin(v => v);
                 const plugName1 = 'ezs-'.concat(name.replace(/^ezs-/, ''));
                 const plugName2 = path.resolve(process.cwd(), name);
-                console.log(plugName2, plugName1, __dirname, );
                 if (resolve(plugName1)) {
                     ezs.use(require(plugName1));
                 } else if (resolve(plugName2)) {
