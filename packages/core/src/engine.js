@@ -3,13 +3,14 @@ import Feed from './feed';
 import Shell from './shell';
 
 export default class Engine extends Transform {
-    constructor(func, params, tagname) {
+    constructor(ezs, func, params, tagname) {
         super({ objectMode: true });
         this.func = func;
         this.index = 0;
         this.tagname = tagname;
         this.params = params || {};
         this.scope = {};
+        this.ezs = ezs;
     }
 
     _transform(chunk, encoding, done) {
@@ -49,6 +50,7 @@ export default class Engine extends Transform {
         this.scope.getIndex = () => this.index;
         this.scope.isLast = () => (chunk === null);
         this.scope.getParams = () => this.params;
+        this.scope.ezs = this.ezs;
 
         try {
             this.scope.getParam = (name, defval) =>

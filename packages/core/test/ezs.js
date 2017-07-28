@@ -447,6 +447,28 @@ describe('Build a pipeline', () => {
     });
 
 
+    it('with use command in the pipeline', (done) => {
+        const commands = `
+            [use]
+            plugin = test/locals
+
+            [boum]
+
+        `;
+        const ten = new Decade();
+        ten
+            .pipe(ezs((input, output) => {
+                output.send({ val: input });
+            }))
+            .pipe(ezs.script(commands))
+            .on('data', (chunk) => {
+                assert.ok(chunk instanceof Error);
+            })
+            .on('end', () => {
+                done();
+            });
+    });
+
     /* */
 });
 

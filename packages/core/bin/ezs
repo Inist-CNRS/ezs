@@ -15,32 +15,7 @@ prog
   .version(version)
   .description('Run ezs script with standard input.')
   .argument('<file>', 'ezs script file', isFile)
-  .option('--list', 'Show all active statements', prog.BOOL)
-  .option('--plug <plugins>', 'Load plugin', prog.LIST)
   .action((args, options, logger) => {
-      if (options.list) {
-          logger.info('Statements list :');
-          Object.keys(ezs.plugins).forEach((moduleName) => {
-              logger.info('  - '.concat(moduleName));
-          });
-          process.exit(1);
-      }
-      let plugins = [];
-
-      if (process.env.EZS_PLUGINS) {
-          plugins = plugins.concat(process.env.EZS_PLUGINS.split(/[ ,]/));
-      }
-
-      if (Array.isArray(options.plug)) {
-          plugins = plugins.concat(options.plug);
-      }
-
-      plugins.forEach((plug) => {
-          const plugName = 'ezs-'.concat(plug.replace(/^ezs-/, ''));
-          const plugIn = require(plugName);
-          logger.debug(plugName.concat(' was plugged from '.concat(require.resolve(plugName))));
-          ezs.use(plugIn);
-      });
       const script = fs.readFileSync(args.file).toString();
       logger.warn('Reading standard input...');
       process.stdin.resume();

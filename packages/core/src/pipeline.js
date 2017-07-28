@@ -7,7 +7,6 @@ export default class Pipeline extends Duplex {
         super({ ...options, objectMode: true });
         this.tubin = new PassThrough({ objectMode: true });
         this.tubout = this.tubin;
-
         if (Array.isArray(commands)) {
             this.tubout = commands.reduce(reducer(ezs), this.tubout);
         }
