@@ -12,7 +12,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function XMLParse(data, feed) {
     if (!this.handle) {
-        this.handle = new _xmlSplitter2.default(this.getParam('separator', '/'));
+        var separator = this.getParam('separator', '/');
+        this.handle = new _xmlSplitter2.default(separator);
         this.handle.on('data', function (obj) {
             feed.write(obj);
         });

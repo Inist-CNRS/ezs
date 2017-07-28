@@ -1,9 +1,15 @@
+#!/usr/bin/env ezs
+
+[use]
+plugin = basics
+
 [XMLParse]
-separator = fix("/RDF/*", "/rdf:RDF/*")
+separator = /RDF/*
+separator = /rdf:RDF/*
 
 [SKOSObject]
 
 [OBJStandardize]
 
 [CSVString]
-format = semicolon
+format = strict

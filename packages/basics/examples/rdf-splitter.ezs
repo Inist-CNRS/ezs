@@ -1,5 +1,11 @@
+#!/usr/bin/env ezs
+
+[use]
+plugin = basics
+
 [XMLParse]
-separator = fix("/RDF/*", "/rdf:RDF/*")
+separator = /RDF/*
+separator = /rdf:RDF/*
 
 [JSONString]
 indent = true

@@ -1,9 +1,20 @@
+#!/usr/bin/env ezs
+
+[use]
+plugin = basics
+
 [XMLParse]
-separator = fix('/modsCollection/mods', '/teiCorpus/TEI', '/root/*', '/struct/*', '/rss/channel/item', '/feed/entry', '/rows/row')
+separator = /modsCollection/mods
+separator = /teiCorpus/TEI
+separator = /root/*
+separator = /struct/*
+separator = /rss/channel/item
+separator = /feed/entry
+separator = /rows/row
     
 [OBJFlatten]
 
 [OBJStandardize]
 
 [CSVString]
-format = semicolon
+format = strict

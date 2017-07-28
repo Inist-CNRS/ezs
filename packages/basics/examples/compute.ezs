@@ -1,12 +1,15 @@
-# ezs script to compute
+#!/usr/bin/env ezs
 
-[assignement]
+[use]
+plugin = basics
+
+[attribute]
 key = a
 value = 3
 key = b
 value = 4
 
-[assignement]
+[attribute]
 key = c
 value = compute('a * b')
 

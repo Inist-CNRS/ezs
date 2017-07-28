@@ -1,4 +1,9 @@
-title = Take JSON to generate CSV
+#!/usr/bin/env ezs
+
+[use]
+plugin = basics
+
+# Take JSON to generate CSV
 
 # Parse JSON input (from elasticsearch result )
 [JSONParse]
@@ -12,4 +17,4 @@ separator = hits.*
 
 # genreate csv
 [CSVString]
-format = semicolon
+format = strict

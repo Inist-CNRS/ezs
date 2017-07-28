@@ -1,4 +1,9 @@
-title = Take CSV input and normalize it
+#!/usr/bin/env ezs
+
+# Take CSV input and normalize it
+
+[use]
+plugin = basics
 
 # Parse csv input
 [CSVParse]
@@ -8,5 +13,5 @@ title = Take CSV input and normalize it
 
 # generate CSV line with new separator
 [CSVString]
-format = semicolon
+format = strict
 

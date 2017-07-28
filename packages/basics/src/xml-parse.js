@@ -2,7 +2,8 @@ import XMLSplitter from 'xml-splitter';
 
 function XMLParse(data, feed) {
     if (!this.handle) {
-        this.handle = new XMLSplitter(this.getParam('separator', '/'));
+        const separator = this.getParam('separator', '/');
+        this.handle = new XMLSplitter(separator);
         this.handle.on('data', (obj) => {
             feed.write(obj);
         });

@@ -11,6 +11,14 @@ plugin = basics
 # Transform each line on a object
 [CSVObject]
 
+
+[substitute]
+key = countColumns
+value = keys().size()
+key = size
+value = mapValues(_.size).values().sum()
+
+
 # generate JSON
 [JSONString]
 indent = true
