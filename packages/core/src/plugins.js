@@ -4,7 +4,10 @@ function attribute(data, feed) {
     if (this.isLast()) {
         return feed.send(data);
     }
-    let keys = this.getParam('key', []);
+    let keys = this.getParam('label', []);
+    if (keys.length === 0) {
+        keys = this.getParam('key', []);
+    }
     let values = this.getParam('value', []);
     if (!Array.isArray(keys)) {
         keys = [keys];
@@ -26,7 +29,10 @@ function substitute(data, feed) {
     if (this.isLast()) {
         return feed.send(data);
     }
-    let keys = this.getParam('key', []);
+    let keys = this.getParam('label', []);
+    if (keys.length === 0) {
+        keys = this.getParam('key', []);
+    }
     let values = this.getParam('value', []);
     if (!Array.isArray(keys)) {
         keys = [keys];

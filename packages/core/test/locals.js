@@ -30,10 +30,33 @@ function decrement(data, feed) {
     }
 }
 
+function slow(data, feed) {
+    if (this.isLast()) {
+        return feed.send(data);
+    }
+    feed.write(data);
+    return setTimeout(() => {
+        feed.write(data);
+        feed.end();
+    }, 100);
+}
+
+function bad(data, feed) {
+    if (this.isLast()) {
+        return feed.send(data);
+    }
+    setTimeout(() => {
+        feed.write(data);
+    }, 100);
+    return feed.end();
+}
+
 module.exports = {
     plus1,
     boum,
     increment,
     decrement,
+    slow,
+    bad,
 };
 

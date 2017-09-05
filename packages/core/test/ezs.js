@@ -1,9 +1,14 @@
 const assert = require('assert');
+const fs = require('fs');
+const path = require('path');
 const ezs = require('../lib');
+
 
 ezs.use(require('./locals'));
 
 const Read = require('stream').Readable;
+const PassThrough = require('stream').PassThrough;
+
 
 class Decade extends Read {
     constructor() {
@@ -273,7 +278,7 @@ describe('Build a pipeline', () => {
             description = set local or global
 
             [attribute]
-            key = a 
+            key = a
             value = fix('a')
 
             [attribute]
@@ -304,7 +309,7 @@ describe('Build a pipeline', () => {
             description = set local or global
 
             [attribute]
-            key = a 
+            key = a
             value = fix('a')
             key = b.c
             value = fix('b.c')
@@ -469,6 +474,114 @@ describe('Build a pipeline', () => {
             });
     });
 
-    /* */
+    it('with slow command in the pipeline', (done) => {
+        const commands = `
+            [use]
+            plugin = test/locals
+
+            [slow]
+
+        `;
+        let res = 0;
+        const ten = new Decade();
+        ten
+            .pipe(ezs((input, output) => {
+                output.send(input);
+            }))
+            .pipe(ezs.script(commands))
+            .on('data', (chunk) => {
+                res += Number(chunk);
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 90);
+                done();
+            });
+    });
+
+
+    it('with input break during the executionpipeline', (done) => {
+        const commands = `
+            [use]
+            plugin = test/locals
+
+            [slow]
+
+        `;
+        let res = 0;
+        const pass = new PassThrough({ objectMode: true });
+        const ten = new Decade();
+        ten
+            .pipe(ezs((input, output) => {
+                output.send(input);
+            }))
+            .pipe(pass)
+            .pipe(ezs.script(commands))
+            .on('data', (chunk) => {
+                if (chunk === 4) {
+                    pass.write(null);
+                } else if (chunk < 4) {
+                    res += Number(chunk);
+                }
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 12);
+                done();
+            });
+        pass.resume();
+    });
+
+
+    it('with input file pipeline', (done) => {
+        const commands = `
+            [use]
+            plugin = test/locals
+
+        `;
+        let res = 0;
+        const file = fs.createReadStream(path.resolve(__dirname, './sample.txt'));
+        file.resume();
+        file.setEncoding('utf8');
+        file
+            .pipe(ezs((input, output) => {
+                output.send(input);
+            }))
+            .pipe(ezs.script(commands))
+            .on('data', (chunk) => {
+                res += Number(chunk);
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 1);
+                done();
+            });
+    });
+
+    /*
+     * Unable to detect un bad statement
+     *
+
+    it('with bad statement in the pipeline', (done) => {
+        const commands = `
+            [use]
+            plugin = test/locals
+
+             [bad]
+
+        `;
+        let res = 0;
+        const ten = new Decade();
+        ten
+            .pipe(ezs((input, output) => {
+                output.send(input);
+            }))
+            .pipe(ezs.script(commands))
+            .on('data', (chunk) => {
+                res += Number(chunk);
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 45);
+                done();
+            });
+    });
+/* */
 });
 
