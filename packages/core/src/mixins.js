@@ -9,7 +9,10 @@ const fix = (input, ...args) => {
 
 const compute = (input, expr) => filtrex(expr)(input);
 
+const self = input => input;
+
 export default {
     fix,
     compute,
+    self,
 };

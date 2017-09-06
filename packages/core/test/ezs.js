@@ -278,11 +278,11 @@ describe('Build a pipeline', () => {
             description = set local or global
 
             [attribute]
-            key = a
+            label = a
             value = fix('a')
 
             [attribute]
-            key = b.c
+            label = b.c
             value = fix('b.c')
         `;
         const ten = new Decade();
@@ -309,9 +309,9 @@ describe('Build a pipeline', () => {
             description = set local or global
 
             [attribute]
-            key = a
+            label = a
             value = fix('a')
-            key = b.c
+            label = b.c
             value = fix('b.c')
         `;
         const ten = new Decade();
@@ -338,11 +338,11 @@ describe('Build a pipeline', () => {
             description = set local or global
 
             [attribute]
-            key = a
+            label = a
             value = fix('a')
 
             [attribute]
-            key = b
+            label = b
             value = fix('b')
         `;
         const ten = new Decade();
@@ -370,13 +370,13 @@ describe('Build a pipeline', () => {
             description = set local or global
 
             [attribute]
-            key = a
+            label = a
             value = 3
-            key = b
+            label = b
             value = 4
 
             [attribute]
-            key = c
+            label = c
             value = compute('a * b')
 
         `;
@@ -405,7 +405,7 @@ describe('Build a pipeline', () => {
             description = set local or global
 
             [attribute]
-            key = a
+            label = a
             value = l'école!
 
         `;
@@ -431,7 +431,7 @@ describe('Build a pipeline', () => {
             description = set local or global
 
             [attribute]
-            key = a
+            label = a
             value = b
 
             [boum]
@@ -583,5 +583,67 @@ describe('Build a pipeline', () => {
             });
     });
 /* */
-});
+    it('with once value with pipeline', (done) => {
+        let res = 0;
+        const ten = new Decade();
+        ten
+            .pipe(ezs((input, output) => {
+                output.send(input);
+            }))
+            .pipe(ezs((input, output) => {
+                output.send({ b: input });
+            }))
+            .pipe(ezs.once('substitute', {
+                label: 'a',
+                value: 10,
+            }))
+            .pipe(ezs(function useglobal(input, output) {
+                if (this.isLast()) {
+                    return output.send(input);
+                }
+                return output.send({ c: input.b * input.$globals.a });
+            }))
+            .on('data', (chunk) => {
+                res += chunk.c;
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 450);
+                done();
+            });
+    });
 
+    it('with once value with pipeline', (done) => {
+        let res = 0;
+        const commands = [
+            {
+                name: 'substitute',
+                args: {
+                    label: 'a',
+                    value: 10,
+                },
+            },
+        ];
+        const ten = new Decade();
+        ten
+            .pipe(ezs((input, output) => {
+                output.send(input);
+            }))
+            .pipe(ezs((input, output) => {
+                output.send({ b: input });
+            }))
+            .pipe(ezs.once(commands))
+            .pipe(ezs(function useglobal(input, output) {
+                if (this.isLast()) {
+                    return output.send(input);
+                }
+                return output.send({ c: input.b * input.$globals.a });
+            }))
+            .on('data', (chunk) => {
+                res += chunk.c;
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 450);
+                done();
+            });
+    });
+});
