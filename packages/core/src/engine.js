@@ -15,15 +15,18 @@ export default class Engine extends Transform {
 
     _transform(chunk, encoding, done) {
         this.index += 1;
+        if (this.tagname && chunk.tagname) {
+            console.log('#', this.index, 'compare', this.tagname);
+        }
         if (chunk instanceof Error) {
             this.push(chunk);
             done();
-        } else if (this.tagname && chunk.tagName && this.tagname === chunk.tagName()) {
+        } else if (this.tagname && chunk.__tagName && this.tagname === chunk.__tagName()) {
             this.execWith(chunk, done);
-        } else if (this.tagname && chunk.tagName && this.tagname !== chunk.tagName()) {
+        } else if (this.tagname && chunk.__tagName && this.tagname !== chunk.__tagName()) {
             this.push(chunk);
             done();
-        } else if (this.tagname && !chunk.tagName) {
+        } else if (this.tagname && !chunk.__tagName) {
             this.push(chunk);
             done();
         } else {
@@ -40,8 +43,8 @@ export default class Engine extends Transform {
             if (data instanceof Error) {
                 return this.pushError(data);
             }
-            if (this.tagname && chunk && chunk.tagName) {
-                data.tagName = chunk.tagName;
+            if (this.tagname && chunk && chunk.__tagName && typeof data === 'object') {
+                data.__tagName = chunk.__tagName;
             }
             return this.push(data);
         };
@@ -53,8 +56,9 @@ export default class Engine extends Transform {
         this.scope.ezs = this.ezs;
 
         try {
+            const context = typeof chunk === 'object' ? { ...this.scope, ...chunk } : chunk;
             this.scope.getParam = (name, defval) =>
-                (this.params[name] ? Shell(this.params[name], { ...this.scope, ...chunk }) : defval);
+                (this.params[name] ? Shell(this.params[name], context) : defval);
             this.func.call(this.scope, chunk, feed);
         } catch (e) {
             this.pushError(e);

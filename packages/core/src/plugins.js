@@ -50,7 +50,33 @@ function substitute(data, feed) {
     return feed.send(obj);
 }
 
+function tag(data, feed) {
+    if (this.isLast()) {
+        return feed.send(data);
+    }
+    const tagName = this.getParam('name', 'tag');
+    const tagTest = this.getParam('test', true);
+    if (tagTest) {
+        data.__tagName = () => tagName;
+    }
+    return feed.send(data);
+}
+
+function debug(data, feed) {
+    if (this.isLast()) {
+        return feed.send(data);
+    }
+    const level = this.getParam('level', 'log');
+    const text = this.getParam('text', 'valueOf');
+    if (typeof console[level] === 'function') {
+        console[level](text.concat('#').concat(this.getIndex()).concat(' ->'), data);
+    }
+    return feed.send(data);
+}
+
 export default {
     attribute,
     substitute,
+    tag,
+    debug,
 };

@@ -9,7 +9,7 @@ const parse = context => (value) => {
     js.push(value.replace(/([)]\s*->\s*)/g, ').'));
     js.push('.value();');
     const code = js.join('');
-    const data = _.omitBy(context, _.isFunction);
+    const data = typeof context === 'object' ? _.omitBy(context, _.isFunction) : context;
     _.mixin(mixins);
     const result = safeEval(code, {
         _,

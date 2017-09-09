@@ -26,6 +26,7 @@ class Decade extends Read {
 }
 
 describe('Build a pipeline', () => {
+    /* */
     it('with no transformation', (done) => {
         let res = 0;
         const ten = new Decade();
@@ -582,8 +583,9 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
-/* */
-    it('with once value with pipeline', (done) => {
+
+    /* */
+    it('with single statement in the  pipeline', (done) => {
         let res = 0;
         const ten = new Decade();
         ten
@@ -593,7 +595,7 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send({ b: input });
             }))
-            .pipe(ezs.once('substitute', {
+            .pipe(ezs.single('substitute', {
                 label: 'a',
                 value: 10,
             }))
@@ -612,7 +614,7 @@ describe('Build a pipeline', () => {
             });
     });
 
-    it('with once value with pipeline', (done) => {
+    it('with single statement in the pipeline', (done) => {
         let res = 0;
         const commands = [
             {
@@ -631,7 +633,7 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send({ b: input });
             }))
-            .pipe(ezs.once(commands))
+            .pipe(ezs.single(commands))
             .pipe(ezs(function useglobal(input, output) {
                 if (this.isLast()) {
                     return output.send(input);
@@ -646,4 +648,115 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
+
+    it('with tag transformation', (done) => {
+        let res = 0;
+        const ten = new Decade();
+        ten
+            .pipe(ezs((input, output) => {
+                output.send({ a: input });
+            }))
+            .pipe(ezs('tag', {
+                name: 'isPair',
+                test: parse => parse('compute("a % 2 == 0")'),
+            }))
+            .pipe(ezs.with('isPair', (input, output) => {
+                if (input) {
+                    output.send({ a: 0 });
+                } else {
+                    output.send(input);
+                }
+            }))
+            .on('data', (chunk) => {
+                if (chunk) {
+                    res += chunk.a;
+                }
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 25);
+                done();
+            });
+    });
+    it('convert to number to object', (done) => {
+        let res = 0;
+        const commands = `
+
+            [substitute]
+            label = a
+            value = self()
+
+        `;
+        const ten = new Decade();
+        ten
+            .pipe(ezs.script(commands))
+            .on('data', (chunk) => {
+                if (chunk) {
+                    res += chunk.a;
+                }
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 45);
+                done();
+            });
+    });
+
+    it('convert to number to object and apply a computation', (done) => {
+        let res = 0;
+        const commands = `
+
+            [substitute]
+            label = a
+            value = self()
+
+            [substitute]
+            label = a
+            value = compute("a + 1")
+
+        `;
+        const ten = new Decade();
+        ten
+            .pipe(ezs.script(commands))
+            .on('data', (chunk) => {
+                if (chunk) {
+                    res += chunk.a;
+                }
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 54);
+                done();
+            });
+    });
+
+    /*
+    it('convert to number to object and apply a computation just one time', (done) => {
+        let res = 0;
+        const commands = `
+
+            [substitute]
+            label = a
+            value = self()
+
+            [debug]
+
+            [substitute?single]
+            label = a
+            value = compute("a + 1")
+
+            [debug]
+
+        `;
+        const ten = new Decade();
+        ten
+            .pipe(ezs.script(commands))
+            .on('data', (chunk) => {
+                if (chunk) {
+                    res += chunk.a;
+                }
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 46);
+                done();
+            });
+    });
+    */
 });
