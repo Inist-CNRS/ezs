@@ -36,14 +36,8 @@ function get(ezs, plugin, opts) {
         return (data, feed) => feed.send(data);
     } else if (typeof plugin === 'function') {
         return plugin;
-    } else if (typeof plugin === 'string') {
-        if (pluginsList[plugin]) {
-            return pluginsList[plugin];
-        }
-        const matches = plugin.match(/(\w+)\?(\w+)/);
-        if (matches && pluginsList[matches[1]] && ezs[matches[2]]) {
-            return ezs[matches[2]](pluginsList[matches[1]]);
-        }
+    } else if (typeof plugin === 'string' && pluginsList[plugin]) {
+        return pluginsList[plugin];
     } else if (typeof plugin === 'object') {
         const firstKey = Object.keys(plugin).slice(0, 1);
         if (typeof plugin[firstKey] === 'function') {

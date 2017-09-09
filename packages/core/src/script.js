@@ -34,9 +34,11 @@ export default function Script(commands) {
             } else if (regex.section.test(line)) {
                 const match = line.match(regex.section);
                 const sectionName = match[1];
+                const matches = sectionName.match(/(\w+)\?(\w+)/);
                 const newSection = {
-                    name: sectionName,
+                    name: Array.isArray(matches) ? matches[1] : sectionName,
                     args: {},
+                    opt: Array.isArray(matches) ? matches[2] : null,
                 };
                 result.push(newSection);
             }
@@ -45,6 +47,7 @@ export default function Script(commands) {
     const cmd = result.map(com => ({
         name: com.name,
         args: parseArgs(com.args),
+        opt: com.opt,
     }));
     return cmd;
 }

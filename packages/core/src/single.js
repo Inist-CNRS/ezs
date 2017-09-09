@@ -1,6 +1,5 @@
 import { PassThrough, Transform } from 'stream';
-
-const reducer = ezs => (stream, command) => stream.pipe(ezs(command.name, command.args));
+import { commander } from './utils';
 
 export default class Once extends Transform {
     constructor(ezs, mixed, options) {
@@ -9,7 +8,7 @@ export default class Once extends Transform {
         this.tubin = new PassThrough({ objectMode: true });
         this.tubout = this.tubin;
         if (Array.isArray(mixed)) {
-            this.tubout = mixed.reduce(reducer(ezs), this.tubout);
+            this.tubout = mixed.reduce(commander(ezs), this.tubout);
         } else if (typeof mixed === 'string') {
             this.tubout = this.tubin.pipe(ezs(mixed, options));
         }
@@ -20,7 +19,7 @@ export default class Once extends Transform {
             this.tubin.close();
         });
         this.tubout.pause();
-        this.globals = null;
+        this.result = null;
     }
 
     _transform(chunk, encoding, callback) {
@@ -29,19 +28,19 @@ export default class Once extends Transform {
 
             this.tubout.on('data', (chunk2) => {
                 if (typeof chunk2 === 'object') {
-                    if (!this.globals) {
-                        this.globals = {};
+                    if (!this.result) {
+                        this.result = {};
                     }
-                    this.globals = Object.assign(this.globals, chunk2);
+                    this.result = Object.assign(this.result, chunk2);
                 } else {
-                    if (!this.globals) {
-                        this.globals = '';
+                    if (!this.result) {
+                        this.result = '';
                     }
-                    this.globals += chunk2;
+                    this.result += chunk2;
                 }
             })
             .on('end', () => {
-                const result = Object.assign(chunk, { $globals: this.globals });
+                const result = Object.assign(chunk, this.result);
                 callback(null, result);
             });
             this.tubout.resume();
@@ -49,7 +48,7 @@ export default class Once extends Transform {
                 this.tubin.end();
             });
         } else {
-            const result = Object.assign(chunk, { $globals: this.globals });
+            const result = Object.assign(chunk, this.result);
             callback(null, result);
         }
     }

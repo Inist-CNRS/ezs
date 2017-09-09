@@ -43,6 +43,25 @@ describe('Build a pipeline', () => {
             });
     });
 
+    it('with debug transformation', (done) => {
+        let res = 0;
+        const ten = new Decade();
+        ten
+            .pipe(ezs((input, output) => {
+                output.send(input);
+            }))
+            .pipe(ezs('debug', {
+                text: 'Debug message ',
+            }))
+            .on('data', (chunk) => {
+                res += chunk;
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 45);
+                done();
+            });
+    });
+
     it('with transformation', (done) => {
         let res = 0;
         const ten = new Decade();
@@ -585,66 +604,117 @@ describe('Build a pipeline', () => {
     });
 
     /* */
-    it('with single statement in the  pipeline', (done) => {
+    it('without single statement in the  pipeline', (done) => {
         let res = 0;
         const ten = new Decade();
         ten
-            .pipe(ezs((input, output) => {
-                output.send(input);
-            }))
-            .pipe(ezs((input, output) => {
-                output.send({ b: input });
-            }))
-            .pipe(ezs.single('substitute', {
+            .pipe(ezs('substitute', {
                 label: 'a',
-                value: 10,
+                value: shell => shell('self()'),
             }))
-            .pipe(ezs(function useglobal(input, output) {
-                if (this.isLast()) {
-                    return output.send(input);
-                }
-                return output.send({ c: input.b * input.$globals.a });
+            .pipe(ezs('attribute', {
+                label: 'b',
+                value: 1000,
+            }))
+            .pipe(ezs('attribute', {
+                label: 'c',
+                value: shell => shell('compute("a * b")'),
             }))
             .on('data', (chunk) => {
                 res += chunk.c;
             })
             .on('end', () => {
-                assert.strictEqual(res, 450);
+                assert.strictEqual(res, 45000);
                 done();
             });
     });
 
-    it('with single statement in the pipeline', (done) => {
+    it('with single statement in the  pipeline', (done) => {
+        let res = 0;
+        const ten = new Decade();
+        ten
+            .pipe(ezs('substitute', {
+                label: 'a',
+                value: shell => shell('self()'),
+            }))
+            .pipe(ezs.single('substitute', {
+                label: 'b',
+                value: 1000,
+            }))
+            .pipe(ezs('attribute', {
+                label: 'c',
+                value: shell => shell('compute("a * b")'),
+            }))
+            .on('data', (chunk) => {
+                res += chunk.c;
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 45000);
+                done();
+            });
+    });
+
+    it('with single pipeline in the pipeline', (done) => {
         let res = 0;
         const commands = [
             {
                 name: 'substitute',
                 args: {
-                    label: 'a',
-                    value: 10,
+                    label: 'b',
+                    value: 1000,
                 },
             },
         ];
         const ten = new Decade();
         ten
-            .pipe(ezs((input, output) => {
-                output.send(input);
-            }))
-            .pipe(ezs((input, output) => {
-                output.send({ b: input });
+            .pipe(ezs('substitute', {
+                label: 'a',
+                value: shell => shell('self()'),
             }))
             .pipe(ezs.single(commands))
-            .pipe(ezs(function useglobal(input, output) {
-                if (this.isLast()) {
-                    return output.send(input);
-                }
-                return output.send({ c: input.b * input.$globals.a });
+            .pipe(ezs('attribute', {
+                label: 'c',
+                value: shell => shell('compute("a * b")'),
             }))
             .on('data', (chunk) => {
                 res += chunk.c;
             })
             .on('end', () => {
-                assert.strictEqual(res, 450);
+                assert.strictEqual(res, 45000);
+                done();
+            });
+    });
+
+    it('with single statement in the script', (done) => {
+        let res = 0;
+        const commands = `
+
+            [substitute]
+            label = a
+            value = self()
+
+            [debug]
+
+            [substitute?single]
+            label = b 
+            value = fix(1000)
+
+            [debug]
+
+            [attribute]
+            label = c
+            value = compute("a * b")
+        `;
+        const ten = new Decade();
+        ten
+            .pipe(ezs.script(commands))
+            .on('data', (chunk) => {
+                if (chunk) {
+                    res += chunk.c;
+                }
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 45000);
                 done();
             });
     });
@@ -658,7 +728,7 @@ describe('Build a pipeline', () => {
             }))
             .pipe(ezs('tag', {
                 name: 'isPair',
-                test: parse => parse('compute("a % 2 == 0")'),
+                test: shell => shell('compute("a % 2 == 0")'),
             }))
             .pipe(ezs.with('isPair', (input, output) => {
                 if (input) {
@@ -727,36 +797,4 @@ describe('Build a pipeline', () => {
             });
     });
 
-    /*
-    it('convert to number to object and apply a computation just one time', (done) => {
-        let res = 0;
-        const commands = `
-
-            [substitute]
-            label = a
-            value = self()
-
-            [debug]
-
-            [substitute?single]
-            label = a
-            value = compute("a + 1")
-
-            [debug]
-
-        `;
-        const ten = new Decade();
-        ten
-            .pipe(ezs.script(commands))
-            .on('data', (chunk) => {
-                if (chunk) {
-                    res += chunk.a;
-                }
-            })
-            .on('end', () => {
-                assert.strictEqual(res, 46);
-                done();
-            });
-    });
-    */
 });
