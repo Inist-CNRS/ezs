@@ -1,6 +1,6 @@
 const assert = require('assert');
 const fs = require('fs');
-const path = require('path');
+const Dir = require('path');
 const ezs = require('../lib');
 
 
@@ -290,19 +290,19 @@ describe('Build a pipeline', () => {
     });
 
 
-    it('with attribute script pipeline', (done) => {
+    it('with assign script pipeline', (done) => {
         let res = 0;
         const commands = `
             # My first ezs script
             title = FOR TEST
             description = set local or global
 
-            [attribute]
-            label = a
+            [assign]
+            path = a
             value = fix('a')
 
-            [attribute]
-            label = b.c
+            [assign]
+            path = b.c
             value = fix('b.c')
         `;
         const ten = new Decade();
@@ -321,17 +321,17 @@ describe('Build a pipeline', () => {
             });
     });
 
-    it('with attribute(multi) script pipeline', (done) => {
+    it('with assign(multi) script pipeline', (done) => {
         let res = 0;
         const commands = `
             # My first ezs script
             title = FOR TEST
             description = set local or global
 
-            [attribute]
-            label = a
+            [assign]
+            path = a
             value = fix('a')
-            label = b.c
+            path = b.c
             value = fix('b.c')
         `;
         const ten = new Decade();
@@ -350,19 +350,19 @@ describe('Build a pipeline', () => {
             });
     });
 
-    it('with attribute script pipeline', (done) => {
+    it('with assign script pipeline', (done) => {
         let res = 0;
         const commands = `
             # My first ezs script
             title = FOR TEST
             description = set local or global
 
-            [attribute]
-            label = a
+            [assign]
+            path = a
             value = fix('a')
 
-            [attribute]
-            label = b
+            [assign]
+            path = b
             value = fix('b')
         `;
         const ten = new Decade();
@@ -382,21 +382,21 @@ describe('Build a pipeline', () => {
     });
 
 
-    it('with attribute with computation script pipeline', (done) => {
+    it('with assign with computation script pipeline', (done) => {
         let res = 0;
         const commands = `
             # My first ezs script
             title = FOR TEST
             description = set local or global
 
-            [attribute]
-            label = a
+            [assign]
+            path = a
             value = 3
-            label = b
+            path = b
             value = 4
 
-            [attribute]
-            label = c
+            [assign]
+            path = c
             value = compute('a * b')
 
         `;
@@ -417,15 +417,15 @@ describe('Build a pipeline', () => {
             });
     });
 
-    it('with attribute with quote script pipeline', (done) => {
+    it('with assign with quote script pipeline', (done) => {
         let res = 0;
         const commands = `
             # My first ezs script
             title = FOR TEST
             description = set local or global
 
-            [attribute]
-            label = a
+            [assign]
+            path = a
             value = l'école!
 
         `;
@@ -450,8 +450,8 @@ describe('Build a pipeline', () => {
             title = FOR TEST
             description = set local or global
 
-            [attribute]
-            label = a
+            [assign]
+            path = a
             value = b
 
             [boum]
@@ -558,7 +558,7 @@ describe('Build a pipeline', () => {
 
         `;
         let res = 0;
-        const file = fs.createReadStream(path.resolve(__dirname, './sample.txt'));
+        const file = fs.createReadStream(Dir.resolve(__dirname, './sample.txt'));
         file.resume();
         file.setEncoding('utf8');
         file
@@ -608,16 +608,16 @@ describe('Build a pipeline', () => {
         let res = 0;
         const ten = new Decade();
         ten
-            .pipe(ezs('substitute', {
-                label: 'a',
+            .pipe(ezs('replace', {
+                path: 'a',
                 value: shell => shell('self()'),
             }))
-            .pipe(ezs('attribute', {
-                label: 'b',
+            .pipe(ezs('assign', {
+                path: 'b',
                 value: 1000,
             }))
-            .pipe(ezs('attribute', {
-                label: 'c',
+            .pipe(ezs('assign', {
+                path: 'c',
                 value: shell => shell('compute("a * b")'),
             }))
             .on('data', (chunk) => {
@@ -633,16 +633,16 @@ describe('Build a pipeline', () => {
         let res = 0;
         const ten = new Decade();
         ten
-            .pipe(ezs('substitute', {
-                label: 'a',
+            .pipe(ezs('replace', {
+                path: 'a',
                 value: shell => shell('self()'),
             }))
-            .pipe(ezs.single('substitute', {
-                label: 'b',
+            .pipe(ezs.single('replace', {
+                path: 'b',
                 value: 1000,
             }))
-            .pipe(ezs('attribute', {
-                label: 'c',
+            .pipe(ezs('assign', {
+                path: 'c',
                 value: shell => shell('compute("a * b")'),
             }))
             .on('data', (chunk) => {
@@ -658,22 +658,22 @@ describe('Build a pipeline', () => {
         let res = 0;
         const commands = [
             {
-                name: 'substitute',
+                name: 'replace',
                 args: {
-                    label: 'b',
+                    path: 'b',
                     value: 1000,
                 },
             },
         ];
         const ten = new Decade();
         ten
-            .pipe(ezs('substitute', {
-                label: 'a',
+            .pipe(ezs('replace', {
+                path: 'a',
                 value: shell => shell('self()'),
             }))
             .pipe(ezs.single(commands))
-            .pipe(ezs('attribute', {
-                label: 'c',
+            .pipe(ezs('assign', {
+                path: 'c',
                 value: shell => shell('compute("a * b")'),
             }))
             .on('data', (chunk) => {
@@ -689,20 +689,20 @@ describe('Build a pipeline', () => {
         let res = 0;
         const commands = `
 
-            [substitute]
-            label = a
+            [replace]
+            path = a
             value = self()
 
             [debug]
 
-            [substitute?single]
-            label = b 
+            [replace?single]
+            path = b 
             value = fix(1000)
 
             [debug]
 
-            [attribute]
-            label = c
+            [assign]
+            path = c
             value = compute("a * b")
         `;
         const ten = new Decade();
@@ -726,8 +726,9 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send({ a: input });
             }))
-            .pipe(ezs('tag', {
-                name: 'isPair',
+            .pipe(ezs('assign', {
+                path: 'isPair',
+                value: true,
                 test: shell => shell('compute("a % 2 == 0")'),
             }))
             .pipe(ezs.with('isPair', (input, output) => {
@@ -751,8 +752,8 @@ describe('Build a pipeline', () => {
         let res = 0;
         const commands = `
 
-            [substitute]
-            label = a
+            [replace]
+            path = a
             value = self()
 
         `;
@@ -774,12 +775,12 @@ describe('Build a pipeline', () => {
         let res = 0;
         const commands = `
 
-            [substitute]
-            label = a
+            [replace]
+            path = a
             value = self()
 
-            [substitute]
-            label = a
+            [replace]
+            path = a
             value = compute("a + 1")
 
         `;

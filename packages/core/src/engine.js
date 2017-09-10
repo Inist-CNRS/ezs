@@ -1,13 +1,14 @@
+import _ from 'lodash';
 import { Transform } from 'stream';
 import Feed from './feed';
 import Shell from './shell';
 
 export default class Engine extends Transform {
-    constructor(ezs, func, params, tagname) {
+    constructor(ezs, func, params, selector) {
         super({ objectMode: true });
         this.func = func;
         this.index = 0;
-        this.tagname = tagname;
+        this.selector = selector;
         this.params = params || {};
         this.scope = {};
         this.ezs = ezs;
@@ -15,18 +16,12 @@ export default class Engine extends Transform {
 
     _transform(chunk, encoding, done) {
         this.index += 1;
-        if (this.tagname && chunk.tagname) {
-            console.log('#', this.index, 'compare', this.tagname);
-        }
         if (chunk instanceof Error) {
             this.push(chunk);
             done();
-        } else if (this.tagname && chunk.__tagName && this.tagname === chunk.__tagName()) {
+        } else if (this.selector && _.has(chunk, this.selector)) {
             this.execWith(chunk, done);
-        } else if (this.tagname && chunk.__tagName && this.tagname !== chunk.__tagName()) {
-            this.push(chunk);
-            done();
-        } else if (this.tagname && !chunk.__tagName) {
+        } else if (this.selector && !_.has(chunk, this.selector)) {
             this.push(chunk);
             done();
         } else {
@@ -42,9 +37,6 @@ export default class Engine extends Transform {
         const push = (data) => {
             if (data instanceof Error) {
                 return this.pushError(data);
-            }
-            if (this.tagname && chunk && chunk.__tagName && typeof data === 'object') {
-                data.__tagName = chunk.__tagName;
             }
             return this.push(data);
         };

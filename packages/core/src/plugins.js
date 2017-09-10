@@ -1,13 +1,15 @@
 import _ from 'lodash';
+import util from 'util';
 
-function attribute(data, feed) {
+function assign(data, feed) {
     if (this.isLast()) {
         return feed.send(data);
     }
-    let keys = this.getParam('label', []);
-    if (keys.length === 0) {
-        keys = this.getParam('key', []);
+    const test = this.getParam('test', true);
+    if (!test) {
+        return feed.send(data);
     }
+    let keys = this.getParam('path', []);
     let values = this.getParam('value', []);
     if (!Array.isArray(keys)) {
         keys = [keys];
@@ -25,14 +27,15 @@ function attribute(data, feed) {
     return feed.send(data);
 }
 
-function substitute(data, feed) {
+function replace(data, feed) {
     if (this.isLast()) {
         return feed.send(data);
     }
-    let keys = this.getParam('label', []);
-    if (keys.length === 0) {
-        keys = this.getParam('key', []);
+    const test = this.getParam('test', true);
+    if (!test) {
+        return feed.send(data);
     }
+    let keys = this.getParam('path', []);
     let values = this.getParam('value', []);
     if (!Array.isArray(keys)) {
         keys = [keys];
@@ -50,18 +53,6 @@ function substitute(data, feed) {
     return feed.send(obj);
 }
 
-function tag(data, feed) {
-    if (this.isLast()) {
-        return feed.send(data);
-    }
-    const tagName = this.getParam('name', 'tag');
-    const tagTest = this.getParam('test', true);
-    if (tagTest) {
-        data.__tagName = () => tagName;
-    }
-    return feed.send(data);
-}
-
 function debug(data, feed) {
     if (this.isLast()) {
         return feed.send(data);
@@ -69,14 +60,15 @@ function debug(data, feed) {
     const level = this.getParam('level', 'log');
     const text = this.getParam('text', 'valueOf');
     if (typeof console[level] === 'function') {
-        console[level](text.concat('#').concat(this.getIndex()).concat(' ->'), data);
+        const logOpts = { showHidden: false, depth: 3, colors: true };
+        const logFunc = console[level];
+        logFunc(text.concat('#').concat(this.getIndex()).concat(' ->'), util.inspect(data, logOpts));
     }
     return feed.send(data);
 }
 
 export default {
-    attribute,
-    substitute,
-    tag,
+    assign,
+    replace,
     debug,
 };

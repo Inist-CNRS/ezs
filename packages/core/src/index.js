@@ -11,7 +11,7 @@ const ezs = (name, opts) => new Engine(ezs, Statement.get(ezs, name, opts), opts
 ezs.pipeline = (commands, options) => new Pipeline(ezs, commands, options);
 ezs.single = (mixed, options) => new Single(ezs, mixed, options);
 ezs.script = (commands, options) => new Pipeline(ezs, Script(commands), options);
-ezs.with = (tagname, name, opts) => new Engine(ezs, Statement.get(ezs, name), opts, tagname);
+ezs.with = (selector, name, opts) => new Engine(ezs, Statement.get(ezs, name), opts, selector);
 ezs.toBuffer = opts => new Output(opts);
 ezs.use = plugin => Statement.set(ezs, plugin);
 
