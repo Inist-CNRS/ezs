@@ -1,5 +1,4 @@
 import { PassThrough, Transform } from 'stream';
-import { commander } from './utils';
 
 export default class Once extends Transform {
     constructor(ezs, mixed, options) {
@@ -8,7 +7,7 @@ export default class Once extends Transform {
         this.tubin = new PassThrough({ objectMode: true });
         this.tubout = this.tubin;
         if (Array.isArray(mixed)) {
-            this.tubout = mixed.reduce(commander(ezs), this.tubout);
+            this.tubout = mixed.reduce(ezs.command, this.tubout);
         } else if (typeof mixed === 'string') {
             this.tubout = this.tubin.pipe(ezs(mixed, options));
         }

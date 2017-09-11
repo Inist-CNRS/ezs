@@ -1,5 +1,4 @@
 import { PassThrough, Duplex } from 'stream';
-import { commander } from './utils';
 
 export default class Pipeline extends Duplex {
     constructor(ezs, commands, options) {
@@ -7,7 +6,7 @@ export default class Pipeline extends Duplex {
         this.tubin = new PassThrough({ objectMode: true });
         this.tubout = this.tubin;
         if (Array.isArray(commands)) {
-            this.tubout = commands.reduce(commander(ezs), this.tubout);
+            this.tubout = commands.reduce(ezs.command, this.tubout);
         }
         this.on('finish', () => {
             this.tubin.end();

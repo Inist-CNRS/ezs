@@ -4,7 +4,7 @@ const regex = {
     comment: /^\s*[;#].*$/,
 };
 
-const parseArgs = (obj) => {
+const parseOpts = (obj) => {
     const res = {};
     if (typeof obj === 'object') {
         Object.keys(obj).forEach((key) => {
@@ -32,22 +32,36 @@ export default function Script(commands) {
                     result[result.length - 1].args[paramName].push(paramValue);
                 }
             } else if (regex.section.test(line)) {
-                const match = line.match(regex.section);
-                const sectionName = match[1];
-                const matches = sectionName.match(/(\w+)\?(\w+)/);
+                const matches0 = line.match(regex.section);
+                const matches1 = matches0[1].match(/(\w+)\?(\w+)/);
+                const matches2 = matches0[1].match(/(\w+)#(\w+)/);
+                let mode = 'all';
+                let name = 'debug';
+                let test = '';
+                if (Array.isArray(matches1)) {
+                    name = matches1[1];
+                    mode = matches1[2];
+                } else if (Array.isArray(matches2)) {
+                    mode = 'with';
+                    name = matches2[1];
+                    test = matches2[2];
+                } else {
+                    mode = 'all';
+                    name = matches0[1];
+                }
                 const newSection = {
-                    name: Array.isArray(matches) ? matches[1] : sectionName,
+                    mode,
+                    name,
+                    test,
                     args: {},
-                    opt: Array.isArray(matches) ? matches[2] : null,
                 };
                 result.push(newSection);
             }
         }
     });
-    const cmd = result.map(com => ({
-        name: com.name,
-        args: parseArgs(com.args),
-        opt: com.opt,
+    const cmd = result.map(command => ({
+        ...command,
+        args: parseOpts(command.args),
     }));
     return cmd;
 }

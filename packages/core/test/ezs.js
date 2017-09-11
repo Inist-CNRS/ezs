@@ -696,7 +696,7 @@ describe('Build a pipeline', () => {
             [debug]
 
             [replace?single]
-            path = b 
+            path = b
             value = fix(1000)
 
             [debug]
@@ -738,6 +738,39 @@ describe('Build a pipeline', () => {
                     output.send(input);
                 }
             }))
+            .on('data', (chunk) => {
+                if (chunk) {
+                    res += chunk.a;
+                }
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 25);
+                done();
+            });
+    });
+    it('with tag script transformation', (done) => {
+        let res = 0;
+        const commands = `
+
+            [replace]
+            path = a
+            value = self()
+
+            [assign]
+            path = isPair
+            value = true
+            test = compute("a % 2 == 0")
+
+            [debug]
+
+            [assign#isPair]
+            path = a
+            value = 0
+
+        `;
+        const ten = new Decade();
+        ten
+            .pipe(ezs.script(commands))
             .on('data', (chunk) => {
                 if (chunk) {
                     res += chunk.a;
@@ -797,5 +830,4 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
-
 });
