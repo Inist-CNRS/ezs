@@ -1,4 +1,5 @@
 import { PassThrough, Transform } from 'stream';
+import { addedDiff } from 'deep-object-diff';
 
 export default class Once extends Transform {
     constructor(ezs, mixed, options) {
@@ -19,12 +20,13 @@ export default class Once extends Transform {
         });
         this.tubout.pause();
         this.result = null;
+        this.addedResult = null;
     }
 
     _transform(chunk, encoding, callback) {
         if (this.first === true) {
+            const oldChunk = Object.assign({}, chunk);
             this.first = false;
-
             this.tubout.on('data', (chunk2) => {
                 if (typeof chunk2 === 'object') {
                     if (!this.result) {
@@ -39,16 +41,15 @@ export default class Once extends Transform {
                 }
             })
             .on('end', () => {
-                const result = Object.assign(chunk, this.result);
-                callback(null, result);
+                this.addedResult = addedDiff(oldChunk, this.result);
+                callback(null, Object.assign(chunk, this.addedResult));
             });
             this.tubout.resume();
             this.tubin.write(chunk, encoding, () => {
                 this.tubin.end();
             });
         } else {
-            const result = Object.assign(chunk, this.result);
-            callback(null, result);
+            callback(null, Object.assign(chunk, this.addedResult));
         }
     }
 

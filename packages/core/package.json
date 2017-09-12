@@ -47,6 +47,7 @@
   },
   "dependencies": {
     "autocast": "0.0.4",
+    "deep-object-diff": "^1.0.4",
     "filtrex": "^0.5.4",
     "lodash": "^4.17.4",
     "safe-eval": "^0.3.0"

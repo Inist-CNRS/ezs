@@ -5,7 +5,7 @@ import mixins from './mixins';
 
 const parse = context => (value) => {
     const js = [];
-    js.push('_.chain(data).');
+    js.push('_.chain(self).');
     js.push(value.replace(/([)]\s*->\s*)/g, ').'));
     js.push('.value();');
     const code = js.join('');
@@ -13,7 +13,7 @@ const parse = context => (value) => {
     _.mixin(mixins);
     const result = safeEval(code, {
         _,
-        data,
+        self: data,
     });
     return Array.isArray(result) ? [result] : result;
 };
