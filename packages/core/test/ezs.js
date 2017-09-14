@@ -224,7 +224,7 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send(input);
             }))
-            .pipe(ezs.script(commands))
+            .pipe(ezs.fromString(commands))
             .on('data', (chunk) => {
                 res += chunk;
             })
@@ -251,7 +251,7 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send(input);
             }))
-            .pipe(ezs.script(commands))
+            .pipe(ezs.fromString(commands))
             .on('data', (chunk) => {
                 res += chunk;
             })
@@ -279,7 +279,7 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send(input);
             }))
-            .pipe(ezs.script(commands))
+            .pipe(ezs.fromString(commands))
             .on('data', (chunk) => {
                 res += chunk;
             })
@@ -310,7 +310,7 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send({ val: input });
             }))
-            .pipe(ezs.script(commands))
+            .pipe(ezs.fromString(commands))
             .on('data', (chunk) => {
                 res = chunk;
             })
@@ -339,7 +339,7 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send({ val: input });
             }))
-            .pipe(ezs.script(commands))
+            .pipe(ezs.fromString(commands))
             .on('data', (chunk) => {
                 res = chunk;
             })
@@ -370,7 +370,7 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send({ val: input });
             }))
-            .pipe(ezs.script(commands))
+            .pipe(ezs.fromString(commands))
             .on('data', (chunk) => {
                 res = chunk;
             })
@@ -405,7 +405,7 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send({ val: input });
             }))
-            .pipe(ezs.script(commands))
+            .pipe(ezs.fromString(commands))
             .on('data', (chunk) => {
                 res = chunk;
             })
@@ -434,7 +434,7 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send({ val: input });
             }))
-            .pipe(ezs.script(commands))
+            .pipe(ezs.fromString(commands))
             .on('data', (chunk) => {
                 res = chunk;
             })
@@ -462,7 +462,7 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send({ val: input });
             }))
-            .pipe(ezs.script(commands))
+            .pipe(ezs.fromString(commands))
             .on('data', (chunk) => {
                 assert.ok(chunk instanceof Error);
             })
@@ -485,7 +485,7 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send({ val: input });
             }))
-            .pipe(ezs.script(commands))
+            .pipe(ezs.fromString(commands))
             .on('data', (chunk) => {
                 assert.ok(chunk instanceof Error);
             })
@@ -508,7 +508,7 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send(input);
             }))
-            .pipe(ezs.script(commands))
+            .pipe(ezs.fromString(commands))
             .on('data', (chunk) => {
                 res += Number(chunk);
             })
@@ -535,7 +535,7 @@ describe('Build a pipeline', () => {
                 output.send(input);
             }))
             .pipe(pass)
-            .pipe(ezs.script(commands))
+            .pipe(ezs.fromString(commands))
             .on('data', (chunk) => {
                 if (chunk === 4) {
                     pass.write(null);
@@ -565,7 +565,7 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send(input);
             }))
-            .pipe(ezs.script(commands))
+            .pipe(ezs.fromString(commands))
             .on('data', (chunk) => {
                 res += Number(chunk);
             })
@@ -593,7 +593,7 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send(input);
             }))
-            .pipe(ezs.script(commands))
+            .pipe(ezs.fromString(commands))
             .on('data', (chunk) => {
                 res += Number(chunk);
             })
@@ -707,7 +707,7 @@ describe('Build a pipeline', () => {
         `;
         const ten = new Decade();
         ten
-            .pipe(ezs.script(commands))
+            .pipe(ezs.fromString(commands))
             .on('data', (chunk) => {
                 if (chunk) {
                     res += chunk.c;
@@ -770,7 +770,7 @@ describe('Build a pipeline', () => {
         `;
         const ten = new Decade();
         ten
-            .pipe(ezs.script(commands))
+            .pipe(ezs.fromString(commands))
             .on('data', (chunk) => {
                 if (chunk) {
                     res += chunk.a;
@@ -792,7 +792,7 @@ describe('Build a pipeline', () => {
         `;
         const ten = new Decade();
         ten
-            .pipe(ezs.script(commands))
+            .pipe(ezs.fromString(commands))
             .on('data', (chunk) => {
                 if (chunk) {
                     res += chunk.a;
@@ -819,7 +819,24 @@ describe('Build a pipeline', () => {
         `;
         const ten = new Decade();
         ten
-            .pipe(ezs.script(commands))
+            .pipe(ezs.fromString(commands))
+            .on('data', (chunk) => {
+                if (chunk) {
+                    res += chunk.a;
+                }
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 54);
+                done();
+            });
+    });
+
+    it('convert to number to object and apply a computation (file)', (done) => {
+        let res = 0;
+        const filename = Dir.resolve(__dirname, './sample.ezs');
+        const ten = new Decade();
+        ten
+            .pipe(ezs.fromFile(filename))
             .on('data', (chunk) => {
                 if (chunk) {
                     res += chunk.a;

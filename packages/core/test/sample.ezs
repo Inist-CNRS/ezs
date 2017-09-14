@@ -1,0 +1,10 @@
+
+[replace]
+path = a
+value = self()
+
+[replace]
+path = a
+value = compute("a + 1")
+
+
