@@ -6,12 +6,15 @@ import File from './file';
 import Output from './output';
 import Plugins from './plugins';
 import Statement from './statement';
+import Meta from './meta';
 
 const ezs = (name, opts) => new Engine(ezs, Statement.get(ezs, name, opts), opts);
 
 ezs.pipeline = (commands, options) => new Pipeline(ezs, commands, options);
 ezs.all = (name, opts) => new Engine(ezs, Statement.get(ezs, name, opts), opts);
 ezs.single = (mixed, options) => new Single(ezs, mixed, options);
+ezs.metaString = (commands, options) => new Meta(ezs, commands, options);
+ezs.metaFile = (filename, options) => new Meta(ezs, File(filename), options);
 ezs.fromString = (commands, options) => new Pipeline(ezs, Script(commands), options);
 ezs.fromFile = (filename, options) => new Pipeline(ezs, Script(File(filename)), options);
 ezs.with = (selector, name, opts) => new Engine(ezs, Statement.get(ezs, name), opts, selector);

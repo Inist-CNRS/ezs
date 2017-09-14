@@ -847,4 +847,33 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
+
+    it('Catch meta from script', (done) => {
+        const commands = `
+
+            title = Le titre
+            description = La description
+
+            [replace]
+            path = a
+            value = self()
+
+            [replace]
+            path = a
+            value = compute("a + 1")
+
+        `;
+        const meta = ezs.metaString(commands);
+        assert.strictEqual(meta.title, 'Le titre');
+        assert.strictEqual(meta.description, 'La description');
+        done();
+    });
+
+    it('Catch meta from file', (done) => {
+        const filename = Dir.resolve(__dirname, './sample.ezs');
+        const meta = ezs.metaFile(filename);
+        assert.strictEqual(meta.title, 'exemple 1');
+        assert.strictEqual(meta.description, 'increment de a');
+        done();
+    });
 });
