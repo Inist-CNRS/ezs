@@ -21,11 +21,15 @@ function get(ezs, plugin, opts) {
                     names = [names];
                 }
                 names.forEach((name) => {
-                    const plugName1 = 'ezs-'.concat(name.replace(/^ezs-/, ''));
-                    const plugName2 = path.resolve(process.cwd(), name);
-                    if (resolve(plugName1)) {
+                    const plugName1 = resolve('ezs-'.concat(name.replace(/^ezs-/, '')));
+                    const plugName2 = ezs.getPath()
+                        .map(dir => path.resolve(dir, name))
+                        .map(fil => resolve(fil))
+                        .filter(fun => fun !== null)
+                        .shift();
+                    if (plugName1) {
                         ezs.use(require(plugName1));
-                    } else if (resolve(plugName2)) {
+                    } else if (plugName2) {
                         ezs.use(require(plugName2));
                     } else {
                         throw new Error(`'${name}' is not loaded. It was not found (try to install it).`);
