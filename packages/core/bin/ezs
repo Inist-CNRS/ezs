@@ -20,7 +20,12 @@ prog
       logger.warn('Reading standard input...');
       process.stdin.resume();
       process.stdin.setEncoding('utf8');
-      process.stdin.pipe(ezs.script(script)).pipe(ezs.toBuffer()).pipe(process.stdout);
+      const stream1 = process.stdin.pipe(ezs.fromString(script));
+      const stream2 = stream1.pipe(ezs.toBuffer());
+      stream2.on('end', () => {
+          process.exit(1);
+      });
+      stream2.pipe(process.stdout);
   });
 
 prog.parse(process.argv);

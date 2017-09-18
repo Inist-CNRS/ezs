@@ -1,3 +1,4 @@
+
 import { PassThrough, Duplex } from 'stream';
 
 export default class Pipeline extends Duplex {
@@ -10,9 +11,6 @@ export default class Pipeline extends Duplex {
         }
         this.on('finish', () => {
             this.tubin.end();
-        });
-        this.on('close', () => {
-            this.tubin.close();
         });
         this.tubout.on('data', (chunk, encoding) => {
             this.push(chunk, encoding);
@@ -32,8 +30,9 @@ export default class Pipeline extends Duplex {
 
     _read(size) {
         this.lastSize = size;
-        this.tubout.resume();
+        if (this.tubout.isPaused()) {
+            this.tubout.resume();
+        }
     }
 
 }
-
