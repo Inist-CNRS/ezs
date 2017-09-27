@@ -8,8 +8,10 @@ function JSONString(data, feed) {
     }
     if (!this.isLast()) {
         feed.write(output.concat(JSON.stringify(data, null, indent ? '    ' : null)));
-    } else {
+    } else if (this.isLast() && this.getIndex() > 0) {
         feed.write(']');
+        feed.close();
+    } else {
         feed.close();
     }
     feed.end();
