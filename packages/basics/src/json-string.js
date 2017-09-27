@@ -12,6 +12,7 @@ function JSONString(data, feed) {
         feed.write(']');
         feed.close();
     } else {
+        feed.write('[]');
         feed.close();
     }
     feed.end();
