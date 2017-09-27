@@ -18,5 +18,7 @@ npm install -g ezs
 ./rdf-to-csv.ezs < data/rdf
 ./skos-to-csv.ezs < data/skos
 ./xml-to-csv.ezs < data/rss
+./url-fetch.ezs < data/csv
+./url-merge.ezs < data/csv
 
 ```

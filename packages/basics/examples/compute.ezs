@@ -3,13 +3,13 @@
 [use]
 plugin = basics
 
-[attribute]
-key = a
+[assign]
+path = a
 value = 3
-key = b
+path = b
 value = 4
 
-[attribute]
-key = c
+[assign]
+path = c
 value = compute('a * b')
 

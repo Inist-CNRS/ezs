@@ -12,10 +12,10 @@ plugin = basics
 [CSVObject]
 
 
-[substitute]
-key = countColumns
+[replace]
+path= countColumns
 value = keys().size()
-key = size
+path = size
 value = mapValues(_.size).values().sum()
 
 

@@ -1,0 +1,29 @@
+#!/usr/bin/env ezs
+
+[use]
+plugin = basics
+
+[CSVParse]
+
+[CSVObject]
+
+[URLFetch?single]
+target = world
+url = http://inist_tabcor_1.board.inist.fr/ESI_AllFields_20151023.json
+json  = true
+
+[assign]
+path = year
+value = get('year').parseInt()
+
+[replace]
+path = local
+value = get('world').filter({ _id: self.year }).first().get('value').defaultTo(0)
+
+[assign]
+path = result
+value = compute("local / world ")
+
+
+[JSONString]
+indent = true
