@@ -29,10 +29,10 @@ export default {
     JSONString,
     URLFetch,
     // aliases
-    flatten: OBJFlatten,
-    concat: TXTConcat,
-    jsonify: JSONString,
-    standardize: OBJStandardize,
-    split: TXTParse,
-    segmenter: TXTParse,
+    jsonify: JSONString.JSONString,
+    flatten: OBJFlatten.OBJFlatten,
+    concat: TXTConcat.TXTConcat,
+    standardize: OBJStandardize.OBJStandardize,
+    split: TXTParse.TXTParse,
+    segmenter: TXTParse.TXTParse,
 };

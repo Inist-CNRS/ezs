@@ -12,6 +12,6 @@ plugin = basics
 [CSVObject]
 
 # generate JSON
-[JSONString]
+[jsonify]
 indent = true
 
