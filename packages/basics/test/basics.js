@@ -22,6 +22,25 @@ describe('test', () => {
                 done();
             });
     });
+    it('JSONString #2', (done) => {
+        let res = '';
+        from([
+            {
+                a: 1,
+            },
+            {
+                b: 2,
+            },
+        ])
+            .pipe(ezs('JSONString', { wrap: false, indent: false }))
+            .on('data', (chunk) => {
+                res += chunk;
+            })
+            .on('end', () => {
+                assert.strictEqual(res, '{"a":1},{"b":2}');
+                done();
+            });
+    });
     /*
     it('URLGet #1', (done) => {
         let c = 0;

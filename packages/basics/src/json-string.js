@@ -1,18 +1,23 @@
 function JSONString(data, feed) {
     const indent = this.getParam('indent', false);
+    const wrap = this.getParam('wrap', true);
+    const separator = indent ? ',\n' : ',';
+    const spaces = indent ? '    ' : null;
+    const openWith = wrap ? '[' : '';
+    const closeWith = wrap ? ']' : '';
     let output = '';
     if (this.isFirst()) {
-        output = '[';
+        output = openWith;
     } else {
-        output = ',\n';
+        output = separator;
     }
     if (!this.isLast()) {
-        feed.write(output.concat(JSON.stringify(data, null, indent ? '    ' : null)));
+        feed.write(output.concat(JSON.stringify(data, null, spaces)));
     } else if (this.isLast() && this.getIndex() > 0) {
-        feed.write(']');
+        feed.write(closeWith);
         feed.close();
     } else {
-        feed.write('[]');
+        feed.write(openWith + closeWith);
         feed.close();
     }
     feed.end();
