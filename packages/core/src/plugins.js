@@ -67,8 +67,35 @@ function debug(data, feed) {
     return feed.send(data);
 }
 
+function shift(data, feed) {
+    feed.write(data);
+    feed.close();
+}
+
+function extract(data, feed) {
+    if (this.isLast()) {
+        return feed.send(data);
+    }
+    let keys = this.getParam('path', []);
+    if (!Array.isArray(keys)) {
+        keys = [keys];
+    }
+
+    keys = keys.filter(k => typeof k === 'string');
+    const values = keys.map(key => _.get(data, key)).filter(val => val);
+
+    if (values.length === 0) {
+        return feed.send(undefined);
+    } else if (values.length === 1) {
+        return feed.send(values[0]);
+    }
+    return feed.send(values);
+}
+
 export default {
     assign,
     replace,
+    shift,
+    extract,
     debug,
 };

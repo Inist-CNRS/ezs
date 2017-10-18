@@ -876,4 +876,74 @@ describe('Build a pipeline', () => {
         assert.strictEqual(meta.description, 'increment de a');
         done();
     });
+
+    it('with shift statement in the  pipeline', (done) => {
+        const ten = new Decade();
+        ten
+            .pipe(ezs('replace', {
+                path: 'a',
+                value: shell => shell('self()'),
+            }))
+            .pipe(ezs('shift'))
+            .on('data', (chunk) => {
+                assert.strictEqual(chunk.a, 1);
+            })
+            .on('end', () => {
+                done();
+            });
+    });
+
+    it('with extract statement in the  pipeline #1', (done) => {
+        let res = 0;
+        const ten = new Decade();
+        ten
+            .pipe(ezs('replace', {
+                path: 'a',
+                value: shell => shell('self()'),
+            }))
+            .pipe(ezs('extract', { path: 'a' }))
+            .on('data', (chunk) => {
+                res += chunk;
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 45);
+                done();
+            });
+    });
+    it('with extract statement in the  pipeline #2', (done) => {
+        const ten = new Decade();
+        ten
+            .pipe(ezs('replace', {
+                path: 'a',
+                value: shell => shell('self()'),
+            }))
+            .pipe(ezs('extract', { path: 'b' }))
+            .on('data', (chunk) => {
+                assert.strictEqual(chunk, undefined);
+            })
+            .on('end', () => {
+                done();
+            });
+    });
+    it('with extract statement in the  pipeline #3', (done) => {
+        const ten = new Decade();
+        ten
+            .pipe(ezs('replace', {
+                path: 'a',
+                value: shell => shell('self()'),
+            }))
+            .pipe(ezs('assign', {
+                path: 'b',
+                value: shell => shell('get(\'a\')'),
+            }))
+            .pipe(ezs('extract', { path: ['b', 'a'] }))
+            .on('data', (chunk) => {
+                assert.strictEqual(chunk[0], chunk[1]);
+            })
+            .on('end', () => {
+                done();
+            });
+    });
+
+
 });
