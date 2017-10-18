@@ -50,7 +50,7 @@ export default class Engine extends Transform {
         try {
             const context = typeof chunk === 'object' ? { ...this.scope, ...chunk } : chunk;
             this.scope.getParam = (name, defval) =>
-                (this.params[name] ? Shell(this.params[name], context) : defval);
+                (this.params[name] !== undefined ? Shell(this.params[name], context) : defval);
             this.func.call(this.scope, chunk, feed);
         } catch (e) {
             this.pushError(e);
