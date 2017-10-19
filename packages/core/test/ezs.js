@@ -944,6 +944,49 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
-
-
+    it('with keep statement in the  pipeline #1', (done) => {
+        const ten = new Decade();
+        ten
+            .pipe(ezs('replace', {
+                path: 'a',
+                value: shell => shell('self()'),
+            }))
+            .pipe(ezs('assign', {
+                path: 'b',
+                value: shell => shell('get(\'a\')'),
+            }))
+            .pipe(ezs('keep', { path: 'a' }))
+            .on('data', (chunk) => {
+                assert.notStrictEqual(chunk.a, undefined);
+                assert.strictEqual(chunk.b, undefined);
+            })
+            .on('end', () => {
+                done();
+            });
+    });
+    it('with keep statement in the  pipeline #2', (done) => {
+        const ten = new Decade();
+        ten
+            .pipe(ezs('replace', {
+                path: 'a',
+                value: shell => shell('self()'),
+            }))
+            .pipe(ezs('assign', {
+                path: 'b',
+                value: shell => shell('get(\'a\')'),
+            }))
+            .pipe(ezs('assign', {
+                path: 'c',
+                value: shell => shell('get(\'a\')'),
+            }))
+            .pipe(ezs('keep', { path: ['a', 'c'] }))
+            .on('data', (chunk) => {
+                assert.notStrictEqual(chunk.a, undefined);
+                assert.strictEqual(chunk.b, undefined);
+                assert.notStrictEqual(chunk.c, undefined);
+            })
+            .on('end', () => {
+                done();
+            });
+    });
 });
