@@ -15,7 +15,7 @@ const parse = context => (value) => {
         _,
         self: data,
     });
-    return Array.isArray(result) ? [result] : result;
+    return result;
 };
 
 
