@@ -23,7 +23,7 @@ const analyse = context => (value) => {
     if (Array.isArray(value)) {
         return value.map(analyse(context));
     }
-    if (!value) {
+    if (!value || typeof value !== 'string') {
         return value;
     }
     if (value.match(/^[a-zA-Z][a-zA-Z0-9]*[(]/)) {
@@ -33,6 +33,14 @@ const analyse = context => (value) => {
 };
 
 export default function Shell(value, context) {
+    if (Array.isArray(value)) {
+        return value.map((item) => {
+            if (typeof value !== 'function') {
+                return item;
+            }
+            return item(analyse(context));
+        });
+    }
     if (typeof value !== 'function') {
         return value;
     }

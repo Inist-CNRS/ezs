@@ -9,21 +9,24 @@ function assign(data, feed) {
     if (!test) {
         return feed.send(data);
     }
-    let keys = this.getParam('path', []);
-    let values = this.getParam('value', []);
-    if (!Array.isArray(keys)) {
-        keys = [keys];
-    }
-    if (!Array.isArray(values)) {
-        values = [values];
-    }
-    keys = keys.filter(k => typeof k === 'string');
-    values = _.take(values, keys.length);
-    const assets = _.zipObject(keys, values);
+    const params = this.getParams();
 
-    Object.keys(assets).forEach((key) => {
-        _.set(data, key, assets[key]);
-    });
+    // check if missing value
+    if (Array.isArray(params.path) && !Array.isArray(params.value)) {
+        params.value = [params.value];
+    }
+    const keys = this.getParam('path', []);
+    const vals = this.getParam('value', []);
+
+    if (Array.isArray(keys)) {
+        const values = _.take(vals, keys.length);
+        const assets = _.zipObject(keys, values);
+        Object.keys(assets).forEach((key) => {
+            _.set(data, key, assets[key]);
+        });
+    } else {
+        _.set(data, keys, vals);
+    }
     return feed.send(data);
 }
 
@@ -35,21 +38,24 @@ function replace(data, feed) {
     if (!test) {
         return feed.send(data);
     }
-    let keys = this.getParam('path', []);
-    let values = this.getParam('value', []);
-    if (!Array.isArray(keys)) {
-        keys = [keys];
+    const params = this.getParams();
+
+    // check if missing value
+    if (Array.isArray(params.path) && !Array.isArray(params.value)) {
+        params.value = [params.value];
     }
-    if (!Array.isArray(values)) {
-        values = [values];
+    const keys = this.getParam('path', []);
+    const vals = this.getParam('value', []);
+    const obj = {}
+    if (Array.isArray(keys)) {
+        const values = _.take(vals, keys.length);
+        const assets = _.zipObject(keys, values);
+        Object.keys(assets).forEach((key) => {
+            _.set(obj, key, assets[key]);
+        });
+    } else {
+        _.set(obj, keys, vals);
     }
-    keys = keys.filter(k => typeof k === 'string');
-    values = _.take(values, keys.length);
-    const assets = _.zipObject(keys, values);
-    const obj = {};
-    Object.keys(assets).forEach((key) => {
-        _.set(obj, key, assets[key]);
-    });
     return feed.send(obj);
 }
 

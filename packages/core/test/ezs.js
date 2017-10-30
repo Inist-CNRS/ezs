@@ -26,7 +26,6 @@ class Decade extends Read {
 }
 
 describe('Build a pipeline', () => {
-    /* */
     it('with no transformation', (done) => {
         let res = 0;
         const ten = new Decade();
@@ -103,7 +102,6 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
-
 
     it('with definied transformation', (done) => {
         let res = 0;
@@ -320,7 +318,6 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
-
     it('with assign(multi) script pipeline', (done) => {
         let res = 0;
         const commands = `
@@ -333,6 +330,8 @@ describe('Build a pipeline', () => {
             value = fix('a')
             path = b.c
             value = fix('b.c')
+            path = b.d
+            value = fix([0,1])
         `;
         const ten = new Decade();
         ten
@@ -346,10 +345,11 @@ describe('Build a pipeline', () => {
             .on('end', () => {
                 assert.strictEqual(res.a, 'a');
                 assert.strictEqual(res.b.c, 'b.c');
+                assert.strictEqual(res.b.d[0], 0);
                 done();
             });
     });
-
+    /*
     it('with assign script pipeline', (done) => {
         let res = 0;
         const commands = `
@@ -575,10 +575,6 @@ describe('Build a pipeline', () => {
             });
     });
 
-    /*
-     * Unable to detect un bad statement
-     *
-
     it('with bad statement in the pipeline', (done) => {
         const commands = `
             [use]
@@ -603,7 +599,6 @@ describe('Build a pipeline', () => {
             });
     });
 
-    /* */
     it('without single statement in the  pipeline', (done) => {
         let res = 0;
         const ten = new Decade();
@@ -989,4 +984,189 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
+    it('with replace multi value #0', (done) => {
+        const ten = new Decade();
+        ten
+            .pipe(ezs('replace', {
+                path: 'a',
+                value: 1,
+            }))
+            .on('data', (chunk) => {
+                assert.strictEqual(chunk.a, 1);
+            })
+            .on('end', () => {
+                done();
+            });
+    });
+    it('with replace multi value #1', (done) => {
+        const ten = new Decade();
+        ten
+            .pipe(ezs('replace', {
+                path: 'a',
+                value: [1, 2],
+            }))
+            .on('data', (chunk) => {
+                assert.strictEqual(chunk.a[0], 1);
+                assert.strictEqual(chunk.a[1], 2);
+            })
+            .on('end', () => {
+                done();
+            });
+    });
+    it('with replace multi value #2', (done) => {
+        const ten = new Decade();
+        ten
+            .pipe(ezs('replace', {
+                path: ['a', 'b'],
+                value: [1, 2],
+            }))
+            .on('data', (chunk) => {
+                assert.strictEqual(chunk.a, 1);
+                assert.strictEqual(chunk.b, 2);
+            })
+            .on('end', () => {
+                done();
+            });
+    });
+    it('with replace multi value #3', (done) => {
+        const ten = new Decade();
+        ten
+            .pipe(ezs('replace', {
+                path: ['a', 'b'],
+                value: [1, [2, 2]],
+            }))
+            .on('data', (chunk) => {
+                assert.strictEqual(chunk.a, 1);
+                assert.strictEqual(chunk.b[0], 2);
+                assert.strictEqual(chunk.b[1], 2);
+            })
+            .on('end', () => {
+                done();
+            });
+    });
+    it('with replace multi value #4', (done) => {
+        const ten = new Decade();
+        ten
+            .pipe(ezs('replace', {
+                path: ['a', 'b'],
+                value: 1,
+            }))
+            .on('data', (chunk) => {
+                assert.strictEqual(chunk.a, 1);
+                assert.strictEqual(chunk.b, undefined);
+                assert.strictEqual(chunk.b, undefined);
+            })
+            .on('end', () => {
+                done();
+            });
+    });
+    it('with assign multi value #0', (done) => {
+        const ten = new Decade();
+        ten
+            .pipe(ezs((input, output) => {
+                output.send({ c: input });
+            }))
+            .pipe(ezs('assign', {
+                path: 'a',
+                value: 1,
+            }))
+            .on('data', (chunk) => {
+                assert.strictEqual(chunk.a, 1);
+            })
+            .on('end', () => {
+                done();
+            });
+    });
+    it('with assign multi value #0bis', (done) => {
+        const ten = new Decade();
+        ten
+            .pipe(ezs((input, output) => {
+                output.send({ c: input });
+            }))
+            .pipe(ezs('assign', {
+                path: 'a',
+                value: shell => shell('fix(1)'),
+            }))
+            .on('data', (chunk) => {
+                assert.strictEqual(chunk.a, 1);
+            })
+            .on('end', () => {
+                done();
+            });
+    });
+    it('with assign multi value #1', (done) => {
+        const ten = new Decade();
+        ten
+            .pipe(ezs((input, output) => {
+                output.send({ c: input });
+            }))
+            .pipe(ezs('assign', {
+                path: 'a',
+                value: [1, 2],
+            }))
+            .on('data', (chunk) => {
+                assert.strictEqual(chunk.a[0], 1);
+                assert.strictEqual(chunk.a[1], 2);
+            })
+            .on('end', () => {
+                done();
+            });
+    });
+    it('with assign multi value #2', (done) => {
+        const ten = new Decade();
+        ten
+            .pipe(ezs((input, output) => {
+                output.send({ c: input });
+            }))
+            .pipe(ezs('assign', {
+                path: ['a', 'b'],
+                value: [1, 2],
+            }))
+            .on('data', (chunk) => {
+                assert.strictEqual(chunk.a, 1);
+                assert.strictEqual(chunk.b, 2);
+            })
+            .on('end', () => {
+                done();
+            });
+    });
+    it('with assign multi value #3', (done) => {
+        const ten = new Decade();
+        ten
+            .pipe(ezs((input, output) => {
+                output.send({ c: input });
+            }))
+            .pipe(ezs('assign', {
+                path: ['a', 'b'],
+                value: [1, [2, 2]],
+            }))
+            .on('data', (chunk) => {
+                assert.strictEqual(chunk.a, 1);
+                assert.strictEqual(chunk.b[0], 2);
+                assert.strictEqual(chunk.b[1], 2);
+            })
+            .on('end', () => {
+                done();
+            });
+    });
+    it('with assign multi value #4', (done) => {
+        const ten = new Decade();
+        ten
+            .pipe(ezs((input, output) => {
+                output.send({ c: input });
+            }))
+            .pipe(ezs('assign', {
+                path: ['a', 'b'],
+                value: 1,
+            }))
+            .on('data', (chunk) => {
+                assert.strictEqual(chunk.a, 1);
+                assert.strictEqual(chunk.b, undefined);
+                assert.strictEqual(chunk.b, undefined);
+            })
+            .on('end', () => {
+                done();
+            });
+    });
+/**/
 });
