@@ -4,7 +4,8 @@ const ezs = require('ezs');
 ezs.use(require('ezs-basics'));
 ezs.use(require('..'));
 
-const output = 'doi,id,title,author,publicationDate,host.eissn,host.issn,host.isbn,host.eisbn,subject';
+const output = 'doi,id,title,author,publicationDate,host.eissn,host.issn,host.isbn,host.eisbn,host.genre,host.title,'
+              + 'subject';
 
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
@@ -15,6 +16,7 @@ process.stdin
   .pipe(ezs('ISTEXScroll'))
   .pipe(ezs('ISTEXHits'))
   .pipe(ezs('flatten'))
+  .pipe(ezs('ISTEXPrepare'))
   .pipe(ezs('ISTEXTriplify', {
     properties: {
       'ISTEX/doi/': 'http://purl.org/ontology/bibo/doi',
@@ -25,11 +27,11 @@ process.stdin
       'ISTEX/publicationDate': 'http://purl.org/dc/terms/issued',
       'ISTEX/subject/\\d/value': 'http://purl.org/dc/terms/subject',
       'ISTEX/publisher': 'http://purl.org/dc/terms/publisher',
-      // 'ISTEX/host/journal/title': 'http://purl.org/ontology/bibo/Journal', // TODO: prepare in ISTEXprepare
-      // 'ISTEX/host/series/title': 'http://purl.org/ontology/bibo/Series',   // TODO: too <- book-series
-      // 'ISTEX/host/book/title': 'http://purl.org/ontology/bibo/Book',       // TODO
-      // 'ISTEX/host/manual/title': 'http://purl.org/ontology/bibo/Manual',   // TODO: <- reference-works
-      // 'ISTEX/host/database/title': '',
+      'ISTEX/host/journal/title': 'http://purl.org/ontology/bibo/Journal',
+      'ISTEX/host/series/title': 'http://purl.org/ontology/bibo/Series',
+      'ISTEX/host/book/title': 'http://purl.org/ontology/bibo/Book',
+      'ISTEX/host/manual/title': 'http://purl.org/ontology/bibo/Manual',
+      'ISTEX/host/database/title': '',
       'ISTEX/host/eissn/': 'http://purl.org/ontology/bibo/eissn',
       'ISTEX/host/issn/': 'http://purl.org/ontology/bibo/issn',
       'ISTEX/host/isbn/': 'http://purl.org/ontology/bibo/isbn',
