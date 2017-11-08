@@ -41,6 +41,24 @@ describe('test', () => {
                 done();
             });
     });
+    it('BUFObject #1', (done) => {
+        let res = Buffer.alloc(0);
+        from([
+            'A',
+            'B',
+            'C',
+        ])
+            .pipe(ezs('BUFObject'))
+            .on('data', (chunk) => {
+                assert(Buffer.isBuffer(chunk));
+                const len = res.length + chunk.length;
+                res = Buffer.concat([res, chunk], len);
+            })
+            .on('end', () => {
+                assert.strictEqual(res.toString(), 'ABC');
+                done();
+            });
+    });
     /*
     it('URLGet #1', (done) => {
         let c = 0;

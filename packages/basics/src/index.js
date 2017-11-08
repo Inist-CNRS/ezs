@@ -1,3 +1,4 @@
+import BUFObject from './buf-object';
 import OBJCount from './obj-count';
 import OBJStandardize from './obj-standardize';
 import OBJFlatten from './obj-flatten';
@@ -14,6 +15,7 @@ import JSONString from './json-string';
 import URLFetch from './url-fetch';
 
 export default {
+    BUFObject,
     OBJCount,
     OBJStandardize,
     OBJFlatten,
@@ -29,6 +31,7 @@ export default {
     JSONString,
     URLFetch,
     // aliases
+    bufferify: BUFObject.BUFObject,
     jsonify: JSONString.JSONString,
     flatten: OBJFlatten.OBJFlatten,
     concat: TXTConcat.TXTConcat,
