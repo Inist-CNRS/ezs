@@ -45,10 +45,12 @@ function scrollRecursive(feed) {
  * params:
  * - sid: user agent (lodex by default)
  * - size: number of documents per query (2000 by default)
+ * - duration: duration of a session ('30S' by default)
  */
 module.exports = function scroll(data, feed) {
   const sid = this.getParam('sid', 'lodex');
   const size = this.getParam('size', 2000);
+  const duration = this.getParam('duration', '30s');
   json = this.getParam('json', true);
 
   if (this.isLast()) {
@@ -57,7 +59,7 @@ module.exports = function scroll(data, feed) {
   }
 
   const urlObj = data.ISTEX;
-  urlObj.search += `&scroll=30s&size=${size}&sid=${sid}`;
+  urlObj.search += `&scroll=${duration}&size=${size}&sid=${sid}`;
 
   const options = {
     uri: url.format(urlObj),
