@@ -21,6 +21,12 @@
  */
 module.exports = function triplify(data, feed) {
   const properties = this.getParam('properties', {});
+  const regexps = Object
+    .keys(properties)
+    .map(path => ([
+      new RegExp(path),
+      path,
+    ]));
 
   if (this.isLast()) {
     feed.close();
@@ -31,11 +37,14 @@ module.exports = function triplify(data, feed) {
   feed.write(`<https://data.istex.fr/document/${data['ISTEX/id']}> a <http://purl.org/ontology/bibo/Document> .\n`);
 
   const dataArray = Object.entries(data);
+  // console.dir(dataArray)
 
-  Object.keys(properties).forEach((path) => {
+  regexps.forEach(([regex,
+    path,
+  ]) => {
     dataArray.filter(([
       key,
-    ]) => key.match(new RegExp(path)))
+    ]) => key.match(regex))
     .forEach(([
       ,
       value,
