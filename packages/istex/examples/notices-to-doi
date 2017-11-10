@@ -13,7 +13,7 @@ process.stdin
   .pipe(ezs('stringify'))
   .pipe(ezs('ISTEXCorpus'))
   .pipe(ezs('ISTEXQuery', { params: { output, }, }))
-  .pipe(ezs('ISTEXScroll', { params: { size: 800, duration: '5m', }, }))
+  .pipe(ezs('ISTEXScroll', { size: 800, duration: '5m', }))
   .pipe(ezs('ISTEXHits'))
   .pipe(ezs('flatten'))
   .pipe(ezs('ISTEXPrepare'))
