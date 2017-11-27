@@ -7,7 +7,10 @@ function CSVObject(data, feed) {
     var _this = this;
 
     if (this.isFirst()) {
-        this.columns = data;
+        this.columns = data.map(function (name) {
+            return name.replace(/\./g, '');
+        });
+
         var countCols = {};
         var renamedCols = {};
         this.columns.forEach(function (colname) {

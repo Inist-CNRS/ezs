@@ -1,6 +1,7 @@
 function CSVObject(data, feed) {
     if (this.isFirst()) {
-        this.columns = data;
+        this.columns = data.map(name => name.replace(/\./g, ''));
+
         const countCols = {};
         const renamedCols = {};
         this.columns.forEach((colname) => {

@@ -59,6 +59,21 @@ describe('test', () => {
                 done();
             });
     });
+    it('CSVObject #1', (done) => {
+        from([
+            ['A', 'B', 'C.C'],
+            [1, 2, 3],
+        ])
+            .pipe(ezs('CSVObject'))
+            .on('data', (chunk) => {
+                assert(chunk.A);
+                assert(chunk.B);
+                assert(chunk.CC);
+            })
+            .on('end', () => {
+                done();
+            });
+    });
     /*
     it('URLGet #1', (done) => {
         let c = 0;
