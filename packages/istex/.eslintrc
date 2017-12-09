@@ -7,11 +7,10 @@
     },
     "extends": "airbnb",
     "rules": {
-        "indent": ["error", 2],
-        "max-len": ["error", {"code": 120, "tabWidth": 2, "ignoreUrls": true}],
+        "indent": ["error", 4],
+        "max-len": ["error", {"code": 120, "tabWidth": 4, "ignoreUrls": true}],
         "no-underscore-dangle": ["error", { "allow": ["_id"] }],
         "import/no-extraneous-dependencies": "off",
-        "no-param-reassign": ["error", { "props": false }],
-        "comma-dangle": ["error", {"arrays": "always", "objects": "always", "imports": "always" ,"functions": "never"}]
+        "no-param-reassign": ["error", { "props": false }]
     }
 }

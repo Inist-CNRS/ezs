@@ -1,0 +1,24 @@
+#!/usr/bin/env ezs
+
+[use]
+plugin = basics 
+plugin = istex
+
+[replace]
+path = query
+value = Les Châtiments
+
+[debug]
+
+[ISTEXSearch]
+field = title
+
+[ISTEXScroll]
+[ISTEXResult]
+
+[keep] 
+path = title
+
+[JSONString]
+indent = true
+
