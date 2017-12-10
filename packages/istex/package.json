@@ -36,6 +36,7 @@
         "pretest": "npm run build"
     },
     "dependencies": {
+        "dot-prop": "^4.2.0",
         "from": "^0.1.7",
         "isomorphic-fetch": "^2.2.1",
         "omni-fetch": "^0.2.2",
