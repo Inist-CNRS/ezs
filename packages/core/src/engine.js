@@ -63,7 +63,7 @@ export default class Engine extends Transform {
         const stack = e.stack.split('\n').slice(0, 2);
         const err = new Error(stack[0].concat(msg).concat('\n').concat(stack[1]));
         if (process.env.NODE_ENV !== 'production') {
-            console.error(err.message);
+            console.error('ezs caught an', err.message);
         }
         this.push(err);
     }
