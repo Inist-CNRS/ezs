@@ -60,7 +60,6 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
-
     it('with transformation', (done) => {
         let res = 0;
         const ten = new Decade();
@@ -76,7 +75,6 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
-
     it('with error(throw)', (done) => {
         const ten = new Decade();
         ten
@@ -90,7 +88,6 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
-
     it('with error(send)', (done) => {
         const ten = new Decade();
         ten
@@ -102,7 +99,36 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
-
+    it('catch & ignore error', (done) => {
+        let counter = 0;
+        const ten = new Decade();
+        ten
+            .pipe(ezs('boum'))
+            .pipe(ezs.catch())
+            .on('data', () => {
+                counter += 1;
+            })
+            .on('end', () => {
+                assert.equal(0, counter);
+                done();
+            });
+    });
+    it('catch & get error', (done) => {
+        let counter = 0;
+        const ten = new Decade();
+        ten
+            .pipe(ezs('boum'))
+            .pipe(ezs.catch((err) => {
+                assert.ok(err instanceof Error);
+            }))
+            .on('data', () => {
+                counter += 1;
+            })
+            .on('end', () => {
+                assert.equal(0, counter);
+                done();
+            });
+    });
     it('with definied transformation', (done) => {
         let res = 0;
         const ten = new Decade();
@@ -116,8 +142,6 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
-
-
     it('with explosion', (done) => {
         let res = 0;
         const ten = new Decade();
@@ -136,7 +160,6 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
-
     it('with empty pipeline', (done) => {
         let res = 0;
         const ten = new Decade();
@@ -258,7 +281,6 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
-
     it('with advanced script pipeline', (done) => {
         let res = 0;
         const commands = `
@@ -286,8 +308,6 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
-
-
     it('with assign script pipeline', (done) => {
         let res = 0;
         const commands = `
@@ -349,7 +369,6 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
-    /*
     it('with assign script pipeline', (done) => {
         let res = 0;
         const commands = `
@@ -380,8 +399,6 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
-
-
     it('with assign with computation script pipeline', (done) => {
         let res = 0;
         const commands = `
@@ -416,7 +433,6 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
-
     it('with assign with quote script pipeline', (done) => {
         let res = 0;
         const commands = `
@@ -443,7 +459,6 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
-
     it('with error in the pipeline', (done) => {
         const commands = `
             # My first ezs script
@@ -470,8 +485,6 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
-
-
     it('with use command in the pipeline', (done) => {
         const commands = `
             [use]
@@ -493,7 +506,6 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
-
     it('with slow command in the pipeline', (done) => {
         const commands = `
             [use]
@@ -517,8 +529,6 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
-
-
     it('with input break during the executionpipeline', (done) => {
         const commands = `
             [use]
@@ -549,8 +559,6 @@ describe('Build a pipeline', () => {
             });
         pass.resume();
     });
-
-
     it('with input file pipeline', (done) => {
         const commands = `
             [use]
@@ -574,16 +582,14 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
-
     it('with bad statement in the pipeline', (done) => {
         const commands = `
             [use]
             plugin = test/locals
 
-             [bad]
+            [bad]
 
         `;
-        let res = 0;
         const ten = new Decade();
         ten
             .pipe(ezs((input, output) => {
@@ -591,14 +597,10 @@ describe('Build a pipeline', () => {
             }))
             .pipe(ezs.fromString(commands))
             .on('data', (chunk) => {
-                res += Number(chunk);
-            })
-            .on('end', () => {
-                assert.strictEqual(res, 45);
+                assert.ok(chunk instanceof Error);
                 done();
             });
     });
-
     it('without single statement in the  pipeline', (done) => {
         let res = 0;
         const ten = new Decade();
@@ -798,7 +800,6 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
-
     it('convert to number to object and apply a computation', (done) => {
         let res = 0;
         const commands = `
@@ -842,7 +843,6 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
-
     it('Catch meta from script', (done) => {
         const commands = `
 
@@ -906,6 +906,7 @@ describe('Build a pipeline', () => {
             });
     });
     it('with extract statement in the  pipeline #2', (done) => {
+        let res = 1;
         const ten = new Decade();
         ten
             .pipe(ezs('replace', {
@@ -914,9 +915,11 @@ describe('Build a pipeline', () => {
             }))
             .pipe(ezs('extract', { path: 'b' }))
             .on('data', (chunk) => {
-                assert.strictEqual(chunk, undefined);
+                res += 1;
+                assert.ok(chunk instanceof Error);
             })
             .on('end', () => {
+                assert.strictEqual(res, 10);
                 done();
             });
     });

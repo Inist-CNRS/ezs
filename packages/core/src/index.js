@@ -4,6 +4,7 @@ import Single from './single';
 import Script from './script';
 import File from './file';
 import Output from './output';
+import Catcher from './catcher';
 import Plugins from './plugins';
 import Statement from './statement';
 import Meta from './meta';
@@ -19,6 +20,7 @@ ezs.metaFile = (filename, options) => new Meta(ezs, File(ezs, filename), options
 ezs.fromString = (commands, options) => new Pipeline(ezs, Script(commands), options);
 ezs.fromFile = (filename, options) => new Pipeline(ezs, Script(File(ezs, filename)), options);
 ezs.with = (selector, name, opts) => new Engine(ezs, Statement.get(ezs, name), opts, selector);
+ezs.catch = func => new Catcher(func);
 ezs.toBuffer = opts => new Output(opts);
 ezs.use = plugin => Statement.set(ezs, plugin);
 ezs.addPath = p => ezsPath.push(p);

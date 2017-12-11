@@ -45,10 +45,8 @@ function bad(data, feed) {
     if (this.isLast()) {
         return feed.send(data);
     }
-    setTimeout(() => {
-        feed.write(data);
-    }, 100);
-    return feed.end();
+    feed.end();
+    return feed.write(data);
 }
 
 module.exports = {

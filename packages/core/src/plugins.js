@@ -46,7 +46,7 @@ function replace(data, feed) {
     }
     const keys = this.getParam('path', []);
     const vals = this.getParam('value', []);
-    const obj = {}
+    const obj = {};
     if (Array.isArray(keys)) {
         const values = _.take(vals, keys.length);
         const assets = _.zipObject(keys, values);
@@ -91,7 +91,7 @@ function extract(data, feed) {
     const values = keys.map(key => _.get(data, key)).filter(val => val);
 
     if (values.length === 0) {
-        return feed.send(undefined);
+        return feed.send(new Error('Nonexistent path.'));
     } else if (values.length === 1) {
         return feed.send(values[0]);
     }
