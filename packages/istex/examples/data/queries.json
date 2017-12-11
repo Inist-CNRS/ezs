@@ -1,0 +1,758 @@
+[
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-020R6TTD-X"
+      },
+      "content" : "categories.inist.raw:(\"vertebres: système cardiovasculaire\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"batiment. travaux publics\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-0GLS0ZKS-L"
+      }
+   },
+   {
+      "content" : "categories.inist.raw:(\"immunopathologie\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-0GXZ07J3-9"
+      }
+   },
+   {
+      "content" : "categories.inist.raw:(\"genetique medicale\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-0LLTZK5X-F"
+      }
+   },
+   {
+      "content" : "categories.inist.raw:(\"sarcoidoses. granulomatoses d'etiologie indeterminee. maladies du tissu conjonctif. maladies du tissu elastique. vascularites\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-0M3M14XL-T"
+      }
+   },
+   {
+      "content" : "categories.inist.raw:(\"vertebres: mouvements corporels. posture. locomotion. vol. nage. exercice physique. repos. sports\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-0S6MJD0H-7"
+      }
+   },
+   {
+      "content" : "categories.inist.raw:(\"cardiologie. appareil circulatoire\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-0XQZDS3B-4"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-11ZFRTC3-3"
+      },
+      "content" : "categories.inist.raw:(\"biotechnologie\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"ethique\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-151QXCJW-P"
+      }
+   },
+   {
+      "content" : "categories.inist.raw:(\"physique des particules elementaires et champs\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-1D56WR56-K"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-3CJ153L2-C"
+      },
+      "content" : "categories.inist.raw:(\"biophysique moleculaire\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"terre, ocean, espace\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-3PHG099B-X"
+      }
+   },
+   {
+      "content" : "categories.inist.raw:(\"vertebres: systeme nerveux et organes des sens\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-3QQXJ1CP-H"
+      }
+   },
+   {
+      "content" : "categories.inist.raw:(\"pneumologie\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-3XHMGJXS-K"
+      }
+   },
+   {
+      "content" : "categories.inist.raw:(\"vertebres: sang, organes hematopoietiques, système reticulo-endothelial\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-446QZMG0-V"
+      }
+   },
+   {
+      "content" : "categories.inist.raw:(\"chimie analytique\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-60DM5NXZ-N"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-63KBX1T4-5"
+      },
+      "content" : "categories.inist.raw:(\"informatique; automatique theorique; systemes\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-690SJ802-1"
+      },
+      "content" : "categories.inist.raw:(\"radiotherapie. traitement instrumental. physiotherapie. reeducation. readaptation, orthophonie, crenotherapie. traitement dietetique et traitements divers (generalites)\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-69QZ1DH3-H"
+      },
+      "content" : "categories.inist.raw:(\"hemopathies\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"nephrologie. maladies des voies urinaires\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-6GFHW14C-5"
+      }
+   },
+   {
+      "content" : "categories.inist.raw:(\"otorhinolaryngologie. stomatologie\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-6NJ2MF11-C"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-6R79LLZH-7"
+      },
+      "content" : "categories.inist.raw:(\"vertebres: peau, glandes annexes, phaneres, organes lumineux, glandes exocrines diverses (glande a sel, glande uropygienne etc.), tissu adipeux, tissu conjonctif\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-738Q7KGH-P"
+      },
+      "content" : "categories.inist.raw:(\"sciences de l'education\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-76W60V6P-M"
+      },
+      "content" : "categories.inist.raw:(\"electronique\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-7FD3ST25-N"
+      },
+      "content" : "categories.inist.raw:(\"gynecologie. andrologie. obstetrique\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-7FNB76DG-Z"
+      },
+      "content" : "categories.inist.raw:(\"generalites\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"ethologie animale\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-7VSB55BW-C"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-804087BL-3"
+      },
+      "content" : "categories.inist.raw:(\"genie chimique\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-8LV3JXVD-F"
+      },
+      "content" : "categories.inist.raw:(\"biologie moleculaire et cellulaire\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-8M8B7F99-Z"
+      },
+      "content" : "categories.inist.raw:(\"informatique, statistique et modelisations biomedicales\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"tumeurs\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-8WSR7RNQ-S"
+      }
+   },
+   {
+      "content" : "categories.inist.raw:(\"physique\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-8WV8N6BQ-7"
+      }
+   },
+   {
+      "content" : "categories.inist.raw:(\"sciences biologiques et medicales\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-983FDQQ1-K"
+      }
+   },
+   {
+      "content" : "categories.inist.raw:(\"psychopathologie. psychiatrie\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-9BF3QCF9-V"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-9H4ZD03J-W"
+      },
+      "content" : "categories.inist.raw:(\"traumatismes. maladies dues aux agents physiques\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"astronomie\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-B16TKG6T-N"
+      }
+   },
+   {
+      "content" : "categories.inist.raw:(\"chimie\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-B2XTT0HH-5"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-BBTDQPQN-6"
+      },
+      "content" : "categories.inist.raw:(\"cytologie, morphologie, systematique, floristique et evolution des vegetaux\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-BL8MKLL6-D"
+      },
+      "content" : "categories.inist.raw:(\"telecommunications et theorie de l'information\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"physiologie humaine appliquee a l'etude des populations et des conditions de vie. ecophysiologie humaine\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-BNN6VQKK-D"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-BWZRQ0PL-C"
+      },
+      "content" : "categories.inist.raw:(\"endocrinopathies\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"phytopathologie. zoologie agricole. protection des cultures et des forets\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-C1KJGK1C-J"
+      }
+   },
+   {
+      "content" : "categories.inist.raw:(\"ophtalmologie\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-C8SK3S75-4"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-CG2S9TFV-4"
+      },
+      "content" : "categories.inist.raw:(\"physicochimie des polymeres\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-CQ66GD5G-R"
+      },
+      "content" : "categories.inist.raw:(\"chimie generale et chimie physique\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-CQZJ2R3W-2"
+      },
+      "content" : "categories.inist.raw:(\"sciences humaines et sociales\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"genie mecanique. construction mecanique\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-CVVP3S42-C"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-D5LC6WT0-V"
+      },
+      "content" : "categories.inist.raw:(\"productions animales\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-D8HWLQ3L-M"
+      },
+      "content" : "categories.inist.raw:(\"histoire et sciences de la litterature\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"vertebres: anatomie et physiologie, organisme dans son ensemble ou etude de plusieurs organes ou systemes\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-DKZ18DDV-4"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-F0461ZZ1-N"
+      },
+      "content" : "categories.inist.raw:(\"sylviculture\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"physique atomique et moleculaire\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-F41V3KVK-6"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-F4841DSB-1"
+      },
+      "content" : "categories.inist.raw:(\"recherche operationnelle. gestion\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-FFM938SZ-6"
+      },
+      "content" : "categories.inist.raw:(\"bgi / prodig.\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-FMMC2MGK-9"
+      },
+      "content" : "categories.inist.raw:(\"histoire et sciences des religions\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"sciences de la terre\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-FNQQ6QG3-S"
+      }
+   },
+   {
+      "content" : "categories.inist.raw:(\"industrie des polymeres, peintures, bois\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-G7VB90ZD-R"
+      }
+   },
+   {
+      "content" : "categories.inist.raw:(\"etat condense: structure, proprietes mecaniques et thermiques\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-GNHZNV1J-P"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-H0T3FBJN-Q"
+      },
+      "content" : "categories.inist.raw:(\"sciences appliquees\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-H2XB88S4-N"
+      },
+      "content" : "categories.inist.raw:(\"metaux. metallurgie\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-H5KSFGXC-X"
+      },
+      "content" : "categories.inist.raw:(\"pollution\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-HRV9MLJH-T"
+      },
+      "content" : "categories.inist.raw:(\"pathologie infectieuse\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-J18CZXDV-V"
+      },
+      "content" : "categories.inist.raw:(\"physique des gaz, des plasmas et des decharges electriques\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"vertebres: reproduction\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-JC1JF7PZ-0"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-JNRXQT1K-R"
+      },
+      "content" : "categories.inist.raw:(\"sciences biologiques fondamentales et appliquees. psychologie\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-JZRGK079-2"
+      },
+      "content" : "categories.inist.raw:(\"gastroenterologie. foie. pancreas. abdomen\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"vertebres: système osteoarticulaire, muscle strie\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-K1T6Q04B-R"
+      }
+   },
+   {
+      "content" : "categories.inist.raw:(\"philosophie\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-KBJ580C8-F"
+      }
+   },
+   {
+      "content" : "categories.inist.raw:(\"immunologie fondamentale\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-KCS3Z405-R"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-KJFF7GMV-7"
+      },
+      "content" : "categories.inist.raw:(\"maladies metaboliques\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-KT43K26M-F"
+      },
+      "content" : "categories.inist.raw:(\"domaines classiques de la physique (y compris les applications)\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"neurologie\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-LQB2PC5N-H"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-LQTWLQ2W-2"
+      },
+      "content" : "categories.inist.raw:(\"art et archeologie\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-M7XHS504-2"
+      },
+      "content" : "categories.inist.raw:(\"electrotechnique. electroenergetique.\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-M9NCFLK4-0"
+      },
+      "content" : "categories.inist.raw:(\"dermatologie\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"biochimie analytique, structurale et metabolique\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-MCRJ3BQH-2"
+      }
+   },
+   {
+      "content" : "categories.inist.raw:(\"physique nucleaire\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-MPHQK63Z-1"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-MW9FN0X7-H"
+      },
+      "content" : "categories.inist.raw:(\"generalites\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-MWGWHL2V-9"
+      },
+      "content" : "categories.inist.raw:(\"sciences et techniques communes\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"generalites\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-MXP8RKNR-0"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-MZFQGD7K-2"
+      },
+      "content" : "categories.inist.raw:(\"sciences techniques et medicales\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"vecteurs d'importance medicale, nuisances, depredateurs des denrees et materiaux: surveillance des populations et lutte\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-MZHMJ42D-K"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-N7TDF48Q-F"
+      },
+      "content" : "categories.inist.raw:(\"vertebres: systeme urinaire\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"industries chimique et parachimique\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-NF7B2WBK-B"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-NKMVFFG0-M"
+      },
+      "content" : "categories.inist.raw:(\"prehistoire et prohistoire\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"microbiologie\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-NLSMBXG9-H"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-NMMPFTK8-N"
+      },
+      "content" : "categories.inist.raw:(\"geophysique externe\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"vertebres: systeme digestif\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-P28HLQDV-Q"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-P2MZCDKR-K"
+      },
+      "content" : "categories.inist.raw:(\"vertebres: zoologie generale, morphologie, phylogenese, systematique, cytogenetique, repartition geographique\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-Q1P286P1-M"
+      },
+      "content" : "categories.inist.raw:(\"vertebres: endocrinologie\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"sciences medicales\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-Q5MMC105-M"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-QG9R5T8Q-7"
+      },
+      "content" : "categories.inist.raw:(\"techniques et industries diverses\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-QQSMRB4F-S"
+      },
+      "content" : "categories.inist.raw:(\"mathematiques\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-QV2P4V1L-8"
+      },
+      "content" : "categories.inist.raw:(\"pharmacologie. traitements medicamenteux\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-QZTVMHGX-W"
+      },
+      "content" : "categories.inist.raw:(\"genetique des eucaryotes. evolution biologique et moleculaire\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-RQ77590F-S"
+      },
+      "content" : "categories.inist.raw:(\"chirurgie (generalites). transplantations, greffes d'organes et de tissus. pathologie des greffons\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"linguistique\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-RQMVT8FR-T"
+      }
+   },
+   {
+      "content" : "categories.inist.raw:(\"transports terrestres, transports aeriens, transports maritimes, constructions navales\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-RVJKVTZ6-R"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-RWBMV4ZB-1"
+      },
+      "content" : "categories.inist.raw:(\"ethnologie\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"invertebres\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-RWPB0KPV-S"
+      }
+   },
+   {
+      "content" : "categories.inist.raw:(\"chimie organique\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-S10F6JKN-V"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-S1PZL8XH-8"
+      },
+      "content" : "categories.inist.raw:(\"sante publique. hygiene-medecine du travail\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-SBJB5324-0"
+      },
+      "content" : "categories.inist.raw:(\"anesthesie. reanimation. transfusion. therapie cellulaire et therapie genique\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-SZM3ZFF2-4"
+      },
+      "content" : "categories.inist.raw:(\"domaines interdisciplinaires: science des materiaux; rheologie\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"biophysique des tissus, organes et organismes\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-T4H0P54S-G"
+      }
+   },
+   {
+      "content" : "categories.inist.raw:(\"generalites\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-T5HK8P0Z-3"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-T77W5X7G-9"
+      },
+      "content" : "categories.inist.raw:(\"sciences exactes et technologie\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-TB17KVS6-L"
+      },
+      "content" : "categories.inist.raw:(\"vertebres: système respiratoire\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"ecologie animale, vegetale et microbienne\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-TKC3HZHS-M"
+      }
+   },
+   {
+      "content" : "categories.inist.raw:(\"techniques d'exploration et de diagnostic (generalites)\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-TMMG3TZR-1"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-TN1MD50L-5"
+      },
+      "content" : "categories.inist.raw:(\"physiologie vegetale et developpement\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"toxicologie\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-TV70PFT8-K"
+      }
+   },
+   {
+      "content" : "categories.inist.raw:(\"etat condense: structure electronique, proprietes electriques, magnetiques et optiques\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-VWNKS3HC-0"
+      }
+   },
+   {
+      "content" : "categories.inist.raw:(\"embryologie: invertebres et vertebres. teratologie\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-W6F07504-8"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-WHL58L0J-0"
+      },
+      "content" : "categories.inist.raw:(\"chimie minerale et origine de la vie\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-WPGHMT5J-2"
+      },
+      "content" : "categories.inist.raw:(\"protozoaires\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-WWBN6M3R-W"
+      },
+      "content" : "categories.inist.raw:(\"sociologie\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"histoire des sciences et des techniques\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-WXLB1H51-D"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-XCQ64HZT-0"
+      },
+      "content" : "categories.inist.raw:(\"manutention, levage. stockage. emballage\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"agronomie. sciences du sol et productions vegetales\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-XK5431GV-1"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-XN3LJRF1-Z"
+      },
+      "content" : "categories.inist.raw:(\"energie\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"psychologie. psychophysiologie\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-Z5PK2LM9-B"
+      }
+   },
+   {
+      "content" : "categories.inist.raw:(\"pathologie osteoarticulaire\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-Z9H1ZZBN-8"
+      }
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-ZGT62L3M-Q"
+      },
+      "content" : "categories.inist.raw:(\"industries agroalimentaires\")"
+   },
+   {
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-ZZDWL8HZ-Z"
+      },
+      "content" : "categories.inist.raw:(\"psychanalyse\")"
+   },
+   {
+      "content" : "categories.inist.raw:(\"sciences de l'information. documentation\")",
+      "lodex" : {
+         "uri" : "http://localhost:3000/ark:/67375/RZL-ZZWWCX6R-2"
+      }
+   }
+]
