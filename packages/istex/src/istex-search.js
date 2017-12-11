@@ -2,7 +2,7 @@ import URL from 'url';
 import OBJ from 'dot-prop';
 import fetch from 'omni-fetch';
 import QueryString from 'qs';
-import { feedWrite } from './utils';
+import { newValue } from './utils';
 
 function ISTEXSearch(data, feed) {
     if (this.isLast()) {
@@ -42,7 +42,7 @@ function ISTEXSearch(data, feed) {
                 return feed.send(new Error('No result.'));
             }
             // first Page
-            feedWrite(feed, json, target, data);
+            feed.write(newValue(json, target, data));
             const { scrollId } = json;
             const scrollUrl = URL.format({
                 ...location,
@@ -54,9 +54,9 @@ function ISTEXSearch(data, feed) {
             // all other pages
             const pages = Array(Math.ceil(json.total / size) - 1).map(() => scrollUrl).fill(scrollUrl);
             if (limit) {
-                pages.slice(0, limit - 1).forEach(pageURL => feedWrite(feed, pageURL, target, data));
+                pages.slice(0, limit - 1).forEach(pageURL => feed.write(newValue(pageURL, target, data)));
             } else {
-                pages.forEach(pageURL => feedWrite(feed, pageURL, target, data));
+                pages.forEach(pageURL => feed.write(newValue(pageURL, target, data)));
             }
             return feed.end();
         }).catch((err) => {

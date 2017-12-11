@@ -1,6 +1,6 @@
 import OBJ from 'dot-prop';
 import fetch from 'omni-fetch';
-import { feedWrite } from './utils';
+import { newValue } from './utils';
 
 function ISTEXScroll(data, feed) {
     if (this.isLast()) {
@@ -21,7 +21,7 @@ function ISTEXScroll(data, feed) {
             if (!json.total) {
                 return feed.send(new Error('No result.'));
             }
-            feedWrite(feed, json, target, data);
+            feed.write(newValue(json, target, data));
             return feed.end();
         }).catch((err) => {
             feed.send(err);

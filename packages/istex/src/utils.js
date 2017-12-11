@@ -12,3 +12,19 @@ export function feedWrite(feed, value, path, data) {
         feed.write(out);
     }
 }
+
+export function newValue(value, path, data) {
+    if (path === undefined) {
+        return value;
+    } else if (typeof data === 'object') {
+        const out = {
+            ...data,
+        };
+        OBJ.set(out, path, value);
+        return out;
+    }
+    const out = {};
+    OBJ.set(out, path, value);
+    return out;
+}
+

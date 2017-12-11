@@ -1,5 +1,5 @@
 import OBJ from 'dot-prop';
-import { feedWrite } from './utils';
+import { newValue } from './utils';
 
 function ISTEXResult(data, feed) {
     if (this.isLast()) {
@@ -11,7 +11,7 @@ function ISTEXResult(data, feed) {
 
     const result = handle.hits || [];
     result.forEach((hitObj) => {
-        feedWrite(feed, { ...hitObj }, target, data);
+        feed.write(newValue({ ...hitObj }, target, data));
     });
     feed.end();
 }
