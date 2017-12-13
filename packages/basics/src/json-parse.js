@@ -1,18 +1,18 @@
 import JSONStream from 'JSONStream';
+import { writeTo } from './utils';
 
 function JSONParse(data, feed) {
     if (!this.handle) {
         const separator = this.getParam('separator', '*');
         this.handle = JSONStream.parse(separator);
-        this.handle.on('data', (obj) => {
-            feed.write(obj);
-        });
+        this.handle.on('data', obj => feed.write(obj));
     }
     if (!this.isLast()) {
-        this.handle.write(data);
-        feed.end();
+        writeTo(this.handle,
+          data,
+          () => feed.end());
     } else {
-        feed.close();
+        this.handle.end(() => feed.close());
     }
 }
 

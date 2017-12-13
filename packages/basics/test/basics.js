@@ -5,6 +5,23 @@ const ezs = require('ezs');
 ezs.use(require('../lib'));
 
 describe('test', () => {
+    it('CSVParse #1', (done) => {
+        const res = [];
+        from([
+            'a,b,c\n',
+            'd,e,d\n',
+        ])
+            .pipe(ezs('CSVParse'))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(2, res.length);
+                done();
+            });
+    });
+
     it('JSONString #1', (done) => {
         from([
             {

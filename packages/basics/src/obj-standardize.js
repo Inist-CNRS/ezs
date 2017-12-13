@@ -2,14 +2,7 @@ import ezs from 'ezs';
 import tmpFilepath from 'tmp-filepath';
 import fs from 'fs';
 import TXTParse from './txt-parse';
-
-function writeOn(stream, data, cb) {
-    if (!stream.write(data)) {
-        stream.once('drain', cb);
-    } else {
-        process.nextTick(cb);
-    }
-}
+import { writeTo } from './utils';
 
 function serializeObjects(data2, feed2) {
     if (!this.isLast()) {
@@ -55,7 +48,7 @@ function OBJStandardize(data1, feed1) {
                 self.struct.push(k);
             }
         });
-        writeOn(self.tmpStream,
+        writeTo(self.tmpStream,
             new Buffer(JSON.stringify(data1)).toString('base64').concat('\n'),
             () => feed1.end());
     }
