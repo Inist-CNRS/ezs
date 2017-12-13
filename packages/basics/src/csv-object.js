@@ -1,5 +1,9 @@
 function CSVObject(data, feed) {
-    if (this.isFirst()) {
+    if (this.isLast()) {
+        return feed.close();
+    }
+
+    if (!this.columns) {
         this.columns = data.map(name => name.replace(/\./g, ''));
 
         const countCols = {};
@@ -14,16 +18,18 @@ function CSVObject(data, feed) {
             }
             return colname;
         });
-    } else if (Array.isArray(data)) {
+        return feed.end();
+    }
+
+    if (Array.isArray(data)) {
         const obj = {};
         data.forEach((item, index) => {
             const columnName = this.columns[index] ? this.columns[index].trim() : 'Column #'.concat(index);
             obj[columnName] = item;
         });
-        feed.write(obj);
-    } else {
-        feed.close();
+        return feed.send(obj);
     }
+
     feed.end();
 }
 

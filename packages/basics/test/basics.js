@@ -5,6 +5,26 @@ const ezs = require('ezs');
 ezs.use(require('../lib'));
 
 describe('test', () => {
+    it('CSVObject #1', (done) => {
+        const res = [];
+        from([
+            ['a', 'b', 'c'],
+            [1, 2, 3],
+            [4, 5, 6],
+        ])
+            .pipe(ezs('CSVObject'))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(2, res.length);
+                assert.equal(2, res[0].b);
+                done();
+            });
+    });
+
+
     it('CSVParse #1', (done) => {
         const res = [];
         from([

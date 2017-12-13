@@ -9,7 +9,7 @@ plugin = basics
 [CSVParse]
 
 # Transform each line on a object
-[CSVObject]
+#[CSVObject]
 
 # generate JSON
 [jsonify]
