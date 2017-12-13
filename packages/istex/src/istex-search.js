@@ -10,7 +10,7 @@ function ISTEXSearch(data, feed) {
     }
     const source = this.getParam('source', 'query');
     const target = this.getParam('target');
-    const query = OBJ.get(data, source, data);
+    const query = this.getParam('query', OBJ.get(data, source, data));
     const sid = this.getParam('sid', 'ezs-istex');
     const limit = Number(this.getParam('limit'));
     const size = Number(this.getParam('size', 2000));

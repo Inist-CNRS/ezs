@@ -5,6 +5,25 @@ const ezs = require('ezs');
 ezs.use(require('../lib'));
 
 describe('test', () => {
+    it('ISTEXSearch #0', (done) => {
+        const result = [];
+        from([
+            {
+                _id: 1,
+            },
+        ])
+            .pipe(ezs('ISTEXSearch', { query: 'this is an test', limit: 3, target: 'value' }))
+            .on('data', (chunk) => {
+                result.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(result.length, 3);
+                assert(result[0]);
+                assert(typeof result[0].value === 'object');
+                assert(typeof result[1].value === 'string');
+                done();
+            });
+    });
     it('ISTEXSearch #1', (done) => {
         const result = [];
         from([
