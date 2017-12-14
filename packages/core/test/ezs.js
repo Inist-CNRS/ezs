@@ -582,25 +582,31 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
-    it('with bad statement in the pipeline', (done) => {
-        const commands = `
-            [use]
-            plugin = test/locals
+    //
+    // A false good idea, because, we can't know how many objects
+    // would be sent to the next statement. So, in some case, the 
+    // feed should be closed before all data should be sent
+    //
+    //it('with bad statement in the pipeline', (done) => {
+    //    const commands = `
+    //        [use]
+    //        plugin = test/locals
+    //
+    //        [bad]
+    //
+    //    `;
+    //    const ten = new Decade();
+    //    ten
+    //        .pipe(ezs((input, output) => {
+    //            output.send(input);
+    //        }))
+    //        .pipe(ezs.fromString(commands))
+    //        .on('data', (chunk) => {
+    //            assert.ok(chunk instanceof Error);
+    //            done();
+    //        });
+    //});
 
-            [bad]
-
-        `;
-        const ten = new Decade();
-        ten
-            .pipe(ezs((input, output) => {
-                output.send(input);
-            }))
-            .pipe(ezs.fromString(commands))
-            .on('data', (chunk) => {
-                assert.ok(chunk instanceof Error);
-                done();
-            });
-    });
     it('without single statement in the  pipeline', (done) => {
         let res = 0;
         const ten = new Decade();
