@@ -18,8 +18,11 @@ function ISTEXScroll(data, feed) {
     fetch(handle)
         .then(response => response.json())
         .then((json) => {
-            if (!json.total) {
+            if (json.total === 0) {
                 return feed.send(new Error('No result.'));
+            }
+            if (json.total === undefined) {
+                return feed.send(new Error('Unexpected response.'));
             }
             feed.write(newValue(json, target, data));
             return feed.end();
