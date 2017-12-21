@@ -38,8 +38,14 @@ function ISTEXSearch(data, feed) {
     fetch(urlStr)
         .then(response => response.json())
         .then((json) => {
-            if (!json.total) {
+            if (json.total === 0) {
                 return feed.send(new Error('No result.'));
+            }
+            if (json._error) {
+                return feed.send(new Error(json._error));
+            }
+            if (json.total === undefined) {
+                return feed.send(new Error('Unexpected response.'));
             }
             // first Page
             feed.write(newValue(json, target, data));
@@ -60,6 +66,7 @@ function ISTEXSearch(data, feed) {
             }
             return feed.end();
         }).catch((err) => {
+            err.url = urlStr;
             feed.send(err);
         });
 }
