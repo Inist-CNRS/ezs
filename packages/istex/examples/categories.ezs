@@ -25,5 +25,4 @@ value = get('content.doi')
 
 
 [CSVString]
-format = strict
 
