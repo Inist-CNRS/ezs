@@ -25,6 +25,46 @@ describe('test', () => {
             });
     }).timeout(5000);
 
+    it('ISTEX #1', (done) => {
+        const result = [];
+        from([1, 2])
+            .pipe(ezs('ISTEX', {
+                id: '87699D0C20258C18259DED2A5E63B9A50F3B3363',
+                size: 3,
+                maxPage: 1,
+                sid: 'test',
+            }))
+            .on('data', (chunk) => {
+                result.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(result.length, 2);
+                assert(result[0]);
+                assert.equal(result[0].id, result[1].id);
+                done();
+            });
+    }).timeout(5000);
+
+    it('ISTEX #2', (done) => {
+        const result = [];
+        from([1, 2])
+            .pipe(ezs('ISTEX', {
+                query: 'this is an test',
+                id: '87699D0C20258C18259DED2A5E63B9A50F3B3363',
+                size: 3,
+                maxPage: 1,
+                sid: 'test',
+            }))
+            .on('data', (chunk) => {
+                result.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(result.length, 8);
+                assert(result[0]);
+                assert.equal(result[0].id, result[4].id);
+                done();
+            });
+    }).timeout(5000);
 
     it('ISTEXFetch #0', (done) => {
         const result = [];
