@@ -3,11 +3,44 @@ const from = require('from');
 const fs = require('fs');
 const path = require('path');
 const ezs = require('ezs');
-
+const token = process.env.ISTEX_TOKEN;
 ezs.use(require('../lib'));
-
+if (token) {
+    console.warn('Using ISTEX_TOKEN', token);
+}
 describe('test', () => {
-    it.only('ISTEXParseDotCorpus #0', (done) => {
+    it('ISTEXSave #0', (done) => {
+        const result = [];
+        from([
+            {
+                id: '87699D0C20258C18259DED2A5E63B9A50F3B3363',
+            },
+            {
+                id: 'ark:/67375/QHD-T00H6VNF-0',
+            },
+
+        ])
+            .pipe(ezs('ISTEXFetch', {
+                source: 'id',
+                sid: 'test',
+                token
+            }))
+            .pipe(ezs('ISTEXSave', {
+                sid: 'test',
+                token,
+            }))
+            .pipe(ezs.catch(e => done()))
+            .on('data', (chunk) => {
+                result.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(result.length, 2);
+                assert(result[0].includes('QHD-T00H6VNF-0'));
+                done();
+            });
+    }).timeout(5000);
+
+    it('ISTEXParseDotCorpus #0', (done) => {
         const result = [];
         const corpus = fs.readFileSync(path.resolve(__dirname, './1notice.corpus'));
         from([

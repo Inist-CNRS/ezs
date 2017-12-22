@@ -3,6 +3,7 @@ import ISTEXSearch from './istex-search';
 import ISTEXScroll from './istex-scroll';
 import ISTEXResult from './istex-result';
 import ISTEXFetch from './istex-fetch';
+import ISTEXSave from './istex-save';
 import ISTEXParseDotCorpus from './istex-parse-dot-corpus';
 
 export default {
@@ -11,5 +12,6 @@ export default {
     ISTEXScroll,
     ISTEXResult,
     ISTEXFetch,
+    ISTEXSave,
     ISTEXParseDotCorpus
 };

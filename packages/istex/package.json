@@ -39,9 +39,12 @@
         "async.queue": "^0.5.2",
         "dot-prop": "^4.2.0",
         "from": "^0.1.7",
+        "inist-ark": "^2.0.0",
+        "is-stream": "^1.1.0",
         "isomorphic-fetch": "^2.2.1",
         "omni-fetch": "^0.2.2",
-        "qs": "6.4.0"
+        "qs": "6.4.0",
+        "write": "^1.0.3"
     },
     "devDependencies": {
         "babel-cli": "^6.24.1",
