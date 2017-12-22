@@ -1,10 +1,36 @@
 const assert = require('assert');
 const from = require('from');
+const fs = require('fs');
+const path = require('path');
 const ezs = require('ezs');
 
 ezs.use(require('../lib'));
 
 describe('test', () => {
+    it.only('ISTEXParseDotCorpus #0', (done) => {
+        const result = [];
+        const corpus = fs.readFileSync(path.resolve(__dirname, './1notice.corpus'));
+        from([
+            corpus.toString(),
+        ])
+            .pipe(ezs('ISTEXParseDotCorpus', {
+                query: 'this is an test',
+                size: 3,
+                maxPage: 1,
+                sid: 'test',
+            }))
+            .on('data', (chunk) => {
+                result.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(result.length, 1);
+                assert(result[0]);
+                assert.equal(result[0].publisher, 'CNRS');
+                assert.equal(result[0].id, '2FF3F5B1477986B9C617BB75CA3333DBEE99EB05');
+                done();
+            });
+    }).timeout(5000);
+
     it('ISTEX #0', (done) => {
         const result = [];
         from([1, 2])
