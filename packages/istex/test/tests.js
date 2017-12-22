@@ -5,6 +5,27 @@ const ezs = require('ezs');
 ezs.use(require('../lib'));
 
 describe('test', () => {
+    it('ISTEX #0', (done) => {
+        const result = [];
+        from([1, 2])
+            .pipe(ezs('ISTEX', {
+                query: 'this is an test',
+                size: 3,
+                maxPage: 1,
+                sid: 'test',
+            }))
+            .on('data', (chunk) => {
+                result.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(result.length, 6);
+                assert(result[0]);
+                assert.equal(result[0].id, result[3].id);
+                done();
+            });
+    }).timeout(5000);
+
+
     it('ISTEXFetch #0', (done) => {
         const result = [];
         from([
@@ -16,7 +37,10 @@ describe('test', () => {
             },
 
         ])
-            .pipe(ezs('ISTEXFetch', { source: 'id' }))
+            .pipe(ezs('ISTEXFetch', {
+                source: 'id',
+                sid: 'test',
+            }))
             .on('data', (chunk) => {
                 result.push(chunk);
             })
@@ -40,7 +64,10 @@ describe('test', () => {
             },
 
         ])
-            .pipe(ezs('ISTEXFetch', { source: 'id' }))
+            .pipe(ezs('ISTEXFetch', {
+                source: 'id',
+                sid: 'test',
+            }))
             .on('data', (chunk) => {
                 result.push(chunk);
             })
@@ -60,7 +87,12 @@ describe('test', () => {
                 _id: 1,
             },
         ])
-            .pipe(ezs('ISTEXSearch', { query: 'this is an test', limit: 3, target: 'value' }))
+            .pipe(ezs('ISTEXSearch', {
+                query: 'this is an test',
+                maxPage: 3,
+                target: 'value',
+                sid: 'test',
+            }))
             .on('data', (chunk) => {
                 result.push(chunk);
             })
@@ -78,7 +110,10 @@ describe('test', () => {
         from([
             'this is an test',
         ])
-            .pipe(ezs('ISTEXSearch', { limit: 3 }))
+            .pipe(ezs('ISTEXSearch', {
+                maxPage: 3,
+                sid: 'test',
+            }))
             .on('data', (chunk) => {
                 result.push(chunk);
             })
@@ -98,7 +133,11 @@ describe('test', () => {
                 q: 'this is an test',
             },
         ])
-            .pipe(ezs('ISTEXSearch', { source: 'q', limit: 3 }))
+            .pipe(ezs('ISTEXSearch', {
+                source: 'q',
+                maxPage: 3,
+                sid: 'test',
+            }))
             .on('data', (chunk) => {
                 result.push(chunk);
             })
@@ -116,7 +155,11 @@ describe('test', () => {
         from([
             'this is an test',
         ])
-            .pipe(ezs('ISTEXSearch', { target: 'istex', limit: 3 }))
+            .pipe(ezs('ISTEXSearch', {
+                target: 'istex',
+                maxPage: 3,
+                sid: 'test',
+            }))
             .on('data', (chunk) => {
                 result.push(chunk);
             })
@@ -134,7 +177,10 @@ describe('test', () => {
         from([
             'this is an test',
         ])
-            .pipe(ezs('ISTEXSearch', { limit: 2 }))
+            .pipe(ezs('ISTEXSearch', {
+                maxPage: 2,
+                sid: 'test',
+            }))
             .pipe(ezs('ISTEXScroll'))
             .on('data', (chunk) => {
                 result.push(chunk);
@@ -152,8 +198,16 @@ describe('test', () => {
         from([
             'this is an test',
         ])
-            .pipe(ezs('ISTEXSearch', { target: 'istex', limit: 2 }))
-            .pipe(ezs('ISTEXScroll', { source: 'istex', target: 'istex' }))
+            .pipe(ezs('ISTEXSearch', {
+                target: 'istex',
+                maxPage: 2,
+                sid: 'test',
+            }))
+            .pipe(ezs('ISTEXScroll', {
+                source: 'istex',
+                target: 'istex',
+                sid: 'test',
+            }))
             .on('data', (chunk) => {
                 result.push(chunk);
             })
@@ -170,7 +224,10 @@ describe('test', () => {
         from([
             'this is an test',
         ])
-            .pipe(ezs('ISTEXSearch', { limit: 2 }))
+            .pipe(ezs('ISTEXSearch', {
+                maxPage: 2,
+                sid: 'test',
+            }))
             .pipe(ezs('ISTEXScroll'))
             .pipe(ezs('ISTEXResult'))
             .on('data', (chunk) => {
@@ -193,9 +250,22 @@ describe('test', () => {
                 istex: 'this is an test',
             },
         ])
-            .pipe(ezs('ISTEXSearch', { source: 'istex', target: 'istex', limit: 2 }))
-            .pipe(ezs('ISTEXScroll', { source: 'istex', target: 'istex' }))
-            .pipe(ezs('ISTEXResult', { source: 'istex', target: 'istex' }))
+            .pipe(ezs('ISTEXSearch', {
+                source: 'istex',
+                target: 'istex',
+                maxPage: 2,
+                sid: 'test',
+            }))
+            .pipe(ezs('ISTEXScroll', {
+                source: 'istex',
+                target: 'istex',
+                sid: 'test',
+            }))
+            .pipe(ezs('ISTEXResult', {
+                source: 'istex',
+                target: 'istex',
+                sid: 'test',
+            }))
             .on('data', (chunk) => {
                 result.push(chunk);
             })

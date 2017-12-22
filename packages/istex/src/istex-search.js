@@ -12,7 +12,7 @@ function ISTEXSearch(data, feed) {
     const target = this.getParam('target');
     const query = this.getParam('query', OBJ.get(data, source, data));
     const sid = this.getParam('sid', 'ezs-istex');
-    const limit = Number(this.getParam('limit'));
+    const maxPage = Number(this.getParam('maxPage'));
     const size = Number(this.getParam('size', 2000));
     const scroll = this.getParam('duration', '30s');
     const field = this.getParam('field', ['doi']);
@@ -59,8 +59,8 @@ function ISTEXSearch(data, feed) {
             });
             // all other pages
             const pages = Array(Math.ceil(json.total / size) - 1).map(() => scrollUrl).fill(scrollUrl);
-            if (limit) {
-                pages.slice(0, limit - 1).forEach(pageURL => feed.write(newValue(pageURL, target, data)));
+            if (maxPage) {
+                pages.slice(0, maxPage - 1).forEach(pageURL => feed.write(newValue(pageURL, target, data)));
             } else {
                 pages.forEach(pageURL => feed.write(newValue(pageURL, target, data)));
             }
