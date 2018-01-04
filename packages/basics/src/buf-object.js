@@ -7,7 +7,7 @@ function BUFObject(data, feed) {
 }
 
 /**
- * from `Mixed` produce Buffer with any input.
+ * Take `Mixed` and produce Buffer.
  * For example, it's useful to send string to browser.
  *
  * @name BUFObject

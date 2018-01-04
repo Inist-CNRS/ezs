@@ -11,6 +11,13 @@ function OBJFlatten(data, feed) {
     }
 }
 
+/**
+ * Take `Object` and flat it with delimited character.
+ *
+ * @name OBJFlatten
+ * @param {String} [separator=/] choose a character for  flatten keys
+ * @returns {Object}
+ */
 export default {
     OBJFlatten,
 };

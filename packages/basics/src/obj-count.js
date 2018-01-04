@@ -6,6 +6,13 @@ function OBJCount(data, feed) {
     }
 }
 
+/**
+ * Take `Object` and count how many objects are received and sent the total
+ *
+ * @name OBJCount
+ * @param {undefined} none
+ * @returns {Number}
+ */
 export default {
     OBJCount,
 };

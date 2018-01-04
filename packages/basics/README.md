@@ -27,10 +27,13 @@ process.stdin
 -   [CSVString](#csvstring)
 -   [JSONParse](#jsonparse)
 -   [JSONString](#jsonstring)
+-   [OBJCount](#objcount)
+-   [OBJFlatten](#objflatten)
+-   [OBJFlatten](#objflatten-1)
 
 ## BUFObject
 
-from `Mixed` produce Buffer with any input.
+Take `Mixed` and produce Buffer.
 For example, it's useful to send string to browser.
 
 **Parameters**
@@ -41,7 +44,7 @@ Returns **[Buffer](https://nodejs.org/api/buffer.html)**
 
 ## CSVObject
 
-from `Array` Transform rows into object.
+Take `Array` and transform rows into object.
 Each row (Array) is tranformed
 into a object where keys are the value of the first row
 
@@ -55,7 +58,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 -   **See: <https://github.com/Inist-CNRS/node-csv-string>**
 
-from `String` Parse CSV  to generate object
+Take `String` and parse CSV  to generate object
 
 **Parameters**
 
@@ -66,7 +69,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ## CSVString
 
-from `Object` transform row  into string
+Take `Object` and transform row  into string
 where each field is separated with a character
 
 **Parameters**
@@ -80,7 +83,7 @@ Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 -   **See: <https://github.com/dominictarr/JSONStream>**
 
-from `String` parse JSON and generate objects
+Take `String` and parse JSON and generate objects
 
 **Parameters**
 
@@ -90,7 +93,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ## JSONString
 
-from `Object` Generate JSON
+Take `Object` and generate JSON
 
 **Parameters**
 
@@ -98,3 +101,33 @@ from `Object` Generate JSON
 -   `indent` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** indent JSON (optional, default `false`)
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+## OBJCount
+
+Take `Object` and count how many objects are received and sent the total
+
+**Parameters**
+
+-   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
+
+Returns **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+
+## OBJFlatten
+
+Take `Object` and flat it with delimited character.
+
+**Parameters**
+
+-   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose a character for  flatten keys (optional, default `/`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## OBJFlatten
+
+Take `Object` and standardize it so each object will have the sames keys
+
+**Parameters**
+
+-   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 

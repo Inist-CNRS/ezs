@@ -24,7 +24,7 @@ function JSONString(data, feed) {
 }
 
 /**
- * from `Object` Generate JSON
+ * Take `Object` and generate JSON
  *
  * @name JSONString
  * @param {String} [wrap=true] every document are wrapped into an array

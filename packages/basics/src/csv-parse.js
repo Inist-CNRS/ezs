@@ -16,7 +16,7 @@ function CSVParse(data, feed) {
 }
 
 /**
- * from `String` Parse CSV  to generate object
+ * Take `String` and parse CSV  to generate object
  *
  * @name CSVParse
  * @param {String} [separator=auto] to indicate the CSV separator
