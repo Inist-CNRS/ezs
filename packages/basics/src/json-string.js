@@ -23,6 +23,14 @@ function JSONString(data, feed) {
     feed.end();
 }
 
+/**
+ * from {Object} Generate JSON
+ *
+ * @name JSONString
+ * @param {String} [wrap=true] every document are wrapped into an array
+ * @param {String} [indent=false] indent JSON
+ * @returns {String}
+ */
 export default {
     JSONString,
 };

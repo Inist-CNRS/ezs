@@ -29,6 +29,7 @@
   "main": "./lib/index.js",
   "scripts": {
     "test": "istanbul test ./node_modules/.bin/_mocha -- -R spec",
+    "doc": "documentation readme package.json src/* --section=Statements",
     "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
     "build": "babel src --out-dir lib",
     "prepublish": "npm run build",
@@ -41,6 +42,7 @@
     "babel-preset-stage-3": "^6.24.1",
     "caporal": "^0.5.0",
     "chai": "^3.5.0",
+    "documentation": "5.3.5",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",

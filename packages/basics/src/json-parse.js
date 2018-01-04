@@ -16,6 +16,14 @@ function JSONParse(data, feed) {
     }
 }
 
+/**
+ * from {String} parse JSON and generate objects
+ *
+ * @name JSONParse
+ * @param {String} [separator=*] to split at every JSONPath found
+ * @returns {Object}
+ * @see https://github.com/dominictarr/JSONStream
+ */
 export default {
     JSONParse,
 };

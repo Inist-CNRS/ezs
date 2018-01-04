@@ -30,6 +30,15 @@ function CSVString(data, feed) {
     }
 }
 
+/**
+ * from {Object} transform row  into string
+ * where each field is separated with a character
+ *
+ * @name CSVString
+ * @param {String} [format=standard] if set to "strict" the fields will wrapped with double quote
+ * @param {String} [separator=;] to indicate the CSV separator
+ * @returns {String}
+ */
 export default {
     CSVString,
 };

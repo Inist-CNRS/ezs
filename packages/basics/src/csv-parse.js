@@ -15,6 +15,15 @@ function CSVParse(data, feed) {
     }
 }
 
+/**
+ * from {String} Parse CSV  to generate object
+ *
+ * @name CSVParse
+ * @param {String} [separator=auto] to indicate the CSV separator
+ * @param {String} [quote=auto] to indicate the CSV quote.
+ * @returns {Object}
+ * @see https://github.com/Inist-CNRS/node-csv-string
+ */
 export default {
     CSVParse,
 };

@@ -33,6 +33,15 @@ function CSVObject(data, feed) {
     feed.end();
 }
 
+/**
+ * from {Array} Transform rows into object.
+ * Each row (Array) is tranformed
+ * into a object where keys are the value of the first row
+ *
+ * @name CSVObject
+ * @param {undefined} none
+ * @returns {Object}
+ */
 export default {
     CSVObject,
 };
