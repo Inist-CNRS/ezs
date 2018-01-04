@@ -46,12 +46,7 @@ describe('test', () => {
         from([
             corpus.toString(),
         ])
-            .pipe(ezs('ISTEXParseDotCorpus', {
-                query: 'this is an test',
-                size: 3,
-                maxPage: 1,
-                sid: 'test',
-            }))
+            .pipe(ezs('ISTEXParseDotCorpus'))
             .on('data', (chunk) => {
                 result.push(chunk);
             })
