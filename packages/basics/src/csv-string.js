@@ -31,7 +31,7 @@ function CSVString(data, feed) {
 }
 
 /**
- * from {Object} transform row  into string
+ * from `Object` transform row  into string
  * where each field is separated with a character
  *
  * @name CSVString

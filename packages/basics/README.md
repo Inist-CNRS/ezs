@@ -30,7 +30,7 @@ process.stdin
 
 ## BUFObject
 
-from {Mixed} produce Buffer with any input.
+from `Mixed` produce Buffer with any input.
 For example, it's useful to send string to browser.
 
 **Parameters**
@@ -41,7 +41,7 @@ Returns **[Buffer](https://nodejs.org/api/buffer.html)**
 
 ## CSVObject
 
-from {Array} Transform rows into object.
+from `Array` Transform rows into object.
 Each row (Array) is tranformed
 into a object where keys are the value of the first row
 
@@ -55,7 +55,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 -   **See: <https://github.com/Inist-CNRS/node-csv-string>**
 
-from {String} Parse CSV  to generate object
+from `String` Parse CSV  to generate object
 
 **Parameters**
 
@@ -66,7 +66,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ## CSVString
 
-from {Object} transform row  into string
+from `Object` transform row  into string
 where each field is separated with a character
 
 **Parameters**
@@ -80,7 +80,7 @@ Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 -   **See: <https://github.com/dominictarr/JSONStream>**
 
-from {String} parse JSON and generate objects
+from `String` parse JSON and generate objects
 
 **Parameters**
 
@@ -90,7 +90,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ## JSONString
 
-from {Object} Generate JSON
+from `Object` Generate JSON
 
 **Parameters**
 

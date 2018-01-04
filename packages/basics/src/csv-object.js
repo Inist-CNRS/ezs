@@ -34,7 +34,7 @@ function CSVObject(data, feed) {
 }
 
 /**
- * from {Array} Transform rows into object.
+ * from `Array` Transform rows into object.
  * Each row (Array) is tranformed
  * into a object where keys are the value of the first row
  *
