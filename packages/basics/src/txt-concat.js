@@ -11,6 +11,14 @@ function TXTConcat(data, feed) {
     }
 }
 
+/**
+ * Take `String` and concat all items in just one string
+ *
+ * @name TXTConcat
+ * @alias concat
+ * @param {undefined} none
+ * @returns {String}
+ */
 export default {
     TXTConcat,
 };

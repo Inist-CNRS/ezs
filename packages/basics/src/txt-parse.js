@@ -28,6 +28,15 @@ function TXTParse(data, feed) {
     feed.end();
 }
 
+/**
+ * Take `String` and split at each separator found
+ *
+ * @name TXTParse
+ * @alias split
+ * @alias segmenter
+ * @param {String} [separtor=\n] choose character which trigger the split
+ * @returns {String}
+ */
 export default {
     TXTParse,
 };

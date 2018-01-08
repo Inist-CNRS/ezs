@@ -16,6 +16,16 @@ function XMLParse(data, feed) {
     }
 }
 
+/**
+ * Take `String` as XML input, parse it and split it in multi document at each path found
+ *
+ * @name XMLParse
+ * @param {String} [url] URL to fecth
+ * @param {String} [target] choose the key to set
+ * @param {String} [separator=/] choose a character for flatten keys
+ * @returns {Object}
+ * @see https://www.npmjs.com/package/xml-splitter
+ */
 export default {
     XMLParse,
 };

@@ -27,6 +27,7 @@ function JSONString(data, feed) {
  * Take `Object` and generate JSON
  *
  * @name JSONString
+ * @alias jsonify
  * @param {String} [wrap=true] every document are wrapped into an array
  * @param {String} [indent=false] indent JSON
  * @returns {String}

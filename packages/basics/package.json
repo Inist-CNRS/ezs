@@ -33,7 +33,8 @@
     "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
     "build": "babel src --out-dir lib",
     "prepublish": "npm run build",
-    "pretest": "npm run build"
+    "pretest": "npm run build",
+    "preversion": "npm run doc"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

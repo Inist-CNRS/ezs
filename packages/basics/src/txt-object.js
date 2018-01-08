@@ -11,6 +11,13 @@ function TXTObject(data, feed) {
     feed.send(obj);
 }
 
+/**
+ * Take `String` and generate an object with a key and a value, where the value is the input string.
+ *
+ * @name TXTObject
+ * @param {String} [key=value] choose a the key name
+ * @returns {Object}
+ */
 export default {
     TXTObject,
 };

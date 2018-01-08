@@ -11,6 +11,7 @@ function BUFObject(data, feed) {
  * For example, it's useful to send string to browser.
  *
  * @name BUFObject
+ * @alias bufferify
  * @param {undefined} none
  * @returns {Buffer}
  */

@@ -57,7 +57,8 @@ function OBJStandardize(data1, feed1) {
 /**
  * Take `Object` and standardize it so each object will have the sames keys
  *
- * @name OBJFlatten
+ * @name OBJStandardize
+ * @alias standardize
  * @param {undefined} none
  * @returns {Object}
  */
