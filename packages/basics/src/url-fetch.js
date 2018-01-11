@@ -1,4 +1,4 @@
-import request from 'request';
+import fetch from 'fetch-with-proxy';
 
 function URLFetch(data, feed) {
     const url = this.getParam('url');
@@ -8,24 +8,24 @@ function URLFetch(data, feed) {
     if (this.isLast() || !url) {
         return feed.send(data);
     }
-    const options = {
-        url,
-        json,
-    };
-    request(options, (error, response, body) => {
-        if (error) {
-            return feed.send(error);
+    fetch(url)
+    .then((response) => {
+        if (response.status !== 200) {
+            const msg = `Received status code ${response.statusCode} (${
+          response.statusMessage
+        })'`;
+            throw new Error(msg);
         }
-        if (response.statusCode !== 200) {
-            const msg = `Received status code ${response.statusCode} (${response.statusMessage})'`;
-            return feed.send(new Error(msg));
-        }
+        return json ? response.json() : response.text();
+    })
+    .then((body) => {
         if (target && typeof target === 'string' && typeof data === 'object') {
             data[target] = body;
-            return feed.send(data);
+            feed.send(data);
         }
-        return feed.send(body);
-    });
+        feed.send(body);
+    })
+    .catch(error => feed.send(error));
 }
 
 /**
