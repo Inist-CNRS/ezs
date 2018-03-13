@@ -12,7 +12,16 @@ function XMLParse(data, feed) {
           data,
           () => feed.end());
     } else {
-        this.handle.stream.end(() => feed.close());
+        this.handle.stream.end();
+        process.nextTick(() => {
+            feed.close();
+        });
+        /*
+         this.handle.stream has be created by sax@0.5,
+         and I cannot handle the "end" event (and I don't know why)
+         so I use nextTrick instead of end().
+         It's badly, but it's works in many cases
+         */
     }
 }
 

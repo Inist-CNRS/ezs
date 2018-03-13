@@ -111,6 +111,34 @@ describe('test', () => {
                 done();
             });
     });
+    it('OBJStandardize t#1', (done) => {
+        from([
+            {
+                a: 1,
+                b: 2,
+            },
+            {
+                b: 2,
+                c: 3,
+            },
+            {
+                a: 1,
+                c: 3,
+            },
+
+        ])
+            .pipe(ezs('OBJStandardize'))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                assert(chunk.a === 1 || chunk.a === '');
+                assert(chunk.b === 2 || chunk.b === '');
+                assert(chunk.c === 3 || chunk.c === '');
+            })
+            .on('end', () => {
+                done();
+            });
+    });
+
     /*
     it('URLGet #1', (done) => {
         let c = 0;

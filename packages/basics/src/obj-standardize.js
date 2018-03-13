@@ -15,7 +15,6 @@ function serializeObjects(data2, feed2) {
 
 function OBJStandardize(data1, feed1) {
     const self = this;
-
     if (!self.tmpFile) {
         self.tmpFile = tmpFilepath('.bin');
         self.struct = [];
