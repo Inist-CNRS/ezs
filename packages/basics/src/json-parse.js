@@ -12,7 +12,10 @@ function JSONParse(data, feed) {
           data,
           () => feed.end());
     } else {
-        this.handle.end(() => feed.close());
+        this.handle.end();
+        process.nextTick(() => {
+            feed.close();
+        });
     }
 }
 
