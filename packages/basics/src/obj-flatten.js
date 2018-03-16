@@ -3,6 +3,7 @@ import flatten from 'flat';
 function OBJFlatten(data, feed) {
     const opts = {
         delimiter: this.getParam('separator', '/'),
+        safe: this.getParam('safe', true),
     };
     if (this.isLast()) {
         feed.close();
