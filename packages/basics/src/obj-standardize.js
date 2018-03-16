@@ -22,7 +22,6 @@ function OBJStandardize(data1, feed1) {
     }
 
     if (self.isLast()) {
-        self.tmpStream.close();
         fs.createReadStream(self.tmpFile)
             .pipe(ezs(TXTParse, { separator: '\n' }))
             .pipe(ezs(serializeObjects))
