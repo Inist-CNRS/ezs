@@ -18,6 +18,7 @@ function OBJFlatten(data, feed) {
  * @name OBJFlatten
  * @alias flatten
  * @param {String} [separator=/] choose a character for  flatten keys
+ * @param {Boolean} [safe=false] preserve arrays and their contents,
  * @returns {Object}
  * @see https://www.npmjs.com/package/flat
  */
