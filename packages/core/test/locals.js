@@ -35,7 +35,6 @@ function stepper(data, feed) {
         const step = this.getParam('step');
         const sign = this.getParam('sign', '+');
         const value = data || 0;
-        console.log('Stepper', step, sign);
         if (sign === '+') {
             feed.send(value + step);
         } else {
