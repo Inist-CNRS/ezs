@@ -6,6 +6,10 @@ const ezs = require('../lib');
 
 ezs.use(require('./locals'));
 
+ezs.config('stepper', {
+    step: 3,
+});
+
 const Read = require('stream').Readable;
 const PassThrough = require('stream').PassThrough;
 
@@ -185,6 +189,23 @@ describe('Build a pipeline', () => {
             }))
             .pipe(ezs('increment', { step: 2 }))
             .pipe(ezs('decrement', { step: 2 }))
+            .on('data', (chunk) => {
+                res += chunk;
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 45);
+                done();
+            });
+    });
+    it('with standard pipeline with global options', (done) => {
+        let res = 0;
+        const ten = new Decade();
+        ten
+            .pipe(ezs((input, output) => {
+                output.send(input);
+            }))
+            .pipe(ezs('stepper', { sign: '+' }))
+            .pipe(ezs('stepper', { sign: '-' }))
             .on('data', (chunk) => {
                 res += chunk;
             })

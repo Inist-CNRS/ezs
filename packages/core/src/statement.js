@@ -68,7 +68,13 @@ function set(ezs, plugin) {
     return ezs;
 }
 
+function exists(ezs, pluginName) {
+    return pluginsList[pluginName] !== undefined;
+}
+
+
 export default {
     get,
     set,
+    exists,
 };

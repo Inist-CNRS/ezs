@@ -30,6 +30,22 @@ function decrement(data, feed) {
     }
 }
 
+function stepper(data, feed) {
+    if (!this.isLast()) {
+        const step = this.getParam('step');
+        const sign = this.getParam('sign', '+');
+        const value = data || 0;
+        console.log('Stepper', step, sign);
+        if (sign === '+') {
+            feed.send(value + step);
+        } else {
+            feed.send(value - step);
+        }
+    } else {
+        feed.send(data);
+    }
+}
+
 function slow(data, feed) {
     if (this.isLast()) {
         return feed.send(data);
@@ -54,6 +70,7 @@ module.exports = {
     boum,
     increment,
     decrement,
+    stepper,
     slow,
     bad,
 };

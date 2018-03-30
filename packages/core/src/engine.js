@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { Transform } from 'stream';
+import Parameter from './parameter';
 import Feed from './feed';
 import Shell from './shell';
 
@@ -7,9 +8,10 @@ export default class Engine extends Transform {
     constructor(ezs, func, params, selector) {
         super({ objectMode: true });
         this.func = func;
+        this.funcName = String(func.name);
         this.index = 0;
         this.selector = selector;
-        this.params = params || {};
+        this.params = params;
         this.scope = {};
         this.ezs = ezs;
     }
@@ -48,8 +50,15 @@ export default class Engine extends Transform {
         this.scope.ezs = this.ezs;
 
         try {
-            this.scope.getParam = (name, defval) =>
-                (this.params[name] !== undefined ? Shell(this.params[name], chunk) : defval);
+            this.scope.getParam = (name, defval) => {
+                const globalParams = Parameter.get(this.ezs, this.funcName);
+                if (this.params[name] !== undefined) {
+                    return Shell(this.params[name], chunk);
+                } else if (globalParams[name] !== undefined) {
+                    return globalParams[name];
+                }
+                return defval;
+            };
             this.func.call(this.scope, chunk, feed);
         } catch (e) {
             this.pushError(e);
