@@ -1,31 +1,3 @@
 #!/usr/bin/env node
-const fs = require('fs');
-const prog = require('caporal');
-const ezs = require('../lib');
-const { version } = require('../package.json');
+require('../lib/cli').default(console);
 
-const isFile = (opt) => {
-    if (!fs.statSync(opt).isFile()) {
-        throw new Error(opt.concat(" doesn't exists."));
-    }
-    return fs.realpathSync(opt);
-};
-
-prog
-  .version(version)
-  .description('Run ezs script with standard input.')
-  .argument('<file>', 'ezs script file', isFile)
-  .action((args, options, logger) => {
-      const script = fs.readFileSync(args.file).toString();
-      logger.warn('Reading standard input...');
-      process.stdin.resume();
-      process.stdin.setEncoding('utf8');
-      const stream1 = process.stdin.pipe(ezs.fromString(script));
-      const stream2 = stream1.pipe(ezs.toBuffer());
-      stream2.on('end', () => {
-          process.exit(1);
-      });
-      stream2.pipe(process.stdout);
-  });
-
-prog.parse(process.argv);

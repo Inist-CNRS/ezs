@@ -1,5 +1,7 @@
 import _ from 'lodash';
 import util from 'util';
+import JSONStream from 'JSONStream';
+import JSONezs from './json';
 
 function assign(data, feed) {
     if (this.isLast()) {
@@ -111,11 +113,81 @@ function keep(data, feed) {
     return feed.send(obj);
 }
 
+function concat(data, feed) {
+    if (this.buffer === undefined) {
+        this.buffer = '';
+    }
+    if (this.isLast()) {
+        feed.send(this.buffer);
+        return feed.close();
+    }
+    this.buffer = this.buffer.concat(data);
+    return feed.end();
+}
+
+function json(data, feed) {
+    if (this.isLast()) {
+        return feed.send(data);
+    }
+    return feed.send(JSON.parse(data));
+}
+
+function jsonezs(data, feed) {
+    if (this.isLast()) {
+        return feed.send(data);
+    }
+    return feed.send(JSONezs.parse(data));
+}
+
+function encoder(data, feed) {
+    let output = '';
+    if (this.isFirst()) {
+        output = '[';
+    } else {
+        output = ',';
+    }
+    if (!this.isLast()) {
+        feed.write(output.concat(JSON.stringify(data, null, null)));
+    } else if (this.isLast() && this.getIndex() > 0) {
+        feed.write(']');
+        feed.close();
+    } else {
+        feed.write('[]');
+        feed.close();
+    }
+    feed.end();
+}
+
+function decoder(data, feed) {
+    if (!this.handle) {
+        const separator = this.getParam('separator', '*');
+        this.handle = JSONStream.parse(separator);
+        this.handle.on('data', obj => feed.write(obj));
+    }
+    if (!this.isLast()) {
+        if (!this.handle.write(data)) {
+            this.handle.once('drain', () => feed.end());
+        } else {
+            process.nextTick(() => feed.end());
+        }
+    } else {
+        this.handle.end();
+        process.nextTick(() => {
+            feed.close();
+        });
+    }
+}
+
 export default {
+    extract,
     assign,
     replace,
     shift,
-    extract,
     keep,
     debug,
+    concat,
+    json,
+    jsonezs,
+    encoder,
+    decoder,
 };

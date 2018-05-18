@@ -1,4 +1,4 @@
-
+import assert from 'assert';
 import { PassThrough, Duplex } from 'stream';
 
 export default class Pipeline extends Duplex {
@@ -6,9 +6,8 @@ export default class Pipeline extends Duplex {
         super({ ...options, objectMode: true });
         this.tubin = new PassThrough({ objectMode: true });
         this.tubout = this.tubin;
-        if (Array.isArray(commands)) {
-            this.tubout = commands.reduce(ezs.command, this.tubout);
-        }
+        assert(Array.isArray(commands), 'Pipeline works with an array of commands.');
+        this.tubout = commands.reduce(ezs.command, this.tubout);
         this.on('finish', () => {
             this.tubin.end();
         });
@@ -19,7 +18,7 @@ export default class Pipeline extends Duplex {
             this.push(null);
         });
         this.tubin.on('error', (e) => {
-            console.error('Unlikely error', e);
+            console.error('Unlikely error on the Pipeline', e);
         });
         this.tubout.pause();
     }

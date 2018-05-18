@@ -1,3 +1,5 @@
+import Expression from './expression';
+
 const regex = {
     section: /^\s*\[\s*([^\]]*)\s*\]\s*$/,
     param: /^\s*([\w.\-_]+)\s*[=: ]\s*(.*?)\s*$/,
@@ -9,7 +11,7 @@ const parseOpts = (obj) => {
     if (typeof obj === 'object') {
         Object.keys(obj).forEach((key) => {
             const val = obj[key].length === 1 ? obj[key][0] : obj[key];
-            res[key] = parser => parser(val);
+            res[key] = new Expression(val);
         });
     }
     return res;

@@ -11,7 +11,7 @@ export default class Engine extends Transform {
         this.funcName = String(func.name);
         this.index = 0;
         this.selector = selector;
-        this.params = params;
+        this.params = params || {};
         this.scope = {};
         this.ezs = ezs;
     }
