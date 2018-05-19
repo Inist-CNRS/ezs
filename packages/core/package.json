@@ -52,8 +52,8 @@
     "lodash": "^4.17.4",
     "memored": "^1.1.1",
     "merge-stream": "^1.0.1",
+    "notevil": "^1.1.0",
     "p-map": "^1.2.0",
-    "safe-eval": "^0.3.0",
     "yargs": "^11.0.0"
   }
 }

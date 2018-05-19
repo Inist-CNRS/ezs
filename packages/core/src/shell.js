@@ -1,6 +1,6 @@
 import autocast from 'autocast';
 import _ from 'lodash';
-import safeEval from 'safe-eval';
+import safeEval from 'notevil';
 import mixins from './mixins';
 
 const parse = context => (value) => {
