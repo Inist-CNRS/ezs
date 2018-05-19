@@ -3,6 +3,7 @@ import assert from 'assert';
 import http from 'http';
 import pMap from 'p-map';
 import mergeStream from 'merge-stream';
+import Parameter from './parameter';
 import config from './config';
 
 const parseAddress = (srvr) => {
@@ -33,6 +34,7 @@ const registerTo = ({ hostname, port }, commands) =>
             headers: {
                 'Content-Type': 'application/json',
                 'Content-Length': requestBody.length,
+                'X-Parameter': Parameter.pack(),
             },
         };
         const req = http.request(requestOptions, (res) => {

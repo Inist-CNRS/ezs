@@ -1,9 +1,12 @@
 const assert = require('assert');
-const plugins = require('../lib/plugins');
 const ezs = require('../lib');
 const JSONezs = require('../lib/json').default;
 
 ezs.use(require('./locals'));
+
+ezs.config('stepper', {
+    step: 4,
+});
 
 const Read = require('stream').Readable;
 
@@ -89,6 +92,29 @@ describe('through a server', () => {
                 done();
             });
     });
+
+    it('with pipeline with global parameter', (done) => {
+        let res = 0;
+        const commands = [
+            {
+                name: 'stepper',
+            },
+        ];
+        const servers = [
+            '127.0.0.1',
+        ];
+        const ten = new Decade();
+        ten
+            .pipe(ezs.dispatch(commands, servers))
+            .on('data', (chunk) => {
+                res += chunk;
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 81);
+                done();
+            });
+    });
+
 
     it('with buggy pipeline', (done) => {
         let res = 0;

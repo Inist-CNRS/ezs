@@ -2,6 +2,7 @@ import os from 'os';
 import crypto from 'crypto';
 import cluster from 'cluster';
 import http from 'http';
+import Parameter from './parameter';
 import JSONezs from './json';
 import config from './config';
 
@@ -25,9 +26,13 @@ function register(store) {
 function createServer(ezs, store) {
     const server = http
         .createServer((request, response) => {
-            const { url, method } = request;
+            const { url, method, headers } = request;
             const cmdid = url.slice(1);
             if (url === '/' && method === 'POST') {
+                if (headers['x-parameter']) {
+                    const parameters = Parameter.unpack(headers['x-parameter']);
+                    Parameter.put(ezs, parameters);
+                }
                 request
                     .pipe(ezs('concat'))
                     .pipe(ezs(register(store)))

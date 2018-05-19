@@ -2,6 +2,17 @@ import Statement from './statement';
 
 const parametersList = {};
 
+function pack() {
+    const buf = new Buffer(JSON.stringify(parametersList));
+    return buf.toString('base64');
+}
+
+function unpack(data) {
+    const buf = new Buffer(data, 'base64');
+    const txt = buf.toString('ascii');
+    return JSON.parse(txt);
+}
+
 function get(ezs, pluginName) {
     return parametersList[pluginName] ? parametersList[pluginName] : {};
 }
@@ -16,7 +27,14 @@ function set(ezs, pluginName, opts) {
     parametersList[pluginName] = opts;
 }
 
+function put(ezs, parameters) {
+    Object.keys(parameters).forEach(key => set(ezs, key, parameters[key]));
+}
+
 export default {
     get,
     set,
+    put,
+    pack,
+    unpack,
 };
