@@ -82,17 +82,25 @@ function createServer(ezs, store) {
             }
         })
         .listen(config.port);
+    process.on('SIGTERM', () => server.close(() => process.exit(0)));
     // console.log(`PID ${process.pid} listening on 31976`);
     return server;
 }
 
 function createCluster(ezs, store) {
+    let sigterm = false;
     if (cluster.isMaster) {
         for (let i = 0; i < numCPUs; i += 1) {
             cluster.fork();
         }
         cluster.on('exit', () => {
-            cluster.fork();
+            if (!sigterm) {
+                cluster.fork();
+            }
+        });
+        process.on('SIGTERM', () => {
+            sigterm = true;
+            Object.keys(cluster.workers).forEach(id => cluster.workers[id].kill());
         });
     } else {
         createServer(ezs, store);
