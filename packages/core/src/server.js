@@ -24,6 +24,7 @@ function register(store) {
 }
 
 function createServer(ezs, store) {
+    const startedAt = Date.now();
     const server = http
         .createServer((request, response) => {
             const { url, method, headers } = request;
@@ -59,11 +60,12 @@ function createServer(ezs, store) {
                         .pipe(response);
                     request.resume();
                 });
-            } else if (url === '/info' && method === 'GET') {
+            } else if (url === '/' && method === 'GET') {
                 store.all().then((keys) => {
                     const info = {
                         concurrency: numCPUs,
                         register: keys.length,
+                        uptime: Date.now() - startedAt,
                     };
                     const responseBody = JSON.stringify(info);
                     const responseHeaders = {
