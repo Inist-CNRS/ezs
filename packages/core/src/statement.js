@@ -34,12 +34,16 @@ function get(ezs, plugin, opts) {
                         .map(fil => resolve(fil))
                         .filter(fun => fun !== null)
                         .shift();
+                    const plugName3 = resolve(name);
                     if (plugName1) {
                         // eslint-disable-next-line
                         ezs.use(require(plugName1));
                     } else if (plugName2) {
                         // eslint-disable-next-line
                         ezs.use(require(plugName2));
+                    } else if (plugName3) {
+                        // eslint-disable-next-line
+                        ezs.use(require(plugName3));
                     } else {
                         throw new Error(
                             `'${name}' is not loaded. It was not found (try to install it).`,
