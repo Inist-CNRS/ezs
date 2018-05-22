@@ -35,11 +35,11 @@ ezs.use = plugin => Statement.set(ezs, plugin);
 ezs.addPath = p => ezsPath.push(p);
 ezs.getPath = () => ezsPath;
 ezs.command = (stream, command) => {
-    const mode = command.mode || 'all';
+    const mode = command.mode || 'normal';
     if (!command.name) {
         throw new Error(`Bad command : ${command.name}`);
     }
-    if (mode === 'all' || mode === 'parallel') {
+    if (mode === 'normal' || mode === 'divisible') {
         return stream.pipe(ezs.all(command.name, command.args));
     }
     if (mode === 'with') {

@@ -19,7 +19,7 @@ export default class Commands {
         this.commands
             .filter(c => c.name !== 'use')
             .forEach((c) => {
-                const currentMode = c.mode === 'parallel' ? 'dispatch' : 'pipeline';
+                const currentMode = c.mode === 'divisible' ? 'dispatch' : 'pipeline';
                 if (currentMode !== previousMode) {
                     if (currentMode === 'dispatch' || first) {
                         newCmds.push({

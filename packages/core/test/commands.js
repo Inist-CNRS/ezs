@@ -15,7 +15,7 @@ describe('analsye commands', () => {
             step = 2
 
 
-            [increment?parallel]
+            [increment?divisible]
             step = 3
 
             [increment]

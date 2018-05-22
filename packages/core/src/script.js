@@ -37,7 +37,7 @@ export default function Script(commands) {
                 const matches0 = line.match(regex.section);
                 const matches1 = matches0[1].match(/(\w+)\?(\w+)/);
                 const matches2 = matches0[1].match(/(\w+)#(\w+)/);
-                let mode = 'all';
+                let mode = 'normal';
                 let name = 'debug';
                 let test = '';
                 if (Array.isArray(matches1)) {
@@ -48,7 +48,7 @@ export default function Script(commands) {
                     name = matches2[1];
                     test = matches2[2];
                 } else {
-                    mode = 'all';
+                    mode = 'normal';
                     name = matches0[1];
                 }
                 const newSection = {
