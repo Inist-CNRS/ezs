@@ -75,6 +75,10 @@ function debug(data, feed) {
     return feed.send(data);
 }
 
+function transit(data, feed) {
+    return feed.send(data);
+}
+
 function shift(data, feed) {
     feed.write(data);
     feed.close();
@@ -190,4 +194,5 @@ export default {
     jsonezs,
     encoder,
     decoder,
+    transit,
 };

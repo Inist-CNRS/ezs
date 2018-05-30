@@ -64,6 +64,24 @@ function bad(data, feed) {
     return feed.write(data);
 }
 
+function accu(data, feed) {
+    if (!this.buff) {
+        this.buff = [];
+    }
+    if (this.isLast()) {
+        setTimeout(() => {
+            this.buff.forEach((item) => {
+                feed.write(item);
+            });
+            feed.close();
+        }, 500);
+    } else {
+        this.buff.push(data);
+        feed.end();
+    }
+}
+
+
 module.exports = {
     plus1,
     boum,
@@ -72,5 +90,6 @@ module.exports = {
     stepper,
     slow,
     bad,
+    accu,
 };
 

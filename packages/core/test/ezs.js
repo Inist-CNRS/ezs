@@ -1204,5 +1204,46 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
+
+    it('with no transformation but with an accumulator', (done) => {
+        let res = 0;
+        const ten = new Decade();
+        ten
+            .pipe(ezs('accu'))
+            .pipe(ezs((input, output) => {
+                output.send(input);
+            }))
+            .on('data', (chunk) => {
+                res += chunk;
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 45);
+                done();
+            });
+    });
+    it('with no transformation but with an accumulator in a script', (done) => {
+        const commands = `
+            [use]
+            plugin = test/locals
+
+            [accu]
+        `;
+        let res = 0;
+        const ten = new Decade();
+        ten
+            .pipe(ezs((input, output) => {
+                output.send({ val: input });
+            }))
+            .pipe(ezs.fromString(commands))
+            .on('data', (chunk) => {
+                res += chunk.val;
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 45);
+                done();
+            });
+    });
+
+
 /**/
 });

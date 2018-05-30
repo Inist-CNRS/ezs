@@ -7,7 +7,14 @@ export default class Pipeline extends Duplex {
         this.tubin = new PassThrough({ objectMode: true });
         this.tubout = this.tubin;
         assert(Array.isArray(commands), 'Pipeline works with an array of commands.');
-        this.tubout = commands.reduce(ezs.command, this.tubout);
+        const cmds = [...commands];
+        cmds.push({
+            mode: 'normal',
+            name: 'transit',
+            args: { },
+        });
+        this.tubout = cmds.reduce(ezs.command, this.tubout);
+
         this.on('finish', () => {
             this.tubin.end();
         });
