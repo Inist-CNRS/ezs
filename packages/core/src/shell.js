@@ -41,7 +41,7 @@ export default function Shell(value, context) {
             return item(analyse(context));
         });
     }
-    if (!value.through) {
+    if (!value || !value.through) {
         return value;
     }
     return value.through(analyse(context));

@@ -81,6 +81,11 @@ function accu(data, feed) {
     }
 }
 
+function ignoreMe(data, feed) {
+    const objParam = this.getParam('object', {});
+    return feed.send(data);
+}
+
 
 module.exports = {
     plus1,
@@ -91,5 +96,6 @@ module.exports = {
     slow,
     bad,
     accu,
+    ignoreMe
 };
 

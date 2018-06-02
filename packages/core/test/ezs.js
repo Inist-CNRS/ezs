@@ -146,6 +146,20 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
+    it('with definied transformation', (done) => {
+        let res = 0;
+        const ten = new Decade();
+        ten
+            .pipe(ezs('ignoreMe', { object: null }))
+            .pipe(ezs('plus1'))
+            .on('data', (chunk) => {
+                res += chunk;
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 55);
+                done();
+            });
+    });
     it('with explosion', (done) => {
         let res = 0;
         const ten = new Decade();
