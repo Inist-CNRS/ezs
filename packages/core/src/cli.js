@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { PassThrough } from 'stream';
 import yargs from 'yargs';
 import ezs from '.';
 import Commands from './commands';
@@ -33,6 +34,12 @@ export default function cli(printer) {
                 describe: 'Change daemon\'port',
                 default: 31976,
                 type: 'number',
+            },
+            env: {
+                alias: 'e',
+                default: false,
+                describe: 'Execute commands with environement variables as input',
+                type: 'boolean',
             },
         })
         .epilogue('for more information, find our manual at https://github.com/touv/node-ezs');
@@ -73,12 +80,23 @@ export default function cli(printer) {
         const script = fs.readFileSync(file).toString();
         const cmds = new Commands(ezs.parseString(script));
 
-        if (argv.verbose) {
-            printer.error('Reading standard input...');
-        }
+        const input = argv.env ? new PassThrough({ objectMode: true }) : process.stdin;
 
-        process.stdin.resume();
-        process.stdin.setEncoding('utf8');
+        if (argv.env) {
+            // Use Env vars as INPUT
+            if (argv.verbose) {
+                printer.error('Reading environement variables...');
+            }
+            input.write(process.env);
+            input.end();
+        } else {
+            // Use STDIN as INPUT
+            if (argv.verbose) {
+                printer.error('Reading standard input...');
+            }
+            input.resume();
+            input.setEncoding('utf8');
+        }
 
         const servers = Array.isArray(argv.server) ? argv.server : [argv.server];
         let stream1;
@@ -89,9 +107,9 @@ export default function cli(printer) {
                     return stream.pipe(ezs.pipeline(section.cmds));
                 }
                 return stream.pipe(ezs.dispatch(section.cmds, servers));
-            }, process.stdin);
+            }, input);
         } else {
-            stream1 = process.stdin.pipe(ezs.pipeline(cmds.get()));
+            stream1 = input.pipe(ezs.pipeline(cmds.get()));
         }
         const stream2 = stream1.pipe(ezs.toBuffer());
         stream2.on('end', () => {
