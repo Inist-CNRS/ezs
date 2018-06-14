@@ -3,7 +3,7 @@ import Expression from './expression';
 function parse(data) {
     return JSON.parse(data, (key, value) => {
         if (value && typeof value === 'string' && value.indexOf('Expression::') === 0) {
-            return new Expression(value.replace('Expression::', ''));
+            return new Expression(JSON.parse(value.replace('Expression::', '')));
         }
         return value;
     });

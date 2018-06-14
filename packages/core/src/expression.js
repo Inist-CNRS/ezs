@@ -12,6 +12,6 @@ export default class Expression {
         return this.value;
     }
     toJSON() {
-        return `Expression::${this.value}`;
+        return `Expression::${JSON.stringify(this.value)}`;
     }
 }
