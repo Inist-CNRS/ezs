@@ -1,0 +1,28 @@
+import get from 'lodash.get';
+import core from './core';
+/**
+ * Take `Object` object getting some fields with json path, and do ...
+ *
+ * @name groupby
+ * @param {String} path
+ * @returns {Object}
+ */
+export default function groupby(data, feed) {
+    if (this.isLast()) {
+        feed.close();
+        return;
+    }
+    let fields = this.getParam('path', []);
+    if (!Array.isArray(fields)) {
+        fields = [fields];
+    }
+
+    fields
+        .filter(k => typeof k === 'string')
+        .map(key => [key, get(data, key)])
+        .filter(x => x[1])
+        .map(item => ([item[0], (item[1] instanceof Array ? item[1] : [item[1]])]))
+        .reduce((prev, cur) => prev.concat(cur[1].map(x => ([cur[0], x]))), [])
+        .forEach(item => feed.write(core(item[0], item[1])));
+    feed.end();
+}
