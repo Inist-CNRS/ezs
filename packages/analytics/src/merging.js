@@ -4,7 +4,7 @@
  * @name mergin
  * @returns {Object}
  */
-export default function mergin(data, feed) {
+export default function merging(data, feed) {
     if (this.isLast()) {
         feed.close();
         return;
@@ -15,8 +15,9 @@ export default function mergin(data, feed) {
         feed.write({
             _id: id,
             value: val
-            .filter(k => typeof k === 'object')
-            .reduce((prev, cur) => Object.assign(prev, cur)),
+                .filter(k => typeof k === 'object')
+                .reduce((prev, cur) => Object.assign(prev, cur), {}),
         });
     }
+    feed.end();
 }
