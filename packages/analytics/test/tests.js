@@ -183,4 +183,99 @@ describe('test', () => {
                 done();
             });
     });
+
+    it('maximizing', (done) => {
+        const res = [];
+        from([
+            { _id: 1, value: [2, 3, 4, 5, 1] },
+            { _id: 1, value: [2, 6, 4, 5, 1] },
+            { _id: 1, value: [2, 3, 7, 5, 1] },
+            { _id: 1, value: [2, 3, 4, 8, 1] },
+            { _id: 1, value: [9, 3, 4, 5, 1] },
+            { _id: 1, value: [2, 3, 4, 5, 10] },
+        ])
+            .pipe(ezs('maximizing'))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(6, res.length);
+                assert.equal(5, res[0].value);
+                done();
+            });
+    });
+
+    it('minimizing', (done) => {
+        const res = [];
+        from([
+            { _id: 1, value: [2, 3, 4, 5, 1] },
+            { _id: 1, value: [2, 6, 4, 5, 1] },
+            { _id: 1, value: [2, 3, 7, 5, 1] },
+            { _id: 1, value: [2, 3, 4, 8, 1] },
+            { _id: 1, value: [9, 3, 4, 5, 1] },
+            { _id: 1, value: [2, 3, 4, 5, 10] },
+        ])
+            .pipe(ezs('minimizing'))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(6, res.length);
+                assert.equal(1, res[0].value);
+                done();
+            });
+    });
+
+    it('merging', (done) => {
+        const res = [];
+        from([
+            { _id: 1, value: { a: 1 } },
+            { _id: 2, value: { b: 1 } },
+            { _id: 1, value: { c: 1 } },
+            { _id: 2, value: { d: 1 } },
+            { _id: 1, value: { e: 1 } },
+            { _id: 1, value: { f: 1 } },
+        ])
+            .pipe(ezs('reducing'))
+          .pipe(ezs('merging'))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(2, res.length);
+                assert.equal(1, res[0].value.a);
+                assert.equal(1, res[0].value.c);
+                assert.equal(1, res[0].value.e);
+                assert.equal(1, res[0].value.f);
+                assert.equal(1, res[1].value.b);
+                assert.equal(1, res[1].value.d);
+                done();
+            });
+    });
+
+    it('pair', (done) => {
+        const res = [];
+        from([
+            { a: ['x', 'b', 'z'] },
+            { a: ['t', 'b', 'z'] },
+            { a: ['t', 'c', 'z'] },
+            { a: ['y', 'd', 'z'] },
+            { a: ['x', 'b', 'z'] },
+        ])
+            .pipe(ezs('pair', { path: 'a' }))
+            .pipe(ezs('reducing'))
+            .pipe(ezs('summing'))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(10, res.length);
+                assert.equal(2, res[0].value);
+                done();
+            });
+    });
 });
