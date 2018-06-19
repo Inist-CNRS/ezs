@@ -14,7 +14,7 @@ export default function summing(data, feed) {
     if (id && val) {
         feed.write({
             _id: id,
-            value: val.reduce((sum, x) => sum + x),
+            value: val.reduce((sum, x) => sum + Number(x), 0),
         });
     }
     feed.end();
