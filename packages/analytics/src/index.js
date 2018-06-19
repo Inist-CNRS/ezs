@@ -1,6 +1,7 @@
 import count from './count';
 import distinct from './distinct';
 import graph from './graph';
+import pair from './pair';
 import groupby from './groupby';
 import keys from './keys';
 import maximizing from './maximizing';
@@ -13,6 +14,7 @@ export default {
     count,
     distinct,
     graph,
+    pair,
     groupby,
     keys,
     minimizing,
