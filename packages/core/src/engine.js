@@ -4,6 +4,14 @@ import Parameter from './parameter';
 import Feed from './feed';
 import Shell from './shell';
 
+function createErrorWith(error, index) {
+    const erm = error.stack.split('\n').shift();
+    const msg = `Processing item #${index} failed with ${erm}`;
+    const err = Error(msg);
+    Error.captureStackTrace(err, createErrorWith);
+    return err;
+}
+
 export default class Engine extends Transform {
     constructor(ezs, func, params, selector) {
         super({ objectMode: true });
@@ -38,7 +46,7 @@ export default class Engine extends Transform {
     execWith(chunk, done) {
         const push = (data) => {
             if (data instanceof Error) {
-                return this.pushError(data);
+                return this.push(createErrorWith(data, this.index));
             }
             return this.push(data);
         };
@@ -61,19 +69,8 @@ export default class Engine extends Transform {
             };
             this.func.call(this.scope, chunk, feed);
         } catch (e) {
-            this.pushError(e);
+            this.push(createErrorWith(e, this.index));
             done();
         }
     }
-
-    pushError(e) {
-        const msg = ' in item #'.concat(this.index);
-        const stack = e.stack.split('\n').slice(0, 2);
-        const err = new Error(stack[0].concat(msg).concat('\n').concat(stack[1]));
-        if (process.env.NODE_ENV !== 'production') {
-            console.error('ezs caught an', err.message);
-        }
-        this.push(err);
-    }
-
 }
