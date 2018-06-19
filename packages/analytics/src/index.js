@@ -8,6 +8,7 @@ import maximizing from './maximizing';
 import merging from './merging';
 import minimizing from './minimizing';
 import reducing from './reducing';
+import exploding from './exploding';
 import summing from './summing';
 
 export default {
@@ -21,5 +22,6 @@ export default {
     maximizing,
     merging,
     reducing,
+    exploding,
     summing,
 };
