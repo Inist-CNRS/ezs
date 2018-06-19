@@ -1,3 +1,3 @@
-export default function core(_id, value) {
-    return { _id, value };
+export default function core(id, value) {
+    return { id, value };
 }

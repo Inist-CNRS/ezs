@@ -1,3 +1,5 @@
+import get from 'lodash.get';
+import core from './core';
 /**
  * Take special `Object` like {_id, value} and replace value with the max of values
  *
@@ -9,13 +11,11 @@ export default function maximizing(data, feed) {
         feed.close();
         return;
     }
-    const id = data._id;
-    const val = data.value;
-    if (id && val) {
-        feed.write({
-            _id: id,
-            value: val.map(x => Number(x)).reduce((a, b) => (a > b ? a : b)),
-        });
+    const id = get(data, this.getParam('id', 'id'));
+    const value = get(data, this.getParam('value', 'value'));
+    const values = Array.isArray(value) ? value : [value];
+    if (id && value) {
+        feed.write(core(id, values.map(x => Number(x)).reduce((a, b) => (a > b ? a : b))));
     }
     feed.end();
 }

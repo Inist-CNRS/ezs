@@ -4,7 +4,7 @@ import core from './core';
  * Take `Object` object getting some fields with json path, and do ...
  *
  * @name groupby
- * @param {String} path
+ * @param {String} [path=_id] path to use form group by
  * @returns {Object}
  */
 export default function groupby(data, feed) {
@@ -12,7 +12,7 @@ export default function groupby(data, feed) {
         feed.close();
         return;
     }
-    let fields = this.getParam('path', []);
+    let fields = this.getParam('path', '_id');
     if (!Array.isArray(fields)) {
         fields = [fields];
     }
