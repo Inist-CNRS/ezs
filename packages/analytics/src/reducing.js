@@ -6,6 +6,9 @@
  * @returns {Object}
  */
 export default function reducing(data, feed) {
+    if (!this.stats) {
+        this.stats = {};
+    }
     if (this.isFirst()) {
         this.stats = { };
     }
