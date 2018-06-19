@@ -5,10 +5,14 @@ import Feed from './feed';
 import Shell from './shell';
 
 function createErrorWith(error, index) {
-    const erm = error.stack.split('\n').shift();
-    const msg = `Processing item #${index} failed with ${erm}`;
+    const stk = error.stack.split('\n');
+    const erm = stk.shift();
+    const msg = `Processing item #${index} failed with ${erm}\n\t${stk.slice(0, 10).join('\n\t')}`;
     const err = Error(msg);
     Error.captureStackTrace(err, createErrorWith);
+    if (process.env.NODE_ENV !== 'production') {
+        console.error('ezs caught an', err);
+    }
     return err;
 }
 
