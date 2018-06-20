@@ -138,7 +138,7 @@ describe('test', () => {
                 done();
             });
     });
-    it('groupby', (done) => {
+    it('pluck', (done) => {
         const res = [];
         from([
             { a: ['m', 'n', 'o'] },
@@ -148,7 +148,7 @@ describe('test', () => {
             { b: ['x', 'b', 'z'] },
             { c: ['x', 'b', 'z'] },
         ])
-            .pipe(ezs('groupby', { path: ['a', 'b'] }))
+            .pipe(ezs('pluck', { path: ['a', 'b'] }))
             .pipe(ezs('reducing'))
             .on('data', (chunk) => {
                 assert(typeof chunk === 'object');
@@ -309,7 +309,7 @@ describe('test', () => {
             { a: '3', b: '5' },
             { a: '3', b: '5' },
         ])
-            .pipe(ezs('groupby', { path: ['a', 'b'] }))
+            .pipe(ezs('pluck', { path: ['a', 'b'] }))
             .pipe(ezs('reducing'))
             .pipe(ezs('summing'))
             .on('data', (chunk) => {

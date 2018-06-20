@@ -4,6 +4,8 @@ import core from './core';
  * Take special `Object` like {_id, value} and replace value with the sum of values
  *
  * @name summing
+ * @param {String} [id=id] path to use for id
+ * @param {String} [value=value] path to use for value
  * @returns {Object}
  */
 export default function summing(data, feed) {

@@ -4,6 +4,8 @@ import core from './core';
  * Take special `Object` like {_id, value} and replace value with the min of values
  *
  * @name minimizing
+ * @param {String} [id=id] path to use for id
+ * @param {String} [value=value] path to use for value
  * @returns {Object}
  */
 export default function minimizing(data, feed) {

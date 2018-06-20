@@ -4,7 +4,8 @@ import core from './core';
  * Take `Object` group value of { _id, value } objectpath
  *
  * @name reducing
- * @param {undefined} none
+ * @param {String} [id=id] path to use for id
+ * @param {String} [value=value] path to use for value
  * @returns {Object}
  */
 export default function reducing(data, feed) {

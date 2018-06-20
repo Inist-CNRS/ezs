@@ -2,7 +2,7 @@ import count from './count';
 import distinct from './distinct';
 import graph from './graph';
 import pair from './pair';
-import groupby from './groupby';
+import pluck from './pluck';
 import keys from './keys';
 import maximizing from './maximizing';
 import merging from './merging';
@@ -16,7 +16,7 @@ export default {
     distinct,
     graph,
     pair,
-    groupby,
+    pluck,
     keys,
     minimizing,
     maximizing,

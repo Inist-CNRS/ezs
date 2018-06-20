@@ -1,11 +1,12 @@
 import get from 'lodash.get';
 import core from './core';
 /**
- * Take `Object` and ungroup values (must be an array) from { _id, value }
- * and throw all item in new object { _id, value }
+ * Take `Object` and take values with [value] path (must be an array)
+ * and throw object of each value. The new object is build with [id] and eac value.
  *
  * @name reducing
- * @param {undefined} none
+ * @param {String} [id=id] path to use for id
+ * @param {String} [value=value] path to use for value
  * @returns {Object}
  */
 export default function exploding(data, feed) {

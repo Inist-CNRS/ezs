@@ -1,13 +1,14 @@
 import get from 'lodash.get';
 import core from './core';
 /**
- * Take `Object` object getting some fields with json path, and do ...
+ * Take `Object` object getting value of fields (with json path)
+ * and throws a object of each value
  *
- * @name groupby
+ * @name pluck
  * @param {String} [path=_id] path to use form group by
  * @returns {Object}
  */
-export default function groupby(data, feed) {
+export default function pluck(data, feed) {
     if (this.isLast()) {
         feed.close();
         return;

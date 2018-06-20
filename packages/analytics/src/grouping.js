@@ -5,7 +5,8 @@ import core from './core';
  * Take `Object` like { _id, value } and reduce all value with the same id in single object
  *
  * @name reducing
- * @param {undefined} none
+ * @param {String} [id=id] path to use for id
+ * @param {String} [value=value] path to use for value
  * @returns {Object}
  */
 export default function reducing(data, feed) {
