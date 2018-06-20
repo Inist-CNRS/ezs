@@ -10,6 +10,9 @@ import minimizing from './minimizing';
 import reducing from './reducing';
 import exploding from './exploding';
 import summing from './summing';
+import groupingByEquality from './groupingByEquality';
+import groupingByLevenshtein from './groupingByLevenshtein';
+import groupingByHamming from './groupingByHamming';
 
 export default {
     count,
@@ -24,4 +27,7 @@ export default {
     reducing,
     exploding,
     summing,
+    groupingByEquality,
+    groupingByLevenshtein,
+    groupingByHamming,
 };
