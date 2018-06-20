@@ -383,15 +383,14 @@ describe('test', () => {
         ])
             .pipe(ezs('distinct', { path: 'a' }))
             .pipe(ezs('groupingByEquality'))
+            .pipe(ezs('summing'))
             .on('data', (chunk) => {
                 assert(typeof chunk === 'object');
                 res.push(chunk);
             })
             .on('end', () => {
                 assert.equal('lorem', res[0].id[0]);
-                assert.equal(1, res[0].value[0]);
-                assert.equal(1, res[0].value[1]);
-                assert.equal(2, res[0].value.length);
+                assert.equal(2, res[0].value);
                 assert.equal(7, res.length);
                 done();
             });
@@ -413,15 +412,14 @@ describe('test', () => {
             .pipe(ezs('groupingByLevenshtein', {
                 distance: 1,
             }))
+            .pipe(ezs('summing'))
             .on('data', (chunk) => {
                 assert(typeof chunk === 'object');
                 res.push(chunk);
             })
             .on('end', () => {
                 assert.equal('lorem', res[0].id[0]);
-                assert.equal(1, res[0].value[0]);
-                assert.equal(1, res[0].value[1]);
-                assert.equal(5, res[0].value.length);
+                assert.equal(5, res[0].value);
                 assert.equal(4, res.length);
                 done();
             });
@@ -444,7 +442,6 @@ describe('test', () => {
                 distance: 1,
             }))
             .pipe(ezs('summing'))
-            .pipe(ezs('debug'))
             .on('data', (chunk) => {
                 assert(typeof chunk === 'object');
                 res.push(chunk);
@@ -452,7 +449,6 @@ describe('test', () => {
             .on('end', () => {
                 assert.equal('lorem', res[0].id[0]);
                 assert.equal(5, res[0].value);
-                assert.equal(5, res[0].value.length);
                 assert.equal(3, res.length);
                 done();
             });
