@@ -3,6 +3,14 @@ import util from 'util';
 import JSONStream from 'JSONStream';
 import JSONezs from './json';
 
+/**
+ * Take `Object` and add new field
+ *
+ * @name assign
+ * @param {String} [path] path of the new field
+ * @param {String} [value] value of the new field
+ * @returns {Object}
+ */
 function assign(data, feed) {
     if (this.isLast()) {
         return feed.send(data);
@@ -32,6 +40,14 @@ function assign(data, feed) {
     return feed.send(data);
 }
 
+/**
+ * Take `Object` and create a new object with some fields
+ *
+ * @name replace
+ * @param {String} [path] path of the new field
+ * @param {String} [value] value of the new field
+ * @returns {Object}
+ */
 function replace(data, feed) {
     if (this.isLast()) {
         return feed.send(data);
@@ -61,6 +77,14 @@ function replace(data, feed) {
     return feed.send(obj);
 }
 
+/**
+ * Take `Object` , print it and throw the same object
+ *
+ * @name debug
+ * @param {String} [level=log] console level : log or error
+ * @param {String} [text=valueOf] text before the dump
+ * @returns {Object}
+ */
 function debug(data, feed) {
     if (this.isLast()) {
         return feed.send(data);
@@ -75,15 +99,34 @@ function debug(data, feed) {
     return feed.send(data);
 }
 
+/**
+ * Take `Object` and throw the same object
+ *
+ * @name transit
+ * @returns {Object}
+ */
 function transit(data, feed) {
     return feed.send(data);
 }
 
+/**
+ * Take the first `Object` and close the feed
+ *
+ * @name shift
+ * @returns {Object}
+ */
 function shift(data, feed) {
     feed.write(data);
     feed.close();
 }
 
+/**
+ * Take `Object` and throw each value of fields
+ *
+ * @name extract
+ * @param {String} [path] path of field to extract
+ * @returns {Object}
+ */
 function extract(data, feed) {
     if (this.isLast()) {
         return feed.send(data);
@@ -104,6 +147,14 @@ function extract(data, feed) {
     return feed.send(values);
 }
 
+/**
+ * Take `Object` and throw the same object but keep only
+ * spefici fields
+ *
+ * @name keep
+ * @param {String} [path] path of field to keep
+ * @returns {Object}
+ */
 function keep(data, feed) {
     if (this.isLast()) {
         return feed.send(data);
@@ -117,6 +168,12 @@ function keep(data, feed) {
     return feed.send(obj);
 }
 
+/**
+ * Take all `String`, concat them and thow just one
+ *
+ * @name concat
+ * @returns {String}
+ */
 function concat(data, feed) {
     if (this.buffer === undefined) {
         this.buffer = '';
@@ -129,6 +186,12 @@ function concat(data, feed) {
     return feed.end();
 }
 
+/**
+ * Take all `String`, throw `Object` builded by JSON.parse
+ *
+ * @name json
+ * @returns {String}
+ */
 function json(data, feed) {
     if (this.isLast()) {
         return feed.send(data);
@@ -143,6 +206,12 @@ function jsonezs(data, feed) {
     return feed.send(JSONezs.parse(data));
 }
 
+/**
+ * Take all `Object`, throw encoded `String`
+ *
+ * @name encoder
+ * @returns {String}
+ */
 function encoder(data, feed) {
     let output = '';
     if (this.isFirst()) {
@@ -162,6 +231,12 @@ function encoder(data, feed) {
     feed.end();
 }
 
+/**
+ * Take all `String`, throw decoded `Object`
+ *
+ * @name encoder
+ * @returns {Object}
+ */
 function decoder(data, feed) {
     if (!this.handle) {
         const separator = this.getParam('separator', '*');
