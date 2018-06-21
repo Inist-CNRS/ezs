@@ -50,12 +50,12 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
-    "ezs": "^4.7.3",
+    "ezs": "^5.3.7",
     "from": "^0.1.7",
     "istanbul": "^0.4.5",
     "mocha": "^3.5.3"
   },
   "peerDependencies": {
-    "ezs": "^4.0.0"
+    "ezs": "^5.3.7"
   }
 }
