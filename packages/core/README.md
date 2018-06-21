@@ -45,7 +45,6 @@ Each statement function have its own scope and can access to few methods :
 -   this.isFirst()
 -   this.getIndex()
 -   this.getParam(name, defaultValue)
--   this.getParams()
 
 ### Output Object
 
@@ -74,11 +73,65 @@ Converts a transform stream with existing function or adhoc function.
 Adding bundle of statements. see the avaible modules here : <https://www.npmjs.com/browse/keyword/ezs>
 
 ```javascript
-	var ezs = require('ezs'),
+	import ezs from 'ezs';
+	import basics from 'ezs-basics';
+	import files from 'ezs-files';
 
-	ezs.use(require('ezs-basics'));
-	ezs.use(require('ezs-files'));
+	ezs.use(basics);
+	ezs.use(files);
 ```
+
+## ezs.config = (name : String, options : Object)
+
+To set globaly a statement parameter.
+
+## ezs.pipeline = (commands, options : Object)
+
+Launch a serie of statements.
+
+## ezs.dispatch = (commands, options : Object)
+
+Launch, through a server, a serie of statements.
+
+## ezs.metaString = (commands: String, options : Object)
+
+Parse an .ini string to extract global keys and values.
+
+## ezs.metaFile = (filename : String, options : Object)
+
+Parse an .ini file to extract global keys and values.
+
+## ezs.parseString = (commands : String)
+
+Parse an .ini string and return Object contains a serie of statements
+
+## ezs.fromString = (commands, options : Object)
+
+Parse an .ini string and launch a serie of statements
+
+## ezs.parseFile = (filename : String)
+
+Parse an .ini file and return Object contains a serie of statements
+
+## ezs.fromFile(filename : String, options : Object)
+
+Parse an .ini file and launch a serie of statements
+
+## ezs.catch(func : Function)
+
+catch Error in NodeJS pipeline
+
+## ezs.toBuffer(options : Object)
+
+get chunk of in NodeJS pipeline and send Buffer of the chunk
+
+## ezs.createServer()
+
+Launch a server for ezs.dispatch
+
+## ezs.createCluster()
+
+Launch a cluster for ezs.dispatch
 
 # Statements
 

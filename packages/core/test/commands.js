@@ -15,7 +15,7 @@ describe('analsye commands', () => {
             step = 2
 
 
-            [increment?autonom]
+            [increment?dispatch]
             step = 3
 
             [increment]

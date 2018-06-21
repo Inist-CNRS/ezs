@@ -58,7 +58,6 @@ export default class Engine extends Transform {
         this.scope.isFirst = () => (this.index === 1);
         this.scope.getIndex = () => this.index;
         this.scope.isLast = () => (chunk === null);
-        this.scope.getParams = () => this.params;
         this.scope.ezs = this.ezs;
 
         try {

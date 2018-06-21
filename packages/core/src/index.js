@@ -13,6 +13,7 @@ import IsolatedStore from './isolated-store';
 import SharedStore from './shared-store';
 import Meta from './meta';
 import Server from './server';
+import { M_SINGLE, M_DISPATCH, M_NORMAL, M_CONDITIONAL } from './constants';
 
 const ezs = (name, opts) => new Engine(ezs, Statement.get(ezs, name, opts), opts);
 const ezsPath = [process.cwd()];
@@ -35,17 +36,17 @@ ezs.use = plugin => Statement.set(ezs, plugin);
 ezs.addPath = p => ezsPath.push(p);
 ezs.getPath = () => ezsPath;
 ezs.command = (stream, command) => {
-    const mode = command.mode || 'normal';
+    const mode = command.mode || M_NORMAL;
     if (!command.name) {
         throw new Error(`Bad command : ${command.name}`);
     }
-    if (mode === 'normal' || mode === 'autonom') {
+    if (mode === M_NORMAL || mode === M_DISPATCH) {
         return stream.pipe(ezs.all(command.name, command.args));
     }
-    if (mode === 'with') {
+    if (mode === M_CONDITIONAL) {
         return stream.pipe(ezs.with(command.test, command.name, command.args));
     }
-    if (mode === 'single') {
+    if (mode === M_SINGLE) {
         return stream.pipe(ezs.single(command.name, command.args));
     }
     throw new Error(`Bad mode: ${mode}`);

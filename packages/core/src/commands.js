@@ -1,4 +1,5 @@
 import assert from 'assert';
+import { M_DISPATCH } from './constants';
 
 export default class Commands {
     constructor(commands) {
@@ -19,7 +20,7 @@ export default class Commands {
         this.commands
             .filter(c => c.name !== 'use')
             .forEach((c) => {
-                const currentMode = c.mode === 'autonom' ? 'dispatch' : 'pipeline';
+                const currentMode = c.mode === M_DISPATCH ? 'dispatch' : 'pipeline';
                 if (currentMode !== previousMode) {
                     if (currentMode === 'dispatch' || first) {
                         newCmds.push({

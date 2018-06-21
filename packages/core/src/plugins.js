@@ -19,23 +19,17 @@ function assign(data, feed) {
     if (!test) {
         return feed.send(data);
     }
-    const params = this.getParams();
-
-    // check if missing value
-    if (Array.isArray(params.path) && !Array.isArray(params.value)) {
-        params.value = [params.value];
-    }
-    const keys = this.getParam('path', []);
-    const vals = this.getParam('value', []);
-
-    if (Array.isArray(keys)) {
-        const values = _.take(vals, keys.length);
-        const assets = _.zipObject(keys, values);
+    const path = this.getParam('path', []);
+    const value = this.getParam('value');
+    const vals = Array.isArray(path) && !Array.isArray(value) ? [value] : value;
+    if (Array.isArray(path)) {
+        const values = _.take(vals, path.length);
+        const assets = _.zipObject(path, values);
         Object.keys(assets).forEach((key) => {
             _.set(data, key, assets[key]);
         });
     } else {
-        _.set(data, keys, vals);
+        _.set(data, path, vals);
     }
     return feed.send(data);
 }
@@ -56,23 +50,18 @@ function replace(data, feed) {
     if (!test) {
         return feed.send(data);
     }
-    const params = this.getParams();
-
-    // check if missing value
-    if (Array.isArray(params.path) && !Array.isArray(params.value)) {
-        params.value = [params.value];
-    }
-    const keys = this.getParam('path', []);
-    const vals = this.getParam('value', []);
+    const path = this.getParam('path', []);
+    const value = this.getParam('value');
+    const vals = Array.isArray(path) && !Array.isArray(value) ? [value] : value;
     const obj = {};
-    if (Array.isArray(keys)) {
-        const values = _.take(vals, keys.length);
-        const assets = _.zipObject(keys, values);
+    if (Array.isArray(path)) {
+        const values = _.take(vals, path.length);
+        const assets = _.zipObject(path, values);
         Object.keys(assets).forEach((key) => {
             _.set(obj, key, assets[key]);
         });
     } else {
-        _.set(obj, keys, vals);
+        _.set(obj, path, vals);
     }
     return feed.send(obj);
 }
