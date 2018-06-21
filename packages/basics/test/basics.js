@@ -111,6 +111,95 @@ describe('test', () => {
                 done();
             });
     });
+    it('CSVObject #2', (done) => {
+        const res = [];
+        const cmd = `
+        [CSVParse]
+        [CSVObject]
+        `;
+        from([
+            'a,b\nc,d\n',
+        ])
+            .pipe(ezs.fromString(cmd))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert(res[0].a);
+                assert.equal('c', res[0].a);
+                assert.equal(1, res.length);
+
+                done();
+            });
+    });
+    it('CSVObject #3', (done) => {
+        const res = [];
+        const cmd = `
+        [CSVParse]
+        separator = \t
+        quote = \b
+        [CSVObject]
+        `;
+        const exe = ezs.parseString(cmd);
+        from([
+            'a\tb\nc\td\n',
+        ])
+            .pipe(ezs.pipeline(exe))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert(res[0].a);
+                assert.equal('c', res[0].a);
+                assert.equal(1, res.length);
+                done();
+            });
+    });
+    it('CSVObject #5', (done) => {
+        const res = [];
+        const cmd = `
+        [CSVParse]
+        separator = \t
+        quote = "
+        [CSVObject]
+        `;
+        const exe = ezs.parseString(cmd);
+        from([
+            '"a"\t"b"\n"c"\t"d"\n',
+        ])
+            .pipe(ezs.pipeline(exe))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert(res[0].a);
+                assert.equal('c', res[0].a);
+                assert.equal(1, res.length);
+                done();
+            });
+    });
+
+    it('CSVObject #4', (done) => {
+        const res = [];
+        from([
+            'a\tb\nc\td\n',
+        ])
+            .pipe(ezs('CSVParse', { separator: '\t', quote: '\b' }))
+            .pipe(ezs('CSVObject'))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert(res[0].a);
+                assert.equal('c', res[0].a);
+                assert.equal(1, res.length);
+                done();
+            });
+    });
     it('OBJStandardize t#1', (done) => {
         from([
             {
