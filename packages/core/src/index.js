@@ -39,7 +39,7 @@ ezs.command = (stream, command) => {
     if (!command.name) {
         throw new Error(`Bad command : ${command.name}`);
     }
-    if (mode === 'normal' || mode === 'divisible') {
+    if (mode === 'normal' || mode === 'autonom') {
         return stream.pipe(ezs.all(command.name, command.args));
     }
     if (mode === 'with') {
