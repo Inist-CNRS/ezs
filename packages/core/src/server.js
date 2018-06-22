@@ -5,6 +5,7 @@ import http from 'http';
 import Parameter from './parameter';
 import JSONezs from './json';
 import config from './config';
+import { DEBUG } from './constants';
 
 const signals = ['SIGINT', 'SIGTERM'];
 const numCPUs = os.cpus().length;
@@ -38,6 +39,7 @@ function createServer(ezs, store) {
                 request
                     .pipe(ezs('concat'))
                     .pipe(ezs(register(store)))
+                    .pipe(ezs.catch(console.error))
                     .pipe(response);
             } else if (url.match(/^\/[a-f0-9]{40}$/i) && method === 'POST') {
                 store.get(cmdid).then((cmds) => {
@@ -46,12 +48,12 @@ function createServer(ezs, store) {
                         const commands = JSONezs.parse(cmds);
                         processor = ezs.pipeline(commands);
                     } catch (e) {
-                        console.log(`server cannot execute ${cmdid}`, e);
+                        DEBUG(`Server cannot execute ${cmdid}`, e);
                         response.writeHead(400);
                         response.end();
                         return;
                     }
-                    console.log(`server will execute ${cmdid}`);
+                    DEBUG(`Server will execute ${cmdid}`);
                     response.writeHead(200);
                     request
                         .pipe(ezs('decoder'))
@@ -84,7 +86,7 @@ function createServer(ezs, store) {
         })
         .listen(config.port);
     signals.forEach(signal => process.on(signal, () => server.close(() => process.exit(0))));
-    // console.log(`PID ${process.pid} listening on 31976`);
+    DEBUG(`PID ${process.pid} listening on 31976`);
     return server;
 }
 

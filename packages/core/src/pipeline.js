@@ -1,5 +1,6 @@
 import assert from 'assert';
 import { PassThrough, Duplex } from 'stream';
+import { DEBUG } from './constants';
 
 export default class Pipeline extends Duplex {
     constructor(ezs, commands, options) {
@@ -25,7 +26,7 @@ export default class Pipeline extends Duplex {
             this.push(null);
         });
         this.tubin.on('error', (e) => {
-            console.error('Unlikely error on the Pipeline', e);
+            DEBUG('Unlikely error on the Pipeline', e);
         });
         this.tubout.pause();
     }

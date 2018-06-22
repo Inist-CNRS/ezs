@@ -1,4 +1,5 @@
 import path from 'path';
+import { DEBUG } from './constants';
 
 const pluginsList = {};
 
@@ -36,15 +37,21 @@ function get(ezs, plugin, opts) {
                         .shift();
                     const plugName3 = resolve(name);
                     if (plugName1) {
+                        DEBUG(`Using '${name}' from ${plugName1}`);
                         // eslint-disable-next-line
                         ezs.use(require(plugName1));
                     } else if (plugName2) {
+                        DEBUG(`Using '${name}' from ${plugName2}`);
                         // eslint-disable-next-line
                         ezs.use(require(plugName2));
                     } else if (plugName3) {
+                        DEBUG(`Using '${name}' from ${plugName1}`);
                         // eslint-disable-next-line
                         ezs.use(require(plugName3));
                     } else {
+                        DEBUG(`Unable to find use '${name}' from ${plugName1}`);
+                        DEBUG(`Unable to find use '${name}' from ${plugName2}`);
+                        DEBUG(`Unable to find use '${name}' from ${plugName3}`);
                         throw new Error(
                             `'${name}' is not loaded. It was not found (try to install it).`,
                         );

@@ -3,6 +3,7 @@ import { Transform } from 'stream';
 import Parameter from './parameter';
 import Feed from './feed';
 import Shell from './shell';
+import { DEBUG } from './constants';
 
 function createErrorWith(error, index) {
     const stk = error.stack.split('\n');
@@ -10,9 +11,7 @@ function createErrorWith(error, index) {
     const msg = `Processing item #${index} failed with ${erm}\n\t${stk.slice(0, 10).join('\n\t')}`;
     const err = Error(msg);
     Error.captureStackTrace(err, createErrorWith);
-    if (process.env.NODE_ENV !== 'production') {
-        console.error('ezs caught an', err);
-    }
+    DEBUG('Caught an', err);
     return err;
 }
 

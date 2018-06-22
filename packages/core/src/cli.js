@@ -1,10 +1,11 @@
 import fs from 'fs';
 import { PassThrough } from 'stream';
 import yargs from 'yargs';
+import debug from 'debug';
 import ezs from '.';
 import Commands from './commands';
 import { version } from '../package.json';
-
+import { DEBUG } from './constants';
 
 export default function cli(printer) {
     const args = yargs
@@ -15,7 +16,7 @@ export default function cli(printer) {
             verbose: {
                 alias: 'v',
                 default: false,
-                describe: 'Print some informations',
+                describe: 'Enable debug mode with DEBUG=ezs',
                 type: 'boolean',
             },
             daemon: {
@@ -53,7 +54,9 @@ export default function cli(printer) {
             argv.server = '127.0.0.1';
         }
     }
-
+    if (argv.verbose) {
+        debug.enable('ezs');
+    }
 
     if (!argv.daemon && !firstarg) {
         yargs.showHelp();
@@ -84,16 +87,12 @@ export default function cli(printer) {
 
         if (argv.env) {
             // Use Env vars as INPUT
-            if (argv.verbose) {
-                printer.error('Reading environement variables...');
-            }
+            DEBUG('Reading environement variables...');
             input.write(process.env);
             input.end();
         } else {
             // Use STDIN as INPUT
-            if (argv.verbose) {
-                printer.error('Reading standard input...');
-            }
+            DEBUG('Reading standard input...');
             input.resume();
             input.setEncoding('utf8');
         }

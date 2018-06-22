@@ -5,6 +5,7 @@ import pMap from 'p-map';
 import mergeStream from 'merge-stream';
 import Parameter from './parameter';
 import config from './config';
+import { DEBUG } from './constants';
 
 const parseAddress = (srvr) => {
     if (typeof srvr !== 'string') {
@@ -49,7 +50,7 @@ const registerTo = ({ hostname, port }, commands) =>
             res.on('end', () => {
                 try {
                     const result = JSON.parse(requestResponse);
-                    console.log(
+                    DEBUG(
                         `Register ${hostname}:${port} with ${result}.`,
                     );
                     resolve({
@@ -119,7 +120,7 @@ export default class Dispatch extends Duplex {
             this.push(null);
         });
         this.tubout.on('error', (e) => {
-            console.error('Unlikely error', e);
+            DEBUG('Unlikely error', e);
         });
         this.tubout.pause();
 
