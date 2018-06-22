@@ -100,13 +100,16 @@ export default function cli(printer) {
         const servers = Array.isArray(argv.server) ? argv.server : [argv.server];
         let stream1;
         if (argv.server) {
+            DEBUG('Connecting to server...');
             const runplan = cmds.analyse();
+            const usecmds = cmds.getUseCommands();
+            const stream0 = usecmds.reduce(ezs.command, input);
             stream1 = runplan.reduce((stream, section) => {
                 if (section.func === 'pipeline') {
                     return stream.pipe(ezs.pipeline(section.cmds));
                 }
                 return stream.pipe(ezs.dispatch(section.cmds, servers));
-            }, input);
+            }, stream0);
         } else {
             stream1 = input.pipe(ezs.pipeline(cmds.get()));
         }
