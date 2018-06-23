@@ -1,0 +1,51 @@
+{
+    "name": "ezs-lodex",
+    "version": "0.0.0",
+    "description": "ezs dedicated statements for Lodex",
+    "directories": {
+        "test": "test"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Inist-CNRS/ezs-lodex.git"
+    },
+    "keywords": [
+        "ezs"
+    ],
+    "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Inist-CNRS/ezs-lodex/issues"
+    },
+    "homepage": "https://github.com/Inist-CNRS/ezs-lodex#readme",
+    "dependencies": {},
+    "main": "./lib/index.js",
+    "scripts": {
+        "test": "istanbul test ./node_modules/.bin/_mocha -- -R spec",
+        "doc": "documentation readme package.json src/* --section=Statements",
+        "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
+        "build": "babel src --out-dir lib",
+        "prepublish": "npm run build",
+        "pretest": "npm run build",
+        "preversion": "npm run doc",
+        "postversion": "git push && git push --tags"
+    },
+    "devDependencies": {
+        "babel-cli": "^6.24.1",
+        "babel-eslint": "^7.2.1",
+        "babel-preset-env": "1.7.0",
+        "babel-preset-stage-3": "^6.24.1",
+        "documentation": "5.3.5",
+        "eslint": "^3.19.0",
+        "eslint-config-airbnb": "^14.1.0",
+        "eslint-plugin-import": "^2.2.0",
+        "expect": "23.1.0",
+        "from": "^0.1.7",
+        "istanbul": "^0.4.5",
+        "mocha": "^3.5.3"
+    },
+    "peerDependencies": {
+        "ezs": "^5.4.2",
+        "ezs-basics": "^3.6.2"
+    }
+}
