@@ -79,7 +79,7 @@ const connectTo = (ezs, serverOptions, funnel) =>
     new Promise((resolve, reject) => {
         const handle = http.request(serverOptions, (res) => {
             if (res.statusCode === 200) {
-                funnel.add(res);
+                funnel.add(res.pipe(ezs('decoder')));
             } else {
                 funnel.emit('error', new Error(
                     `${serverOptions.hostname}:${
@@ -108,7 +108,7 @@ export default class Dispatch extends Duplex {
 
         this.tubin = new PassThrough({ objectMode: true });
         this.tubout = this.tubin
-            .pipe(ezs('decoder'))
+            .pipe(ezs('transit'))
         ;
 
         this.on('finish', () => {
