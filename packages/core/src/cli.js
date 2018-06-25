@@ -2,12 +2,13 @@ import fs from 'fs';
 import { PassThrough } from 'stream';
 import yargs from 'yargs';
 import debug from 'debug';
+import { DEBUG } from './constants';
 import ezs from '.';
+import config from './config';
 import Commands from './commands';
 import { version } from '../package.json';
-import { DEBUG } from './constants';
 
-export default function cli(printer) {
+export default function cli(errlog) {
     const args = yargs
         .env('EZS')
         .usage('Usage: $0 [options] [<file>]')
@@ -47,15 +48,18 @@ export default function cli(printer) {
 
     const argv = args.argv;
     const firstarg = argv._.shift();
+    const port =  argv.port;
+    config.port = port;
+
+    if (argv.verbose) {
+        debug.enable('ezs');
+    }
 
     if (argv.daemon) {
-        ezs.createCluster();
+        ezs.createCluster(port);
         if (!argv.server) {
             argv.server = '127.0.0.1';
         }
-    }
-    if (argv.verbose) {
-        debug.enable('ezs');
     }
 
     if (!argv.daemon && !firstarg) {
@@ -69,13 +73,13 @@ export default function cli(printer) {
         try {
             file = fs.realpathSync(firstarg);
         } catch (e) {
-            printer.error(`${firstarg} doesn't exists.`);
+            errlog(`${firstarg} doesn't exists.`);
             yargs.showHelp();
             process.exit(1);
         }
 
         if (!fs.statSync(file).isFile()) {
-            printer.error(`${firstarg} isn't a file.`);
+            errlog(`${firstarg} isn't a file.`);
             yargs.showHelp();
             process.exit(1);
         }

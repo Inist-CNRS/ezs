@@ -2,10 +2,10 @@ import os from 'os';
 import crypto from 'crypto';
 import cluster from 'cluster';
 import http from 'http';
+import { DEBUG } from './constants';
 import Parameter from './parameter';
 import JSONezs from './json';
 import config from './config';
-import { DEBUG } from './constants';
 
 const signals = ['SIGINT', 'SIGTERM'];
 const numCPUs = os.cpus().length;
@@ -48,12 +48,12 @@ function createServer(ezs, store) {
                         const commands = JSONezs.parse(cmds);
                         processor = ezs.pipeline(commands);
                     } catch (e) {
-                        DEBUG(`Server cannot execute ${cmdid}`, e);
+                        DEBUG(`Server cannot execute statements with ID: ${cmdid}`, e);
                         response.writeHead(400);
                         response.end();
                         return;
                     }
-                    DEBUG(`Server will execute ${cmdid}`);
+                    DEBUG(`Server will execute statements with ID: ${cmdid}`);
                     response.writeHead(200);
                     request
                         .pipe(ezs('decoder'))
@@ -86,7 +86,7 @@ function createServer(ezs, store) {
         })
         .listen(config.port);
     signals.forEach(signal => process.on(signal, () => server.close(() => process.exit(0))));
-    DEBUG(`PID ${process.pid} listening on 31976`);
+    DEBUG(`Server starting with PID ${process.pid} and listening on port ${config.port}`);
     return server;
 }
 

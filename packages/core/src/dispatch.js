@@ -38,6 +38,7 @@ const registerTo = ({ hostname, port }, commands) =>
                 'X-Parameter': Parameter.pack(),
             },
         };
+        DEBUG(`Try to connect to server ${hostname}:${port}`);
         const req = http.request(requestOptions, (res) => {
             let requestResponse = '';
             res.setEncoding('utf8');
@@ -51,7 +52,7 @@ const registerTo = ({ hostname, port }, commands) =>
                 try {
                     const result = JSON.parse(requestResponse);
                     DEBUG(
-                        `Register ${hostname}:${port} with ${result}.`,
+                        `The server has registered all statements with ID: ${result}`,
                     );
                     resolve({
                         hostname,

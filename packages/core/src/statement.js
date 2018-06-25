@@ -26,6 +26,7 @@ function get(ezs, plugin, opts) {
                     names = [names];
                 }
                 names.forEach((name) => {
+                    const before1 = Object.keys(pluginsList);
                     const plugName1 = resolve(
                         'ezs-'.concat(name.replace(/^ezs-/, '')),
                     );
@@ -55,6 +56,11 @@ function get(ezs, plugin, opts) {
                         throw new Error(
                             `'${name}' is not loaded. It was not found (try to install it).`,
                         );
+                    }
+                    const after1 = Object.keys(pluginsList);
+                    const diff1 = after1.filter((item) => before1.indexOf(item) === -1);
+                    if (diff1.length > 0) {
+                        DEBUG(`These statements are registered: ${diff1.join(',')}`, );
                     }
                 });
             }
