@@ -13,6 +13,7 @@ import summing from './summing';
 import groupingByEquality from './groupingByEquality';
 import groupingByLevenshtein from './groupingByLevenshtein';
 import groupingByHamming from './groupingByHamming';
+import topics from './topics';
 
 export default {
     count,
@@ -30,4 +31,5 @@ export default {
     groupingByEquality,
     groupingByLevenshtein,
     groupingByHamming,
+    topics,
 };

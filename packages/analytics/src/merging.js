@@ -1,5 +1,17 @@
 import get from 'lodash.get';
+import mergeWith from 'lodash.mergewith';
 import core from './core';
+
+
+function customizer(objValue, srcValue) {
+    if (Array.isArray(objValue)) {
+        return objValue.concat(srcValue).filter(x => x != null);
+    } else if (objValue) {
+        return [].concat([objValue, srcValue]);
+    }
+    return objValue;
+}
+
 /**
  * Take special `Object` like {_id, value} and replace value with the merge of values
  *
@@ -17,10 +29,11 @@ export default function merging(data, feed) {
     const value = get(data, this.getParam('value', 'value'));
     const values = Array.isArray(value) ? value : [value];
     if (id && value) {
-        feed.write(core(id,
-            values
-                .filter(k => typeof k === 'object')
-                .reduce((prev, cur) => Object.assign(prev, cur), {})));
+        const vls = values
+            .filter(k => typeof k === 'object')
+            .reduce((prev, cur) => mergeWith(prev, cur, customizer), {});
+        Object.keys(vls).forEach(key => vls[key] === undefined && delete vls[key]);
+        feed.write(core(id, vls));
     }
     feed.end();
 }

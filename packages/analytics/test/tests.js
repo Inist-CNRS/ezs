@@ -228,7 +228,7 @@ describe('test', () => {
             });
     });
 
-    it('merging', (done) => {
+    it('merging #1', (done) => {
         const res = [];
         from([
             { id: 1, value: { a: 1 } },
@@ -255,6 +255,61 @@ describe('test', () => {
                 done();
             });
     });
+
+    it('merging #2', (done) => {
+        const commands = `
+            [replace]
+            path = id
+            value = get('a')
+            path = value.b1
+            value = get('b1')
+            path = value.b2
+            value = get('b2')
+            path = value.c1
+            value = get('c1')
+            path = value.c2
+            value = get('c2')
+
+            [reducing]
+            id = id
+            value = value
+
+            [merging]
+
+        `;
+        const res = [];
+        from([
+            { a: 'lorem', b1: 'consectetur', c1: 1 },
+            { a: 'lorem', b1: 'adipiscing', c1: 4 },
+            { a: 'lorem', b1: 'dolor', c1: 2 },
+            { a: 'ipsum', b1: 'consectetur', c1: 3 },
+            { a: 'ipsum', b1: 'adipiscing', c1: 5 },
+            // -----------------------
+            { a: 'lorem', b2: '2018', c2: 1 },
+            { a: 'lorem', b2: '2016', c2: 2 },
+            { a: 'lorem', b2: '2015', c2: 3 },
+            { a: 'ipsum', b2: '2017', c2: 5 },
+            { a: 'ipsum', b2: '2018', c2: 3 },
+            { a: 'ipsum', b2: '2015', c2: 2 },
+
+        ])
+            .pipe(ezs.fromString(commands))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(2, res.length);
+                assert.equal('lorem', res[0].id);
+                assert.equal(3, res[0].value.b1.length);
+                assert.equal(3, res[0].value.b2.length);
+                assert.equal('ipsum', res[1].id);
+                assert.equal(2, res[1].value.b1.length);
+                assert.equal(3, res[1].value.b2.length);
+                done();
+            });
+    });
+
 
     it('pair', (done) => {
         const res = [];
@@ -320,6 +375,55 @@ describe('test', () => {
                 assert.equal(2, res.length);
                 assert.equal(10, res[0].value);
                 assert.equal(20, res[1].value);
+                done();
+            });
+    });
+
+    it.skip('exploding', (done) => {
+        const commands = `
+            [exploding]
+            id = id
+            value = value
+
+            [assign]
+            path = value.id
+            value = get('id')
+
+            [extract]
+            path = value
+
+            [debug]
+
+        `;
+        const res = [];
+        from([
+            { id: 'lorem',
+                value: [
+                    { b1: 'consectetur', b2: undefined, c1: 1, c2: undefined },
+                    { b1: 'adipiscing', b2: undefined, c1: 4, c2: undefined },
+                    { b1: 'dolor', b2: undefined, c1: 2, c2: undefined },
+                    { b1: undefined, b2: '2018', c1: undefined, c2: 1 },
+                    { b1: undefined, b2: '2016', c1: undefined, c2: 2 },
+                    { b1: undefined, b2: '2015', c1: undefined, c2: 3 },
+                ],
+            },
+            { id: 'ipsum',
+                value: [
+                    { b1: 'consectetur', b2: undefined, c1: 3, c2: undefined },
+                    { b1: 'adipiscing', b2: undefined, c1: 5, c2: undefined },
+                    { b1: undefined, b2: '2017', c1: undefined, c2: 5 },
+                    { b1: undefined, b2: '2018', c1: undefined, c2: 3 },
+                    { b1: undefined, b2: '2015', c1: undefined, c2: 2 },
+                ],
+            },
+        ])
+            .pipe(ezs.fromString(commands))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(2, res.length);
                 done();
             });
     });
