@@ -28,6 +28,9 @@ process.stdin
 -   [reducing](#reducing)
 -   [reducing](#reducing-1)
 -   [reducing](#reducing-2)
+-   [groupingByEquality](#groupingbyequality)
+-   [groupingByHamming](#groupingbyhamming)
+-   [groupingByLevenshtein](#groupingbylevenshtein)
 -   [keys](#keys)
 -   [maximizing](#maximizing)
 -   [mergin](#mergin)
@@ -89,7 +92,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ## reducing
 
-Take `Object` like { \_id, value } and reduce all value with the same id in single object
+Take `Object` group value of { \_id, value } objectpath
 
 **Parameters**
 
@@ -100,12 +103,48 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ## reducing
 
-Take `Object` group value of { \_id, value } objectpath
+Take `Object` and take values with [value] path (must be an array)
 
 **Parameters**
 
 -   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## groupingByEquality
+
+Take `Object` like { \_id, value } and reduce all value with the same id in single object
+
+**Parameters**
+
+-   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## groupingByHamming
+
+Take `Object` like { \_id, value } and reduce all value with
+ID which have the same Hamming distance in single object
+
+**Parameters**
+
+-   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## groupingByLevenshtein
+
+Take `Object` like { \_id, value } and reduce all value with
+ID which have the same Levenshtein distance in single object
+
+**Parameters**
+
+-   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
+-   `distance` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** minimal levenshtein distance to have a same id (optional, default `1`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
