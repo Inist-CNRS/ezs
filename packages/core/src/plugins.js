@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import util from 'util';
-import JSONStream from 'JSONStream';
 import JSONezs from './json';
 
 /**
@@ -202,48 +201,10 @@ function jsonezs(data, feed) {
  * @returns {String}
  */
 function encoder(data, feed) {
-    let output = '';
-    if (this.isFirst()) {
-        output = '[';
-    } else {
-        output = ',';
+    if (this.isLast()) {
+        return feed.send(data);
     }
-    if (!this.isLast()) {
-        feed.write(output.concat(JSON.stringify(data, null, null)));
-    } else if (this.isLast() && this.getIndex() > 0) {
-        feed.write(']');
-        feed.close();
-    } else {
-        feed.write('[]');
-        feed.close();
-    }
-    feed.end();
-}
-
-/**
- * Take all `String`, throw decoded `Object`
- *
- * @name encoder
- * @returns {Object}
- */
-function decoder(data, feed) {
-    if (!this.handle) {
-        const separator = this.getParam('separator', '*');
-        this.handle = JSONStream.parse(separator);
-        this.handle.on('data', obj => feed.write(obj));
-    }
-    if (!this.isLast()) {
-        if (!this.handle.write(data)) {
-            this.handle.once('drain', () => feed.end());
-        } else {
-            process.nextTick(() => feed.end());
-        }
-    } else {
-        this.handle.end();
-        process.nextTick(() => {
-            feed.close();
-        });
-    }
+    return feed.send(JSON.stringify(data).concat('\n'));
 }
 
 export default {
@@ -257,6 +218,5 @@ export default {
     json,
     jsonezs,
     encoder,
-    decoder,
     transit,
 };

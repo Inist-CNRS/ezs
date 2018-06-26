@@ -1,4 +1,6 @@
 import { PassThrough, Duplex } from 'stream';
+import { compressStream, decompressStream } from 'node-zstd';
+import Decoder from 'ld-jsonstream';
 import assert from 'assert';
 import http from 'http';
 import pMap from 'p-map';
@@ -23,6 +25,11 @@ const parseAddress = (srvr) => {
         port: Number(config.port),
     };
 };
+const agent = new http.Agent({
+    maxSockets: 1000,
+    keepAlive: true,
+    timeout: 100,
+});
 
 const registerTo = ({ hostname, port }, commands) =>
     new Promise((resolve, reject) => {
@@ -37,6 +44,7 @@ const registerTo = ({ hostname, port }, commands) =>
                 'Content-Length': requestBody.length,
                 'X-Parameter': Parameter.pack(),
             },
+            agent,
         };
         DEBUG(`Try to connect to server ${hostname}:${port}`);
         const req = http.request(requestOptions, (res) => {
@@ -63,6 +71,7 @@ const registerTo = ({ hostname, port }, commands) =>
                             'Transfer-Encoding': 'chunked',
                             'Content-Type': ' application/json',
                         },
+                        //agent,
                     });
                 } catch (e) {
                     reject(e);
@@ -79,12 +88,13 @@ const connectTo = (ezs, serverOptions, funnel) =>
     new Promise((resolve, reject) => {
         const handle = http.request(serverOptions, (res) => {
             if (res.statusCode === 200) {
-                funnel.add(res.pipe(ezs('decoder')));
+                const ret = res
+                    .pipe(decompressStream())
+                    .pipe(new Decoder())
+                funnel.add(ret);
             } else {
                 funnel.emit('error', new Error(
-                    `${serverOptions.hostname}:${
-                            serverOptions.port
-                        } return ${res.statusCode}`,
+                    `${serverOptions.hostname}:${serverOptions.port} return ${res.statusCode}`,
                 ));
             }
         });
@@ -92,6 +102,7 @@ const connectTo = (ezs, serverOptions, funnel) =>
             const input = new PassThrough({ objectMode: true });
             input
                 .pipe(ezs('encoder'))
+                .pipe(compressStream())
                 .pipe(handle);
             resolve(input);
         });

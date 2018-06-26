@@ -2,6 +2,8 @@ import os from 'os';
 import crypto from 'crypto';
 import cluster from 'cluster';
 import http from 'http';
+import { compressStream, decompressStream } from 'node-zstd';
+import Decoder from 'ld-jsonstream';
 import { DEBUG } from './constants';
 import Parameter from './parameter';
 import JSONezs from './json';
@@ -56,10 +58,12 @@ function createServer(ezs, store) {
                     DEBUG(`Server will execute statements with ID: ${cmdid}`);
                     response.writeHead(200);
                     request
-                        .pipe(ezs('decoder'))
+                        .pipe(decompressStream())
+                        .pipe(new Decoder())
                         .pipe(processor)
                         .pipe(ezs.catch(console.error))
                         .pipe(ezs('encoder'))
+                        .pipe(compressStream())
                         .pipe(response);
                     request.resume();
                 });
