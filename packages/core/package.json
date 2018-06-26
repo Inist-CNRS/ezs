@@ -1,59 +1,59 @@
 {
-  "name": "ezs",
-  "version": "5.4.4",
-  "description": "A wrapper to build Stream transformers with functional style",
-  "directories": {
-    "test": "test"
-  },
-  "main": "./lib/index.js",
-  "bin": {
-    "ezs": "./bin/ezs"
-  },
-  "scripts": {
-    "test": "istanbul test ./node_modules/.bin/_mocha -- -R spec",
-    "doc": "documentation readme package.json src/* --section=Statements",
-    "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
-    "build": "babel src --out-dir lib",
-    "prepublish": "npm run build",
-    "pretest": "npm run build"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/touv/node-ezs.git"
-  },
-  "keywords": [
-    "stream",
-    "transformer"
-  ],
-  "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/touv/node-ezs/issues"
-  },
-  "homepage": "https://github.com/touv/node-ezs#readme",
-  "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-eslint": "^8.2.3",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-stage-3": "^6.24.1",
-    "documentation": "5.3.5",
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb": "^17.0.0",
-    "eslint-plugin-import": "^2.12.0",
-    "istanbul": "^0.4.5",
-    "mocha": "^3.2.0"
-  },
-  "dependencies": {
-    "JSONStream": "^1.3.3",
-    "autocast": "0.0.4",
-    "debug": "^3.1.0",
-    "deep-object-diff": "^1.1.0",
-    "filtrex": "^0.5.4",
-    "lodash": "^4.17.10",
-    "memored": "^1.1.1",
-    "merge-stream": "^1.0.1",
-    "notevil": "^1.1.0",
-    "p-map": "^1.2.0",
-    "yargs": "^11.1.0"
-  }
+    "name": "ezs",
+    "version": "5.4.4",
+    "description": "A wrapper to build Stream transformers with functional style",
+    "directories": {
+        "test": "test"
+    },
+    "main": "./lib/index.js",
+    "bin": {
+        "ezs": "./bin/ezs"
+    },
+    "scripts": {
+        "test": "istanbul test ./node_modules/.bin/_mocha -- -R spec",
+        "doc": "documentation readme package.json src/* --section=Statements",
+        "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
+        "build": "babel src --out-dir lib",
+        "prepublish": "npm run build",
+        "pretest": "npm run build"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/touv/node-ezs.git"
+    },
+    "keywords": [
+        "stream",
+        "transformer"
+    ],
+    "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/touv/node-ezs/issues"
+    },
+    "homepage": "https://github.com/touv/node-ezs#readme",
+    "devDependencies": {
+        "babel-cli": "^6.24.1",
+        "babel-eslint": "^8.2.3",
+        "babel-preset-env": "^1.7.0",
+        "babel-preset-stage-3": "^6.24.1",
+        "documentation": "5.3.5",
+        "eslint": "^4.19.1",
+        "eslint-config-airbnb-base": "^13.0.0",
+        "eslint-plugin-import": "^2.12.0",
+        "istanbul": "^0.4.5",
+        "mocha": "^3.5.3"
+    },
+    "dependencies": {
+        "JSONStream": "^1.3.3",
+        "autocast": "0.0.4",
+        "debug": "^3.1.0",
+        "deep-object-diff": "^1.1.0",
+        "filtrex": "^0.5.4",
+        "lodash": "^4.17.10",
+        "memored": "^1.1.1",
+        "merge-stream": "^1.0.1",
+        "notevil": "^1.1.0",
+        "p-map": "^1.2.0",
+        "yargs": "^11.1.0"
+    }
 }
