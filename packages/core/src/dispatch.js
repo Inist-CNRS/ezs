@@ -31,17 +31,16 @@ const agent = new http.Agent({
     timeout: 100,
 });
 
-const registerTo = ({ hostname, port }, commands) =>
+const registerTo = (ezs, { hostname, port }, commands) =>
     new Promise((resolve, reject) => {
-        const requestBody = JSON.stringify(commands);
         const requestOptions = {
             hostname,
             port,
             path: '/',
             method: 'POST',
             headers: {
+                'Transfer-Encoding': 'chunked',
                 'Content-Type': 'application/json',
-                'Content-Length': requestBody.length,
                 'X-Parameter': Parameter.pack(),
             },
             agent,
@@ -81,7 +80,13 @@ const registerTo = ({ hostname, port }, commands) =>
         req.on('error', (e) => {
             reject(e);
         });
-        req.write(requestBody);
+        const input = new PassThrough({ objectMode: true });
+        input
+            .pipe(ezs('encoder'))
+            .pipe(compressStream())
+            .pipe(req);
+        commands.forEach(command => input.write(command));
+        input.end();
     });
 
 const connectTo = (ezs, serverOptions, funnel) =>
@@ -107,6 +112,7 @@ const connectTo = (ezs, serverOptions, funnel) =>
             resolve(input);
         });
         handle.on('error', (e) => {
+            funnel.emit('error', e);
             reject(e);
         });
     });
@@ -156,7 +162,9 @@ export default class Dispatch extends Duplex {
         if (self.semaphore) {
             self.semaphore = false;
             pMap(self.servers, server =>
-                registerTo(server, self.commands),
+                registerTo(this.ezs, server, self.commands).catch((e) => {
+                    DEBUG(`Unable to regsister commands with the server: ${server}`, e);
+                }),
             ).then((workers) => {
                 pMap(workers, worker => connectTo(self.ezs, worker, self.funnel))
                     .then((handles) => {

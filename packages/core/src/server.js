@@ -12,6 +12,18 @@ import config from './config';
 const signals = ['SIGINT', 'SIGTERM'];
 const numCPUs = os.cpus().length;
 
+function receive(data, feed) {
+    if (!this.commands) {
+        this.commands = [];
+    }
+    if (this.isLast()) {
+        feed.write(JSON.stringify(this.commands));
+        return feed.close();
+    }
+    this.commands.push(data);
+    feed.end();
+}
+
 function register(store) {
     function registerCommand(data, feed) {
         if (this.isLast()) {
@@ -20,9 +32,18 @@ function register(store) {
         const shasum = crypto.createHash('sha1');
         shasum.update(data);
         const cmdid = shasum.digest('hex');
-        return store
+        store
             .set(cmdid, data)
-            .then(() => feed.send(JSON.stringify(cmdid)));
+            .then(() => {
+                try {
+                    const id = JSON.stringify(cmdid);
+                    feed.send(id);
+                } catch (error) {
+                    feed.send(error);
+                }
+            }, error => {
+                feed.send(error);
+            });
     }
     return registerCommand;
 }
@@ -39,9 +60,14 @@ function createServer(ezs, store) {
                     Parameter.put(ezs, parameters);
                 }
                 request
-                    .pipe(ezs('concat'))
+                    .pipe(decompressStream())
+                    .pipe(new Decoder())
+                    .pipe(ezs(receive))
                     .pipe(ezs(register(store)))
-                    .pipe(ezs.catch(console.error))
+                    .pipe(ezs.catch(error => {
+                        DEBUG(`The server has detected an error while registering statements`, error);
+                        return;
+                    }))
                     .pipe(response);
             } else if (url.match(/^\/[a-f0-9]{40}$/i) && method === 'POST') {
                 store.get(cmdid).then((cmds) => {
@@ -61,11 +87,19 @@ function createServer(ezs, store) {
                         .pipe(decompressStream())
                         .pipe(new Decoder())
                         .pipe(processor)
-                        .pipe(ezs.catch(console.error))
+                        .pipe(ezs.catch(error => {
+                            DEBUG(`Server has caught an error in statements with ID: ${cmdid}`, error);
+                            return;
+                        }))
                         .pipe(ezs('encoder'))
                         .pipe(compressStream())
                         .pipe(response);
                     request.resume();
+                }, error => {
+                    DEBUG(`Server failed to load statements with ID: ${cmdid}`, error);
+                        response.writeHead(500);
+                        response.end();
+                        return;
                 });
             } else if (url === '/' && method === 'GET') {
                 store.all().then((keys) => {
@@ -73,6 +107,7 @@ function createServer(ezs, store) {
                         concurrency: numCPUs,
                         register: keys.length,
                         uptime: Date.now() - startedAt,
+                        timestamp: Date.now(),
                     };
                     const responseBody = JSON.stringify(info);
                     const responseHeaders = {
@@ -82,6 +117,11 @@ function createServer(ezs, store) {
                     response.writeHead(200, responseHeaders);
                     response.write(responseBody);
                     response.end();
+                }, error => {
+                    DEBUG(`Server failed to compute statistics`, error);
+                        response.writeHead(500);
+                        response.end();
+                        return;
                 });
             } else {
                 response.writeHead(404);

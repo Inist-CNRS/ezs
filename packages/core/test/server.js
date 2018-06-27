@@ -93,6 +93,37 @@ describe('through a server', () => {
             });
     });
 
+    it('with pipeline contains UTF8 parameter', (done) => {
+        let res = [];
+        const commands = [
+            {
+                name: 'replace',
+                args: {
+                    path: 'id',
+                    value: 'Les Châtiments',
+                },
+            },
+        ];
+        const servers = [
+            '127.0.0.1',
+        ];
+        const ten = new Decade();
+        ten
+            .pipe(ezs.dispatch(commands, servers))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+
+                assert.strictEqual(res[0].id, 'Les Châtiments');
+                assert.strictEqual(res[1].id, 'Les Châtiments');
+                assert.strictEqual(res[2].id, 'Les Châtiments');
+                done();
+            });
+    });
+
+
+
     it('with pipeline with global parameter', (done) => {
         let res = 0;
         const commands = [
@@ -146,7 +177,7 @@ describe('through a server', () => {
                 done();
             });
     });
-    it('with unknowed server in the pipeline', (done) => {
+    it('with unknowed server', (done) => {
         const commands = [
             {
                 name: 'increment',
