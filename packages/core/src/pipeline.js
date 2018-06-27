@@ -1,6 +1,6 @@
 import assert from 'assert';
 import { PassThrough, Duplex } from 'stream';
-import { DEBUG } from './constants';
+import { DEBUG, M_NORMAL } from './constants';
 
 export default class Pipeline extends Duplex {
     constructor(ezs, commands, options) {
@@ -10,7 +10,7 @@ export default class Pipeline extends Duplex {
         assert(Array.isArray(commands), 'Pipeline works with an array of commands.');
         const cmds = [...commands];
         cmds.push({
-            mode: 'normal',
+            mode: M_NORMAL,
             name: 'transit',
             args: { },
         });
