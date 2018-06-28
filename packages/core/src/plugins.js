@@ -77,7 +77,7 @@ function debug(data, feed) {
     if (this.isLast()) {
         return feed.send(data);
     }
-    const level = this.getParam('level', 'log');
+    const level = this.getParam('level', 'error');
     const text = this.getParam('text', 'valueOf');
     if (typeof console[level] === 'function') {
         const logOpts = { showHidden: false, depth: 3, colors: true };
