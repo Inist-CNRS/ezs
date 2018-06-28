@@ -4,7 +4,7 @@ import Decoder from 'ld-jsonstream';
 import assert from 'assert';
 import http from 'http';
 import pMap from 'p-map';
-import mergeStream from 'merge-stream';
+import MultiStream from 'multistream';
 import Parameter from './parameter';
 import config from './config';
 import { DEBUG } from './constants';
@@ -70,7 +70,7 @@ const registerTo = (ezs, { hostname, port }, commands) =>
                             'Transfer-Encoding': 'chunked',
                             'Content-Type': ' application/json',
                         },
-                        //agent,
+                        agent,
                     });
                 } catch (e) {
                     reject(e);
@@ -89,33 +89,34 @@ const registerTo = (ezs, { hostname, port }, commands) =>
         input.end();
     });
 
-const connectTo = (ezs, serverOptions, funnel) =>
-    new Promise((resolve, reject) => {
-        const handle = http.request(serverOptions, (res) => {
-            if (res.statusCode === 200) {
-                const ret = res
-                    .pipe(decompressStream())
-                    .pipe(new Decoder())
-                funnel.add(ret);
-            } else {
-                funnel.emit('error', new Error(
-                    `${serverOptions.hostname}:${serverOptions.port} return ${res.statusCode}`,
-                ));
-            }
-        });
-        handle.on('socket', () => {
-            const input = new PassThrough({ objectMode: true });
-            input
-                .pipe(ezs('encoder'))
-                .pipe(compressStream())
-                .pipe(handle);
-            resolve(input);
-        });
-        handle.on('error', (e) => {
-            funnel.emit('error', e);
-            reject(e);
-        });
+const duplexer = (ezs, onerror) => (serverOptions, index) => {
+    const input = new PassThrough({ objectMode: true });
+    const output = new PassThrough({ objectMode: true });
+    const handle = http.request(serverOptions, (res) => {
+        if (res.statusCode === 200) {
+            res
+                .pipe(decompressStream())
+                .pipe(new Decoder())
+                .on('data', chunk => output.write(chunk))
+                .on('end', () => output.end());
+        } else {
+            onerror(new Error(
+                `${serverOptions.hostname}:${serverOptions.port} return ${res.statusCode}`,
+            ));
+            output.end();
+        }
     });
+    handle.on('error' , (e) => {
+        onerror(e);
+        output.end();
+    })
+    const inp = input
+        .pipe(ezs('encoder'))
+        .pipe(compressStream())
+        .pipe(handle);
+    const duplex = [input, output];
+    return duplex;
+};
 
 export default class Dispatch extends Duplex {
     constructor(ezs, commands, servers) {
@@ -132,7 +133,7 @@ export default class Dispatch extends Duplex {
         this.on('finish', () => {
             this.handles.forEach((handle, index) => {
                 if (!this.handlesEnd[index]) {
-                    handle.end();
+                    handle[0].end();
                 }
             });
         });
@@ -154,32 +155,26 @@ export default class Dispatch extends Duplex {
         this.commands = commands;
         this.semaphore = true;
         this.lastIndex = 0;
-        this.funnel = mergeStream();
-        this.funnel.on('error', (e) => {
-            this.emit('error', e);
-        });
-        this.funnel.pipe(this.tubin);
         this.ezs = ezs;
     }
 
     _write(chunk, encoding, callback) {
-        const self = this;
-        if (self.semaphore) {
-            self.semaphore = false;
-            pMap(self.servers, server =>
-                registerTo(this.ezs, server, self.commands).catch((e) => {
+        if (this.semaphore) {
+            this.semaphore = false;
+            pMap(this.servers, server =>
+                registerTo(this.ezs, server, this.commands).catch((e) => {
                     DEBUG(`Unable to regsister commands with the server: ${server}`, e);
                 }),
             ).then((workers) => {
-                pMap(workers, worker => connectTo(self.ezs, worker, self.funnel))
-                    .then((handles) => {
-                        self.handles = handles;
-                        self.handles.forEach((h, i) => h.on('finish', () => { self.handlesEnd[i] = true; }));
-                        self.balance(chunk, encoding, callback);
-                    }, callback);
-            }, callback);
+                this.handles = workers.map(duplexer(this.ezs, (e) => {
+                    this.emit('error', e);
+                }));
+                const streams = this.handles.map(h => h[1]);
+                MultiStream(streams, { objectMode: true }).pipe(this.tubin);
+                this.balance(chunk, encoding, callback);
+            }, callback).catch(console.error);
         } else {
-            self.balance(chunk, encoding, callback);
+            this.balance(chunk, encoding, callback);
         }
     }
 
@@ -195,7 +190,7 @@ export default class Dispatch extends Duplex {
         if (this.lastIndex >= this.handles.length) {
             this.lastIndex = 0;
         }
-        this.handles[this.lastIndex].write(
+        this.handles[this.lastIndex][0].write(
             chunk,
             encoding,
             callback,

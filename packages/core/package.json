@@ -50,7 +50,7 @@
         "filtrex": "^0.5.4",
         "lodash": "^4.17.10",
         "memored": "^1.1.1",
-        "merge-stream": "^1.0.1",
+        "multistream": "2.1.1",
         "notevil": "^1.1.0",
         "p-map": "^1.2.0",
         "yargs": "^11.1.0",
