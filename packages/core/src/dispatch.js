@@ -122,6 +122,7 @@ export default class Dispatch extends Duplex {
         super({ objectMode: true });
 
         this.handles = [];
+        this.handlesEnd = [];
 
         this.tubin = new PassThrough({ objectMode: true });
         this.tubout = this.tubin
@@ -129,7 +130,11 @@ export default class Dispatch extends Duplex {
         ;
 
         this.on('finish', () => {
-            this.handles.forEach(handle => handle.end());
+            this.handles.forEach((handle, index) => {
+                if (!this.handlesEnd[index]) {
+                    handle.end();
+                }
+            });
         });
         this.tubout.on('data', (chunk, encoding) => {
             this.push(chunk, encoding);
@@ -169,6 +174,7 @@ export default class Dispatch extends Duplex {
                 pMap(workers, worker => connectTo(self.ezs, worker, self.funnel))
                     .then((handles) => {
                         self.handles = handles;
+                        self.handles.forEach((h, i) => h.on('finish', () => { self.handlesEnd[i] = true; }));
                         self.balance(chunk, encoding, callback);
                     }, callback);
             }, callback);
