@@ -89,7 +89,7 @@ function createServer(ezs, store, port) {
                             DEBUG(`Server has caught an error in statements with ID: ${cmdid}`, error);
                             return;
                         }))
-                        .pipe(ezs('encoder'))
+                        .pipe(ezs('jsonnd'))
                         .pipe(compressStream())
                         .pipe(response);
                     request.resume();

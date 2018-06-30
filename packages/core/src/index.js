@@ -6,7 +6,7 @@ import Script from './script';
 import File from './file';
 import Output from './output';
 import Catcher from './catcher';
-import Plugins from './plugins';
+import Statements from './statements';
 import Parameter from './parameter';
 import Statement from './statement';
 import IsolatedStore from './isolated-store';
@@ -54,7 +54,7 @@ ezs.command = (stream, command) => {
 ezs.createServer = (port) => Server.createServer(ezs, new IsolatedStore(), port);
 ezs.createCluster = (port) => Server.createCluster(ezs, new SharedStore(), port);
 
-ezs.use(Plugins);
+ezs.use(Statements);
 
 module.exports = ezs;
 
