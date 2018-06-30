@@ -1,13 +1,11 @@
 import { PassThrough, Duplex } from 'stream';
 import { compressStream, decompressStream } from 'node-zstd';
-import Decoder from 'ld-jsonstream';
 import assert from 'assert';
 import http from 'http';
 import pMap from 'p-map';
 import MultiStream from 'multistream';
 import Parameter from './parameter';
-import config from './config';
-import { DEBUG } from './constants';
+import { DEBUG, PORT } from './constants';
 
 const parseAddress = (srvr) => {
     if (typeof srvr !== 'string') {
@@ -22,7 +20,7 @@ const parseAddress = (srvr) => {
     }
     return {
         hostname: srvr,
-        port: Number(config.port),
+        port: Number(PORT),
     };
 };
 const agent = new http.Agent({
@@ -96,7 +94,7 @@ const duplexer = (ezs, onerror) => (serverOptions, index) => {
         if (res.statusCode === 200) {
             res
                 .pipe(decompressStream())
-                .pipe(new Decoder())
+                .pipe(ezs('ndjson'))
                 .on('data', chunk => output.write(chunk))
                 .on('end', () => output.end());
         } else {

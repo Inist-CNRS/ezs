@@ -10,14 +10,15 @@ ezs.config('stepper', {
 
 const Read = require('stream').Readable;
 
-class Decade extends Read {
-    constructor() {
+class Upto extends Read {
+    constructor(m) {
         super({ objectMode: true });
         this.i = 0;
+        this.m = m;
     }
     _read() {
         this.i += 1;
-        if (this.i >= 10) {
+        if (this.i >= this.m) {
             this.push(null);
         } else {
             this.push(this.i);
@@ -25,10 +26,16 @@ class Decade extends Read {
     }
 }
 describe('through a server', () => {
-    const server = ezs.createServer();
+    const server1 = ezs.createServer();
+    const server2 = ezs.createServer(30001);
+    const server3 = ezs.createServer(30002);
+    const server4 = ezs.createServer(30003);
 
     after(() => {
-        server.close();
+        server1.close();
+        server2.close();
+        server3.close();
+        server4.close();
     });
 
     it('with simple pipeline', (done) => {
@@ -50,7 +57,7 @@ describe('through a server', () => {
         const servers = [
             '127.0.0.1',
         ];
-        const ten = new Decade();
+        const ten = new Upto(10);
         ten
             .pipe(ezs.dispatch(commands, servers))
             .on('data', (chunk) => {
@@ -81,7 +88,7 @@ describe('through a server', () => {
         const servers = [
             '127.0.0.1',
         ];
-        const ten = new Decade();
+        const ten = new Upto(10);
         ten
             .pipe(ezs.dispatch(commands, servers))
             .on('data', (chunk) => {
@@ -107,7 +114,7 @@ describe('through a server', () => {
         const servers = [
             '127.0.0.1',
         ];
-        const ten = new Decade();
+        const ten = new Upto(10);
         ten
             .pipe(ezs.dispatch(commands, servers))
             .on('data', (chunk) => {
@@ -134,7 +141,7 @@ describe('through a server', () => {
         const servers = [
             '127.0.0.1',
         ];
-        const ten = new Decade();
+        const ten = new Upto(10);
         ten
             .pipe(ezs.dispatch(commands, servers))
             .on('data', (chunk) => {
@@ -166,7 +173,7 @@ describe('through a server', () => {
         const servers = [
             '127.0.0.1',
         ];
-        const ten = new Decade();
+        const ten = new Upto(10);
         ten
             .pipe(ezs.dispatch(commands, servers))
             .on('data', (chunk) => {
@@ -189,7 +196,7 @@ describe('through a server', () => {
         const servers = [
             '127.0.0.0',
         ];
-        const ten = new Decade();
+        const ten = new Upto(10);
         ten
             .pipe(ezs.dispatch(commands, servers))
             .on('error', (error) => {
@@ -219,7 +226,7 @@ describe('through a server', () => {
         const servers = [
             '127.0.0.1',
         ];
-        const ten = new Decade();
+        const ten = new Upto(10);
         ten
             .pipe(ezs.dispatch(commands, servers))
             .on('error', (error) => {
@@ -227,6 +234,72 @@ describe('through a server', () => {
                 done();
             });
     });
+    it('with commands in distributed pipeline', (done) => {
+        const commands = [
+            {
+                name: 'increment',
+                mode: 'unordered', //distributed ou server
+                args: {
+                    step: 3,
+                },
+            },
+            {
+                name: 'decrement',
+                mode: 'unordered', //distributed ou server
+                args: {
+                    step: 2,
+                },
+            },
+        ];
+        const servers = [
+            '127.0.0.1:30001',
+            '127.0.0.1:30002',
+            '127.0.0.1:30003',
+        ];
+        let res = 0;
+        const ten = new Upto(10);
+        ten
+            .pipe(ezs.dispatch(commands, servers))
+            .pipe(ezs('debug'))
+            .on('data', (chunk) => {
+                res += chunk;
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 54);
+                done();
+            });
+    });
+
+    it('with a lot of commands in distributed pipeline', (done) => {
+        const commands = [
+            {
+                name: 'replace',
+                mode: 'unordered', //distributed ou server
+                args: {
+                    path: 'a',
+                    value: 1,
+                },
+            },
+        ];
+        const servers = [
+            '127.0.0.1:30001',
+            '127.0.0.1:30002',
+            '127.0.0.1:30003',
+        ];
+        let res = 0;
+        const ten = new Upto(100001);
+        ten
+            .pipe(ezs('replace', { path: 'a', value: "2" }))
+            .pipe(ezs.dispatch(commands, servers))
+            .on('data', (chunk) => {
+                res += chunk.a;
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 100000);
+                done();
+            });
+    }).timeout(5000);;
+
 
     it('with a same commands', (done) => {
         const commands = `
@@ -246,7 +319,7 @@ describe('through a server', () => {
         done();
 /*
         let res = 0;
-        const ten = new Decade();
+        const ten = new Upto(10);
         ten
             .pipe(ezs((input, output) => {
                 output.send(input);

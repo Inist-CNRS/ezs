@@ -4,7 +4,6 @@ import yargs from 'yargs';
 import debug from 'debug';
 import { DEBUG } from './constants';
 import ezs from '.';
-import config from './config';
 import Commands from './commands';
 import { version } from '../package.json';
 
@@ -49,7 +48,6 @@ export default function cli(errlog) {
     const argv = args.argv;
     const firstarg = argv._.shift();
     const port =  argv.port;
-    config.port = port;
 
     if (argv.verbose) {
         debug.enable('ezs');

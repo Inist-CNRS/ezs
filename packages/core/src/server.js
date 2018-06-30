@@ -3,11 +3,9 @@ import crypto from 'crypto';
 import cluster from 'cluster';
 import http from 'http';
 import { compressStream, decompressStream } from 'node-zstd';
-import Decoder from 'ld-jsonstream';
-import { DEBUG } from './constants';
+import { DEBUG, PORT } from './constants';
 import Parameter from './parameter';
 import JSONezs from './json';
-import config from './config';
 
 const signals = ['SIGINT', 'SIGTERM'];
 const numCPUs = os.cpus().length;
@@ -48,7 +46,7 @@ function register(store) {
     return registerCommand;
 }
 
-function createServer(ezs, store) {
+function createServer(ezs, store, port) {
     const startedAt = Date.now();
     const server = http
         .createServer((request, response) => {
@@ -61,7 +59,7 @@ function createServer(ezs, store) {
                 }
                 request
                     .pipe(decompressStream())
-                    .pipe(new Decoder())
+                    .pipe(ezs('ndjson'))
                     .pipe(ezs(receive))
                     .pipe(ezs(register(store)))
                     .pipe(ezs.catch(error => {
@@ -85,7 +83,7 @@ function createServer(ezs, store) {
                     response.writeHead(200);
                     request
                         .pipe(decompressStream())
-                        .pipe(new Decoder())
+                        .pipe(ezs('ndjson'))
                         .pipe(processor)
                         .pipe(ezs.catch(error => {
                             DEBUG(`Server has caught an error in statements with ID: ${cmdid}`, error);
@@ -128,13 +126,13 @@ function createServer(ezs, store) {
                 response.end();
             }
         })
-        .listen(config.port);
+        .listen(port || PORT);
     signals.forEach(signal => process.on(signal, () => server.close(() => process.exit(0))));
-    DEBUG(`Server starting with PID ${process.pid} and listening on port ${config.port}`);
+    DEBUG(`Server starting with PID ${process.pid} and listening on port ${port}`);
     return server;
 }
 
-function createCluster(ezs, store) {
+function createCluster(ezs, store, port) {
     let term = false;
     if (cluster.isMaster) {
         for (let i = 0; i < numCPUs; i += 1) {
@@ -152,7 +150,7 @@ function createCluster(ezs, store) {
             });
         });
     } else {
-        createServer(ezs, store);
+        createServer(ezs, store, port);
     }
     return cluster;
 }

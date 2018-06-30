@@ -54,7 +54,6 @@
         "notevil": "^1.1.0",
         "p-map": "^1.2.0",
         "yargs": "^11.1.0",
-        "node-zstd": "2.0.1",
-        "ld-jsonstream": "1.0.1"
+        "node-zstd": "2.0.1"
     }
 }

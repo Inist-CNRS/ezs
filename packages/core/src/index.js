@@ -51,8 +51,8 @@ ezs.command = (stream, command) => {
     }
     throw new Error(`Bad mode: ${mode}`);
 };
-ezs.createServer = () => Server.createServer(ezs, new IsolatedStore());
-ezs.createCluster = () => Server.createCluster(ezs, new SharedStore());
+ezs.createServer = (port) => Server.createServer(ezs, new IsolatedStore(), port);
+ezs.createCluster = (port) => Server.createCluster(ezs, new SharedStore(), port);
 
 ezs.use(Plugins);
 
