@@ -736,13 +736,9 @@ describe('Build a pipeline', () => {
             path = a
             value = self()
 
-            [debug]
-
             [replace?single]
             path = b
             value = fix(1000)
-
-            [debug]
 
             [assign]
             path = c
@@ -803,8 +799,6 @@ describe('Build a pipeline', () => {
             path = isPair
             value = true
             test = compute("a % 2 == 0")
-
-            [debug]
 
             [assign#isPair]
             path = a

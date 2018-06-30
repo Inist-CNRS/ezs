@@ -18,6 +18,7 @@ import { M_SINGLE, M_DISPATCH, M_NORMAL, M_CONDITIONAL } from './constants';
 const ezs = (name, opts) => new Engine(ezs, Statement.get(ezs, name, opts), opts);
 const ezsPath = [process.cwd()];
 
+ezs.constants = { M_SINGLE, M_DISPATCH, M_NORMAL, M_CONDITIONAL };
 ezs.config = (name, opts) => Parameter.set(ezs, name, opts);
 ezs.pipeline = (commands, options) => new Pipeline(ezs, commands, options);
 ezs.dispatch = (commands, options) => new Dispatch(ezs, commands, options);

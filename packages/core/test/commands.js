@@ -1,6 +1,7 @@
 const assert = require('assert');
 const ezs = require('../lib');
 const Commands = require('../lib/commands').default;
+const { M_SINGLE, M_DISPATCH, M_NORMAL, M_CONDITIONAL } = ezs.constants;
 
 describe('analsye commands', () => {
     it('with simple pipeline', (done) => {
@@ -15,7 +16,7 @@ describe('analsye commands', () => {
             step = 2
 
 
-            [increment?unordered]
+            [increment?${M_DISPATCH}]
             step = 3
 
             [increment]

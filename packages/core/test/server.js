@@ -1,5 +1,6 @@
 const assert = require('assert');
 const ezs = require('../lib');
+const { M_SINGLE, M_DISPATCH, M_NORMAL, M_CONDITIONAL } = ezs.constants;
 const JSONezs = require('../lib/json').default;
 
 ezs.use(require('./locals'));
@@ -238,14 +239,14 @@ describe('through a server', () => {
         const commands = [
             {
                 name: 'increment',
-                mode: 'unordered', //distributed ou server
+                mode: M_DISPATCH,
                 args: {
                     step: 3,
                 },
             },
             {
                 name: 'decrement',
-                mode: 'unordered', //distributed ou server
+                mode: M_DISPATCH,
                 args: {
                     step: 2,
                 },
@@ -273,7 +274,7 @@ describe('through a server', () => {
         const commands = [
             {
                 name: 'replace',
-                mode: 'unordered', //distributed ou server
+                mode: M_DISPATCH,
                 args: {
                     path: 'a',
                     value: 1,
@@ -304,7 +305,7 @@ describe('through a server', () => {
             [use]
             plugin = test/locals
 
-            [beat?unordered]
+            [beat?${M_DISPATCH}]
 
         `;
         const servers = [
