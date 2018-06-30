@@ -86,6 +86,17 @@ function ignoreMe(data, feed) {
     return feed.send(data);
 }
 
+function beat(data, feed) {
+    if (this.isLast()) {
+        return feed.send(data);
+    }
+    return setTimeout(() => {
+        feed.write({ beat: 1 });
+        feed.end();
+    }, 1);
+}
+
+
 
 module.exports = {
     plus1,
@@ -96,6 +107,7 @@ module.exports = {
     slow,
     bad,
     accu,
+    beat,
     ignoreMe
 };
 

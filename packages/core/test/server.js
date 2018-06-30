@@ -260,7 +260,6 @@ describe('through a server', () => {
         const ten = new Upto(10);
         ten
             .pipe(ezs.dispatch(commands, servers))
-            .pipe(ezs('debug'))
             .on('data', (chunk) => {
                 res += chunk;
             })
@@ -287,7 +286,7 @@ describe('through a server', () => {
             '127.0.0.1:30003',
         ];
         let res = 0;
-        const ten = new Upto(100001);
+        const ten = new Upto(500001);
         ten
             .pipe(ezs('replace', { path: 'a', value: "2" }))
             .pipe(ezs.dispatch(commands, servers))
@@ -295,10 +294,36 @@ describe('through a server', () => {
                 res += chunk.a;
             })
             .on('end', () => {
-                assert.strictEqual(res, 100000);
+                assert.strictEqual(res, 500000);
                 done();
             });
-    }).timeout(5000);;
+    }).timeout(100000);
+
+    it('with a lot of delayed commands in distributed pipeline', (done) => {
+        const commands = `
+            [use]
+            plugin = test/locals
+
+            [beat?unordered]
+
+        `;
+        const servers = [
+            '127.0.0.1:30001',
+            '127.0.0.1:30002',
+            '127.0.0.1:30003',
+        ];
+        let res = 0;
+        const ten = new Upto(10001);
+        ten
+            .pipe(ezs.dispatch(ezs.parseString(commands), servers))
+            .on('data', (chunk) => {
+                res += chunk.beat;
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 10000);
+                done();
+            });
+    }).timeout(50000);
 
 
     it('with a same commands', (done) => {
