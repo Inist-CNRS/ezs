@@ -42,6 +42,44 @@ describe('test', () => {
             });
     });
 
+    it('CSVString#1', (done) => {
+        const res = [];
+        from([
+            ['a', 'b', 'c'],
+            [1, 2, 3],
+            [4, 5, 6],
+        ])
+            .pipe(ezs('CSVObject'))
+            .pipe(ezs('CSVString', { format: 'strict' }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(3, res.length);
+                assert.equal('"a";"b";"c"\r\n', res[0]);
+                done();
+            });
+    });
+
+    it('CSVString#2', (done) => {
+        const res = [];
+        from([
+            ['a', 'b', 'c'],
+            [1, 2, 3],
+            [4, undefined, 6],
+        ])
+            .pipe(ezs('CSVObject'))
+            .pipe(ezs('CSVString', { format: 'strict' }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(3, res.length);
+                assert.equal('"a";"b";"c"\r\n', res[0]);
+                done();
+            });
+    });
+
     it('JSONString #1', (done) => {
         from([
             {

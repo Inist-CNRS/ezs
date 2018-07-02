@@ -5,7 +5,7 @@ function strict(data, sep) {
     let line = '';
     let s = '';
     Object.keys(data).forEach((key) => {
-        line = line.concat(s.concat('"').concat(data[key].toString().replace(q, '""')).concat('"'));
+        line = line.concat(s.concat('"').concat(String(data[key]).replace(q, '""')).concat('"'));
         s = sep;
     });
     return line.concat('\r\n');
