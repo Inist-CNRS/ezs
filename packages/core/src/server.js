@@ -100,10 +100,10 @@ function createServer(ezs, store, port) {
                         return;
                 });
             } else if (url === '/' && method === 'GET') {
-                store.all().then((keys) => {
+                store.size().then((size) => {
                     const info = {
                         concurrency: numCPUs,
-                        register: keys.length,
+                        register: size,
                         uptime: Date.now() - startedAt,
                         timestamp: Date.now(),
                         version: VERSION,
