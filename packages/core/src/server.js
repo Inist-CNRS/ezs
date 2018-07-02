@@ -3,7 +3,7 @@ import crypto from 'crypto';
 import cluster from 'cluster';
 import http from 'http';
 import { compressStream, decompressStream } from 'node-zstd';
-import { DEBUG, PORT } from './constants';
+import { DEBUG, PORT, VERSION } from './constants';
 import Parameter from './parameter';
 import JSONezs from './json';
 
@@ -106,6 +106,7 @@ function createServer(ezs, store, port) {
                         register: keys.length,
                         uptime: Date.now() - startedAt,
                         timestamp: Date.now(),
+                        version: VERSION,
                     };
                     const responseBody = JSON.stringify(info);
                     const responseHeaders = {
@@ -127,7 +128,10 @@ function createServer(ezs, store, port) {
             }
         })
         .listen(port || PORT);
-    signals.forEach(signal => process.on(signal, () => server.close(() => process.exit(0))));
+    signals.forEach(signal => process.on(signal, () => {
+        DEBUG(`Signal received, stoping server with PID ${process.pid}`);
+        server.close(() => process.exit(0));
+    }));
     DEBUG(`Server starting with PID ${process.pid} and listening on port ${port}`);
     return server;
 }
