@@ -13,6 +13,7 @@ import summing from './summing';
 import groupingByEquality from './groupingByEquality';
 import groupingByLevenshtein from './groupingByLevenshtein';
 import groupingByHamming from './groupingByHamming';
+import tune from './tune';
 import topics from './topics';
 
 export default {
@@ -31,5 +32,6 @@ export default {
     groupingByEquality,
     groupingByLevenshtein,
     groupingByHamming,
+    tune,
     topics,
 };

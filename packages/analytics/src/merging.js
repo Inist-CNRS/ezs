@@ -13,9 +13,8 @@ function customizer(objValue, srcValue) {
 }
 
 /**
- * Take special `Object` like {_id, value} and replace value with the merge of values
+ * Take special `Object` like {id, value} and replace value with the merge of values
  *
- * @name mergin
  * @param {String} [id=id] path to use for id
  * @param {String} [value=value] path to use for value
  * @returns {Object}

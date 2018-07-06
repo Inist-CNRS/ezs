@@ -38,10 +38,9 @@ function levenshteinDistance(a, b) {
 const equalTo = (id, distance) => item => item.id.some(key => levenshteinDistance(key, id) <= distance);
 
 /**
- * Take `Object` like { _id, value } and reduce all value with
+ * Take `Object` like { id, value } and reduce all value with
  * ID which have the same Levenshtein distance in single object
  *
- * @name groupingByLevenshtein
  * @param {String} [id=id] path to use for id
  * @param {String} [value=value] path to use for value
  * @param {Number} [distance=1] minimal levenshtein distance to have a same id

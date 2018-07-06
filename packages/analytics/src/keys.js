@@ -2,7 +2,6 @@ import core from './core';
 /**
  * Take `Object` and throws all its keys
  *
- * @name keys
  * @param {String} path
  * @returns {Object}
  */

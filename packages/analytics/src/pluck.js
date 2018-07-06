@@ -4,8 +4,7 @@ import core from './core';
  * Take `Object` object getting value of fields (with json path)
  * and throws a object of each value
  *
- * @name pluck
- * @param {String} [path=_id] path to use form group by
+ * @param {String} [path=id] path to use form group by
  * @returns {Object}
  */
 export default function pluck(data, feed) {
@@ -13,7 +12,7 @@ export default function pluck(data, feed) {
         feed.close();
         return;
     }
-    let fields = this.getParam('path', '_id');
+    let fields = this.getParam('path', 'id');
     if (!Array.isArray(fields)) {
         fields = [fields];
     }

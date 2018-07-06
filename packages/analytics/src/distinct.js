@@ -3,8 +3,7 @@ import core from './core';
 /**
  * Take `Object` object getting some fields with json path, and do ...
  *
- * @name distinct
- * @param {String} [path=_id] path
+ * @param {String} [path=id] path
  * @returns {Object}
  */
 export default function distinct(data, feed) {
@@ -12,7 +11,7 @@ export default function distinct(data, feed) {
         feed.close();
         return;
     }
-    const path = this.getParam('path', '_id');
+    const path = this.getParam('path', 'id');
     const fields = Array.isArray(path) ? path : [path];
 
     fields

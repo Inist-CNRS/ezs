@@ -4,7 +4,6 @@ import core from './core';
  * Take `Object` and take values with [value] path (must be an array)
  * and throw object of each value. The new object is build with [id] and eac value.
  *
- * @name reducing
  * @param {String} [id=id] path to use for id
  * @param {String} [value=value] path to use for value
  * @returns {Object}
