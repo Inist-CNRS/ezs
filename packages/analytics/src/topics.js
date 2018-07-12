@@ -7,7 +7,7 @@ import get from 'lodash.get';
  * @param {String} [value=value] path to use for value
  * @returns {Object}
  */
-export default function exploding(data, feed) {
+export default function topics(data, feed) {
     if (this.isLast()) {
         feed.close();
         return;
