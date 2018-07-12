@@ -24,7 +24,6 @@ process.stdin
 -   [count](#count)
 -   [distinct](#distinct)
 -   [exploding](#exploding)
--   [exploding](#exploding-1)
 -   [graph](#graph)
 -   [groupingByEquality](#groupingbyequality)
 -   [groupingByHamming](#groupingbyhamming)
@@ -38,6 +37,7 @@ process.stdin
 -   [reducing](#reducing)
 -   [sort](#sort)
 -   [summing](#summing)
+-   [topics](#topics)
 -   [tune](#tune)
 -   [value](#value)
 
@@ -69,19 +69,6 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Take `Object` and take values with [value] path (must be an array)
 and throw object of each value. The new object is build with [id] and eac value.
-
-**Parameters**
-
--   `data`  
--   `feed`  
--   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
--   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-## exploding
-
-Take `Object` and take values with [value] path (must be an array)
 
 **Parameters**
 
@@ -250,6 +237,19 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 ## summing
 
 Take special `Object` like {id, value} and replace value with the sum of values
+
+**Parameters**
+
+-   `data`  
+-   `feed`  
+-   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## topics
+
+Take `Object` and take values with [value] path (must be an array)
 
 **Parameters**
 
