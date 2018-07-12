@@ -4,25 +4,28 @@ import jaccard from 'talisman/metrics/distance/jaccard';
 import jaroWinkler from 'talisman/metrics/distance/jaro-winkler';
 import jaro from 'talisman/metrics/distance/jaro';
 import levenshtein from 'talisman/metrics/distance/levenshtein';
+import cosine from 'talisman/metrics/distance/cosine';
+import euclidean from 'talisman/metrics/distance/euclidean';
 import get from 'lodash.get';
 import clone from 'lodash.clone';
 import core from './core';
 
 
-const alphabet = 'abcdefgijklmnopqrstuvwxyz1234567890';
-const charsum = (c) => {
-    const x = alphabet.indexOf(c) + 1
-    return x === 0 ? 0 : x / alphabet.length;
+const vector = (input, size) => {
+    const v = Array(size).fill(0);
+    input.split('').map(x => x.charCodeAt(0)).forEach((x, i) => v[i] = x);
+    return v;
 };
-const floatprint = (input) => {
-      let r = 0;
-      for(var i = 0; i < input.length; i++) {
-        const p = charsum(input[i]) * 1 / (i + 1);
-        r += Math.pow(p, 2);
-      }
-      return r;
-};
-const ascii = (x, y) => floatprint(y) - floatprint(x);
+
+const cosineVector = (x, y) => {
+    const m = Math.max(x.length, y.length);
+    return cosine(vector(x, m), vector(y, m));
+}
+
+const euclideanVector = (x, y) => {
+    const m = Math.max(x.length, y.length);
+    return euclidean(vector(x, m), vector(y, m));
+}
 
 const methods = {
     damerauLevenshtein,
@@ -30,7 +33,8 @@ const methods = {
     jaccard,
     jaroWinkler,
     jaro,
-    ascii,
+    cosineVector,
+    euclideanVector,
 };
 const allMethods = Object.keys(methods).join(',');
 
@@ -67,7 +71,6 @@ export default function tune(data, feed) {
 
     const similarity = methods[method](this.previousValue, currentValue);
     const score = similarity === 0 ? Math.max(this.previousValue.length, currentValue.length) : similarity;
-    console.log('compare', this.previousValue, 'vs', currentValue, '=', score); 
     const currentDistance = this.previousDistance / score;
 
     this.previousValue = clone(currentValue);

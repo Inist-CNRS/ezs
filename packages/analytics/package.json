@@ -20,11 +20,14 @@
   "homepage": "https://github.com/touv/node-ezs-analytics#readme",
   "dependencies": {
     "lda": "^0.2.0",
+    "leveldown": "^4.0.1",
+    "levelup": "^3.1.0",
     "lodash.clone": "^4.5.0",
     "lodash.get": "^4.4.2",
     "lodash.mergewith": "^4.6.1",
     "lodash.uniq": "^4.5.0",
-    "talisman": "^0.20.0"
+    "talisman": "^0.20.0",
+    "tmp-filepath": "^2.0.0"
   },
   "main": "./lib/index.js",
   "scripts": {

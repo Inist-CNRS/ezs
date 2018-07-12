@@ -14,6 +14,8 @@ import groupingByEquality from './groupingByEquality';
 import groupingByLevenshtein from './groupingByLevenshtein';
 import groupingByHamming from './groupingByHamming';
 import tune from './tune';
+import value from './value';
+import sort from './sort';
 import topics from './topics';
 
 export default {
@@ -33,5 +35,7 @@ export default {
     groupingByLevenshtein,
     groupingByHamming,
     tune,
+    value,
+    sort,
     topics,
 };
