@@ -23,7 +23,7 @@ function URLFetch(data, feed) {
             data[target] = body;
             return feed.send(data);
         }
-        feed.send(body);
+        return feed.send(body);
     })
     .catch(error => feed.send(error));
 }
