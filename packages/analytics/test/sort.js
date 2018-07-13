@@ -55,12 +55,43 @@ describe('sort ', () => {
                 res.push(chunk);
             })
             .on('end', () => {
-                assert.equal(3, res[0].value);
-                assert.equal(11, res[10].value);
+                assert.equal(7, res[0].value);
+                assert.equal(9, res[10].value);
                 assert.equal(11, res.length);
                 done();
             });
     });
+
+    it('tune & sort by numercial', (done) => {
+        const res = [];
+        from([
+            { id: 'un', value: 8 },
+            { id: 'deux', value: 10 },
+            { id: 'trois', value: 3 },
+            { id: 'quatre', value: 4 },
+            { id: 'cinq', value: 5 },
+            { id: 'six', value: 1 },
+            { id: 'sept', value: 2 },
+            { id: 'huit', value: 8 },
+            { id: 'neuf', value: 5 },
+            { id: 'dix', value: 3 },
+            { id: 'onze', value: 2 },
+        ])
+            .pipe(ezs('tune', { path: 'value', method: 'numerical' }))
+            .pipe(ezs('sort'))
+            .pipe(ezs('value'))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(11, res.length);
+                assert.equal('six', res[0].id);
+                assert.equal('deux', res[10].id);
+                done();
+            });
+    });
+
 
     it('sort by id', (done) => {
         const res = [];
@@ -83,7 +114,7 @@ describe('sort ', () => {
                 res.push(chunk);
             })
             .on('end', () => {
-                assert.equal(6, res[0].value);
+                assert.equal(1, res[0].value);
                 assert.equal(11, res[10].value);
                 assert.equal(11, res.length);
                 done();

@@ -27,6 +27,10 @@ const euclideanVector = (x, y) => {
     return euclidean(vector(x, m), vector(y, m));
 }
 
+const numerical = (x, y) => {
+    return (x + 1) / ( y + 1);
+}
+
 const methods = {
     damerauLevenshtein,
     dice,
@@ -35,6 +39,7 @@ const methods = {
     jaro,
     cosineVector,
     euclideanVector,
+    numerical
 };
 const allMethods = Object.keys(methods).join(',');
 
