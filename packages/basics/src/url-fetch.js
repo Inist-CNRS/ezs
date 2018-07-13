@@ -21,7 +21,7 @@ function URLFetch(data, feed) {
     .then((body) => {
         if (target && typeof target === 'string' && typeof data === 'object') {
             data[target] = body;
-            feed.send(data);
+            return feed.send(data);
         }
         feed.send(body);
     })
