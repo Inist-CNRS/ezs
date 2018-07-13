@@ -1,4 +1,5 @@
 import get from 'lodash.get';
+import Store from './store';
 import core from './core';
 /**
  * Take `Object` group value of { id, value } objectpath
@@ -8,25 +9,16 @@ import core from './core';
  * @returns {Object}
  */
 export default function reducing(data, feed) {
-    if (!this.stats) {
-        this.stats = {};
-    }
-    if (this.isFirst()) {
-        this.stats = { };
+    if (!this.store) {
+        this.store = new Store('reducing');
     }
     if (this.isLast()) {
-        Object.keys(this.stats).forEach(key => feed.write(core(key, this.stats[key])));
-        feed.close();
-        return;
+        this.store.cast()
+            .on('data', item => feed.write(item))
+            .on('end', () => feed.close());
+    } else {
+        const id = get(data, this.getParam('id', 'id'));
+        const value = get(data, this.getParam('value', 'value'));
+        this.store.add(id, value).then(() => feed.end());
     }
-    const id = get(data, this.getParam('id', 'id'));
-    const value = get(data, this.getParam('value', 'value'));
-    if (id && value) {
-        if (this.stats[id] === undefined) {
-            this.stats[id] = [];
-        }
-        this.stats[id].push(value);
-    }
-
-    feed.end();
 }

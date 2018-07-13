@@ -3,6 +3,7 @@ import levelup from 'levelup';
 import leveldown from 'leveldown';
 import tmpFilepath from 'tmp-filepath';
 import ezs from 'ezs';
+import core from './core';
 
 const encodeKey = (k) => JSON.stringify(k).split(' ').join('~');
 const decodeKey = (k) => JSON.parse(String(k).split('~').join(' '));
@@ -15,7 +16,9 @@ function decode(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
-    feed.send(decodeValue(data.value));
+    const k = decodeKey(data.key);
+    const v = decodeValue(data.value);
+    feed.send(core(k, v));
 }
 
 
@@ -27,15 +30,24 @@ export default class Store  {
     }
 
     get(key) {
-        return this.db.get(encodeKey(key));
+        return this.db.get(encodeKey(key)).then(val => new Promise(resolve => resolve(decodeValue(val))));
     }
 
     put(key, value) {
         return this.db.put(
-            encodeKey(key), 
+            encodeKey(key),
             encodeValue(value)
         );
     }
+
+    add(key, value) {
+        return this.get(key).then(val => {
+            return this.put(key, val.concat(value));
+        }).catch((e) => {
+            return this.put(key, [value]);
+        })
+    }
+
 
     cast(opt) {
         return this.db.createReadStream(opt).on('end', () => this.close()).pipe(ezs(decode));

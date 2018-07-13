@@ -15,7 +15,7 @@ export default function sort(data, feed) {
     }
     if (this.isLast()) {
         this.store.cast()
-            .on('data', item => feed.write(item))
+            .on('data', item => feed.write(item.value))
             .on('end', () => feed.close());
     } else {
         const path = this.getParam('path', 'id');

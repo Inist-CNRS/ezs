@@ -45,8 +45,8 @@ describe('test', () => {
             })
             .on('end', () => {
                 assert.equal(2, res.length);
-                assert.equal(3, res[0].value.length);
-                assert.equal(2, res[1].value.length);
+                assert.equal(2, res[0].value.length);
+                assert.equal(3, res[1].value.length);
                 done();
             });
     });
@@ -68,8 +68,8 @@ describe('test', () => {
             })
             .on('end', () => {
                 assert.equal(2, res.length);
-                assert.equal(3, res[0].value);
-                assert.equal(2, res[1].value);
+                assert.equal(2, res[0].value);
+                assert.equal(3, res[1].value);
                 done();
             });
     });
@@ -89,8 +89,8 @@ describe('test', () => {
             })
             .on('end', () => {
                 assert.equal(2, res.length);
-                assert.equal(10, res[0].value);
-                assert.equal(2, res[1].value);
+                assert.equal(2, res[0].value);
+                assert.equal(10, res[1].value);
                 done();
             });
     });
@@ -134,7 +134,7 @@ describe('test', () => {
             })
             .on('end', () => {
                 assert.equal(10, res.length);
-                assert.equal(2, res[0].value);
+                assert.equal(2, res[1].value);
                 done();
             });
     });
@@ -300,12 +300,12 @@ describe('test', () => {
             })
             .on('end', () => {
                 assert.equal(2, res.length);
-                assert.equal('lorem', res[0].id);
-                assert.equal(3, res[0].value.b1.length);
-                assert.equal(3, res[0].value.b2.length);
-                assert.equal('ipsum', res[1].id);
-                assert.equal(2, res[1].value.b1.length);
+                assert.equal('lorem', res[1].id);
+                assert.equal(3, res[1].value.b1.length);
                 assert.equal(3, res[1].value.b2.length);
+                assert.equal('ipsum', res[0].id);
+                assert.equal(2, res[0].value.b1.length);
+                assert.equal(3, res[0].value.b2.length);
                 done();
             });
     });
@@ -466,8 +466,8 @@ describe('test', () => {
             })
             .on('end', () => {
                 assert.equal(12, res.length);
-                assert.equal('lorem', res[0].id);
-                assert.equal(2, res[0].value);
+                assert.equal('lorem', res[8].id);
+                assert.equal(2, res[8].value);
                 done();
             });
     });
