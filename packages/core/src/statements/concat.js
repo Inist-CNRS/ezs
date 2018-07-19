@@ -1,7 +1,6 @@
 /**
  * Take all `String`, concat them and thow just one
  *
- * @name concat
  * @param {String} [beginWith] Add value at the begin
  * @param {String} [joinWith] use value to join 2 chunk
  * @param {String} [endWith] Add value at the end

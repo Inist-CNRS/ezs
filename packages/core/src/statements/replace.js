@@ -3,7 +3,6 @@ import _ from 'lodash';
 /**
  * Take `Object` and create a new object with some fields
  *
- * @name replace
  * @param {String} [path] path of the new field
  * @param {String} [value] value of the new field
  * @returns {Object}

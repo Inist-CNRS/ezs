@@ -3,7 +3,6 @@ import _ from 'lodash';
 /**
  * Take `Object` and throw each value of fields
  *
- * @name extract
  * @param {String} [path] path of field to extract
  * @returns {Object}
  */

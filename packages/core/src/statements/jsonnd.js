@@ -1,7 +1,6 @@
 /**
  * Take all `Object`, throw encoded `String`
  *
- * @name encoder
  * @returns {String}
  */
 export default function jsonnd(data, feed) {

@@ -2,7 +2,6 @@ import util from 'util';
 /**
  * Take `Object` , print it and throw the same object
  *
- * @name debug
  * @param {String} [level=log] console level : log or error
  * @param {String} [text=valueOf] text before the dump
  * @returns {Object}

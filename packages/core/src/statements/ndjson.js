@@ -1,7 +1,6 @@
 /**
  * Take `String` and throw `Object` builded by JSON.parse on each line
  *
- * @name json
  * @returns {String}
  */
 export default function ndjson(data, feed) {
