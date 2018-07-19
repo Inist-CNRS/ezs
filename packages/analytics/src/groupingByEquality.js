@@ -19,7 +19,7 @@ export default function groupingByEquality(data, feed) {
         feed.close();
         return;
     }
-    const id = get(data, this.getParam('id', 'id'));
+    const id = get(data, this.getParam('id', 'id')) || this.getIndex();
     const value = get(data, this.getParam('value', 'value'));
     const finder = equalTo(id);
     if (id && value) {

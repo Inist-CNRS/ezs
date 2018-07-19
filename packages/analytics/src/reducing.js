@@ -17,7 +17,7 @@ export default function reducing(data, feed) {
             .on('data', item => feed.write(item))
             .on('end', () => feed.close());
     } else {
-        const id = get(data, this.getParam('id', 'id'));
+        const id = get(data, this.getParam('id', 'id')) || this.getIndex();
         const value = get(data, this.getParam('value', 'value'));
         this.store.add(id, value).then(() => feed.end());
     }

@@ -17,7 +17,7 @@ export default function topics(data, feed) {
     const language = this.getParam('language', 'en');
     const seed = this.getParam('seed', 123);
     const languages = Array.isArray(language) ? language : [language];
-    const id = get(data, this.getParam('id', 'id'));
+    const id = get(data, this.getParam('id', 'id')) || this.getIndex();
     const value = get(data, this.getParam('value', 'value'));
     const values = Array.isArray(value) ? value : [value];
     if (id && value) {

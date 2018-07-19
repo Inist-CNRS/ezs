@@ -56,7 +56,7 @@ export default function groupingByLevenshtein(data, feed) {
         return;
     }
     const distance = Number(this.getParam('distance', 1)) || 1;
-    const id = get(data, this.getParam('id', 'id'));
+    const id = get(data, this.getParam('id', 'id')) || this.getIndex();    
     const value = get(data, this.getParam('value', 'value'));
     const finder = equalTo(id, distance);
     if (id && value) {
