@@ -405,4 +405,29 @@ describe('test', () => {
                 done();
             });
     });
+    
+    it('stuck/unstuck', (done) => {
+        const res = [];
+        from([
+            { a: 1, b: 5 },
+            { a: 2, b: 5 },
+            { a: 3, b: 5 },
+            { a: 4, b: 5 },
+            { a: 5, b: 5 },
+        ])
+            .pipe(ezs('stuck', { path: 'b' }))
+            .pipe(ezs('replace', { path: 'toto', value: 'truc' }))
+            .pipe(ezs('unstuck', { path: 'b' }))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(5, res.length);
+                assert.equal(5, res[0].b);
+                assert.equal(5, res[1].b);
+                assert.equal(5, res[2].b);
+                done();
+            });
+    });
 });

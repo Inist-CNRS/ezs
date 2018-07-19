@@ -33,6 +33,10 @@ export default class Store  {
         return this.db.get(encodeKey(key)).then(val => new Promise(resolve => resolve(decodeValue(val))));
     }
 
+    set(key, value) {
+        return this.put(key, value);
+    }
+
     put(key, value) {
         return this.db.put(
             encodeKey(key),
