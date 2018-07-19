@@ -116,28 +116,6 @@ describe('test', () => {
                 done();
             });
     });
-    it('graph', (done) => {
-        const res = [];
-        from([
-            { a: ['x', 'b', 'z'] },
-            { a: ['t', 'b', 'z'] },
-            { a: ['t', 'c', 'z'] },
-            { a: ['y', 'd', 'z'] },
-            { a: ['x', 'b', 'z'] },
-        ])
-            .pipe(ezs('graph', { path: 'a' }))
-            .pipe(ezs('reducing'))
-            .pipe(ezs('summing'))
-            .on('data', (chunk) => {
-                assert(typeof chunk === 'object');
-                res.push(chunk);
-            })
-            .on('end', () => {
-                assert.equal(10, res.length);
-                assert.equal(2, res[1].value);
-                done();
-            });
-    });
     it('pluck', (done) => {
         const res = [];
         from([
@@ -310,50 +288,6 @@ describe('test', () => {
             });
     });
 
-
-    it('pair', (done) => {
-        const res = [];
-        from([
-            { a: ['x', 'r', 'z'], b: ['a', 'b', 'c'] },
-            { a: ['t', 'r', 'z'], b: ['e', 'i', 'e'] },
-            { a: ['t', 's', 'z'], b: ['i', 'c', 'e'] },
-            { a: ['y', 'w', 'z'], b: ['o', 'c', 'd'] },
-            { a: ['x', 's', 'z'], b: ['u', 'e', 'd'] },
-        ])
-            .pipe(ezs('pair', { path: ['a'] }))
-            .pipe(ezs('reducing'))
-            .pipe(ezs('summing'))
-            .on('data', (chunk) => {
-                assert(typeof chunk === 'object');
-                res.push(chunk);
-            })
-            .on('end', () => {
-                assert.equal(0, res.length);
-                done();
-            });
-    });
-
-    it('pair', (done) => {
-        const res = [];
-        from([
-            { a: ['x', 'r', 'z'], b: ['a', 'b', 'c'] },
-            { a: ['t', 'r', 'z'], b: ['e', 'i', 'e'] },
-            { a: ['t', 's', 'z'], b: ['i', 'c', 'e'] },
-            { a: ['y', 'w', 'z'], b: ['o', 'c', 'd'] },
-            { a: ['x', 's', 'z'], b: ['u', 'e', 'd'] },
-        ])
-            .pipe(ezs('pair', { path: ['a', 'b'] }))
-            .pipe(ezs('reducing'))
-            .pipe(ezs('summing'))
-            .on('data', (chunk) => {
-                assert(typeof chunk === 'object');
-                res.push(chunk);
-            })
-            .on('end', () => {
-                assert.equal(33, res.length);
-                done();
-            });
-    });
 
     it('totalize', (done) => {
         const res = [];

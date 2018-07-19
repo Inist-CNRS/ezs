@@ -27,7 +27,7 @@ export default function pair(data, feed) {
             const a = values.slice(i + 1).reduce((pre, cur) => pre.concat(cur), []);
             if (a.length > 0) {
                 v.forEach((w) => {
-                    a.forEach(x => feed.write(core(JSON.stringify([w, x]), 1)));
+                    a.forEach(x => feed.write(core([w, x], 1)));
                 });
             }
         });

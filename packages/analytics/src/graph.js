@@ -27,7 +27,7 @@ export default function graph(data, feed) {
     values.forEach(
         (v, i) => values
         .slice(i + 1)
-        .forEach(w => feed.write(core(JSON.stringify([v, w]), 1))),
+        .forEach(w => feed.write(core([v, w], 1))),
     );
     feed.end();
 }

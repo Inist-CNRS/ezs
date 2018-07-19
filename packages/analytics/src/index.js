@@ -17,6 +17,7 @@ import tune from './tune';
 import value from './value';
 import sort from './sort';
 import topics from './topics';
+import segment from './segment';
 
 export default {
     count,
@@ -38,4 +39,5 @@ export default {
     value,
     sort,
     topics,
+    segment,
 };
