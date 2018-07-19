@@ -37,9 +37,11 @@ process.stdin
 -   [reducing](#reducing)
 -   [segment](#segment)
 -   [sort](#sort)
+-   [stuck](#stuck)
 -   [summing](#summing)
 -   [topics](#topics)
 -   [tune](#tune)
+-   [unstuck](#unstuck)
 -   [value](#value)
 
 ## count
@@ -248,6 +250,18 @@ Take all `Object` and sort them with dedicated key
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
+## stuck
+
+Take `Object` and throw the same object but stuck values of fields in a global store
+
+**Parameters**
+
+-   `data`  
+-   `feed`  
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to extract
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
 ## summing
 
 Take special `Object` like {id, value} and replace value with the sum of values
@@ -283,6 +297,18 @@ Take all `Object` and sort them with selected field
 -   `data`  
 -   `feed`  
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for the sort key (optional, default `id`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## unstuck
+
+Take `Object` and throw the same object but add stucked value
+
+**Parameters**
+
+-   `data`  
+-   `feed`  
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to extract
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
