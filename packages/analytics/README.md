@@ -35,6 +35,7 @@ process.stdin
 -   [pair](#pair)
 -   [pluck](#pluck)
 -   [reducing](#reducing)
+-   [segment](#segment)
 -   [sort](#sort)
 -   [summing](#summing)
 -   [topics](#topics)
@@ -219,6 +220,19 @@ Take `Object` group value of { id, value } objectpath
 -   `feed`  
 -   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## segment
+
+Take `Object` object getting some fields with json path, and 
+throw segment of value. Ex: get [a,b,c] and throw [a,b], [b,c]
+
+**Parameters**
+
+-   `data`  
+-   `feed`  
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path (optional, default `value`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
