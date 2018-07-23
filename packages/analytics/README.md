@@ -227,7 +227,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ## segment
 
-Take `Object` object getting some fields with json path, and 
+Take `Object` object getting some fields with json path, and
 throw segment of value. Ex: get [a,b,c] and throw [a,b], [b,c]
 
 **Parameters**
@@ -235,6 +235,7 @@ throw segment of value. Ex: get [a,b,c] and throw [a,b], [b,c]
 -   `data`  
 -   `feed`  
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path (optional, default `value`)
+-   `aggregate` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** aggregate all values for all paths (or not) (optional, default `true`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
