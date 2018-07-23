@@ -24,7 +24,7 @@ export default function segment(data, feed) {
         .filter(x => x)
         .map(item => (Array.isArray(item) ? item : [item]))
 
-    const values = Array.isArray(valuesOrig[0][0]) ? flatten(valuesOrig) : valuesOrig;
+    const values = valuesOrig[0] && Array.isArray(valuesOrig[0][0]) ? flatten(valuesOrig) : valuesOrig;
 
     if (aggr) {
         values.reduce((pre, cur) => pre.concat(cur), [])
