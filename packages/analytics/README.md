@@ -36,6 +36,7 @@ process.stdin
 -   [pluck](#pluck)
 -   [reducing](#reducing)
 -   [segment](#segment)
+-   [slice](#slice)
 -   [sort](#sort)
 -   [stuck](#stuck)
 -   [summing](#summing)
@@ -236,6 +237,20 @@ throw segment of value. Ex: get [a,b,c] and throw [a,b], [b,c]
 -   `feed`  
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path (optional, default `value`)
 -   `aggregate` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** aggregate all values for all paths (or not) (optional, default `true`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## slice
+
+Take `Object` and throw the same object onl if there in the section of the stream between start and start + size
+stream is numbered from 1
+
+**Parameters**
+
+-   `data`  
+-   `feed`  
+-   `start` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** start of the slice (optional, default `0`)
+-   `size` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** size of the slice (optional, default `10`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 

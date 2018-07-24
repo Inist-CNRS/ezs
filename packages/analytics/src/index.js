@@ -21,6 +21,7 @@ import segment from './segment';
 import stuck from './stuck';
 import unstuck from './unstuck';
 import output from './output';
+import slice from './slice';
 
 export default {
     count,
@@ -46,4 +47,5 @@ export default {
     stuck,
     unstuck,
     output,
+    slice,
 };

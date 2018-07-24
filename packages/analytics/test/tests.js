@@ -405,7 +405,7 @@ describe('test', () => {
                 done();
             });
     });
-    
+
     it('stuck/unstuck', (done) => {
         const res = [];
         from([
@@ -430,4 +430,35 @@ describe('test', () => {
                 done();
             });
     });
+
+    it('slice #1', (done) => {
+        const res = [];
+        from([ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22 ])
+            .pipe(ezs('slice'))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(10, res.length);
+                assert.equal(1, res[0]);
+                assert.equal(10, res[9]);
+                done();
+            });
+    });
+
+    it('slice #2', (done) => {
+        const res = [];
+        from([ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22 ])
+            .pipe(ezs('slice', { start: 2, size: 2 }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(2, res.length);
+                assert.equal(2, res[0]);
+                assert.equal(3, res[1]);
+                done();
+            });
+    });
+
 });
