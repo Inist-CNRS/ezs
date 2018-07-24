@@ -55,9 +55,9 @@
         "p-map": "1.2.0",
         "lru-cache": "4.1.3",
         "tmp-filepath": "2.0.0",
+        "node-zstd": "2.0.1",
         "yargs": "11.1.0"
     },
     "optionalDependencies": {
-        "node-zstd": "2.0.1"
     }
 }
