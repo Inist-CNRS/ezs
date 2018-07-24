@@ -5,6 +5,7 @@ import Single from './single';
 import Script from './script';
 import File from './file';
 import Output from './output';
+import Cache from './cache';
 import Catcher from './catcher';
 import Statements from './statements';
 import Parameter from './parameter';
@@ -52,6 +53,7 @@ ezs.command = (stream, command) => {
     }
     throw new Error(`Bad mode: ${mode}`);
 };
+ezs.createCache = (options) => new Cache(ezs, options);
 ezs.createServer = (port) => Server.createServer(ezs, new IsolatedStore(), port);
 ezs.createCluster = (port) => Server.createCluster(ezs, new SharedStore(), port);
 

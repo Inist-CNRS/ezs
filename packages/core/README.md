@@ -16,9 +16,7 @@ process.stdin.setEncoding('utf8');
 process.stdin
   .pipe(ezs('split', { delimiter: "\n" }))
   .pipe(ezs('counter'))
-  .pipe(ezs(function(input, output) {
-	  output.send(input.toString();
-  })
+  .pipe(ezs((input, output) => output.send(input.toString()));
   .pipe(process.stdout);
 ```
 
@@ -63,7 +61,7 @@ Converts a transform stream with existing function or adhoc function.
 
 ```javascript
 	const ezs = require('ezs'),
-	let trasnformer = ezs(function(input, output) {
+	let transformer = ezs(function(input, output) {
 		output.send(input.toString())
 	})
 ```
@@ -125,11 +123,37 @@ catch Error in NodeJS pipeline
 
 get chunk of in NodeJS pipeline and send Buffer of the chunk
 
-## ezs.createServer()
+\## ezs.createCache = (options: Object)
+
+To cache the result of the pipeline.
+Options:
+
+-   `max` **Number**  max items in the cache (optional, default `500`)
+-   `maxAge` Number max age of items in the cache (optional, default `360000`)
+-   `objectMode` Boolean cache for object (or Buffer) (optional, default `false`)
+
+Example:
+
+```javascript
+    const cache = ezs.createCache({ objectMode: false });
+
+    const cacheID = 'XXXXXX';
+    const cached = cache1.get(cacheID);
+    if (cached) {
+        cached
+            .pipe(process.stdout)
+    } else {
+        process.stdin
+            .pipe(cache1.set(cacheID))
+            .pipe(process.stdout)
+    }
+```
+
+## ezs.createServer = (port : Number)
 
 Launch a server for ezs.dispatch
 
-## ezs.createCluster()
+## ezs.createCluster = (port : Number)
 
 Launch a cluster for ezs.dispatch
 
@@ -140,16 +164,16 @@ Launch a cluster for ezs.dispatch
 ### Table of Contents
 
 -   [assign](#assign)
--   [replace](#replace)
--   [debug](#debug)
--   [transit](#transit)
--   [shift](#shift)
--   [extract](#extract)
--   [keep](#keep)
 -   [concat](#concat)
+-   [debug](#debug)
+-   [extract](#extract)
 -   [json](#json)
--   [encoder](#encoder)
--   [encoder](#encoder-1)
+-   [jsonnd](#jsonnd)
+-   [keep](#keep)
+-   [ndjson](#ndjson)
+-   [replace](#replace)
+-   [shift](#shift)
+-   [transit](#transit)
 
 ## assign
 
@@ -157,21 +181,26 @@ Take `Object` and add new field
 
 **Parameters**
 
+-   `data`  
+-   `feed`  
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of the new field
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value of the new field
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-## replace
+## concat
 
-Take `Object` and create a new object with some fields
+Take all `String`, concat them and thow just one
 
 **Parameters**
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of the new field
--   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value of the new field
+-   `data`  
+-   `feed`  
+-   `beginWith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Add value at the begin
+-   `joinWith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** use value to join 2 chunk
+-   `endWith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Add value at the end
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ## debug
 
@@ -179,20 +208,10 @@ Take `Object` , print it and throw the same object
 
 **Parameters**
 
+-   `data`  
+-   `feed`  
 -   `level` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** console level : log or error (optional, default `log`)
 -   `text` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** text before the dump (optional, default `valueOf`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-## transit
-
-Take `Object` and throw the same object
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-## shift
-
-Take the first `Object` and close the feed
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -202,9 +221,33 @@ Take `Object` and throw each value of fields
 
 **Parameters**
 
+-   `data`  
+-   `feed`  
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to extract
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## json
+
+Take all `String`, throw `Object` builded by JSON.parse
+
+**Parameters**
+
+-   `data`  
+-   `feed`  
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+## jsonnd
+
+Take all `Object`, throw encoded `String`
+
+**Parameters**
+
+-   `data`  
+-   `feed`  
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ## keep
 
@@ -213,31 +256,55 @@ spefici fields
 
 **Parameters**
 
+-   `data`  
+-   `feed`  
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to keep
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-## concat
+## ndjson
 
-Take all `String`, concat them and thow just one
+Take `String` and throw `Object` builded by JSON.parse on each line
 
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+**Parameters**
 
-## json
-
-Take all `String`, throw `Object` builded by JSON.parse
-
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-## encoder
-
-Take all `Object`, throw encoded `String`
+-   `data`  
+-   `feed`  
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
-## encoder
+## replace
 
-Take all `String`, throw decoded `Object`
+Take `Object` and create a new object with some fields
+
+**Parameters**
+
+-   `data`  
+-   `feed`  
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of the new field
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value of the new field
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## shift
+
+Take the first `Object` and close the feed
+
+**Parameters**
+
+-   `data`  
+-   `feed`  
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## transit
+
+Take `Object` and throw the same object
+
+**Parameters**
+
+-   `data`  
+-   `feed`  
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
