@@ -25,9 +25,10 @@ export default function sort(data, feed) {
         const values = fields
             .filter(k => typeof k === 'string')
             .map(key => get(data, key))
-        const id = fields.length > 1 ? values.join(',') : values[0];
-        const key = typeof id === 'number' ? String(Math.exp(id/2)) : String(id);
-        const hash = key.concat('~').concat(this.getIndex());
+            .map(val => typeof val === 'number' ? val.toFixed(20).toString() : String(val).slice(0,20).padEnd(20, '~'))
+        const key = fields.length > 1 ? values.join(',') : values[0];
+        const idx = this.getIndex().toString().padStart(20, '0');
+        const hash = key.concat('~').concat(idx);
         this.store.put(hash, data).then(() => feed.end());
     }
 }

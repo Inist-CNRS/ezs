@@ -55,8 +55,8 @@ describe('sort ', () => {
                 res.push(chunk);
             })
             .on('end', () => {
-                assert.equal(7, res[0].value);
-                assert.equal(9, res[10].value);
+                assert.equal(10, res[0].value);
+                assert.equal(1, res[10].value);
                 assert.equal(11, res.length);
                 done();
             });
@@ -93,7 +93,7 @@ describe('sort ', () => {
     });
 
 
-    it('sort by id', (done) => {
+    it('sort by id #2', (done) => {
         const res = [];
         from([
             { id: 'electrically', value: 1 },
@@ -120,5 +120,45 @@ describe('sort ', () => {
                 done();
             });
     });
+
+
+    it('sort by id #2', (done) => {
+        const res = [];
+        from([
+            { "i": 1, "value": 1, },
+            { "i": 3.879032258064517, "value": 2 },
+            { "i": 2.516129032258065, "value": 3 },
+            { "i": 1.0000000000000002, "value": 4 },
+            { "i": 0.2016129032258065, "value": 5 },
+            { "i": 0.45161290322580655, "value": 6 },
+            { "i": 2.516129032258065, "value": 7 },
+            { "i": 0.49731182795698936, "value": 8 },
+            { "i": 2.6102150537634414, "value": 9 },
+            { "i": 2.6102150537634414, "value": 10 },
+            { "i": 0.45161290322580655, "value": 11 },
+            { "i": 0.924731182795699, "value": 12 },
+            { "i": 1.3575268817204302, "value": 13 },
+            { "i": 2.610215053763441, "value": 14 },
+            { "i": 0.45161290322580644, "value": 15 },
+            { "i": 0.45161290322580644, "value": 16 },
+            { "i": 2.524193548387097, "value": 17 },
+            { "i": 1.0430107526881722, "value": 18 },
+            { "i": 0.6182795698924732, "value": 19 },
+            { "i": 0.817204301075269, "value": 20 }
+        ])
+            .pipe(ezs('sort', { path: 'i' }))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(20, res.length);
+                assert.equal(5, res[0].value);
+                assert.equal(2, res[19].value);
+                done();
+            });
+    });
+
+
 
 });
