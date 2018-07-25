@@ -13,10 +13,10 @@ export default function slice(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
-    const start = this.getParam('start', 1);
-    const size = this.getParam('size', 10);
+    const start = Number(this.getParam('start')) || 1;
+    const size = Number(this.getParam('size')) || 10;
     const stop = start + size;
-    const index = this.getIndex();
+    const index = Number(this.getIndex());
 
     if (index >= stop) {
         feed.close();
