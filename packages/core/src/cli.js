@@ -54,10 +54,7 @@ export default function cli(errlog) {
     }
 
     if (argv.daemon) {
-        ezs.createCluster(port);
-        if (!argv.server) {
-            argv.server = '127.0.0.1';
-        }
+        return ezs.createCluster(port);
     }
 
     if (!argv.daemon && !firstarg) {
