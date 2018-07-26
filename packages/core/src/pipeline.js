@@ -3,9 +3,9 @@ import { PassThrough, Duplex } from 'stream';
 import { DEBUG, M_NORMAL } from './constants';
 
 export default class Pipeline extends Duplex {
-    constructor(ezs, commands, options) {
-        super({ ...options, objectMode: true });
-        this.tubin = new PassThrough({ objectMode: true });
+    constructor(ezs, commands) {
+        super(ezs.objectMode());
+        this.tubin = new PassThrough(ezs.objectMode());
         this.tubout = this.tubin;
         assert(Array.isArray(commands), 'Pipeline works with an array of commands.');
         const cmds = [...commands];

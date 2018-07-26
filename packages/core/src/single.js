@@ -3,9 +3,9 @@ import { addedDiff } from 'deep-object-diff';
 
 export default class Once extends Transform {
     constructor(ezs, mixed, options) {
-        super({ objectMode: true });
+        super(ezs.objectMode());
         this.first = true;
-        this.tubin = new PassThrough({ objectMode: true });
+        this.tubin = new PassThrough(ezs.objectMode());
         this.tubout = this.tubin;
         if (Array.isArray(mixed)) {
             this.tubout = mixed.reduce(ezs.command, this.tubout);

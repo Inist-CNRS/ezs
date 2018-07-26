@@ -14,11 +14,25 @@ import IsolatedStore from './isolated-store';
 import SharedStore from './shared-store';
 import Meta from './meta';
 import Server from './server';
-import { M_SINGLE, M_DISPATCH, M_NORMAL, M_CONDITIONAL } from './constants';
+import { M_SINGLE, M_DISPATCH, M_NORMAL, M_CONDITIONAL, HWM_BYTES, HWM_OBJECT } from './constants';
 
 const ezs = (name, opts) => new Engine(ezs, Statement.get(ezs, name, opts), opts);
 const ezsPath = [process.cwd()];
 
+ezs.settings = {
+    highWaterMark: [
+        HWM_OBJECT,
+        HWM_BYTES,
+    ],
+};
+ezs.objectMode = () => ({
+    objectMode: true,
+    highWaterMark: Number(ezs.settings.highWaterMark[0]) || HWM_OBJECT,
+});
+ezs.bytesMode = () => ({
+    objectMode: false,
+    highWaterMark: Number(ezs.settings.highWaterMark[1]) || HWM_BYTES,
+});
 ezs.constants = { M_SINGLE, M_DISPATCH, M_NORMAL, M_CONDITIONAL };
 ezs.config = (name, opts) => Parameter.set(ezs, name, opts);
 ezs.pipeline = (commands, options) => new Pipeline(ezs, commands, options);

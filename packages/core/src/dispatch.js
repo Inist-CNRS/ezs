@@ -26,7 +26,7 @@ const parseAddress = (srvr) => {
 const agent = new http.Agent({
     maxSockets: 1000,
     keepAlive: true,
-    timeout: 100,
+    timeout: 10,
 });
 
 const registerTo = (ezs, { hostname, port }, commands) =>
@@ -78,7 +78,7 @@ const registerTo = (ezs, { hostname, port }, commands) =>
         req.on('error', (e) => {
             reject(e);
         });
-        const input = new PassThrough({ objectMode: true });
+        const input = new PassThrough(ezs.objectMode());
         input
             .pipe(ezs('jsonnd'))
             .pipe(compressStream())
@@ -88,8 +88,8 @@ const registerTo = (ezs, { hostname, port }, commands) =>
     });
 
 const duplexer = (ezs, onerror) => (serverOptions, index) => {
-    const input = new PassThrough({ objectMode: true });
-    const output = new PassThrough({ objectMode: true });
+    const input = new PassThrough(ezs.objectMode());
+    const output = new PassThrough(ezs.objectMode());
     const handle = http.request(serverOptions, (res) => {
         if (res.statusCode === 200) {
             res
@@ -118,12 +118,12 @@ const duplexer = (ezs, onerror) => (serverOptions, index) => {
 
 export default class Dispatch extends Duplex {
     constructor(ezs, commands, servers) {
-        super({ objectMode: true });
+        super(ezs.objectMode());
 
         this.handles = [];
         this.handlesEnd = [];
 
-        this.tubin = new PassThrough({ objectMode: true });
+        this.tubin = new PassThrough(ezs.objectMode());
         this.tubout = this.tubin
             .pipe(ezs('transit'))
         ;
@@ -168,7 +168,7 @@ export default class Dispatch extends Duplex {
                     this.emit('error', e);
                 }));
                 const streams = this.handles.map(h => h[1]);
-                MultiStream(streams, { objectMode: true }).pipe(this.tubin);
+                MultiStream(streams, this.ezs.objectMode()).pipe(this.tubin);
                 this.balance(chunk, encoding, callback);
             }, callback).catch(console.error);
         } else {

@@ -41,7 +41,8 @@ export default class Cache {
         const ezs = this.ezs;
         const cache = this.handle;
         const tmpFile = tmpFilepath('.bin');
-        const cacheInput = new PassThrough({ objectMode: this.objectMode });
+        const streamOptions = this.objectMode ? ezs.objectMode() : ezs.bytesMode();
+        const cacheInput = new PassThrough(streamOptions);
         if (this.objectMode) {
             cacheInput
                 .pipe(ezs('jsonnd'))
@@ -55,14 +56,14 @@ export default class Cache {
         }
         const func = (data, feed) => {
             if (data) {
-                    cacheInput.write(data);
+                cacheInput.write(data);
             } else {
                 cacheInput.end();
                 cache.set(key, tmpFile);
             }
             feed.send(data);
         };
-        const stream = new PassThrough({ objectMode: this.objectMode });
+        const stream = new PassThrough(streamOptions);
         return stream.pipe(ezs(func));
     }
 

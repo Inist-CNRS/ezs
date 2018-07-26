@@ -36,6 +36,12 @@ export default function cli(errlog) {
                 default: 31976,
                 type: 'number',
             },
+            highWaterMark: {
+                alias: 'w',
+                describe: 'Change high water mark',
+                default: '16:16384',
+                type: 'string',
+            },
             env: {
                 alias: 'e',
                 default: false,
@@ -51,6 +57,9 @@ export default function cli(errlog) {
 
     if (argv.verbose) {
         debug.enable('ezs');
+    }
+    if (argv.highWaterMark) {
+        ezs.settings.highWaterMark = argv.highWaterMark.split(':').map(x => Number(x));
     }
 
     if (argv.daemon) {
@@ -81,8 +90,7 @@ export default function cli(errlog) {
 
         const script = fs.readFileSync(file).toString();
         const cmds = new Commands(ezs.parseString(script));
-
-        const input = argv.env ? new PassThrough({ objectMode: true }) : process.stdin;
+        const input = argv.env ? new PassThrough(ezs.objectMode()) : process.stdin;
 
         if (argv.env) {
             // Use Env vars as INPUT

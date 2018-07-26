@@ -17,7 +17,7 @@ function createErrorWith(error, index) {
 
 export default class Engine extends Transform {
     constructor(ezs, func, params, selector) {
-        super({ objectMode: true });
+        super(ezs.objectMode());
         this.func = func;
         this.funcName = String(func.name);
         this.index = 0;
