@@ -114,7 +114,7 @@ export default function cli(errlog) {
         }
         const stream2 = stream1.pipe(ezs.toBuffer());
         stream2.on('end', () => {
-            process.exit(1);
+            process.exit(0);
         });
         stream2.pipe(process.stdout);
     }
