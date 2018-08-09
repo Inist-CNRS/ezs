@@ -4,6 +4,20 @@ import fetch from 'omni-fetch';
 import QueryString from 'qs';
 import { newValue } from './utils';
 
+/**
+ * Take `Object` containing a query and outputs URLs to use with ISTEXScroll.
+ * Optionally, you can put the query in the `query` parameter.
+ *
+ * @param {string} [source="query"] property to treat
+ * @param {string} target   property used in the result
+ * @param {string} query    ISTEX query
+ * @param {string} [sid="ezs-istex"]  User-agent identifier
+ * @param {number} maxPage  maximum number of pages to get from the API
+ * @param {number} [size=2000]  size of each page of results
+ * @param {string} [duration="30s"] maximum duration between two request to the API
+ * @param {Array<string>} [field=["doi"]]   fields to output
+ * @returns {Stream}
+ */
 function ISTEXSearch(data, feed) {
     if (this.isLast()) {
         return feed.close();
