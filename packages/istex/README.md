@@ -23,6 +23,8 @@ ezs.use(require('ezs-istex'));
     -   [Parameters](#parameters-2)
 -   [ISTEXSearch](#istexsearch)
     -   [Parameters](#parameters-3)
+-   [ISTEX](#istex)
+    -   [Parameters](#parameters-4)
 
 ### ISTEXFetch
 
@@ -89,3 +91,20 @@ Optionally, you can put the query in the `query` parameter.
 -   `field` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** fields to output (optional, default `["doi"]`)
 
 Returns **[Stream](https://nodejs.org/api/stream.html)** 
+
+### ISTEX
+
+Take an array and returns matching documents for every value of the array
+
+#### Parameters
+
+-   `data`  
+-   `feed`  
+-   `query` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>)** ISTEX query (or queries) (optional, default `data.query||[]`)
+-   `id` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>)** ISTEX id (or ids) (optional, default `data.id||[]`)
+-   `maxPage` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** maximum number of pages to get
+-   `size` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** size of each page of results
+-   `duration` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** maximum duration between two requests (ex: "30s")
+-   `field` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** fields to output
+
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 

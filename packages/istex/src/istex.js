@@ -72,6 +72,17 @@ const getAndWriteIdentifiers = (data, options, feed) => new Promise((resolve, re
 });
 
 
+/**
+ * Take an array and returns matching documents for every value of the array
+ *
+ * @param {string|Array<string>} [query=data.query||[]] ISTEX query (or queries)
+ * @param {string|Array<string>} [id=data.id||[]]   ISTEX id (or ids)
+ * @param {number} maxPage  maximum number of pages to get
+ * @param {number} size     size of each page of results
+ * @param {string} duration maximum duration between two requests (ex: "30s")
+ * @param {Array<Object>} field fields to output
+ * @returns {Array<Object>}
+ */
 async function ISTEX(data, feed) {
     if (this.isLast()) {
         return feed.close();
