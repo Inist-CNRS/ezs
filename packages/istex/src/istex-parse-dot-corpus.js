@@ -1,6 +1,12 @@
 import { PassThrough } from 'stream';
 import { writeTo } from './utils';
 
+/**
+ * Parse a `.corpus` file content, and returns an object containing queries and
+ * ids.
+ *
+ * @returns {Object}
+ */
 function ISTEXParseDotCorpus(data, feed) {
     if (this.isLast()) {
         return feed.close();
