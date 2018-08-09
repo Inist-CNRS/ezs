@@ -1,13 +1,12 @@
 import URL from 'url';
 import path from 'path';
 import fetch from 'omni-fetch';
-import fs from 'fs';
 import os from 'os';
 import queue from 'async.queue';
 import isStream from 'is-stream';
 import writeFile from 'write';
 import InistARK from 'inist-ark';
- 
+
 const ark = new InistARK();
 const worker = (options) => ({ source, target }, done) => fetch(source, options)
     .then(response => {
