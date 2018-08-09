@@ -15,12 +15,29 @@ ezs.use(require('ezs-istex'));
 
 #### Table of Contents
 
--   [ISTEXResult](#istexresult)
+-   [ISTEXFetch](#istexfetch)
     -   [Parameters](#parameters)
--   [ISTEXScroll](#istexscroll)
+-   [ISTEXResult](#istexresult)
     -   [Parameters](#parameters-1)
--   [ISTEXSearch](#istexsearch)
+-   [ISTEXScroll](#istexscroll)
     -   [Parameters](#parameters-2)
+-   [ISTEXSearch](#istexsearch)
+    -   [Parameters](#parameters-3)
+
+### ISTEXFetch
+
+Take `Object` with `id` and returns the document's metadata
+
+#### Parameters
+
+-   `data`  
+-   `feed`  
+-   `source` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Field to use to fetch documents (optional, default `"id"`)
+-   `target` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** ISTEX Identifier of a document (optional, default `data.id`)
+-   `sid` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** User-agent identifier (optional, default `"ezs-istex"`)
+
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 
 
 ### ISTEXResult
 

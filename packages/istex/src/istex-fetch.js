@@ -4,6 +4,15 @@ import fetch from 'omni-fetch';
 import QueryString from 'qs';
 import { newValue } from './utils';
 
+/**
+ * Take `Object` with `id` and returns the document's metadata
+ *
+ * @param {string} [source="id"]    Field to use to fetch documents
+ * @param {string} target
+ * @param {string} [id=data.id]     ISTEX Identifier of a document
+ * @param {string} [sid="ezs-istex"]    User-agent identifier
+ * @returns {Array<Object>}
+ */
 function ISTEXFetch(data, feed) {
     if (this.isLast()) {
         return feed.close();
