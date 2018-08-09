@@ -2,6 +2,14 @@ import OBJ from 'dot-prop';
 import fetch from 'omni-fetch';
 import { newValue } from './utils';
 
+/**
+ * Take an `Object` containing URLs to the ISTEX API, and returns results.
+ * @see ISTEXSearch
+ *
+ * @param {string} source
+ * @param {string} target
+ * @returns {Stream}
+ */
 function ISTEXScroll(data, feed) {
     if (this.isLast()) {
         return feed.close();

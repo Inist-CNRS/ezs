@@ -15,17 +15,35 @@ ezs.use(require('ezs-istex'));
 
 #### Table of Contents
 
--   [ISTEXSearch](#istexsearch)
+-   [ISTEXScroll](#istexscroll)
     -   [Parameters](#parameters)
+-   [ISTEXSearch](#istexsearch)
+    -   [Parameters](#parameters-1)
 
-### ISTEXSearch
+### ISTEXScroll
 
-Query the ISTEX API with
+-   **See: ISTEXSearch**
+
+Take an `Object` containing URLs to the ISTEX API, and returns results.
 
 #### Parameters
 
--   `data`
--   `feed`
+-   `data`  
+-   `feed`  
+-   `source` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `target` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+Returns **[Stream](https://nodejs.org/api/stream.html)** 
+
+### ISTEXSearch
+
+Take `Object` containing a query and outputs URLs to use with ISTEXScroll.
+Optionally, you can put the query in the `query` parameter.
+
+#### Parameters
+
+-   `data`  
+-   `feed`  
 -   `source` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** property to treat (optional, default `"query"`)
 -   `target` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** property used in the result
 -   `query` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** ISTEX query
@@ -35,4 +53,4 @@ Query the ISTEX API with
 -   `duration` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** maximum duration between two request to the API (optional, default `"30s"`)
 -   `field` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** fields to output (optional, default `["doi"]`)
 
-Returns **[Stream](https://nodejs.org/api/stream.html)**
+Returns **[Stream](https://nodejs.org/api/stream.html)** 
