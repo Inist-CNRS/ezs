@@ -15,10 +15,28 @@ ezs.use(require('ezs-istex'));
 
 #### Table of Contents
 
--   [ISTEXScroll](#istexscroll)
+-   [ISTEXResult](#istexresult)
     -   [Parameters](#parameters)
--   [ISTEXSearch](#istexsearch)
+-   [ISTEXScroll](#istexscroll)
     -   [Parameters](#parameters-1)
+-   [ISTEXSearch](#istexsearch)
+    -   [Parameters](#parameters-2)
+
+### ISTEXResult
+
+-   **See: ISTEXScroll**
+
+Take `Object` containing results of ISTEX API, and returns `hits` value (documents).
+This should be placed after ISTEXScroll.
+
+#### Parameters
+
+-   `data`  
+-   `feed`  
+-   `source` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**  (optional, default `data`)
+-   `target` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**  (optional, default `feed`)
+
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 
 
 ### ISTEXScroll
 

@@ -1,6 +1,15 @@
 import OBJ from 'dot-prop';
 import { newValue } from './utils';
 
+/**
+ * Take `Object` containing results of ISTEX API, and returns `hits` value (documents).
+ * This should be placed after ISTEXScroll.
+ *
+ * @see ISTEXScroll
+ * @param {string} [source=data]
+ * @param {string} [target=feed]
+ * @returns {Array<Object>}
+ */
 function ISTEXResult(data, feed) {
     if (this.isLast()) {
         return feed.close();
