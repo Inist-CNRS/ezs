@@ -21,12 +21,14 @@ ezs.use(require('ezs-istex'));
     -   [Parameters](#parameters-1)
 -   [ISTEXResult](#istexresult)
     -   [Parameters](#parameters-2)
--   [ISTEXScroll](#istexscroll)
+-   [ISTEXSave](#istexsave)
     -   [Parameters](#parameters-3)
--   [ISTEXSearch](#istexsearch)
+-   [ISTEXScroll](#istexscroll)
     -   [Parameters](#parameters-4)
--   [ISTEX](#istex)
+-   [ISTEXSearch](#istexsearch)
     -   [Parameters](#parameters-5)
+-   [ISTEX](#istex)
+    -   [Parameters](#parameters-6)
 
 ### ISTEXFetch
 
@@ -34,14 +36,14 @@ Take `Object` with `id` and returns the document's metadata
 
 #### Parameters
 
--   `data`
--   `feed`
+-   `data`  
+-   `feed`  
 -   `source` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Field to use to fetch documents (optional, default `"id"`)
--   `target` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**
+-   `target` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 -   `id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** ISTEX Identifier of a document (optional, default `data.id`)
 -   `sid` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** User-agent identifier (optional, default `"ezs-istex"`)
 
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>**
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 
 
 ### ISTEXParseDotCorpus
 
@@ -50,10 +52,10 @@ ids.
 
 #### Parameters
 
--   `data`
--   `feed`
+-   `data`  
+-   `feed`  
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### ISTEXResult
 
@@ -64,12 +66,32 @@ This should be placed after ISTEXScroll.
 
 #### Parameters
 
--   `data`
--   `feed`
+-   `data`  
+-   `feed`  
 -   `source` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**  (optional, default `data`)
 -   `target` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**  (optional, default `feed`)
 
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>**
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 
+
+### ISTEXSave
+
+-   **See: ISTEXFetch**
+
+Take and Object with ISTEX `id` and save the document's file.
+Warning: to access fulltext, you have to give a `token` parameter.
+ISTEXFetch produces the stream you need to save the file.
+
+#### Parameters
+
+-   `data`  
+-   `feed`  
+-   `directory` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path where to save the PDFs (optional, default `currentworkingdirectory`)
+-   `typology` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** typology of the document to save (optional, default `"fulltext"`)
+-   `format` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** format of the files to save (optional, default `"pdf"`)
+-   `sid` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** User-agent identifier (optional, default `"ezs-istex"`)
+-   `token` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** authentication token (see [documentation](https://doc.istex.fr/api/access/fede.html#acc%C3%A8s-programmatique-via-un-token-didentification))
+
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** 
 
 ### ISTEXScroll
 
@@ -79,12 +101,12 @@ Take an `Object` containing URLs to the ISTEX API, and returns results.
 
 #### Parameters
 
--   `data`
--   `feed`
--   `source` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**
--   `target` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**
+-   `data`  
+-   `feed`  
+-   `source` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `target` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
-Returns **[Stream](https://nodejs.org/api/stream.html)**
+Returns **[Stream](https://nodejs.org/api/stream.html)** 
 
 ### ISTEXSearch
 
@@ -93,8 +115,8 @@ Optionally, you can put the query in the `query` parameter.
 
 #### Parameters
 
--   `data`
--   `feed`
+-   `data`  
+-   `feed`  
 -   `source` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** property to treat (optional, default `"query"`)
 -   `target` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** property used in the result
 -   `query` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** ISTEX query
@@ -104,7 +126,7 @@ Optionally, you can put the query in the `query` parameter.
 -   `duration` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** maximum duration between two request to the API (optional, default `"30s"`)
 -   `field` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** fields to output (optional, default `["doi"]`)
 
-Returns **[Stream](https://nodejs.org/api/stream.html)**
+Returns **[Stream](https://nodejs.org/api/stream.html)** 
 
 ### ISTEX
 
@@ -112,8 +134,8 @@ Take an array and returns matching documents for every value of the array
 
 #### Parameters
 
--   `data`
--   `feed`
+-   `data`  
+-   `feed`  
 -   `query` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>)** ISTEX query (or queries) (optional, default `data.query||[]`)
 -   `id` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>)** ISTEX id (or ids) (optional, default `data.id||[]`)
 -   `maxPage` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** maximum number of pages to get
@@ -121,4 +143,4 @@ Take an array and returns matching documents for every value of the array
 -   `duration` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** maximum duration between two requests (ex: "30s")
 -   `field` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** fields to output
 
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>**
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 

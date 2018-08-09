@@ -19,6 +19,19 @@ const worker = (options) => ({ source, target }, done) => fetch(source, options)
             .on('close', () => done(target));
     });
 
+/**
+ * Take and Object with ISTEX `id` and save the document's file.
+ * Warning: to access fulltext, you have to give a `token` parameter.
+ * ISTEXFetch produces the stream you need to save the file.
+ *
+ * @see ISTEXFetch
+ * @param {string} [directory=current working directory]    path where to save the PDFs
+ * @param {string} [typology="fulltext"]    typology of the document to save
+ * @param {string} [format="pdf"]   format of the files to save
+ * @param {string} [sid="ezs-istex"]  User-agent identifier
+ * @param {string} [token]   authentication token (see [documentation](https://doc.istex.fr/api/access/fede.html#acc%C3%A8s-programmatique-via-un-token-didentification))
+ * @returns {Array}
+ */
 function ISTEXSave(data, feed) {
     if (this.isLast()) {
         return feed.close();
