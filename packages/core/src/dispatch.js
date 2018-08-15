@@ -1,5 +1,4 @@
 import { PassThrough, Duplex } from 'stream';
-import { compressStream, decompressStream } from 'node-zstd';
 import assert from 'assert';
 import http from 'http';
 import pMap from 'p-map';
@@ -81,7 +80,7 @@ const registerTo = (ezs, { hostname, port }, commands) =>
         const input = new PassThrough(ezs.objectMode());
         input
             .pipe(ezs('jsonnd'))
-            .pipe(compressStream())
+            .pipe(ezs.createCompressStream())
             .pipe(req);
         commands.forEach(command => input.write(command));
         input.end();
@@ -93,7 +92,7 @@ const duplexer = (ezs, onerror) => (serverOptions, index) => {
     const handle = http.request(serverOptions, (res) => {
         if (res.statusCode === 200) {
             res
-                .pipe(decompressStream())
+                .pipe(ezs.createUncompressStream())
                 .pipe(ezs('ndjson'))
                 .on('data', chunk => output.write(chunk))
                 .on('end', () => output.end());
@@ -110,7 +109,7 @@ const duplexer = (ezs, onerror) => (serverOptions, index) => {
     })
     const inp = input
         .pipe(ezs('jsonnd'))
-        .pipe(compressStream())
+        .pipe(ezs.createCompressStream())
         .pipe(handle);
     const duplex = [input, output];
     return duplex;

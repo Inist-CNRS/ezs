@@ -14,6 +14,7 @@ import IsolatedStore from './isolated-store';
 import SharedStore from './shared-store';
 import Meta from './meta';
 import Server from './server';
+import { compressStream, uncompressStream } from './compactor';
 import { M_SINGLE, M_DISPATCH, M_NORMAL, M_CONDITIONAL, HWM_BYTES, HWM_OBJECT } from './constants';
 
 const ezs = (name, opts) => new Engine(ezs, Statement.get(ezs, name, opts), opts);
@@ -67,6 +68,8 @@ ezs.command = (stream, command) => {
     }
     throw new Error(`Bad mode: ${mode}`);
 };
+ezs.createCompressStream = (options) => compressStream(ezs, options);
+ezs.createUncompressStream = (options) => uncompressStream(ezs, options);
 ezs.createCache = (options) => new Cache(ezs, options);
 ezs.createServer = (port) => Server.createServer(ezs, new IsolatedStore(), port);
 ezs.createCluster = (port) => Server.createCluster(ezs, new SharedStore(), port);

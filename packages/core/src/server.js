@@ -2,7 +2,6 @@ import os from 'os';
 import crypto from 'crypto';
 import cluster from 'cluster';
 import http from 'http';
-import { compressStream, decompressStream } from 'node-zstd';
 import { DEBUG, PORT, VERSION } from './constants';
 import Parameter from './parameter';
 import JSONezs from './json';
@@ -58,7 +57,7 @@ function createServer(ezs, store, port) {
                     Parameter.put(ezs, parameters);
                 }
                 request
-                    .pipe(decompressStream())
+                    .pipe(ezs.createUncompressStream())
                     .pipe(ezs('ndjson'))
                     .pipe(ezs(receive))
                     .pipe(ezs(register(store)))
@@ -82,7 +81,7 @@ function createServer(ezs, store, port) {
                     DEBUG(`Server will execute statements with ID: ${cmdid}`);
                     response.writeHead(200);
                     request
-                        .pipe(decompressStream())
+                        .pipe(ezs.createUncompressStream())
                         .pipe(ezs('ndjson'))
                         .pipe(processor)
                         .pipe(ezs.catch(error => {
@@ -90,7 +89,7 @@ function createServer(ezs, store, port) {
                             return;
                         }))
                         .pipe(ezs('jsonnd'))
-                        .pipe(compressStream())
+                        .pipe(ezs.createCompressStream())
                         .pipe(response);
                     request.resume();
                 }, error => {

@@ -2,7 +2,6 @@ import fs from 'fs';
 import tmpFilepath from 'tmp-filepath';
 import LRU from 'lru-cache';
 import { PassThrough } from 'stream';
-import { compressStream, decompressStream } from 'node-zstd';
 
 const deleteFile = (key, fileName) => {
     fs.unlink(fileName, err => {
@@ -30,7 +29,7 @@ export default class Cache {
         const cacheFile = cache.get(key);
         if (cacheFile) {
             const rawStream = fs.createReadStream(cacheFile)
-                .pipe(decompressStream())
+                .pipe(ezs.createUncompressStream())
             ;
             return this.objectMode ? rawStream.pipe(ezs('ndjson')) : rawStream;
         }
@@ -43,25 +42,30 @@ export default class Cache {
         const tmpFile = tmpFilepath('.bin');
         const streamOptions = this.objectMode ? ezs.objectMode() : ezs.bytesMode();
         const cacheInput = new PassThrough(streamOptions);
+        let cacheOutput;
         if (this.objectMode) {
-            cacheInput
+            cacheOutput = cacheInput
                 .pipe(ezs('jsonnd'))
                 .pipe(ezs.toBuffer())
-                .pipe(compressStream())
+                .pipe(ezs.createCompressStream())
                 .pipe(fs.createWriteStream(tmpFile));
         } else {
-            cacheInput
-                .pipe(compressStream())
+            cacheOutput = cacheInput
+                .pipe(ezs.createCompressStream())
                 .pipe(fs.createWriteStream(tmpFile));
         }
         const func = (data, feed) => {
             if (data) {
-                cacheInput.write(data);
+                cacheInput.write(data, () => {
+                    feed.send(data);
+                });
             } else {
+                cacheOutput.on('finish', () => {
+                    cache.set(key, tmpFile);
+                    feed.send(data);
+                });
                 cacheInput.end();
-                cache.set(key, tmpFile);
             }
-            feed.send(data);
         };
         const stream = new PassThrough(streamOptions);
         return stream.pipe(ezs(func));
