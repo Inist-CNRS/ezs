@@ -57,8 +57,8 @@ function createServer(ezs, store, port) {
                     Parameter.put(ezs, parameters);
                 }
                 request
-                    .pipe(ezs.createUncompressStream())
-                    .pipe(ezs('ndjson'))
+                    .pipe(ezs.uncompress())
+                    .pipe(ezs('unpack'))
                     .pipe(ezs(receive))
                     .pipe(ezs(register(store)))
                     .pipe(ezs.catch(error => {
@@ -81,15 +81,15 @@ function createServer(ezs, store, port) {
                     DEBUG(`Server will execute statements with ID: ${cmdid}`);
                     response.writeHead(200);
                     request
-                        .pipe(ezs.createUncompressStream())
-                        .pipe(ezs('ndjson'))
+                        .pipe(ezs.uncompress())
+                        .pipe(ezs('unpack'))
                         .pipe(processor)
                         .pipe(ezs.catch(error => {
                             DEBUG(`Server has caught an error in statements with ID: ${cmdid}`, error);
                             return;
                         }))
                         .pipe(ezs('jsonnd'))
-                        .pipe(ezs.createCompressStream())
+                        .pipe(ezs.compress())
                         .pipe(response);
                     request.resume();
                 }, error => {

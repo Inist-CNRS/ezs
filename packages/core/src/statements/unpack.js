@@ -3,7 +3,7 @@
  *
  * @returns {String}
  */
-export default function ndjson(data, feed) {
+export default function unpack(data, feed) {
     if (this.isLast()) {
         return feed.end();
     }

@@ -29,9 +29,9 @@ export default class Cache {
         const cacheFile = cache.get(key);
         if (cacheFile) {
             const rawStream = fs.createReadStream(cacheFile)
-                .pipe(ezs.createUncompressStream())
+                .pipe(ezs.uncompress())
             ;
-            return this.objectMode ? rawStream.pipe(ezs('ndjson')) : rawStream;
+            return this.objectMode ? rawStream.pipe(ezs('unpack')) : rawStream;
         }
         return;
     }
@@ -47,11 +47,11 @@ export default class Cache {
             cacheOutput = cacheInput
                 .pipe(ezs('jsonnd'))
                 .pipe(ezs.toBuffer())
-                .pipe(ezs.createCompressStream())
+                .pipe(ezs.compress())
                 .pipe(fs.createWriteStream(tmpFile));
         } else {
             cacheOutput = cacheInput
-                .pipe(ezs.createCompressStream())
+                .pipe(ezs.compress())
                 .pipe(fs.createWriteStream(tmpFile));
         }
         const func = (data, feed) => {

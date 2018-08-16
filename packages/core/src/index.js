@@ -68,8 +68,8 @@ ezs.command = (stream, command) => {
     }
     throw new Error(`Bad mode: ${mode}`);
 };
-ezs.createCompressStream = (options) => compressStream(ezs, options);
-ezs.createUncompressStream = (options) => uncompressStream(ezs, options);
+ezs.compress = (options) => compressStream(ezs, options);
+ezs.uncompress = (options) => uncompressStream(ezs, options);
 ezs.createCache = (options) => new Cache(ezs, options);
 ezs.createServer = (port) => Server.createServer(ezs, new IsolatedStore(), port);
 ezs.createCluster = (port) => Server.createCluster(ezs, new SharedStore(), port);

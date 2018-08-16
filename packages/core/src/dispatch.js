@@ -80,7 +80,7 @@ const registerTo = (ezs, { hostname, port }, commands) =>
         const input = new PassThrough(ezs.objectMode());
         input
             .pipe(ezs('jsonnd'))
-            .pipe(ezs.createCompressStream())
+            .pipe(ezs.compress())
             .pipe(req);
         commands.forEach(command => input.write(command));
         input.end();
@@ -92,8 +92,8 @@ const duplexer = (ezs, onerror) => (serverOptions, index) => {
     const handle = http.request(serverOptions, (res) => {
         if (res.statusCode === 200) {
             res
-                .pipe(ezs.createUncompressStream())
-                .pipe(ezs('ndjson'))
+                .pipe(ezs.uncompress())
+                .pipe(ezs('unpack'))
                 .on('data', chunk => output.write(chunk))
                 .on('end', () => output.end());
         } else {
@@ -109,7 +109,7 @@ const duplexer = (ezs, onerror) => (serverOptions, index) => {
     })
     const inp = input
         .pipe(ezs('jsonnd'))
-        .pipe(ezs.createCompressStream())
+        .pipe(ezs.compress())
         .pipe(handle);
     const duplex = [input, output];
     return duplex;

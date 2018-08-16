@@ -6,7 +6,7 @@ import keep from './keep';
 import debug from './debug';
 import concat from './concat';
 import json from './json';
-import ndjson from './ndjson'; // unpack
+import unpack from './unpack'; // unpack
 import jsonezs from './jsonezs';
 import jsonnd from './jsonnd'; // pack
 import transit from './transit';
@@ -20,7 +20,7 @@ export default {
     debug,
     concat,
     json,
-    ndjson,
+    unpack,
     jsonezs,
     jsonnd,
     transit,
