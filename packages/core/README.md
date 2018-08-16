@@ -168,12 +168,12 @@ Launch a cluster for ezs.dispatch
 -   [debug](#debug)
 -   [extract](#extract)
 -   [json](#json)
--   [jsonnd](#jsonnd)
 -   [keep](#keep)
--   [ndjson](#ndjson)
+-   [pack](#pack)
 -   [replace](#replace)
 -   [shift](#shift)
 -   [transit](#transit)
+-   [unpack](#unpack)
 
 ## assign
 
@@ -238,17 +238,6 @@ Take all `String`, throw `Object` builded by JSON.parse
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
-## jsonnd
-
-Take all `Object`, throw encoded `String`
-
-**Parameters**
-
--   `data`  
--   `feed`  
-
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
 ## keep
 
 Take `Object` and throw the same object but keep only
@@ -262,9 +251,9 @@ spefici fields
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-## ndjson
+## pack
 
-Take `String` and throw `Object` builded by JSON.parse on each line
+Take all `Object`, throw encoded `String`
 
 **Parameters**
 
@@ -307,6 +296,17 @@ Take `Object` and throw the same object
 -   `feed`  
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## unpack
+
+Take `String` and throw `Object` builded by JSON.parse on each line
+
+**Parameters**
+
+-   `data`  
+-   `feed`  
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 # Related projects
 
