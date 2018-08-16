@@ -3,7 +3,7 @@
  *
  * @returns {String}
  */
-export default function jsonnd(data, feed) {
+export default function pack(data, feed) {
     const eol = '\n';
     if (this.isLast()) {
         return feed.send(data);

@@ -79,7 +79,7 @@ const registerTo = (ezs, { hostname, port }, commands) =>
         });
         const input = new PassThrough(ezs.objectMode());
         input
-            .pipe(ezs('jsonnd'))
+            .pipe(ezs('pack'))
             .pipe(ezs.compress())
             .pipe(req);
         commands.forEach(command => input.write(command));
@@ -108,7 +108,7 @@ const duplexer = (ezs, onerror) => (serverOptions, index) => {
         output.end();
     })
     const inp = input
-        .pipe(ezs('jsonnd'))
+        .pipe(ezs('pack'))
         .pipe(ezs.compress())
         .pipe(handle);
     const duplex = [input, output];

@@ -8,7 +8,7 @@ import concat from './concat';
 import json from './json';
 import unpack from './unpack'; // unpack
 import jsonezs from './jsonezs';
-import jsonnd from './jsonnd'; // pack
+import pack from './pack'; // pack
 import transit from './transit';
 
 export default {
@@ -22,6 +22,6 @@ export default {
     json,
     unpack,
     jsonezs,
-    jsonnd,
+    pack,
     transit,
 };

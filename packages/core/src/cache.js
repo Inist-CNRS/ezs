@@ -45,7 +45,7 @@ export default class Cache {
         let cacheOutput;
         if (this.objectMode) {
             cacheOutput = cacheInput
-                .pipe(ezs('jsonnd'))
+                .pipe(ezs('pack'))
                 .pipe(ezs.toBuffer())
                 .pipe(ezs.compress())
                 .pipe(fs.createWriteStream(tmpFile));
