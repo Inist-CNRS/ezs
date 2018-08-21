@@ -1,7 +1,11 @@
 /**
- * Take `Object` containing hits from ISTEXResult.
+ * Take `Object` containing flatten hits from ISTEXResult.
+ *
+ * @see ISTEXResult
+ * @see OBJFlatten (from ezs-basics)
  *
  * @example
+ *
  * .pipe(ezs('ISTEXTriplify', {
  *    properties: {
  *      'ISTEX/doi/': 'http://purl.org/ontology/bibo/doi',
@@ -10,14 +14,16 @@
  *      'ISTEX/author/\\d/affiliations': 'https://data.istex.fr/ontology/istex#affiliation',
  *    },
  *  ));
- * --->
- *  <https://data.istex.fr/document/2FF3F5B1477986B9C617BB75CA3333DBEE99EB05>
- *   a <http://purl.org/ontology/bibo/Document> ;
- *     "10.1002/zaac.19936190205"ISTEX ;
- *   <https://data.istex.fr/ontology/istex#idIstex> "2FF3F5B1477986B9C617BB75CA3333DBEE99EB05" .
- *   <http://purl.org/dc/terms/creator> "Steve Parker" .
- *   <https://data.istex.fr/ontology/istex#affiliation> "Graduate Institute of Applied Linguistics" .
- *   <https://data.istex.fr/ontology/istex#affiliation> "E-mail: steve-monica_parker@sil.org" .
+ *
+ * gives
+ *
+ *  '<https://data.istex.fr/document/2FF3F5B1477986B9C617BB75CA3333DBEE99EB05>
+ *     a <http://purl.org/ontology/bibo/Document> ;
+ *       "10.1002/zaac.19936190205" ;
+ *     <https://data.istex.fr/ontology/istex#idIstex> "2FF3F5B1477986B9C617BB75CA3333DBEE99EB05" ;
+ *     <http://purl.org/dc/terms/creator> "Steve Parker" ;
+ *     <https://data.istex.fr/ontology/istex#affiliation> "Graduate Institute of Applied Linguistics" ;
+ *     <https://data.istex.fr/ontology/istex#affiliation> "E-mail: steve-monica_parker@sil.org" .'
  *
  * @param {Object} [properties={}]  path to uri for the properties to output
  * @returns {string}

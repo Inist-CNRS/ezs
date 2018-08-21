@@ -27,8 +27,11 @@ ezs.use(require('ezs-istex'));
     -   [Parameters](#parameters-4)
 -   [ISTEXSearch](#istexsearch)
     -   [Parameters](#parameters-5)
--   [ISTEX](#istex)
+-   [ISTEXTriplify](#istextriplify)
     -   [Parameters](#parameters-6)
+    -   [Examples](#examples)
+-   [ISTEX](#istex)
+    -   [Parameters](#parameters-7)
 
 ### ISTEXFetch
 
@@ -127,6 +130,44 @@ Optionally, you can put the query in the `query` parameter.
 -   `field` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** fields to output (optional, default `["doi"]`)
 
 Returns **[Stream](https://nodejs.org/api/stream.html)** 
+
+### ISTEXTriplify
+
+-   **See: ISTEXResult**
+-   **See: OBJFlatten (from ezs-basics)**
+
+Take `Object` containing flatten hits from ISTEXResult.
+
+#### Parameters
+
+-   `data`  
+-   `feed`  
+-   `properties` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** path to uri for the properties to output (optional, default `{}`)
+
+#### Examples
+
+```javascript
+.pipe(ezs('ISTEXTriplify', {
+   properties: {
+     'ISTEX/doi/': 'http://purl.org/ontology/bibo/doi',
+     'ISTEX/language/': 'http://purl.org/dc/terms/language',
+     'ISTEX/author/\\d/name': 'http://purl.org/dc/terms/creator',
+     'ISTEX/author/\\d/affiliations': 'https://data.istex.fr/ontology/istex#affiliation',
+   },
+ ));
+
+gives
+
+ '<https://data.istex.fr/document/2FF3F5B1477986B9C617BB75CA3333DBEE99EB05>
+    a <http://purl.org/ontology/bibo/Document> ;
+      "10.1002/zaac.19936190205" ;
+    <https://data.istex.fr/ontology/istex#idIstex> "2FF3F5B1477986B9C617BB75CA3333DBEE99EB05" ;
+    <http://purl.org/dc/terms/creator> "Steve Parker" ;
+    <https://data.istex.fr/ontology/istex#affiliation> "Graduate Institute of Applied Linguistics" ;
+    <https://data.istex.fr/ontology/istex#affiliation> "E-mail: steve-monica_parker@sil.org" .'
+```
+
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ### ISTEX
 
