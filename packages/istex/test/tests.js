@@ -374,7 +374,7 @@ describe('test', () => {
             });
     }).timeout(5000);
 
-    it('ISTEXTriplify #1', done => {
+    it.only('ISTEXTriplify #1', done => {
         const result = [];
         from([
             {
@@ -384,7 +384,7 @@ describe('test', () => {
         .pipe(ezs('ISTEXSearch', {
             source: 'istex',
             target: 'istex',
-            maxPage: 2,
+            maxPage: 1,
             sid: 'test',
         }))
         .pipe(ezs('ISTEXScroll', {
@@ -400,15 +400,19 @@ describe('test', () => {
         .pipe(ezs('OBJFlatten'))
         .pipe(ezs('ISTEXTriplify', {
             properties: {
-                'ISTEX/title': 'http://purl.org/dc/terms/title',
+                'istex/arkIstex': 'http://purl.org/dc/terms/identifier',
             }
         }))
         .on('data', chunk => {
             result.push(chunk);
         })
         .on('end', () => {
-            assert.equal(result.length, 2);
+            assert(result.length > 2);
+            assert.equal(result.length, 6000);
             assert(result[0].length > 0);
+            assert.equal(result[0].split(' ').length, 4);
+            assert(result[1].endsWith('> a <http://purl.org/ontology/bibo/Document> .\n'));
+            assert(result[2].includes(' <http://purl.org/dc/terms/identifier> '));
             done();
         });
     }).timeout(5000);
