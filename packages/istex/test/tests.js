@@ -374,7 +374,7 @@ describe('test', () => {
             });
     }).timeout(5000);
 
-    it.only('ISTEXTriplify #1', done => {
+    it('ISTEXTriplify #1', done => {
         const result = [];
         from([
             {
@@ -408,11 +408,53 @@ describe('test', () => {
         })
         .on('end', () => {
             assert(result.length > 2);
-            assert.equal(result.length, 6000);
             assert(result[0].length > 0);
             assert.equal(result[0].split(' ').length, 4);
             assert(result[1].endsWith('> a <http://purl.org/ontology/bibo/Document> .\n'));
             assert(result[2].includes(' <http://purl.org/dc/terms/identifier> '));
+            done();
+        });
+    }).timeout(5000);
+
+    it('ISTEXTriplify #2', done => {
+        const result = [];
+        from([
+            {
+                istex: 'ezs',
+            }
+        ])
+        .pipe(ezs('ISTEXSearch', {
+            source: 'istex',
+            target: 'istex',
+            maxPage: 1,
+            sid: 'test',
+            field: 'author',
+        }))
+        .pipe(ezs('ISTEXScroll', {
+            source: 'istex',
+            target: 'istex',
+            sid: 'test',
+        }))
+        .pipe(ezs('ISTEXResult', {
+            source: 'istex',
+            target: 'istex',
+            sid: 'test',
+        }))
+        .pipe(ezs('OBJFlatten', { safe: false }))
+        .pipe(ezs('ISTEXTriplify', {
+            properties: {
+                'istex/author/\\d+/name': 'http://purl.org/dc/terms/creator',
+            }
+        }))
+        .on('data', chunk => {
+            result.push(chunk);
+        })
+        .on('end', () => {
+            assert(result.length > 2);
+            assert(result[0].length > 0);
+            assert.equal(result[0].split(' ').length, 4);
+            assert(result[1].endsWith('> a <http://purl.org/ontology/bibo/Document> .\n'));
+            assert(result[2].includes(' <http://purl.org/dc/terms/creator> '));
             done();
         });
     }).timeout(5000);
