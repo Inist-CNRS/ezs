@@ -143,11 +143,13 @@ Take `Object` containing flatten hits from ISTEXResult.
 -   `data`  
 -   `feed`  
 -   `properties` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** path to uri for the properties to output (optional, default `{}`)
+-   `source` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the root of the keys (optional, default `"istex"`)
 
 #### Examples
 
 ```javascript
 .pipe(ezs('ISTEXTriplify', {
+   source: 'ISTEX',
    properties: {
      'ISTEX/doi/': 'http://purl.org/ontology/bibo/doi',
      'ISTEX/language/': 'http://purl.org/dc/terms/language',

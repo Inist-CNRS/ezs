@@ -7,6 +7,7 @@
  * @example
  *
  * .pipe(ezs('ISTEXTriplify', {
+ *    source: 'ISTEX',
  *    properties: {
  *      'ISTEX/doi/': 'http://purl.org/ontology/bibo/doi',
  *      'ISTEX/language/': 'http://purl.org/dc/terms/language',
@@ -26,22 +27,24 @@
  *     <https://data.istex.fr/ontology/istex#affiliation> "E-mail: steve-monica_parker@sil.org" .'
  *
  * @param {Object} [properties={}]  path to uri for the properties to output
+ * @param {string} [source="istex"] the root of the keys
  * @returns {string}
  */
 function ISTEXTriplify(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
-    const properties = this.getParam('properties', {})
+    const source = this.getParam('source', 'istex');
+    const properties = this.getParam('properties', {});
     const regexps = Object
-      .keys(properties)
-      .map(path => ([
-        new RegExp(path),
-        path,
-      ]));
+        .keys(properties)
+        .map(path => ([
+            new RegExp(path),
+            path,
+        ]));
 
-    feed.write(`<https://data.istex.fr/document/${data['istex/id']}> <https://data.istex.fr/ontology/istex#idIstex> "${data['istex/id']}" .\n`);
-    feed.write(`<https://data.istex.fr/document/${data['istex/id']}> a <http://purl.org/ontology/bibo/Document> .\n`);
+    feed.write(`<https://data.istex.fr/document/${data[`${source}/id`]}> <https://data.istex.fr/ontology/istex#idIstex> "${data[`${source}/id`]}" .\n`);
+    feed.write(`<https://data.istex.fr/document/${data[`${source}/id`]}> a <http://purl.org/ontology/bibo/Document> .\n`);
 
     const dataArray = Object.entries(data);
 
@@ -49,7 +52,7 @@ function ISTEXTriplify(data, feed) {
         dataArray
             .filter(([key]) => key.match(regex))
             .forEach(([, value]) => {
-                feed.write(`<https://data.istex.fr/document/${data['istex/id']}> <${properties[path]}> "${value}" .\n`);
+                feed.write(`<https://data.istex.fr/document/${data[`${source}/id`]}> <${properties[path]}> "${value}" .\n`);
             });
     });
 
