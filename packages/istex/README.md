@@ -148,6 +148,19 @@ Take `Object` containing flatten hits from ISTEXResult.
 #### Examples
 
 ```javascript
+data: {
+'ISTEX/author/0/name': 'Geoffrey Strickland',
+'ISTEX/author/0/affiliations/0': 'University of Reading',
+'ISTEX/host/issn/0': '0047-2441',
+'ISTEX/host/eissn/0': '1740-2379',
+'ISTEX/title': 'Maupassant, Zola, Jules Vallès and the Paris Commune of 1871',
+'ISTEX/publicationDate': '1983',
+'ISTEX/doi/0': '10.1177/004724418301305203',
+'ISTEX/id': 'F6CB7249E90BD96D5F7E3C4E80CC1C3FEE4FF483',
+'ISTEX/score': 1 }
+```
+
+```javascript
 .pipe(ezs('ISTEXTriplify', {
    source: 'ISTEX',
    properties: {
@@ -157,16 +170,16 @@ Take `Object` containing flatten hits from ISTEXResult.
      'ISTEX/author/\\d/affiliations': 'https://data.istex.fr/ontology/istex#affiliation',
    },
  ));
+```
 
-gives
-
- '<https://data.istex.fr/document/2FF3F5B1477986B9C617BB75CA3333DBEE99EB05>
+```javascript
+`<https://data.istex.fr/document/F6CB7249E90BD96D5F7E3C4E80CC1C3FEE4FF483>
     a <http://purl.org/ontology/bibo/Document> ;
       "10.1002/zaac.19936190205" ;
-    <https://data.istex.fr/ontology/istex#idIstex> "2FF3F5B1477986B9C617BB75CA3333DBEE99EB05" ;
-    <http://purl.org/dc/terms/creator> "Steve Parker" ;
-    <https://data.istex.fr/ontology/istex#affiliation> "Graduate Institute of Applied Linguistics" ;
-    <https://data.istex.fr/ontology/istex#affiliation> "E-mail: steve-monica_parker@sil.org" .'
+    <https://data.istex.fr/ontology/istex#idIstex> "F6CB7249E90BD96D5F7E3C4E80CC1C3FEE4FF483" ;
+    <http://purl.org/dc/terms/creator> "Geoffrey Strickland" ;
+    <https://data.istex.fr/ontology/istex#affiliation> "University of Reading" ;
+ `
 ```
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
