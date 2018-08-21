@@ -3,9 +3,11 @@ const from = require('from');
 const fs = require('fs');
 const path = require('path');
 const ezs = require('ezs');
+
 const token = process.env.ISTEX_TOKEN;
 ezs.use(require('../lib'));
 ezs.use(require('ezs-basics'));
+
 if (token) {
     console.warn('Using ISTEX_TOKEN', token);
 }
@@ -24,13 +26,13 @@ describe('test', () => {
             .pipe(ezs('ISTEXFetch', {
                 source: 'id',
                 sid: 'test',
-                token
+                token,
             }))
             .pipe(ezs('ISTEXSave', {
                 sid: 'test',
                 token,
             }))
-            .pipe(ezs.catch(e => done()))
+            .pipe(ezs.catch(() => done()))
             .on('data', (chunk) => {
                 result.push(chunk);
             })
@@ -374,88 +376,88 @@ describe('test', () => {
             });
     }).timeout(5000);
 
-    it('ISTEXTriplify #1', done => {
+    it('ISTEXTriplify #1', (done) => {
         const result = [];
         from([
             {
                 istex: 'ezs',
-            }
+            },
         ])
-        .pipe(ezs('ISTEXSearch', {
-            source: 'istex',
-            target: 'istex',
-            maxPage: 1,
-            sid: 'test',
-        }))
-        .pipe(ezs('ISTEXScroll', {
-            source: 'istex',
-            target: 'istex',
-            sid: 'test',
-        }))
-        .pipe(ezs('ISTEXResult', {
-            source: 'istex',
-            target: 'istex',
-            sid: 'test',
-        }))
-        .pipe(ezs('OBJFlatten'))
-        .pipe(ezs('ISTEXTriplify', {
-            properties: {
-                'istex/arkIstex': 'http://purl.org/dc/terms/identifier',
-            }
-        }))
-        .on('data', chunk => {
-            result.push(chunk);
-        })
-        .on('end', () => {
-            assert(result.length > 2);
-            assert(result[0].length > 0);
-            assert.equal(result[0].split(' ').length, 4);
-            assert(result[1].endsWith('> a <http://purl.org/ontology/bibo/Document> .\n'));
-            assert(result[2].includes(' <http://purl.org/dc/terms/identifier> '));
-            done();
-        });
+            .pipe(ezs('ISTEXSearch', {
+                source: 'istex',
+                target: 'istex',
+                maxPage: 1,
+                sid: 'test',
+            }))
+            .pipe(ezs('ISTEXScroll', {
+                source: 'istex',
+                target: 'istex',
+                sid: 'test',
+            }))
+            .pipe(ezs('ISTEXResult', {
+                source: 'istex',
+                target: 'istex',
+                sid: 'test',
+            }))
+            .pipe(ezs('OBJFlatten'))
+            .pipe(ezs('ISTEXTriplify', {
+                properties: {
+                    'istex/arkIstex': 'http://purl.org/dc/terms/identifier',
+                },
+            }))
+            .on('data', (chunk) => {
+                result.push(chunk);
+            })
+            .on('end', () => {
+                assert(result.length > 2);
+                assert(result[0].length > 0);
+                assert.equal(result[0].split(' ').length, 4);
+                assert(result[1].endsWith('> a <http://purl.org/ontology/bibo/Document> .\n'));
+                assert(result[2].includes(' <http://purl.org/dc/terms/identifier> '));
+                done();
+            });
     }).timeout(5000);
 
-    it('ISTEXTriplify #2', done => {
+    it('ISTEXTriplify #2', (done) => {
         const result = [];
         from([
             {
                 istex: 'ezs',
-            }
+            },
         ])
-        .pipe(ezs('ISTEXSearch', {
-            source: 'istex',
-            target: 'istex',
-            maxPage: 1,
-            sid: 'test',
-            field: 'author',
-        }))
-        .pipe(ezs('ISTEXScroll', {
-            source: 'istex',
-            target: 'istex',
-            sid: 'test',
-        }))
-        .pipe(ezs('ISTEXResult', {
-            source: 'istex',
-            target: 'istex',
-            sid: 'test',
-        }))
-        .pipe(ezs('OBJFlatten', { safe: false }))
-        .pipe(ezs('ISTEXTriplify', {
-            properties: {
-                'istex/author/\\d+/name': 'http://purl.org/dc/terms/creator',
-            }
-        }))
-        .on('data', chunk => {
-            result.push(chunk);
-        })
-        .on('end', () => {
-            assert(result.length > 2);
-            assert(result[0].length > 0);
-            assert.equal(result[0].split(' ').length, 4);
-            assert(result[1].endsWith('> a <http://purl.org/ontology/bibo/Document> .\n'));
-            assert(result[2].includes(' <http://purl.org/dc/terms/creator> '));
-            done();
-        });
+            .pipe(ezs('ISTEXSearch', {
+                source: 'istex',
+                target: 'istex',
+                maxPage: 1,
+                sid: 'test',
+                field: 'author',
+            }))
+            .pipe(ezs('ISTEXScroll', {
+                source: 'istex',
+                target: 'istex',
+                sid: 'test',
+            }))
+            .pipe(ezs('ISTEXResult', {
+                source: 'istex',
+                target: 'istex',
+                sid: 'test',
+            }))
+            .pipe(ezs('OBJFlatten', { safe: false }))
+            .pipe(ezs('ISTEXTriplify', {
+                properties: {
+                    'istex/author/\\d+/name': 'http://purl.org/dc/terms/creator',
+                },
+            }))
+            .on('data', (chunk) => {
+                result.push(chunk);
+            })
+            .on('end', () => {
+                assert(result.length > 2);
+                assert(result[0].length > 0);
+                assert.equal(result[0].split(' ').length, 4);
+                assert(result[1].endsWith('> a <http://purl.org/ontology/bibo/Document> .\n'));
+                assert(result[2].includes(' <http://purl.org/dc/terms/creator> '));
+                done();
+            });
     }).timeout(5000);
 });
