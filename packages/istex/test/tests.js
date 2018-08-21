@@ -5,6 +5,7 @@ const path = require('path');
 const ezs = require('ezs');
 const token = process.env.ISTEX_TOKEN;
 ezs.use(require('../lib'));
+ezs.use(require('ezs-basics'));
 if (token) {
     console.warn('Using ISTEX_TOKEN', token);
 }
@@ -371,5 +372,44 @@ describe('test', () => {
                 assert.equal(result[3500].istex.id.length, 40);
                 done();
             });
+    }).timeout(5000);
+
+    it('ISTEXTriplify #1', done => {
+        const result = [];
+        from([
+            {
+                istex: 'ezs',
+            }
+        ])
+        .pipe(ezs('ISTEXSearch', {
+            source: 'istex',
+            target: 'istex',
+            maxPage: 2,
+            sid: 'test',
+        }))
+        .pipe(ezs('ISTEXScroll', {
+            source: 'istex',
+            target: 'istex',
+            sid: 'test',
+        }))
+        .pipe(ezs('ISTEXResult', {
+            source: 'istex',
+            target: 'istex',
+            sid: 'test',
+        }))
+        .pipe(ezs('OBJFlatten'))
+        .pipe(ezs('ISTEXTriplify', {
+            properties: {
+                'ISTEX/title': 'http://purl.org/dc/terms/title',
+            }
+        }))
+        .on('data', chunk => {
+            result.push(chunk);
+        })
+        .on('end', () => {
+            assert.equal(result.length, 2);
+            assert(result[0].length > 0);
+            done();
+        });
     }).timeout(5000);
 });
