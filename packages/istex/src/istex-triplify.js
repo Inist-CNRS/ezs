@@ -21,12 +21,12 @@
  *
  * .pipe(ezs('ISTEXTriplify', {
  *    source: 'ISTEX',
- *    properties: {
- *      'ISTEX/doi/': 'http://purl.org/ontology/bibo/doi',
- *      'ISTEX/language/': 'http://purl.org/dc/terms/language',
- *      'ISTEX/author/\\d/name': 'http://purl.org/dc/terms/creator',
- *      'ISTEX/author/\\d/affiliations': 'https://data.istex.fr/ontology/istex#affiliation',
- *    },
+ *    property: [
+ *      'ISTEX/doi/0 -> http://purl.org/ontology/bibo/doi',
+ *      'ISTEX/language -> http://purl.org/dc/terms/language',
+ *      'ISTEX/author/\\d+/name -> http://purl.org/dc/terms/creator',
+ *      'ISTEX/author/\\d+/affiliations -> https://data.istex.fr/ontology/istex#affiliation',
+ *    ],
  *  ));
  *
  * @example
@@ -39,7 +39,7 @@
  *     <https://data.istex.fr/ontology/istex#affiliation> "University of Reading" ;
  *  `
  *
- * @param {Object} [properties={}]  path to uri for the properties to output
+ * @param {Object} [property=[]]    path to uri for the properties to output (property and uri separated by ` -> `)
  * @param {string} [source="istex"] the root of the keys
  * @returns {string}
  */
@@ -48,7 +48,13 @@ function ISTEXTriplify(data, feed) {
         return feed.close();
     }
     const source = this.getParam('source', 'istex');
-    const properties = this.getParam('properties', {});
+    const property = this.getParam('property', []);
+    const properties = property
+        .map(prop => prop.split(' -> '))
+        .reduce((props, [prop, value]) => {
+            props[prop] = value;
+            return props;
+        }, {});
     const regexps = Object
         .keys(properties)
         .map(path => ([

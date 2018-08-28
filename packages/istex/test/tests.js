@@ -401,9 +401,9 @@ describe('test', () => {
             }))
             .pipe(ezs('OBJFlatten'))
             .pipe(ezs('ISTEXTriplify', {
-                properties: {
-                    'istex/arkIstex': 'http://purl.org/dc/terms/identifier',
-                },
+                property: [
+                    'istex/arkIstex -> http://purl.org/dc/terms/identifier',
+                ],
             }))
             .on('data', (chunk) => {
                 result.push(chunk);
@@ -444,9 +444,9 @@ describe('test', () => {
             }))
             .pipe(ezs('OBJFlatten', { safe: false }))
             .pipe(ezs('ISTEXTriplify', {
-                properties: {
-                    'istex/author/\\d+/name': 'http://purl.org/dc/terms/creator',
-                },
+                property: [
+                    'istex/author/\\d+/name -> http://purl.org/dc/terms/creator',
+                ],
             }))
             .on('data', (chunk) => {
                 result.push(chunk);
