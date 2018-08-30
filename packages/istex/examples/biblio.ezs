@@ -1,5 +1,7 @@
 #!/usr/bin/env ezs
 
+# ezs ./examples/biblio.ezs < ./test/1query.corpus
+
 [use]
 plugin = basics
 plugin = istex
