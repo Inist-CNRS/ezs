@@ -11,7 +11,8 @@ export function writeTo(stream, data, cb) {
 export function newValue(value, path, data) {
     if (path === undefined) {
         return value;
-    } else if (typeof data === 'object') {
+    }
+    if (typeof data === 'object') {
         const out = {
             ...data,
         };
@@ -22,4 +23,3 @@ export function newValue(value, path, data) {
     OBJ.set(out, path, value);
     return out;
 }
-
