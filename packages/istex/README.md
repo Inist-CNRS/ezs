@@ -143,43 +143,41 @@ Take `Object` containing flatten hits from ISTEXResult.
 -   `data`  
 -   `feed`  
 -   `property` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** path to uri for the properties to output (property and uri separated by `->`) (optional, default `[]`)
--   `source` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the root of the keys (optional, default `"istex"`)
+-   `source` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the root of the keys (ex: `istex/`) (optional, default `""`)
 
 #### Examples
 
 ```javascript
 data: {
-'ISTEX/author/0/name': 'Geoffrey Strickland',
-'ISTEX/author/0/affiliations/0': 'University of Reading',
-'ISTEX/host/issn/0': '0047-2441',
-'ISTEX/host/eissn/0': '1740-2379',
-'ISTEX/title': 'Maupassant, Zola, Jules Vallès and the Paris Commune of 1871',
-'ISTEX/publicationDate': '1983',
-'ISTEX/doi/0': '10.1177/004724418301305203',
-'ISTEX/id': 'F6CB7249E90BD96D5F7E3C4E80CC1C3FEE4FF483',
-'ISTEX/score': 1 }
+'author/0/name': 'Geoffrey Strickland',
+'author/0/affiliations/0': 'University of Reading',
+'host/issn/0': '0047-2441',
+'host/eissn/0': '1740-2379',
+'title': 'Maupassant, Zola, Jules Vallès and the Paris Commune of 1871',
+'publicationDate': '1983',
+'doi/0': '10.1177/004724418301305203',
+'id': 'F6CB7249E90BD96D5F7E3C4E80CC1C3FEE4FF483',
+'score': 1 }
 ```
 
 ```javascript
 .pipe(ezs('ISTEXTriplify', {
-   source: 'ISTEX',
    property: [
-     'ISTEX/doi/0 -> http://purl.org/ontology/bibo/doi',
-     'ISTEX/language -> http://purl.org/dc/terms/language',
-     'ISTEX/author/\\d+/name -> http://purl.org/dc/terms/creator',
-     'ISTEX/author/\\d+/affiliations -> https://data.istex.fr/ontology/istex#affiliation',
+     'doi/0 -> http://purl.org/ontology/bibo/doi',
+     'language -> http://purl.org/dc/terms/language',
+     'author/\\d+/name -> http://purl.org/dc/terms/creator',
+     'author/\\d+/affiliations -> https://data.istex.fr/ontology/istex#affiliation',
    ],
  ));
 ```
 
 ```javascript
-`<https://data.istex.fr/document/F6CB7249E90BD96D5F7E3C4E80CC1C3FEE4FF483>
+<https://data.istex.fr/document/F6CB7249E90BD96D5F7E3C4E80CC1C3FEE4FF483>
     a <http://purl.org/ontology/bibo/Document> ;
       "10.1002/zaac.19936190205" ;
     <https://data.istex.fr/ontology/istex#idIstex> "F6CB7249E90BD96D5F7E3C4E80CC1C3FEE4FF483" ;
     <http://purl.org/dc/terms/creator> "Geoffrey Strickland" ;
     <https://data.istex.fr/ontology/istex#affiliation> "University of Reading" ;
- `
 ```
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 

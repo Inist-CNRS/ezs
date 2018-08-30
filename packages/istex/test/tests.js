@@ -478,4 +478,49 @@ describe('test', () => {
                 done();
             });
     }).timeout(5000);
+
+    it('ISTEXTriplify #3', (done) => {
+        const result = [];
+        from([
+            {
+                istex: 'language.raw:rum',
+            },
+        ])
+            .pipe(ezs('ISTEXSearch', {
+                source: 'istex',
+                target: 'istex',
+                maxPage: 1,
+                sid: 'test',
+                field: 'fulltext',
+            }))
+            .pipe(ezs('ISTEXScroll', {
+                source: 'istex',
+                target: 'istex',
+                sid: 'test',
+            }))
+            .pipe(ezs('ISTEXResult', {
+                source: 'istex',
+                target: 'istex',
+                sid: 'test',
+            }))
+            .pipe(ezs('OBJFlatten', { safe: false }))
+            .pipe(ezs('ISTEXTriplify', {
+                property: [
+                    'istex/fulltext/0/uri -> https://data.istex.fr/ontology/istex#accessURL',
+                ],
+            }))
+            .on('data', (chunk) => {
+                result.push(chunk);
+            })
+            .on('end', () => {
+                assert(result.length > 2);
+                assert(result[0].length > 0);
+                assert.equal(result[0].split(' ').length, 4);
+                assert(result[1].endsWith('> a <http://purl.org/ontology/bibo/Document> .\n'));
+                assert(result[2].includes(' <https://data.istex.fr/ontology/istex#accessURL> '));
+                assert.equal(result[2].slice(-4), '> .\n');
+                assert(result[2].includes(' <https://api.istex.fr/document/'))
+                done();
+            });
+    }).timeout(5000);
 });
