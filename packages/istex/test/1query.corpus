@@ -1,0 +1,11 @@
+#
+# Exemple de fichier corpus
+#
+title        Corpus minimal (une requête)
+author       François
+publisher    CNRS
+licence      CC-By
+versionInfo  1
+
+[ISTEX]
+query        language.raw:rum

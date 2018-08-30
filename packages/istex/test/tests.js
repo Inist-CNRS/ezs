@@ -62,6 +62,24 @@ describe('test', () => {
             });
     }).timeout(5000);
 
+    it('ISTEXParseDotCorpus #1', (done) => {
+        const result = [];
+        const corpus = fs.readFileSync(path.resolve(__dirname, './1query.corpus'));
+        from([
+            corpus.toString(),
+        ])
+            .pipe(ezs('ISTEXParseDotCorpus'))
+            .on('data', (chunk) => {
+                result.push(chunk);
+            })
+            .on('end', () => {
+                assert(result.length > 0);
+                assert(result[0]);
+                assert.equal(result[0].publisher, 'CNRS');
+                done();
+            });
+    }).timeout(5000);
+
     it('ISTEX #0', (done) => {
         const result = [];
         from([1, 2])
