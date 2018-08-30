@@ -519,7 +519,7 @@ describe('test', () => {
                 assert(result[1].endsWith('> a <http://purl.org/ontology/bibo/Document> .\n'));
                 assert(result[2].includes(' <https://data.istex.fr/ontology/istex#accessURL> '));
                 assert.equal(result[2].slice(-4), '> .\n');
-                assert(result[2].includes(' <https://api.istex.fr/document/'))
+                assert(result[2].includes(' <https://api.istex.fr/document/'));
                 done();
             });
     }).timeout(5000);
