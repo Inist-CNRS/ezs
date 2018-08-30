@@ -17,7 +17,7 @@ function ISTEXParseDotCorpus(data, feed) {
     const output = input
         .pipe(statement)
         .on('data', (chunk) => {
-            feed.write({ ...metadata, ...chunk});
+            feed.write({ ...metadata, ...chunk });
         })
         .on('error', (e) => {
             feed.write(e);
