@@ -3,9 +3,18 @@
 #
 title        Corpus minimal (une requête)
 author       François
-publisher    CNRS
+;publisher    CNRS
 licence      CC-By
 versionInfo  1
 
 [ISTEX]
 query        language.raw:rum
+field = doi
+field = author
+field = title
+field = language
+field = publicationDate
+field = keywords
+field = publisher
+field = host
+field = fulltext
