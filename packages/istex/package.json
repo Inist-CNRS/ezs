@@ -35,7 +35,7 @@
         "build": "babel src --out-dir lib",
         "prepublish": "npm run build",
         "pretest": "npm run build",
-        "preversion": "npm run doc",
+        "preversion": "npm run doc; rm ./*.pdf",
         "postversion": "git push && git push --tags"
     },
     "dependencies": {
