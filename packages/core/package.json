@@ -10,7 +10,7 @@
         "ezs": "./bin/ezs"
     },
     "scripts": {
-        "test": "istanbul test ./node_modules/.bin/_mocha -- -R spec",
+        "test": "mocha --exit",
         "doc": "documentation readme package.json src/* --section=Statements",
         "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
         "build": "babel src --out-dir lib",
@@ -32,22 +32,22 @@
     },
     "homepage": "https://github.com/touv/node-ezs#readme",
     "devDependencies": {
-        "babel-cli": "^6.24.1",
-        "babel-eslint": "^8.2.3",
-        "babel-preset-env": "^1.7.0",
-        "babel-preset-stage-3": "^6.24.1",
+        "babel-cli": "6.24.1",
+        "babel-eslint": "8.2.3",
+        "babel-preset-env": "1.7.0",
+        "babel-preset-stage-3": "6.24.1",
         "documentation": "5.3.5",
-        "eslint": "^4.19.1",
-        "eslint-config-airbnb-base": "^13.0.0",
-        "eslint-plugin-import": "^2.12.0",
-        "istanbul": "^0.4.5",
-        "mocha": "^5.2.0"
+        "eslint": "4.19.1",
+        "eslint-config-airbnb-base": "13.0.0",
+        "eslint-plugin-import": "2.12.0",
+        "mocha": "5.2.0"
     },
     "dependencies": {
         "autocast": "0.0.4",
         "debug": "3.1.0",
         "deep-object-diff": "1.1.0",
         "filtrex": "0.5.4",
+        "fs-extra": "7.0.0",
         "lodash": "4.17.10",
         "lru-cache": "4.1.3",
         "memored": "1.1.1",
