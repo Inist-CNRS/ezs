@@ -1,3 +1,4 @@
+import { PassThrough } from 'stream';
 import Engine from './engine';
 import Pipeline from './pipeline';
 import Dispatch from './dispatch';
@@ -73,6 +74,8 @@ ezs.save = (path, options) => new Writer(ezs, path, options);
 ezs.load = (path, options) => new Reader(ezs, path, options);
 ezs.compress = (options) => compressStream(ezs, options);
 ezs.uncompress = (options) => uncompressStream(ezs, options);
+ezs.createStream = (options) => new PassThrough(options);
+
 ezs.createCache = (options) => new Cache(ezs, options);
 ezs.createServer = (port) => Server.createServer(ezs, new IsolatedStore(), port);
 ezs.createCluster = (port) => Server.createCluster(ezs, new SharedStore(), port);

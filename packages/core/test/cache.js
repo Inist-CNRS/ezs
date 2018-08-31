@@ -1,3 +1,5 @@
+const path = require('path');
+const os = require('os');
 const assert = require('assert');
 const fs = require('fs');
 const ezs = require('../lib');
@@ -113,3 +115,19 @@ describe('second call (object)', () => {
         }
     });
 });
+
+const savedir = path.resolve(os.tmpdir(), 'test');
+
+describe('first save in disk', () => {
+    it('try', (done) => {
+        const ten = new Decade();
+        const disk = ezs.save(savedir);
+        ten
+            .pipe(disk)
+            .on('finish', () => {
+                done();
+            });
+    });
+});
+
+
