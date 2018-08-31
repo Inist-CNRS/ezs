@@ -135,7 +135,9 @@ export default class Dispatch extends Duplex {
             });
         });
         this.tubout.on('data', (chunk, encoding) => {
-            this.push(chunk, encoding);
+            if (!this.push(chunk, encoding)) {
+                 this.tubout.pause();
+             }
         });
         this.tubout.on('finish', () => {
             this.push(null);
@@ -181,6 +183,11 @@ export default class Dispatch extends Duplex {
             this.tubout.resume();
         }
     }
+    _destroy(err, cb) {
+        this.tubout.destroy();
+        cb(err);
+    }
+
 
     balance(chunk, encoding, callback) {
         this.lastIndex += 1;
