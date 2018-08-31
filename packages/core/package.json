@@ -58,5 +58,7 @@
         "tmp-filepath": "2.0.0",
         "yargs": "11.1.0"
     },
-    "optionalDependencies": {}
+    "optionalDependencies": {
+        "node-zstd" : "2.0.1"
+    }
 }
