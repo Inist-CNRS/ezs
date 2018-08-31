@@ -123,7 +123,7 @@ catch Error in NodeJS pipeline
 
 get chunk of in NodeJS pipeline and send Buffer of the chunk
 
-\## ezs.createCache = (options: Object)
+## ezs.createCache = (options: Object)
 
 To cache the result of the pipeline.
 Options:
