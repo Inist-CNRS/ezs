@@ -149,6 +149,70 @@ Example:
     }
 ```
 
+## ezs.createStream = (options : Object)
+
+To create a Passthru stream.
+
+Example:
+
+```javascript
+    const input = ezs.createStream();
+    input.pipe(process.stdout);
+    input.write('Hello');
+    input.end();
+```
+
+## ezs.save = (path : String, options : Object)
+
+Save a Object streams to the filesystem.
+
+Example:
+
+```javascript
+    const input = ezs.createStream(ezs.objectMode());
+    input.pipe(ezs.save('/tmp/db'));
+    input.write({ text: 'Hello' });
+    input.write({ text: 'World' });
+    input.end();
+```
+
+## ezs.load = (path : String, options : Object)
+
+Load a Object streams from the filesystem. (saved by ezs.save function)
+
+Example:
+
+```javascript
+    const input = ezs.load('/tmp/db');
+        .pipe(process.stdout)
+```
+
+## ezs.compress = (options : Object)
+
+Compress a binary stream.
+
+Example:
+
+```javascript
+    process.stdin
+        .pipe(ezs.compress())
+        .pipe(process.stdout)
+    ;
+```
+
+## ezs.uncompress = (options : Object)
+
+Uncompress a binary stream. (compressed by ezs.compress function)
+
+Example:
+
+```javascript
+    process.stdin
+        .pipe(ezs.uncompress())
+        .pipe(process.stdout)
+    ;
+```
+
 ## ezs.createServer = (port : Number)
 
 Launch a server for ezs.dispatch
