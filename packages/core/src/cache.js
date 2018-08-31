@@ -28,10 +28,13 @@ export default class Cache {
         const cache = this.handle;
         const cacheFile = cache.get(key);
         if (cacheFile) {
-            const rawStream = fs.createReadStream(cacheFile)
-                .pipe(ezs.uncompress())
-            ;
-            return this.objectMode ? rawStream.pipe(ezs('unpack')) : rawStream;
+            if (this.objectMode) {
+                return ezs.load(cacheFile);
+            } else {
+                return fs.createReadStream(cacheFile)
+                    .pipe(ezs.uncompress())
+                ;
+            }
         }
         return;
     }
@@ -44,11 +47,7 @@ export default class Cache {
         const cacheInput = new PassThrough(streamOptions);
         let cacheOutput;
         if (this.objectMode) {
-            cacheOutput = cacheInput
-                .pipe(ezs('pack'))
-                .pipe(ezs.toBuffer())
-                .pipe(ezs.compress())
-                .pipe(fs.createWriteStream(tmpFile));
+            cacheOutput = cacheInput.pipe(ezs.save(tmpFile));
         } else {
             cacheOutput = cacheInput
                 .pipe(ezs.compress())

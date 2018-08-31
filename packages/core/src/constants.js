@@ -1,6 +1,9 @@
+import os from 'os';
 import debug from 'debug';
 import { version } from '../package.json';
 
+export const NCPUS = os.cpus().length;
+export const NSHARDS = NCPUS;
 export const M_NORMAL = 'normal';
 export const M_SINGLE = 'single';
 export const M_DISPATCH = 'server';

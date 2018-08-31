@@ -1,44 +1,48 @@
 import path from 'path';
-import fs from 'fs';
-import { DEBUG, PORT } from './constants';
+import fs from 'fs-extra';
+import MultiStream from 'multistream';
+import { DEBUG, PORT, NSHARDS } from './constants';
 import { Writable, Readable } from 'stream';
-
 
 export class Reader extends Readable {
     constructor(ezs, dirpath, options) {
         super(ezs.objectMode());
 
-        this.lastIndex = 0;
-        this.handles = Array(1);
-
-        this.handles = Array(1).fill(true).map((value, index) => {
+        const streams = Array(NSHARDS).fill(true).map((value, index) => {
             const filepath = path.resolve(dirpath, `./${index}.bin`);
             return fs.createReadStream(filepath)
                 .pipe(ezs.uncompress())
                 .pipe(ezs('unpack'))
             ;
         });
+        this.tubout = new MultiStream.obj(streams)
+            .pipe(ezs('transit'))
+        ;
+        this.tubout.on('data', (chunk, encoding) => {
+             if (!this.push(chunk, encoding)) {
+                 this.tubout.pause();
+             }
+        });
+        this.tubout.on('finish', () => {
+            this.push(null);
+        });
+        this.tubout.on('error', (e) => {
+            DEBUG('Unlikely error', e);
+        });
+        this.tubout.pause();
+
     }
 
     _read(size) {
-        if (this.handles.length <= 0) {
-            return this.push(null);
-        }
-        this.lastIndex += 1;
-        if (this.lastIndex >= this.handles.length) {
-            this.lastIndex = 0;
-        }
-        const data = this.handles[this.lastIndex].read(size);
-        if (data !== null) {
-            this.push(data);
-        } else {
-            this.handles[this.lastIndex].destroy();
-            this.handles = this.handles.filter((v, i) => i === this.lastIndex);
-            this._read(size);
+        if (this.tubout.isPaused()) {
+            this.tubout.resume();
         }
     }
 
-
+    _destroy(err, cb) {
+        this.tubout.destroy();
+        cb(err);
+    }
 }
 
 export class Writer extends Writable {
@@ -46,8 +50,8 @@ export class Writer extends Writable {
         super(ezs.objectMode());
         this.lastIndex = 0;
 
-        fs.mkdirSync(dirpath);
-        this.handles = Array(1).fill(true).map((value, index) => {
+        fs.emptyDirSync(dirpath);
+        this.handles = Array(NSHARDS).fill(true).map((value, index) => {
             const filepath = path.resolve(dirpath, `./${index}.bin`);
             const input = [];
             input[0] = ezs.createStream(ezs.objectMode());

@@ -2,12 +2,11 @@ import os from 'os';
 import crypto from 'crypto';
 import cluster from 'cluster';
 import http from 'http';
-import { DEBUG, PORT, VERSION } from './constants';
+import { DEBUG, PORT, VERSION, NCPUS } from './constants';
 import Parameter from './parameter';
 import JSONezs from './json';
 
 const signals = ['SIGINT', 'SIGTERM'];
-const numCPUs = os.cpus().length;
 
 function receive(data, feed) {
     if (!this.commands) {
@@ -101,7 +100,7 @@ function createServer(ezs, store, port) {
             } else if (url === '/' && method === 'GET') {
                 store.size().then((size) => {
                     const info = {
-                        concurrency: numCPUs,
+                        concurrency: NCPUS,
                         register: size,
                         uptime: Date.now() - startedAt,
                         timestamp: Date.now(),
@@ -138,7 +137,7 @@ function createServer(ezs, store, port) {
 function createCluster(ezs, store, port) {
     let term = false;
     if (cluster.isMaster) {
-        for (let i = 0; i < numCPUs; i += 1) {
+        for (let i = 0; i < NCPUS; i += 1) {
             cluster.fork();
         }
         cluster.on('exit', () => {
