@@ -8,8 +8,10 @@ export class Reader extends Readable {
     constructor(ezs, dirpath, options) {
         super(ezs.objectMode());
 
+        // to avoid to use classic directory
+        const savedir = dirpath.concat('.ezs');
         const streams = Array(NSHARDS).fill(true).map((value, index) => {
-            const filepath = path.resolve(dirpath, `./${index}.bin`);
+            const filepath = path.resolve(savedir, `./${index}.bin`);
             return fs.createReadStream(filepath)
                 .pipe(ezs.uncompress())
                 .pipe(ezs('unpack'))
@@ -50,9 +52,10 @@ export class Writer extends Writable {
         super(ezs.objectMode());
         this.lastIndex = 0;
 
-        fs.emptyDirSync(dirpath);
+        const savedir = dirpath.concat('.ezs');
+        fs.emptyDirSync(savedir);
         this.handles = Array(NSHARDS).fill(true).map((value, index) => {
-            const filepath = path.resolve(dirpath, `./${index}.bin`);
+            const filepath = path.resolve(savedir, `./${index}.bin`);
             const input = [];
             input[0] = ezs.createStream(ezs.objectMode());
             input[1] = input[0].pipe(ezs('pack'))

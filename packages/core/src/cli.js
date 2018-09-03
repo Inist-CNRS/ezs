@@ -48,6 +48,17 @@ export default function cli(errlog) {
                 describe: 'Execute commands with environement variables as input',
                 type: 'boolean',
             },
+            input: {
+                alias: 'i',
+                describe: 'Execute commands with a dedicated directory as input',
+                type: 'string',
+            },
+            output: {
+                alias: 'o',
+                describe: 'Save result output to a dedicated directory',
+                type: 'string',
+            },
+
         })
         .epilogue('for more information, find our manual at https://github.com/touv/node-ezs');
 
@@ -90,16 +101,19 @@ export default function cli(errlog) {
 
         const script = fs.readFileSync(file).toString();
         const cmds = new Commands(ezs.parseString(script));
-        const input = argv.env ? new PassThrough(ezs.objectMode()) : process.stdin;
 
+        let input;
         if (argv.env) {
-            // Use Env vars as INPUT
             DEBUG('Reading environement variables...');
+            input = new PassThrough(ezs.objectMode());
             input.write(process.env);
             input.end();
+        } else if (argv.input) {
+            DEBUG('Reading diretory input...');
+            input = ezs.load(argv.input);
         } else {
-            // Use STDIN as INPUT
             DEBUG('Reading standard input...');
+            input = process.stdin;
             input.resume();
             input.setEncoding('utf8');
         }
@@ -120,10 +134,17 @@ export default function cli(errlog) {
         } else {
             stream1 = input.pipe(ezs.pipeline(cmds.get()));
         }
-        const stream2 = stream1.pipe(ezs.toBuffer());
-        stream2.on('end', () => {
-            process.exit(0);
-        });
-        stream2.pipe(process.stdout);
+        if (argv.output) {
+            const stream2a = stream1.pipe(ezs.save(argv.output));
+            stream2a.on('end', () => {
+                process.exit(0);
+            });
+        } else {
+            const stream2b = stream1.pipe(ezs.toBuffer());
+            stream2b.on('end', () => {
+                process.exit(0);
+            });
+            stream2b.pipe(process.stdout);
+        }
     }
 }
