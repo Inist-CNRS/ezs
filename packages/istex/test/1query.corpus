@@ -8,7 +8,7 @@ licence      CC-By
 versionInfo  1
 
 [ISTEX]
-query        language.raw:rum
+query = language.raw:rum
 field = doi
 field = author
 field = title
