@@ -65,7 +65,7 @@ ezs.command = (stream, command) => {
     if (mode === M_CONDITIONAL) {
         return stream.pipe(ezs.with(command.test, command.name, command.args));
     }
-    if (mode === M_SINGLE) {
+  if (mode === M_SINGLE || mode === 'single' /* Backward compatibility */) {
         return stream.pipe(ezs.single(command.name, command.args));
     }
     throw new Error(`Bad mode: ${mode}`);

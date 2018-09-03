@@ -53,6 +53,16 @@ Output object is an object with few methods :
 -   output.send(something)
 -   output.close()
 
+### statement modes
+
+Each statement can be executed in different modes :
+
+-   **normal** : the statement is executed on each object its received
+-   **unique** : the statement is executed only on the first object its received, for all other objects, the same result as the first object is return
+-   **detachable** : the statement is executed on each object its received, but if ezs use a cluster or a server, the statement is executed on the server/cluster
+
+The basic way to use modes, it's with a ezs script or with ezs.dispatch function.
+
 # API Documentation
 
 ## ezs(statement : Mixed, [params : Object]) : Stream
