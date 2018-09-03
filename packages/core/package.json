@@ -1,6 +1,6 @@
 {
     "name": "ezs",
-    "version": "5.7.0",
+    "version": "5.7.1",
     "description": "A wrapper to build Stream transformers with functional style",
     "directories": {
         "test": "test"
@@ -59,6 +59,6 @@
         "yargs": "11.1.0"
     },
     "optionalDependencies": {
-        "node-zstd" : "2.0.1"
+        "node-zstd": "2.0.1"
     }
 }
