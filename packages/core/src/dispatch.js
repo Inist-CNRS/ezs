@@ -139,7 +139,7 @@ export default class Dispatch extends Duplex {
                  this.tubout.pause();
              }
         });
-        this.tubout.on('finish', () => {
+        this.tubout.on('end', () => {
             this.push(null);
         });
         this.tubout.on('error', (e) => {
