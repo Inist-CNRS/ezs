@@ -15,6 +15,5 @@ field = title
 field = language
 field = publicationDate
 field = keywords
-field = publisher
 field = host
 field = fulltext
