@@ -3,7 +3,7 @@ import debug from 'debug';
 import { version } from '../package.json';
 
 export const NCPUS = os.cpus().length;
-export const NSHARDS = NCPUS;
+export const NSHARDS = 16;
 export const M_NORMAL = 'normal';
 export const M_SINGLE = 'unique';
 export const M_DISPATCH = 'detachable';

@@ -17,7 +17,7 @@ import { Writer, Reader } from './disk';
 import Meta from './meta';
 import Server from './server';
 import { compressStream, uncompressStream } from './compactor';
-import { M_SINGLE, M_DISPATCH, M_NORMAL, M_CONDITIONAL, HWM_BYTES, HWM_OBJECT } from './constants';
+import { M_SINGLE, M_DISPATCH, M_NORMAL, M_CONDITIONAL, HWM_BYTES, HWM_OBJECT, NSHARDS } from './constants';
 
 const ezs = (name, opts) => new Engine(ezs, Statement.get(ezs, name, opts), opts);
 const ezsPath = [process.cwd()];
@@ -27,6 +27,7 @@ ezs.settings = {
         HWM_OBJECT,
         HWM_BYTES,
     ],
+    nShards: NSHARDS,
 };
 ezs.objectMode = () => ({
     objectMode: true,

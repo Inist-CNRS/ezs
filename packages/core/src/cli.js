@@ -37,10 +37,13 @@ export default function cli(errlog) {
                 type: 'number',
             },
             highWaterMark: {
-                alias: 'w',
                 describe: 'Change high water mark',
                 default: '16:16384',
                 type: 'string',
+            },
+            nShards: {
+                describe: 'Change number of shards',
+                type: 'number',
             },
             env: {
                 alias: 'e',
@@ -71,6 +74,9 @@ export default function cli(errlog) {
     }
     if (argv.highWaterMark) {
         ezs.settings.highWaterMark = argv.highWaterMark.split(':').map(x => Number(x));
+    }
+    if (args.nShards) {
+        ezs.settings.nShards = argv.nShards;
     }
 
     if (argv.daemon) {

@@ -10,7 +10,8 @@ export class Reader extends Readable {
 
         // to avoid to use classic directory
         const savedir = dirpath.concat('.ezs');
-        const streams = Array(NSHARDS).fill(true).map((value, index) => {
+        const ns = Number(ezs.settings.nShards) || NSHARDS;
+        const streams = Array(ns).fill(true).map((value, index) => {
             const filepath = path.resolve(savedir, `./${index}.bin`);
             return fs.createReadStream(filepath)
                 .pipe(ezs.uncompress())
@@ -25,7 +26,7 @@ export class Reader extends Readable {
                  this.tubout.pause();
              }
         });
-        this.tubout.on('finish', () => {
+        this.tubout.on('end', () => {
             this.push(null);
         });
         this.tubout.on('error', (e) => {
