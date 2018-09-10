@@ -46,6 +46,7 @@
         "is-stream": "1.1.0",
         "omni-fetch": "0.2.3",
         "qs": "6.5.2",
+        "ramda": "0.25.0",
         "write": "1.0.3"
     },
     "devDependencies": {

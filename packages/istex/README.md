@@ -32,6 +32,8 @@ ezs.use(require('ezs-istex'));
     -   [Examples](#examples)
 -   [ISTEX](#istex)
     -   [Parameters](#parameters-7)
+-   [remove-if](#remove-if)
+    -   [Parameters](#parameters-8)
 
 ### ISTEXFetch
 
@@ -198,3 +200,12 @@ Take an array and returns matching documents for every value of the array
 -   `field` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** fields to output
 
 Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 
+
+### remove-if
+
+Remove triples which properties are given (`remove`) if other given `property`
+has the given `value`.
+
+#### Parameters
+
+-   `if` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** "property = value"

@@ -6,6 +6,7 @@ import ISTEXFetch from './istex-fetch';
 import ISTEXSave from './istex-save';
 import ISTEXParseDotCorpus from './istex-parse-dot-corpus';
 import ISTEXTriplify from './istex-triplify';
+import ISTEXRemoveIf from './remove-if';
 
 export default {
     ISTEX,
@@ -16,4 +17,5 @@ export default {
     ISTEXSave,
     ISTEXParseDotCorpus,
     ISTEXTriplify,
+    ISTEXRemoveIf,
 };

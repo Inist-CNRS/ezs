@@ -628,7 +628,7 @@ describe('test', () => {
             });
     }).timeout(5000);
 
-    it.skip('ISTEXRemoveIf #0', (done) => {
+    it('ISTEXRemoveIf #0', (done) => {
         let result = [];
         const corpus = fs.readFileSync(path.resolve(__dirname, './1notice.corpus'));
         from([
@@ -636,7 +636,6 @@ describe('test', () => {
         ])
             .pipe(ezs('ISTEXParseDotCorpus'))
             .pipe(ezs('OBJFlatten', { safe: false }))
-            .pipe(ezs('debug', { text: 'flat' }))
             .pipe(ezs('ISTEXTriplify', {
                 property: [
                     '^host/genre -> host/genre',
@@ -645,26 +644,21 @@ describe('test', () => {
                     '^host/title -> https://data.istex.fr/fake#seriesTitle',
                 ],
             }))
-            .pipe(ezs('debug', { text: 'before' }))
             .pipe(ezs('ISTEXRemoveIf', {
-                if: {
-                    '<host/genre>': '"journal"',
-                },
+                if: '<host/genre> = "journal"',
                 remove: [
                     '<https://data.istex.fr/fake#bookTitle>',
                     '<https://data.istex.fr/fake#seriesTitle>',
                     '<host/genre>',
                 ],
             }))
-            // .pipe(ezs('debug', { text: 'after' }))
             .on('data', (chunk) => {
                 result = result.concat(chunk);
             })
             .on('end', () => {
-                assert.equal(result.length, 1);
-                console.log(result[0])
-                assert(!result[0].contains('<host/>genre>'));
-                assert(result[0].contains('2FF3F5B1477986B9C617BB75CA3333DBEE99EB05'));
+                assert.equal(result.length, 3);
+                assert(!result[2].includes('<host/genre>'));
+                assert(result[2].includes('journalTitle'));
                 done();
             });
     }).timeout(5000);
