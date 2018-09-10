@@ -68,6 +68,7 @@ function ISTEXTriplify(data, feed) {
         dataArray
             .filter(([key]) => key.match(regex))
             .forEach(([, value]) => {
+                if (!value) return;
                 if (value.startsWith('http')) {
                     feed.write(`<https://api.istex.fr/${data[`${source}arkIstex`]}> <${properties[path]}> <${value}> .\n`);
                 } else {
