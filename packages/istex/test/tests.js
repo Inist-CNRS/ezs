@@ -601,6 +601,33 @@ describe('test', () => {
             });
     }).timeout(5000);
 
+    it('ISTEXTriplify #6', (done) => {
+        const result = [];
+        from([
+            {
+                arkIstex: 'ark:/fake',
+                id: '1',
+                'author/3/affiliations/2': 'E-mail: ivan.couee@univ-rennes1.fr',
+            },
+        ])
+            .pipe(ezs('ISTEXTriplify', {
+                property: [
+                    '^author/\\d+/affiliations -> https://data.istex.fr/ontology/istex#affiliation',
+                    '^author/\\d+/affiliations -> https://data.istex.fr/ontology/istex#fakeProperty',
+                ],
+            }))
+            .on('data', (chunk) => {
+                result.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(4, result.length);
+                assert(!result[2].includes('undefined'));
+                assert.equal('<https://api.istex.fr/ark:/fake> <https://data.istex.fr/ontology/istex#affiliation> "E-mail: ivan.couee@univ-rennes1.fr" .\n', result[2]);
+                assert.equal('<https://api.istex.fr/ark:/fake> <https://data.istex.fr/ontology/istex#fakeProperty> "E-mail: ivan.couee@univ-rennes1.fr" .\n', result[3]);
+                done();
+            });
+    }).timeout(5000);
+
     it.skip('ISTEXRemoveIf #0', (done) => {
         let result = [];
         const corpus = fs.readFileSync(path.resolve(__dirname, './1notice.corpus'));
@@ -609,15 +636,16 @@ describe('test', () => {
         ])
             .pipe(ezs('ISTEXParseDotCorpus'))
             .pipe(ezs('OBJFlatten', { safe: false }))
+            .pipe(ezs('debug', { text: 'flat' }))
             .pipe(ezs('ISTEXTriplify', {
                 property: [
-                    'host/genre -> host/genre',
-                    'host/title -> https://data.istex.fr/fake#journalTitle',
-                    'host/title -> https://data.istex.fr/fake#bookTitle',
-                    'host/title -> https://data.istex.fr/fake#seriesTitle',
+                    '^host/genre -> host/genre',
+                    '^host/title -> https://data.istex.fr/fake#journalTitle',
+                    '^host/title -> https://data.istex.fr/fake#bookTitle',
+                    '^host/title -> https://data.istex.fr/fake#seriesTitle',
                 ],
             }))
-            // .pipe(ezs('debug', { text: 'before' }))
+            .pipe(ezs('debug', { text: 'before' }))
             .pipe(ezs('ISTEXRemoveIf', {
                 if: {
                     '<host/genre>': '"journal"',

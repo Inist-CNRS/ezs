@@ -48,31 +48,26 @@ function ISTEXTriplify(data, feed) {
     const source = this.getParam('source', '');
     const property = this.getParam('property', []);
     const properties = property
-        .map(prop => prop.split(' -> '))
-        .reduce((props, [prop, value]) => {
-            props[prop] = value;
-            return props;
-        }, {});
-    const regexps = Object
-        .keys(properties)
-        .map(path => ([
+        .map(prop => prop.split(' -> '));
+    const regexps = properties
+        .map(([path, prop]) => ([
             new RegExp(path),
-            path,
+            prop,
         ]));
     feed.write(`<https://api.istex.fr/${data[`${source}arkIstex`]}> <https://data.istex.fr/ontology/istex#idIstex> "${data[`${source}id`]}" .\n`);
     feed.write(`<https://api.istex.fr/${data[`${source}arkIstex`]}> a <http://purl.org/ontology/bibo/Document> .\n`);
 
     const dataArray = Object.entries(data);
 
-    regexps.forEach(([regex, path]) => {
+    regexps.forEach(([regex, prop]) => {
         dataArray
             .filter(([key]) => key.match(regex))
             .forEach(([, value]) => {
                 if (!value) return;
                 if (value.startsWith('http')) {
-                    feed.write(`<https://api.istex.fr/${data[`${source}arkIstex`]}> <${properties[path]}> <${value}> .\n`);
+                    feed.write(`<https://api.istex.fr/${data[`${source}arkIstex`]}> <${prop}> <${value}> .\n`);
                 } else {
-                    feed.write(`<https://api.istex.fr/${data[`${source}arkIstex`]}> <${properties[path]}> "${value}" .\n`);
+                    feed.write(`<https://api.istex.fr/${data[`${source}arkIstex`]}> <${prop}> "${value}" .\n`);
                 }
             });
     });
