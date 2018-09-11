@@ -18,10 +18,19 @@ function ISTEXRemoveIf(data, feed) {
         writeFilteredTriples();
         return feed.close();
     }
+    if (this.isFirst()) {
+        triples = [];
+        previous = null;
+        found = false;
+    }
 
     let [subject, verb, complement] = data.split('> ', 3);
     subject += '>';
     verb += '>';
+    // In the case of an URI, split removed the end of the complement
+    if (!complement.endsWith('" .\n')) {
+        complement += '> .\n';
+    }
     complement = complement.slice(0, -3); // Remove " .\n"
 
     if (previous && subject !== previous) {

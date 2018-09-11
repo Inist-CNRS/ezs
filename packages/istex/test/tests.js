@@ -662,4 +662,29 @@ describe('test', () => {
                 done();
             });
     }).timeout(5000);
+
+    it('ISTEXRemoveIf #1', (done) => {
+        let result = [];
+        from([
+            '<https://api.istex.fr/ark:/67375/HXZ-PTF2CVH1-4> <https://data.istex.fr/fake#seriesTitle> "Annals of Botany" .\n',
+            '<https://api.istex.fr/ark:/67375/HXZ-PTF2CVH1-4> <https://data.istex.fr/ontology/istex#accessURL> <https://api.istex.fr/document/17C9717E24A6A14A99CB0FD3CC8455FEA0B3973E/fulltext/pdf> .\n',
+        ])
+            .pipe(ezs('ISTEXRemoveIf', {
+                if: '<host/genre> = "journal"',
+                remove: [
+                    '<https://data.istex.fr/fake#bookTitle>',
+                    '<https://data.istex.fr/fake#seriesTitle>',
+                    '<host/genre>',
+                ],
+            }))
+            .on('data', (chunk) => {
+                result = result.concat(chunk);
+            })
+            .on('end', () => {
+                assert.equal(result.length, 2);
+                assert(result[0].endsWith('Botany" .\n'));
+                assert(result[1].endsWith('3E/fulltext/pdf> .\n'));
+                done();
+            });
+    }).timeout(5000);
 });
