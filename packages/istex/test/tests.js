@@ -139,7 +139,7 @@ describe('test', () => {
                 assert.equal(result[0].id, result[4].id);
                 done();
             });
-    }).timeout(5000);
+    }).timeout(6000);
 
     it('ISTEXFetch #0', (done) => {
         const result = [];
