@@ -687,4 +687,30 @@ describe('test', () => {
                 done();
             });
     }).timeout(5000);
+
+    it('ISTEXRemoveIf #2', (done) => {
+        let result = [];
+        from([
+            '<https://api.istex.fr/ark:/67375/QT4-D0J6VN6K-K> a <http://purl.org/ontology/bibo/Document> .\n',
+            '<https://api.istex.fr/ark:/67375/HXZ-PTF2CVH1-4> <https://data.istex.fr/fake#seriesTitle> "Annals of Botany" .\n',
+            '<https://api.istex.fr/ark:/67375/HXZ-PTF2CVH1-4> <https://data.istex.fr/ontology/istex#accessURL> <https://api.istex.fr/document/17C9717E24A6A14A99CB0FD3CC8455FEA0B3973E/fulltext/pdf> .\n',
+        ])
+            .pipe(ezs('ISTEXRemoveIf', {
+                if: '<host/genre> = "journal"',
+                remove: [
+                    '<https://data.istex.fr/fake#bookTitle>',
+                    '<https://data.istex.fr/fake#seriesTitle>',
+                    '<host/genre>',
+                ],
+            }))
+            // .pipe(ezs('debug'))
+            .on('data', (chunk) => {
+                result = result.concat(chunk);
+            })
+            .on('end', () => {
+                assert.equal(result.length, 3);
+                assert(result[0].endsWith('/Document> .\n'));
+                done();
+            });
+    }).timeout(5000);
 });
