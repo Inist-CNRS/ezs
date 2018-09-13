@@ -7,13 +7,13 @@ plugin = basics
 plugin = istex
 
 [ISTEXParseDotCorpus]
-; [debug]
-; text = Corpus
+;[debug]
+;text = Corpus
 
 [OBJFlatten]
 safe = false
-; [debug]
-; text = Flatten
+[debug]
+text = Flatten
 
 [ISTEXTriplify]
 property = doi -> http://purl.org/ontology/bibo/doi
@@ -33,10 +33,21 @@ property = ^host/genre -> host/genre
 property = ^host/title -> https://data.istex.fr/fake#journalTitle
 property = ^host/title -> https://data.istex.fr/fake#bookTitle
 property = ^host/title -> https://data.istex.fr/fake#seriesTitle
-property = fulltext/0/uri -> https://data.istex.fr/ontology/istex#accessURL
+property = ^host/title -> https://data.istex.fr/fake#databaseTitle
+property = ^host/title -> https://data.istex.fr/fake#referenceWorksTitle
+;property = fulltext/0/uri -> https://data.istex.fr/ontology/istex#accessURL
 
 [ISTEXRemoveIf]
 if = <host/genre> = "journal"
 remove = <https://data.istex.fr/fake#bookTitle>
 remove = <https://data.istex.fr/fake#seriesTitle>
-remove = <host/genre>
+remove = <https://data.istex.fr/fake#databaseTitle>
+remove = <https://data.istex.fr/fake#referenceWorksTitle>
+
+[ISTEXRemoveIf]
+if = <host/genre> = "book-series"
+remove = <https://data.istex.fr/fake#journalTitle>
+remove = <https://data.istex.fr/fake#bookTitle>
+remove = <https://data.istex.fr/fake#databaseTitle>
+remove = <https://data.istex.fr/fake#referenceWorksTitle>
+;remove = <host/genre>
