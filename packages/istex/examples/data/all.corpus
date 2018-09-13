@@ -1,0 +1,19 @@
+#
+# A .corpus to get ALL documents from ISTEX API.
+#
+# title        All documents matching the "*" query.
+# author       François & Stéphanie
+# publisher    CNRS
+# licence      CC-By
+# versionInfo  1
+
+[ISTEX]
+query = *
+field = doi
+field = author
+field = title
+field = language
+field = publicationDate
+field = keywords
+field = host
+field = fulltext
