@@ -713,4 +713,44 @@ describe('test', () => {
                 done();
             });
     }).timeout(5000);
+
+    it('ISTEXRemoveIf #3', (done) => {
+        let result = [];
+        from([
+            '<https://api.istex.fr/ark:/67375/P0J-GTV59GTP-D> <host/genre> "book-series" .\n',
+            '<https://api.istex.fr/ark:/67375/P0J-GTV59GTP-D> <https://data.istex.fr/fake#journalTitle> "Photochemistry: Volume 1" .\n',
+            '<https://api.istex.fr/ark:/67375/P0J-GTV59GTP-D> <https://data.istex.fr/fake#bookTitle> "Photochemistry: Volume 1" .\n',
+            '<https://api.istex.fr/ark:/67375/P0J-GTV59GTP-D> <https://data.istex.fr/fake#seriesTitle> "Photochemistry: Volume 1" .\n',
+            '<https://api.istex.fr/ark:/67375/P0J-GTV59GTP-D> <https://data.istex.fr/fake#databaseTitle> "Photochemistry: Volume 1" .\n',
+            '<https://api.istex.fr/ark:/67375/P0J-GTV59GTP-D> <https://data.istex.fr/fake#referenceWorksTitle> "Photochemistry: Volume 1" .\n',
+        ])
+            .pipe(ezs('ISTEXRemoveIf', {
+                if: '<host/genre> = "journal"',
+                remove: [
+                    '<https://data.istex.fr/fake#bookTitle>',
+                    '<https://data.istex.fr/fake#seriesTitle>',
+                    '<https://data.istex.fr/fake#databaseTitle>',
+                    '<https://data.istex.fr/fake#referenceWorksTitle>',
+                ],
+            }))
+            .pipe(ezs('ISTEXRemoveIf', {
+                if: '<host/genre> = "book-series"',
+                remove: [
+                    '<https://data.istex.fr/fake#journalTitle>',
+                    '<https://data.istex.fr/fake#bookTitle>',
+                    '<https://data.istex.fr/fake#databaseTitle>',
+                    '<https://data.istex.fr/fake#referenceWorksTitle>',
+                ],
+            }))
+            // .pipe(ezs('debug'))
+            .on('data', (chunk) => {
+                result = result.concat(chunk);
+            })
+            .on('end', () => {
+                assert.equal(result.length, 2);
+                assert(result[0].includes('<host/genre>'));
+                assert(result[1].includes('seriesTitle'));
+                done();
+            });
+    }).timeout(5000);
 });
