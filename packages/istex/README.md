@@ -34,6 +34,7 @@ ezs.use(require('ezs-istex'));
     -   [Parameters](#parameters-7)
 -   [remove-if](#remove-if)
     -   [Parameters](#parameters-8)
+    -   [Examples](#examples-1)
 
 ### ISTEXFetch
 
@@ -209,3 +210,28 @@ has the given `value`.
 #### Parameters
 
 -   `if` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** "property = value"
+
+#### Examples
+
+```javascript
+<https://api.istex.fr/ark:/67375/QT4-D0J6VN6K-K> <https://data.istex.fr/ontology/istex#idIstex> "2FF3F5B1477986B9C617BB75CA3333DBEE99EB05" .
+<https://api.istex.fr/ark:/67375/QT4-D0J6VN6K-K> a <http://purl.org/ontology/bibo/Document> .
+<https://api.istex.fr/ark:/67375/QT4-D0J6VN6K-K> <host/genre> "journal" .
+<https://api.istex.fr/ark:/67375/QT4-D0J6VN6K-K> <https://data.istex.fr/fake#journalTitle> "Linguistic Typology" .
+<https://api.istex.fr/ark:/67375/QT4-D0J6VN6K-K> <https://data.istex.fr/fake#bookTitle> "Linguistic Typology" .
+<https://api.istex.fr/ark:/67375/QT4-D0J6VN6K-K> <https://data.istex.fr/fake#seriesTitle> "Linguistic Typology" .
+```
+
+```javascript
+[ISTEXRemoveIf]
+if = <host/genre> = "journal"
+remove = <https://data.istex.fr/fake#bookTitle>
+remove = <https://data.istex.fr/fake#seriesTitle>
+remove = <host/genre>
+```
+
+```javascript
+<https://api.istex.fr/ark:/67375/QT4-D0J6VN6K-K> <https://data.istex.fr/ontology/istex#idIstex> "2FF3F5B1477986B9C617BB75CA3333DBEE99EB05" .
+<https://api.istex.fr/ark:/67375/QT4-D0J6VN6K-K> a <http://purl.org/ontology/bibo/Document> .
+<https://api.istex.fr/ark:/67375/QT4-D0J6VN6K-K> <https://data.istex.fr/fake#journalTitle> "Linguistic Typology" .
+```
