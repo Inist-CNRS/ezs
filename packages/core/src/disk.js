@@ -8,9 +8,10 @@ export class Reader extends Readable {
     constructor(ezs, dirpath, options) {
         super(ezs.objectMode());
 
+        const opts = options || {};
         // to avoid to use classic directory
         const savedir = dirpath.concat('.ezs');
-        const ns = Number(ezs.settings.nShards) || NSHARDS;
+        const ns = Number(opts.nShards) || Number(ezs.settings.nShards) || NSHARDS;
         const streams = Array(ns).fill(true).map((value, index) => {
             const filepath = path.resolve(savedir, `./${index}.bin`);
             return fs.createReadStream(filepath)
@@ -53,9 +54,12 @@ export class Writer extends Writable {
         super(ezs.objectMode());
         this.lastIndex = 0;
 
+        const opts = options || {};
         const savedir = dirpath.concat('.ezs');
+        // to avoid to use classic directory
+        const ns = Number(opts.nShards) || Number(ezs.settings.nShards) || NSHARDS;
         fs.emptyDirSync(savedir);
-        this.handles = Array(NSHARDS).fill(true).map((value, index) => {
+        this.handles = Array(ns).fill(true).map((value, index) => {
             const filepath = path.resolve(savedir, `./${index}.bin`);
             const input = [];
             input[0] = ezs.createStream(ezs.objectMode());

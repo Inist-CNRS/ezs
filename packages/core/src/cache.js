@@ -29,7 +29,7 @@ export default class Cache {
         const cacheFile = cache.get(key);
         if (cacheFile) {
             if (this.objectMode) {
-                return ezs.load(cacheFile);
+                return ezs.load(cacheFile, { nShards: 1 });
             } else {
                 return fs.createReadStream(cacheFile)
                     .pipe(ezs.uncompress())
@@ -47,7 +47,7 @@ export default class Cache {
         const cacheInput = new PassThrough(streamOptions);
         let cacheOutput;
         if (this.objectMode) {
-            cacheOutput = cacheInput.pipe(ezs.save(tmpFile));
+            cacheOutput = cacheInput.pipe(ezs.save(tmpFile, { nShards: 1 }));
         } else {
             cacheOutput = cacheInput
                 .pipe(ezs.compress())
