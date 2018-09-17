@@ -70,6 +70,47 @@ describe('through a server', () => {
             });
     });
 
+    it('with simple pipeline (N connections)', (done) => {
+        let res = 0;
+        const commands = [
+            {
+                name: 'increment',
+                args: {
+                    step: 2,
+                },
+            },
+            {
+                name: 'decrement',
+                args: {
+                    step: 2,
+                },
+            },
+        ];
+        const servers = [
+            '127.0.0.1',
+            '127.0.0.1',
+            '127.0.0.1',
+            '127.0.0.1',
+            '127.0.0.1',
+            '127.0.0.1',
+            '127.0.0.1',
+            '127.0.0.1',
+            '127.0.0.1',
+            '127.0.0.1',
+        ];
+        const ten = new Upto(10);
+        ten
+            .pipe(ezs.dispatch(commands, servers))
+            .on('data', (chunk) => {
+                res += chunk;
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 45);
+                done();
+            });
+    });
+
+
     it('with second pipeline with different parameter', (done) => {
         let res = 0;
         const commands = [
