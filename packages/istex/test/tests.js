@@ -753,4 +753,66 @@ describe('test', () => {
                 done();
             });
     }).timeout(5000);
+
+    it.skip('ISTEXRemoveIf #4', (done) => {
+        let result = [];
+        const corpus = fs.readFileSync(path.resolve(__dirname, '../examples/data/query.corpus'));
+        from([
+            corpus.toString(),
+        ])
+            .pipe(ezs('ISTEXParseDotCorpus'))
+            .pipe(ezs('OBJFlatten', { safe: false }))
+            .pipe(ezs('ISTEXTriplify', {
+                property: [
+                    'doi -> http://purl.org/ontology/bibo/doi',
+                    '^title -> http://purl.org/dc/terms/title',
+                    '^language -> http://purl.org/dc/terms/language',
+                    '^author/\\d+/name -> http://purl.org/dc/terms/creator',
+                    '^author/\\d+/affiliations -> https://data.istex.fr/ontology/istex#affiliation',
+                    '^publicationDate -> http://purl.org/dc/terms/issued',
+                    'subject/\\d+/value -> http://purl.org/dc/terms/subject',
+                    'publisherId -> http://purl.org/dc/terms/publisher',
+                    '^host/eissn -> http://purl.org/ontology/bibo/eissn',
+                    '^host/issn -> http://purl.org/ontology/bibo/issn',
+                    '^host/isbn -> http://purl.org/ontology/bibo/isbn',
+                    '^host/eisbn -> http://purl.org/ontology/bibo/isbn',
+                    'arkIstex -> http://purl.org/dc/terms/identifier',
+                    '^host/genre -> host/genre',
+                    '^host/title -> https://data.istex.fr/fake#journalTitle',
+                    '^host/title -> https://data.istex.fr/fake#bookTitle',
+                    '^host/title -> https://data.istex.fr/fake#seriesTitle',
+                    '^host/title -> https://data.istex.fr/fake#databaseTitle',
+                    '^host/title -> https://data.istex.fr/fake#referenceWorksTitle',
+                ],
+            }))
+            .pipe(ezs('ISTEXRemoveIf', {
+                if: '<host/genre> = "journal"',
+                remove: [
+                    '<https://data.istex.fr/fake#bookTitle>',
+                    '<https://data.istex.fr/fake#seriesTitle>',
+                    '<https://data.istex.fr/fake#databaseTitle>',
+                    '<https://data.istex.fr/fake#referenceWorksTitle>',
+                ],
+            }))
+            .pipe(ezs('debug', { text: 'remove1' }))
+            .pipe(ezs('ISTEXRemoveIf', {
+                if: '<host/genre> = "book-series"',
+                remove: [
+                    '<https://data.istex.fr/fake#journalTitle>',
+                    '<https://data.istex.fr/fake#bookTitle>',
+                    '<https://data.istex.fr/fake#databaseTitle>',
+                    '<https://data.istex.fr/fake#referenceWorksTitle>',
+                ],
+            }))
+            .pipe(ezs('debug', { text: 'remove2' }))
+            .on('data', (chunk) => {
+                result = result.concat(chunk);
+            })
+            .on('end', () => {
+                assert.equal(result.length, 510);
+                assert(result[508].includes('<host/genre>'));
+                assert(result[509].includes('journalTitle'));
+                done();
+            });
+    }).timeout(5000);
 });
