@@ -28,6 +28,7 @@ process.stdin
 -   [groupingByEquality](#groupingbyequality)
 -   [groupingByHamming](#groupingbyhamming)
 -   [groupingByLevenshtein](#groupingbylevenshtein)
+-   [groupingByModulo](#groupingbymodulo)
 -   [keys](#keys)
 -   [maximizing](#maximizing)
 -   [merging](#merging)
@@ -134,6 +135,19 @@ ID which have the same Levenshtein distance in single object
 -   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
 -   `distance` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** minimal levenshtein distance to have a same id (optional, default `1`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## groupingByModulo
+
+Take `Object` like { id, value } and reduce all value with the same modulo comptuation in ansingle object
+
+**Parameters**
+
+-   `data`  
+-   `feed`  
+-   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
