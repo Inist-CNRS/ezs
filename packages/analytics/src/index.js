@@ -11,6 +11,7 @@ import reducing from './reducing';
 import exploding from './exploding';
 import summing from './summing';
 import groupingByEquality from './groupingByEquality';
+import groupingByModulo from './groupingByModulo';
 import groupingByLevenshtein from './groupingByLevenshtein';
 import groupingByHamming from './groupingByHamming';
 import tune from './tune';
@@ -37,6 +38,7 @@ export default {
     exploding,
     summing,
     groupingByEquality,
+    groupingByModulo,
     groupingByLevenshtein,
     groupingByHamming,
     tune,
