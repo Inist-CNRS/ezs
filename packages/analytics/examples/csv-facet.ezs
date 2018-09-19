@@ -14,9 +14,8 @@ plugin = analytics
 [distinct]
 path = Dt
 
-[reducing?divisible]
-[summing?divisible]
 [reducing]
 [summing]
+
 [jsonify]
 
