@@ -5,7 +5,9 @@ import { PassThrough } from 'stream';
 
 const deleteFile = (key, fileName) => {
     fs.unlink(fileName, err => {
-        if (err) throw err;
+        if (err) {
+            console.error(err);
+        }
     });
 };
 
