@@ -1,8 +1,8 @@
 import { contains } from 'ramda';
 
-let triples = [];
-let previous = null;
-let found = false;
+const triples = {};
+const previous = {};
+const found = {};
 
 function getTriple(line) {
     let [subject, verb, complement] = line.split('> ', 3);
@@ -22,35 +22,38 @@ function getTriple(line) {
 }
 
 function ISTEXRemoveIf(data, feed) {
-    const [property, value] = this.getParam('if', ' = ').split(' = ');
+    const condition = this.getParam('if', ' = ');
+    const [property, value] = condition.split(' = ');
     const toRemove = this.getParam('remove', []);
     function writeFilteredTriples() {
-        if (found) {
-            triples = triples.filter(triple => !contains(triple.verb, toRemove));
+        if (found[condition]) {
+            triples[condition] = triples[condition].filter(triple => !contains(triple.verb, toRemove));
         }
-        triples.forEach(t => feed.write(`${t.subject} ${t.verb} ${t.complement} .\n`));
+        triples[condition].forEach(t => feed.write(`${t.subject} ${t.verb} ${t.complement} .\n`));
     }
 
     if (this.isLast()) {
         writeFilteredTriples();
         return feed.close();
     }
-    if (this.isFirst()) {
-        triples = [];
-        previous = null;
-        found = false;
-    }
 
     const [subject, verb, complement] = getTriple(data);
 
-    if (previous && subject !== previous) {
-        writeFilteredTriples();
-        triples = [];
-        previous = subject;
-        found = false;
+    if (this.isFirst()) {
+        triples[condition] = [];
+        previous[condition] = subject;
+        found[condition] = false;
     }
-    triples.push({ subject, verb, complement });
-    found = found || (verb === property && complement === value);
+
+    if (previous[condition] && subject !== previous[condition]) {
+        writeFilteredTriples();
+        triples[condition] = [];
+        previous[condition] = subject;
+        found[condition] = false;
+    }
+
+    triples[condition].push({ subject, verb, complement });
+    found[condition] = found[condition] || (verb === property && complement === value);
     feed.end();
 }
 

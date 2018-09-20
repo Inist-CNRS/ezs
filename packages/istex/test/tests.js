@@ -754,29 +754,30 @@ describe('test', () => {
             });
     }).timeout(5000);
 
-    it.skip('ISTEXRemoveIf #4', (done) => {
+    it('ISTEXRemoveIf #4', (done) => {
+        // When one document has a host/genre of "journal" and is followed by a
+        // document of host/genre "book-series", and applying two RemoveIf, no
+        // title remains.
         let result = [];
-        const corpus = fs.readFileSync(path.resolve(__dirname, '../examples/data/query.corpus'));
         from([
-            corpus.toString(),
+            `
+            [ISTEX]
+            id = 12B1EEFEDFB47AEE5533ABE42400727DA93056C7
+            id = 961922E1FB4122B85B8ED048F7A9F8D611F463DD
+            field = author
+            field = title
+            field = publicationDate
+            field = host
+            `,
         ])
             .pipe(ezs('ISTEXParseDotCorpus'))
             .pipe(ezs('OBJFlatten', { safe: false }))
             .pipe(ezs('ISTEXTriplify', {
                 property: [
-                    'doi -> http://purl.org/ontology/bibo/doi',
                     '^title -> http://purl.org/dc/terms/title',
-                    '^language -> http://purl.org/dc/terms/language',
                     '^author/\\d+/name -> http://purl.org/dc/terms/creator',
                     '^author/\\d+/affiliations -> https://data.istex.fr/ontology/istex#affiliation',
                     '^publicationDate -> http://purl.org/dc/terms/issued',
-                    'subject/\\d+/value -> http://purl.org/dc/terms/subject',
-                    'publisherId -> http://purl.org/dc/terms/publisher',
-                    '^host/eissn -> http://purl.org/ontology/bibo/eissn',
-                    '^host/issn -> http://purl.org/ontology/bibo/issn',
-                    '^host/isbn -> http://purl.org/ontology/bibo/isbn',
-                    '^host/eisbn -> http://purl.org/ontology/bibo/isbn',
-                    'arkIstex -> http://purl.org/dc/terms/identifier',
                     '^host/genre -> host/genre',
                     '^host/title -> https://data.istex.fr/fake#journalTitle',
                     '^host/title -> https://data.istex.fr/fake#bookTitle',
@@ -794,7 +795,7 @@ describe('test', () => {
                     '<https://data.istex.fr/fake#referenceWorksTitle>',
                 ],
             }))
-            .pipe(ezs('debug', { text: 'remove1' }))
+            // .pipe(ezs('debug', { text: 'remove1' }))
             .pipe(ezs('ISTEXRemoveIf', {
                 if: '<host/genre> = "book-series"',
                 remove: [
@@ -804,14 +805,16 @@ describe('test', () => {
                     '<https://data.istex.fr/fake#referenceWorksTitle>',
                 ],
             }))
-            .pipe(ezs('debug', { text: 'remove2' }))
+            // .pipe(ezs('debug', { text: 'remove2' }))
             .on('data', (chunk) => {
                 result = result.concat(chunk);
             })
             .on('end', () => {
-                assert.equal(result.length, 510);
-                assert(result[508].includes('<host/genre>'));
-                assert(result[509].includes('journalTitle'));
+                assert.equal(result.length, 17);
+                assert(result[6].includes('<host/genre>'));
+                assert(result[7].includes('journalTitle'));
+                assert(result[15].includes('<host/genre>'));
+                assert(result[16].includes('seriesTitle'));
                 done();
             });
     }).timeout(5000);
