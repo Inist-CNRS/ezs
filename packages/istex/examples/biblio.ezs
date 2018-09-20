@@ -12,18 +12,20 @@ plugin = istex
 
 [OBJFlatten]
 safe = false
-[debug]
-text = Flatten
+;[debug]
+;text = Flatten
 
 [ISTEXTriplify]
-property = doi -> http://purl.org/ontology/bibo/doi
+property = arkIstex -> http://purl.org/dc/terms/identifier
+property = pmid -> http://purl.org/ontology/bibo/pmid
+property = ^doi -> http://purl.org/ontology/bibo/doi
 property = ^title -> http://purl.org/dc/terms/title
 property = ^language -> http://purl.org/dc/terms/language
 property = ^author/\d+/name -> http://purl.org/dc/terms/creator
 property = ^author/\d+/affiliations -> https://data.istex.fr/ontology/istex#affiliation
 property = ^publicationDate -> http://purl.org/dc/terms/issued
-property = subject/\d+/value -> http://purl.org/dc/terms/subject
-property = publisherId -> http://purl.org/dc/terms/publisher
+property = ^subject/\d+/value -> http://purl.org/dc/terms/subject
+;property = publisherId -> http://purl.org/dc/terms/publisher
 property = ^host/title -> https://data.istex.fr/fake#journalTitle
 property = ^host/title -> https://data.istex.fr/fake#bookTitle
 property = ^host/title -> https://data.istex.fr/fake#seriesTitle
@@ -33,8 +35,6 @@ property = ^host/eissn -> http://purl.org/ontology/bibo/eissn
 property = ^host/issn -> http://purl.org/ontology/bibo/issn
 property = ^host/isbn -> http://purl.org/ontology/bibo/isbn
 property = ^host/eisbn -> http://purl.org/ontology/bibo/isbn
-property = ^host/subject/\d+/value -> https://data.istex.fr/fake#subjectHost
-property = arkIstex -> http://purl.org/dc/terms/identifier
 property = ^host/genre -> host/genre
 
 ;property = fulltext/0/uri -> https://data.istex.fr/ontology/istex#accessURL
