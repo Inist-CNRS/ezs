@@ -24,17 +24,19 @@ property = ^author/\d+/affiliations -> https://data.istex.fr/ontology/istex#affi
 property = ^publicationDate -> http://purl.org/dc/terms/issued
 property = subject/\d+/value -> http://purl.org/dc/terms/subject
 property = publisherId -> http://purl.org/dc/terms/publisher
-property = ^host/eissn -> http://purl.org/ontology/bibo/eissn
-property = ^host/issn -> http://purl.org/ontology/bibo/issn
-property = ^host/isbn -> http://purl.org/ontology/bibo/isbn
-property = ^host/eisbn -> http://purl.org/ontology/bibo/isbn
-property = arkIstex -> http://purl.org/dc/terms/identifier
-property = ^host/genre -> host/genre
 property = ^host/title -> https://data.istex.fr/fake#journalTitle
 property = ^host/title -> https://data.istex.fr/fake#bookTitle
 property = ^host/title -> https://data.istex.fr/fake#seriesTitle
 property = ^host/title -> https://data.istex.fr/fake#databaseTitle
 property = ^host/title -> https://data.istex.fr/fake#referenceWorksTitle
+property = ^host/eissn -> http://purl.org/ontology/bibo/eissn
+property = ^host/issn -> http://purl.org/ontology/bibo/issn
+property = ^host/isbn -> http://purl.org/ontology/bibo/isbn
+property = ^host/eisbn -> http://purl.org/ontology/bibo/isbn
+property = ^host/subject/\d+/value -> https://data.istex.fr/fake#subjectHost
+property = arkIstex -> http://purl.org/dc/terms/identifier
+property = ^host/genre -> host/genre
+
 ;property = fulltext/0/uri -> https://data.istex.fr/ontology/istex#accessURL
 
 [ISTEXRemoveIf]
@@ -50,4 +52,25 @@ remove = <https://data.istex.fr/fake#journalTitle>
 remove = <https://data.istex.fr/fake#bookTitle>
 remove = <https://data.istex.fr/fake#databaseTitle>
 remove = <https://data.istex.fr/fake#referenceWorksTitle>
+
+[ISTEXRemoveIf]
+if = <host/genre> = "book"
+remove = <https://data.istex.fr/fake#journalTitle>
+remove = <https://data.istex.fr/fake#seriesTitle>
+remove = <https://data.istex.fr/fake#databaseTitle>
+remove = <https://data.istex.fr/fake#referenceWorksTitle>
+
+[ISTEXRemoveIf]
+if = <host/genre> = "database"
+remove = <https://data.istex.fr/fake#journalTitle>
+remove = <https://data.istex.fr/fake#bookTitle>
+remove = <https://data.istex.fr/fake#seriesTitle>
+remove = <https://data.istex.fr/fake#referenceWorksTitle>
+
+[ISTEXRemoveIf]
+if = <host/genre> = "reference-works"
+remove = <https://data.istex.fr/fake#journalTitle>
+remove = <https://data.istex.fr/fake#bookTitle>
+remove = <https://data.istex.fr/fake#seriesTitle>
+remove = <https://data.istex.fr/fake#databaseTitle>
 ;remove = <host/genre>
