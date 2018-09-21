@@ -13,7 +13,7 @@ const worker = options => ({ source, target }, done) => fetch(source, options)
         if (!isStream(response.body)) {
             return done(new Error('Unexpected response'));
         }
-        response.body
+        return response.body
             .pipe(writeFile.stream(target))
             .on('end', err => done(err))
             .on('close', () => done(target));

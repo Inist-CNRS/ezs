@@ -1,25 +1,9 @@
 import { contains } from 'ramda';
+import { getTriple } from './utils';
 
 const triples = {};
 const previous = {};
 const found = {};
-
-function getTriple(line) {
-    let [subject, verb, complement] = line.split('> ', 3);
-    subject += '>';
-    verb += '>';
-    if (complement === '.\n') {
-        // In the case of a verb badly parsed (ex: <uri1> a <uri2>)
-        [verb, complement] = verb.split(' ', 2);
-    } else if (!complement.endsWith('" .\n')) {
-        // In the case of an URI, split removed the end of the complement
-        complement += '>';
-    } else /* if (complement.endsWith(' .\n')) */ {
-        // In the normal case
-        complement = complement.slice(0, -3); // Remove " .\n"
-    }
-    return [subject, verb, complement];
-}
 
 function ISTEXRemoveIf(data, feed) {
     const condition = this.getParam('if', ' = ');
@@ -61,6 +45,7 @@ function ISTEXRemoveIf(data, feed) {
  * Remove triples which properties are given (`remove`) if other given `property`
  * has the given `value`.
  *
+ * @name ISTEXRemoveIf
  * @param {string} if   "property = value"
  * @param {Array<string></string>} remove    list of properties to remove
  *

@@ -32,9 +32,14 @@ ezs.use(require('ezs-istex'));
     -   [Examples](#examples)
 -   [ISTEX](#istex)
     -   [Parameters](#parameters-7)
--   [remove-if](#remove-if)
+-   [ISTEXRemoveIf](#istexremoveif)
     -   [Parameters](#parameters-8)
     -   [Examples](#examples-1)
+-   [ISTEXRemoveVerb](#istexremoveverb)
+    -   [Parameters](#parameters-9)
+    -   [Examples](#examples-2)
+-   [ISTEXUniq](#istexuniq)
+    -   [Examples](#examples-3)
 
 ### ISTEXFetch
 
@@ -202,7 +207,7 @@ Take an array and returns matching documents for every value of the array
 
 Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 
 
-### remove-if
+### ISTEXRemoveIf
 
 Remove triples which properties are given (`remove`) if other given `property`
 has the given `value`.
@@ -234,4 +239,58 @@ remove = <host/genre>
 <https://api.istex.fr/ark:/67375/QT4-D0J6VN6K-K> <https://data.istex.fr/ontology/istex#idIstex> "2FF3F5B1477986B9C617BB75CA3333DBEE99EB05" .
 <https://api.istex.fr/ark:/67375/QT4-D0J6VN6K-K> a <http://purl.org/ontology/bibo/Document> .
 <https://api.istex.fr/ark:/67375/QT4-D0J6VN6K-K> <https://data.istex.fr/fake#journalTitle> "Linguistic Typology" .
+```
+
+### ISTEXRemoveVerb
+
+Unconditionnaly remove triples which `verb` is given.
+
+#### Parameters
+
+-   `verb` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** `"<https://data.istex.fr/ontology/istex#idIstex>"`
+
+#### Examples
+
+```javascript
+<https://api.istex.fr/ark:/67375/QT4-D0J6VN6K-K> <https://data.istex.fr/ontology/istex#idIstex> "2FF3F5B1477986B9C617BB75CA3333DBEE99EB05" .
+<https://api.istex.fr/ark:/67375/QT4-D0J6VN6K-K> a <http://purl.org/ontology/bibo/Document> .
+<https://api.istex.fr/ark:/67375/QT4-D0J6VN6K-K> <host/genre> "journal" .
+<https://api.istex.fr/ark:/67375/QT4-D0J6VN6K-K> <https://data.istex.fr/fake#journalTitle> "Linguistic Typology" .
+```
+
+```javascript
+[ISTEXRemoveIf]
+verb = <host/genre>
+```
+
+```javascript
+<https://api.istex.fr/ark:/67375/QT4-D0J6VN6K-K> <https://data.istex.fr/ontology/istex#idIstex> "2FF3F5B1477986B9C617BB75CA3333DBEE99EB05" .
+<https://api.istex.fr/ark:/67375/QT4-D0J6VN6K-K> a <http://purl.org/ontology/bibo/Document> .
+<https://api.istex.fr/ark:/67375/QT4-D0J6VN6K-K> <https://data.istex.fr/fake#journalTitle> "Linguistic Typology" .
+```
+
+### ISTEXUniq
+
+Remove duplicates triples within a single document's set of triples (same
+subject).
+
+Assume that every triple of a document (except the first one) follows another
+triple of the same document.
+
+#### Examples
+
+```javascript
+<https://api.istex.fr/ark:/67375/NVC-JMPZTKTT-R> <http://purl.org/dc/terms/creator> "S Corbett" .
+<https://api.istex.fr/ark:/67375/NVC-JMPZTKTT-R> <https://data.istex.fr/ontology/istex#affiliation> "Department of Public Health, University of Sydney, Australia." .
+<https://api.istex.fr/ark:/67375/NVC-JMPZTKTT-R> <https://data.istex.fr/ontology/istex#affiliation> "Department of Public Health, University of Sydney, Australia." .
+<https://api.istex.fr/ark:/67375/NVC-JMPZTKTT-R> <https://data.istex.fr/ontology/istex#affiliation> "Department of Public Health, University of Sydney, Australia." .
+```
+
+```javascript
+[ISTEXUniq]
+```
+
+```javascript
+<https://api.istex.fr/ark:/67375/NVC-JMPZTKTT-R> <http://purl.org/dc/terms/creator> "S Corbett" .
+<https://api.istex.fr/ark:/67375/NVC-JMPZTKTT-R> <https://data.istex.fr/ontology/istex#affiliation> "Department of Public Health, University of Sydney, Australia." .
 ```

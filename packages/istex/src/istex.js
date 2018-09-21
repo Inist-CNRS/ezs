@@ -28,7 +28,7 @@ const getAndWriteQueries = (data, options, feed) => new Promise((resolve, reject
     q.drain = () => inputQuery.end();
     data.forEach(query => q.push({ query }));
 
-    inputQuery
+    return inputQuery
         .pipe(ezs(ISTEXSearch, options))
         .pipe(ezs(ISTEXScroll))
         .pipe(ezs(ISTEXResult))
@@ -58,7 +58,7 @@ const getAndWriteIdentifiers = (data, options, feed) => new Promise((resolve, re
     q.drain = () => input.end();
     data.forEach(id => q.push({ id }));
 
-    input
+    return input
         .pipe(ezs(ISTEXFetch, options))
         .on('data', (chunk) => {
             feed.write(chunk);

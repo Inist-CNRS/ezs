@@ -14,7 +14,7 @@ function ISTEXParseDotCorpus(data, feed) {
     const metadata = this.ezs.metaString(data);
     const statement = this.ezs.fromString(data);
     const input = new PassThrough({ objectMode: true });
-    const output = input
+    input
         .pipe(statement)
         .on('data', (chunk) => {
             feed.write({ ...metadata, ...chunk });
