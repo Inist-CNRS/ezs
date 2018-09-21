@@ -28,7 +28,7 @@ property = ^subject/\d+/value -> http://purl.org/dc/terms/subject
 ;property = publisherId -> http://purl.org/dc/terms/publisher
 property = ^host/title -> https://data.istex.fr/fake#journalTitle
 property = ^host/title -> https://data.istex.fr/fake#bookTitle
-property = ^host/title -> https://data.istex.fr/fake#seriesTitle
+property = ^host/title -> https://data.istex.fr/fake#serieTitle
 property = ^host/title -> https://data.istex.fr/fake#databaseTitle
 property = ^host/title -> https://data.istex.fr/fake#referenceWorksTitle
 property = ^host/eissn -> http://purl.org/ontology/bibo/eissn
@@ -42,7 +42,7 @@ property = ^host/genre -> host/genre
 [ISTEXRemoveIf]
 if = <host/genre> = "journal"
 remove = <https://data.istex.fr/fake#bookTitle>
-remove = <https://data.istex.fr/fake#seriesTitle>
+remove = <https://data.istex.fr/fake#serieTitle>
 remove = <https://data.istex.fr/fake#databaseTitle>
 remove = <https://data.istex.fr/fake#referenceWorksTitle>
 
@@ -56,7 +56,7 @@ remove = <https://data.istex.fr/fake#referenceWorksTitle>
 [ISTEXRemoveIf]
 if = <host/genre> = "book"
 remove = <https://data.istex.fr/fake#journalTitle>
-remove = <https://data.istex.fr/fake#seriesTitle>
+remove = <https://data.istex.fr/fake#serieTitle>
 remove = <https://data.istex.fr/fake#databaseTitle>
 remove = <https://data.istex.fr/fake#referenceWorksTitle>
 
@@ -64,13 +64,13 @@ remove = <https://data.istex.fr/fake#referenceWorksTitle>
 if = <host/genre> = "database"
 remove = <https://data.istex.fr/fake#journalTitle>
 remove = <https://data.istex.fr/fake#bookTitle>
-remove = <https://data.istex.fr/fake#seriesTitle>
+remove = <https://data.istex.fr/fake#serieTitle>
 remove = <https://data.istex.fr/fake#referenceWorksTitle>
 
 [ISTEXRemoveIf]
 if = <host/genre> = "reference-works"
 remove = <https://data.istex.fr/fake#journalTitle>
 remove = <https://data.istex.fr/fake#bookTitle>
-remove = <https://data.istex.fr/fake#seriesTitle>
+remove = <https://data.istex.fr/fake#serieTitle>
 remove = <https://data.istex.fr/fake#databaseTitle>
 ;remove = <host/genre>
