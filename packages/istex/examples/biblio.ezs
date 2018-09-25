@@ -27,7 +27,7 @@ property = ^publicationDate -> http://purl.org/dc/terms/issued
 property = ^subject/\d+/value -> http://purl.org/dc/terms/subject
 property = ^host/title -> https://data.istex.fr/fake#journalTitle
 property = ^host/title -> https://data.istex.fr/fake#bookTitle
-property = ^host/title -> https://data.istex.fr/fake#serieTitle
+property = ^host/title -> https://data.istex.fr/fake#seriesTitle
 property = ^host/title -> https://data.istex.fr/fake#databaseTitle
 property = ^host/title -> https://data.istex.fr/fake#referenceWorksTitle
 property = ^host/eissn -> http://purl.org/ontology/bibo/eissn
@@ -41,7 +41,7 @@ property = ^host/genre -> host/genre
 [ISTEXRemoveIf]
 if = <host/genre> = "journal"
 remove = <https://data.istex.fr/ontology/istex#bookTitle>
-remove = <https://data.istex.fr/ontology/istex#serieTitle>
+remove = <https://data.istex.fr/ontology/istex#seriesTitle>
 remove = <https://data.istex.fr/ontology/istex#databaseTitle>
 remove = <https://data.istex.fr/ontology/istex#referenceWorksTitle>
 
@@ -55,7 +55,7 @@ remove = <https://data.istex.fr/ontology/istex#referenceWorksTitle>
 [ISTEXRemoveIf]
 if = <host/genre> = "book"
 remove = <https://data.istex.fr/ontology/istex#journalTitle>
-remove = <https://data.istex.fr/ontology/istex#serieTitle>
+remove = <https://data.istex.fr/ontology/istex#seriesTitle>
 remove = <https://data.istex.fr/ontology/istex#databaseTitle>
 remove = <https://data.istex.fr/ontology/istex#referenceWorksTitle>
 
@@ -63,13 +63,13 @@ remove = <https://data.istex.fr/ontology/istex#referenceWorksTitle>
 if = <host/genre> = "database"
 remove = <https://data.istex.fr/ontology/istex#journalTitle>
 remove = <https://data.istex.fr/ontology/istex#bookTitle>
-remove = <https://data.istex.fr/ontology/istex#serieTitle>
+remove = <https://data.istex.fr/ontology/istex#seriesTitle>
 remove = <https://data.istex.fr/ontology/istex#referenceWorksTitle>
 
 [ISTEXRemoveIf]
 if = <host/genre> = "reference-works"
 remove = <https://data.istex.fr/ontology/istex#journalTitle>
 remove = <https://data.istex.fr/ontology/istex#bookTitle>
-remove = <https://data.istex.fr/ontology/istex#serieTitle>
+remove = <https://data.istex.fr/ontology/istex#seriesTitle>
 remove = <https://data.istex.fr/ontology/istex#databaseTitle>
 ;remove = <host/genre>
