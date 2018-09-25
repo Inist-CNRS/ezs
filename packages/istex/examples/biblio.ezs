@@ -25,7 +25,6 @@ property = ^author/\d+/name -> http://purl.org/dc/terms/creator
 property = ^author/\d+/affiliations -> https://data.istex.fr/ontology/istex#affiliation
 property = ^publicationDate -> http://purl.org/dc/terms/issued
 property = ^subject/\d+/value -> http://purl.org/dc/terms/subject
-;property = publisherId -> http://purl.org/dc/terms/publisher
 property = ^host/title -> https://data.istex.fr/fake#journalTitle
 property = ^host/title -> https://data.istex.fr/fake#bookTitle
 property = ^host/title -> https://data.istex.fr/fake#serieTitle
