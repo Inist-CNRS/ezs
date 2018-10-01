@@ -239,14 +239,15 @@ describe('through a server', () => {
             '127.0.0.0',
         ];
         const ten = new Upto(10);
+        let semaphore = true;
         ten
             .pipe(ezs.dispatch(commands, servers))
             .on('error', (error) => {
                 assert(error instanceof Error);
-                done();
-            })
-            .on('end', () => {
-                done();
+                if (semaphore) {
+                    semaphore = false;
+                    done();
+                }
             });
     });
 
@@ -269,11 +270,15 @@ describe('through a server', () => {
             '127.0.0.1',
         ];
         const ten = new Upto(10);
+        let semaphore = true;
         ten
             .pipe(ezs.dispatch(commands, servers))
             .on('error', (error) => {
                 assert(error instanceof Error);
-                done();
+                if (semaphore) {
+                    semaphore = false;
+                    done();
+                }
             });
     });
     it('with commands in distributed pipeline', (done) => {

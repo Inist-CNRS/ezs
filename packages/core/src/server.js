@@ -124,8 +124,9 @@ function createServer(ezs, store, port) {
                 response.writeHead(404);
                 response.end();
             }
-        })
-        .listen(port || PORT);
+        });
+    server.setTimeout(0);
+    const srv = server.listen(port || PORT);
     signals.forEach(signal => process.on(signal, () => {
         DEBUG(`Signal received, stoping server with PID ${process.pid}`);
         server.close(() => process.exit(0));

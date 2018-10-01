@@ -1,10 +1,11 @@
+import _ from 'lodash';
 import { PassThrough, Duplex } from 'stream';
 import assert from 'assert';
 import http from 'http';
 import pMap from 'p-map';
 import MultiStream from 'multistream';
 import Parameter from './parameter';
-import { DEBUG, PORT } from './constants';
+import { DEBUG, PORT, NSHARDS } from './constants';
 
 const parseAddress = (srvr) => {
     if (typeof srvr !== 'string') {
@@ -23,9 +24,9 @@ const parseAddress = (srvr) => {
     };
 };
 const agent = new http.Agent({
-    maxSockets: 1000,
-    keepAlive: true,
-    timeout: 10,
+    maxSockets: 0,
+    keepAlive: false,
+    timeout: 0,
 });
 
 const registerTo = (ezs, { hostname, port }, commands) =>
@@ -87,9 +88,11 @@ const registerTo = (ezs, { hostname, port }, commands) =>
     });
 
 const duplexer = (ezs, onerror) => (serverOptions, index) => {
+    const opts = { ...serverOptions, timeout: 0 };
+    const { hostname, port } = opts;
     const input = new PassThrough(ezs.objectMode());
     const output = new PassThrough(ezs.objectMode());
-    const handle = http.request(serverOptions, (res) => {
+    const handle = http.request(opts, (res) => {
         if (res.statusCode === 200) {
             res
                 .pipe(ezs.uncompress())
@@ -98,20 +101,25 @@ const duplexer = (ezs, onerror) => (serverOptions, index) => {
                 .on('end', () => output.end());
         } else {
             onerror(new Error(
-                `${serverOptions.hostname}:${serverOptions.port} return ${res.statusCode}`,
+                `${hostname}:${port}#${index} return ${res.statusCode}`,
             ));
             output.end();
         }
     });
+
     handle.on('error' , (e) => {
-        onerror(e);
+        onerror(new Error(
+            `${hostname || '?'}:${port || '?'}#${index} return ${e.message}`,
+        ));
         output.end();
+        handle.abort();
     })
+
     const inp = input
         .pipe(ezs('pack'))
         .pipe(ezs.compress())
         .pipe(handle);
-    const duplex = [input, output];
+    const duplex = [input, output, index];
     return duplex;
 };
 
@@ -120,7 +128,6 @@ export default class Dispatch extends Duplex {
         super(ezs.objectMode());
 
         this.handles = [];
-        this.handlesEnd = [];
 
         this.tubin = new PassThrough(ezs.objectMode());
         this.tubout = this.tubin
@@ -129,9 +136,7 @@ export default class Dispatch extends Duplex {
 
         this.on('finish', () => {
             this.handles.forEach((handle, index) => {
-                if (!this.handlesEnd[index]) {
-                    handle[0].end();
-                }
+                handle[0].end();
             });
         });
         this.tubout.on('data', (chunk, encoding) => {
@@ -150,7 +155,16 @@ export default class Dispatch extends Duplex {
         assert(Array.isArray(commands), 'commands should be an array.');
         assert(Array.isArray(servers), 'servers should be an array.');
 
-        this.servers = servers.map(parseAddress).filter(x => x);
+        const ns = Number(ezs.settings.nShards) || NSHARDS;
+
+        this.servers = _
+            .chain(servers)
+            .compact()
+            .uniq()
+            .map(parseAddress)
+            .map(s => Array(ns).fill(s))  // multiple each line
+            .value()
+            .reduce((a, b) => a.concat(b), []); // flatten all
         this.commands = commands;
         this.semaphore = true;
         this.lastIndex = 0;
@@ -183,11 +197,11 @@ export default class Dispatch extends Duplex {
             this.tubout.resume();
         }
     }
+
     _destroy(err, cb) {
         this.tubout.destroy();
         cb(err);
     }
-
 
     balance(chunk, encoding, callback) {
         this.lastIndex += 1;
