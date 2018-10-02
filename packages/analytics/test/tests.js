@@ -406,7 +406,7 @@ describe('test', () => {
             });
     });
 
-    it('stuck/unstuck', (done) => {
+    it('stuck/unstuck #1', (done) => {
         const res = [];
         from([
             { a: 1, b: 5 },
@@ -430,6 +430,32 @@ describe('test', () => {
                 done();
             });
     });
+
+    it('stuck/unstuck #2', (done) => {
+        const res = [];
+        from([
+            { a: 1, b: 6 },
+            { a: 2, b: 6 },
+            { a: 3, b: 6 },
+            { a: 4, b: 6 },
+            { a: 5, b: 6 },
+        ])
+            .pipe(ezs('stuck', { path: 'b',  id: 'xxx' }))
+            .pipe(ezs('replace', { path: 'toto', value: 'truc' }))
+            .pipe(ezs('unstuck', { path: 'b', id: 'xxx' }))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(5, res.length);
+                assert.equal(6, res[0].b);
+                assert.equal(6, res[1].b);
+                assert.equal(6, res[2].b);
+                done();
+            });
+    });
+
 
     it('slice #1', (done) => {
         const res = [];

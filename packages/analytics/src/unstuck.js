@@ -12,14 +12,12 @@ export default function unstuck(data, feed) {
     if (this.isLast()) {
         return feed.send(data);
     }
-    let keys = this.getParam('path', []);
-    if (!Array.isArray(keys)) {
-        keys = [keys];
-    }
+    const id = this.getParam('id', 'globals');
+    const path = this.getParam('path', []);
+    const paths = Array.isArray(path) ? path : [path];
+    const keys = paths.filter(k => typeof k === 'string');
 
-    keys = keys.filter(k => typeof k === 'string');
-
-    const promises = keys.map(key => store.get(key).catch(error => { return error }) );
+    const promises = keys.map(key => store.get(`${id}::${key}`).catch(error => { return error }) );
 
     Promise.all(promises)
         .then((values) => {

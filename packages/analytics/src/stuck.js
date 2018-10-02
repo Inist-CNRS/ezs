@@ -11,16 +11,14 @@ export default function stuck(data, feed) {
     if (this.isLast()) {
         return feed.send(data);
     }
-    let keys = this.getParam('path', []);
-    if (!Array.isArray(keys)) {
-        keys = [keys];
-    }
-
+    const id = this.getParam('id', 'globals');
+    const path = this.getParam('path', []);
+    const keys = Array.isArray(path) ? path : [path];
     const promises = keys
         .filter(k => typeof k === 'string')
         .map(key => [key, get(data, key)])
         .filter(val => val[1])
-        .map(val => store.put(val[0], val[1]));
+        .map(val => store.put(`${id}::${val[0]}`, val[1]));
 
     Promise.all(promises)
         .then(() => feed.send(data))
