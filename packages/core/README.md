@@ -246,6 +246,7 @@ Launch a cluster for ezs.dispatch
 -   [pack](#pack)
 -   [replace](#replace)
 -   [shift](#shift)
+-   [shuffle](#shuffle)
 -   [transit](#transit)
 -   [unpack](#unpack)
 
@@ -286,6 +287,7 @@ Take `Object` , print it and throw the same object
 -   `feed`  
 -   `level` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** console level : log or error (optional, default `log`)
 -   `text` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** text before the dump (optional, default `valueOf`)
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to print
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -357,6 +359,18 @@ Take the first `Object` and close the feed
 
 -   `data`  
 -   `feed`  
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## shuffle
+
+Take `Object`, shuffle data of the whole object or only some fields specified by path
+
+**Parameters**
+
+-   `data`  
+-   `feed`  
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to shuffle
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 

@@ -10,6 +10,7 @@ import unpack from './unpack'; // unpack
 import jsonezs from './jsonezs';
 import pack from './pack'; // pack
 import transit from './transit';
+import shuffle from './shuffle';
 
 export default {
     extract,
@@ -24,4 +25,5 @@ export default {
     jsonezs,
     pack,
     transit,
+    shuffle,
 };
