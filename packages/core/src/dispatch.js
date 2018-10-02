@@ -115,6 +115,8 @@ const duplexer = (ezs, onerror) => (serverOptions, index) => {
         handle.abort();
     })
 
+    handle.setNoDelay(false);
+
     const inp = input
         .pipe(ezs('pack'))
         .pipe(ezs.compress())

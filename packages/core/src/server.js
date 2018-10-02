@@ -50,6 +50,7 @@ function createServer(ezs, store, port) {
         .createServer((request, response) => {
             const { url, method, headers } = request;
             const cmdid = url.slice(1);
+            response.socket.setNoDelay(false);
             if (url === '/' && method === 'POST') {
                 if (headers['x-parameter']) {
                     const parameters = Parameter.unpack(headers['x-parameter']);
