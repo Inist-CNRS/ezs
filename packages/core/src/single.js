@@ -2,15 +2,15 @@ import { PassThrough, Transform } from 'stream';
 import { addedDiff } from 'deep-object-diff';
 
 export default class Once extends Transform {
-    constructor(ezs, mixed, options) {
+    constructor(ezs, mixed, options, environment) {
         super(ezs.objectMode());
         this.first = true;
         this.tubin = new PassThrough(ezs.objectMode());
         this.tubout = this.tubin;
         if (Array.isArray(mixed)) {
-            this.tubout = mixed.reduce(ezs.command, this.tubout);
+            this.tubout = mixed.reduce((stream, command) => ezs.command(stream, command, environment), this.tubout);
         } else if (typeof mixed === 'string') {
-            this.tubout = this.tubin.pipe(ezs(mixed, options));
+            this.tubout = this.tubin.pipe(ezs(mixed, options, environment));
         }
         this.on('finish', () => {
             this.tubin.end();

@@ -3,46 +3,47 @@ import _ from 'lodash';
 import safeEval from 'notevil';
 import mixins from './mixins';
 
-const parse = context => (value) => {
+const parse = (chunk, environment) => (expression) => {
     const js = [];
     js.push('_.chain(self).');
-    js.push(value.replace(/([)]\s*->\s*)/g, ').'));
+    js.push(expression.replace(/([)]\s*->\s*)/g, ').'));
     js.push('.value();');
     const code = js.join('');
-    const data = typeof context === 'object' ? _.omitBy(context, _.isFunction) : context;
+    const data = typeof chunk === 'object' ? _.omitBy(chunk, _.isFunction) : chunk;
     _.mixin(mixins);
     const result = safeEval(code, {
         _,
         self: data,
+        env: environment,
     });
     return result;
 };
 
 
-const analyse = context => (value) => {
-    if (Array.isArray(value)) {
-        return value.map(analyse(context));
+const analyse = (chunk, environment) => (expression) => {
+    if (Array.isArray(expression)) {
+        return expression.map(analyse(chunk, environment));
     }
-    if (!value || typeof value !== 'string') {
-        return value;
+    if (!expression || typeof expression !== 'string') {
+        return expression;
     }
-    if (value.match(/^[a-zA-Z][a-zA-Z0-9]*[(]/)) {
-        return parse(context)(value);
+    if (expression.match(/^[a-zA-Z][a-zA-Z0-9]*[(]/)) {
+        return parse(chunk, environment)(expression);
     }
-    return autocast(value);
+    return autocast(expression);
 };
 
-export default function Shell(value, context) {
-    if (Array.isArray(value)) {
-        return value.map((item) => {
-            if (typeof value !== 'function') {
+export default function Shell(expression, chunk, environment) {
+    if (Array.isArray(expression)) {
+        return expression.map((item) => {
+            if (typeof expression !== 'function') {
                 return item;
             }
-            return item(analyse(context));
+            return item(analyse(chunk, environment));
         });
     }
-    if (!value || !value.through) {
-        return value;
+    if (!expression || !expression.through) {
+        return expression;
     }
-    return value.through(analyse(context));
+    return expression.through(analyse(chunk, environment));
 }

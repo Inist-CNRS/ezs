@@ -71,7 +71,7 @@ function createServer(ezs, store, port) {
                     let processor;
                     try {
                         const commands = JSONezs.parse(cmds);
-                        processor = ezs.pipeline(commands);
+                        processor = ezs.pipeline(commands, headers);
                     } catch (e) {
                         DEBUG(`Server cannot execute statements with ID: ${cmdid}`, e);
                         response.writeHead(400);

@@ -11,6 +11,7 @@ import jsonezs from './jsonezs';
 import pack from './pack'; // pack
 import transit from './transit';
 import shuffle from './shuffle';
+import env from './env';
 
 export default {
     extract,
@@ -26,4 +27,5 @@ export default {
     pack,
     transit,
     shuffle,
+    env,
 };

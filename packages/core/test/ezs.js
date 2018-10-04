@@ -1,6 +1,7 @@
 const assert = require('assert');
 const fs = require('fs');
 const Dir = require('path');
+const from = require('from');
 const ezs = require('../lib');
 const Expression = require('../lib/expression').default;
 
@@ -678,7 +679,7 @@ describe('Build a pipeline', () => {
                 path: 'a',
                 value: new Expression('self()'),
             }))
-            .pipe(ezs.single('replace', {
+            .pipe(ezs.execOnce('replace', {
                 path: 'b',
                 value: 1000,
             }))
@@ -714,7 +715,7 @@ describe('Build a pipeline', () => {
                 path: 'a',
                 value: expr1,
             }))
-            .pipe(ezs.single(commands))
+            .pipe(ezs.execOnce(commands))
             .pipe(ezs('assign', {
                 path: 'c',
                 value: expr2,
@@ -758,66 +759,6 @@ describe('Build a pipeline', () => {
             });
     });
 
-    it('with tag transformation', (done) => {
-        let res = 0;
-        const ten = new Decade();
-        ten
-            .pipe(ezs((input, output) => {
-                output.send({ a: input });
-            }))
-            .pipe(ezs('assign', {
-                path: 'isPair',
-                value: true,
-                test: new Expression('compute("a % 2 == 0")'),
-            }))
-            .pipe(ezs.with('isPair', (input, output) => {
-                if (input) {
-                    output.send({ a: 0 });
-                } else {
-                    output.send(input);
-                }
-            }))
-            .on('data', (chunk) => {
-                if (chunk) {
-                    res += chunk.a;
-                }
-            })
-            .on('end', () => {
-                assert.strictEqual(res, 25);
-                done();
-            });
-    });
-    it('with tag script transformation', (done) => {
-        let res = 0;
-        const commands = `
-
-            [replace]
-            path = a
-            value = self()
-
-            [assign]
-            path = isPair
-            value = true
-            test = compute("a % 2 == 0")
-
-            [assign#isPair]
-            path = a
-            value = 0
-
-        `;
-        const ten = new Decade();
-        ten
-            .pipe(ezs.fromString(commands))
-            .on('data', (chunk) => {
-                if (chunk) {
-                    res += chunk.a;
-                }
-            })
-            .on('end', () => {
-                assert.strictEqual(res, 25);
-                done();
-            });
-    });
     it('convert to number to object', (done) => {
         let res = 0;
         const commands = `
@@ -1252,6 +1193,125 @@ describe('Build a pipeline', () => {
             });
     });
 
+    it('with env variable in the pipeline #1', (done) => {
+        const env = {
+            c: 1,
+        };
+        let res = 0;
+        const ten = new Decade();
+        ten
+            .pipe(ezs('replace', {
+                path: 'a',
+                value: new Expression('self()'),
+            }))
+            .pipe(ezs('assign', {
+                path: 'c',
+                value: new Expression('fix(env.c)'),
+            }, env))
+            .on('data', (chunk) => {
+                res += chunk.c
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 9);
+                done();
+            });
+    });
 
+    it('with env variable in the pipeline #2', (done) => {
+        const env = {
+            c: 1,
+        };
+        let res = 0;
+        const ten = new Decade();
+        ten
+            .pipe(ezs('replace', {
+                path: 'a',
+                value: new Expression('self()'),
+            }))
+            .pipe(ezs('env', {
+                path: 'c',
+                value: new Expression('fix(2)'),
+            }, env))
+            .pipe(ezs('assign', {
+                path: 'b',
+                value: new Expression('fix(env.c)'),
+            }, env))
+            .on('data', (chunk) => {
+                res += chunk.b
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 18);
+                done();
+            });
+    });
+
+    it('stuck/unstuck #1', (done) => {
+        const env = {};
+        const res = [];
+        from([
+            { a: 1, b: 5 },
+            { a: 2, b: 5 },
+            { a: 3, b: 5 },
+            { a: 4, b: 5 },
+            { a: 5, b: 5 },
+        ])
+            .pipe(ezs('env', { path: 'b', value: new Expression("get('b')") }, env))
+            .pipe(ezs('replace', { path: 'toto', value: 'truc' }, env))
+            .pipe(ezs('assign', { path: 'b', value: new Expression("fix(env.b)") }, env))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(5, res.length);
+                assert.equal(5, res[0].b);
+                assert.equal(5, res[1].b);
+                assert.equal(5, res[2].b);
+                done();
+            });
+    });
+
+
+    it('stuck/unstuck #2', (done) => {
+        const commands = `
+
+            [env]
+            path = b
+            value = get('b')
+
+            [replace]
+            path = a
+            value = z
+
+            [assign]
+            path = b
+            value = fix(env.b)
+        `;
+        const env = {};
+        const res = [];
+        from([
+            { a: 1, b: 5 },
+            { a: 2, b: 5 },
+            { a: 3, b: 5 },
+            { a: 4, b: 5 },
+            { a: 5, b: 5 },
+        ])
+            .pipe(ezs.fromString(commands, env))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(5, res.length);
+                assert.equal(5, res[0].b);
+                assert.equal(5, res[1].b);
+                assert.equal(5, res[2].b);
+                done();
+            });
+    });
+
+
+
+      
 /**/
 });

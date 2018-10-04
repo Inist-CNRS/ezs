@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { Transform } from 'stream';
 import Parameter from './parameter';
 import Feed from './feed';
@@ -16,25 +15,20 @@ function createErrorWith(error, index) {
 }
 
 export default class Engine extends Transform {
-    constructor(ezs, func, params, selector) {
+    constructor(ezs, func, params, environment) {
         super(ezs.objectMode());
         this.func = func;
         this.funcName = String(func.name);
         this.index = 0;
-        this.selector = selector;
         this.params = params || {};
         this.scope = {};
         this.ezs = ezs;
+        this.environment = environment || {};
     }
 
     _transform(chunk, encoding, done) {
         this.index += 1;
         if (chunk instanceof Error) {
-            this.push(chunk);
-            done();
-        } else if (this.selector && _.has(chunk, this.selector)) {
-            this.execWith(chunk, done);
-        } else if (this.selector && !_.has(chunk, this.selector)) {
             this.push(chunk);
             done();
         } else {
@@ -57,13 +51,14 @@ export default class Engine extends Transform {
         this.scope.isFirst = () => (this.index === 1);
         this.scope.getIndex = () => this.index;
         this.scope.isLast = () => (chunk === null);
+        this.scope.getEnv = (name) => name === undefined ? this.environment : this.environment[name];
         this.scope.ezs = this.ezs;
 
         try {
             this.scope.getParam = (name, defval) => {
                 const globalParams = Parameter.get(this.ezs, this.funcName);
                 if (this.params[name] !== undefined) {
-                    return Shell(this.params[name], chunk);
+                    return Shell(this.params[name], chunk, this.environment);
                 } else if (globalParams[name] !== undefined) {
                     return globalParams[name];
                 }

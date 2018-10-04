@@ -87,8 +87,12 @@ const registerTo = (ezs, { hostname, port }, commands) =>
         input.end();
     });
 
-const duplexer = (ezs, onerror) => (serverOptions, index) => {
-    const opts = { ...serverOptions, timeout: 0 };
+const duplexer = (ezs, environment, onerror) => (serverOptions, index) => {
+    const opts = { 
+        ...serverOptions, 
+        timeout: 0,
+        headers: environment,
+    };
     const { hostname, port } = opts;
     const input = new PassThrough(ezs.objectMode());
     const output = new PassThrough(ezs.objectMode());
@@ -126,7 +130,7 @@ const duplexer = (ezs, onerror) => (serverOptions, index) => {
 };
 
 export default class Dispatch extends Duplex {
-    constructor(ezs, commands, servers) {
+    constructor(ezs, commands, servers, environment) {
         super(ezs.objectMode());
 
         this.handles = [];
@@ -143,8 +147,8 @@ export default class Dispatch extends Duplex {
         });
         this.tubout.on('data', (chunk, encoding) => {
             if (!this.push(chunk, encoding)) {
-                 this.tubout.pause();
-             }
+                this.tubout.pause();
+            }
         });
         this.tubout.on('end', () => {
             this.push(null);
@@ -171,6 +175,7 @@ export default class Dispatch extends Duplex {
         this.semaphore = true;
         this.lastIndex = 0;
         this.ezs = ezs;
+        this.environment = environment || {};
     }
 
     _write(chunk, encoding, callback) {
@@ -181,7 +186,7 @@ export default class Dispatch extends Duplex {
                     DEBUG(`Unable to regsister commands with the server: ${server}`, e);
                 }),
             ).then((workers) => {
-                this.handles = workers.map(duplexer(this.ezs, (e) => {
+                this.handles = workers.map(duplexer(this.ezs, this.environment, (e) => {
                     this.emit('error', e);
                 }));
                 const streams = this.handles.map(h => h[1]);

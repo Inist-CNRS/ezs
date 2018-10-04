@@ -7,7 +7,6 @@ export const NSHARDS = 16;
 export const M_NORMAL = 'normal';
 export const M_SINGLE = 'unique';
 export const M_DISPATCH = 'detachable';
-export const M_CONDITIONAL = 'with';
 export const DEBUG = debug('ezs');
 export const PORT = 31976;
 export const HWM_OBJECT = 16;

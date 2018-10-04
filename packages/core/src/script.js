@@ -37,17 +37,12 @@ export default function Script(commands) {
             } else if (regex.section.test(line)) {
                 const matches0 = line.match(regex.section);
                 const matches1 = matches0[1].match(/(\w+)\?(\w+)/);
-                const matches2 = matches0[1].match(/(\w+)#(\w+)/);
                 let mode = M_NORMAL;
                 let name = 'debug';
                 let test = '';
                 if (Array.isArray(matches1)) {
                     name = matches1[1];
                     mode = matches1[2];
-                } else if (Array.isArray(matches2)) {
-                    mode = 'with';
-                    name = matches2[1];
-                    test = matches2[2];
                 } else {
                     mode = M_NORMAL;
                     name = matches0[1];

@@ -3,7 +3,7 @@ import { PassThrough, Duplex } from 'stream';
 import { DEBUG, M_NORMAL } from './constants';
 
 export default class Pipeline extends Duplex {
-    constructor(ezs, commands) {
+    constructor(ezs, commands, environment) {
         super(ezs.objectMode());
         this.tubin = new PassThrough(ezs.objectMode());
         this.tubout = this.tubin;
@@ -14,7 +14,7 @@ export default class Pipeline extends Duplex {
             name: 'transit',
             args: { },
         });
-        this.tubout = cmds.reduce(ezs.command, this.tubout);
+        this.tubout = cmds.reduce((stream, command) => ezs.command(stream, command, environment), this.tubout);
 
         this.on('finish', () => {
             this.tubin.end();

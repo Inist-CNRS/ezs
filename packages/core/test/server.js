@@ -1,4 +1,5 @@
 const assert = require('assert');
+const from = require('from');
 const ezs = require('../lib');
 const { M_SINGLE, M_DISPATCH, M_NORMAL, M_CONDITIONAL } = ezs.constants;
 const JSONezs = require('../lib/json').default;
@@ -406,6 +407,68 @@ describe('through a server', () => {
             });
             */
     });
+
+
+    it('with stuck/unstuck simple pipeline', (done) => {
+          const commands = `
+
+            [replace]
+            path = a
+            value = 7
+
+            [assign]
+            path = b
+            value = 6
+
+            [assign]
+            path = c
+            value = fix(env.k)
+
+            [env]
+            path = l
+            value = get('b')
+
+            [assign]
+            path = d
+            value = fix(env.l)
+
+
+            [transit]
+        `;
+        const servers = [
+            '127.0.0.1',
+        ];
+        const env = {
+            k: 5,
+        };
+        const res = [];
+        from([
+            { a: 1, b: 9 },
+            { a: 2, b: 9 },
+            { a: 3, b: 9 },
+            { a: 4, b: 9 },
+            { a: 5, b: 9 },
+        ])
+            .pipe(ezs.dispatch(ezs.parseString(commands), servers, env))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(5, res.length);
+                assert.equal(7, res[0].a);
+                assert.equal(6, res[0].b);
+                assert.equal(5, res[0].c);
+                assert.equal(7, res[1].a);
+                assert.equal(6, res[1].b);
+                assert.equal(5, res[1].c);
+                assert.equal(7, res[2].a);
+                assert.equal(6, res[2].b);
+                assert.equal(5, res[2].c);
+                done();
+            });
+    });
+
 
     /**/
 });
