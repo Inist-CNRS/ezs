@@ -240,6 +240,7 @@ Launch a cluster for ezs.dispatch
 -   [assign](#assign)
 -   [concat](#concat)
 -   [debug](#debug)
+-   [env](#env)
 -   [extract](#extract)
 -   [json](#json)
 -   [keep](#keep)
@@ -288,6 +289,21 @@ Take `Object` , print it and throw the same object
 -   `level` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** console level : log or error (optional, default `log`)
 -   `text` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** text before the dump (optional, default `valueOf`)
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to print
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## env
+
+Take `Object` and send the same object
+but in the meantime, it is possible to add
+new environment field
+
+**Parameters**
+
+-   `data`  
+-   `feed`  
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of the new field
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value of the new field
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
