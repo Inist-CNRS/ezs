@@ -422,7 +422,7 @@ describe('through a server', () => {
 
             [assign]
             path = c
-            value = fix(env.k)
+            value = env('k')
 
             [env]
             path = l
@@ -430,7 +430,7 @@ describe('through a server', () => {
 
             [assign]
             path = d
-            value = fix(env.l)
+            value = env('l')
 
 
             [transit]

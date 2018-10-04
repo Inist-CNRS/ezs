@@ -1206,7 +1206,7 @@ describe('Build a pipeline', () => {
             }))
             .pipe(ezs('assign', {
                 path: 'c',
-                value: new Expression('fix(env.c)'),
+                value: new Expression("env('c')"),
             }, env))
             .on('data', (chunk) => {
                 res += chunk.c
@@ -1234,7 +1234,7 @@ describe('Build a pipeline', () => {
             }, env))
             .pipe(ezs('assign', {
                 path: 'b',
-                value: new Expression('fix(env.c)'),
+                value: new Expression("env('c')"),
             }, env))
             .on('data', (chunk) => {
                 res += chunk.b
@@ -1257,7 +1257,7 @@ describe('Build a pipeline', () => {
         ])
             .pipe(ezs('env', { path: 'b', value: new Expression("get('b')") }, env))
             .pipe(ezs('replace', { path: 'toto', value: 'truc' }, env))
-            .pipe(ezs('assign', { path: 'b', value: new Expression("fix(env.b)") }, env))
+            .pipe(ezs('assign', { path: 'b', value: new Expression("env('b')") }, env))
             .on('data', (chunk) => {
                 assert(typeof chunk === 'object');
                 res.push(chunk);
@@ -1285,7 +1285,7 @@ describe('Build a pipeline', () => {
 
             [assign]
             path = b
-            value = fix(env.b)
+            value = env('b')
         `;
         const env = {};
         const res = [];
@@ -1312,6 +1312,6 @@ describe('Build a pipeline', () => {
 
 
 
-      
+
 /**/
 });

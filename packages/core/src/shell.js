@@ -10,11 +10,10 @@ const parse = (chunk, environment) => (expression) => {
     js.push('.value();');
     const code = js.join('');
     const data = typeof chunk === 'object' ? _.omitBy(chunk, _.isFunction) : chunk;
-    _.mixin(mixins);
+    _.mixin({ ...mixins, env: (i, p, d) => _.get(environment, p, d) });
     const result = safeEval(code, {
         _,
         self: data,
-        env: environment,
     });
     return result;
 };
