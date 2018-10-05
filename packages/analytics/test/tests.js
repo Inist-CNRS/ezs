@@ -471,7 +471,7 @@ describe('test', () => {
             });
     });
 
-    it.only('distribute #2', (done) => {
+    it('distribute #2', (done) => {
         const res = [];
         from([
             { a: 1, b: 'a' },
@@ -503,7 +503,7 @@ describe('test', () => {
             });
     });
 
-    it.only('distribute #3', (done) => {
+    it('distribute #3', (done) => {
         const res = [];
         from([
             { id: '2013', value: 8 },
@@ -531,7 +531,7 @@ describe('test', () => {
             });
     });
 
-     it.only('distribute #4', (done) => {
+     it('distribute #4', (done) => {
         const res = [];
          from([
              { id: '2013', value: 8 },
