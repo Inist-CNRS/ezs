@@ -437,7 +437,7 @@ describe('test', () => {
     });
 
 
-    it.only('distribute #1', (done) => {
+    it('distribute #1', (done) => {
         const res = [];
         from([
             { a: 1, b: 'a' },
