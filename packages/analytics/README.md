@@ -23,6 +23,7 @@ process.stdin
 
 -   [count](#count)
 -   [distinct](#distinct)
+-   [distribute](#distribute)
 -   [exploding](#exploding)
 -   [graph](#graph)
 -   [groupingByEquality](#groupingbyequality)
@@ -39,11 +40,9 @@ process.stdin
 -   [segment](#segment)
 -   [slice](#slice)
 -   [sort](#sort)
--   [stuck](#stuck)
 -   [summing](#summing)
 -   [topics](#topics)
 -   [tune](#tune)
--   [unstuck](#unstuck)
 -   [value](#value)
 
 ## count
@@ -67,6 +66,23 @@ Take `Object` object getting some fields with json path, and do ...
 -   `data`  
 -   `feed`  
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path (optional, default `id`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## distribute
+
+Take `Object` like { id, value } and throw a serie of number value
+
+**Parameters**
+
+-   `data`  
+-   `feed`  
+-   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
+-   `step` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** step between each valut (optional, default `1`)
+-   `start` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** first value to throw (optional, default `minvalueinthestream`)
+-   `size` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** size of the distribution (optional, default `(minvalue-maxvalue)inthestream`)
+-   `default` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** default value for missing object (optional, default `0`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -280,18 +296,6 @@ Take all `Object` and sort them with dedicated key
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-## stuck
-
-Take `Object` and throw the same object but stuck values of fields in a global store
-
-**Parameters**
-
--   `data`  
--   `feed`  
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to extract
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
 ## summing
 
 Take special `Object` like {id, value} and replace value with the sum of values
@@ -327,18 +331,6 @@ Take all `Object` and sort them with selected field
 -   `data`  
 -   `feed`  
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for the sort key (optional, default `id`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-## unstuck
-
-Take `Object` and throw the same object but add stucked value
-
-**Parameters**
-
--   `data`  
--   `feed`  
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to extract
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
