@@ -1,6 +1,5 @@
 import get from 'lodash.get';
 import uniq from 'lodash.uniq';
-import core from './core';
 import Store from './store';
 
 /**

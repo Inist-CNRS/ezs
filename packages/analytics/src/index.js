@@ -19,10 +19,9 @@ import value from './value';
 import sort from './sort';
 import topics from './topics';
 import segment from './segment';
-import stuck from './stuck';
-import unstuck from './unstuck';
 import output from './output';
 import slice from './slice';
+import distribute from './distribute';
 
 export default {
     count,
@@ -46,8 +45,7 @@ export default {
     sort,
     topics,
     segment,
-    stuck,
-    unstuck,
     output,
     slice,
+    distribute,
 };

@@ -406,57 +406,6 @@ describe('test', () => {
             });
     });
 
-    it('stuck/unstuck #1', (done) => {
-        const res = [];
-        from([
-            { a: 1, b: 5 },
-            { a: 2, b: 5 },
-            { a: 3, b: 5 },
-            { a: 4, b: 5 },
-            { a: 5, b: 5 },
-        ])
-            .pipe(ezs('stuck', { path: 'b' }))
-            .pipe(ezs('replace', { path: 'toto', value: 'truc' }))
-            .pipe(ezs('unstuck', { path: 'b' }))
-            .on('data', (chunk) => {
-                assert(typeof chunk === 'object');
-                res.push(chunk);
-            })
-            .on('end', () => {
-                assert.equal(5, res.length);
-                assert.equal(5, res[0].b);
-                assert.equal(5, res[1].b);
-                assert.equal(5, res[2].b);
-                done();
-            });
-    });
-
-    it('stuck/unstuck #2', (done) => {
-        const res = [];
-        from([
-            { a: 1, b: 6 },
-            { a: 2, b: 6 },
-            { a: 3, b: 6 },
-            { a: 4, b: 6 },
-            { a: 5, b: 6 },
-        ])
-            .pipe(ezs('stuck', { path: 'b',  id: 'xxx' }))
-            .pipe(ezs('replace', { path: 'toto', value: 'truc' }))
-            .pipe(ezs('unstuck', { path: 'b', id: 'xxx' }))
-            .on('data', (chunk) => {
-                assert(typeof chunk === 'object');
-                res.push(chunk);
-            })
-            .on('end', () => {
-                assert.equal(5, res.length);
-                assert.equal(6, res[0].b);
-                assert.equal(6, res[1].b);
-                assert.equal(6, res[2].b);
-                done();
-            });
-    });
-
-
     it('slice #1', (done) => {
         const res = [];
         from([ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22 ])
@@ -483,6 +432,128 @@ describe('test', () => {
                 assert.equal(2, res.length);
                 assert.equal(2, res[0]);
                 assert.equal(3, res[1]);
+                done();
+            });
+    });
+
+
+    it.only('distribute #1', (done) => {
+        const res = [];
+        from([
+            { a: 1, b: 'a' },
+            { a: 3, b: 'b' },
+            { a: 4, b: 'c' },
+            { a: 3, b: 'd' },
+            { a: 2, b: 'e' },
+            { a: 11, b: 'f' },
+            { a: 5, b: 'g' },
+            { a: 1, b: 'h' },
+            { a: 8, b: 'i' },
+            { a: 9, b: 'j' },
+            { a: 7, b: 'k' },
+            { a: 10, b: 'l' },
+            { a: 12, b: 'm' },
+            { a: 6, b: 'n' },
+        ])
+            .pipe(ezs('distribute', { id: 'a', value: 'b', start: 2, size: 10, step : 2  }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(6, res.length);
+                assert.equal('e', res[0].value); // 2
+                assert.equal('c', res[1].value); // 4
+                assert.equal('n', res[2].value); // 6
+                assert.equal('i', res[3].value); // 8
+                assert.equal('l', res[4].value); // 10
+                assert.equal('m', res[5].value); // 12
+                done();
+            });
+    });
+
+    it.only('distribute #2', (done) => {
+        const res = [];
+        from([
+            { a: 1, b: 'a' },
+            { a: 3, b: 'b' },
+            { a: 4, b: 'c' },
+            { a: 3, b: 'd' },
+            { a: 2, b: 'e' },
+            { a: 11, b: 'f' },
+            { a: 5, b: 'g' },
+            { a: 1, b: 'h' },
+            { a: 9, b: 'j' },
+            { a: 7, b: 'k' },
+            { a: 10, b: 'l' },
+            { a: 12, b: 'm' },
+        ])
+            .pipe(ezs('distribute', { id: 'a', value: 'b', start: 2, size: 10, step : 2, default: 'x' }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(6, res.length);
+                assert.equal('e', res[0].value); // 2
+                assert.equal('c', res[1].value); // 4
+                assert.equal('x', res[2].value); // 6
+                assert.equal('x', res[3].value); // 8
+                assert.equal('l', res[4].value); // 10
+                assert.equal('m', res[5].value); // 12
+                done();
+            });
+    });
+
+    it.only('distribute #3', (done) => {
+        const res = [];
+        from([
+            { id: '2013', value: 8 },
+            { id: '2009', value: 6 },
+            { id: '2011', value: 7 },
+            { id: '2007', value: 5 },
+            { id: '2003', value: 3 },
+            { id: '2005', value: 4 },
+            { id: '2000', value: 1 },
+            { id: '2001', value: 2 },
+        ])
+            .pipe(ezs('distribute', { step : 1 }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(14, res.length);
+                assert.equal(2000, res[0].id);
+                assert.equal(2001, res[1].id);
+                assert.equal(2002, res[2].id);
+                assert.equal(2003, res[3].id);
+                assert.equal(2004, res[4].id);
+                assert.equal(2005, res[5].id);
+                done();
+            });
+    });
+
+     it.only('distribute #4', (done) => {
+        const res = [];
+         from([
+             { id: '2013', value: 8 },
+             { id: '2009', value: 6 },
+             { id: '2011', value: 7 },
+             { id: '2007', value: 5 },
+             { id: '2003', value: 3 },
+             { id: '2005', value: 4 },
+             { id: '2000', value: 1 },
+             { id: '2001', value: 2 },
+         ])
+            .pipe(ezs('distribute', { step : 3 }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(5, res.length);
+                assert.equal(2000, res[0].id);
+                assert.equal(2003, res[1].id);
+                assert.equal(2006, res[2].id);
+                assert.equal(2009, res[3].id);
+                assert.equal(2012, res[4].id);
                 done();
             });
     });
