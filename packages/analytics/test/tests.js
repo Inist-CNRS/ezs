@@ -556,6 +556,158 @@ describe('test', () => {
                 assert.equal(2012, res[4].id);
                 done();
             });
+     });
+
+
+    it('greater #1', (done) => {
+        const res = [];
+         from([
+             { id: 2000, value: 1 },
+             { id: 2001, value: 2 },
+             { id: 2003, value: 3 },
+             { id: 2005, value: 4 },
+             { id: 2007, value: 5 },
+             { id: 2009, value: 6 },
+             { id: 2011, value: 7 },
+             { id: 2013, value: 8 },
+         ])
+            .pipe(ezs('greater', { than : 3 }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(6, res.length);
+                assert.equal(2003, res[0].id);
+                assert.equal(2013, res[res.length-1].id);
+                done();
+            });
     });
+
+    it('greater #2', (done) => {
+        const res = [];
+         from([
+             { id: 2000, value: 1 },
+             { id: 2001, value: 2 },
+             { id: 2003, value: 3 },
+             { id: 2005, value: 4 },
+             { id: 2007, value: 5 },
+             { id: 2009, value: 6 },
+             { id: 2011, value: 7 },
+             { id: 2013, value: 8 },
+         ])
+            .pipe(ezs('greater', { than : 3, strict: true }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(5, res.length);
+                assert.equal(2005, res[0].id);
+                assert.equal(2013, res[res.length-1].id);
+                done();
+            });
+    });
+
+
+    it('greater #3', (done) => {
+        const res = [];
+         from([
+             { id: 2000, value: 1 },
+             { id: 2001, value: 2 },
+             { id: 2003, value: 3 },
+             { id: 2005, value: 4 },
+             { id: 2007, value: 5 },
+             { id: 2009, value: 6 },
+             { id: 2011, value: 7 },
+             { id: 2013, value: 8 },
+         ])
+            .pipe(ezs('greater', { than : 2005, strict: true, path: 'id' }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(4, res.length);
+                assert.equal(2007, res[0].id);
+                assert.equal(2013, res[res.length-1].id);
+                done();
+            });
+    });
+
+
+    it('less #1', (done) => {
+        const res = [];
+         from([
+             { id: 2000, value: 1 },
+             { id: 2001, value: 2 },
+             { id: 2003, value: 3 },
+             { id: 2005, value: 4 },
+             { id: 2007, value: 5 },
+             { id: 2009, value: 6 },
+             { id: 2011, value: 7 },
+             { id: 2013, value: 8 },
+         ])
+            .pipe(ezs('less', { than : 3 }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(3, res.length);
+                assert.equal(2000, res[0].id);
+                assert.equal(2003, res[res.length-1].id);
+                done();
+            });
+    });
+
+    it('less #2', (done) => {
+        const res = [];
+         from([
+             { id: 2000, value: 1 },
+             { id: 2001, value: 2 },
+             { id: 2003, value: 3 },
+             { id: 2005, value: 4 },
+             { id: 2007, value: 5 },
+             { id: 2009, value: 6 },
+             { id: 2011, value: 7 },
+             { id: 2013, value: 8 },
+         ])
+            .pipe(ezs('less', { than : 3, strict: true }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(2, res.length);
+                assert.equal(2000, res[0].id);
+                assert.equal(2001, res[res.length-1].id);
+                done();
+            });
+    });
+
+
+    it('less #3', (done) => {
+        const res = [];
+         from([
+             { id: 2000, value: 1 },
+             { id: 2001, value: 2 },
+             { id: 2003, value: 3 },
+             { id: 2005, value: 4 },
+             { id: 2007, value: 5 },
+             { id: 2009, value: 6 },
+             { id: 2011, value: 7 },
+             { id: 2013, value: 8 },
+         ])
+            .pipe(ezs('less', { than : 2005, strict: true, path: 'id' }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(3, res.length);
+                assert.equal(2000, res[0].id);
+                assert.equal(2003, res[res.length-1].id);
+                done();
+            });
+    });
+
+
+
+
 
 });

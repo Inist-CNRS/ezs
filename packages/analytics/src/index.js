@@ -22,6 +22,8 @@ import segment from './segment';
 import output from './output';
 import slice from './slice';
 import distribute from './distribute';
+import greater from './greater';
+import less from './less';
 
 export default {
     count,
@@ -48,4 +50,6 @@ export default {
     output,
     slice,
     distribute,
+    greater,
+    less,
 };
