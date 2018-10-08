@@ -26,11 +26,13 @@ process.stdin
 -   [distribute](#distribute)
 -   [exploding](#exploding)
 -   [graph](#graph)
+-   [greater](#greater)
 -   [groupingByEquality](#groupingbyequality)
 -   [groupingByHamming](#groupingbyhamming)
 -   [groupingByLevenshtein](#groupingbylevenshtein)
 -   [groupingByModulo](#groupingbymodulo)
 -   [keys](#keys)
+-   [less](#less)
 -   [maximizing](#maximizing)
 -   [merging](#merging)
 -   [minimizing](#minimizing)
@@ -112,6 +114,20 @@ Take `Object` object getting some fields with json path, and do ...
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
+## greater
+
+Take `Object` and throw the same object only if there the value of the select field is greater (or equal) than a value
+
+**Parameters**
+
+-   `data`  
+-   `feed`  
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to compare (optional, default `value`)
+-   `than` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** value to compare (optional, default `0`)
+-   `strict` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** greater than but not equal (optional, default `false`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
 ## groupingByEquality
 
 Take `Object` like { id, value } and reduce all value with the same id in single object
@@ -176,6 +192,20 @@ Take `Object` and throws all its keys
 -   `data`  
 -   `feed`  
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## less
+
+Take `Object` and throw the same object only if there the value of the select field is less (or equal) than a value
+
+**Parameters**
+
+-   `data`  
+-   `feed`  
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to compare (optional, default `value`)
+-   `than` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** value to compare (optional, default `0`)
+-   `strict` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** less than but not equal (optional, default `false`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
