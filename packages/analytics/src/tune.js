@@ -17,7 +17,15 @@ import core from './core';
 
 
 
-const normalize = (s) => String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+const normalize = (s) => {
+    if (typeof s === 'string') {
+        return String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').padEnd(40, '~');
+    } else if (typeof s === 'number') {
+        return s.toFixed(20).toString().padStart(40, '0');
+    } else {
+        return String(s);
+    }
+}
 
 const vector = (input, size) => {
     const v = Array(size).fill(0);
@@ -103,7 +111,7 @@ export default function tune(data, feed) {
 
 
     if (method === 'natural') {
-        return feed.send(core(normalize(currentValue).padEnd(40, '~'), data));
+        return feed.send(core(normalize(currentValue), data));
 
     }
 

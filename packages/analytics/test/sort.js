@@ -55,7 +55,7 @@ describe('sort ', () => {
                 res.push(chunk);
             })
             .on('end', () => {
-                assert.equal(10, res[0].value);
+                assert.equal(11, res[0].value);
                 assert.equal(1, res[10].value);
                 assert.equal(11, res.length);
                 done();
@@ -221,7 +221,77 @@ describe('sort ', () => {
             });
     });
 
+    it('natural sort #2', (done) => {
+        const res = [];
+        from([
+            { id: 'électricien', value: 20 },
+            { id: 'électricité', value: 1 },
+            { id: 'élasticité', value: 4 },
+            { id: 'electrifie', value: 6 },
+            { id: 'sélectivité', value: 2 },
+            { id: 'électricienne', value: 8 },
+            { id: 'électrifie', value: 900 },
+            { id: 'electrifié', value: 60 },
+            { id: 'électrifié', value: 40 },
+            { id: 'collectivité', value: 10 },
+        ])
+            .pipe(ezs('tune', { path: 'value' }))
+            .pipe(ezs('sort'))
+            .pipe(ezs('value'))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(1, res[0].value);
+                assert.equal(2, res[1].value);
+                assert.equal(4, res[2].value);
+                assert.equal(6, res[3].value);
+                assert.equal(8, res[4].value);
+                assert.equal(10, res[5].value);
+                assert.equal(20, res[6].value);
+                assert.equal(40, res[7].value);
+                assert.equal(60, res[8].value);
+                assert.equal(900, res[9].value);
+                done();
+            });
+    });
 
+    it('natural sort #3', (done) => {
+        const res = [];
+        from([
+            { id: 'électricien', value: 20 },
+            { id: 'électricité', value: 1 },
+            { id: 'élasticité', value: 4 },
+            { id: 'electrifie', value: 6 },
+            { id: 'sélectivité', value: 2 },
+            { id: 'électricienne', value: 8 },
+            { id: 'électrifie', value: 900 },
+            { id: 'electrifié', value: 60 },
+            { id: 'électrifié', value: 40 },
+            { id: 'collectivité', value: 10 },
+        ])
+            .pipe(ezs('tune', { path: 'value' }))
+            .pipe(ezs('sort', { reverse: true }))
+            .pipe(ezs('value'))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(1, res[9].value);
+                assert.equal(2, res[8].value);
+                assert.equal(4, res[7].value);
+                assert.equal(6, res[6].value);
+                assert.equal(8, res[5].value);
+                assert.equal(10, res[4].value);
+                assert.equal(20, res[3].value);
+                assert.equal(40, res[2].value);
+                assert.equal(60, res[1].value);
+                assert.equal(900, res[0].value);
+                done();
+            });
+    });
 
 
 
