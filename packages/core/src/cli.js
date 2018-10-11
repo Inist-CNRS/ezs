@@ -108,17 +108,21 @@ export default function cli(errlog) {
         const script = fs.readFileSync(file).toString();
         const cmds = new Commands(ezs.parseString(script));
 
+        let environement;
         let input;
         if (argv.env) {
             DEBUG('Reading environement variables...');
+            environement = {};
             input = new PassThrough(ezs.objectMode());
             input.write(process.env);
             input.end();
         } else if (argv.input) {
             DEBUG('Reading diretory input...');
+            environement = { ...process.env };
             input = ezs.load(argv.input);
         } else {
             DEBUG('Reading standard input...');
+            environement = { ...process.env };
             input = process.stdin;
             input.resume();
             input.setEncoding('utf8');
@@ -133,12 +137,12 @@ export default function cli(errlog) {
             const stream0 = usecmds.reduce(ezs.command, input);
             stream1 = runplan.reduce((stream, section) => {
                 if (section.func === 'pipeline') {
-                    return stream.pipe(ezs.pipeline(section.cmds));
+                    return stream.pipe(ezs.pipeline(section.cmds, environement));
                 }
-                return stream.pipe(ezs.dispatch(section.cmds, servers));
+                return stream.pipe(ezs.dispatch(section.cmds, servers, environement));
             }, stream0);
         } else {
-            stream1 = input.pipe(ezs.pipeline(cmds.get()));
+            stream1 = input.pipe(ezs.pipeline(cmds.get(), environement));
         }
         if (argv.output) {
             const stream2a = stream1.pipe(ezs.save(argv.output));
