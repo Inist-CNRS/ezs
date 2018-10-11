@@ -25,55 +25,12 @@ property = ^author/\d+/name -> http://purl.org/dc/terms/creator
 property = ^author/\d+/affiliations -> https://data.istex.fr/ontology/istex#affiliation
 property = ^publicationDate -> http://purl.org/dc/terms/issued
 property = ^subject/\d+/value -> http://purl.org/dc/terms/subject
-property = ^host/title -> https://data.istex.fr/ontology/istex#journalTitle
-property = ^host/title -> https://data.istex.fr/ontology/istex#bookTitle
-property = ^host/title -> https://data.istex.fr/ontology/istex#seriesTitle
-property = ^host/title -> https://data.istex.fr/ontology/istex#databaseTitle
-property = ^host/title -> https://data.istex.fr/ontology/istex#referenceWorksTitle
+property = ^host/title -> https://data.istex.fr/ontology/istex#publicationTitle
 property = ^host/eissn -> http://purl.org/ontology/bibo/eissn
 property = ^host/issn -> http://purl.org/ontology/bibo/issn
 property = ^host/isbn -> http://purl.org/ontology/bibo/isbn
 property = ^host/eisbn -> http://purl.org/ontology/bibo/isbn
-property = ^host/genre -> host/genre
 
 ;property = fulltext/0/uri -> https://data.istex.fr/ontology/istex#accessURL
-
-[ISTEXRemoveIf]
-if = <host/genre> = "journal"
-remove = <https://data.istex.fr/ontology/istex#bookTitle>
-remove = <https://data.istex.fr/ontology/istex#seriesTitle>
-remove = <https://data.istex.fr/ontology/istex#databaseTitle>
-remove = <https://data.istex.fr/ontology/istex#referenceWorksTitle>
-
-[ISTEXRemoveIf]
-if = <host/genre> = "book-series"
-remove = <https://data.istex.fr/ontology/istex#journalTitle>
-remove = <https://data.istex.fr/ontology/istex#bookTitle>
-remove = <https://data.istex.fr/ontology/istex#databaseTitle>
-remove = <https://data.istex.fr/ontology/istex#referenceWorksTitle>
-
-[ISTEXRemoveIf]
-if = <host/genre> = "book"
-remove = <https://data.istex.fr/ontology/istex#journalTitle>
-remove = <https://data.istex.fr/ontology/istex#seriesTitle>
-remove = <https://data.istex.fr/ontology/istex#databaseTitle>
-remove = <https://data.istex.fr/ontology/istex#referenceWorksTitle>
-
-[ISTEXRemoveIf]
-if = <host/genre> = "database"
-remove = <https://data.istex.fr/ontology/istex#journalTitle>
-remove = <https://data.istex.fr/ontology/istex#bookTitle>
-remove = <https://data.istex.fr/ontology/istex#seriesTitle>
-remove = <https://data.istex.fr/ontology/istex#referenceWorksTitle>
-
-[ISTEXRemoveIf]
-if = <host/genre> = "reference-works"
-remove = <https://data.istex.fr/ontology/istex#journalTitle>
-remove = <https://data.istex.fr/ontology/istex#bookTitle>
-remove = <https://data.istex.fr/ontology/istex#seriesTitle>
-remove = <https://data.istex.fr/ontology/istex#databaseTitle>
-
-[ISTEXRemoveVerb]
-verb = <host/genre>
 
 [ISTEXUniq]
