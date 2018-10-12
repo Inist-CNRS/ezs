@@ -18,38 +18,44 @@ function OBJStandardize(data1, feed1) {
     if (!self.tmpFile) {
         self.tmpFile = tmpFilepath('.bin');
         self.struct = [];
-        self.tmpStream = fs.createWriteStream(self.tmpFile);
+        self.tmpHandle = ezs.createStream(ezs.objectMode());
+        self.tmpHandle.pipe(ezs('pack'))
+            .pipe(ezs.toBuffer())
+            .pipe(ezs.compress())
+            .pipe(fs.createWriteStream(self.tmpFile))
+            .on('error', (e) => {
+                throw e;
+            });
     }
 
     if (self.isLast()) {
         fs.createReadStream(self.tmpFile)
-            .pipe(ezs(TXTParse, { separator: '\n' }))
-            .pipe(ezs(serializeObjects))
-            .pipe(ezs(function unserializeObjects(data3, feed3) {
-                if (this.isLast()) {
-                    fs.unlink(self.tmpFile, () => feed1.close());
-                } else {
-                    const vv = {};
-                    self.struct.forEach((k) => {
-                        if (!data3[k]) {
-                            vv[k] = '';
-                        } else {
-                            vv[k] = data3[k];
-                        }
-                    });
-                    feed1.write(vv);
-                }
-                feed3.end();
-            }));
+            .pipe(ezs.uncompress())
+            .pipe(ezs('unpack'))
+            .on('error', (e) => {
+                throw e;
+            })
+            .on('data', (d) => {
+                const vv = {};
+                self.struct.forEach((k) => {
+                    if (!d[k]) {
+                        vv[k] = '';
+                    } else {
+                        vv[k] = d[k];
+                    }
+                });
+                feed1.write(vv);
+            })
+            .on('end', (d) => {
+                fs.unlink(self.tmpFile, () => feed1.close());
+            });
     } else {
         Object.keys(data1).forEach((k) => {
             if (self.struct.indexOf(k) === -1) {
                 self.struct.push(k);
             }
         });
-        writeTo(self.tmpStream,
-            new Buffer(JSON.stringify(data1)).toString('base64').concat('\n'),
-            () => feed1.end());
+        writeTo(self.tmpHandle, data1, () => feed1.end());
     }
 }
 

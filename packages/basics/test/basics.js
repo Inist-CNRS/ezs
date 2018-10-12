@@ -238,7 +238,7 @@ describe('test', () => {
                 done();
             });
     });
-    it('OBJStandardize t#1', (done) => {
+    it('OBJStandardize #1', (done) => {
         from([
             {
                 a: 1,
@@ -265,6 +265,34 @@ describe('test', () => {
                 done();
             });
     });
+
+    it('OBJStandardize #2', (done) => {
+        from([
+            {
+                a: 1,
+                b: 2,
+            },
+            {
+                a: 1,
+                b: 2,
+            },
+            {
+                a: 1,
+                b: 2,
+            },
+
+        ])
+            .pipe(ezs('OBJStandardize'))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                assert(chunk.a === 1);
+                assert(chunk.b === 2);
+            })
+            .on('end', () => {
+                done();
+            });
+    });
+
 
     /*
     it('URLGet #1', (done) => {
