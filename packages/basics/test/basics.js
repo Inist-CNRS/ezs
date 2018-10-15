@@ -293,6 +293,17 @@ describe('test', () => {
             });
     });
 
+    it('OBJStandardize #3', (done) => {
+        from([])
+            .pipe(ezs('OBJStandardize'))
+            .on('data', () => {
+                assert(false, 'In this case, no data should be given.');
+            })
+            .on('end', () => {
+                assert(true);
+                done();
+            });
+    });
 
     /*
     it('URLGet #1', (done) => {
