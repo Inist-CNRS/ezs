@@ -1,6 +1,6 @@
 {
   "name": "ezs-basics",
-  "version": "3.6.6",
+  "version": "3.6.7",
   "description": "Basics statements form EZS",
   "directories": {
     "test": "test"
