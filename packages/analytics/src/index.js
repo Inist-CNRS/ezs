@@ -24,6 +24,7 @@ import slice from './slice';
 import distribute from './distribute';
 import greater from './greater';
 import less from './less';
+import drop from './drop';
 
 export default {
     count,
@@ -52,4 +53,5 @@ export default {
     distribute,
     greater,
     less,
+    drop,
 };
