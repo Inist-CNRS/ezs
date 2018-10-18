@@ -1,0 +1,27 @@
+#!/usr/bin/env ezs
+# Request all ISTEX documents' ids (warning: long run).
+
+# Usage: npx ezs -e examples/all.ezs
+
+[use]
+plugin = basics
+plugin = istex
+
+[replace]
+path = query
+value = *
+
+;[debug]
+
+[ISTEXSearch]
+field = id
+
+[ISTEXScroll]
+[ISTEXResult]
+
+[keep]
+path = id
+
+[JSONString]
+indent = true
+
