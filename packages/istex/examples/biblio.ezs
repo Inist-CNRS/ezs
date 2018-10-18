@@ -20,7 +20,6 @@ property = arkIstex -> http://purl.org/dc/terms/identifier
 property = pmid -> http://purl.org/ontology/bibo/pmid
 property = ^doi -> http://purl.org/ontology/bibo/doi
 property = ^title -> http://purl.org/dc/terms/title
-property = ^language -> http://purl.org/dc/terms/language
 property = ^author/\d+/name -> http://purl.org/dc/terms/creator
 property = ^author/\d+/affiliations -> https://data.istex.fr/ontology/istex#affiliation
 property = ^publicationDate -> http://purl.org/dc/terms/issued
