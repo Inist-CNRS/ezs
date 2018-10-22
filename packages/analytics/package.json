@@ -1,6 +1,6 @@
 {
   "name": "ezs-analytics",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "analytics statements form EZS",
   "directories": {
     "test": "test"
