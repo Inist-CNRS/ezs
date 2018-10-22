@@ -26,6 +26,7 @@ process.stdin
 -   [distribute](#distribute)
 -   [less](#less)
 -   [less](#less-1)
+-   [less](#less-2)
 -   [exploding](#exploding)
 -   [graph](#graph)
 -   [greater](#greater)
@@ -92,6 +93,19 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 ## less
 
 Take `Object` and throw the same object only if there the value of the select field is not equals than a value
+
+**Parameters**
+
+-   `data`  
+-   `feed`  
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to compare (optional, default `value`)
+-   `if` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** value to compare (optional, default `''`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## less
+
+Take `Object` and throw the same object only if there the value of the select field is equals than a value
 
 **Parameters**
 
