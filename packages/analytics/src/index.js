@@ -25,6 +25,7 @@ import distribute from './distribute';
 import greater from './greater';
 import less from './less';
 import drop from './drop';
+import filter from './filter';
 
 export default {
     count,
@@ -54,4 +55,5 @@ export default {
     greater,
     less,
     drop,
+    filter,
 };

@@ -820,8 +820,123 @@ describe('test', () => {
     });
 
 
+    it('filter #1', (done) => {
+        const res = [];
+         from([
+             { id: 2000, value: 1 },
+             { id: 2001, value: 2 },
+             { id: 2003, value: 3 },
+             { id: 2005, value: 4 },
+             { id: 2007, value: 5 },
+             { id: 2009, value: 3 },
+             { id: 2011, value: 7 },
+             { id: 2013, value: 8 },
+         ])
+            .pipe(ezs('filter', { if : 3 }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(2, res.length);
+                assert.equal(2003, res[0].id);
+                done();
+            });
+    });
 
 
+    it('filter #2', (done) => {
+        const res = [];
+        from([
+            { id: 2000, value: 1 },
+            { id: 2001, value: 2 },
+            { id: 2003, value: 3 },
+            { id: 2005, value: 4 },
+            { id: 2007, value: 5 },
+            { id: 2003, value: 3 },
+            { id: 2011, value: 7 },
+            { id: 2013, value: 8 },
+        ])
+            .pipe(ezs('filter', { if : 2003, path: 'id' }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(2, res.length);
+                assert.equal(2003, res[0].id);
+                done();
+            });
+    });
+
+    it('filter #3', (done) => {
+        const res = [];
+        from([
+            { id: 2000, value: 1 },
+            { id: 2001, value: 2 },
+            { id: 2003, value: null },
+            { id: 2005, value: '' },
+            { id: 2007, value: 5 },
+            { id: 2003, value: 3 },
+            { id: 2011, value: undefined },
+            { id: 2013, value: 8 },
+        ])
+            .pipe(ezs('filter'))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(3, res.length);
+                done();
+            });
+    });
+
+    it('filter #4', (done) => {
+        const res = [];
+        from([
+            { id: 2000, value: 1 },
+            { id: 2001, value: 2 },
+            { id: 2003, value: 3 },
+            { id: 2005, value: 4 },
+            { id: 2007, value: 5 },
+            { id: 2003, value: 6 },
+            { id: 2011, value: 7 },
+            { id: 2013, value: 8 },
+        ])
+            .pipe(ezs('filter', { if: [2,3,4] }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(3, res.length);
+                done();
+            });
+    });
+
+
+    it('filter #5', (done) => {
+        const res = [];
+        from([
+            { id: 2000, value: 1 },
+            { id: 2001, value: 2 },
+            { id: 2004, value: 3 },
+            { id: 2005, value: 4 },
+            { id: 2007, value: 5 },
+            { id: 2003, value: 6 },
+            { id: 2011, value: 7 },
+            { id: 2013, value: 8 },
+        ])
+            .pipe(ezs('filter', { path: ['id', 'value'], if: [2, 3, 2007, 2003] }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(4, res.length);
+                assert.equal(2001, res[0].id);
+                assert.equal(2004, res[1].id);
+                assert.equal(2007, res[2].id);
+                assert.equal(2003, res[3].id);
+                done();
+            });
+    });
 
 
 
