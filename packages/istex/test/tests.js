@@ -628,6 +628,29 @@ describe('test', () => {
             });
     }).timeout(5000);
 
+    it('ISTEXTriplify #7', (done) => {
+        const result = [];
+        from([
+            {
+                arkIstex: 'ark:/fake',
+                id: '1',
+                'author/3/affiliations/2': 'E-mail: ivan.couee@univ-rennes1.fr',
+            },
+        ])
+            .pipe(ezs('ISTEXTriplify', {
+                property: '^author/\\d+/affiliations -> https://data.istex.fr/ontology/istex#affiliation',
+            }))
+            .on('data', (chunk) => {
+                result.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(3, result.length);
+                assert(!result[2].includes('undefined'));
+                assert.equal('<https://api.istex.fr/ark:/fake> <https://data.istex.fr/ontology/istex#affiliation> "E-mail: ivan.couee@univ-rennes1.fr" .\n', result[2]);
+                done();
+            });
+    }).timeout(5000);
+
     it('ISTEXRemoveIf #0', (done) => {
         let result = [];
         const corpus = fs.readFileSync(path.resolve(__dirname, './1notice.corpus'));

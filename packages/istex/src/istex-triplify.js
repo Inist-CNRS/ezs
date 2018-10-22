@@ -47,8 +47,9 @@ function ISTEXTriplify(data, feed) {
     }
     const source = this.getParam('source', '');
     const property = this.getParam('property', []);
-    const properties = property
-        .map(prop => prop.split(' -> '));
+    const properties = Array.isArray(property)
+        ? property.map(prop => prop.split(' -> '))
+        : [property].map(prop => prop.split(' -> '));
     const regexps = properties
         .map(([path, prop]) => ([
             new RegExp(path),
