@@ -56,7 +56,7 @@ function ISTEXTriplify(data, feed) {
             prop,
         ]));
     feed.write(`<https://api.istex.fr/${data[`${source}arkIstex`]}> <https://data.istex.fr/ontology/istex#idIstex> "${data[`${source}id`]}" .\n`);
-    feed.write(`<https://api.istex.fr/${data[`${source}arkIstex`]}> a <http://purl.org/ontology/bibo/Document> .\n`);
+    feed.write(`<https://api.istex.fr/${data[`${source}arkIstex`]}> <https://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/ontology/bibo/Document> .\n`);
 
     const dataArray = Object.entries(data);
 

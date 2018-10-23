@@ -431,7 +431,7 @@ describe('test', () => {
                 assert(result.length > 2);
                 assert(result[0].length > 0);
                 assert.equal(result[0].split(' ').length, 4);
-                assert(result[1].endsWith('> a <http://purl.org/ontology/bibo/Document> .\n'));
+                assert(result[1].endsWith('> <https://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/ontology/bibo/Document> .\n'));
                 assert(result[2].includes(' <http://purl.org/dc/terms/identifier> '));
                 done();
             });
@@ -475,7 +475,7 @@ describe('test', () => {
                 assert(result.length > 2);
                 assert(result[0].length > 0);
                 assert.equal(result[0].split(' ').length, 4);
-                assert(result[1].endsWith('> a <http://purl.org/ontology/bibo/Document> .\n'));
+                assert(result[1].endsWith('> <https://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/ontology/bibo/Document> .\n'));
                 assert(result[2].includes(' <http://purl.org/dc/terms/creator> '));
                 assert(!result[2].includes('undefined'));
                 done();
@@ -520,7 +520,7 @@ describe('test', () => {
                 assert(result.length > 2);
                 assert(result[0].length > 0);
                 assert.equal(result[0].split(' ').length, 4);
-                assert(result[1].endsWith('> a <http://purl.org/ontology/bibo/Document> .\n'));
+                assert(result[1].endsWith('> <https://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/ontology/bibo/Document> .\n'));
                 assert(result[2].includes(' <https://data.istex.fr/ontology/istex#accessURL> '));
                 assert(result[2].endsWith('> .\n'));
                 assert(result[2].includes(' <https://api.istex.fr/document/'));
@@ -714,7 +714,7 @@ describe('test', () => {
     it('ISTEXRemoveIf #2', (done) => {
         let result = [];
         from([
-            '<https://api.istex.fr/ark:/67375/QT4-D0J6VN6K-K> a <http://purl.org/ontology/bibo/Document> .\n',
+            '<https://api.istex.fr/ark:/67375/QT4-D0J6VN6K-K> <https://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/ontology/bibo/Document> .\n',
             '<https://api.istex.fr/ark:/67375/HXZ-PTF2CVH1-4> <https://data.istex.fr/fake#seriesTitle> "Annals of Botany" .\n',
             '<https://api.istex.fr/ark:/67375/HXZ-PTF2CVH1-4> <https://data.istex.fr/ontology/istex#accessURL> <https://api.istex.fr/document/17C9717E24A6A14A99CB0FD3CC8455FEA0B3973E/fulltext/pdf> .\n',
         ])
