@@ -146,6 +146,8 @@ Returns **[Stream](https://nodejs.org/api/stream.html)**
 
 Take `Object` containing flatten hits from ISTEXResult.
 
+If the environment variable DEBUG is set, some errors could appear on stderr.
+
 #### Parameters
 
 -   `data`  

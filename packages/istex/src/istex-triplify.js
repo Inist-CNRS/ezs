@@ -1,6 +1,8 @@
 /**
  * Take `Object` containing flatten hits from ISTEXResult.
  *
+ * If the environment variable DEBUG is set, some errors could appear on stderr.
+ *
  * @see ISTEXResult
  * @see OBJFlatten (from ezs-basics)
  *
@@ -55,6 +57,13 @@ function ISTEXTriplify(data, feed) {
             new RegExp(path),
             prop,
         ]));
+
+    // Ignore empty objects (hoping that next objects will still arrive)
+    if (!data[`${source}id`]) {
+        if (process.env.DEBUG) console.error(`#${this.getIndex()}: Empty object`); // eslint-disable-line no-console
+        return feed.end();
+    }
+
     feed.write(`<https://api.istex.fr/${data[`${source}arkIstex`]}> <https://data.istex.fr/ontology/istex#idIstex> "${data[`${source}id`]}" .\n`);
     feed.write(`<https://api.istex.fr/${data[`${source}arkIstex`]}> <https://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/ontology/bibo/Document> .\n`);
 
