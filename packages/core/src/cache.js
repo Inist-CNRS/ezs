@@ -31,10 +31,11 @@ export default class Cache {
         const cacheFile = cache.get(key);
         if (cacheFile) {
             if (this.objectMode) {
-                return ezs.load(cacheFile, { nShards: 1 });
+                return ezs
+                    .load(cacheFile, { nShards: 1 });
             } else {
                 return fs.createReadStream(cacheFile)
-                    .pipe(ezs.uncompress())
+                    .pipe(ezs.uncompress()) ;
                 ;
             }
         }
@@ -49,23 +50,28 @@ export default class Cache {
         const cacheInput = new PassThrough(streamOptions);
         let cacheOutput;
         if (this.objectMode) {
-            cacheOutput = cacheInput.pipe(ezs.save(tmpFile, { nShards: 1 }));
+            cacheOutput = cacheInput
+                .pipe(ezs.save(tmpFile, { nShards: 1 }));
         } else {
             cacheOutput = cacheInput
                 .pipe(ezs.compress())
                 .pipe(fs.createWriteStream(tmpFile));
         }
+        const cachePromise = new Promise((resolve, reject) => cacheOutput.on('error', reject).on('finish', resolve));
+
         const func = (data, feed) => {
             if (data) {
                 cacheInput.write(data, () => {
                     feed.send(data);
                 });
             } else {
-                cacheOutput.on('finish', () => {
-                    cache.set(key, tmpFile);
-                    feed.send(data);
-                });
-                cacheInput.end();
+                cacheInput.end(() => {
+                    cachePromise.then(() => {
+                        cache.set(key, tmpFile);
+                        feed.close();
+                    });
+                })
+                cacheInput.destroy();
             }
         };
         const stream = new PassThrough(streamOptions);

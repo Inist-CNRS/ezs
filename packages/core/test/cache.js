@@ -64,7 +64,7 @@ describe('cache - second call (buffer)', () => {
                 .on('end', () => {
                     assert.strictEqual(res, '0123456789');
                     done();
-                });
+                })
 
         } else {
             assert(false);
@@ -115,7 +115,6 @@ describe('cache - second call (object)', () => {
         }
     });
 });
-
 const savedir = path.resolve(os.tmpdir(), 'test');
 
 describe('disk - first save in disk', () => {
@@ -144,5 +143,4 @@ describe('disk - second load from disk', () => {
             });
     });
 });
-
 

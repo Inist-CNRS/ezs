@@ -63,10 +63,12 @@ export class Writer extends Writable {
             const filepath = path.resolve(savedir, `./${index}.bin`);
             const input = [];
             input[0] = ezs.createStream(ezs.objectMode());
-            input[1] = input[0].pipe(ezs('pack'))
+            input[1] = input[0]
+                .pipe(ezs('pack'))
                 .pipe(ezs.toBuffer())
                 .pipe(ezs.compress())
                 .pipe(fs.createWriteStream(filepath));
+            input[2] = new Promise((resolve, reject) => input[1].on('error', reject).on('close', resolve));
             return input;
         });
     }
@@ -84,9 +86,9 @@ export class Writer extends Writable {
     }
 
     _final(callback) {
-        const promesses = this.handles.map(s => new Promise(resolve => {
+        const promesses = this.handles.map((s,i) => new Promise(resolve => {
             if (s[0]) {
-                s[0].end(() => resolve(true))
+                s[0].end(() => { s[2].then(() => resolve(true))});
             } else {
                 resolve(false);
             }
