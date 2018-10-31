@@ -24,10 +24,9 @@ process.stdin
 -   [count](#count)
 -   [distinct](#distinct)
 -   [distribute](#distribute)
--   [less](#less)
--   [less](#less-1)
--   [less](#less-2)
+-   [drop](#drop)
 -   [exploding](#exploding)
+-   [filter](#filter)
 -   [graph](#graph)
 -   [greater](#greater)
 -   [groupingByEquality](#groupingbyequality)
@@ -35,6 +34,7 @@ process.stdin
 -   [groupingByLevenshtein](#groupingbylevenshtein)
 -   [groupingByModulo](#groupingbymodulo)
 -   [keys](#keys)
+-   [less](#less)
 -   [maximizing](#maximizing)
 -   [merging](#merging)
 -   [minimizing](#minimizing)
@@ -90,7 +90,7 @@ Take `Object` like { id, value } and throw a serie of number value
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-## less
+## drop
 
 Take `Object` and throw the same object only if there the value of the select field is not equals than a value
 
@@ -100,33 +100,6 @@ Take `Object` and throw the same object only if there the value of the select fi
 -   `feed`  
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to compare (optional, default `value`)
 -   `if` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** value to compare (optional, default `''`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-## less
-
-Take `Object` and throw the same object only if there the value of the select field is equals than a value
-
-**Parameters**
-
--   `data`  
--   `feed`  
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to compare (optional, default `value`)
--   `if` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** value to compare (optional, default `''`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-## less
-
-Take `Object` and throw the same object only if there the value of the select field is less (or equal) than a value
-
-**Parameters**
-
--   `data`  
--   `feed`  
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to compare (optional, default `value`)
--   `than` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** value to compare (optional, default `0`)
--   `strict` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** less than but not equal (optional, default `false`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -141,6 +114,19 @@ and throw object of each value. The new object is build with [id] and eac value.
 -   `feed`  
 -   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## filter
+
+Take `Object` and throw the same object only if there the value of the select field is equals than a value
+
+**Parameters**
+
+-   `data`  
+-   `feed`  
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to compare (optional, default `value`)
+-   `if` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** value to compare (optional, default `''`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -234,6 +220,20 @@ Take `Object` and throws all its keys
 -   `data`  
 -   `feed`  
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## less
+
+Take `Object` and throw the same object only if there the value of the select field is less (or equal) than a value
+
+**Parameters**
+
+-   `data`  
+-   `feed`  
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to compare (optional, default `value`)
+-   `than` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** value to compare (optional, default `0`)
+-   `strict` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** less than but not equal (optional, default `false`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 

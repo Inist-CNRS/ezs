@@ -1,13 +1,13 @@
 import get from 'lodash.get';
 
 /**
- * Take `Object` and throw the same object only if there the value of the select field is not equals than a value
+ * Take `Object` and throw the same object only if there the value of the select field is equals than a value
  *
  * @param {String} [path=value] path of the field to compare
  * @param {Number} [if=''] value to compare
  * @returns {Object}
  */
-export default function drop(data, feed) {
+export default function filter(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
@@ -21,8 +21,8 @@ export default function drop(data, feed) {
     }
 
     if (paths.map(p => conditions.indexOf(get(data, p)) !== -1).indexOf(true) !== -1) {
-        feed.end();
-    } else {
         feed.send(data);
+    } else {
+        feed.end();
     }
 }
