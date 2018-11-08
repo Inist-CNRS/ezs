@@ -64,7 +64,10 @@ export default class Engine extends Transform {
                 }
                 return defval;
             };
-            this.func.call(this.scope, chunk, feed);
+            Promise.resolve(this.func.call(this.scope, chunk, feed)).catch(e => {
+                this.push(createErrorWith(e, this.index));
+                done();
+            });
         } catch (e) {
             this.push(createErrorWith(e, this.index));
             done();
