@@ -1,14 +1,19 @@
 #!/usr/bin/env ezs
 
-# ezs ./examples/biblio.ezs < ./test/1query.corpus
+# ezs -e ./examples/biblio.ezs
 
 [use]
 plugin = basics
 plugin = istex
 
-[ISTEXParseDotCorpus]
-;[debug]
-;text = Corpus
+[ISTEX]
+query = *
+field = doi
+field = author
+field = title
+field = publicationDate
+field = subject
+field = host
 
 [OBJFlatten]
 safe = false
