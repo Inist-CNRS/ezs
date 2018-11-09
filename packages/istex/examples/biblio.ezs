@@ -8,9 +8,11 @@ plugin = istex
 
 [ISTEX]
 query = *
+field = arkIstex
+field = pmid
 field = doi
-field = author
 field = title
+field = author
 field = publicationDate
 field = subject
 field = host
