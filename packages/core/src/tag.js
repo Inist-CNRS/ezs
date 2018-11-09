@@ -1,8 +1,8 @@
 import assert from 'assert';
-import { Transform } from 'stream';
+import SafeTransform from './SafeTransform';
 
 
-export default class Tag extends Transform {
+export default class Tag extends SafeTransform {
     constructor(tagname, func) {
         super({ objectMode: true });
 

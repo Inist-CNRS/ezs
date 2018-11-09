@@ -1,7 +1,8 @@
-import { PassThrough, Transform } from 'stream';
+import { PassThrough } from 'stream';
 import { addedDiff } from 'deep-object-diff';
+import SafeTransform from './SafeTransform';
 
-export default class Once extends Transform {
+export default class Once extends SafeTransform {
     constructor(ezs, mixed, options, environment) {
         super(ezs.objectMode());
         this.first = true;

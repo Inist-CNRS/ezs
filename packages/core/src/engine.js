@@ -1,8 +1,8 @@
-import { Transform } from 'stream';
 import Parameter from './parameter';
 import Feed from './feed';
 import Shell from './shell';
 import { DEBUG } from './constants';
+import SafeTransform from './SafeTransform';
 
 function createErrorWith(error, index) {
     const stk = error.stack.split('\n');
@@ -14,7 +14,7 @@ function createErrorWith(error, index) {
     return err;
 }
 
-export default class Engine extends Transform {
+export default class Engine extends SafeTransform {
     constructor(ezs, func, params, environment) {
         super(ezs.objectMode());
         this.func = func;
@@ -65,11 +65,11 @@ export default class Engine extends Transform {
                 return defval;
             };
             Promise.resolve(this.func.call(this.scope, chunk, feed)).catch(e => {
-                this.push(createErrorWith(e, this.index));
+                this.emit('error', createErrorWith(e, this.index));
                 done();
             });
         } catch (e) {
-            this.push(createErrorWith(e, this.index));
+            this.emit('error', createErrorWith(e, this.index));
             done();
         }
     }

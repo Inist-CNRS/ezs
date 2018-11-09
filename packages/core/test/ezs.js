@@ -86,11 +86,12 @@ describe('Build a pipeline', () => {
             .pipe(ezs(() => {
                 throw new Error('Bang!');
             }))
-            .on('data', (chunk) => {
-                assert.ok(chunk instanceof Error);
-            })
-            .on('end', () => {
+            .on('error', error => {
+                assert.equal(error.message.split('\n')[0], 'Processing item #1 failed with Error: Bang!')
                 done();
+            })
+            .on('data', (chunk) => {
+                throw new Error('no data should be received')
             });
     });
     it('with error(send)', (done) => {
@@ -581,6 +582,7 @@ describe('Build a pipeline', () => {
                 output.send(input);
             }))
             .pipe(pass)
+            .on('error', console.error) // Error [ERR_STREAM_WRITE_AFTER_END]: write after end
             .pipe(ezs.fromString(commands))
             .on('data', (chunk) => {
                 if (chunk === 4) {
@@ -862,6 +864,7 @@ describe('Build a pipeline', () => {
                 value: expr,
             }))
             .pipe(ezs('shift'))
+            .on('error', console.error) // Error [ERR_STREAM_PUSH_AFTER_EOF]: stream.push() after EOF
             .on('data', (chunk) => {
                 assert.strictEqual(chunk.a, 1);
             })

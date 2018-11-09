@@ -1,6 +1,6 @@
-import { Transform } from 'stream';
+import SafeTransform from './SafeTransform';
 
-export default class Output extends Transform {
+export default class Output extends SafeTransform {
     constructor(options) {
         super({
             ...options,
