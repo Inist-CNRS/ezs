@@ -7,3 +7,5 @@ coverage/
 *.sw?
 lib
 *.pdf
+examples/debug.md
+istex.nq
