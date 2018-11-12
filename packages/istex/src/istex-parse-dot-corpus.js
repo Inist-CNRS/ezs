@@ -14,18 +14,22 @@ function ISTEXParseDotCorpus(data, feed) {
     const metadata = this.ezs.metaString(data);
     const statement = this.ezs.fromString(data);
     const input = new PassThrough({ objectMode: true });
-    input
+    const output = input
         .pipe(statement)
         .on('data', (chunk) => {
             feed.write({ ...metadata, ...chunk });
         })
         .on('error', (e) => {
             feed.write(e);
-        })
-        .on('end', () => {
-            feed.end();
         });
-    writeTo(input, metadata, () => input.end());
+    const handle = new Promise((resolve, reject) => output.on('error', reject).on('end', resolve));
+    writeTo(input, metadata, () => {
+        input.end(() => {
+            handle.then(() => {
+                feed.end();
+            });
+        });
+    });
 }
 
 
