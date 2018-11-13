@@ -1035,3 +1035,25 @@ describe('test', () => {
         });
     });
 });
+
+describe('Scroll', () => {
+    it('should respect maxPage', (done) => {
+        const result = [];
+        from(['this is a test'])
+            .pipe(ezs('Scroll', {
+                maxPage: 2,
+                size: 1,
+                sid: 'test',
+            }))
+            // .pipe(ezs('debug'))
+            .on('data', (chunk) => {
+                result.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(result.length, 2);
+                assert.equal(typeof result[0], 'object');
+                assert.equal(typeof result[1], 'object');
+                done();
+            });
+    });
+});

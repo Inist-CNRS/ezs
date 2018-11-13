@@ -9,6 +9,7 @@ import ISTEXTriplify from './istex-triplify';
 import ISTEXRemoveIf from './remove-if';
 import ISTEXRemoveVerb from './remove-verb';
 import ISTEXUniq from './uniq';
+import Scroll from './scroll';
 
 export default {
     ISTEX,
@@ -22,4 +23,5 @@ export default {
     ISTEXRemoveIf,
     ISTEXRemoveVerb,
     ISTEXUniq,
+    Scroll,
 };
