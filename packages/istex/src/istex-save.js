@@ -25,7 +25,7 @@ const worker = options => ({ source, target }, done) => fetch(source, options)
  * ISTEXFetch produces the stream you need to save the file.
  *
  * @see ISTEXFetch
- * @param {string} [directory=current working directory]    path where to save the PDFs
+ * @param {string} [directory=current working directory]    path for the PDFs
  * @param {string} [typology="fulltext"]    typology of the document to save
  * @param {string} [format="pdf"]   format of the files to save
  * @param {string} [sid="ezs-istex"]  User-agent identifier
@@ -50,13 +50,18 @@ function ISTEXSave(data, feed) {
         headers.Authorization = `Bearer ${token}`;
     }
     if (!data.hits && !data.arkIstex) {
-        throw new Error('[ISTEXFetch] or [ISTEXSearch] should be defined before this statement.');
+        throw new Error(
+            '[ISTEXFetch] or [ISTEXScroll] should be defined'
+            + ' before this statement.',
+        );
     }
     if (!format && !typology) {
         throw new Error('typology= & format= must be defined as parameter.');
     }
 
-    const identifiers = data.hits ? data.hits.map(hit => hit.arkIstex) : [data.arkIstex];
+    const identifiers = data.hits
+        ? data.hits.map(hit => hit.arkIstex)
+        : [data.arkIstex];
     const files = identifiers.map((arkIstex) => {
         const { name: arkName } = ark.parse(arkIstex);
         const pathname = `${arkIstex}/${typology}.${format}`;

@@ -2,7 +2,9 @@ import OBJ from 'dot-prop';
 import { newValue } from './utils';
 
 /**
- * Take `Object` containing results of ISTEX API, and returns `hits` value (documents).
+ * Take `Object` containing results of ISTEX API, and returns `hits` value
+ * (documents).
+ *
  * This should be placed after ISTEXScroll.
  *
  * @see ISTEXScroll

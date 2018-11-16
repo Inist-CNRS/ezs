@@ -40,6 +40,7 @@
  *     <https://data.istex.fr/ontology/istex#affiliation> "University of Reading" ;
  *
  * @param {Object} [property=[]]    path to uri for the properties to output (property and uri separated by ` -> `)
+ *
  * @param {string} [source=""]  the root of the keys (ex: `istex/`)
  * @returns {string}
  */
@@ -60,7 +61,10 @@ function ISTEXTriplify(data, feed) {
 
     // Ignore empty objects (hoping that next objects will still arrive)
     if (!data[`${source}id`]) {
-        if (process.env.DEBUG) console.error(`#${this.getIndex()}: Empty object`); // eslint-disable-line no-console
+        if (process.env.DEBUG) {
+            // eslint-disable-next-line no-console
+            console.error(`#${this.getIndex()}: Empty object`);
+        }
         return feed.end();
     }
 

@@ -22,7 +22,9 @@ function ISTEXParseDotCorpus(data, feed) {
         .on('error', (e) => {
             feed.write(e);
         });
-    const handle = new Promise((resolve, reject) => output.on('error', reject).on('end', resolve));
+    const handle = new Promise(
+        (resolve, reject) => output.on('error', reject).on('end', resolve),
+    );
     writeTo(input, metadata, () => {
         input.end(() => {
             handle.then(() => {

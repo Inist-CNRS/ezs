@@ -7,8 +7,11 @@ const previous = {};
 function ISTEXRemoveVerb(data, feed) {
     const verbToRemove = this.getParam('verb', '');
     function writeFilteredTriples() {
-        triples[verbToRemove] = triples[verbToRemove].filter(triple => !contains(triple.verb, verbToRemove));
-        triples[verbToRemove].forEach(t => feed.write(`${t.subject} ${t.verb} ${t.complement} .\n`));
+        triples[verbToRemove] = triples[verbToRemove]
+            .filter(triple => !contains(triple.verb, verbToRemove));
+        triples[verbToRemove].forEach(
+            t => feed.write(`${t.subject} ${t.verb} ${t.complement} .\n`),
+        );
     }
 
     if (this.isLast()) {

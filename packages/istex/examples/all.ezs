@@ -7,16 +7,10 @@
 plugin = basics
 plugin = istex
 
-[replace]
-path = query
-value = *
-
-;[debug]
-
-[ISTEXSearch]
+[ISTEXScroll]
+query = *
 field = id
 
-[ISTEXScroll]
 [ISTEXResult]
 
 [keep]

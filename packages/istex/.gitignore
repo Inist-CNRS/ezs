@@ -8,4 +8,4 @@ coverage/
 lib
 *.pdf
 examples/debug.md
-istex.nq
+istex*.nq

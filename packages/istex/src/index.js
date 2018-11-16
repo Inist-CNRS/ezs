@@ -1,6 +1,4 @@
 import ISTEX from './istex';
-import ISTEXSearch from './istex-search';
-import ISTEXScroll from './istex-scroll';
 import ISTEXResult from './istex-result';
 import ISTEXFetch from './istex-fetch';
 import ISTEXSave from './istex-save';
@@ -9,12 +7,10 @@ import ISTEXTriplify from './istex-triplify';
 import ISTEXRemoveIf from './remove-if';
 import ISTEXRemoveVerb from './remove-verb';
 import ISTEXUniq from './uniq';
-import Scroll from './scroll';
+import ISTEXScroll from './scroll';
 
 export default {
     ISTEX,
-    ISTEXSearch,
-    ISTEXScroll,
     ISTEXResult,
     ISTEXFetch,
     ISTEXSave,
@@ -23,5 +19,5 @@ export default {
     ISTEXRemoveIf,
     ISTEXRemoveVerb,
     ISTEXUniq,
-    Scroll,
+    ISTEXScroll,
 };

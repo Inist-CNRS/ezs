@@ -11,9 +11,13 @@ function ISTEXRemoveIf(data, feed) {
     const toRemove = this.getParam('remove', []);
     function writeFilteredTriples() {
         if (found[condition]) {
-            triples[condition] = triples[condition].filter(triple => !contains(triple.verb, toRemove));
+            triples[condition] = triples[condition]
+                .filter(triple => !contains(triple.verb, toRemove));
         }
-        triples[condition].forEach(t => feed.write(`${t.subject} ${t.verb} ${t.complement} .\n`));
+        triples[condition]
+            .forEach(
+                t => feed.write(`${t.subject} ${t.verb} ${t.complement} .\n`),
+            );
     }
 
     if (this.isLast()) {
@@ -37,13 +41,14 @@ function ISTEXRemoveIf(data, feed) {
     }
 
     triples[condition].push({ subject, verb, complement });
-    found[condition] = found[condition] || (verb === property && complement === value);
+    found[condition] = found[condition]
+        || (verb === property && complement === value);
     feed.end();
 }
 
 /**
- * Remove triples which properties are given (`remove`) if other given `property`
- * has the given `value`.
+ * Remove triples which properties are given (`remove`) if other given
+ * `property` has the given `value`.
  *
  * @name ISTEXRemoveIf
  * @param {string} if   "property = value"
