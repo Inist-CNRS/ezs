@@ -4,3 +4,5 @@ examples/
 test/
 QHD-T00H6VNF-0-fulltext.pdf
 .vscode/
+examples/debug.md
+istex*.nq
