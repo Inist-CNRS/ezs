@@ -1,7 +1,7 @@
 /**
  * Take `Object` and ...
  *
- * @name objects2columns 
+ * @name objects2columns
  * @alias flatten
  * @param none.
  * @returns {Object}
@@ -14,7 +14,7 @@ export default function objects2columns(data, feed) {
     const obj = {};
     Object.keys(data)
         .sort((x, y) => x.localeCompare(y))
-        .forEach(key => {
+        .forEach((key) => {
             if (typeof data[key] === 'object') {
                 obj[key] = JSON.stringify(data[key]);
             } else {

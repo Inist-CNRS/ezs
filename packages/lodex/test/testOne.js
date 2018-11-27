@@ -2,7 +2,7 @@ const ezs = require('ezs');
 
 const testOne = (stream, expectation, done) => {
     stream.pipe(
-        ezs(data => {
+        ezs((data) => {
             try {
                 expectation(data);
                 done();

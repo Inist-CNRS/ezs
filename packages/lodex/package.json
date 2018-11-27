@@ -31,21 +31,23 @@
         "postversion": "git push && git push --tags"
     },
     "devDependencies": {
-        "babel-cli": "^6.24.1",
-        "babel-eslint": "^7.2.1",
+        "babel-cli": "6.26.0",
+        "babel-eslint": "10.0.1",
         "babel-preset-env": "1.7.0",
-        "babel-preset-stage-3": "^6.24.1",
-        "documentation": "5.3.5",
-        "eslint": "^3.19.0",
-        "eslint-config-airbnb": "^14.1.0",
-        "eslint-plugin-import": "^2.2.0",
-        "expect": "23.1.0",
-        "from": "^0.1.7",
-        "istanbul": "^0.4.5",
-        "mocha": "^3.5.3"
+        "babel-preset-stage-3": "6.24.1",
+        "documentation": "8.1.2",
+        "eslint": "5.9.0",
+        "eslint-config-airbnb": "17.1.0",
+        "eslint-plugin-import": "2.14.0",
+        "eslint-plugin-jsx-a11y": "6.1.2",
+        "eslint-plugin-react": "7.11.1",
+        "expect": "23.6.0",
+        "ezs": "6.0.0",
+        "from": "0.1.7",
+        "istanbul": "0.4.5",
+        "mocha": "5.2.0"
     },
     "peerDependencies": {
-        "ezs": "^5.4.2",
-        "ezs-basics": "^3.6.2"
+        "ezs": "*"
     }
 }
