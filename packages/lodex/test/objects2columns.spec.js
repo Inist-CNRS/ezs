@@ -1,9 +1,9 @@
-const expect = require('expect');
-const from = require('from');
-const ezs = require('ezs');
-const testOne = require('./testOne');
+import from from 'from';
+import ezs, { use } from 'ezs';
+import testOne from './testOne';
+import statements from '../src';
 
-ezs.use(require('../lib'));
+use(statements);
 
 describe('objects2columns', () => {
     it('should return when columns', (done) => {
@@ -19,6 +19,22 @@ describe('objects2columns', () => {
             (output) => {
                 expect(output);
                 expect(output.truc).toEqual('{"hello":"world"}');
+            },
+            done,
+        );
+    });
+
+    it('should return when columns non object', (done) => {
+        const stream = from([{
+            truc: 'anything else',
+            bidule: 1,
+        }]).pipe(ezs('objects2columns'));
+        testOne(
+            stream,
+            (output) => {
+                expect(output);
+                expect(output.truc).toBe('anything else');
+                expect(output.bidule).toBe(1);
             },
             done,
         );

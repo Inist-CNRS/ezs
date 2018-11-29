@@ -1,4 +1,4 @@
-const ezs = require('ezs');
+import ezs from 'ezs';
 
 const testOne = (stream, expectation, done) => {
     stream.pipe(
@@ -12,4 +12,4 @@ const testOne = (stream, expectation, done) => {
         }),
     );
 };
-module.exports = testOne;
+export default testOne;

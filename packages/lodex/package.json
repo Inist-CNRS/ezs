@@ -21,7 +21,10 @@
     "dependencies": {},
     "main": "./lib/index.js",
     "scripts": {
-        "test": "istanbul test ./node_modules/.bin/_mocha -- -R spec",
+        "test": "jest",
+        "test:watch": "npm test -- --watch",
+        "test:notify": "npm test -- --notify",
+        "test:coverage": "npm test -- --coverage",
         "doc": "documentation readme package.json src/* --section=Statements",
         "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
         "build": "babel src --out-dir lib",
@@ -41,11 +44,9 @@
         "eslint-plugin-import": "2.14.0",
         "eslint-plugin-jsx-a11y": "6.1.2",
         "eslint-plugin-react": "7.11.1",
-        "expect": "23.6.0",
         "ezs": "6.0.0",
         "from": "0.1.7",
-        "istanbul": "0.4.5",
-        "mocha": "5.2.0"
+        "jest": "23.6.0"
     },
     "peerDependencies": {
         "ezs": "*"

@@ -1,8 +1,8 @@
-const assert = require('assert');
-const from = require('from');
-const ezs = require('ezs');
+import from from 'from';
+import ezs, { use } from 'ezs';
+import statements from '../src';
 
-ezs.use(require('../lib'));
+use(statements);
 
 describe('flattenPatch', () => {
     it('should return when joined arrays', (done) => {
@@ -20,18 +20,22 @@ describe('flattenPatch', () => {
                 'b/2': 3,
                 'b/3': 4,
             },
+            {
+                d: [1, 2, 3],
+            },
         ])
             .pipe(ezs('flattenPatch'))
             .on('data', (chunk) => {
-                assert(typeof chunk === 'object');
+                expect(typeof chunk).toBe('object');
                 res.push(chunk);
             })
             .on('end', () => {
-                assert.equal(2, res.length);
-                assert.equal(1, res[0].a);
-                assert.equal('2;3', res[0].b);
-                assert.equal(4, res[0].c);
-                assert.equal('1;2;3;4', res[1].b);
+                expect(res.length).toBe(3);
+                expect(res[0].a).toBe(1);
+                expect(res[0].b).toBe('2;3');
+                expect(res[0].c).toBe(4);
+                expect(res[1].b).toBe('1;2;3;4');
+                expect(res[2].d).toBe('1;2;3');
                 done();
             });
     });
