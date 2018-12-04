@@ -19,7 +19,7 @@ module.exports = function extractIstexQuery(data, feed) {
 
     const labels = config.istexQuery.labels.split(',');
 
-    /**
+    /*
      * If we don't have any istexQuery, close the export
      */
     if (!fields.some(f => f.format && f.format.name === 'istex')) {
