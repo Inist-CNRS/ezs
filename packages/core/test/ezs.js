@@ -94,6 +94,18 @@ describe('Build a pipeline', () => {
                 throw new Error('no data should be received')
             });
     });
+    it.only('with async error(throw)', (done) => {
+        const ten = new Decade();
+        ten
+            .pipe(ezs('badaboum'))
+            .on('error', error => {
+                assert.equal(error.message.split('\n')[0], 'Processing item #1 failed with Error: Badaboum!')
+                done();
+            })
+            .on('data', (chunk) => {
+                throw new Error('no data should be received')
+            });
+    });
     it('with error(send)', (done) => {
         const ten = new Decade();
         ten

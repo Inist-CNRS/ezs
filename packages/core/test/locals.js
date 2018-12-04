@@ -96,6 +96,14 @@ function beat(data, feed) {
     }, 1);
 }
 
+function badaboum(data, feed) {
+    if (this.isLast()) {
+        return feed.send(data);
+    }
+    return setTimeout(() => {
+        throw new Error('Badaboum!');
+    }, 1);
+}
 
 
 module.exports = {
@@ -108,6 +116,7 @@ module.exports = {
     bad,
     accu,
     beat,
-    ignoreMe
+    ignoreMe,
+    badaboum,
 };
 
