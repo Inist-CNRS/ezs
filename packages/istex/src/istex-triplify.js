@@ -78,10 +78,11 @@ function ISTEXTriplify(data, feed) {
             .filter(([key]) => key.match(regex))
             .forEach(([, value]) => {
                 if (!value) return;
+                const escapedValue = value.replace(/"/g, '\\"');
                 if (value.startsWith('http')) {
                     feed.write(`<https://api.istex.fr/${data[`${source}arkIstex`]}> <${prop}> <${value}> .\n`);
                 } else {
-                    feed.write(`<https://api.istex.fr/${data[`${source}arkIstex`]}> <${prop}> "${value}" .\n`);
+                    feed.write(`<https://api.istex.fr/${data[`${source}arkIstex`]}> <${prop}> "${escapedValue}" .\n`);
                 }
             });
     });

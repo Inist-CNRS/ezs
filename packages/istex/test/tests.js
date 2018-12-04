@@ -280,6 +280,33 @@ describe('ISTEXTriplify', () => {
             });
     }).timeout(5000);
 
+    it('should not escape double quotes', (done) => {
+        const result = [];
+        from([
+            {
+                arkIstex: 'ark:/fake',
+                id: '1',
+                'author/3/affiliations/2':
+                    'E-mail: "ivan.couee@univ-rennes1.fr"',
+            },
+        ])
+            .pipe(ezs('ISTEXTriplify', {
+                property: [
+                    '^author/\\d+/affiliations -> https://data.istex.fr/ontology/istex#affiliation',
+                ],
+            }))
+            .on('data', (chunk) => {
+                result.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(result.length, 3);
+                assert(!result[2].includes('undefined'));
+                assert.equal(result[2], '<https://api.istex.fr/ark:/fake> <https://data.istex.fr/ontology/istex#affiliation> "E-mail: \\"ivan.couee@univ-rennes1.fr\\"" .\n');
+                done();
+            });
+    }).timeout(5000);
+
+
     it('should yield as many triples as properties', (done) => {
         const result = [];
         from([
