@@ -10,6 +10,6 @@ const testOne = (stream, expectation, done) => {
                 done(e);
             }
         }),
-    );
+    ).on('error', done);
 };
 export default testOne;

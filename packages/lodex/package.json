@@ -18,7 +18,13 @@
         "url": "https://github.com/Inist-CNRS/ezs-lodex/issues"
     },
     "homepage": "https://github.com/Inist-CNRS/ezs-lodex#readme",
-    "dependencies": {},
+    "dependencies": {
+        "jsonld": "1.1.0",
+        "lodash.get": "4.4.2",
+        "lodash.omit": "4.5.0",
+        "valid-url": "1.0.9",
+        "xml-writer": "1.7.0"
+    },
     "main": "./lib/index.js",
     "scripts": {
         "test": "jest",
@@ -45,6 +51,7 @@
         "eslint-plugin-jsx-a11y": "6.1.2",
         "eslint-plugin-react": "7.11.1",
         "ezs": "6.0.0",
+        "feed": "2.0.1",
         "from": "0.1.7",
         "jest": "23.6.0"
     },

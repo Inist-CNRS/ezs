@@ -21,8 +21,30 @@ process.stdin
 
 ### Table of Contents
 
+-   [convertJsonLdToNQuads](#convertjsonldtonquads)
+-   [convertToAtom](#converttoatom)
+    -   [Parameters](#parameters)
 -   [flattenPatch](#flattenpatch)
 -   [objects2columns](#objects2columns)
+
+## convertJsonLdToNQuads
+
+Take a JSON-LD object and transform it into NQuads triples.
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+## convertToAtom
+
+Generate an atom XML feed from a resources feed, the LODEX configuration and
+model.
+
+### Parameters
+
+-   `fields` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** LODEX model (optional, default `{}`)
+-   `atomFeed` **Feed** A feed of resources, see [feed](https://github.com/jpmonette/feed) (optional, default `{}`)
+-   `config` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** LODEX configuration (with `perPage`) (optional, default `{}`)
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ## flattenPatch
 
