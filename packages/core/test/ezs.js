@@ -94,7 +94,7 @@ describe('Build a pipeline', () => {
                 throw new Error('no data should be received')
             });
     });
-    it.only('with async error(throw)', (done) => {
+    it.skip('with async error(throw)', (done) => {
         const ten = new Decade();
         ten
             .pipe(ezs('badaboum'))
