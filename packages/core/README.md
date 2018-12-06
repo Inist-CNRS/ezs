@@ -52,6 +52,9 @@ Output object is an object with few methods :
 -   output.end()
 -   output.send(something)
 -   output.close()
+-   output.stop(withAnError)
+
+With a sync statement, you can break the pipe  with throw but with an async statement, you should use `stop(with An Error)` instead of throw.
 
 ### statement modes
 

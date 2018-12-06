@@ -41,20 +41,22 @@ export default class Engine extends SafeTransform {
     }
 
     execWith(chunk, done) {
+        const stop = (error) => {
+            this.emit('error', createErrorWith(error, this.index));
+        };
         const push = (data) => {
             if (data instanceof Error) {
                 return this.push(createErrorWith(data, this.index));
             }
             return this.push(data);
         };
-        const feed = new Feed(push, done);
-        this.scope.isFirst = () => (this.index === 1);
-        this.scope.getIndex = () => this.index;
-        this.scope.isLast = () => (chunk === null);
-        this.scope.getEnv = (name) => name === undefined ? this.environment : this.environment[name];
-        this.scope.ezs = this.ezs;
-
+        const feed = new Feed(push, done, stop);
         try {
+            this.scope.isFirst = () => (this.index === 1);
+            this.scope.getIndex = () => this.index;
+            this.scope.isLast = () => (chunk === null);
+            this.scope.getEnv = (name) => name === undefined ? this.environment : this.environment[name];
+            this.scope.ezs = this.ezs;
             this.scope.getParam = (name, defval) => {
                 const globalParams = Parameter.get(this.ezs, this.funcName);
                 if (this.params[name] !== undefined) {
@@ -65,11 +67,11 @@ export default class Engine extends SafeTransform {
                 return defval;
             };
             Promise.resolve(this.func.call(this.scope, chunk, feed)).catch(e => {
-                this.emit('error', createErrorWith(e, this.index));
+                stop(e);
                 done();
             });
         } catch (e) {
-            this.emit('error', createErrorWith(e, this.index));
+            stop(e);
             done();
         }
     }

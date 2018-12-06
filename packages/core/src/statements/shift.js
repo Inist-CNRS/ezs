@@ -4,8 +4,14 @@
  * @returns {Object}
  */
 export default function shift(data, feed) {
-    feed.write(data);
-    feed.close();
+    if (this.isLast()) {
+        feed.close();
+    } else if (this.isFirst()) {
+        feed.send(data);
+    } else {
+        feed.end();
+    }
+
 }
 
 
