@@ -19,8 +19,8 @@ export default function convertJsonLdToNQuads(data, feed) {
             (err, nquads) => {
                 if (err) {
                     // eslint-disable-next-line no-console
-                    console.error('toRDF: ', err);
-                    throw new Error(err);
+                    console.error('convertJsonLdToNQuads: ', err);
+                    feed.stop(new Error(err));
                 }
                 feed.send(nquads);
             },

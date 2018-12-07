@@ -48,7 +48,7 @@ describe('convertJSonLdToNquads', () => {
 
     // There is still a bug in error management in ezs@6.0.0
     // Wait for a fix to remove .skip
-    it.skip('should throw when error', (done) => {
+    it('should throw when error', (done) => {
         // see https://json-ld.org/playground/ for the Person example
         from([{
             '@context': 'http://schema.org/',
@@ -69,9 +69,6 @@ describe('convertJSonLdToNquads', () => {
             })
             .on('data', (data) => {
                 expect(data).not.toBeDefined();
-            })
-            .on('end', () => {
-                done(new Error('Should not work'));
             });
     },
     8000);
