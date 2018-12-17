@@ -1,5 +1,5 @@
 import { equals } from 'ramda';
-import { getTriple } from './utils';
+import { getSubject } from './utils';
 
 let triples;
 let previous;
@@ -8,7 +8,7 @@ function ISTEXUniq(data, feed) {
     function writeFilteredTriples() {
         triples.reduce((alreadySeen, t) => {
             if (!alreadySeen.find(equals(t))) {
-                feed.write(`${t.subject} ${t.verb} ${t.complement} .\n`);
+                feed.write(t);
             }
             alreadySeen.push(t);
             return alreadySeen;
@@ -20,7 +20,7 @@ function ISTEXUniq(data, feed) {
         return feed.close();
     }
 
-    const [subject, verb, complement] = getTriple(data);
+    const subject = getSubject(data);
 
     if (this.isFirst()) {
         triples = [];
@@ -33,7 +33,11 @@ function ISTEXUniq(data, feed) {
         previous = subject;
     }
 
-    triples.push({ subject, verb, complement });
+    let triple = data;
+    if (!triple.endsWith('\n')) {
+        triple += '\n';
+    }
+    triples.push(triple);
     feed.end();
 }
 

@@ -1,61 +1,56 @@
 const assert = require('assert');
 
-const { getTriple } = require('../lib/utils');
+const { getSubject } = require('../lib/utils');
 
 describe('utils', () => {
-    describe('getTriple', () => {
+    describe('getSubject', () => {
         it('should parse URIs triple without carrier', () => {
-            const [subject, verb, complement] = getTriple(
+            const subject = getSubject(
                 '<subject> <verb> <complement> .',
             );
             assert.equal(subject, '<subject>');
-            assert.equal(verb, '<verb>');
-            assert.equal(complement, '<complement>');
         });
 
         it('should parse URIs triple with carrier', () => {
-            const [subject, verb, complement] = getTriple(
+            const subject = getSubject(
                 '<subject> <verb> <complement> .\n',
             );
             assert.equal(subject, '<subject>');
-            assert.equal(verb, '<verb>');
-            assert.equal(complement, '<complement>');
         });
 
         it('should parse triple with "a" without carrier', () => {
-            const [subject, verb, complement] = getTriple(
+            const subject = getSubject(
                 '<subject> a <type> .',
             );
             assert.equal(subject, '<subject>');
-            assert.equal(verb, 'a');
-            assert.equal(complement, '<type>');
         });
 
         it('should parse triple with "a" with carrier', () => {
-            const [subject, verb, complement] = getTriple(
+            const subject = getSubject(
                 '<subject> a <type> .\n',
             );
             assert.equal(subject, '<subject>');
-            assert.equal(verb, 'a');
-            assert.equal(complement, '<type>');
         });
 
         it('should parse triple with a litteral with carrier', () => {
-            const [subject, verb, complement] = getTriple(
+            const subject = getSubject(
                 '<subject> <verb> "complement" .\n',
             );
             assert.equal(subject, '<subject>');
-            assert.equal(verb, '<verb>');
-            assert.equal(complement, '"complement"');
         });
 
         it('should parse triple with a litteral without carrier', () => {
-            const [subject, verb, complement] = getTriple(
+            const subject = getSubject(
                 '<subject> <verb> "complement" .',
             );
             assert.equal(subject, '<subject>');
-            assert.equal(verb, '<verb>');
-            assert.equal(complement, '"complement"');
+        });
+
+        it('should parse literals containing >', () => {
+            const subject = getSubject(
+                '<subject> <verb> "comp > lement" .',
+            );
+            assert.equal(subject, '<subject>');
         });
     });
 });

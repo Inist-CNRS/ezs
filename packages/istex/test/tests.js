@@ -306,7 +306,6 @@ describe('ISTEXTriplify', () => {
             });
     }).timeout(5000);
 
-
     it('should yield as many triples as properties', (done) => {
         const result = [];
         from([
@@ -817,6 +816,24 @@ describe('ISTEXUniq', () => {
                 });
         },
     );
+
+    it('should not mess up > character in literal', (done) => {
+        let result = [];
+        from([
+            '<subject1> <verb> "Another Rigvedic Genitive Singular in -E > -AS?" .',
+        ])
+            .pipe(ezs('ISTEXUniq'))
+            // .pipe(ezs('debug'))
+            .on('data', (chunk) => {
+                result = result.concat(chunk);
+            })
+            .on('end', () => {
+                assert.equal(result.length, 1);
+                assert.equal(result[0],
+                    '<subject1> <verb> "Another Rigvedic Genitive Singular in -E > -AS?" .\n');
+                done();
+            });
+    });
 });
 
 describe('ISTEXParseDotCorpus', () => {
