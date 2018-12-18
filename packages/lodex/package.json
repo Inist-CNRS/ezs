@@ -15,9 +15,9 @@
     "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/Inist-CNRS/ezs-lodex/issues"
+        "url": "https://github.com/Inist-CNRS/node-ezs-lodex/issues"
     },
-    "homepage": "https://github.com/Inist-CNRS/ezs-lodex#readme",
+    "homepage": "https://github.com/Inist-CNRS/node-ezs-lodex#readme",
     "dependencies": {
         "jsonld": "1.1.0",
         "lodash.get": "4.4.2",
