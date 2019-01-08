@@ -29,5 +29,3 @@ export default function assign(data, feed) {
     }
     return feed.send(data);
 }
-
-

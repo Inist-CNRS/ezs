@@ -241,24 +241,41 @@ Launch a cluster for ezs.dispatch
 ### Table of Contents
 
 -   [assign](#assign)
+    -   [Parameters](#parameters)
 -   [concat](#concat)
+    -   [Parameters](#parameters-1)
 -   [debug](#debug)
+    -   [Parameters](#parameters-2)
 -   [env](#env)
+    -   [Parameters](#parameters-3)
 -   [extract](#extract)
+    -   [Parameters](#parameters-4)
+-   [partition](#partition)
+    -   [Parameters](#parameters-5)
 -   [json](#json)
+    -   [Parameters](#parameters-6)
 -   [keep](#keep)
+    -   [Parameters](#parameters-7)
 -   [pack](#pack)
+    -   [Parameters](#parameters-8)
 -   [replace](#replace)
+    -   [Parameters](#parameters-9)
 -   [shift](#shift)
+    -   [Parameters](#parameters-10)
 -   [shuffle](#shuffle)
+    -   [Parameters](#parameters-11)
 -   [transit](#transit)
+    -   [Parameters](#parameters-12)
+-   [ungroup](#ungroup)
+    -   [Parameters](#parameters-13)
 -   [unpack](#unpack)
+    -   [Parameters](#parameters-14)
 
 ## assign
 
 Take `Object` and add new field
 
-**Parameters**
+### Parameters
 
 -   `data`  
 -   `feed`  
@@ -271,7 +288,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Take all `String`, concat them and thow just one
 
-**Parameters**
+### Parameters
 
 -   `data`  
 -   `feed`  
@@ -285,7 +302,7 @@ Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Take `Object` , print it and throw the same object
 
-**Parameters**
+### Parameters
 
 -   `data`  
 -   `feed`  
@@ -301,7 +318,7 @@ Take `Object` and send the same object
 but in the meantime, it is possible to add
 new environment field
 
-**Parameters**
+### Parameters
 
 -   `data`  
 -   `feed`  
@@ -314,7 +331,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Take `Object` and throw each value of fields
 
-**Parameters**
+### Parameters
 
 -   `data`  
 -   `feed`  
@@ -322,11 +339,23 @@ Take `Object` and throw each value of fields
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
+## partition
+
+Take all `chunk`, and throw array of chunks
+
+### Parameters
+
+-   `data`  
+-   `feed`  
+-   `size` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Size of each partition
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
 ## json
 
 Take all `String`, throw `Object` builded by JSON.parse
 
-**Parameters**
+### Parameters
 
 -   `data`  
 -   `feed`  
@@ -338,7 +367,7 @@ Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 Take `Object` and throw the same object but keep only
 spefici fields
 
-**Parameters**
+### Parameters
 
 -   `data`  
 -   `feed`  
@@ -350,7 +379,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Take all `Object`, throw encoded `String`
 
-**Parameters**
+### Parameters
 
 -   `data`  
 -   `feed`  
@@ -361,7 +390,7 @@ Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Take `Object` and create a new object with some fields
 
-**Parameters**
+### Parameters
 
 -   `data`  
 -   `feed`  
@@ -374,7 +403,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Take the first `Object` and close the feed
 
-**Parameters**
+### Parameters
 
 -   `data`  
 -   `feed`  
@@ -385,7 +414,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Take `Object`, shuffle data of the whole object or only some fields specified by path
 
-**Parameters**
+### Parameters
 
 -   `data`  
 -   `feed`  
@@ -397,18 +426,29 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Take `Object` and throw the same object
 
-**Parameters**
+### Parameters
 
 -   `data`  
 -   `feed`  
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
+## ungroup
+
+Take all `chunk`, and throw each item of chunks
+
+### Parameters
+
+-   `data`  
+-   `feed`  
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
 ## unpack
 
 Take `String` and throw `Object` builded by JSON.parse on each line
 
-**Parameters**
+### Parameters
 
 -   `data`  
 -   `feed`  

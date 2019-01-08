@@ -24,7 +24,5 @@ export default function unpack(data, feed) {
     lines.forEach((line) => {
         feed.write(JSON.parse(line));
     });
-    feed.end();
+    return feed.end();
 }
-
-

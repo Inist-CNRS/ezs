@@ -1,5 +1,5 @@
 import memored from 'memored';
-import Store from './store.js';
+import Store from './store';
 
 export default class SharedStore extends Store {
     constructor() {
@@ -37,11 +37,11 @@ export default class SharedStore extends Store {
         });
     }
 
-    size() {
-        return new Promise((resolve) => {
+    static size() {
+        return new Promise((resolve, reject) => {
             memored.size((err, size) => {
                 if (err) {
-                    reject(err)
+                    reject(err);
                 } else {
                     resolve(size);
                 }
@@ -49,4 +49,3 @@ export default class SharedStore extends Store {
         });
     }
 }
-

@@ -7,12 +7,15 @@ export default class Commands {
         this.commands = commands;
         this.useCommands = this.commands.filter(c => c.name === 'use');
     }
+
     getUseCommands() {
         return this.useCommands;
     }
+
     get() {
         return this.commands;
     }
+
     analyse() {
         const newCmds = [];
         let first = true;

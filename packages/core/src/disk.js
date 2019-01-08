@@ -1,31 +1,29 @@
 import path from 'path';
 import fs from 'fs-extra';
 import MultiStream from 'multistream';
-import { DEBUG, PORT, NSHARDS } from './constants';
 import { Writable, Readable } from 'stream';
+import { DEBUG, NSHARDS } from './constants';
 
 export class Reader extends Readable {
     constructor(ezs, dirpath, options) {
         super(ezs.objectMode());
 
-        const opts = options || {};
+        const opts = options || {};
         // to avoid to use classic directory
         const savedir = dirpath.concat('.ezs');
-        const ns = Number(opts.nShards) || Number(ezs.settings.nShards) || NSHARDS;
+        const ns = Number(opts.nShards) || Number(ezs.settings.nShards) || NSHARDS;
         const streams = Array(ns).fill(true).map((value, index) => {
             const filepath = path.resolve(savedir, `./${index}.bin`);
             return fs.createReadStream(filepath)
                 .pipe(ezs.uncompress())
-                .pipe(ezs('unpack'))
-            ;
+                .pipe(ezs('unpack'));
         });
-        this.tubout = new MultiStream.obj(streams)
-            .pipe(ezs('transit'))
-        ;
+        this.tubout = MultiStream.obj(streams)
+            .pipe(ezs('transit'));
         this.tubout.on('data', (chunk, encoding) => {
-             if (!this.push(chunk, encoding)) {
-                 this.tubout.pause();
-             }
+            if (!this.push(chunk, encoding)) {
+                this.tubout.pause();
+            }
         });
         this.tubout.on('end', () => {
             this.push(null);
@@ -34,10 +32,9 @@ export class Reader extends Readable {
             DEBUG('Unlikely error', e);
         });
         this.tubout.pause();
-
     }
 
-    _read(size) {
+    _read() {
         if (this.tubout.isPaused()) {
             this.tubout.resume();
         }
@@ -54,10 +51,10 @@ export class Writer extends Writable {
         super(ezs.objectMode());
         this.lastIndex = 0;
 
-        const opts = options || {};
+        const opts = options || {};
         const savedir = dirpath.concat('.ezs');
         // to avoid to use classic directory
-        const ns = Number(opts.nShards) || Number(ezs.settings.nShards) || NSHARDS;
+        const ns = Number(opts.nShards) || Number(ezs.settings.nShards) || NSHARDS;
         fs.emptyDirSync(savedir);
         this.handles = Array(ns).fill(true).map((value, index) => {
             const filepath = path.resolve(savedir, `./${index}.bin`);
@@ -86,13 +83,13 @@ export class Writer extends Writable {
     }
 
     _final(callback) {
-        const promesses = this.handles.map((s,i) => new Promise(resolve => {
+        const promesses = this.handles.map(s => new Promise((resolve) => {
             if (s[0]) {
-                s[0].end(() => { s[2].then(() => resolve(true))});
+                s[0].end(() => { s[2].then(() => resolve(true)); });
             } else {
                 resolve(false);
             }
         }));
-        Promise.all(promesses).then(flags => callback());
+        Promise.all(promesses).then(() => callback());
     }
 }

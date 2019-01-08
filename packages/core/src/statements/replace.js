@@ -30,5 +30,3 @@ export default function replace(data, feed) {
     }
     return feed.send(obj);
 }
-
-

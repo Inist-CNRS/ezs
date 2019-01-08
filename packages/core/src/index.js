@@ -17,7 +17,9 @@ import { Writer, Reader } from './disk';
 import Meta from './meta';
 import Server from './server';
 import { compressStream, uncompressStream } from './compactor';
-import { M_SINGLE, M_DISPATCH, M_NORMAL, HWM_BYTES, HWM_OBJECT, NSHARDS } from './constants';
+import {
+    M_SINGLE, M_DISPATCH, M_NORMAL, HWM_BYTES, HWM_OBJECT, NSHARDS,
+} from './constants';
 
 const ezs = (name, options, environment) => new Engine(ezs, Statement.get(ezs, name, options), options, environment);
 const ezsPath = [process.cwd()];
@@ -69,15 +71,14 @@ ezs.command = (stream, command, environment) => {
 };
 ezs.save = (path, options) => new Writer(ezs, path, options);
 ezs.load = (path, options) => new Reader(ezs, path, options);
-ezs.compress = (options) => compressStream(ezs, options);
-ezs.uncompress = (options) => uncompressStream(ezs, options);
-ezs.createStream = (options) => new PassThrough(options);
+ezs.compress = options => compressStream(ezs, options);
+ezs.uncompress = options => uncompressStream(ezs, options);
+ezs.createStream = options => new PassThrough(options);
 
-ezs.createCache = (options) => new Cache(ezs, options);
-ezs.createServer = (port) => Server.createServer(ezs, new IsolatedStore(), port);
-ezs.createCluster = (port) => Server.createCluster(ezs, new SharedStore(), port);
+ezs.createCache = options => new Cache(ezs, options);
+ezs.createServer = port => Server.createServer(ezs, new IsolatedStore(), port);
+ezs.createCluster = port => Server.createCluster(ezs, new SharedStore(), port);
 
 ezs.use(Statements);
 
 module.exports = ezs;
-

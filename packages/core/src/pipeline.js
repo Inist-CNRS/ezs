@@ -41,5 +41,4 @@ export default class Pipeline extends Duplex {
             this.tubout.resume();
         }
     }
-
 }

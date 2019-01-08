@@ -1,7 +1,10 @@
-const assert = require('assert');
-const ezs = require('../lib');
-const { M_SINGLE, M_DISPATCH, M_NORMAL, M_CONDITIONAL } = ezs.constants;
-const JSONezs = require('../lib/json').default;
+import assert from 'assert';
+import { Readable } from 'stream';
+import ezs from '../src';
+
+const {
+    M_DISPATCH,
+} = ezs.constants;
 
 ezs.use(require('./locals'));
 
@@ -9,14 +12,13 @@ ezs.config('stepper', {
     step: 4,
 });
 
-const Read = require('stream').Readable;
-
-class Upto extends Read {
+class Upto extends Readable {
     constructor(m) {
         super({ objectMode: true });
         this.i = 0;
         this.m = m;
     }
+
     _read() {
         this.i += 1;
         if (this.i >= this.m) {
@@ -51,7 +53,7 @@ describe('through a server', () => {
         let res = 0;
         const ten = new Upto(500001);
         ten
-            .pipe(ezs('replace', { path: 'a', value: "2" }))
+            .pipe(ezs('replace', { path: 'a', value: '2' }))
             .pipe(ezs.dispatch(commands, servers))
             .on('data', (chunk) => {
                 res += chunk.a;

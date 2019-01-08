@@ -1,9 +1,10 @@
-const assert = require('assert');
-const fs = require('fs');
-const Dir = require('path');
-const from = require('from');
-const ezs = require('../lib');
-const Expression = require('../lib/expression').default;
+import assert from 'assert';
+import Dir from 'path';
+import from from 'from';
+import fs from 'fs';
+import { Readable, PassThrough } from 'stream';
+import ezs from '../src';
+import Expression from '../src/expression';
 
 ezs.use(require('./locals'));
 
@@ -11,15 +12,12 @@ ezs.config('stepper', {
     step: 3,
 });
 
-const Read = require('stream').Readable;
-const PassThrough = require('stream').PassThrough;
-
-
-class Decade extends Read {
+class Decade extends Readable {
     constructor() {
         super({ objectMode: true });
         this.i = 0;
     }
+
     _read() {
         this.i += 1;
         if (this.i >= 10) {
@@ -77,86 +75,6 @@ describe('Build a pipeline', () => {
             })
             .on('end', () => {
                 assert.strictEqual(res, 55);
-                done();
-            });
-    });
-    it('with sync error(throw)', (done) => {
-        const ten = new Decade();
-        ten
-            .pipe(ezs(() => {
-                throw new Error('Bang!');
-            }))
-            .on('error', error => {
-                assert.equal(error.message.split('\n')[0], 'Processing item #1 failed with Error: Bang!')
-                done();
-            })
-            .on('data', (chunk) => {
-                throw new Error('no data should be received')
-            });
-    });
-    // https://bytearcher.com/articles/why-asynchronous-exceptions-are-uncatchable/
-    it.skip('with async error(throw)', (done) => {
-        const ten = new Decade();
-        ten
-            .pipe(ezs('badaboum'))
-            .on('error', error => {
-                assert.equal(error.message.split('\n')[0], 'Processing item #1 failed with Error: Badaboum!')
-                done();
-            })
-            .on('data', (chunk) => {
-                throw new Error('no data should be received')
-            });
-    });
-    it('with error(send)', (done) => {
-        const ten = new Decade();
-        ten
-            .pipe(ezs('boum'))
-            .on('data', (chunk) => {
-                assert.ok(chunk instanceof Error);
-            })
-            .on('end', () => {
-                done();
-            });
-    });
-    it('with async/sync error(stop)', (done) => {
-        const ten = new Decade();
-        ten
-            .pipe(ezs('plouf'))
-            .on('error', error => {
-                assert.equal(error.message.split('\n')[0], 'Processing item #1 failed with Error: Plouf!')
-                done();
-            })
-            .on('data', (chunk) => {
-                throw new Error('no data should be received')
-            });
-    });
-    it('catch & ignore error', (done) => {
-        let counter = 0;
-        const ten = new Decade();
-        ten
-            .pipe(ezs('boum'))
-            .pipe(ezs.catch())
-            .on('data', () => {
-                counter += 1;
-            })
-            .on('end', () => {
-                assert.equal(0, counter);
-                done();
-            });
-    });
-    it('catch & get error', (done) => {
-        let counter = 0;
-        const ten = new Decade();
-        ten
-            .pipe(ezs('boum'))
-            .pipe(ezs.catch((err) => {
-                assert.ok(err instanceof Error);
-            }))
-            .on('data', () => {
-                counter += 1;
-            })
-            .on('end', () => {
-                assert.equal(0, counter);
                 done();
             });
     });
@@ -919,6 +837,7 @@ describe('Build a pipeline', () => {
                 value: expr,
             }))
             .pipe(ezs('shift'))
+            // eslint-disable-next-line
             .on('error', console.error) // Error [ERR_STREAM_PUSH_AFTER_EOF]: stream.push() after EOF
             .on('data', (chunk) => {
                 assert.strictEqual(chunk.a, 1);
@@ -1267,7 +1186,7 @@ describe('Build a pipeline', () => {
                 value: new Expression("env('c')"),
             }, env))
             .on('data', (chunk) => {
-                res += chunk.c
+                res += chunk.c;
             })
             .on('end', () => {
                 assert.strictEqual(res, 9);
@@ -1295,7 +1214,7 @@ describe('Build a pipeline', () => {
                 value: new Expression("env('c')"),
             }, env))
             .on('data', (chunk) => {
-                res += chunk.b
+                res += chunk.b;
             })
             .on('end', () => {
                 assert.strictEqual(res, 18);
@@ -1367,8 +1286,6 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
-
-
 
 
 /**/

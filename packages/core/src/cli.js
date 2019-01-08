@@ -65,9 +65,9 @@ export default function cli(errlog) {
         })
         .epilogue('for more information, find our manual at https://github.com/touv/node-ezs');
 
-    const argv = args.argv;
+    const { argv } = args;
     const firstarg = argv._.shift();
-    const port =  argv.port;
+    const { port } = argv;
 
     if (argv.verbose) {
         debug.enable('ezs');
@@ -157,4 +157,5 @@ export default function cli(errlog) {
             stream2b.pipe(process.stdout);
         }
     }
+    return argv;
 }

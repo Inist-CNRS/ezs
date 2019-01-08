@@ -1,6 +1,6 @@
 import os from 'os';
 import debug from 'debug';
-import { version } from '../package.json';
+import { version } from '../package.json';
 
 export const NCPUS = os.cpus().length;
 export const NSHARDS = 16;

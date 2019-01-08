@@ -3,12 +3,12 @@ import Statement from './statement';
 const parametersList = {};
 
 function pack() {
-    const buf = new Buffer(JSON.stringify(parametersList));
+    const buf = Buffer.from(JSON.stringify(parametersList));
     return buf.toString('base64');
 }
 
 function unpack(data) {
-    const buf = new Buffer(data, 'base64');
+    const buf = Buffer.from(data, 'base64');
     const txt = buf.toString('ascii');
     return JSON.parse(txt);
 }

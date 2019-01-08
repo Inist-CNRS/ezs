@@ -6,5 +6,3 @@
 export default function transit(data, feed) {
     return feed.send(data);
 }
-
-

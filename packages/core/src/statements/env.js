@@ -13,7 +13,7 @@ export default function env(data, feed) {
     if (this.isLast()) {
         return feed.send(data);
     }
-    const env = this.getEnv();
+    const envar = this.getEnv();
     const path = this.getParam('path', []);
     const value = this.getParam('value');
     const vals = Array.isArray(path) && !Array.isArray(value) ? [value] : value;
@@ -21,12 +21,10 @@ export default function env(data, feed) {
         const values = _.take(vals, path.length);
         const assets = _.zipObject(path, values);
         Object.keys(assets).forEach((key) => {
-            _.set(env, key, assets[key]);
+            _.set(envar, key, assets[key]);
         });
     } else {
-        _.set(env, path, vals);
+        _.set(envar, path, vals);
     }
     return feed.send(data);
 }
-
-

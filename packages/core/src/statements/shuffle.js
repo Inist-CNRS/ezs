@@ -1,8 +1,8 @@
-function _shuffle(input) {
+function shuf(input) {
     const a = input.split('');
     const n = a.length;
 
-    for(let i = n - 1; i > 0; i--) {
+    for (let i = n - 1; i > 0; i -= 1) {
         const j = Math.floor(Math.random() * (i + 1));
         const tmp = a[i];
         a[i] = a[j];
@@ -26,17 +26,17 @@ export default function shuffle(data, feed) {
     const output = {};
 
     if (keys.length === 0) {
-        Object.keys(data).forEach(key => {
-            output[key] = _shuffle(data[key]);
+        Object.keys(data).forEach((key) => {
+            output[key] = shuf(data[key]);
         });
     } else {
-        Object.keys(data).forEach(key => {
+        Object.keys(data).forEach((key) => {
             if (keys.indexOf(key) === -1) {
                 output[key] = data[key];
             } else {
-                output[key] = _shuffle(data[key]);
+                output[key] = shuf(data[key]);
             }
         });
     }
-    feed.send(output);
+    return feed.send(output);
 }

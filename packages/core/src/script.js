@@ -39,13 +39,12 @@ export default function Script(commands) {
                 const matches1 = matches0[1].match(/(\w+)\?(\w+)/);
                 let mode = M_NORMAL;
                 let name = 'debug';
-                let test = '';
+                const test = '';
                 if (Array.isArray(matches1)) {
-                    name = matches1[1];
-                    mode = matches1[2];
+                    [, name, mode] = matches1;
                 } else {
                     mode = M_NORMAL;
-                    name = matches0[1];
+                    [, name] = matches0;
                 }
                 const newSection = {
                     mode,

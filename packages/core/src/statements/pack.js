@@ -10,4 +10,3 @@ export default function pack(data, feed) {
     }
     return feed.send(JSON.stringify(data).concat(eol));
 }
-

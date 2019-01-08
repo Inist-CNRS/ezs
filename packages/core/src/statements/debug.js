@@ -19,13 +19,12 @@ export default function debug(data, feed) {
     const keys = Array.isArray(path) ? path : [path];
     const output = keys.length === 0 ? data : _.pick(data, keys);
 
+    // eslint-disable-next-line
     if (typeof console[level] === 'function') {
         const logOpts = { showHidden: false, depth: 3, colors: true };
+        // eslint-disable-next-line
         const logFunc = console[level];
         logFunc(text.concat('#').concat(this.getIndex()).concat(' ->'), util.inspect(output, logOpts));
     }
     return feed.send(data);
 }
-
-
-

@@ -1,9 +1,10 @@
 export default class Feed {
-    constructor(push, done, stop) {
+    constructor(push, done, error) {
         this.push = push;
         this.done = done;
-        this.stop = stop;
+        this.error = error;
     }
+
     write(something) {
         if (something === null) {
             this.close();
@@ -11,18 +12,23 @@ export default class Feed {
             this.push(something);
         }
     }
+
     end() {
         this.done();
     }
+
     send(something) {
         this.write(something);
         this.end();
     }
+
     close() {
         this.push(null);
         this.done();
     }
+
     stop(withError) {
-        this.stop(withError);
+        this.error(withError);
+        this.close();
     }
 }

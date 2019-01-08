@@ -6,5 +6,3 @@ export default function jsonezs(data, feed) {
     }
     return feed.send(JSONezs.parse(data));
 }
-
-

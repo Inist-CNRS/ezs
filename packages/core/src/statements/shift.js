@@ -11,7 +11,4 @@ export default function shift(data, feed) {
     } else {
         feed.end();
     }
-
 }
-
-

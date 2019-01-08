@@ -1,8 +1,9 @@
-import os from 'os';
 import crypto from 'crypto';
 import cluster from 'cluster';
 import http from 'http';
-import { DEBUG, PORT, VERSION, NCPUS } from './constants';
+import {
+    DEBUG, PORT, VERSION, NCPUS,
+} from './constants';
 import Parameter from './parameter';
 import JSONezs from './json';
 
@@ -17,7 +18,7 @@ function receive(data, feed) {
         return feed.close();
     }
     this.commands.push(data);
-    feed.end();
+    return feed.end();
 }
 
 function register(store) {
@@ -28,7 +29,7 @@ function register(store) {
         const shasum = crypto.createHash('sha1');
         shasum.update(data);
         const cmdid = shasum.digest('hex');
-        store
+        return store
             .set(cmdid, data)
             .then(() => {
                 try {
@@ -37,7 +38,7 @@ function register(store) {
                 } catch (error) {
                     feed.send(error);
                 }
-            }, error => {
+            }, (error) => {
                 feed.send(error);
             });
     }
@@ -59,11 +60,11 @@ function createServer(ezs, store, port) {
                 request
                     .pipe(ezs.uncompress())
                     .pipe(ezs('unpack'))
+                    .pipe(ezs('ungroup'))
                     .pipe(ezs(receive))
                     .pipe(ezs(register(store)))
-                    .pipe(ezs.catch(error => {
-                        DEBUG(`The server has detected an error while registering statements`, error);
-                        return;
+                    .pipe(ezs.catch((error) => {
+                        DEBUG('The server has detected an error while registering statements', error);
                     }))
                     .pipe(response);
             } else if (url.match(/^\/[a-f0-9]{40}$/i) && method === 'POST') {
@@ -83,20 +84,20 @@ function createServer(ezs, store, port) {
                     request
                         .pipe(ezs.uncompress())
                         .pipe(ezs('unpack'))
+                        .pipe(ezs('ungroup'))
                         .pipe(processor)
-                        .pipe(ezs.catch(error => {
+                        .pipe(ezs.catch((error) => {
                             DEBUG(`Server has caught an error in statements with ID: ${cmdid}`, error);
-                            return;
                         }))
+                        .pipe(ezs('group'))
                         .pipe(ezs('pack'))
                         .pipe(ezs.compress())
                         .pipe(response);
                     request.resume();
-                }, error => {
+                }, (error) => {
                     DEBUG(`Server failed to load statements with ID: ${cmdid}`, error);
-                        response.writeHead(500);
-                        response.end();
-                        return;
+                    response.writeHead(500);
+                    response.end();
                 });
             } else if (url === '/' && method === 'GET') {
                 store.size().then((size) => {
@@ -115,11 +116,10 @@ function createServer(ezs, store, port) {
                     response.writeHead(200, responseHeaders);
                     response.write(responseBody);
                     response.end();
-                }, error => {
-                    DEBUG(`Server failed to compute statistics`, error);
-                        response.writeHead(500);
-                        response.end();
-                        return;
+                }, (error) => {
+                    DEBUG('Server failed to compute statistics', error);
+                    response.writeHead(500);
+                    response.end();
                 });
             } else {
                 response.writeHead(404);
@@ -127,7 +127,7 @@ function createServer(ezs, store, port) {
             }
         });
     server.setTimeout(0);
-    const srv = server.listen(port || PORT);
+    server.listen(port || PORT);
     signals.forEach(signal => process.on(signal, () => {
         DEBUG(`Signal received, stoping server with PID ${process.pid}`);
         server.close(() => process.exit(0));

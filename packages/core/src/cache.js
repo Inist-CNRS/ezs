@@ -2,18 +2,19 @@ import fs from 'fs';
 import tmpFilepath from 'tmp-filepath';
 import LRU from 'lru-cache';
 import { PassThrough } from 'stream';
+import { DEBUG } from './constants';
 
 const deleteFile = (key, fileName) => {
-    fs.unlink(fileName, err => {
+    fs.unlink(fileName, (err) => {
         if (err) {
-            console.error(err);
+            DEBUG('Unable to delete file from the cache', err);
         }
     });
 };
 
 export default class Cache {
     constructor(ezs, opts) {
-        const options = opts || {}
+        const options = opts || {};
         const cacheOptions = {
             max: 500,
             maxAge: 1000 * 60 * 60,
@@ -26,24 +27,22 @@ export default class Cache {
     }
 
     get(key) {
-        const ezs = this.ezs;
+        const { ezs } = this;
         const cache = this.handle;
         const cacheFile = cache.get(key);
         if (cacheFile) {
             if (this.objectMode) {
                 return ezs
                     .load(cacheFile, { nShards: 1 });
-            } else {
-                return fs.createReadStream(cacheFile)
-                    .pipe(ezs.uncompress()) ;
-                ;
             }
+            return fs.createReadStream(cacheFile)
+                .pipe(ezs.uncompress());
         }
-        return;
+        return null;
     }
 
     set(key) {
-        const ezs = this.ezs;
+        const { ezs } = this;
         const cache = this.handle;
         const tmpFile = tmpFilepath('.bin');
         const streamOptions = this.objectMode ? ezs.objectMode() : ezs.bytesMode();
@@ -70,12 +69,11 @@ export default class Cache {
                         cache.set(key, tmpFile);
                         feed.close();
                     });
-                })
+                });
                 cacheInput.destroy();
             }
         };
         const stream = new PassThrough(streamOptions);
         return stream.pipe(ezs(func));
     }
-
 }

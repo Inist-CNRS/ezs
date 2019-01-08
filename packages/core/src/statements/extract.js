@@ -20,10 +20,8 @@ export default function extract(data, feed) {
 
     if (values.length === 0) {
         return feed.send(new Error('Nonexistent path.'));
-    } else if (values.length === 1) {
+    } if (values.length === 1) {
         return feed.send(values[0]);
     }
     return feed.send(values);
 }
-
-

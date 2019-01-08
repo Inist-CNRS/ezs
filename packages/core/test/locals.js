@@ -2,14 +2,6 @@ function plus1(data, feed) {
     feed.send(data + 1);
 }
 
-function boum(data, feed) {
-    if (this.isLast()) {
-        return feed.send(data);
-    }
-    return feed.send(new Error('Boum!'));
-}
-
-
 function increment(data, feed) {
     if (!this.isLast()) {
         const step = this.getParam('step', 1);
@@ -48,9 +40,7 @@ function stepper(data, feed) {
 function slow(data, feed) {
     const time2sleep = Number(this.getParam('time', 200));
     if (this.isLast()) {
-        return setTimeout(() => {
-            return feed.close();
-        }, 1);
+        return setTimeout(() => feed.close(), 1);
     }
     return setTimeout(() => {
         feed.write(data);
@@ -63,7 +53,7 @@ function slow(data, feed) {
 
 function bad(data, feed) {
     if (this.isLast()) {
-        return feed.send(data);
+        return feed.close();
     }
     feed.end();
     return feed.write(data);
@@ -87,13 +77,13 @@ function accu(data, feed) {
 }
 
 function ignoreMe(data, feed) {
-    const objParam = this.getParam('object', {});
+    this.getParam('object', {});
     return feed.send(data);
 }
 
 function beat(data, feed) {
     if (this.isLast()) {
-        return feed.send(data);
+        return feed.close();
     }
     return setTimeout(() => {
         feed.write({ beat: 1 });
@@ -101,10 +91,17 @@ function beat(data, feed) {
     }, 1);
 }
 
+function boum(data, feed) {
+    if (this.isLast()) {
+        return feed.close();
+    }
+    return feed.send(new Error('Boum!'));
+}
+
 // WARNING : https://bytearcher.com/articles/why-asynchronous-exceptions-are-uncatchable/
 function badaboum(data, feed) {
     if (this.isLast()) {
-        return feed.send(data);
+        return feed.close();
     }
     return setTimeout(() => {
         throw new Error('Badaboum!');
@@ -113,14 +110,49 @@ function badaboum(data, feed) {
 
 function plouf(data, feed) {
     if (this.isLast()) {
-        return feed.send(data);
+        return feed.close();
     }
     return setTimeout(() => {
-        feed.stop(new Error('Plouf!'));
+        feed.stop(new Error(`Plouf #${this.getIndex()}`));
     }, 1);
 }
 
+function plaf(data, feed) {
+    if (this.isLast()) {
+        return feed.close();
+    }
+    return setTimeout(() => {
+        if (data === 7) {
+            feed.stop(new Error('Plaf!'));
+        } else {
+            feed.send(data);
+        }
+    }, 1);
+}
 
+function splish(data, feed) {
+    if (this.isLast()) {
+        return feed.close();
+    }
+    const p = new Promise((resolve) => {
+        resolve(data);
+    });
+    return p
+        .then(d => feed.send(d))
+        .catch(() => feed.end());
+}
+
+function splash(data, feed) {
+    if (this.isLast()) {
+        return feed.close();
+    }
+    const p = new Promise((resolve, reject) => {
+        reject(data);
+    });
+    return p
+        .then(d => feed.send(d))
+        .catch(() => feed.end());
+}
 
 
 module.exports = {
@@ -136,5 +168,7 @@ module.exports = {
     ignoreMe,
     badaboum,
     plouf,
+    plaf,
+    splish,
+    splash,
 };
-

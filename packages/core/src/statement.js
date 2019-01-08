@@ -58,19 +58,19 @@ function get(ezs, plugin, opts) {
                         );
                     }
                     const after1 = Object.keys(pluginsList);
-                    const diff1 = after1.filter((item) => before1.indexOf(item) === -1);
+                    const diff1 = after1.filter(item => before1.indexOf(item) === -1);
                     if (diff1.length > 0) {
-                        DEBUG(`These statements are registered: ${diff1.join(',')}`, );
+                        DEBUG(`These statements are registered: ${diff1.join(',')}`);
                     }
                 });
             }
         });
         return (data, feed) => feed.send(data);
-    } else if (typeof plugin === 'function') {
+    } if (typeof plugin === 'function') {
         return plugin;
-    } else if (typeof plugin === 'string' && pluginsList[plugin]) {
+    } if (typeof plugin === 'string' && pluginsList[plugin]) {
         return pluginsList[plugin];
-    } else if (typeof plugin === 'object') {
+    } if (typeof plugin === 'object') {
         const firstKey = Object.keys(plugin).slice(0, 1);
         if (typeof plugin[firstKey] === 'function') {
             return plugin[firstKey];

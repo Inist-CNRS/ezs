@@ -1,8 +1,12 @@
-const assert = require('assert');
-const from = require('from');
-const ezs = require('../lib');
-const { M_SINGLE, M_DISPATCH, M_NORMAL, M_CONDITIONAL } = ezs.constants;
-const JSONezs = require('../lib/json').default;
+import assert from 'assert';
+import from from 'from';
+import { Readable } from 'stream';
+import ezs from '../src';
+import JSONezs from '../src/json';
+
+const {
+    M_DISPATCH,
+} = ezs.constants;
 
 ezs.use(require('./locals'));
 
@@ -10,14 +14,13 @@ ezs.config('stepper', {
     step: 4,
 });
 
-const Read = require('stream').Readable;
-
-class Upto extends Read {
+class Upto extends Readable {
     constructor(m) {
         super({ objectMode: true });
         this.i = 0;
         this.m = m;
     }
+
     _read() {
         this.i += 1;
         if (this.i >= this.m) {
@@ -144,7 +147,7 @@ describe('through a server', () => {
     });
 
     it('with pipeline contains UTF8 parameter', (done) => {
-        let res = [];
+        const res = [];
         const commands = [
             {
                 name: 'replace',
@@ -164,14 +167,12 @@ describe('through a server', () => {
                 res.push(chunk);
             })
             .on('end', () => {
-
                 assert.strictEqual(res[0].id, 'Les Châtiments');
                 assert.strictEqual(res[1].id, 'Les Châtiments');
                 assert.strictEqual(res[2].id, 'Les Châtiments');
                 done();
             });
     });
-
 
 
     it('with pipeline with global parameter', (done) => {
@@ -336,7 +337,7 @@ describe('through a server', () => {
         let res = 0;
         const ten = new Upto(500001);
         ten
-            .pipe(ezs('replace', { path: 'a', value: "2" }))
+            .pipe(ezs('replace', { path: 'a', value: '2' }))
             .pipe(ezs.dispatch(commands, servers))
             .on('data', (chunk) => {
                 res += chunk.a;
@@ -387,10 +388,10 @@ describe('through a server', () => {
         const commandsSTR1 = JSONezs.stringify(commandsOBJ1);
         const commandsOBJ2 = JSONezs.parse(commandsSTR1);
         const commandsSTR2 = JSONezs.stringify(commandsOBJ2);
-//        assert.strictEqual(commandsOBJ1[0].args, commandsOBJ2[0].args);
+        //        assert.strictEqual(commandsOBJ1[0].args, commandsOBJ2[0].args);
         assert.strictEqual(commandsSTR1, commandsSTR2);
         done();
-/*
+        /*
         let res = 0;
         const ten = new Upto(10);
         ten
@@ -410,7 +411,7 @@ describe('through a server', () => {
 
 
     it('with stuck/unstuck simple pipeline', (done) => {
-          const commands = `
+        const commands = `
 
             [replace]
             path = a

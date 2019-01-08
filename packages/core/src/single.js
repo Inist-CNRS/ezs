@@ -41,10 +41,10 @@ export default class Once extends SafeTransform {
                     this.result += chunk2;
                 }
             })
-            .on('end', () => {
-                this.addedResult = addedDiff(oldChunk, this.result);
-                callback(null, Object.assign(chunk, this.addedResult));
-            });
+                .on('end', () => {
+                    this.addedResult = addedDiff(oldChunk, this.result);
+                    callback(null, Object.assign(chunk, this.addedResult));
+                });
             this.tubout.resume();
             this.tubin.write(chunk, encoding, () => {
                 this.tubin.end();
@@ -53,5 +53,4 @@ export default class Once extends SafeTransform {
             callback(null, Object.assign(chunk, this.addedResult));
         }
     }
-
 }

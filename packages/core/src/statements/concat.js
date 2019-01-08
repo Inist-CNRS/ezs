@@ -24,5 +24,3 @@ export default function concat(data, feed) {
     this.buffer = this.buffer.concat(data);
     return feed.end();
 }
-
-
