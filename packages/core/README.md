@@ -250,26 +250,24 @@ Launch a cluster for ezs.dispatch
     -   [Parameters](#parameters-3)
 -   [extract](#extract)
     -   [Parameters](#parameters-4)
--   [partition](#partition)
+-   [group](#group)
     -   [Parameters](#parameters-5)
--   [json](#json)
-    -   [Parameters](#parameters-6)
 -   [keep](#keep)
-    -   [Parameters](#parameters-7)
+    -   [Parameters](#parameters-6)
 -   [pack](#pack)
-    -   [Parameters](#parameters-8)
+    -   [Parameters](#parameters-7)
 -   [replace](#replace)
-    -   [Parameters](#parameters-9)
+    -   [Parameters](#parameters-8)
 -   [shift](#shift)
-    -   [Parameters](#parameters-10)
+    -   [Parameters](#parameters-9)
 -   [shuffle](#shuffle)
-    -   [Parameters](#parameters-11)
+    -   [Parameters](#parameters-10)
 -   [transit](#transit)
-    -   [Parameters](#parameters-12)
+    -   [Parameters](#parameters-11)
 -   [ungroup](#ungroup)
-    -   [Parameters](#parameters-13)
+    -   [Parameters](#parameters-12)
 -   [unpack](#unpack)
-    -   [Parameters](#parameters-14)
+    -   [Parameters](#parameters-13)
 
 ## assign
 
@@ -339,7 +337,7 @@ Take `Object` and throw each value of fields
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-## partition
+## group
 
 Take all `chunk`, and throw array of chunks
 
@@ -348,17 +346,6 @@ Take all `chunk`, and throw array of chunks
 -   `data`  
 -   `feed`  
 -   `size` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Size of each partition
-
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-## json
-
-Take all `String`, throw `Object` builded by JSON.parse
-
-### Parameters
-
--   `data`  
--   `feed`  
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
