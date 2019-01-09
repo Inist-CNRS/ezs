@@ -246,28 +246,30 @@ Launch a cluster for ezs.dispatch
     -   [Parameters](#parameters-1)
 -   [debug](#debug)
     -   [Parameters](#parameters-2)
--   [env](#env)
+-   [dump](#dump)
     -   [Parameters](#parameters-3)
--   [extract](#extract)
+-   [env](#env)
     -   [Parameters](#parameters-4)
--   [group](#group)
+-   [extract](#extract)
     -   [Parameters](#parameters-5)
--   [keep](#keep)
+-   [group](#group)
     -   [Parameters](#parameters-6)
--   [pack](#pack)
+-   [keep](#keep)
     -   [Parameters](#parameters-7)
--   [replace](#replace)
+-   [pack](#pack)
     -   [Parameters](#parameters-8)
--   [shift](#shift)
+-   [replace](#replace)
     -   [Parameters](#parameters-9)
--   [shuffle](#shuffle)
+-   [shift](#shift)
     -   [Parameters](#parameters-10)
--   [transit](#transit)
+-   [shuffle](#shuffle)
     -   [Parameters](#parameters-11)
--   [ungroup](#ungroup)
+-   [transit](#transit)
     -   [Parameters](#parameters-12)
--   [unpack](#unpack)
+-   [ungroup](#ungroup)
     -   [Parameters](#parameters-13)
+-   [unpack](#unpack)
+    -   [Parameters](#parameters-14)
 
 ## assign
 
@@ -309,6 +311,18 @@ Take `Object` , print it and throw the same object
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to print
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## dump
+
+Take all `Object` and genereta a json array
+
+### Parameters
+
+-   `data`  
+-   `feed`  
+-   `indent` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** indent JSON (optional, default `false`)
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ## env
 
