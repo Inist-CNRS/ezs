@@ -1,6 +1,6 @@
 import URL from 'url';
 import OBJ from 'dot-prop';
-import fetch from 'omni-fetch';
+import fetch from 'fetch-with-proxy';
 import QueryString from 'qs';
 import { newValue } from './utils';
 

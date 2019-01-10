@@ -1,7 +1,7 @@
 /* eslint-disable no-await-in-loop */
 import URL from 'url';
 import QueryString from 'qs';
-import fetch from 'omni-fetch';
+import fetch from 'fetch-with-proxy';
 
 /**
  * Take an `Object` containing a query and outputs records from the ISTEX API.

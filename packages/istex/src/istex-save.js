@@ -1,6 +1,6 @@
 import URL from 'url';
 import path from 'path';
-import fetch from 'omni-fetch';
+import fetch from 'fetch-with-proxy';
 import os from 'os';
 import queue from 'async.queue';
 import isStream from 'is-stream';
