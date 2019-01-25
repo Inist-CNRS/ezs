@@ -4,9 +4,17 @@ import QueryString from 'qs';
 import fetch from 'fetch-with-proxy';
 
 /**
- * Take an `Object` containing a query and outputs records from the ISTEX API.
+ * Take a string containing a query and outputs records from the ISTEX API.
  *
- * @param {string} [query="*"]          ISTEX query
+ * @example
+ * from(['this is a test'])
+ *   .pipe(ezs('ISTEXScroll', {
+ *       maxPage: 2,
+ *       size: 1,
+ *       sid: 'test',
+ *   }))
+ * @name ISTEXScroll
+ * @param {string} [query=input]          ISTEX query
  * @param {string} [sid="ezs-istex"]    User-agent identifier
  * @param {number} maxPage              Maximum number of pages to get
  * @param {number} [size=2000]          size of each page of results

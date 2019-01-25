@@ -24,6 +24,7 @@ const worker = options => ({ source, target }, done) => fetch(source, options)
  * Warning: to access fulltext, you have to give a `token` parameter.
  * ISTEXFetch produces the stream you need to save the file.
  *
+ * @name ISTEXSave
  * @see ISTEXFetch
  * @param {string} [directory=current working directory]    path for the PDFs
  * @param {string} [typology="fulltext"]    typology of the document to save

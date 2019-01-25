@@ -77,6 +77,14 @@ const getAndWriteIdentifiers = (data, options, feed) => new Promise(
 /**
  * Take an array and returns matching documents for every value of the array
  *
+ * @example
+ * .pipe(ezs('ISTEX', {
+ *   query: 'this is a test',
+ *   size: 3,
+ *   maxPage: 1,
+ *   sid: 'test'
+ * }))
+ * @name ISTEX
  * @param {string|Array<string>} [query=data.query||[]] ISTEX query (or queries)
  * @param {string|Array<string>} [id=data.id||[]]   ISTEX id (or ids)
  * @param {number} maxPage  maximum number of pages to get

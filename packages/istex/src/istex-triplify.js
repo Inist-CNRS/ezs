@@ -3,24 +3,24 @@
  *
  * If the environment variable DEBUG is set, some errors could appear on stderr.
  *
+ * @name ISTEXTriplify
  * @see ISTEXResult
  * @see OBJFlatten (from ezs-basics)
  *
- * @example
+ * @example <caption>data:</caption>
+ * {
+ *   'author/0/name': 'Geoffrey Strickland',
+ *   'author/0/affiliations/0': 'University of Reading',
+ *   'host/issn/0': '0047-2441',
+ *   'host/eissn/0': '1740-2379',
+ *   'title': 'Maupassant, Zola, Jules Vallès and the Paris Commune of 1871',
+ *   'publicationDate': '1983',
+ *   'doi/0': '10.1177/004724418301305203',
+ *   'id': 'F6CB7249E90BD96D5F7E3C4E80CC1C3FEE4FF483',
+ *   'score': 1
+ * }
  *
- * data: {
- * 'author/0/name': 'Geoffrey Strickland',
- * 'author/0/affiliations/0': 'University of Reading',
- * 'host/issn/0': '0047-2441',
- * 'host/eissn/0': '1740-2379',
- * 'title': 'Maupassant, Zola, Jules Vallès and the Paris Commune of 1871',
- * 'publicationDate': '1983',
- * 'doi/0': '10.1177/004724418301305203',
- * 'id': 'F6CB7249E90BD96D5F7E3C4E80CC1C3FEE4FF483',
- * 'score': 1 }
- *
- * @example
- *
+ * @example <caption>javascript:</caption>
  * .pipe(ezs('ISTEXTriplify', {
  *    property: [
  *      'doi/0 -> http://purl.org/ontology/bibo/doi',
@@ -30,8 +30,7 @@
  *    ],
  *  ));
  *
- * @example
- *
+ * @example <caption>output:</caption>
  *  <https://data.istex.fr/document/F6CB7249E90BD96D5F7E3C4E80CC1C3FEE4FF483>
  *     a <http://purl.org/ontology/bibo/Document> ;
  *       "10.1002/zaac.19936190205" ;

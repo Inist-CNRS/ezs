@@ -7,6 +7,17 @@ import { newValue } from './utils';
 /**
  * Take `Object` with `id` and returns the document's metadata
  *
+ * @example <caption>Input:</caption>
+ * [{
+ *   id: '87699D0C20258C18259DED2A5E63B9A50F3B3363',
+ * }, {
+ *   id: 'ark:/67375/QHD-T00H6VNF-0',
+ * }]
+ *
+ * @example <caption>will produce two JSON records.</caption>
+ * .pipe(ezs('ISTEXFetch', { source: 'id' }))
+ *
+ * @name ISTEXFetch
  * @param {string} [source="id"]    Field to use to fetch documents
  * @param {string} target
  * @param {string} [id=data.id]     ISTEX Identifier of a document

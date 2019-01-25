@@ -2,9 +2,26 @@ import { PassThrough } from 'stream';
 import { writeTo } from './utils';
 
 /**
- * Parse a `.corpus` file content, and returns an object containing queries and
- * ids.
+ * Parse a `.corpus` file content, and execute the action contained in the
+ * `.corpus` file.
  *
+ * @example <caption>1query.corpus</caption>
+ * [ISTEX]
+ * query = language.raw:rum
+ * field = doi
+ * field = author
+ * field = title
+ * field = language
+ * field = publicationDate
+ * field = keywords
+ * field = host
+ * field = fulltext
+ *
+ * @example <caption>1notice.corpus</caption>
+ * [ISTEX]
+ * id 2FF3F5B1477986B9C617BB75CA3333DBEE99EB05
+ *
+ * @name ISTEXParseDotCorpus
  * @returns {Object}
  */
 function ISTEXParseDotCorpus(data, feed) {
