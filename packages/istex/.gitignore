@@ -9,3 +9,4 @@ lib
 *.pdf
 examples/debug.md
 istex*.nq*
+biblio*.nq*

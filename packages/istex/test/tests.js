@@ -280,7 +280,7 @@ describe('ISTEXTriplify', () => {
             });
     }).timeout(5000);
 
-    it('should not escape double quotes', (done) => {
+    it('should escape double quotes', (done) => {
         const result = [];
         from([
             {
@@ -301,7 +301,7 @@ describe('ISTEXTriplify', () => {
             .on('end', () => {
                 assert.equal(result.length, 3);
                 assert(!result[2].includes('undefined'));
-                assert.equal(result[2], '<https://api.istex.fr/ark:/fake> <https://data.istex.fr/ontology/istex#affiliation> "E-mail: \\"ivan.couee@univ-rennes1.fr\\"" .\n');
+                assert.equal(result[2], '<https://api.istex.fr/ark:/fake> <https://data.istex.fr/ontlogy/istex#affiliation> "E-mail: \\"ivan.couee@univ-rennes1.fr\\"" .\n');
                 done();
             });
     }).timeout(5000);
@@ -831,6 +831,24 @@ describe('ISTEXUniq', () => {
                 assert.equal(result.length, 1);
                 assert.equal(result[0],
                     '<subject1> <verb> "Another Rigvedic Genitive Singular in -E > -AS?" .\n');
+                done();
+            });
+    });
+
+    it('should not mess up \\ character in literal', (done) => {
+        let result = [];
+        from([
+            '<subject1> <verb> "Kroi\\" .',
+        ])
+            .pipe(ezs('ISTEXUniq'))
+            // .pipe(ezs('debug'))
+            .on('data', (chunk) => {
+                result = result.concat(chunk);
+            })
+            .on('end', () => {
+                assert.equal(result.length, 1);
+                assert.equal(result[0],
+                    '<subject1> <verb> "Kroi\\\\" .\n');
                 done();
             });
     });

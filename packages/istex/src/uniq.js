@@ -4,11 +4,32 @@ import { getSubject } from './utils';
 let triples;
 let previous;
 
+function getLiteral(beg, end, s) {
+    return s.substring(beg + 1, end);
+}
+
+function locateLiteral(s) {
+    const beg = s.indexOf('"');
+    const end = s.indexOf('"', s.length - 4);
+    return { beg, end };
+}
+
+function endsWithLiteral(beg, end) {
+    return (beg !== -1 && end > beg);
+}
+
 function ISTEXUniq(data, feed) {
     function writeFilteredTriples() {
         triples.reduce((alreadySeen, t) => {
             if (!alreadySeen.find(equals(t))) {
-                feed.write(t);
+                const { beg, end } = locateLiteral(t);
+                if (endsWithLiteral(beg, end)) {
+                    const literal = getLiteral(beg, end, t);
+                    const triple = `${t.substring(0, beg)}${JSON.stringify(literal)} .\n`;
+                    feed.write(triple);
+                } else {
+                    feed.write(t);
+                }
             }
             alreadySeen.push(t);
             return alreadySeen;
