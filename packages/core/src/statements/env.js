@@ -11,7 +11,7 @@ import _ from 'lodash';
  */
 export default function env(data, feed) {
     if (this.isLast()) {
-        return feed.send(data);
+        return feed.close();
     }
     const envar = this.getEnv();
     const path = this.getParam('path', []);

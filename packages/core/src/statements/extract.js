@@ -8,7 +8,7 @@ import _ from 'lodash';
  */
 export default function extract(data, feed) {
     if (this.isLast()) {
-        return feed.send(data);
+        return feed.close();
     }
     let keys = this.getParam('path', []);
     if (!Array.isArray(keys)) {

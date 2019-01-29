@@ -3,13 +3,12 @@
  *
  * @returns {String}
  */
+const eol = '\n';
 export default function unpack(data, feed) {
     if (this.isLast()) {
-        return feed.end();
+        return feed.close();
     }
     this.remainder = this.remainder || '';
-
-    const eol = '\n';
 
     let lines;
     if (Buffer.isBuffer(data)) {

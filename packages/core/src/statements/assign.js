@@ -9,7 +9,7 @@ import _ from 'lodash';
  */
 export default function assign(data, feed) {
     if (this.isLast()) {
-        return feed.send(data);
+        return feed.close();
     }
     const test = this.getParam('test', true);
     if (!test) {

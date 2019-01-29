@@ -1,15 +1,7 @@
-import path from 'path';
+import { useFile } from './file';
 import { DEBUG } from './constants';
 
 const pluginsList = {};
-
-function resolve(name) {
-    try {
-        return require.resolve(name);
-    } catch (e) {
-        return null;
-    }
-}
 
 function all() {
     return Object.keys(pluginsList);
@@ -27,36 +19,8 @@ function get(ezs, plugin, opts) {
                 }
                 names.forEach((name) => {
                     const before1 = Object.keys(pluginsList);
-                    const plugName1 = resolve(
-                        'ezs-'.concat(name.replace(/^ezs-/, '')),
-                    );
-                    const plugName2 = ezs
-                        .getPath()
-                        .map(dir => path.resolve(dir, name))
-                        .map(fil => resolve(fil))
-                        .filter(fun => fun !== null)
-                        .shift();
-                    const plugName3 = resolve(name);
-                    if (plugName1) {
-                        DEBUG(`Using '${name}' from ${plugName1}`);
-                        // eslint-disable-next-line
-                        ezs.use(require(plugName1));
-                    } else if (plugName2) {
-                        DEBUG(`Using '${name}' from ${plugName2}`);
-                        // eslint-disable-next-line
-                        ezs.use(require(plugName2));
-                    } else if (plugName3) {
-                        DEBUG(`Using '${name}' from ${plugName1}`);
-                        // eslint-disable-next-line
-                        ezs.use(require(plugName3));
-                    } else {
-                        DEBUG(`Unable to find use '${name}' from ${plugName1}`);
-                        DEBUG(`Unable to find use '${name}' from ${plugName2}`);
-                        DEBUG(`Unable to find use '${name}' from ${plugName3}`);
-                        throw new Error(
-                            `'${name}' is not loaded. It was not found (try to install it).`,
-                        );
-                    }
+                    // eslint-disable-next-line
+                    ezs.use(require(useFile(ezs, name)));
                     const after1 = Object.keys(pluginsList);
                     const diff1 = after1.filter(item => before1.indexOf(item) === -1);
                     if (diff1.length > 0) {

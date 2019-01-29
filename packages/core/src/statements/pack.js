@@ -3,10 +3,10 @@
  *
  * @returns {String}
  */
+const eol = '\n';
 export default function pack(data, feed) {
-    const eol = '\n';
     if (this.isLast()) {
-        return feed.send(data);
+        return feed.close();
     }
     return feed.send(JSON.stringify(data).concat(eol));
 }

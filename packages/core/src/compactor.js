@@ -12,35 +12,40 @@ const resolve = (name) => {
 
 const chooseZ = () => {
     if (resolve('node-zstd')) {
-        DEBUG('ezs will use zstd to compress/uncompress stream.');
         // eslint-disable-next-line
         return require('node-zstd');
     }
     if (resolve('zlib')) {
-        DEBUG('ezs will use zlib to compress/uncompress stream.');
         // eslint-disable-next-line
         return require('zlib');
     }
-    DEBUG('ezs will not compress/uncompress stream.');
     return null;
 };
 
 const z = chooseZ();
 
-export function compressStream(ezs) {
-    if (typeof z.createGunzip === 'function') {
+export function compressStream(ezs, opts = {}) {
+    const encoding = opts['Content-Encoding'] || opts['content-encoding'] || 'identity';
+    if (typeof z.createGunzip === 'function' && encoding === 'gzip') {
+        DEBUG('ezs will use zlib to compress stream.');
         return z.createGzip();
-    } if (typeof z.compressStream === 'function') {
+    } if (typeof z.compressStream === 'function' && encoding === 'zstd') {
+        DEBUG('ezs will use zstd to compress stream.');
         return z.compressStream();
     }
+    DEBUG('ezs will not compress stream.');
     return new PassThrough(ezs.bytesMode());
 }
 
-export function uncompressStream(ezs) {
-    if (typeof z.createGunzip === 'function') {
+export function uncompressStream(ezs, opts = {}) {
+    const encoding = opts['Content-Encoding'] || opts['content-encoding'] || 'identity';
+    if (typeof z.createGunzip === 'function' && encoding === 'gzip') {
+        DEBUG('ezs will use zlib to uncompress stream.');
         return z.createGunzip();
-    } if (typeof z.compressStream === 'function') {
+    } if (typeof z.compressStream === 'function' && encoding === 'zstd') {
+        DEBUG('ezs will use zstd to uncompress stream.');
         return z.decompressStream();
     }
+    DEBUG('ezs will not uncompress stream.');
     return new PassThrough(ezs.bytesMode());
 }

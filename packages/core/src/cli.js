@@ -2,9 +2,10 @@ import fs from 'fs';
 import { PassThrough } from 'stream';
 import yargs from 'yargs';
 import debug from 'debug';
-import { DEBUG } from './constants';
+import { DEBUG, NSHARDS, HWM_BYTES, HWM_OBJECT, A_ENCODING } from './constants';
 import ezs from '.';
 import Commands from './commands';
+import File from './file';
 import { version } from '../package.json';
 
 export default function cli(errlog) {
@@ -38,12 +39,19 @@ export default function cli(errlog) {
             },
             highWaterMark: {
                 describe: 'Change high water mark',
-                default: '16:16384',
+                default: `${HWM_OBJECT}:${HWM_BYTES}`,
                 type: 'string',
             },
             nShards: {
                 describe: 'Change number of shards',
                 type: 'number',
+                default: NSHARDS,
+            },
+            encoding: {
+                alias: 'z',
+                type: 'string',
+                default: A_ENCODING,
+                describe: 'Change the compression scheme to improve transfers',
             },
             env: {
                 alias: 'e',
@@ -51,17 +59,6 @@ export default function cli(errlog) {
                 describe: 'Execute commands with environement variables as input',
                 type: 'boolean',
             },
-            input: {
-                alias: 'i',
-                describe: 'Execute commands with a dedicated directory as input',
-                type: 'string',
-            },
-            output: {
-                alias: 'o',
-                describe: 'Save result output to a dedicated directory',
-                type: 'string',
-            },
-
         })
         .epilogue('for more information, find our manual at https://github.com/touv/node-ezs');
 
@@ -88,6 +85,9 @@ export default function cli(errlog) {
         process.exit(1);
     }
 
+    if (argv.encoding) {
+        ezs.settings.encoding = argv.encoding;
+    }
 
     if (firstarg) {
         let file;
@@ -99,36 +99,31 @@ export default function cli(errlog) {
             process.exit(1);
         }
 
-        if (!fs.statSync(file).isFile()) {
+        const script = File(ezs, file);
+        if (!script) {
             errlog(`${firstarg} isn't a file.`);
             yargs.showHelp();
             process.exit(1);
         }
-
-        const script = fs.readFileSync(file).toString();
         const cmds = new Commands(ezs.parseString(script));
 
-        let environement;
+        let varenvs;
         let input;
         if (argv.env) {
-            DEBUG('Reading environement variables...');
-            environement = {};
+            DEBUG('Reading varenvs variables...');
+            varenvs = {};
             input = new PassThrough(ezs.objectMode());
             input.write(process.env);
             input.end();
-        } else if (argv.input) {
-            DEBUG('Reading diretory input...');
-            environement = { ...process.env };
-            input = ezs.load(argv.input);
         } else {
             DEBUG('Reading standard input...');
-            environement = { ...process.env };
+            varenvs = { ...process.env };
             input = process.stdin;
             input.resume();
             input.setEncoding('utf8');
         }
-
-        const servers = Array.isArray(argv.server) ? argv.server : [argv.server];
+        const server = Array.isArray(argv.server) ? argv.server : [argv.server];
+        const environement = { ...varenvs, server };
         let stream1;
         if (argv.server) {
             DEBUG('Connecting to server...');
@@ -137,25 +132,37 @@ export default function cli(errlog) {
             const stream0 = usecmds.reduce(ezs.command, input);
             stream1 = runplan.reduce((stream, section) => {
                 if (section.func === 'pipeline') {
-                    return stream.pipe(ezs.pipeline(section.cmds, environement));
+                    return stream
+                        .pipe(ezs.pipeline(section.cmds, environement))
+                        .pipe(ezs.catch((e) => {
+                            errlog(e.message.split('\n').shift());
+                            process.exit(2);
+                        }));
                 }
-                return stream.pipe(ezs.dispatch(section.cmds, servers, environement));
+                return stream
+                    .pipe(ezs('dispatch', {
+                        commands: section.cmds,
+                        server,
+                        environement,
+                    }))
+                    .pipe(ezs.catch((e) => {
+                        errlog(e.message.split('\n').shift());
+                        process.exit(2);
+                    }));
             }, stream0);
         } else {
-            stream1 = input.pipe(ezs.pipeline(cmds.get(), environement));
+            stream1 = input
+                .pipe(ezs.pipeline(cmds.get(), environement))
+                .pipe(ezs.catch((e) => {
+                    errlog(e.message.split('\n').shift());
+                    process.exit(2);
+                }));
         }
-        if (argv.output) {
-            const stream2a = stream1.pipe(ezs.save(argv.output));
-            stream2a.on('end', () => {
-                process.exit(0);
-            });
-        } else {
-            const stream2b = stream1.pipe(ezs.toBuffer());
-            stream2b.on('end', () => {
-                process.exit(0);
-            });
-            stream2b.pipe(process.stdout);
-        }
+        const stream2 = stream1.pipe(ezs.toBuffer());
+        stream2.on('end', () => {
+            process.exit(0);
+        });
+        stream2.pipe(process.stdout);
     }
     return argv;
 }

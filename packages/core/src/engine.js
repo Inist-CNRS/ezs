@@ -50,6 +50,7 @@ export default class Engine extends SafeTransform {
         };
         const push = (data) => {
             if (data instanceof Error) {
+                DEBUG(`Ignoring error at item #${currentIndex}`);
                 return this.push(createErrorWith(data, currentIndex));
             }
             if (data === null) {
@@ -73,12 +74,14 @@ export default class Engine extends SafeTransform {
                 }
                 return defval;
             };
-            Promise.resolve(this.func.call(this.scope, chunk, feed)).catch((e) => {
-                warn(e);
+            Promise.resolve(this.func.call(this.scope, chunk, feed, currentIndex)).catch((e) => {
+                DEBUG(`Async error thrown at item #${currentIndex}, pipeline is broken`);
+                this.emit('error', createErrorWith(e, currentIndex));
                 done();
             });
         } catch (e) {
-            warn(e);
+            DEBUG(`Sync error thrown at item #${currentIndex}, pipeline carries errors`);
+            this.push(createErrorWith(e, currentIndex));
             done();
         }
     }

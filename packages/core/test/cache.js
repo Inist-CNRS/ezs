@@ -111,31 +111,3 @@ describe('cache - second call (object)', () => {
         }
     });
 });
-const savedir = path.resolve(os.tmpdir(), 'test');
-
-describe('disk - first save in disk', () => {
-    it('try', (done) => {
-        const ten = new Decade();
-        const disk = ezs.save(savedir);
-        ten
-            .pipe(disk)
-            .on('finish', () => {
-                done();
-            });
-    });
-});
-
-describe('disk - second load from disk', () => {
-    it('try', (done) => {
-        let res = 0;
-        const ten = ezs.load(savedir);
-        ten
-            .on('data', (chunk) => {
-                res += chunk;
-            })
-            .on('end', () => {
-                assert.strictEqual(res, 45);
-                done();
-            });
-    });
-});

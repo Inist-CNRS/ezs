@@ -19,6 +19,9 @@ const parseOpts = (obj) => {
 };
 
 export default function Script(commands) {
+    if (!commands) {
+        return [];
+    }
     const lines = commands.split(/\r\n|\r|\n/);
     const result = [];
     lines.forEach((line) => {

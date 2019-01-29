@@ -1,133 +1,85 @@
-import crypto from 'crypto';
 import cluster from 'cluster';
 import http from 'http';
 import {
     DEBUG, PORT, VERSION, NCPUS,
 } from './constants';
 import Parameter from './parameter';
-import JSONezs from './json';
 
 const signals = ['SIGINT', 'SIGTERM'];
 
-function receive(data, feed) {
-    if (!this.commands) {
-        this.commands = [];
-    }
-    if (this.isLast()) {
-        feed.write(JSON.stringify(this.commands));
-        return feed.close();
-    }
-    this.commands.push(data);
-    return feed.end();
-}
-
-function register(store) {
-    function registerCommand(data, feed) {
-        if (this.isLast()) {
-            return feed.close();
-        }
-        const shasum = crypto.createHash('sha1');
-        shasum.update(data);
-        const cmdid = shasum.digest('hex');
-        return store
-            .set(cmdid, data)
-            .then(() => {
-                try {
-                    const id = JSON.stringify(cmdid);
-                    feed.send(id);
-                } catch (error) {
-                    feed.send(error);
-                }
-            }, (error) => {
-                feed.send(error);
-            });
-    }
-    return registerCommand;
-}
-
-function createServer(ezs, store, port) {
+function createServer(ezs, port = PORT) {
     const startedAt = Date.now();
     const server = http
         .createServer((request, response) => {
             const { url, method, headers } = request;
-            const cmdid = url.slice(1);
             response.socket.setNoDelay(false);
             if (url === '/' && method === 'POST') {
-                if (headers['x-parameter']) {
-                    const parameters = Parameter.unpack(headers['x-parameter']);
-                    Parameter.put(ezs, parameters);
-                }
-                request
-                    .pipe(ezs.uncompress())
-                    .pipe(ezs('unpack'))
-                    .pipe(ezs('ungroup'))
-                    .pipe(ezs(receive))
-                    .pipe(ezs(register(store)))
-                    .pipe(ezs.catch((error) => {
-                        DEBUG('The server has detected an error while registering statements', error);
-                    }))
-                    .pipe(response);
-            } else if (url.match(/^\/[a-f0-9]{40}$/i) && method === 'POST') {
-                store.get(cmdid).then((cmds) => {
-                    let processor;
-                    try {
-                        const commands = JSONezs.parse(cmds);
-                        processor = ezs.pipeline(commands, headers);
-                    } catch (e) {
-                        DEBUG(`Server cannot execute statements with ID: ${cmdid}`, e);
-                        response.writeHead(400);
-                        response.end();
-                        return;
-                    }
-                    DEBUG(`Server will execute statements with ID: ${cmdid}`);
-                    response.writeHead(200);
+                try {
+                    response.setHeader('Content-Encoding', headers['content-encoding']);
+                    const commands = Object.keys(headers)
+                        .filter(headerKey => (headerKey.indexOf('x-command') === 0))
+                        .map(headerKey => parseInt(headerKey.replace('x-command-', ''), 10))
+                        .sort()
+                        .map(commandIndex => Parameter.unscramble(headers[`x-command-${commandIndex}`]));
+                    const environment = Object.keys(headers)
+                        .filter(headerKey => (headerKey.indexOf('x-environment') === 0))
+                        .map(headerKey => headerKey.replace('x-environment-', ''))
+                        .map(environmentKey => ({
+                            [environmentKey]: Parameter.unpack(headers[`x-environment-${environmentKey}`]),
+                        }))
+                        .reduce((prev, cur) => Object.assign(prev, cur), {});
+                    DEBUG(`PID ${process.pid} will execute ${commands.length || 0} commands with ${environment.length || 0} global parameters`);
+                    const processor = ezs.pipeline(commands, environment);
                     request
-                        .pipe(ezs.uncompress())
+                        .pipe(ezs.uncompress(headers))
                         .pipe(ezs('unpack'))
                         .pipe(ezs('ungroup'))
                         .pipe(processor)
                         .pipe(ezs.catch((error) => {
-                            DEBUG(`Server has caught an error in statements with ID: ${cmdid}`, error);
+                            DEBUG('Server has caught an error', error);
+                            if (!response.headersSent) {
+                                response.writeHead(400, { 'X-Error': Parameter.encode(error.toString()) });
+                                response.end();
+                            }
+                        }))
+                        .pipe(ezs((input, output, idx) => {
+                            if (idx === 1) {
+                                response.writeHead(200);
+                            }
+                            return output.send(input);
                         }))
                         .pipe(ezs('group'))
                         .pipe(ezs('pack'))
-                        .pipe(ezs.compress())
+                        .pipe(ezs.compress(headers))
                         .pipe(response);
                     request.resume();
-                }, (error) => {
-                    DEBUG(`Server failed to load statements with ID: ${cmdid}`, error);
-                    response.writeHead(500);
+                } catch (error) {
+                    DEBUG('Server cannot execute commands', error);
+                    response.writeHead(400, { 'X-error': Parameter.encode(error.toString()) });
                     response.end();
-                });
+                }
             } else if (url === '/' && method === 'GET') {
-                store.size().then((size) => {
-                    const info = {
-                        concurrency: NCPUS,
-                        register: size,
-                        uptime: Date.now() - startedAt,
-                        timestamp: Date.now(),
-                        version: VERSION,
-                    };
-                    const responseBody = JSON.stringify(info);
-                    const responseHeaders = {
-                        'Content-Type': 'application/json',
-                        'Content-Length': Buffer.byteLength(responseBody),
-                    };
-                    response.writeHead(200, responseHeaders);
-                    response.write(responseBody);
-                    response.end();
-                }, (error) => {
-                    DEBUG('Server failed to compute statistics', error);
-                    response.writeHead(500);
-                    response.end();
-                });
+                const info = {
+                    concurrency: NCPUS,
+                    uptime: Date.now() - startedAt,
+                    timestamp: Date.now(),
+                    version: VERSION,
+                };
+                const responseBody = JSON.stringify(info);
+                const responseHeaders = {
+                    'Content-Type': 'application/json',
+                    'Content-Length': Buffer.byteLength(responseBody),
+                };
+                response.writeHead(200, responseHeaders);
+                response.write(responseBody);
+                response.end();
             } else {
                 response.writeHead(404);
                 response.end();
             }
         });
     server.setTimeout(0);
-    server.listen(port || PORT);
+    server.listen(port);
     signals.forEach(signal => process.on(signal, () => {
         DEBUG(`Signal received, stoping server with PID ${process.pid}`);
         server.close(() => process.exit(0));
@@ -136,7 +88,7 @@ function createServer(ezs, store, port) {
     return server;
 }
 
-function createCluster(ezs, store, port) {
+function createCluster(ezs, port) {
     let term = false;
     if (cluster.isMaster) {
         for (let i = 0; i < NCPUS; i += 1) {
@@ -154,7 +106,7 @@ function createCluster(ezs, store, port) {
             });
         });
     } else {
-        createServer(ezs, store, port);
+        createServer(ezs, port);
     }
     return cluster;
 }

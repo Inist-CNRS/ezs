@@ -10,6 +10,8 @@ const {
 
 ezs.use(require('./locals'));
 
+ezs.addPath(__dirname);
+
 ezs.config('stepper', {
     step: 4,
 });
@@ -30,7 +32,7 @@ class Upto extends Readable {
         }
     }
 }
-describe('through a server', () => {
+describe('dispatch through server(s)', () => {
     const server1 = ezs.createServer();
     const server2 = ezs.createServer(30001);
     const server3 = ezs.createServer(30002);
@@ -43,13 +45,22 @@ describe('through a server', () => {
         server4.close();
     });
 
-    it('with simple pipeline', (done) => {
-        let res = 0;
+    describe('simple statements, one server', () => {
+        const script = `
+            [use]
+            plugin = test/locals
+
+            [increment]
+            step = 3
+
+            [decrement]
+            step = 2
+        `;
         const commands = [
             {
                 name: 'increment',
                 args: {
-                    step: 2,
+                    step: 3,
                 },
             },
             {
@@ -59,63 +70,94 @@ describe('through a server', () => {
                 },
             },
         ];
-        const servers = [
-            '127.0.0.1',
-        ];
-        const ten = new Upto(10);
-        ten
-            .pipe(ezs.dispatch(commands, servers))
-            .on('data', (chunk) => {
-                res += chunk;
-            })
-            .on('end', () => {
-                assert.strictEqual(res, 45);
-                done();
-            });
+        const server = '127.0.0.1';
+
+        it('with object', (done) => {
+            let res = 0;
+            const ten = new Upto(10);
+            ten
+                .pipe(ezs('dispatch', { commands, server }))
+                .pipe(ezs('debug'))
+                .on('data', (chunk) => {
+                    res += chunk;
+                })
+                .on('end', () => {
+                    assert.strictEqual(res, 54);
+                    done();
+                });
+        });
+
+        it('with script', (done) => {
+            let res = 0;
+            const ten = new Upto(10);
+            ten
+                .pipe(ezs('dispatch', {
+                    server,
+                    script,
+                }, { toto: 1, titi: 'truc' }))
+                .on('data', (chunk) => {
+                    res += chunk;
+                })
+                .on('end', () => {
+                    assert.strictEqual(res, 54);
+                    done();
+                });
+        });
+
+        it('with file', (done) => {
+            let res = 0;
+            const ten = new Upto(10);
+            ten
+                .pipe(ezs('dispatch', {
+                    server,
+                    file: './script.ini',
+                }))
+                .on('data', (chunk) => {
+                    res += chunk;
+                })
+                .on('end', () => {
+                    assert.strictEqual(res, 54);
+                    done();
+                });
+        });
+
+
+        it('with script', (done) => {
+            let res = 0;
+            const ten = new Upto(10);
+            ten
+                .pipe(ezs('dispatch', {
+                    server,
+                    script,
+                }))
+                .on('data', (chunk) => {
+                    res += chunk;
+                })
+                .on('end', () => {
+                    assert.strictEqual(res, 54);
+                    done();
+                });
+        });
+
+        it('with commands', (done) => {
+            let res = 0;
+            const ten = new Upto(10);
+            ten
+                .pipe(ezs('dispatch', {
+                    server,
+                    commands,
+                }))
+                .on('data', (chunk) => {
+                    res += chunk;
+                })
+                .on('end', () => {
+                    assert.strictEqual(res, 54);
+                    done();
+                });
+        });
     });
 
-    it('with simple pipeline (N connections)', (done) => {
-        let res = 0;
-        const commands = [
-            {
-                name: 'increment',
-                args: {
-                    step: 2,
-                },
-            },
-            {
-                name: 'decrement',
-                args: {
-                    step: 2,
-                },
-            },
-        ];
-        const servers = [
-            '127.0.0.1',
-            '127.0.0.1',
-            '127.0.0.1',
-            '127.0.0.1',
-            '127.0.0.1',
-            '127.0.0.1',
-            '127.0.0.1',
-            '127.0.0.1',
-            '127.0.0.1',
-            '127.0.0.1',
-        ];
-        const ten = new Upto(10);
-        ten
-            .pipe(ezs.dispatch(commands, servers))
-            .on('data', (chunk) => {
-                res += chunk;
-            })
-            .on('end', () => {
-                assert.strictEqual(res, 45);
-                done();
-            });
-    });
-
-
-    it('with second pipeline with different parameter', (done) => {
+    it('simple statements, N servers', (done) => {
         let res = 0;
         const commands = [
             {
@@ -131,12 +173,22 @@ describe('through a server', () => {
                 },
             },
         ];
-        const servers = [
+        const server = [
+            '127.0.0.1',
+            '127.0.0.1',
+            '127.0.0.1',
+            '127.0.0.1',
+            '127.0.0.1',
+            '127.0.0.1',
+            '127.0.0.1',
+            '127.0.0.1',
+            '127.0.0.1',
             '127.0.0.1',
         ];
         const ten = new Upto(10);
         ten
-            .pipe(ezs.dispatch(commands, servers))
+            .pipe(ezs('dispatch', { commands, server }))
+            .pipe(ezs.catch())
             .on('data', (chunk) => {
                 res += chunk;
             })
@@ -146,7 +198,39 @@ describe('through a server', () => {
             });
     });
 
-    it('with pipeline contains UTF8 parameter', (done) => {
+
+    it('simple statements, one server but with different parameter', (done) => {
+        let res = 0;
+        const commands = [
+            {
+                name: 'increment',
+                args: {
+                    step: 3,
+                },
+            },
+            {
+                name: 'decrement',
+                args: {
+                    step: 2,
+                },
+            },
+        ];
+        const server = [
+            '127.0.0.1',
+        ];
+        const ten = new Upto(10);
+        ten
+            .pipe(ezs('dispatch', { commands, server }))
+            .on('data', (chunk) => {
+                res += chunk;
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 54);
+                done();
+            });
+    });
+
+    it('with commands using args contains UTF8 parameter', (done) => {
         const res = [];
         const commands = [
             {
@@ -157,12 +241,12 @@ describe('through a server', () => {
                 },
             },
         ];
-        const servers = [
+        const server = [
             '127.0.0.1',
         ];
         const ten = new Upto(10);
         ten
-            .pipe(ezs.dispatch(commands, servers))
+            .pipe(ezs('dispatch', { commands, server }))
             .on('data', (chunk) => {
                 res.push(chunk);
             })
@@ -175,19 +259,19 @@ describe('through a server', () => {
     });
 
 
-    it('with pipeline with global parameter', (done) => {
+    it('with commands using global parameter', (done) => {
         let res = 0;
         const commands = [
             {
                 name: 'stepper',
             },
         ];
-        const servers = [
+        const server = [
             '127.0.0.1',
         ];
         const ten = new Upto(10);
         ten
-            .pipe(ezs.dispatch(commands, servers))
+            .pipe(ezs('dispatch', { commands, server }))
             .on('data', (chunk) => {
                 res += chunk;
             })
@@ -198,8 +282,7 @@ describe('through a server', () => {
     });
 
 
-    it('with buggy pipeline', (done) => {
-        let res = 0;
+    it('with buggy statements', (done) => {
         const commands = [
             {
                 name: 'increment',
@@ -214,17 +297,15 @@ describe('through a server', () => {
                 },
             },
         ];
-        const servers = [
+        const server = [
             '127.0.0.1',
         ];
         const ten = new Upto(10);
         ten
-            .pipe(ezs.dispatch(commands, servers))
-            .on('data', (chunk) => {
-                res += chunk;
-            })
-            .on('end', () => {
-                assert.strictEqual(res, 0);
+            .pipe(ezs('dispatch', { commands, server }))
+            .pipe(ezs.catch())
+            .on('error', (error) => {
+                assert.ok(error instanceof Error);
                 done();
             });
     });
@@ -237,13 +318,14 @@ describe('through a server', () => {
                 },
             },
         ];
-        const servers = [
+        const server = [
             '127.0.0.0',
         ];
         const ten = new Upto(10);
         let semaphore = true;
         ten
-            .pipe(ezs.dispatch(commands, servers))
+            .pipe(ezs('dispatch', { commands, server }))
+            .pipe(ezs.catch())
             .on('error', (error) => {
                 assert(error instanceof Error);
                 if (semaphore) {
@@ -253,7 +335,7 @@ describe('through a server', () => {
             });
     });
 
-    it('with unknowed command in the pipeline', (done) => {
+    it('with an unknowed statement', (done) => {
         const commands = [
             {
                 name: 'increment',
@@ -268,17 +350,19 @@ describe('through a server', () => {
                 },
             },
         ];
-        const servers = [
+        const server = [
             '127.0.0.1',
         ];
         const ten = new Upto(10);
         let semaphore = true;
         ten
-            .pipe(ezs.dispatch(commands, servers))
+            .pipe(ezs('dispatch', { commands, server }))
+            .pipe(ezs.catch())
             .on('error', (error) => {
                 assert(error instanceof Error);
                 if (semaphore) {
                     semaphore = false;
+                    ten.destroy();
                     done();
                 }
             });
@@ -300,7 +384,7 @@ describe('through a server', () => {
                 },
             },
         ];
-        const servers = [
+        const server = [
             '127.0.0.1:30001',
             '127.0.0.1:30002',
             '127.0.0.1:30003',
@@ -308,7 +392,7 @@ describe('through a server', () => {
         let res = 0;
         const ten = new Upto(10);
         ten
-            .pipe(ezs.dispatch(commands, servers))
+            .pipe(ezs('dispatch', { server, commands }))
             .on('data', (chunk) => {
                 res += chunk;
             })
@@ -329,7 +413,7 @@ describe('through a server', () => {
                 },
             },
         ];
-        const servers = [
+        const server = [
             '127.0.0.1:30001',
             '127.0.0.1:30002',
             '127.0.0.1:30003',
@@ -338,7 +422,7 @@ describe('through a server', () => {
         const ten = new Upto(500001);
         ten
             .pipe(ezs('replace', { path: 'a', value: '2' }))
-            .pipe(ezs.dispatch(commands, servers))
+            .pipe(ezs('dispatch', { server, commands })) // ~ 9 seconds
             .on('data', (chunk) => {
                 res += chunk.a;
             })
@@ -349,14 +433,14 @@ describe('through a server', () => {
     }).timeout(100000);
 
     it('with a lot of delayed commands in distributed pipeline', (done) => {
-        const commands = `
+        const script = `
             [use]
             plugin = test/locals
 
             [beat?${M_DISPATCH}]
 
         `;
-        const servers = [
+        const server = [
             '127.0.0.1:30001',
             '127.0.0.1:30002',
             '127.0.0.1:30003',
@@ -364,7 +448,7 @@ describe('through a server', () => {
         let res = 0;
         const ten = new Upto(10001);
         ten
-            .pipe(ezs.dispatch(ezs.parseString(commands), servers))
+            .pipe(ezs('dispatch', { script, server }))
             .on('data', (chunk) => {
                 res += chunk.beat;
             })
@@ -376,7 +460,7 @@ describe('through a server', () => {
 
 
     it('with a same commands', (done) => {
-        const commands = `
+        const script = `
             [use]
             plugin = test/locals
 
@@ -384,7 +468,7 @@ describe('through a server', () => {
             step = 1
 
         `;
-        const commandsOBJ1 = ezs.parseString(commands);
+        const commandsOBJ1 = ezs.parseString(script);
         const commandsSTR1 = JSONezs.stringify(commandsOBJ1);
         const commandsOBJ2 = JSONezs.parse(commandsSTR1);
         const commandsSTR2 = JSONezs.stringify(commandsOBJ2);
@@ -411,7 +495,7 @@ describe('through a server', () => {
 
 
     it('with stuck/unstuck simple pipeline', (done) => {
-        const commands = `
+        const script = `
 
             [replace]
             path = a
@@ -436,7 +520,7 @@ describe('through a server', () => {
 
             [transit]
         `;
-        const servers = [
+        const server = [
             '127.0.0.1',
         ];
         const env = {
@@ -450,7 +534,7 @@ describe('through a server', () => {
             { a: 4, b: 9 },
             { a: 5, b: 9 },
         ])
-            .pipe(ezs.dispatch(ezs.parseString(commands), servers, env))
+            .pipe(ezs('dispatch', { script, server }, env))
             .on('data', (chunk) => {
                 assert(typeof chunk === 'object');
                 res.push(chunk);
@@ -466,6 +550,49 @@ describe('through a server', () => {
                 assert.equal(7, res[2].a);
                 assert.equal(6, res[2].b);
                 assert.equal(5, res[2].c);
+                done();
+            });
+    });
+
+    it('an array of array in a pipeline', (done) => {
+        const script = `
+            [transit]
+        `;
+        const server = [
+            '127.0.0.1',
+        ];
+        const res = [];
+        from([
+            [1, 1, 1, 1],
+            [2, 2, 2, 2],
+            [3, 3, 3, 3],
+            [4, 4, 4, 4],
+            [5, 5, 5, 5],
+        ])
+            .pipe(ezs('dispatch', { script, server }))
+            .on('data', (chunk) => {
+                assert(Array.isArray(chunk));
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(5, res.length);
+                assert.equal(4, res[0].length);
+                assert.equal(4, res[1].length);
+                assert.equal(4, res[2].length);
+                assert.equal(4, res[3].length);
+                assert.equal(4, res[4].length);
+                assert.equal(1, res[0][0]);
+                assert.equal(1, res[0][1]);
+                assert.equal(1, res[0][2]);
+                assert.equal(1, res[0][3]);
+                assert.equal(2, res[1][0]);
+                assert.equal(2, res[1][1]);
+                assert.equal(2, res[1][2]);
+                assert.equal(2, res[1][3]);
+                assert.equal(5, res[4][0]);
+                assert.equal(5, res[4][1]);
+                assert.equal(5, res[4][2]);
+                assert.equal(5, res[4][3]);
                 done();
             });
     });

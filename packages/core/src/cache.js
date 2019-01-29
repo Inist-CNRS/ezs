@@ -32,11 +32,13 @@ export default class Cache {
         const cacheFile = cache.get(key);
         if (cacheFile) {
             if (this.objectMode) {
-                return ezs
-                    .load(cacheFile, { nShards: 1 });
+                return fs.createReadStream(cacheFile)
+                    .pipe(ezs.uncompress(ezs.encodingMode()))
+                    .pipe(ezs('unpack'))
+                    .pipe(ezs('ungroup'));
             }
             return fs.createReadStream(cacheFile)
-                .pipe(ezs.uncompress());
+                .pipe(ezs.uncompress(ezs.encodingMode()));
         }
         return null;
     }
@@ -50,10 +52,13 @@ export default class Cache {
         let cacheOutput;
         if (this.objectMode) {
             cacheOutput = cacheInput
-                .pipe(ezs.save(tmpFile, { nShards: 1 }));
+                .pipe(ezs('group'))
+                .pipe(ezs('pack'))
+                .pipe(ezs.compress(ezs.encodingMode()))
+                .pipe(fs.createWriteStream(tmpFile));
         } else {
             cacheOutput = cacheInput
-                .pipe(ezs.compress())
+                .pipe(ezs.compress(ezs.encodingMode()))
                 .pipe(fs.createWriteStream(tmpFile));
         }
         const cachePromise = new Promise((resolve, reject) => cacheOutput.on('error', reject).on('finish', resolve));

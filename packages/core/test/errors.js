@@ -32,14 +32,34 @@ describe('Catch error in a pipeline', () => {
             .pipe(ezs(() => {
                 throw new Error('Bang!');
             }))
-            .on('error', (error) => {
-                assert.equal(error.message.split('\n')[0], 'Processing item #1 failed with Error: Bang!');
+            .on('error', () => {
+                throw new Error('The sync errors should be injected in the pipeline');
+            })
+            .on('data', (chunk) => {
+                assert.ok(chunk instanceof Error);
+            }).on('end', () => {
+                done();
+            });
+    });
+    it('with sync but emit error(throw)', (done) => {
+        const ten = new Decade();
+        ten
+            .pipe(ezs(() => {
+                throw new Error('Bang!');
+            }))
+            .pipe(ezs.catch())
+            .on('error', (e) => {
+                assert.ok(e instanceof Error);
                 done();
             })
             .on('data', () => {
-                throw new Error('no data should be received');
+                throw new Error('ezs.catch emit should emit error');
+            })
+            .on('end', () => {
+                throw new Error('ezs.catch emit should emit error');
             });
     });
+
     // https://bytearcher.com/articles/why-asynchronous-exceptions-are-uncatchable/
     // https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Promise/catch#Les_promesses_n'interceptent_pas_les_exceptions_lev%C3%A9es_de_fa%C3%A7on_asynchrone
     it.skip('with errors in every chunk processed by a asynchronous statement (throw)', (done) => {
@@ -58,6 +78,9 @@ describe('Catch error in a pipeline', () => {
         const ten = new Decade();
         ten
             .pipe(ezs('boum'))
+            .on('error', () => {
+                throw new Error('The sent errors should be injected in the pipeline');
+            })
             .on('data', (chunk) => {
                 assert.ok(chunk instanceof Error);
             })
@@ -108,7 +131,7 @@ describe('Catch error in a pipeline', () => {
             const ten = new Decade();
             ten
                 .pipe(ezs('boum'))
-                .pipe(ezs.catch())
+                .pipe(ezs.catch(() => null))
                 .on('data', () => {
                     counter += 1;
                 })

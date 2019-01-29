@@ -1,16 +1,26 @@
 import Statement from './statement';
+import JSONezs from './json';
 
 const parametersList = {};
 
+function encode(string) {
+    return Buffer.from(string).toString('base64');
+}
+
+function decode(string) {
+    return Buffer.from(string, 'base64').toString();
+}
+
 function pack() {
-    const buf = Buffer.from(JSON.stringify(parametersList));
-    return buf.toString('base64');
+    return encode(JSON.stringify(parametersList));
 }
 
 function unpack(data) {
-    const buf = Buffer.from(data, 'base64');
-    const txt = buf.toString('ascii');
-    return JSON.parse(txt);
+    return JSON.parse(decode(data));
+}
+
+function unscramble(data) {
+    return JSONezs.parse(decode(data));
 }
 
 function get(ezs, pluginName) {
@@ -37,4 +47,7 @@ export default {
     put,
     pack,
     unpack,
+    encode,
+    decode,
+    unscramble,
 };
