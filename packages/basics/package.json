@@ -25,6 +25,7 @@
     "flat": "2.0.1",
     "isomorphic-fetch": "2.2.1",
     "tmp-filepath": "2.0.0",
+    "xml-mapping": "1.7.1",
     "xml-splitter": "1.2.1"
   },
   "main": "./lib/index.js",

@@ -1,6 +1,7 @@
 const assert = require('assert');
 const from = require('from');
 const ezs = require('ezs');
+const { PassThrough } = require('stream');
 
 ezs.use(require('../lib'));
 
@@ -304,6 +305,40 @@ describe('test', () => {
                 done();
             });
     });
+
+    it.only('XMLParse#1', (done) => {
+        const pass = new PassThrough();
+        let cnt = 0;
+        pass.pipe(ezs('XMLParse', { separator: '/a/b' }))
+            .on('data', (chunk) => {
+                assert(chunk.$t);
+                cnt += 1;
+            })
+            .on('end', () => {
+                assert.equal(cnt, 7);
+                done();
+            });
+        pass.end(
+            '<a><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b></a>',
+        );
+    });
+    it.only('XMLString#1', (done) => {
+        const xml = '<a><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b></a>';
+        const pass = new PassThrough();
+        const output = [];
+        pass.pipe(ezs('XMLParse', { separator: '/a/b' }))
+            .pipe(ezs('XMLString', { rootElement: 'a', contentElement: 'b' }))
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(xml, output.join(''));
+                done();
+            });
+        pass.end(xml);
+    });
+
+
 
     /*
     it('URLGet #1', (done) => {
