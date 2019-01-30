@@ -1,4 +1,4 @@
-import XML from 'xml-mapping'
+import XML from 'xml-mapping';
 
 function XMLString(data, feed) {
     const rootElement = this.getParam('rootElement', 'items');
