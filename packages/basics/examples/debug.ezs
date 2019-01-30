@@ -1,0 +1,11 @@
+#!/usr/bin/env EZS_ENV="true" ezs
+
+[use]
+plugin = basics
+
+[debug]
+text = Receive this object 
+
+[replace]
+
+[JSONString]

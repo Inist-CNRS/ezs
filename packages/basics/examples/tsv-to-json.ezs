@@ -1,0 +1,19 @@
+#!/usr/bin/env ezs
+
+# Take CSV input and get JSON
+
+[use]
+plugin = basics
+
+# Parse CSV input
+[CSVParse]
+separator = \t
+quote = \b
+
+# Transform each line on a object
+[CSVObject]
+
+# generate JSON
+[jsonify]
+indent = true
+

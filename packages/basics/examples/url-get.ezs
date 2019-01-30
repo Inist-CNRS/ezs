@@ -1,0 +1,28 @@
+#!/usr/bin/env ezs
+
+[use]
+plugin = basics
+
+[CSVParse]
+
+[CSVObject]
+
+[URLGet]
+source = url
+target = content
+
+[assign]
+path = content
+value = get('content/total').parseInt()
+
+[replace]
+path = local
+value = get('world').filter({ _id: self.year }).first().get('value').defaultTo(0)
+
+[assign]
+path = result
+value = compute("local / world ")
+
+
+[JSONString]
+indent = true
