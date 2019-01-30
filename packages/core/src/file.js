@@ -36,19 +36,21 @@ export function useFile(ezs, name) {
     DEBUG(`Unable to find '${name}' from ${plugName1}`);
     DEBUG(`Unable to find '${name}' from ${plugName2}`);
     DEBUG(`Unable to find '${name}' from ${plugName3}`);
-    throw new Error(
-        `'${name}' is not loaded. It was not found (try to install it).`,
-    );
+    return false;
 }
 
 export default function File(ezs, name) {
     try {
         const filename = useFile(ezs, name);
         if (!filename) {
-            return false;
+            throw new Error(
+                `'${name}' is not loaded. It was not found (try to install it).`,
+            );
         }
         if (!statSync(filename).isFile()) {
-            return false;
+            throw new Error(
+                `'${name}' is not loaded. It was found but it's not regular file.`,
+            );
         }
         ezs.addPath(dirname(filename));
         return readFileSync(filename, 'utf8');
