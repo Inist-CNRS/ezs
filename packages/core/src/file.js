@@ -43,14 +43,10 @@ export default function File(ezs, name) {
     try {
         const filename = useFile(ezs, name);
         if (!filename) {
-            throw new Error(
-                `'${name}' is not loaded. It was not found (try to install it).`,
-            );
+            return false;
         }
         if (!statSync(filename).isFile()) {
-            throw new Error(
-                `'${name}' is not loaded. It was found but it's not regular file.`,
-            );
+            return false;
         }
         ezs.addPath(dirname(filename));
         return readFileSync(filename, 'utf8');
