@@ -14,6 +14,7 @@ import group from './group';
 import ungroup from './ungroup';
 import dispatch from './dispatch';
 import tracer from './tracer';
+import dump from './dump';
 
 export default {
     extract,
@@ -32,4 +33,5 @@ export default {
     ungroup,
     dispatch,
     tracer,
+    dump,
 };
