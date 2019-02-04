@@ -13,3 +13,4 @@ export const PORT = 31976;
 export const HWM_OBJECT = 16;
 export const HWM_BYTES = 16384;
 export const VERSION = version;
+export const STARTED_AT = Date.now();

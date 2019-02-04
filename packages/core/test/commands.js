@@ -2,10 +2,6 @@ import assert from 'assert';
 import ezs from '../src';
 import Commands from '../src/commands';
 
-const {
-    M_DISPATCH,
-} = ezs.constants;
-
 describe('analsye commands', () => {
     it('with simple pipeline', (done) => {
         const commands = `
@@ -18,7 +14,7 @@ describe('analsye commands', () => {
             [increment?single]
             step = 2
 
-            [increment?${M_DISPATCH}]
+            [increment?detachable]
             step = 3
 
             [increment]

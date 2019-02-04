@@ -1,8 +1,15 @@
 import fs from 'fs';
+import path from 'path';
 import { PassThrough } from 'stream';
 import yargs from 'yargs';
 import debug from 'debug';
-import { DEBUG, NSHARDS, HWM_BYTES, HWM_OBJECT, A_ENCODING } from './constants';
+import {
+    DEBUG,
+    NSHARDS,
+    HWM_BYTES,
+    HWM_OBJECT,
+    A_ENCODING,
+} from './constants';
 import ezs from '.';
 import Commands from './commands';
 import File from './file';
@@ -22,9 +29,9 @@ export default function cli(errlog) {
             },
             daemon: {
                 alias: 'd',
-                default: false,
+                default: path.resolve(process.cwd(), './routines'),
                 describe: 'Launch daemon',
-                type: 'boolean',
+                type: 'string',
             },
             server: {
                 alias: 's',
@@ -75,18 +82,25 @@ export default function cli(errlog) {
     if (args.nShards) {
         ezs.settings.nShards = argv.nShards;
     }
-
     if (argv.daemon) {
+        try {
+            ezs.settings.servePath = fs.realpathSync(argv.daemon);
+        } catch (e) {
+            errlog(`Error: ${argv.daemon} doesn't exists.`);
+            yargs.showHelp();
+            process.exit(1);
+        }
+        ezs.settings.nShards = Number(argv.nShards);
+        DEBUG(`Serving ${ezs.settings.servePath} with ${ezs.settings.nShards} shards`);
         return ezs.createCluster(port);
     }
-
-    if (!argv.daemon && !firstarg) {
-        yargs.showHelp();
-        process.exit(1);
-    }
-
     if (argv.encoding) {
         ezs.settings.encoding = argv.encoding;
+    }
+
+    if (!firstarg) {
+        yargs.showHelp();
+        return process.exit(1);
     }
 
     if (firstarg) {
@@ -94,14 +108,14 @@ export default function cli(errlog) {
         try {
             file = fs.realpathSync(firstarg);
         } catch (e) {
-            errlog(`${firstarg} doesn't exists.`);
+            errlog(`Error: ${firstarg} doesn't exists.`);
             yargs.showHelp();
             process.exit(1);
         }
 
         const script = File(ezs, file);
         if (!script) {
-            errlog(`${firstarg} isn't a file.`);
+            errlog(`Error: ${firstarg} isn't a file.`);
             yargs.showHelp();
             process.exit(1);
         }

@@ -1,3 +1,4 @@
+import path from 'path';
 import { PassThrough } from 'stream';
 import pumpify from 'pumpify';
 import Engine from './engine';
@@ -27,6 +28,7 @@ ezs.settings = {
     ],
     nShards: NSHARDS,
     encoding: A_ENCODING,
+    servePath: process.cwd(),
 };
 ezs.objectMode = () => ({
     objectMode: true,
@@ -39,7 +41,8 @@ ezs.bytesMode = () => ({
 ezs.encodingMode = () => ({
     'Content-Encoding': String(ezs.settings.encoding) || A_ENCODING,
 });
-ezs.constants = { M_SINGLE, M_DISPATCH, M_NORMAL };
+ezs.fileToServe = file => path.join(ezs.settings.servePath, file);
+
 ezs.config = (name, options) => Parameter.set(ezs, name, options);
 ezs.pipeline = (commands, environment) => {
     if (!Array.isArray(commands)) {

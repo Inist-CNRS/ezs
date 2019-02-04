@@ -1,17 +1,16 @@
 import assert from 'assert';
+import os from 'os';
 import from from 'from';
+import fetch from 'node-fetch';
 import { Readable } from 'stream';
 import ezs from '../src';
 import JSONezs from '../src/json';
-
-const {
-    M_DISPATCH,
-} = ezs.constants;
 
 ezs.use(require('./locals'));
 
 ezs.addPath(__dirname);
 
+ezs.settings.servePath = __dirname;
 ezs.config('stepper', {
     step: 4,
 });
@@ -43,6 +42,25 @@ describe('dispatch through server(s)', () => {
         server2.close();
         server3.close();
         server4.close();
+    });
+
+    it('get information', (done) => {
+        fetch('http://127.0.0.1:31976/')
+            .then(res => res.json())
+            .then((json) => {
+                assert(json.uptime);
+                assert.equal(os.cpus().length, json.concurrency);
+                done();
+            });
+    });
+
+    it('get script', (done) => {
+        fetch('http://127.0.0.1:31976/script.ini')
+            .then(res => res.text())
+            .then((text) => {
+                assert(text);
+                done();
+            });
     });
 
     describe('simple statements, one server', () => {
@@ -371,14 +389,14 @@ describe('dispatch through server(s)', () => {
         const commands = [
             {
                 name: 'increment',
-                mode: M_DISPATCH,
+                mode: 'detachable',
                 args: {
                     step: 3,
                 },
             },
             {
                 name: 'decrement',
-                mode: M_DISPATCH,
+                mode: 'detachable',
                 args: {
                     step: 2,
                 },
@@ -406,7 +424,7 @@ describe('dispatch through server(s)', () => {
         const commands = [
             {
                 name: 'replace',
-                mode: M_DISPATCH,
+                mode: 'detachable',
                 args: {
                     path: 'a',
                     value: 1,
@@ -437,7 +455,7 @@ describe('dispatch through server(s)', () => {
             [use]
             plugin = test/locals
 
-            [beat?${M_DISPATCH}]
+            [beat?detachable]
 
         `;
         const server = [
