@@ -29,7 +29,7 @@ export default function cli(errlog) {
             },
             daemon: {
                 alias: 'd',
-                default: path.resolve(process.cwd(), './routines'),
+                default: process.cwd(),
                 describe: 'Launch daemon',
                 type: 'string',
             },
