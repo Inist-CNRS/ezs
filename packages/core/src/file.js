@@ -39,7 +39,13 @@ export function useFile(ezs, name) {
     return false;
 }
 
-
+export function isFile(file) {
+    try {
+        return statSync(file).isFile();
+    } catch (e) {
+        return false;
+    }
+}
 
 export default function File(ezs, name) {
     try {
@@ -47,7 +53,7 @@ export default function File(ezs, name) {
         if (!filename) {
             return false;
         }
-        if (!statSync(filename).isFile()) {
+        if (!isFile(filename)) {
             return false;
         }
         ezs.addPath(dirname(filename));
