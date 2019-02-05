@@ -1,6 +1,8 @@
 import cluster from 'cluster';
 import http from 'http';
+import controlServer from 'http-shutdown';
 import regex from 'filename-regex';
+import { parse } from 'url';
 import knownPipeline from './knownPipeline';
 import unknownPipeline from './unknownPipeline';
 import serverInformation from './serverInformation';
@@ -13,31 +15,36 @@ import {
 
 const isPipeline = filename => (filename.match(regex()).shift() !== undefined);
 
-function createMidddleware(ezs, method, url) {
-    DEBUG(`Create middleware for ${method} ${url}`);
-    if (method === 'POST' && url === '/') {
+function createMidddleware(ezs, method, pathname) {
+    if (method === 'POST' && pathname === '/') {
+        DEBUG(`Create middleware 'unknownPipeline' for ${method} ${pathname}`);
         return unknownPipeline(ezs);
     }
-    if (method === 'GET' && url === '/') {
+    if (method === 'GET' && pathname === '/') {
+        DEBUG(`Create middleware 'serverInformation' for ${method} ${pathname}`);
         return serverInformation(ezs);
     }
-    if (method === 'GET' && isPipeline(url)) {
+    if (method === 'GET' && isPipeline(pathname)) {
+        DEBUG(`Create middleware 'serverPipeline' for ${method} ${pathname}`);
         return serverPipeline(ezs);
     }
-    if (method === 'POST' && isPipeline(url)) {
+    if (method === 'POST' && isPipeline(pathname)) {
+        DEBUG(`Create middleware 'knownPipeline' for ${method} ${pathname}`);
         return knownPipeline(ezs);
     }
+    DEBUG(`Create middleware 'notFound' for ${method} ${pathname}`);
     return notFound();
 }
 
 const signals = ['SIGINT', 'SIGTERM'];
 
 function createServer(ezs, port = PORT) {
-    const server = http
+    const server = controlServer(http
         .createServer((request, response) => {
-            const { url, method } = request;
+            const { method } = request;
             response.socket.setNoDelay(false);
-            const middleware = createMidddleware(ezs, method, url);
+            request.url = parse(request.url, true);
+            const middleware = createMidddleware(ezs, method, request.url.pathname);
             try {
                 middleware(request, response);
             } catch (error) {
@@ -46,12 +53,12 @@ function createServer(ezs, port = PORT) {
                 response.end();
             }
             return true;
-        });
+        }));
     server.setTimeout(0);
     server.listen(port);
     signals.forEach(signal => process.on(signal, () => {
         DEBUG(`Signal received, stoping server with PID ${process.pid}`);
-        server.close(() => process.exit(0));
+        server.shutdown(() => process.exit(0));
     }));
     DEBUG(`Server starting with PID ${process.pid} and listening on port ${port}`);
     return server;
