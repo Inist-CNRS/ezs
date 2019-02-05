@@ -1,26 +1,22 @@
 import path from 'path';
-import fs from 'fs';
+import { createReadStream } from 'fs';
+import { isFile } from '../file';
 
-const knownPipeline = ezs => (request, response) => {
+const serverPipeline = ezs => (request, response) => {
     const { url } = request;
     const filePath = ezs.fileToServe(url);
     const { fileName } = path.parse(filePath);
-    try {
-        const fileExists = fs.statSync(filePath).isFile();
-        if (fileExists) {
-            response.writeHead(200, {
-                'Content-Type': 'text/plain',
-                'Content-Disposition': `attachment; filename=${fileName}`,
-            });
-            fs.createReadStream(filePath).pipe(response);
-        } else {
-            response.writeHead(404);
-            response.end();
-        }
-    } catch (e) {
+    if (!isFile(filePath)) {
         response.writeHead(404);
         response.end();
+        return false;
     }
+    response.writeHead(200, {
+        'Content-Type': 'text/plain',
+        'Content-Disposition': `attachment; filename=${fileName}`,
+    });
+    createReadStream(filePath).pipe(response);
+    return true;
 };
 
-export default knownPipeline;
+export default serverPipeline;
