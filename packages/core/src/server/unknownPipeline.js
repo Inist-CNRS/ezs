@@ -3,7 +3,7 @@ import Parameter from '../parameter';
 
 const unknownPipeline = ezs => (request, response) => {
     const { headers } = request;
-    response.setHeader('Content-Encoding', headers['content-encoding']);
+    response.setHeader('Content-Encoding', headers['content-encoding'] || 'identity');
     const commands = Object.keys(headers)
         .filter(headerKey => (headerKey.indexOf('x-command') === 0))
         .map(headerKey => parseInt(headerKey.replace('x-command-', ''), 10))
@@ -16,7 +16,7 @@ const unknownPipeline = ezs => (request, response) => {
             [environmentKey]: Parameter.unpack(headers[`x-environment-${environmentKey}`]),
         }))
         .reduce((prev, cur) => Object.assign(prev, cur), {});
-    DEBUG(`PID ${process.pid} will execute ${commands.length || 0} commands with ${environment.length || 0} global parameters`);
+    DEBUG(`PID ${process.pid} will execute ${commands.length || 0} commands with ${Object.keys(environment).length || 0} global parameters`);
     const processor = ezs.pipeline(commands, environment);
     request
         .pipe(ezs.uncompress(headers))

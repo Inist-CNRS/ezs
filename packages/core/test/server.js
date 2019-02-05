@@ -54,14 +54,67 @@ describe('dispatch through server(s)', () => {
             });
     });
 
+    describe('simple known statements', () => {
+        it('transit.ini', (done) => {
+            const stream = from([
+                'hello',
+                'world',
+            ]);
+            fetch('http://127.0.0.1:31976/transit.ini', { method: 'POST', body: stream })
+                .then(res => res.text())
+                .then((text) => {
+                    assert.equal(text, 'helloworld');
+                    done();
+                })
+                .catch(done);
+        });
+        it('transit.ini with paramaters', (done) => {
+            const stream = from([
+                'hello',
+                'world',
+            ]);
+            fetch('http://127.0.0.1:31976/transit.ini?toto=titi', { method: 'POST', body: stream })
+                .then(res => res.text())
+                .then((text) => {
+                    assert.equal(text, 'helloworld');
+                    done();
+                })
+                .catch(done);
+        });
+        it('replace.ini with paramaters', (done) => {
+            const stream = from([
+                '{"a":1}\n{"a":2}\n{"a":3}\n',
+            ]);
+            fetch('http://127.0.0.1:31976/replace.ini?key=a&with=titi', { method: 'POST', body: stream })
+                .then(res => res.json())
+                .then((json) => {
+                    assert.equal(json[0].a, 'titi');
+                    done();
+                })
+                .catch(done);
+        });
+    });
+
+
     it('get script', (done) => {
         fetch('http://127.0.0.1:31976/script.ini')
             .then(res => res.text())
             .then((text) => {
                 assert(text);
                 done();
-            });
+            })
+            .catch(done);
     });
+
+    it('get no found script', (done) => {
+        fetch('http://127.0.0.1:31976/script.xxx')
+            .then((res) => {
+                assert.equal(res.status, 404);
+                done();
+            })
+            .catch(done);
+    });
+
 
     describe('simple statements, one server', () => {
         const script = `
