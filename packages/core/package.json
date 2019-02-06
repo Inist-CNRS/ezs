@@ -59,6 +59,7 @@
         "lodash": "~4.17.11",
         "lru-cache": "~4.1.3",
         "merge2": "~1.2.3",
+        "node-dir": "~0.1.17",
         "notevil": "~1.1.0",
         "pumpify": "~1.5.1",
         "tmp-filepath": "~2.0.0",
