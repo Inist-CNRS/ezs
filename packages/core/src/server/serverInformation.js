@@ -1,7 +1,7 @@
 import dir from 'node-dir';
 import Parameter from '../parameter';
 import {
-    DEBUG, PORT, VERSION, NCPUS, STARTED_AT,
+    DEBUG, VERSION, NCPUS, STARTED_AT,
 } from '../constants';
 
 const getInformations = dirPath => new Promise((resolve, reject) => {
@@ -11,7 +11,7 @@ const getInformations = dirPath => new Promise((resolve, reject) => {
         }
         const scripts = files
             .filter(f => (f.search(/\.(ini|ezs)$/) > 0))
-            .map(f => f.replace(dirPath, `http://127.0.0.1:${PORT}`));
+            .map(f => f.replace(dirPath, ''));
         return resolve({
             concurrency: NCPUS,
             uptime: Date.now() - STARTED_AT,
