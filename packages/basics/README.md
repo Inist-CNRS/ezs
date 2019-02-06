@@ -51,6 +51,8 @@ process.stdin
     -   [Parameters](#parameters-13)
 -   [XMLParse](#xmlparse)
     -   [Parameters](#parameters-14)
+-   [XMLString](#xmlstring)
+    -   [Parameters](#parameters-15)
 
 ## BUFObject
 
@@ -223,3 +225,14 @@ Take `String` as XML input, parse it and split it in multi document at each path
 -   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose a character for flatten keys (optional, default `/`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## XMLString
+
+Take `Object` and transform it into a XML string
+
+### Parameters
+
+-   `rootElement` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Root element name for the tag which start and close the feed (optional, default `items`)
+-   `contentElement` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Content element name for the tag which start and close each item (optional, default `item`)
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
