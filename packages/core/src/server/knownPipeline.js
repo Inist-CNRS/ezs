@@ -24,8 +24,8 @@ const knownPipeline = ezs => (request, response) => {
                 response.end();
             }
         }))
-        .pipe(ezs((input, output, idx) => {
-            if (idx === 1) {
+        .pipe(ezs((input, output) => {
+            if (!response.headersSent) {
                 response.writeHead(200);
             }
             return output.send(input);
