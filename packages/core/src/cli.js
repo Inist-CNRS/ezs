@@ -1,5 +1,4 @@
-import fs from 'fs';
-import path from 'path';
+import { realpathSync } from 'fs';
 import { PassThrough } from 'stream';
 import yargs from 'yargs';
 import debug from 'debug';
@@ -29,8 +28,7 @@ export default function cli(errlog) {
             },
             daemon: {
                 alias: 'd',
-                default: process.cwd(),
-                describe: 'Launch daemon',
+                describe: 'Launch daemon on path',
                 type: 'string',
             },
             server: {
@@ -87,10 +85,9 @@ export default function cli(errlog) {
     }
     if (argv.daemon) {
         try {
-            ezs.settings.servePath = fs.realpathSync(argv.daemon);
+            ezs.settings.servePath = realpathSync(argv.daemon);
         } catch (e) {
             errlog(`Error: ${argv.daemon} doesn't exists.`);
-            yargs.showHelp();
             process.exit(1);
         }
         ezs.settings.nShards = Number(argv.nShards);
@@ -103,19 +100,9 @@ export default function cli(errlog) {
         return process.exit(1);
     }
 
-    let file;
-    try {
-        file = fs.realpathSync(firstarg);
-    } catch (e) {
-        errlog(`Error: ${firstarg} doesn't exists.`);
-        yargs.showHelp();
-        process.exit(1);
-    }
-
-    const script = File(ezs, file);
+    const script = File(ezs, firstarg);
     if (!script) {
         errlog(`Error: ${firstarg} isn't a file.`);
-        yargs.showHelp();
         process.exit(1);
     }
     const cmds = new Commands(ezs.parseString(script));
