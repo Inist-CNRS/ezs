@@ -1,5 +1,6 @@
 import { Duplex, PassThrough } from 'stream';
 import hasher from 'node-object-hash';
+import { DEBUG } from './constants';
 
 const hashCoerce = hasher({
     sort: false,
@@ -32,17 +33,21 @@ class Booster extends Duplex {
             this.firstWrite = false;
             let ignoreChunk = true;
             const firstChunkHash = hashCoerce.hash(chunk);
-            this.uniqHash = hashCoerce.hash([this.commandsHash, this.environmentHash, firstChunkHash]);
+            const hashs = [this.commandsHash, this.environmentHash, firstChunkHash];
+            DEBUG('Compute cache hash with', hashs.map(h => h.slice(0, 5).concat('...')));
+            this.uniqHash = hashCoerce.hash(hashs);
             return ezs.getCache()
                 .has(this.uniqHash)
                 .then(cached => new Promise((resolve) => {
                     this.isCached = cached;
                     if (cached) {
+                        DEBUG('Using cache with hash', this.uniqHash);
                         return ezs.getCache()
                             .get(this.uniqHash)
                             .catch(err => this.failWith(err))
                             .then(stream => resolve(stream));
                     }
+                    DEBUG('Creating cache with hash', this.uniqHash);
                     this.cacheHandle = ezs.getCache().set(this.uniqHash, this.cacheOutput);
                     return resolve();
                 }))
@@ -134,6 +139,6 @@ class Booster extends Duplex {
     }
 }
 
-const booster = (ezs, pipeline) => new Booster(ezs, pipeline);
+const booster = (ezs, commands, environment) => new Booster(ezs, commands, environment);
 
 export default booster;
