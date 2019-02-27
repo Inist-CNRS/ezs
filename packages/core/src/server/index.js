@@ -9,9 +9,8 @@ import serverInformation from './serverInformation';
 import serverPipeline from './serverPipeline';
 import notFound from './notFound';
 import Parameter from '../parameter';
-import {
-    DEBUG, PORT, NCPUS,
-} from '../constants';
+import settings from '../settings';
+import { DEBUG } from '../constants';
 
 const isPipeline = filename => (filename.match(regex()).shift() !== undefined);
 
@@ -38,7 +37,7 @@ function createMidddleware(ezs, method, pathname) {
 
 const signals = ['SIGINT', 'SIGTERM'];
 
-function createServer(ezs, port = PORT) {
+function createServer(ezs, port) {
     const server = controlServer(http
         .createServer((request, response) => {
             const { method } = request;
@@ -55,7 +54,7 @@ function createServer(ezs, port = PORT) {
             return true;
         }));
     server.setTimeout(0);
-    server.listen(port);
+    server.listen(port || settings.port);
     signals.forEach(signal => process.on(signal, () => {
         DEBUG(`Signal received, stoping server with PID ${process.pid}`);
         server.shutdown(() => process.exit(0));
@@ -67,7 +66,7 @@ function createServer(ezs, port = PORT) {
 function createCluster(ezs, port) {
     let term = false;
     if (cluster.isMaster) {
-        for (let i = 0; i < NCPUS; i += 1) {
+        for (let i = 0; i < settings.nShards; i += 1) {
             cluster.fork();
         }
         cluster.on('exit', () => {

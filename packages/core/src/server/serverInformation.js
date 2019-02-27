@@ -1,7 +1,8 @@
 import dir from 'node-dir';
 import Parameter from '../parameter';
+import settings from '../settings';
 import {
-    DEBUG, VERSION, NCPUS, STARTED_AT,
+    DEBUG, VERSION, STARTED_AT,
 } from '../constants';
 
 const getInformations = dirPath => new Promise((resolve, reject) => {
@@ -13,7 +14,7 @@ const getInformations = dirPath => new Promise((resolve, reject) => {
             .filter(f => (f.search(/\.(ini|ezs)$/) > 0))
             .map(f => f.replace(dirPath, ''));
         return resolve({
-            concurrency: NCPUS,
+            concurrency: settings.nShards,
             uptime: Date.now() - STARTED_AT,
             timestamp: Date.now(),
             version: VERSION,

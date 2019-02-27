@@ -1,84 +1,28 @@
-import fs from 'fs';
-import tmpFilepath from 'tmp-filepath';
-import LRU from 'lru-cache';
-import { PassThrough } from 'stream';
-import { DEBUG } from './constants';
-
-const deleteFile = (key, fileName) => {
-    fs.unlink(fileName, (err) => {
-        if (err) {
-            DEBUG('Unable to delete file from the cache', err);
-        }
-    });
-};
+import LRU from 'keyv-lru-files';
+import path from 'path';
+import mkdirp from 'mkdirp';
 
 export default class Cache {
-    constructor(ezs, opts) {
-        const options = opts || {};
-        const cacheOptions = {
-            max: 500,
-            maxAge: 1000 * 60 * 60,
-            ...options,
-        };
-        cacheOptions.dispose = deleteFile;
-        this.handle = LRU(cacheOptions);
-        this.ezs = ezs;
-        this.objectMode = options.objectMode || false;
+    constructor(options) {
+        this.handle = new LRU(options);
+        this.handle.opts.dir = path.format({
+            root: options.root,
+            name: options.dir,
+        });
     }
 
-    get(key) {
-        const { ezs } = this;
-        const cache = this.handle;
-        const cacheFile = cache.get(key);
-        if (cacheFile) {
-            if (this.objectMode) {
-                return fs.createReadStream(cacheFile)
-                    .pipe(ezs.uncompress(ezs.encodingMode()))
-                    .pipe(ezs('unpack'))
-                    .pipe(ezs('ungroup'));
-            }
-            return fs.createReadStream(cacheFile)
-                .pipe(ezs.uncompress(ezs.encodingMode()));
-        }
-        return null;
+    has(id) {
+        return this.handle.has(id);
     }
 
-    set(key) {
-        const { ezs } = this;
-        const cache = this.handle;
-        const tmpFile = tmpFilepath('.bin');
-        const streamOptions = this.objectMode ? ezs.objectMode() : ezs.bytesMode();
-        const cacheInput = new PassThrough(streamOptions);
-        let cacheOutput;
-        if (this.objectMode) {
-            cacheOutput = cacheInput
-                .pipe(ezs('group'))
-                .pipe(ezs('pack'))
-                .pipe(ezs.compress(ezs.encodingMode()))
-                .pipe(fs.createWriteStream(tmpFile));
-        } else {
-            cacheOutput = cacheInput
-                .pipe(ezs.compress(ezs.encodingMode()))
-                .pipe(fs.createWriteStream(tmpFile));
-        }
-        const cachePromise = new Promise((resolve, reject) => cacheOutput.on('error', reject).on('finish', resolve));
+    get(id) {
+        return this.handle.stream(id);
+    }
 
-        const func = (data, feed) => {
-            if (data) {
-                cacheInput.write(data, () => {
-                    feed.send(data);
-                });
-            } else {
-                cacheInput.end(() => {
-                    cachePromise.then(() => {
-                        cache.set(key, tmpFile);
-                        feed.close();
-                    });
-                });
-                cacheInput.destroy();
-            }
-        };
-        const stream = new PassThrough(streamOptions);
-        return stream.pipe(ezs(func));
+    set(id, stream) {
+        return new Promise((resolve, reject) => mkdirp(this.handle.opts.dir, (err) => {
+            if (err) return reject(err);
+            return resolve();
+        })).then(() => this.handle.set(id, stream));
     }
 }

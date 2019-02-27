@@ -1286,6 +1286,51 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
+    it('stuck/unstuck #3', (done) => {
+        const commands = `
+          [env]
+          path = a 
+          value = get('a')
+          path = b
+          value = get('b')
+
+          [replace]
+          path = a
+          value = z
+          path = b
+          value = y
+
+          [assign]
+          path = a
+          value = env('a')
+          path = b
+          value = env('b')
+        `;
+        const env = {};
+        const res = [];
+        from([
+            { a: 1, b: 5 },
+            { a: 1, b: 5 },
+            { a: 1, b: 5 },
+            { a: 1, b: 5 },
+            { a: 1, b: 5 },
+        ])
+            .pipe(ezs.fromString(commands, env))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(5, res.length);
+                assert.equal(1, res[0].a);
+                assert.equal(1, res[1].a);
+                assert.equal(1, res[2].a);
+                assert.equal(5, res[0].b);
+                assert.equal(5, res[1].b);
+                assert.equal(5, res[2].b);
+                done();
+            });
+    });
 
 
 /**/

@@ -7,3 +7,4 @@ coverage/
 *.sw?
 lib
 benchmark
+.nyc_output/

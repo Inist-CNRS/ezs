@@ -1,4 +1,4 @@
-import { NSHARDS } from '../constants';
+import settings from '../settings';
 
 /**
  * Take all `chunk`, and throw array of chunks
@@ -7,7 +7,7 @@ import { NSHARDS } from '../constants';
  * @returns {String}
  */
 export default function group(data, feed) {
-    const size = Number(this.getParam('size')) || NSHARDS;
+    const size = Number(this.getParam('size')) || settings.nShards;
 
     if (this.buffer === undefined) {
         this.buffer = [];

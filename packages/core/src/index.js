@@ -1,48 +1,49 @@
 import path from 'path';
 import { PassThrough } from 'stream';
 import pumpify from 'pumpify';
+import Cache from './cache';
 import Engine from './engine';
+import booster from './booster';
 import Single from './single';
 import Script from './script';
 import File from './file';
 import Output from './output';
-import Cache from './cache';
 import Catcher from './catcher';
 import Statements from './statements';
 import Parameter from './parameter';
 import Statement from './statement';
 import Meta from './meta';
 import Server from './server';
+import settings from './settings';
 import { compressStream, uncompressStream } from './compactor';
 import {
-    M_SINGLE, M_DISPATCH, M_NORMAL, HWM_BYTES, HWM_OBJECT, NSHARDS, A_ENCODING,
+    M_SINGLE, M_DISPATCH, M_NORMAL,
 } from './constants';
 
+
+let cacheHandle = null;
 const ezs = (name, options, environment) => new Engine(ezs, Statement.get(ezs, name, options), options, environment);
 const ezsPath = [process.cwd()];
 
-ezs.settings = {
-    highWaterMark: [
-        HWM_OBJECT,
-        HWM_BYTES,
-    ],
-    nShards: NSHARDS,
-    encoding: A_ENCODING,
-    servePath: process.cwd(),
-};
+ezs.settings = settings;
 ezs.objectMode = () => ({
     objectMode: true,
-    highWaterMark: Number(ezs.settings.highWaterMark[0]) || HWM_OBJECT,
+    highWaterMark: settings.highWaterMark.object,
 });
 ezs.bytesMode = () => ({
     objectMode: false,
-    highWaterMark: Number(ezs.settings.highWaterMark[1]) || HWM_BYTES,
+    highWaterMark: ezs.settings.highWaterMark.bytes,
 });
 ezs.encodingMode = () => ({
-    'Content-Encoding': String(ezs.settings.encoding) || A_ENCODING,
+    'Content-Encoding': settings.encoding,
 });
-ezs.fileToServe = file => path.join(ezs.settings.servePath, file);
-
+ezs.fileToServe = file => path.join(settings.servePath, file);
+ezs.getCache = () => {
+    if (!cacheHandle) {
+        cacheHandle = new Cache(settings.cache);
+    }
+    return cacheHandle;
+};
 ezs.config = (name, options) => Parameter.set(ezs, name, options);
 ezs.pipeline = (commands, environment) => {
     if (!Array.isArray(commands)) {
@@ -60,6 +61,7 @@ ezs.pipeline = (commands, environment) => {
     }
     return pumpify.obj(streams);
 };
+ezs.booster = (commands, environment) => booster(ezs, commands, environment);
 ezs.exec = (name, options, environment) => new Engine(ezs, Statement.get(ezs, name, options), options, environment);
 ezs.execOnce = (mixed, options, environment) => new Single(ezs, mixed, options, environment);
 ezs.metaString = (commands, options) => new Meta(ezs, commands, options);
@@ -91,7 +93,6 @@ ezs.compress = options => compressStream(ezs, options);
 ezs.uncompress = options => uncompressStream(ezs, options);
 ezs.createStream = options => new PassThrough(options);
 
-ezs.createCache = options => new Cache(ezs, options);
 ezs.createServer = port => Server.createServer(ezs, port);
 ezs.createCluster = port => Server.createCluster(ezs, port);
 

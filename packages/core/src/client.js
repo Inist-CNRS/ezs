@@ -1,7 +1,8 @@
 import { PassThrough } from 'stream';
 import http from 'http';
 import Parameter from './parameter';
-import { DEBUG, PORT, NSHARDS } from './constants';
+import settings from './settings';
+import { DEBUG } from './constants';
 
 export const agent = new http.Agent({
     maxSockets: 0,
@@ -16,7 +17,7 @@ export const parseAddress = (commands, environment) => (srvr) => {
     const hostWithPort = srvr.match(/^\[?([^\]]+)\]?:(\d+)$/);
     const serverOptions = {
         hostname: srvr,
-        port: Number(PORT),
+        port: settings.port,
         path: '/',
         method: 'POST',
         headers: {
@@ -43,11 +44,11 @@ export const parseAddress = (commands, environment) => (srvr) => {
 
 export const ensureArray = a => (Array.isArray(a) ? a : [a]);
 
-export const inspectServers = (servers, commands, environment, ns = NSHARDS) => ensureArray(servers)
+export const inspectServers = (servers, commands, environment, ns) => ensureArray(servers)
     .filter(Boolean)
     .filter((elem, pos, arr) => arr.indexOf(elem) === pos)
     .map(parseAddress(commands, environment))
-    .map(s => Array(ns).fill(s)) // multiple each line
+    .map(s => Array(ns || settings.nShards).fill(s)) // multiple each line
     .reduce((a, b) => a.concat(b), []); // flatten all
 
 export const connectServer = ezs => (serverOptions, index) => {

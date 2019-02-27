@@ -2,17 +2,12 @@ import { realpathSync } from 'fs';
 import { PassThrough } from 'stream';
 import yargs from 'yargs';
 import debug from 'debug';
-import {
-    DEBUG,
-    NSHARDS,
-    HWM_BYTES,
-    HWM_OBJECT,
-    A_ENCODING,
-} from './constants';
+import { DEBUG } from './constants';
 import ezs from '.';
 import Commands from './commands';
 import File from './file';
 import { version } from '../package.json';
+import settings from './settings';
 
 export default function cli(errlog) {
     const args = yargs
@@ -36,28 +31,6 @@ export default function cli(errlog) {
                 describe: 'Server to dispach commands',
                 type: 'string',
             },
-            port: {
-                alias: 'p',
-                describe: 'Change daemon\'port',
-                default: 31976,
-                type: 'number',
-            },
-            highWaterMark: {
-                describe: 'Change high water mark',
-                default: `${HWM_OBJECT}:${HWM_BYTES}`,
-                type: 'string',
-            },
-            nShards: {
-                describe: 'Change number of shards',
-                type: 'number',
-                default: NSHARDS,
-            },
-            encoding: {
-                alias: 'z',
-                type: 'string',
-                default: A_ENCODING,
-                describe: 'Change the compression scheme to improve transfers',
-            },
             env: {
                 alias: 'e',
                 default: false,
@@ -74,24 +47,14 @@ export default function cli(errlog) {
     if (argv.verbose) {
         debug.enable('ezs');
     }
-    if (argv.highWaterMark) {
-        ezs.settings.highWaterMark = argv.highWaterMark.split(':').map(x => Number(x));
-    }
-    if (args.nShards) {
-        ezs.settings.nShards = argv.nShards;
-    }
-    if (argv.encoding) {
-        ezs.settings.encoding = argv.encoding;
-    }
     if (argv.daemon) {
         try {
-            ezs.settings.servePath = realpathSync(argv.daemon);
+            settings.servePath = realpathSync(argv.daemon);
         } catch (e) {
             errlog(`Error: ${argv.daemon} doesn't exists.`);
             process.exit(1);
         }
-        ezs.settings.nShards = Number(argv.nShards);
-        DEBUG(`Serving ${ezs.settings.servePath} with ${ezs.settings.nShards} shards`);
+        DEBUG(`Serving ${settings.servePath} with ${settings.nShards} shards`);
         return ezs.createCluster(port);
     }
 

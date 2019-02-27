@@ -99,7 +99,168 @@ describe('statements', () => {
                 done();
             });
     });
+    it('ungroup#3', (done) => {
+        const res = [];
+        from([
+            'lorem',
+            'Lorem',
+            'loren',
+            'korem',
+            'olrem',
+            'toto',
+            'titi',
+            'truc',
+            'lorem',
+        ])
+            .pipe(ezs('ungroup'))
+            .on('data', (chunk) => {
+                assert(!Array.isArray(chunk));
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert(res.length === 9);
+                done();
+            });
+    });
+    it('concat#1', (done) => {
+        from([
+            'aa',
+            'bb',
+            'cc',
+            'dd',
+            'ee',
+            'ff',
+        ])
+            .pipe(ezs('concat', {
+                beginWith: '<',
+                joinWith: '|',
+                endWith: '>',
+            }))
+            .on('data', (chunk) => {
+                assert.equal(chunk, '<aa|bb|cc|dd|ee|ff>');
+            })
+            .on('end', () => {
+                done();
+            });
+    });
 
+    it('transit#1', (done) => {
+        let index = 0;
+        const data = [
+            'aa',
+            'bb',
+            'cc',
+            'dd',
+            'ee',
+            'ff',
+        ];
+        from(data)
+            .pipe(ezs('transit'))
+            .pipe(ezs('tracer'))
+            .pipe(ezs('debug'))
+            .on('data', (chunk) => {
+                assert.equal(chunk, data[index]);
+                index += 1;
+            })
+            .on('end', () => {
+                done();
+            });
+    });
+
+    it('shuffle#1', (done) => {
+        const before = [
+            { a: 'abcdefghijklmnopqrstuvwxyz', b: 'abcdefghijklmnopqrstuvwxyz', c: 'abcdefghijklmnopqrstuvwxyz' },
+            { a: 'abcdefghijklmnopqrstuvwxyz', b: 'abcdefghijklmnopqrstuvwxyz', c: 'abcdefghijklmnopqrstuvwxyz' },
+            { a: 'abcdefghijklmnopqrstuvwxyz', b: 'abcdefghijklmnopqrstuvwxyz', c: 'abcdefghijklmnopqrstuvwxyz' },
+            { a: 'abcdefghijklmnopqrstuvwxyz', b: 'abcdefghijklmnopqrstuvwxyz', c: 'abcdefghijklmnopqrstuvwxyz' },
+            { a: 'abcdefghijklmnopqrstuvwxyz', b: 'abcdefghijklmnopqrstuvwxyz', c: 'abcdefghijklmnopqrstuvwxyz' },
+            { a: 'abcdefghijklmnopqrstuvwxyz', b: 'abcdefghijklmnopqrstuvwxyz', c: 'abcdefghijklmnopqrstuvwxyz' },
+        ];
+        const after = [];
+        from(before)
+            .pipe(ezs('shuffle'))
+            .on('data', (chunk) => {
+                after.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(after[2].a.length, 26);
+                assert.notEqual(before[2].a, after[2].a);
+                done();
+            });
+    });
+
+    it('shuffle#2', (done) => {
+        const before = [
+            { a: 'abcdefghijklmnopqrstuvwxyz', b: 'abcdefghijklmnopqrstuvwxyz', c: 'abcdefghijklmnopqrstuvwxyz' },
+            { a: 'abcdefghijklmnopqrstuvwxyz', b: 'abcdefghijklmnopqrstuvwxyz', c: 'abcdefghijklmnopqrstuvwxyz' },
+            { a: 'abcdefghijklmnopqrstuvwxyz', b: 'abcdefghijklmnopqrstuvwxyz', c: 'abcdefghijklmnopqrstuvwxyz' },
+            { a: 'abcdefghijklmnopqrstuvwxyz', b: 'abcdefghijklmnopqrstuvwxyz', c: 'abcdefghijklmnopqrstuvwxyz' },
+            { a: 'abcdefghijklmnopqrstuvwxyz', b: 'abcdefghijklmnopqrstuvwxyz', c: 'abcdefghijklmnopqrstuvwxyz' },
+            { a: 'abcdefghijklmnopqrstuvwxyz', b: 'abcdefghijklmnopqrstuvwxyz', c: 'abcdefghijklmnopqrstuvwxyz' },
+        ];
+        const after = [];
+        from(before)
+            .pipe(ezs('shuffle', { path: ['a', 'b'] }))
+            .pipe(ezs('debug'))
+            .on('data', (chunk) => {
+                after.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(after[3].a.length, 26);
+                assert.equal(after[3].b.length, 26);
+                assert.equal(after[3].c.length, 26);
+                assert.notEqual(after[3].a, before[3].a);
+                assert.notEqual(after[3].b, before[3].b);
+                assert.equal(after[3].c, before[3].c);
+                done();
+            });
+    });
+
+    it('shuffle#3', (done) => {
+        const before = [
+            { a: 'abcdefghijklmnopqrstuvwxyz', b: 'abcdefghijklmnopqrstuvwxyz', c: 'abcdefghijklmnopqrstuvwxyz' },
+            { a: 'abcdefghijklmnopqrstuvwxyz', b: 'abcdefghijklmnopqrstuvwxyz', c: 'abcdefghijklmnopqrstuvwxyz' },
+            { a: 'abcdefghijklmnopqrstuvwxyz', b: 'abcdefghijklmnopqrstuvwxyz', c: 'abcdefghijklmnopqrstuvwxyz' },
+            { a: 'abcdefghijklmnopqrstuvwxyz', b: 'abcdefghijklmnopqrstuvwxyz', c: 'abcdefghijklmnopqrstuvwxyz' },
+            { a: 'abcdefghijklmnopqrstuvwxyz', b: 'abcdefghijklmnopqrstuvwxyz', c: 'abcdefghijklmnopqrstuvwxyz' },
+            { a: 'abcdefghijklmnopqrstuvwxyz', b: 'abcdefghijklmnopqrstuvwxyz', c: 'abcdefghijklmnopqrstuvwxyz' },
+        ];
+        const after = [];
+        from(before)
+            .pipe(ezs('shuffle', { path: 'a' }))
+            .on('data', (chunk) => {
+                after.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(after[3].a.length, 26);
+                assert.equal(after[3].b.length, 26);
+                assert.equal(after[3].c.length, 26);
+                assert.notEqual(after[3].a, before[3].a);
+                assert.equal(after[3].b, before[3].b);
+                assert.equal(after[3].c, before[3].c);
+                done();
+            });
+    });
+
+
+    it('shift#1', (done) => {
+        const data = [
+            'aa',
+            'bb',
+            'cc',
+            'dd',
+            'ee',
+            'ff',
+        ];
+        from(data)
+            .pipe(ezs('shift'))
+            .on('data', (chunk) => {
+                assert.equal(chunk, 'aa');
+            })
+            .on('end', () => {
+                done();
+            });
+    });
 
     /* Not yet ready
     it('harvest#1', (done) => {
