@@ -19,6 +19,14 @@ export default class Cache {
         return this.handle.stream(id);
     }
 
+    clear() {
+        return this.handle.clear();
+    }
+
+    del(id) {
+        return this.handle.delete(id);
+    }
+
     set(id, stream) {
         return new Promise((resolve, reject) => mkdirp(this.handle.opts.dir, (err) => {
             if (err) return reject(err);

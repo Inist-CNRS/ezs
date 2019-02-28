@@ -16,7 +16,6 @@ class Booster extends Duplex {
         this.pipeline = ezs.pipeline(commands, environment);
         this.firstWrite = true;
         this.readCalled = false;
-        this.finalCalled = false;
         this.isCached = false;
         this.cacheHandle = null;
         this.uniqHash = null;
@@ -42,19 +41,23 @@ class Booster extends Duplex {
                     this.isCached = cached;
                     if (cached) {
                         DEBUG('Using cache with hash', this.uniqHash);
+                        this.emit('cache:connected', this.uniqHash);
                         return ezs.getCache()
                             .get(this.uniqHash)
                             .catch(err => this.failWith(err))
                             .then(stream => resolve(stream));
                     }
                     DEBUG('Creating cache with hash', this.uniqHash);
+                    this.emit('cache:created', this.uniqHash);
                     this.cacheHandle = ezs.getCache().set(this.uniqHash, this.cacheOutput);
                     return resolve();
                 }))
                 .then(stream => new Promise((resolve) => {
                     if (stream) {
-                        return resolve(stream
-                            .pipe(ezs.uncompress(ezs.encodingMode()))
+                        const stream2 = stream.pipe(ezs.uncompress(ezs.encodingMode()));
+                        stream2.on('error', err => this.failWith(err));
+
+                        return resolve(stream2
                             .pipe(ezs('unpack'))
                             .pipe(ezs('ungroup'))
                             .pipe(ezs((data, feed) => {
@@ -67,8 +70,9 @@ class Booster extends Duplex {
                                 }
                                 feed.send(data);
                             }))
-                            .pipe(ezs('transit'))
-                            .on('error', err => this.emit('error', err)));
+                            .pipe(ezs.catch(err => this.failWith(err)))
+                            //                            .pipe(ezs('transit'))
+                            .on('error', err => this.failWith(err)));
                     }
                     ignoreChunk = false;
                     return resolve(this.pipeline
@@ -118,9 +122,6 @@ class Booster extends Duplex {
     }
 
     _final(callback) {
-        if (!this.finalCalled) {
-            this.finalCalled = true;
-        }
         this.pipeline.end(() => {
             if (this.cacheHandle) {
                 return this.cacheHandle
@@ -133,8 +134,10 @@ class Booster extends Duplex {
 
     failWith(err) {
         // https://github.com/nodejs/node/issues/9242
-        if (!this.finalCalled) {
-            this.emit('error', err);
+        DEBUG(`Booster failed with ${err.message}`);
+        this.emit('error', err);
+        if (this.isCached) {
+            this.ezs.getCache().del(this.uniqHash).catch(e => this.emit(e));
         }
     }
 }

@@ -1,6 +1,6 @@
-import { Transform } from 'stream';
+import SafeTransform from './SafeTransform';
 
-export default class Catcher extends Transform {
+export default class Catcher extends SafeTransform {
     constructor(func) {
         super({
             writableObjectMode: true,
