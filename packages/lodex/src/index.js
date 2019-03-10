@@ -13,6 +13,10 @@ import useFieldNames from './useFieldNames';
 import JSONLDCompacter from './JSONLDCompacter';
 import JSONLDString from './JSONLDString';
 import JSONLDObject from './JSONLDObject';
+import disabled from './disabled';
+import runQuery from './runQuery';
+import reduceQuery from './reduceQuery';
+import formatOutput from './formatOutput';
 
 export default {
     flattenPatch,
@@ -30,6 +34,17 @@ export default {
     JSONLDCompacter,
     JSONLDString,
     JSONLDObject,
+    runQuery,
+    reduceQuery,
+    formatOutput,
     // aliases
     fixFlatten: flattenPatch.flattenPatch,
+    LodexContext: disabled.disabled,
+    LodexConfig: disabled.disabled,
+    LodexParseQuery: disabled.disabled,
+    LodexSetField: disabled.disabled,
+    LodexDocuments: runQuery.runQuery,
+    LodexRunQuery: runQuery.runQuery,
+    LodexReduceQuery: reduceQuery.reduceQuery,
+    LodexOutput: formatOutput.formatOutput,
 };

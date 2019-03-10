@@ -22,6 +22,10 @@
         "jsonld": "1.1.0",
         "lodash.get": "4.4.2",
         "lodash.omit": "4.5.0",
+        "lodash.set": "4.3.2",
+        "lodash.unset": "4.5.2",
+        "mongodb": "2.2.33",
+        "node-object-hash": "1.4.2",
         "valid-url": "1.0.9",
         "xml-writer": "1.7.0"
     },
