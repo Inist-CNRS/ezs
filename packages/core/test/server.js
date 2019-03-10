@@ -482,6 +482,42 @@ describe('dispatch through server(s)', () => {
                 done();
             });
     });
+    it('with commands in distributed pipeline #Bis', (done) => {
+        const commands = [
+            {
+                name: 'increment',
+                mode: 'detachable',
+                args: {
+                    step: 3,
+                },
+            },
+            {
+                name: 'decrement',
+                mode: 'detachable',
+                args: {
+                    step: 2,
+                },
+            },
+        ];
+        const server = [
+            '127.0.0.1:30001',
+            '127.0.0.1:30002',
+            '127.0.0.1:30003',
+        ];
+        let res = 0;
+        const ten = new Upto(10);
+        ten
+            .pipe(ezs('shift'))
+            .pipe(ezs('dispatch', { server, commands }))
+            .on('data', (chunk) => {
+                res += chunk;
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 2);
+                done();
+            });
+    });
+
 
     it('with a lot of commands in distributed pipeline', (done) => {
         const commands = [

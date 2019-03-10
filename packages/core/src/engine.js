@@ -40,11 +40,20 @@ export default class Engine extends SafeTransform {
     }
 
     _flush(done) {
-        this.execWith(null, done);
+        if (this.nullWasSent) {
+            return done();
+        }
+        this.index += 1;
+        return this.execWith(null, done);
     }
 
     execWith(chunk, done) {
         const currentIndex = this.index;
+        if (chunk === null && currentIndex === 1) {
+            this.nullWasSent = true;
+            this.push(null);
+            return done();
+        }
         const warn = (error) => {
             this.emit('error', createErrorWith(error, currentIndex));
         };

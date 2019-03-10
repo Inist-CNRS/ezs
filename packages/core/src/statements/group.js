@@ -9,11 +9,11 @@ import settings from '../settings';
 export default function group(data, feed) {
     const size = Number(this.getParam('size')) || settings.nShards;
 
-    if (this.buffer === undefined) {
+    if (this.isFirst()) {
         this.buffer = [];
     }
     if (this.isLast()) {
-        if (this.buffer.length > 0) {
+        if (this.buffer && this.buffer.length > 0) {
             feed.write(Array.from(this.buffer));
         }
         return feed.close();

@@ -38,6 +38,7 @@ function createMidddleware(ezs, method, pathname) {
 const signals = ['SIGINT', 'SIGTERM'];
 
 function createServer(ezs, port) {
+    const serverPort = port || settings.port;
     const server = controlServer(http
         .createServer((request, response) => {
             const { method } = request;
@@ -54,12 +55,12 @@ function createServer(ezs, port) {
             return true;
         }));
     server.setTimeout(0);
-    server.listen(port || settings.port);
+    server.listen(serverPort);
     signals.forEach(signal => process.on(signal, () => {
         DEBUG(`Signal received, stoping server with PID ${process.pid}`);
         server.shutdown(() => process.exit(0));
     }));
-    DEBUG(`Server starting with PID ${process.pid} and listening on port ${port}`);
+    DEBUG(`Server starting with PID ${process.pid} and listening on port ${serverPort}`);
     return server;
 }
 
