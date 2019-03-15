@@ -23,7 +23,6 @@ export const createFunction = () =>
         );
         const collection = db.collection('publishedDataset');
         const cursor = collection.find(filter);
-        console.log({ filter });
         const total = await cursor.count();
         const stream = cursor
             .skip(Number(skip))
