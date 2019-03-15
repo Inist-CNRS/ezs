@@ -1,6 +1,6 @@
 {
     "name": "ezs",
-    "version": "8.0.4",
+    "version": "8.1.0",
     "description": "A wrapper to build Stream transformers with functional style",
     "directories": {
         "test": "test"
