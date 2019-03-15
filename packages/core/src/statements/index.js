@@ -13,6 +13,7 @@ import env from './env';
 import group from './group';
 import ungroup from './ungroup';
 import dispatch from './dispatch';
+import delegate from './delegate';
 import tracer from './tracer';
 import dump from './dump';
 
@@ -33,5 +34,6 @@ export default {
     ungroup,
     dispatch,
     tracer,
+    delegate,
     dump,
 };

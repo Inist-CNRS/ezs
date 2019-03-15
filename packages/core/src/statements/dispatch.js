@@ -7,7 +7,15 @@ import {
     connectServer,
     writeTo,
 } from '../client';
-
+/**
+ * Takes an `Object` dispatch processing to an external pipeline in one or more servers
+ *
+ * @param {String} [server] servers to dispatch data
+ * @param {String} [file] the external pipeline is descrbied in a file
+ * @param {String} [script] the external pipeline is descrbied in a sting of characters
+ * @param {String} [commands] the external pipeline is descrbied in object
+ * @returns {Object}
+ */
 export default function dispatch(data, feed) {
     const { ezs } = this;
     if (this.isFirst()) {
