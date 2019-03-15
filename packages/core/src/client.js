@@ -71,7 +71,7 @@ export const connectServer = ezs => (serverOptions, index) => {
                 .pipe(output);
             return 1;
         }
-        if (res.statusCode === 400) {
+        if (res.statusCode === 500) {
             const errmsg = Parameter.decode(res.headers['x-error']);
             output.write(new Error(`Server sent: ${errmsg}`));
             output.end();

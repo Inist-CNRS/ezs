@@ -49,7 +49,7 @@ function createServer(ezs, port) {
                 middleware(request, response);
             } catch (error) {
                 DEBUG('Server cannot execute commands', error);
-                response.writeHead(400, { 'X-error': Parameter.encode(error.toString()) });
+                response.writeHead(500, { 'X-error': Parameter.encode(error.toString()) });
                 response.end();
             }
             return true;

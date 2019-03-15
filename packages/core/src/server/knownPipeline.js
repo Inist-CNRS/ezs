@@ -20,7 +20,7 @@ const knownPipeline = ezs => (request, response) => {
         .pipe(ezs.catch((error) => {
             DEBUG('Server has caught an error', error);
             if (!response.headersSent) {
-                response.writeHead(400, { 'X-Error': Parameter.encode(error.toString()) });
+                response.writeHead(500, { 'X-Error': Parameter.encode(error.toString()) });
                 response.end();
             }
         }))

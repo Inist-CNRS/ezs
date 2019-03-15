@@ -7,7 +7,7 @@ const unknownPipeline = ezs => (request, response) => {
     const commands = Object.keys(headers)
         .filter(headerKey => (headerKey.indexOf('x-command') === 0))
         .map(headerKey => parseInt(headerKey.replace('x-command-', ''), 10))
-        .sort()
+        .sort((x, y) => x - y)
         .map(commandIndex => Parameter.unscramble(headers[`x-command-${commandIndex}`]));
     const environment = Object.keys(headers)
         .filter(headerKey => (headerKey.indexOf('x-environment') === 0))

@@ -62,23 +62,20 @@ export default function cli(errlog) {
         return process.exit(1);
     }
 
-    let varenvs;
     let input;
     if (argv.env) {
         DEBUG('Reading environment variables...');
-        varenvs = {};
         input = new PassThrough(ezs.objectMode());
         input.write(process.env);
         input.end();
     } else {
         DEBUG('Reading standard input...');
-        varenvs = { ...process.env };
         input = process.stdin;
         input.resume();
         input.setEncoding('utf8');
     }
     const server = Array.isArray(argv.server) ? argv.server : [argv.server];
-    const environement = { ...varenvs, server };
+    const environement = { server };
 
     const selectFunc = (func, cmds) => {
         if (func === 'pipeline') {
