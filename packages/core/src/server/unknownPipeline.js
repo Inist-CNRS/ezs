@@ -12,9 +12,12 @@ const unknownPipeline = ezs => (request, response) => {
     const environment = Object.keys(headers)
         .filter(headerKey => (headerKey.indexOf('x-environment') === 0))
         .map(headerKey => headerKey.replace('x-environment-', ''))
-        .map(environmentKey => ({
-            [environmentKey]: Parameter.unpack(headers[`x-environment-${environmentKey}`]),
-        }))
+        .map((environmentKey) => {
+            const { k, v } = Parameter.unpack(headers[`x-environment-${environmentKey}`]);
+            return {
+                [k]: v,
+            };
+        })
         .reduce((prev, cur) => Object.assign(prev, cur), {});
     DEBUG(`PID ${process.pid} will execute ${commands.length || 0} commands with ${Object.keys(environment).length || 0} global parameters`);
     const processor = ezs.pipeline(commands, environment);

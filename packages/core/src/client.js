@@ -26,12 +26,16 @@ export const parseAddress = (commands, environment) => (srvr) => {
         },
         agent,
     };
-    commands.forEach((command, index) => {
-        serverOptions.headers[`X-Command-${index}`] = Parameter.encode(JSON.stringify(command));
-    });
-    Object.keys(environment).forEach((keyEnv) => {
-        serverOptions.headers[`X-Environment-${keyEnv}`] = Parameter.encode(JSON.stringify(environment[keyEnv]));
-    });
+    commands
+        .filter(Boolean)
+        .forEach((command, index) => {
+            serverOptions.headers[`X-Command-${index}`] = Parameter.encode(JSON.stringify(command));
+        });
+    Object.keys(environment)
+        .filter(keyEnv => environment[keyEnv])
+        .forEach((keyEnv, index) => {
+            serverOptions.headers[`X-Environment-${index}`] = Parameter.encode(JSON.stringify({ k: keyEnv, v: environment[keyEnv]}));
+        });
     if (hostWithPort) {
         return {
             ...serverOptions,
