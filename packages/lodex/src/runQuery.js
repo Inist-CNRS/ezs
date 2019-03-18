@@ -2,6 +2,21 @@ import ezs from 'ezs';
 import set from 'lodash.set';
 import { MongoClient } from 'mongodb';
 
+const connectionHandles = [];
+
+async function connectTo(connectionStringURI, options) {
+
+    if (connectionHandles[connectionStringURI]) {
+        return connectionHandles[connectionStringURI];
+    }
+    connectionHandles[connectionStringURI] = await MongoClient.connect(
+        connectionStringURI,
+        options,
+    );
+    return connectionHandles[connectionStringURI];
+}
+
+
 export const createFunction = () =>
     async function LodexRunQuery(data, feed) {
         if (this.isLast()) {
@@ -15,7 +30,7 @@ export const createFunction = () =>
             'connectionStringURI',
             data.connectionStringURI || '',
         );
-        const db = await MongoClient.connect(
+        const db = await connectTo(
             connectionStringURI,
             {
                 poolSize: 10,
