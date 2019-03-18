@@ -10,7 +10,6 @@ export const createFunction = () =>
         const filter = this.getParam('filter', data.filter || {});
         const limit = this.getParam('limit', data.limit || 1000000);
         const skip = this.getParam('skip', data.skip || 0);
-        const sort = { _id: -1 };
         const connectionStringURI = this.getParam(
             'connectionStringURI',
             data.connectionStringURI || '',
@@ -29,8 +28,7 @@ export const createFunction = () =>
         }
         const stream = cursor
             .skip(Number(skip))
-            .limit(Number(limit))
-            .sort(sort);
+            .limit(Number(limit));
         stream.on('data', data1 => {
             if (typeof data1 === 'object') {
                 if (data1) {
