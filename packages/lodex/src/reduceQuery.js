@@ -14,15 +14,14 @@ export const createFunction = () =>
         }
 
         const filter = this.getParam('filter', data.filter || {});
-        const limit = this.getParam('limit', data.limit || 1000000);
-        const skip = this.getParam('skip', data.skip || 0);
-        const sort = this.getParam('sort', data.sort || {});
         const field = this.getParam(
             'field',
             data.field || data.$field || 'uri',
         );
         const minValue = this.getParam('minValue', data.minValue);
         const maxValue = this.getParam('maxValue', data.maxValue);
+        const orderBy = this.getParam('orderBy', data.orderBy);
+        const maxSize = this.getParam('maxSize', data.maxSize || 1000000);
 
         const reducer = this.getParam('reducer');
 
@@ -61,44 +60,51 @@ export const createFunction = () =>
             throw new Error(`Unknown reducer '${reducer}'`);
         }
 
-        const cursor = await collection.mapReduce(map, reduce, options);
+        const result = await collection.mapReduce(map, reduce, options);
 
-        const total = await cursor.count();
+        const total = await result.count();
 
         const findFilter = {};
 
         if (minValue) {
             findFilter.value = {
-                $gte: minValue,
+                $gte: Number(minValue),
             };
         }
 
         if (maxValue) {
             findFilter.value = {
                 ...(findFilter.value || {}),
-                $lte: maxValue,
+                $lte: Number(maxValue),
             };
         }
 
+        const [order, dir] = String(orderBy).split('/');
+        const sort = order && dir ? ({
+            [order]: dir === 'asc' ? 1 : -1,
+        }) : ({});
+        const cursor = result.find(findFilter);
+        const count = await cursor.count();
+
+        if (total === 0 || count === 0) {
+            return feed.send({total : 0});
+        }
         const stream = cursor
-            .find(findFilter)
             .sort(sort)
-            .skip(Number(skip))
-            .limit(Number(limit))
-            .pipe(
-                ezs((data1, feed1) => {
-                    if (typeof data1 === 'object') {
-                        set(data1, 'total', total);
-                        feed.write(data1);
-                    }
-                    feed1.end();
-                }),
-            );
+            .limit(Number(maxSize))
+        stream.on('data', data1 => {
+            if (typeof data1 === 'object') {
+                if (data1) {
+                    set(data1, 'total', total);
+                }
+                feed.write(data1);
+            }
+        });
         stream.on('error', error => {
             feed.write(error);
         });
         stream.on('end', () => {
-            feed.close();
+            feed.end();
         });
     };
 
