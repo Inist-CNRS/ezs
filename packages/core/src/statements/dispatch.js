@@ -51,7 +51,7 @@ export default function dispatch(data, feed) {
         if (this.lastIndex >= this.ins.length) {
             this.lastIndex = 0;
         }
-        DEBUG(`Write chunk #${this.getIndex()} containing ${Object.keys(data).length || 0} keys into handle #${this.lastIndex}/${this.ins.length}`);
+        DEBUG(`Write chunk #${this.getIndex()} containing ${Object.keys(data).length || 0} keys into handle #${this.lastIndex + 1}/${this.ins.length}`);
         const check = writeTo(this.ins[this.lastIndex], data, () => feed.end());
         if (!check) {
             this.lastIndex += 1;

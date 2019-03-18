@@ -4,8 +4,8 @@ import Shell from './shell';
 import { DEBUG } from './constants';
 import SafeTransform from './SafeTransform';
 
-function createErrorWith(error, index) {
-    const stk = error.stack.split('\n');
+function createErrorWith(error = {}, index = 0) {
+    const stk = String(error.stack).split('\n');
     const erm = stk.shift();
     const msg = `Processing item #${index} failed with ${erm}\n\t${stk.slice(0, 10).join('\n\t')}`;
     const err = Error(msg);
