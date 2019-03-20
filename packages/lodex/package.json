@@ -20,6 +20,7 @@
     "homepage": "https://github.com/Inist-CNRS/node-ezs-lodex#readme",
     "dependencies": {
         "jsonld": "1.1.0",
+        "lodash.clonedeep": "4.5.0",
         "lodash.get": "4.4.2",
         "lodash.omit": "4.5.0",
         "lodash.set": "4.3.2",

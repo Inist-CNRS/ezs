@@ -1,6 +1,7 @@
 import ezs from 'ezs';
 import hasher from 'node-object-hash';
 import set from 'lodash.set';
+import deepCopy from 'lodash.clonedeep';
 
 import reducers from './reducers';
 import { MongoClient } from 'mongodb';
@@ -57,7 +58,7 @@ export const createFunction = () =>
             throw new Error(`Unknown reducer '${reducer}'`);
         }
 
-        const result = await collection.mapReduce(map, reduce, options);
+        const result = await collection.mapReduce(map, reduce, deepCopy(options));
 
         const total = await result.count();
 

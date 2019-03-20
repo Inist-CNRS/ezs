@@ -1,5 +1,6 @@
 import ezs from 'ezs';
 import set from 'lodash.set';
+import deepCopy from 'lodash.clonedeep';
 import { MongoClient } from 'mongodb';
 
 export const createFunction = () =>
@@ -19,7 +20,7 @@ export const createFunction = () =>
         );
         const db = client.db();
         const collection = db.collection('publishedDataset');
-        const cursor = collection.find(filter);
+        const cursor = collection.find(deepCopy(filter));
         const total = await cursor.count();
         if (total === 0) {
             return feed.send({total : 0});
