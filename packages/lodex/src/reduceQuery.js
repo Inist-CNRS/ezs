@@ -45,12 +45,14 @@ export const createFunction = () =>
             'connectionStringURI',
             data.connectionStringURI || '',
         );
-        const db = await MongoClient.connect(
+        const client = await MongoClient.connect(
             connectionStringURI,
             {
+                useNewUrlParser: true,
                 poolSize: 10,
             },
         );
+        const db = client.db();
         const collection = db.collection('publishedDataset');
 
         if (!reducer) {
