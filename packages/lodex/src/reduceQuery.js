@@ -30,7 +30,6 @@ export const createFunction = () =>
         const collName = String('mp_').concat(
             hashCoerce.hash({ reducer, fields }),
         );
-        console.log({filter, fields, minValue, maxSize, orderBy, maxSize });
         const options = {
             query: filter,
             finalize,
