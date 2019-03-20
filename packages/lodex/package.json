@@ -1,6 +1,6 @@
 {
     "name": "ezs-lodex",
-    "version": "2.0.4",
+    "version": "2.0.5",
     "description": "ezs dedicated statements for Lodex",
     "directories": {
         "test": "test"
