@@ -16,9 +16,6 @@ export const createFunction = () =>
         );
         const client = await MongoClient.connect(
             connectionStringURI,
-            {
-                poolSize: 10,
-            },
         );
         const db = client.db();
         const collection = db.collection('publishedDataset');
@@ -43,6 +40,7 @@ export const createFunction = () =>
         });
         stream.on('end', () => {
             feed.end();
+            client.close();
         });
     };
 
