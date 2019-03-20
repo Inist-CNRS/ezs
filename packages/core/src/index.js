@@ -1,10 +1,7 @@
 import path from 'path';
 import { PassThrough } from 'stream';
-import pumpify from 'pumpify';
 import Cache from './cache';
 import Engine from './engine';
-import booster from './booster';
-import Single from './single';
 import Script from './script';
 import File from './file';
 import Output from './output';
@@ -45,7 +42,30 @@ ezs.getCache = () => {
     return cacheHandle;
 };
 ezs.config = (name, options) => Parameter.set(ezs, name, options);
-ezs.pipeline = (commands, environment) => {
+ezs.metaString = (commands, options) => new Meta(ezs, commands, options);
+ezs.metaFile = (filename, options) => new Meta(ezs, File(ezs, filename), options);
+ezs.parseString = commands => Script(commands);
+ezs.parseFile = filename => Script(File(ezs, filename));
+ezs.catch = func => new Catcher(func);
+ezs.toBuffer = options => new Output(options);
+ezs.use = plugin => Statement.set(ezs, plugin);
+ezs.addPath = p => ezsPath.push(p);
+ezs.getPath = () => ezsPath;
+ezs.command = (stream, command, environment) => stream.pipe(ezs.createCommand(command, environment));
+ezs.createCommand = (command, environment) => {
+    const mode = command.mode || M_NORMAL;
+    if (!command.name) {
+        throw new Error(`Bad command : ${command.name}`);
+    }
+    if (mode === M_NORMAL || mode === M_DISPATCH) {
+        return ezs(command.name, command.args, environment);
+    }
+    if (mode === M_SINGLE || mode === 'single' /* Backward compatibility */) {
+        return ezs('singleton', { ...command.args, statement: command.name }, environment);
+    }
+    throw new Error(`Bad mode: ${mode}`);
+};
+ezs.compileCommands = (commands, environment) => {
     if (!Array.isArray(commands)) {
         throw new Error('Pipeline works with an array of commands.');
     }
@@ -59,40 +79,12 @@ ezs.pipeline = (commands, environment) => {
     if (streams.length === 1) {
         return new PassThrough(ezs.objectMode());
     }
-    return pumpify.obj(streams);
+    return streams;
 };
-ezs.booster = (commands, environment) => booster(ezs, commands, environment);
-ezs.exec = (name, options, environment) => new Engine(ezs, Statement.get(ezs, name, options), options, environment);
-ezs.execOnce = (mixed, options, environment) => new Single(ezs, mixed, options, environment);
-ezs.metaString = (commands, options) => new Meta(ezs, commands, options);
-ezs.metaFile = (filename, options) => new Meta(ezs, File(ezs, filename), options);
-ezs.parseString = commands => Script(commands);
-ezs.fromString = (commands, environment) => ezs.pipeline(Script(commands), environment);
-ezs.parseFile = filename => Script(File(ezs, filename));
-ezs.fromFile = (filename, environment) => ezs.pipeline(Script(File(ezs, filename)), environment);
-ezs.catch = func => new Catcher(func);
-ezs.toBuffer = options => new Output(options);
-ezs.use = plugin => Statement.set(ezs, plugin);
-ezs.addPath = p => ezsPath.push(p);
-ezs.getPath = () => ezsPath;
-ezs.command = (stream, command, environment) => stream.pipe(ezs.createCommand(command, environment));
-ezs.createCommand = (command, environment) => {
-    const mode = command.mode || M_NORMAL;
-    if (!command.name) {
-        throw new Error(`Bad command : ${command.name}`);
-    }
-    if (mode === M_NORMAL || mode === M_DISPATCH) {
-        return ezs.exec(command.name, command.args, environment);
-    }
-    if (mode === M_SINGLE || mode === 'single' /* Backward compatibility */) {
-        return ezs.execOnce(command.name, command.args, environment);
-    }
-    throw new Error(`Bad mode: ${mode}`);
-};
+ezs.createPipeline = (input, streams) => streams.reduce((amont, aval) => amont.pipe(aval), input);
 ezs.compress = options => compressStream(ezs, options);
 ezs.uncompress = options => uncompressStream(ezs, options);
 ezs.createStream = options => new PassThrough(options);
-
 ezs.createServer = port => Server.createServer(ezs, port);
 ezs.createCluster = port => Server.createCluster(ezs, port);
 

@@ -108,6 +108,10 @@ function badaboum(data, feed) {
     }, 1);
 }
 
+function bang(data, feed) {
+    throw new Error('Bang!');
+}
+
 function plouf(data, feed) {
     if (this.isLast()) {
         return feed.close();
@@ -167,6 +171,7 @@ module.exports = {
     beat,
     ignoreMe,
     badaboum,
+    bang,
     plouf,
     plaf,
     splish,

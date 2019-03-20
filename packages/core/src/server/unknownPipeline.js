@@ -20,12 +20,11 @@ const unknownPipeline = ezs => (request, response) => {
         })
         .reduce((prev, cur) => Object.assign(prev, cur), {});
     DEBUG(`PID ${process.pid} will execute ${commands.length || 0} commands with ${Object.keys(environment).length || 0} global parameters`);
-    const processor = ezs.pipeline(commands, environment);
     request
         .pipe(ezs.uncompress(headers))
         .pipe(ezs('unpack'))
         .pipe(ezs('ungroup'))
-        .pipe(processor)
+        .pipe(ezs('delegate', { commands }, environment))
         .pipe(ezs.catch((error) => {
             DEBUG('Server has caught an error', error);
             if (!response.headersSent) {

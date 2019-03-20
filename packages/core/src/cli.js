@@ -79,7 +79,10 @@ export default function cli(errlog) {
 
     const selectFunc = (func, cmds) => {
         if (func === 'pipeline') {
-            return ezs.pipeline(cmds, environement);
+            return ezs('dispatch', {
+                commands: cmds,
+            },
+            environement);
         }
         return ezs('dispatch', {
             commands: cmds,
@@ -95,7 +98,7 @@ export default function cli(errlog) {
         return runplan.reduce((stream, section) => stream.pipe(selectFunc(section.func, section.cmds)), stream0);
     };
     const runScriptLocal = (strm, cmds) => strm
-        .pipe(ezs.pipeline(cmds.get(), environement));
+        .pipe(ezs('delegate', { commands: cmds.get() }, environement));
     const runScript = (serverMode) => {
         if (serverMode) {
             return runScriptRemote;

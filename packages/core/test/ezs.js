@@ -124,18 +124,15 @@ describe('Build a pipeline', () => {
             });
     });
     it('with empty pipeline', (done) => {
-        let res = 0;
         const ten = new Decade();
         ten
             .pipe(ezs((input, output) => {
                 output.send(input);
             }))
-            .pipe(ezs.pipeline([]))
-            .on('data', (chunk) => {
-                res += chunk;
-            })
-            .on('end', () => {
-                assert.strictEqual(res, 45);
+            .pipe(ezs('delegate', { script: '' }))
+            .pipe(ezs('transit'))
+            .on('error', (error) => {
+                assert(error instanceof Error);
                 done();
             });
     });
@@ -194,7 +191,7 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send(input);
             }))
-            .pipe(ezs.pipeline(commands))
+            .pipe(ezs('delegate', { commands }))
             .pipe(ezs((input, output) => {
                 output.send(input);
             }))
@@ -225,7 +222,7 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send(input);
             }))
-            .pipe(ezs.fromString(commands))
+            .pipe(ezs('delegate', { script: commands }))
             .on('data', (chunk) => {
                 res += chunk;
             })
@@ -252,7 +249,7 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send(input);
             }))
-            .pipe(ezs.fromString(commands))
+            .pipe(ezs('delegate', { script: commands }))
             .on('data', (chunk) => {
                 res += chunk;
             })
@@ -279,7 +276,7 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send(input);
             }))
-            .pipe(ezs.fromString(commands))
+            .pipe(ezs('delegate', { script: commands }))
             .on('data', (chunk) => {
                 res += chunk;
             })
@@ -308,7 +305,7 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send({ val: input });
             }))
-            .pipe(ezs.fromString(commands))
+            .pipe(ezs('delegate', { script: commands }))
             .on('data', (chunk) => {
                 res = chunk;
             })
@@ -338,7 +335,7 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send({ val: input });
             }))
-            .pipe(ezs.fromString(commands))
+            .pipe(ezs('delegate', { script: commands }))
             .on('data', (chunk) => {
                 res = chunk;
             })
@@ -369,7 +366,7 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send({ val: input });
             }))
-            .pipe(ezs.fromString(commands))
+            .pipe(ezs('delegate', { script: commands }))
             .on('data', (chunk) => {
                 res = chunk;
             })
@@ -402,7 +399,7 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send({ val: input });
             }))
-            .pipe(ezs.fromString(commands))
+            .pipe(ezs('delegate', { script: commands }))
             .on('data', (chunk) => {
                 res = chunk;
             })
@@ -430,7 +427,7 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send({ val: input });
             }))
-            .pipe(ezs.fromString(commands))
+            .pipe(ezs('delegate', { script: commands }))
             .on('data', (chunk) => {
                 res = chunk;
             })
@@ -457,7 +454,7 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send({ val: input });
             }))
-            .pipe(ezs.fromString(commands))
+            .pipe(ezs('delegate', { script: commands }))
             .on('data', (chunk) => {
                 assert.ok(chunk instanceof Error);
             })
@@ -478,7 +475,7 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send({ val: input });
             }))
-            .pipe(ezs.fromString(commands))
+            .pipe(ezs('delegate', { script: commands }))
             .on('data', (chunk) => {
                 assert.ok(chunk instanceof Error);
             })
@@ -500,7 +497,7 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send(input);
             }))
-            .pipe(ezs.fromString(commands))
+            .pipe(ezs('delegate', { script: commands }))
             .on('data', (chunk) => {
                 res += Number(chunk);
             })
@@ -525,7 +522,7 @@ describe('Build a pipeline', () => {
                 output.send(input);
             }))
             .pipe(pass)
-            .pipe(ezs.fromString(commands))
+            .pipe(ezs('delegate', { script: commands }))
             .on('data', (chunk) => {
                 if (chunk === 4) {
                     pass.end();
@@ -556,7 +553,7 @@ describe('Build a pipeline', () => {
                 output.send(input);
             }))
             .pipe(pass)
-            .pipe(ezs.fromString(commands))
+            .pipe(ezs('delegate', { script: commands }))
             .on('data', (chunk) => {
                 if (chunk === 4) {
                     pass.end();
@@ -584,7 +581,7 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send(input);
             }))
-            .pipe(ezs.fromString(commands))
+            .pipe(ezs('delegate', { script: commands }))
             .on('data', (chunk) => {
                 res += Number(chunk);
             })
@@ -654,7 +651,8 @@ describe('Build a pipeline', () => {
                 path: 'a',
                 value: new Expression('self()'),
             }))
-            .pipe(ezs.execOnce('replace', {
+            .pipe(ezs('singleton', {
+                statement: 'replace',
                 path: 'b',
                 value: 1000,
             }))
@@ -671,26 +669,21 @@ describe('Build a pipeline', () => {
             });
     });
 
-    it('with single pipeline in the pipeline', (done) => {
+    it('with singleton in the pipeline (object)', (done) => {
         let res = 0;
         const expr1 = new Expression('self()');
         const expr2 = new Expression('compute("a * b")');
-        const commands = [
-            {
-                name: 'replace',
-                args: {
-                    path: 'b',
-                    value: 1000,
-                },
-            },
-        ];
         const ten = new Decade();
         ten
             .pipe(ezs('replace', {
                 path: 'a',
                 value: expr1,
             }))
-            .pipe(ezs.execOnce(commands))
+            .pipe(ezs('singleton', {
+                statement: 'replace',
+                path: 'b',
+                value: 1000,
+            }))
             .pipe(ezs('assign', {
                 path: 'c',
                 value: expr2,
@@ -703,6 +696,27 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
+
+    it('with singleton in the pipeline (do nothing)', (done) => {
+        let res = 0;
+        from([
+            1,
+            2,
+        ])
+            .pipe(ezs('singleton', {
+                statement: 'replace',
+                path: 'a',
+                value: 1000,
+            }))
+            .on('data', (chunk) => {
+                res += chunk;
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 3);
+                done();
+            });
+    });
+
 
     it('with single statement in the script', (done) => {
         let res = 0;
@@ -722,7 +736,7 @@ describe('Build a pipeline', () => {
         `;
         const ten = new Decade();
         ten
-            .pipe(ezs.fromString(commands))
+            .pipe(ezs('delegate', { script: commands }))
             .on('data', (chunk) => {
                 if (chunk) {
                     res += chunk.c;
@@ -745,7 +759,7 @@ describe('Build a pipeline', () => {
         `;
         const ten = new Decade();
         ten
-            .pipe(ezs.fromString(commands))
+            .pipe(ezs('delegate', { script: commands }))
             .on('data', (chunk) => {
                 if (chunk) {
                     res += chunk.a;
@@ -771,7 +785,7 @@ describe('Build a pipeline', () => {
         `;
         const ten = new Decade();
         ten
-            .pipe(ezs.fromString(commands))
+            .pipe(ezs('delegate', { script: commands }))
             .on('data', (chunk) => {
                 if (chunk) {
                     res += chunk.a;
@@ -785,10 +799,10 @@ describe('Build a pipeline', () => {
 
     it('convert to number to object and apply a computation (file)', (done) => {
         let res = 0;
-        const filename = Dir.resolve(__dirname, './sample.ezs');
+        const file = Dir.resolve(__dirname, './sample.ezs');
         const ten = new Decade();
         ten
-            .pipe(ezs.fromFile(filename))
+            .pipe(ezs('delegate', { file }))
             .on('data', (chunk) => {
                 if (chunk) {
                     res += chunk.a;
@@ -1160,7 +1174,7 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send({ val: input });
             }))
-            .pipe(ezs.fromString(commands))
+            .pipe(ezs('delegate', { script: commands }))
             .on('data', (chunk) => {
                 res += chunk.val;
             })
@@ -1273,7 +1287,7 @@ describe('Build a pipeline', () => {
             { a: 4, b: 5 },
             { a: 5, b: 5 },
         ])
-            .pipe(ezs.fromString(commands, env))
+            .pipe(ezs('delegate', { script: commands }))
             .on('data', (chunk) => {
                 assert(typeof chunk === 'object');
                 res.push(chunk);
@@ -1315,7 +1329,7 @@ describe('Build a pipeline', () => {
             { a: 1, b: 5 },
             { a: 1, b: 5 },
         ])
-            .pipe(ezs.fromString(commands, env))
+            .pipe(ezs('delegate', { script: commands }))
             .on('data', (chunk) => {
                 assert(typeof chunk === 'object');
                 res.push(chunk);

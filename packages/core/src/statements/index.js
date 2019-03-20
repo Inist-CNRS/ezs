@@ -14,6 +14,8 @@ import group from './group';
 import ungroup from './ungroup';
 import dispatch from './dispatch';
 import delegate from './delegate';
+import booster from './booster';
+import singleton from './singleton';
 import tracer from './tracer';
 import dump from './dump';
 
@@ -35,5 +37,7 @@ export default {
     dispatch,
     tracer,
     delegate,
+    singleton,
+    booster,
     dump,
 };

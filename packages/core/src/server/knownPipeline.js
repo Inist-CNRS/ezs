@@ -4,19 +4,18 @@ import { isFile } from '../file';
 
 const knownPipeline = ezs => (request, response) => {
     const { pathname, query } = request.url;
-    const filePath = ezs.fileToServe(pathname);
-    if (!isFile(filePath)) {
+    const file = ezs.fileToServe(pathname);
+    if (!isFile(file)) {
         response.writeHead(404);
         response.end();
         return false;
     }
     const { headers } = request;
     response.setHeader('Content-Encoding', headers['content-encoding'] || 'identity');
-    DEBUG(`PID ${process.pid} will execute ${filePath} commands with ${Object.keys(query).length || 0} global parameters`);
-    const processor = ezs.fromFile(filePath, query);
+    DEBUG(`PID ${process.pid} will execute ${file} commands with ${Object.keys(query).length || 0} global parameters`);
     request
         .pipe(ezs.uncompress(headers))
-        .pipe(processor)
+        .pipe(ezs('delegate', { file }, query))
         .pipe(ezs.catch((error) => {
             DEBUG('Server has caught an error', error);
             if (!response.headersSent) {

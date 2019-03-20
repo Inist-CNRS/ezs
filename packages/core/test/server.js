@@ -592,22 +592,6 @@ describe('dispatch through server(s)', () => {
         //        assert.strictEqual(commandsOBJ1[0].args, commandsOBJ2[0].args);
         assert.strictEqual(commandsSTR1, commandsSTR2);
         done();
-        /*
-        let res = 0;
-        const ten = new Upto(10);
-        ten
-            .pipe(ezs((input, output) => {
-                output.send(input);
-            }))
-            .pipe(ezs.pipeline(cccommands))
-            .on('data', (chunk) => {
-                res += Number(chunk);
-            })
-            .on('end', () => {
-                assert.strictEqual(res, 90);
-                done();
-            });
-            */
     });
 
 

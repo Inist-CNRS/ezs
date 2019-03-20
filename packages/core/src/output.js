@@ -1,6 +1,9 @@
-import SafeTransform from './SafeTransform';
+import { Transform } from 'stream';
 
-export default class Output extends SafeTransform {
+// we do not use SafeTranform,
+// because Output should be used to send data to
+// binary (system) stream , standard output, or to the browser
+export default class Output extends Transform {
     constructor(options) {
         super({
             ...options,

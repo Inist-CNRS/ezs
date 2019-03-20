@@ -35,7 +35,6 @@ describe('Booster', () => {
 
         [transit]
     `;
-        const statements = ezs.parseString(commands);
         it('with pipeline', (done) => {
             let res = 0;
             const ten = new Decade();
@@ -43,7 +42,7 @@ describe('Booster', () => {
                 .pipe(ezs((input, output) => {
                     output.send(input);
                 }))
-                .pipe(ezs.pipeline(statements))
+                .pipe(ezs('delegate', { script: commands }))
                 .on('error', assert.ifError)
                 .on('data', (chunk) => {
                     res += chunk;
@@ -62,7 +61,7 @@ describe('Booster', () => {
                     .pipe(ezs((input, output) => {
                         output.send(input);
                     }))
-                    .pipe(ezs.booster(statements))
+                    .pipe(ezs('booster', { script: commands }))
                     .on('cache:created', (id) => {
                         cid = id;
                     })
@@ -87,7 +86,7 @@ describe('Booster', () => {
                         // to fool the cache
                         output.send(input === 2 ? 1 : input);
                     }))
-                    .pipe(ezs.booster(statements))
+                    .pipe(ezs('booster', { script: commands }))
                     .on('cache:connected', (id) => {
                         cid = id;
                     })
@@ -112,7 +111,6 @@ describe('Booster', () => {
         [decrement]
         step = 1
     `;
-        const statements = ezs.parseString(commands);
         it('with pipeline', (done) => {
             let res = 0;
             const ten = new Decade();
@@ -120,7 +118,7 @@ describe('Booster', () => {
                 .pipe(ezs((input, output) => {
                     output.send(input);
                 }))
-                .pipe(ezs.pipeline(statements))
+                .pipe(ezs('delegate', { script: commands }))
                 .on('error', assert.ifError)
                 .on('data', (chunk) => {
                     res += chunk;
@@ -137,7 +135,7 @@ describe('Booster', () => {
                 .pipe(ezs((input, output) => {
                     output.send(input);
                 }))
-                .pipe(ezs.booster(statements))
+                .pipe(ezs('booster', { script: commands }))
                 .on('error', assert.ifError)
                 .on('data', (chunk) => {
                     res += chunk;
@@ -158,7 +156,6 @@ describe('Booster', () => {
         [transit]
     `;
         let cid = null;
-        const statements = ezs.parseString(commands);
         describe('first call', () => {
             it('with booster', (done) => {
                 let res = 0;
@@ -167,7 +164,7 @@ describe('Booster', () => {
                     .pipe(ezs((input, output) => {
                         output.send(input);
                     }))
-                    .pipe(ezs.booster(statements))
+                    .pipe(ezs('booster', { script: commands }))
                     .on('cache:created', (id) => {
                         cid = id;
                     })
@@ -193,7 +190,7 @@ describe('Booster', () => {
                         // to fool the cache
                         output.send(input === 2 ? 1 : input);
                     }))
-                    .pipe(ezs.booster(statements))
+                    .pipe(ezs('booster', { script: commands }))
                     .on('error', (error) => {
                         assert(error instanceof Error);
                         done();
@@ -213,7 +210,6 @@ describe('Booster', () => {
         [transit]
     `;
         let cid = null;
-        const statements = ezs.parseString(commands);
         describe('first call', () => {
             it('with booster', (done) => {
                 let res = 0;
@@ -222,7 +218,7 @@ describe('Booster', () => {
                     .pipe(ezs((input, output) => {
                         output.send(input);
                     }))
-                    .pipe(ezs.booster(statements))
+                    .pipe(ezs('booster', { script: commands }))
                     .on('cache:created', (id) => {
                         cid = id;
                     })
@@ -237,7 +233,7 @@ describe('Booster', () => {
                     });
             });
         });
-        describe('third call', () => {
+        describe('second call', () => {
             it('with booster', (done) => {
                 // force error
                 fs.writeFileSync(`/tmp/ezs/${cid}`, Buffer.from('H4sIAJjfd1wAA4vmAgB+f0P4AgAAAA==', 'base64'));
@@ -248,8 +244,9 @@ describe('Booster', () => {
                         // to fool the cache
                         output.send(input === 2 ? 1 : input);
                     }))
-                    .pipe(ezs.booster(statements))
-                    .on('data', console.log)
+                    .pipe(ezs('booster', { script: commands }))
+                    .pipe(ezs('transit'))
+                    .pipe(ezs.catch(e => e))
                     .on('error', (error) => {
                         assert(error instanceof Error);
                         done();
@@ -260,4 +257,130 @@ describe('Booster', () => {
         /**/
     });
 
+
+    describe('Boost script #5 (with error)', () => {
+        const commands = `
+        [transit]
+        [transit]
+        [transit]
+        [transit]
+        [transit]
+    `;
+        let cid = null;
+        describe('first call', () => {
+            it('with booster', (done) => {
+                let res = 0;
+                let cnt = 0;
+                const ten = new Decade();
+                ten
+                    .pipe(ezs((input, output) => {
+                        cnt += 1;
+                        if (cnt === 5) {
+                            output.send(new Error('Paf'));
+                        } else {
+                            output.send(input);
+                        }
+                    }))
+                    .pipe(ezs('booster', { script: commands }))
+                    .on('cache:created', (id) => {
+                        cid = id;
+                    })
+                    .pipe(ezs.catch(e => assert(e)))
+                    .on('data', (chunk) => {
+                        res += chunk;
+                    })
+                    .on('end', () => {
+                        assert.strictEqual(res, 40);
+                        assert.notEqual(cid, null);
+                        done();
+                    });
+            });
+        });
+        describe('second call', () => {
+            it('with booster', (done) => {
+                let res = 0;
+                const ten = new Decade();
+                ten
+                    .pipe(ezs((input, output) => {
+                        // to fool the cache
+                        output.send(input === 2 ? 1 : input);
+                    }))
+                    .pipe(ezs('booster', { script: commands }))
+                    .pipe(ezs('transit'))
+                    .pipe(ezs.catch(e => e))
+                    .on('error', assert.ifError)
+                    .on('data', (chunk) => {
+                        res += chunk;
+                    })
+                    .on('end', () => {
+                        assert.strictEqual(res, 40);
+                        assert.notEqual(cid, null);
+                        done();
+                    });
+            });
+        });
+    });
+
+/*
+    describe('Boost script #6 (with error)', () => {
+        const commands = `
+        [transit]
+        [transit]
+        [transit]
+        [transit]
+        [transit]
+        [transit]
+    `;
+        let cid = null;
+        describe('first call', () => {
+            it('with booster', (done) => {
+                let res = 0;
+                let cnt = 0;
+                const ten = new Decade();
+                const boost = ezs.booster(statements);
+                ten
+                    .pipe(boost)
+                    .pipe(ezs((input, output) => {
+                        cnt += 1;
+                        if (cnt === 5) {
+                            boost.emit('error', new Error('Pif'));
+                        }
+                        output.send(input);
+                    }))
+                    .on('error', assert.ifError)
+                    .on('cache:created', (id) => {
+                        cid = id;
+                    })
+                    .on('data', (chunk) => {
+                        res += chunk;
+                    })
+                    .on('end', () => {
+                        assert.strictEqual(res, 0);
+                        assert.notEqual(cid, null);
+                        done();
+                    });
+            });
+        });
+        describe('second call', () => {
+            it('with booster', (done) => {
+                let res = 0;
+                const ten = new Decade();
+                ten
+                    .pipe(ezs((input, output) => {
+                        throw new Error('Pif');
+                    }))
+                    .pipe(ezs.booster(statements))
+                    .on('error', assert.ifError)
+                    .on('data', (chunk) => {
+                        res += chunk;
+                    })
+                    .on('end', () => {
+                        assert.strictEqual(res, 40);
+                        assert.notEqual(cid, null);
+                        done();
+                    });
+            });
+        });
+    });
+*/
 });

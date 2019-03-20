@@ -74,6 +74,8 @@ export default class Engine extends SafeTransform {
             this.scope.isLast = () => (chunk === null);
             this.scope.getEnv = name => (name === undefined ? this.environment : this.environment[name]);
             this.scope.ezs = this.ezs;
+            this.scope.emit = (d, c) => this.emit(d, c);
+            this.scope.getParams = () => this.params;
             this.scope.getParam = (name, defval) => {
                 const globalParams = Parameter.get(this.ezs, this.funcName);
                 if (this.params[name] !== undefined) {
