@@ -35,6 +35,7 @@ ezs.use(require('ezs-istex'));
     -   [Examples](#examples-4)
 -   [ISTEXUniq](#istexuniq)
     -   [Examples](#examples-5)
+-   [ISTEXUnzip](#istexunzip)
 
 ### ISTEXFetch
 
@@ -283,3 +284,12 @@ Output
 <https://api.istex.fr/ark:/67375/NVC-JMPZTKTT-R> <http://purl.org/dc/terms/creator> "S Corbett" .
 <https://api.istex.fr/ark:/67375/NVC-JMPZTKTT-R> <https://data.istex.fr/ontology/istex#affiliation> "Department of Public Health, University of Sydney, Australia." .
 ```
+
+### ISTEXUnzip
+
+Take the content of a zip file, extract JSON files, and yields JSON objects.
+
+The zip file comes from dl.istex.fr, and the `manifest.json` is not
+extracted.
+
+Returns **any** Array<Object>
