@@ -1,4 +1,4 @@
-# Boilerplate for EZS plugin
+# Boosterfor EZS plugin
 
 This package cannot be used alone. EZS has to be installed.
 
@@ -8,22 +8,21 @@ This package cannot be used alone. EZS has to be installed.
 #!/usr/bin/env ezs
 
 [use]
-plugin = boilerplate
+plugin = booster
 
-[BOILERPLATE]
-param = A
-param = 1
+[booster]
+file = ./script.ini
 ```
 
 ## Installation
 
-    $ git clone https://github.com/touv/node-boilerplate.git
-    $ cd node-boilerplate
+    $ git clone https://github.com/touv/node-booster.git
+    $ cd node-booster
     $ npm install -g ezs
     $ npm install
     $ npm link
     $ npm run build 
-    $ echo "Boilerplate do nothing !" | ./examples/boilerplate.ezs
+    $ echo "booster do something !" | ./examples/booster.ezs
 
 ## Statements
 
@@ -31,17 +30,20 @@ param = 1
 
 #### Table of Contents
 
--   [BOILERPLATE](#boilerplate)
+-   [booster](#booster)
     -   [Parameters](#parameters)
 
-### BOILERPLATE
+### booster
 
-Take `Object` object, and throw the ame object
+Takes an `Object` delegate processing to an external pipeline
+at the first call but cache the result for all others calls
 
 #### Parameters
 
 -   `data`  
 -   `feed`  
--   `param` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** example (optional, default `noparameterid`)
+-   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is descrbied in a file
+-   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is descrbied in a sting of characters
+-   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is descrbied in object
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
