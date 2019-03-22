@@ -1,0 +1,50 @@
+{
+  "name": "ezs-booster",
+  "version": "0.0.0",
+  "description": "booster statements form EZS",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/touv/node-ezs-booster.git"
+  },
+  "keywords": [
+    "ezs"
+  ],
+  "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/touv/node-ezs-booster/issues"
+  },
+  "homepage": "https://github.com/touv/node-ezs-booster#readme",
+  "dependencies": {
+    "cacache": "^11.3.2",
+    "node-object-hash": "^1.4.2"
+  },
+  "main": "./lib/index.js",
+  "scripts": {
+    "test": "mocha --require babel-register --exit",
+    "doc": "documentation readme package.json src/* --section=Statements",
+    "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
+    "build": "babel src --out-dir lib",
+    "prepublish": "npm run build",
+    "postversion": "git push && git push --tags"
+  },
+  "devDependencies": {
+    "babel-cli": "~6.26.0",
+    "babel-eslint": "~10.0.1",
+    "babel-preset-env": "~1.7.0",
+    "babel-preset-stage-3": "~6.24.1",
+    "babel-register": "~6.26.0",
+    "documentation": "~8.1.2",
+    "eslint": "~5.3.0",
+    "eslint-config-airbnb-base": "~13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "from": "~0.1.7",
+    "mocha": "~5.2.0"
+  },
+  "peerDependencies": {
+    "ezs": "*"
+  }
+}
