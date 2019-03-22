@@ -93,6 +93,34 @@ describe('dispatch through server(s)', () => {
                 })
                 .catch(done);
         });
+        it('transit.ini + replace.ini with paramaters', (done) => {
+            const stream = from([
+                '{"a":1}\n{"a":2}\n{"a":3}\n',
+            ]);
+            fetch('http://127.0.0.1:31976/transit.ini;replace.ini?key=a&with=titi', { method: 'POST', body: stream })
+                .then(res => res.json())
+                .then((json) => {
+                    assert.equal(json[0].a, 'titi');
+                    done();
+                })
+                .catch(done);
+        });
+
+        it('part1-3.ini with paramaters', (done) => {
+            const stream = from([
+                '{"a":1}\n{"a":2}\n{"a":3}\n',
+            ]);
+            fetch('http://127.0.0.1:31976/part1.ini;part2.ini;assign.ini;part3.ini?key=a&with=titi', { method: 'POST', body: stream })
+                .then(res => res.json())
+                .then((json) => {
+                    assert.equal(json[0].a, 'titi');
+                    assert.equal(json[1].hello, 'world');
+                    done();
+                })
+                .catch(done);
+        });
+
+
     });
 
 

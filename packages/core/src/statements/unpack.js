@@ -6,6 +6,9 @@
 const eol = '\n';
 export default function unpack(data, feed) {
     if (this.isLast()) {
+        if (this.remainder) {
+            feed.write(JSON.parse(this.remainder));
+        }
         return feed.close();
     }
     this.remainder = this.remainder || '';
@@ -16,9 +19,11 @@ export default function unpack(data, feed) {
     } else if (typeof data === 'string') {
         lines = data.split(eol);
     } else {
-        lines = ['', ''];
+        lines = [];
     }
-    lines.unshift(this.remainder + lines.shift());
+    if (this.remainder) {
+        lines.unshift(this.remainder + lines.shift());
+    }
     this.remainder = lines.pop();
     lines.forEach((line) => {
         feed.write(JSON.parse(line));

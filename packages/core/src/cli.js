@@ -2,7 +2,6 @@ import { realpathSync } from 'fs';
 import { PassThrough } from 'stream';
 import yargs from 'yargs';
 import debug from 'debug';
-import { DEBUG } from './constants';
 import ezs from '.';
 import Commands from './commands';
 import File from './file';
@@ -53,7 +52,7 @@ export default function cli(errlog) {
             errlog(`Error: ${argv.daemon} doesn't exists.`);
             process.exit(1);
         }
-        DEBUG(`Serving ${settings.servePath} with ${settings.nShards} shards`);
+        debug('ezs')(`Serving ${settings.servePath} with ${settings.nShards} shards`);
         return ezs.createCluster();
     }
 
@@ -64,12 +63,12 @@ export default function cli(errlog) {
 
     let input;
     if (argv.env) {
-        DEBUG('Reading environment variables...');
+        debug('ezs')('Reading environment variables...');
         input = new PassThrough(ezs.objectMode());
         input.write(process.env);
         input.end();
     } else {
-        DEBUG('Reading standard input...');
+        debug('ezs')('Reading standard input...');
         input = process.stdin;
         input.resume();
         input.setEncoding('utf8');
@@ -91,7 +90,7 @@ export default function cli(errlog) {
         });
     };
     const runScriptRemote = (strm, cmds) => {
-        DEBUG('Connecting to server...');
+        debug('ezs')('Connecting to server...');
         const runplan = cmds.analyse();
         const usecmds = cmds.getUseCommands();
         const stream0 = usecmds.reduce(ezs.command, strm);
@@ -116,14 +115,11 @@ export default function cli(errlog) {
         })
         .map(script => new Commands(ezs.parseString(script)))
         .reduce(runScript(argv.server), input)
+        .pipe(ezs.catch(e => e))
         .on('error', (e) => {
             errlog(e.message.split('\n').shift());
             process.exit(2);
         })
-        .pipe(ezs.catch((e) => {
-            errlog(e.message.split('\n').shift());
-            process.exit(2);
-        }))
         .pipe(ezs.toBuffer());
     output.on('end', () => {
         process.exit(0);

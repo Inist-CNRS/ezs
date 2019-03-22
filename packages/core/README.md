@@ -1,6 +1,9 @@
 # Make pipeline of streams easy : Easy Streams
 
 [![Build Status](https://travis-ci.org/touv/node-ezs.png?branch=master)](https://travis-ci.org/touv/node-ezs)
+[![npm version](https://img.shields.io/npm/v/ezs.svg)](https://npm.im/ezs)
+[![license](https://img.shields.io/npm/l/ezs.svg)](https://npm.im/ezs)
+[![Coverage Status](https://coveralls.io/repos/github/touv/node-ezs/badge.svg?branch=master)](https://coveralls.io/github/touv/node-ezs?branch=master)
 
 It's just a wrapper to build Stream transformers with functional style. It's like the koa / expressjs middlewares !
 
@@ -72,23 +75,20 @@ The command line interface is used to create run pipelines described in .ini fil
 
 It is also possible to launch a web server allowing remote execution of .ini files
 
-```
-$ ezs -h                                                                                                                                                                   ven. 15 mars 2019 16:15:20 CET
-Usage: ezs [options] [<file>|<directory>] [<file2> <file3> ...]
+    $ ezs -h                                                                                                                                                                   ven. 15 mars 2019 16:15:20 CET
+    Usage: ezs [options] [<file>|<directory>] [<file2> <file3> ...]
 
-Options:
-  --help         Affiche de l'aide                                     [booléen]
-  --version      Affiche le numéro de version                          [booléen]
-  --verbose, -v  Enable debug mode with DEBUG=ezs      [booléen] [défaut: false]
-  --daemon, -d   Launch daemon on a directory containing commands script
-                                                           [chaine de caractère]
-  --server, -s   Server to dispach commands                [chaine de caractère]
-  --env, -e      Execute commands with environement variables as input
-                                                       [booléen] [défaut: false]
+    Options:
+      --help         Affiche de l'aide                                     [booléen]
+      --version      Affiche le numéro de version                          [booléen]
+      --verbose, -v  Enable debug mode with DEBUG=ezs      [booléen] [défaut: false]
+      --daemon, -d   Launch daemon on a directory containing commands script
+                                                               [chaine de caractère]
+      --server, -s   Server to dispach commands                [chaine de caractère]
+      --env, -e      Execute commands with environement variables as input
+                                                           [booléen] [défaut: false]
 
-for more information, find our manual at https://github.com/touv/node-ezs
-
-```
+    for more information, find our manual at https://github.com/touv/node-ezs
 
 # API Documentation
 
@@ -136,7 +136,6 @@ catch Error in NodeJS pipeline
 
 get chunk of in NodeJS pipeline and send Buffer of the chunk
 
-
 ## to generate commands pipeline
 
 ### ezs.metaString = (commands: String, options : Object)
@@ -162,8 +161,6 @@ Parse an .ini file and return Object contains a serie of statements
 ### ezs.fromFile(filename : String, options : Object)
 
 Parse an .ini file and launch a serie of statements
-
-
 
 # Statements
 
@@ -258,7 +255,6 @@ Takes an `Object` delegate processing to an external pipeline
 -   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is descrbied in a file
 -   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is descrbied in a sting of characters
 -   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is descrbied in object
--   `method` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** set method to `booster` to speed up the external pipeline. (optional, default `pipeline`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 

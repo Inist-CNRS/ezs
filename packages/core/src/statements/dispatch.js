@@ -1,12 +1,10 @@
 import merge from 'merge2';
-import File from '../file';
-import Commands from '../commands';
-import { DEBUG } from '../constants';
+import debug from 'debug';
 import {
     inspectServers,
     connectServer,
-    writeTo,
 } from '../client';
+
 /**
  * Takes an `Object` dispatch processing to an external pipeline in one or more servers
  *
@@ -21,10 +19,12 @@ export default function dispatch(data, feed) {
     if (this.isFirst()) {
         this.lastIndex = 0;
         const file = this.getParam('file');
-        const script = this.getParam('script', File(ezs, file));
-        const cmds = new Commands(ezs.parseString(script));
+        const fileContent = ezs.loadScript(file);
+        const script = this.getParam('script', fileContent);
+        const cmds = ezs.compileScript(script);
         const commands = this.getParam('commands', cmds.get());
-        const servers = inspectServers(this.getParam('server', []), commands, this.getEnv());
+        const environment = this.getEnv();
+        const servers = inspectServers(this.getParam('server', []), commands, environment);
 
         if (!servers || servers.length === 0 || !commands || commands.length === 0) {
             return feed.stop(new Error('Invalid parmeter for dispatch'));
@@ -51,8 +51,8 @@ export default function dispatch(data, feed) {
         if (this.lastIndex >= this.ins.length) {
             this.lastIndex = 0;
         }
-        DEBUG(`Write chunk #${this.getIndex()} containing ${Object.keys(data).length || 0} keys into handle #${this.lastIndex + 1}/${this.ins.length}`);
-        const check = writeTo(this.ins[this.lastIndex], data, () => feed.end());
+        debug('ezs')(`Write chunk #${this.getIndex()} containing ${Object.keys(data).length || 0} keys into handle #${this.lastIndex + 1}/${this.ins.length}`);
+        const check = ezs.writeTo(this.ins[this.lastIndex], data, () => feed.end());
         if (!check) {
             this.lastIndex += 1;
         }

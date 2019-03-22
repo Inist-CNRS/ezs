@@ -51,12 +51,12 @@
     "dependencies": {
         "app-module-path": "~2.2.0",
         "autocast": "~0.0.4",
+        "cacache": "~11.3.2",
         "debug": "~4.1.1",
         "deep-object-diff": "~1.1.0",
         "filename-regex": "~2.0.1",
         "filtrex": "~0.5.4",
         "http-shutdown": "~1.2.0",
-        "keyv-lru-files": "~1.0.2",
         "lodash": "~4.17.11",
         "merge2": "~1.2.3",
         "mkdirp": "~0.5.1",

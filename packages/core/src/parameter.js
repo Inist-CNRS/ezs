@@ -11,8 +11,8 @@ function decode(string) {
     return Buffer.from(string, 'base64').toString();
 }
 
-function pack() {
-    return encode(JSON.stringify(parametersList));
+function pack(data) {
+    return encode(JSON.stringify(data));
 }
 
 function unpack(data) {
@@ -37,14 +37,9 @@ function set(ezs, pluginName, opts) {
     parametersList[pluginName] = opts;
 }
 
-function put(ezs, parameters) {
-    Object.keys(parameters).forEach(key => set(ezs, key, parameters[key]));
-}
-
 export default {
     get,
     set,
-    put,
     pack,
     unpack,
     encode,

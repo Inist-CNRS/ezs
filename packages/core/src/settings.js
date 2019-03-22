@@ -8,13 +8,6 @@ const settings = {
     nShards: Number(process.env.EZS_NSHARDS || os.cpus().length),
     encoding: String(process.env.EZS_ENCODING || 'gzip'),
     servePath: process.cwd(),
-    cache: {
-        root: String(process.env.EZS_CACHE_ROOT || os.tmpdir()),
-        dir: String(process.env.EZS_CACHE_DIR || '/ezs'),
-        files: Number(process.env.EZS_CACHE_FILES || 100),
-        size: String(process.env.EZS_CACHE_SIZE || '1 GB'),
-        check: Number(process.env.EZS_CACHE_CHECK || 10),
-    },
     port: Number(process.env.EZS_PORT || 31976),
 };
 

@@ -1,10 +1,5 @@
 import { PassThrough } from 'stream';
-import File from '../file';
-import Commands from '../commands';
-import { DEBUG } from '../constants';
-import {
-    writeTo,
-} from '../client';
+import debug from 'debug';
 
 /**
  * Takes an `Object` delegate processing to an external pipeline
@@ -18,8 +13,9 @@ export default function delegate(data, feed) {
     const { ezs } = this;
     if (this.isFirst()) {
         const file = this.getParam('file');
-        const script = this.getParam('script', File(ezs, file));
-        const cmds = new Commands(ezs.parseString(script));
+        const fileContent = ezs.loadScript(file);
+        const script = this.getParam('script', fileContent);
+        const cmds = ezs.compileScript(script);
         const commands = this.getParam('commands', cmds.get());
         const environment = this.getEnv();
 
@@ -38,8 +34,8 @@ export default function delegate(data, feed) {
         this.whenFinish = new Promise((resolve) => {
             output.on('end', resolve);
         });
-        DEBUG(`Delegate first chunk #${this.getIndex()} containing ${Object.keys(data).length || 0} keys`);
-        return writeTo(this.input, data, () => feed.end());
+        debug('ezs')(`Delegate first chunk #${this.getIndex()} containing ${Object.keys(data).length || 0} keys`);
+        return ezs.writeTo(this.input, data, () => feed.end());
     }
     if (this.isLast()) {
         this.whenFinish
@@ -47,6 +43,6 @@ export default function delegate(data, feed) {
             .catch(e => feed.stop(e));
         return this.input.end();
     }
-    DEBUG(`Delegate chunk #${this.getIndex()} containing ${Object.keys(data).length || 0} keys`);
-    return writeTo(this.input, data, () => feed.end());
+    debug('ezs')(`Delegate chunk #${this.getIndex()} containing ${Object.keys(data).length || 0} keys`);
+    return ezs.writeTo(this.input, data, () => feed.end());
 }

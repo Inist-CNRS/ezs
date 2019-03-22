@@ -1,6 +1,6 @@
 import { readFileSync, statSync } from 'fs';
 import { dirname, resolve } from 'path';
-import { DEBUG } from './constants';
+import debug from 'debug';
 
 
 function check(name) {
@@ -22,20 +22,20 @@ export function useFile(ezs, name) {
         .shift();
     const plugName3 = check(name);
     if (plugName1) {
-        DEBUG(`Using '${name}' from ${plugName1}`);
+        debug('ezs')(`Using '${name}' from ${plugName1}`);
         return plugName1;
     }
     if (plugName2) {
-        DEBUG(`Using '${name}' from ${plugName2}`);
+        debug('ezs')(`Using '${name}' from ${plugName2}`);
         return plugName2;
     }
     if (plugName3) {
-        DEBUG(`Using '${name}' from ${plugName1}`);
+        debug('ezs')(`Using '${name}' from ${plugName1}`);
         return plugName3;
     }
-    DEBUG(`Unable to find '${name}' from ${plugName1}`);
-    DEBUG(`Unable to find '${name}' from ${plugName2}`);
-    DEBUG(`Unable to find '${name}' from ${plugName3}`);
+    debug('ezs')(`Unable to find '${name}' from ${plugName1}`);
+    debug('ezs')(`Unable to find '${name}' from ${plugName2}`);
+    debug('ezs')(`Unable to find '${name}' from ${plugName3}`);
     return false;
 }
 

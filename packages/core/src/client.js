@@ -2,7 +2,7 @@ import { PassThrough } from 'stream';
 import http from 'http';
 import Parameter from './parameter';
 import settings from './settings';
-import { DEBUG } from './constants';
+import debug from 'debug';
 
 export const agent = new http.Agent({
     maxSockets: 0,
@@ -29,12 +29,12 @@ export const parseAddress = (commands, environment) => (srvr) => {
     commands
         .filter(Boolean)
         .forEach((command, index) => {
-            serverOptions.headers[`X-Command-${index}`] = Parameter.encode(JSON.stringify(command));
+            serverOptions.headers[`X-Command-${index}`] = Parameter.pack(command);
         });
     Object.keys(environment)
         .filter(keyEnv => environment[keyEnv])
         .forEach((keyEnv, index) => {
-            serverOptions.headers[`X-Environment-${index}`] = Parameter.encode(JSON.stringify({ k: keyEnv, v: environment[keyEnv]}));
+            serverOptions.headers[`X-Environment-${index}`] = Parameter.pack({ k: keyEnv, v: environment[keyEnv] });
         });
     if (hostWithPort) {
         return {
@@ -66,7 +66,7 @@ export const connectServer = ezs => (serverOptions, index) => {
     const output = new PassThrough(ezs.objectMode());
     const handle = http.request(serverOptions, (res) => {
         connected = true;
-        DEBUG(`http://${hostname}:${port} send code ${res.statusCode}`);
+        debug('ezs')(`http://${hostname}:${port} send code ${res.statusCode}`);
         if (res.statusCode === 200) {
             res
                 .pipe(ezs.uncompress(res.headers))
@@ -94,7 +94,7 @@ export const connectServer = ezs => (serverOptions, index) => {
             ));
             return output.end();
         }
-        DEBUG(`http://${hostname}:${port} was stopped properly following ${e}`);
+        debug('ezs')(`http://${hostname}:${port} was stopped properly following ${e}`);
         return 4;
     });
     handle.setNoDelay(false);
@@ -108,12 +108,4 @@ export const connectServer = ezs => (serverOptions, index) => {
     return duplex;
 };
 
-export function writeTo(stream, data, cb) {
-    const check = stream.write(data);
-    if (!check) {
-        stream.once('drain', cb);
-    } else {
-        process.nextTick(cb);
-    }
-    return check;
-}
+

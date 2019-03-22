@@ -10,28 +10,28 @@ import serverPipeline from './serverPipeline';
 import notFound from './notFound';
 import Parameter from '../parameter';
 import settings from '../settings';
-import { DEBUG } from '../constants';
+import debug from 'debug';
 
 const isPipeline = filename => (filename.match(regex()).shift() !== undefined);
 
 function createMidddleware(ezs, method, pathname) {
     if (method === 'POST' && pathname === '/') {
-        DEBUG(`Create middleware 'unknownPipeline' for ${method} ${pathname}`);
+        debug('ezs')(`Create middleware 'unknownPipeline' for ${method} ${pathname}`);
         return unknownPipeline(ezs);
     }
     if (method === 'GET' && pathname === '/') {
-        DEBUG(`Create middleware 'serverInformation' for ${method} ${pathname}`);
+        debug('ezs')(`Create middleware 'serverInformation' for ${method} ${pathname}`);
         return serverInformation(ezs);
     }
     if (method === 'GET' && isPipeline(pathname)) {
-        DEBUG(`Create middleware 'serverPipeline' for ${method} ${pathname}`);
+        debug('ezs')(`Create middleware 'serverPipeline' for ${method} ${pathname}`);
         return serverPipeline(ezs);
     }
     if (method === 'POST' && isPipeline(pathname)) {
-        DEBUG(`Create middleware 'knownPipeline' for ${method} ${pathname}`);
+        debug('ezs')(`Create middleware 'knownPipeline' for ${method} ${pathname}`);
         return knownPipeline(ezs);
     }
-    DEBUG(`Create middleware 'notFound' for ${method} ${pathname}`);
+    debug('ezs')(`Create middleware 'notFound' for ${method} ${pathname}`);
     return notFound();
 }
 
@@ -48,7 +48,7 @@ function createServer(ezs, port) {
             try {
                 middleware(request, response);
             } catch (error) {
-                DEBUG('Server cannot execute commands', error);
+                debug('ezs')('Server cannot execute commands', error);
                 response.writeHead(500, { 'X-error': Parameter.encode(error.toString()) });
                 response.end();
             }
@@ -57,10 +57,10 @@ function createServer(ezs, port) {
     server.setTimeout(0);
     server.listen(serverPort);
     signals.forEach(signal => process.on(signal, () => {
-        DEBUG(`Signal received, stoping server with PID ${process.pid}`);
+        debug('ezs')(`Signal received, stoping server with PID ${process.pid}`);
         server.shutdown(() => process.exit(0));
     }));
-    DEBUG(`Server starting with PID ${process.pid} and listening on port ${serverPort}`);
+    debug('ezs')(`Server starting with PID ${process.pid} and listening on port ${serverPort}`);
     return server;
 }
 

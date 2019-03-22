@@ -1,10 +1,10 @@
 import path from 'path';
 import { PassThrough } from 'stream';
-import Cache from './cache';
 import Engine from './engine';
 import Script from './script';
 import File from './file';
 import Output from './output';
+import Commands from './commands';
 import Catcher from './catcher';
 import Statements from './statements';
 import Parameter from './parameter';
@@ -18,7 +18,6 @@ import {
 } from './constants';
 
 
-let cacheHandle = null;
 const ezs = (name, options, environment) => new Engine(ezs, Statement.get(ezs, name, options), options, environment);
 const ezsPath = [process.cwd()];
 
@@ -35,12 +34,6 @@ ezs.encodingMode = () => ({
     'Content-Encoding': settings.encoding,
 });
 ezs.fileToServe = file => path.join(settings.servePath, file);
-ezs.getCache = () => {
-    if (!cacheHandle) {
-        cacheHandle = new Cache(settings.cache);
-    }
-    return cacheHandle;
-};
 ezs.config = (name, options) => Parameter.set(ezs, name, options);
 ezs.metaString = (commands, options) => new Meta(ezs, commands, options);
 ezs.metaFile = (filename, options) => new Meta(ezs, File(ezs, filename), options);
@@ -51,7 +44,8 @@ ezs.toBuffer = options => new Output(options);
 ezs.use = plugin => Statement.set(ezs, plugin);
 ezs.addPath = p => ezsPath.push(p);
 ezs.getPath = () => ezsPath;
-ezs.command = (stream, command, environment) => stream.pipe(ezs.createCommand(command, environment));
+ezs.loadScript = file => File(ezs, file);
+ezs.compileScript = script => new Commands(ezs.parseString(script));
 ezs.createCommand = (command, environment) => {
     const mode = command.mode || M_NORMAL;
     if (!command.name) {
@@ -80,6 +74,15 @@ ezs.compileCommands = (commands, environment) => {
         return new PassThrough(ezs.objectMode());
     }
     return streams;
+};
+ezs.writeTo = (stream, data, callback) => {
+    const check = stream.write(data);
+    if (!check) {
+        stream.once('drain', callback);
+    } else {
+        process.nextTick(callback);
+    }
+    return check;
 };
 ezs.createPipeline = (input, streams) => streams.reduce((amont, aval) => amont.pipe(aval), input);
 ezs.compress = options => compressStream(ezs, options);

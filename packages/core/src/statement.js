@@ -1,5 +1,5 @@
+import debug from 'debug';
 import { useFile } from './file';
-import { DEBUG } from './constants';
 
 const pluginsList = {};
 
@@ -30,7 +30,7 @@ function get(ezs, plugin, opts) {
                     const after1 = Object.keys(pluginsList);
                     const diff1 = after1.filter(item => before1.indexOf(item) === -1);
                     if (diff1.length > 0) {
-                        DEBUG(`These statements are registered: ${diff1.join(',')}`);
+                        debug('ezs')(`These statements are registered: ${diff1.join(',')}`);
                     }
                 });
             }

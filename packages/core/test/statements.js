@@ -262,20 +262,39 @@ describe('statements', () => {
             });
     });
 
-    /* Not yet ready
-    it('harvest#1', (done) => {
+    it('unpack#1', (done) => {
+        const res = [];
         from([
-            'https://raw.githubusercontent.com/touv/node-ezs/master/package.json',
+            '"aaa"\n"bbb"\n"ccc"\n',
+            '"ddd"\n"eee"\n"fff"',
         ])
-            .pipe(ezs('harvest'))
+            .pipe(ezs('unpack'))
             .on('data', (chunk) => {
-                assert(Buffer.isBuffer(chunk));
-                assert(JSON.parse(chunk).name === 'ezs');
+                res.push(chunk);
             })
             .on('end', () => {
+                assert.equal(res[0], 'aaa');
+                assert.equal(res[2], 'ccc');
+                assert.equal(res[5], 'fff');
                 done();
             });
     });
+    it('unpack#2', (done) => {
+        const res = [];
+        from([
+            1, 2, 3,
+        ])
+            .pipe(ezs('unpack'))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.length, 0);
+                done();
+            });
+    });
+
+    /* Not yet ready
     it('harvest#2', (done) => {
         let check = true;
         from([

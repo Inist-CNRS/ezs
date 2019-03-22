@@ -11,10 +11,6 @@ export default function assign(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
-    const test = this.getParam('test', true);
-    if (!test) {
-        return feed.send(data);
-    }
     const path = this.getParam('path', []);
     const value = this.getParam('value');
     const vals = Array.isArray(path) && !Array.isArray(value) ? [value] : value;

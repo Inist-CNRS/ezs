@@ -17,8 +17,6 @@ export default class Catcher extends SafeTransform {
                     this.emit('error', e);
                 }
             }
-        } else if (chunk === null) {
-            this.push(null);
         } else {
             this.push(chunk);
         }

@@ -1,15 +1,19 @@
+before_install:
+  - npm i -g npm@latest
+
+install:
+  - npm ci
+
 language: node_js
 
+sudo: false
+
 node_js:
-    - "8"
-    - "10"
+  - "10"
 
 env:
     global:
         - NODE_ENV=test
-
-dist: trusty
-
 cache:
     directories:
         - node_modules

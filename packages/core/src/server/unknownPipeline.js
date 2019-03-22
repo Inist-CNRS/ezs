@@ -1,4 +1,4 @@
-import { DEBUG } from '../constants';
+import debug from 'debug';
 import Parameter from '../parameter';
 
 const unknownPipeline = ezs => (request, response) => {
@@ -19,14 +19,14 @@ const unknownPipeline = ezs => (request, response) => {
             };
         })
         .reduce((prev, cur) => Object.assign(prev, cur), {});
-    DEBUG(`PID ${process.pid} will execute ${commands.length || 0} commands with ${Object.keys(environment).length || 0} global parameters`);
+    debug('ezs')(`PID ${process.pid} will execute ${commands.length || 0} commands with ${Object.keys(environment).length || 0} global parameters`);
     request
         .pipe(ezs.uncompress(headers))
         .pipe(ezs('unpack'))
         .pipe(ezs('ungroup'))
         .pipe(ezs('delegate', { commands }, environment))
         .pipe(ezs.catch((error) => {
-            DEBUG('Server has caught an error', error);
+            debug('ezs')('Server has caught an error', error);
             if (!response.headersSent) {
                 response.writeHead(400, { 'X-Error': Parameter.encode(error.toString()) });
                 response.end();
