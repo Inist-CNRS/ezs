@@ -12,7 +12,7 @@
     "scripts": {
         "test": "mocha --require babel-register --exit",
         "coverage": "nyc --reporter=text mocha --reporter dot --require babel-register --exit",
-        "coveralls": "nyc report --reporter=text-lcov | coveralls",
+        "coveralls": "nyc --reporter=text-lcov mocha --reporter dot --require babel-register --exit | coveralls",
         "doc": "documentation readme package.json src/* --section=Statements",
         "lint": "eslint --ext=.js ./test/*.js ./src/*.js ./src/statements/*.js",
         "build": "babel src --out-dir lib",
