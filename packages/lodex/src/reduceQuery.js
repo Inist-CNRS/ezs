@@ -27,7 +27,8 @@ export const createFunction = () =>
         const reducer = this.getParam('reducer');
 
         const { map, reduce, finalize } = reducers[reducer];
-        const fields = Array.isArray(field) ? field : [field];
+        const fds = Array.isArray(field) ? field : [field];
+        const fields = fds.filter(Boolean);
         const collName = String('mp_').concat(
             hashCoerce.hash({ reducer, fields }),
         );
@@ -47,6 +48,9 @@ export const createFunction = () =>
         );
         const client = await MongoClient.connect(
             connectionStringURI,
+            { 
+                useNewUrlParser: true,
+            },
         );
         const db = client.db();
         const collection = db.collection('publishedDataset');
@@ -57,7 +61,6 @@ export const createFunction = () =>
         if (!reducers[reducer]) {
             throw new Error(`Unknown reducer '${reducer}'`);
         }
-
         const result = await collection.mapReduce(map, reduce, deepCopy(options));
 
         const total = await result.count();

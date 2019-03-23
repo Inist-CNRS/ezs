@@ -1,6 +1,6 @@
 import ezs from 'ezs';
 import set from 'lodash.set';
-import deepCopy from 'lodash.clonedeep';
+import zipObject from 'lodash.zipobject';
 import { MongoClient } from 'mongodb';
 
 export const createFunction = () =>
@@ -9,18 +9,29 @@ export const createFunction = () =>
             return feed.close();
         }
         const filter = this.getParam('filter', data.filter || {});
+        const field = this.getParam(
+            'field',
+            data.field || data.$field || 'uri',
+        );
+        const fds = Array.isArray(field) ? field : [field];
+        const fields = fds.filter(Boolean);
         const limit = this.getParam('limit', data.limit || 1000000);
         const skip = this.getParam('skip', data.skip || 0);
+        const projection = zipObject(fields, Array(fields.length).fill(true));
+        console.log ({projection});
         const connectionStringURI = this.getParam(
             'connectionStringURI',
             data.connectionStringURI || '',
         );
         const client = await MongoClient.connect(
             connectionStringURI,
+            {
+                useNewUrlParser: true,
+            },
         );
         const db = client.db();
         const collection = db.collection('publishedDataset');
-        const cursor = collection.find(deepCopy(filter));
+        const cursor = collection.find(filter, fields.length > 0 ? projection : null);
         const total = await cursor.count();
         if (total === 0) {
             return feed.send({total : 0});
