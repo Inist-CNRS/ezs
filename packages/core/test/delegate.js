@@ -8,9 +8,6 @@ ezs.use(require('./locals'));
 ezs.addPath(__dirname);
 
 ezs.settings.servePath = __dirname;
-ezs.config('stepper', {
-    step: 4,
-});
 
 class Upto extends Readable {
     constructor(m) {
@@ -196,6 +193,9 @@ describe('delegate through file(s)', () => {
         const commands = [
             {
                 name: 'stepper',
+                args: {
+                    step: 4,
+                },
             },
         ];
         const ten = new Upto(10);

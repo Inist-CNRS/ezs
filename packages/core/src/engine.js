@@ -1,7 +1,6 @@
-import Parameter from './parameter';
+import debug from 'debug';
 import Feed from './feed';
 import Shell from './shell';
-import debug from 'debug';
 import SafeTransform from './SafeTransform';
 
 function createErrorWith(error = {}, index = 0) {
@@ -77,11 +76,8 @@ export default class Engine extends SafeTransform {
             this.scope.emit = (d, c) => this.emit(d, c);
             this.scope.getParams = () => this.params;
             this.scope.getParam = (name, defval) => {
-                const globalParams = Parameter.get(this.ezs, this.funcName);
                 if (this.params[name] !== undefined) {
                     return Shell(this.params[name], chunk, this.environment);
-                } if (globalParams[name] !== undefined) {
-                    return globalParams[name];
                 }
                 return defval;
             };

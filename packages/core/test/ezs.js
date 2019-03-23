@@ -8,10 +8,6 @@ import Expression from '../src/expression';
 
 ezs.use(require('./locals'));
 
-ezs.config('stepper', {
-    step: 3,
-});
-
 class Decade extends Readable {
     constructor() {
         super({ objectMode: true });
@@ -160,8 +156,8 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send(input);
             }))
-            .pipe(ezs('stepper', { sign: '+' }))
-            .pipe(ezs('stepper', { sign: '-' }))
+            .pipe(ezs('stepper', { step: 3, sign: '+' }))
+            .pipe(ezs('stepper', { step: 3, sign: '-' }))
             .on('data', (chunk) => {
                 res += chunk;
             })

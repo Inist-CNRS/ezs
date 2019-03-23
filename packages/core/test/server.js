@@ -11,9 +11,6 @@ ezs.use(require('./locals'));
 ezs.addPath(__dirname);
 
 ezs.settings.servePath = __dirname;
-ezs.config('stepper', {
-    step: 4,
-});
 
 class Upto extends Readable {
     constructor(m) {
@@ -373,6 +370,9 @@ describe('dispatch through server(s)', () => {
         const commands = [
             {
                 name: 'stepper',
+                args: {
+                    step: 4,
+                },
             },
         ];
         const server = [

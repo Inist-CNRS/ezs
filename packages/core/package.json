@@ -12,6 +12,7 @@
     "scripts": {
         "test": "mocha --require babel-register --exit",
         "coverage": "nyc --reporter=text mocha --reporter dot --require babel-register --exit",
+        "coveralls": "nyc report --reporter=text-lcov | coveralls",
         "doc": "documentation readme package.json src/* --section=Statements",
         "lint": "eslint --ext=.js ./test/*.js ./src/*.js ./src/statements/*.js",
         "build": "babel src --out-dir lib",
@@ -39,6 +40,7 @@
         "babel-preset-env": "~1.7.0",
         "babel-preset-stage-3": "~6.24.1",
         "babel-register": "~6.26.0",
+        "coveralls": "~3.0.3",
         "documentation": "~8.1.2",
         "eslint": "~5.14.1",
         "eslint-config-airbnb-base": "~13.1.0",

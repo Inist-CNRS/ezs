@@ -4,11 +4,6 @@ import ezs from '../src';
 
 ezs.use(require('./locals'));
 
-ezs.config('stepper', {
-    step: 3,
-});
-
-
 class Decade extends Readable {
     constructor() {
         super({ objectMode: true });

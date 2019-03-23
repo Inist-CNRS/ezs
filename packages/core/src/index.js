@@ -7,7 +7,6 @@ import Output from './output';
 import Commands from './commands';
 import Catcher from './catcher';
 import Statements from './statements';
-import Parameter from './parameter';
 import Statement from './statement';
 import Meta from './meta';
 import Server from './server';
@@ -34,7 +33,6 @@ ezs.encodingMode = () => ({
     'Content-Encoding': settings.encoding,
 });
 ezs.fileToServe = file => path.join(settings.servePath, file);
-ezs.config = (name, options) => Parameter.set(ezs, name, options);
 ezs.metaString = (commands, options) => new Meta(ezs, commands, options);
 ezs.metaFile = (filename, options) => new Meta(ezs, File(ezs, filename), options);
 ezs.parseString = commands => Script(commands);
