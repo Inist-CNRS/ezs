@@ -36,6 +36,7 @@ export default function booster(data, feed) {
         const script = this.getParam('script', fileContent);
         const cmds = ezs.compileScript(script);
         const commands = this.getParam('commands', cmds.get());
+        const key = this.getParam('key');
         const environment = this.getEnv();
 
         if (!commands || commands.length === 0) {
@@ -46,7 +47,7 @@ export default function booster(data, feed) {
         this.input = new PassThrough({ objectMode: true });
 
         this.whenReady = new Promise((getup) => {
-            const uniqHash = computeHash(commands, environment, data);
+            const uniqHash = key || computeHash(commands, environment, data);
             const resetCacheOnError = (error, action) => {
                 debug('ezs')(`Error while ${action} cache with hash`, uniqHash, error);
                 cacheHandle.del(uniqHash).catch((error1) => {
