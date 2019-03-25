@@ -24,7 +24,7 @@
   },
   "main": "./lib/index.js",
   "scripts": {
-    "test": "mocha --require babel-register --exit",
+    "test": "mocha --require babel-register --require babel-polyfill --exit",
     "doc": "documentation readme package.json src/* --section=Statements",
     "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
     "build": "babel src --out-dir lib",

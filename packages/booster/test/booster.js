@@ -2,13 +2,10 @@ import assert from 'assert';
 import { Readable } from 'stream';
 import fs from 'fs';
 import ezs from 'ezs';
+import Cache from '../src/cache';
 
+ezs.use(require('../src'));
 ezs.use(require('./locals'));
-
-ezs.config('stepper', {
-    step: 3,
-});
-
 
 class Decade extends Readable {
     constructor() {
@@ -27,10 +24,13 @@ class Decade extends Readable {
 }
 
 describe('Booster', () => {
-    before(() => ezs.getCache().clear());
+    before(() => {
+        const handle = new Cache();
+        return handle.clear();
+    });
 
     describe('Boost script #1', () => {
-        const commands = `
+        const script = `
         [transit]
 
         [transit]
@@ -42,7 +42,7 @@ describe('Booster', () => {
                 .pipe(ezs((input, output) => {
                     output.send(input);
                 }))
-                .pipe(ezs('delegate', { script: commands }))
+                .pipe(ezs('delegate', { script }))
                 .on('error', assert.ifError)
                 .on('data', (chunk) => {
                     res += chunk;
@@ -61,7 +61,10 @@ describe('Booster', () => {
                     .pipe(ezs((input, output) => {
                         output.send(input);
                     }))
-                    .pipe(ezs('booster', { script: commands }))
+                    .pipe(ezs('booster', { 
+                        script,
+                        cleanupOnStartup: true,
+                    }))
                     .on('cache:created', (id) => {
                         cid = id;
                     })
@@ -86,7 +89,7 @@ describe('Booster', () => {
                         // to fool the cache
                         output.send(input === 2 ? 1 : input);
                     }))
-                    .pipe(ezs('booster', { script: commands }))
+                    .pipe(ezs('booster', { script }))
                     .on('cache:connected', (id) => {
                         console.log('cid', cid);
                         cid = id;
@@ -105,7 +108,7 @@ describe('Booster', () => {
         /**/
     });
     describe('Boost script #2', () => {
-        const commands = `
+        const script = `
         [increment]
         step = 2
 
@@ -119,7 +122,7 @@ describe('Booster', () => {
                 .pipe(ezs((input, output) => {
                     output.send(input);
                 }))
-                .pipe(ezs('delegate', { script: commands }))
+                .pipe(ezs('delegate', { script }))
                 .on('error', assert.ifError)
                 .on('data', (chunk) => {
                     res += chunk;
@@ -136,7 +139,7 @@ describe('Booster', () => {
                 .pipe(ezs((input, output) => {
                     output.send(input);
                 }))
-                .pipe(ezs('booster', { script: commands }))
+                .pipe(ezs('booster', { script }))
                 .on('error', assert.ifError)
                 .on('data', (chunk) => {
                     res += chunk;
@@ -149,7 +152,7 @@ describe('Booster', () => {
         /**/
     });
     describe.skip('Boost script #3 (with error)', () => {
-        const commands = `
+        const script = `
         [transit]
 
         [transit]
@@ -165,7 +168,7 @@ describe('Booster', () => {
                     .pipe(ezs((input, output) => {
                         output.send(input);
                     }))
-                    .pipe(ezs('booster', { script: commands }))
+                    .pipe(ezs('booster', { script }))
                     .on('cache:created', (id) => {
                         cid = id;
                     })
@@ -191,7 +194,7 @@ describe('Booster', () => {
                         // to fool the cache
                         output.send(input === 2 ? 1 : input);
                     }))
-                    .pipe(ezs('booster', { script: commands }))
+                    .pipe(ezs('booster', { script }))
                     .on('error', (error) => {
                         assert(error instanceof Error);
                         done();
@@ -201,7 +204,7 @@ describe('Booster', () => {
         /**/
     });
     describe.skip('Boost script #4 (with error)', () => {
-        const commands = `
+        const script = `
         [transit]
 
         [transit]
@@ -219,7 +222,7 @@ describe('Booster', () => {
                     .pipe(ezs((input, output) => {
                         output.send(input);
                     }))
-                    .pipe(ezs('booster', { script: commands }))
+                    .pipe(ezs('booster', { script }))
                     .on('cache:created', (id) => {
                         cid = id;
                     })
@@ -245,7 +248,7 @@ describe('Booster', () => {
                         // to fool the cache
                         output.send(input === 2 ? 1 : input);
                     }))
-                    .pipe(ezs('booster', { script: commands }))
+                    .pipe(ezs('booster', { script }))
                     .pipe(ezs('transit'))
                     .pipe(ezs.catch(e => e))
                     .on('error', (error) => {
@@ -260,7 +263,7 @@ describe('Booster', () => {
 
 
     describe('Boost script #5 (with error)', () => {
-        const commands = `
+        const script = `
         [transit]
         [transit]
         [transit]
@@ -282,7 +285,7 @@ describe('Booster', () => {
                             output.send(input);
                         }
                     }))
-                    .pipe(ezs('booster', { script: commands }))
+                    .pipe(ezs('booster', { script }))
                     .on('cache:created', (id) => {
                         cid = id;
                     })
@@ -306,7 +309,7 @@ describe('Booster', () => {
                         // to fool the cache
                         output.send(input === 2 ? 1 : input);
                     }))
-                    .pipe(ezs('booster', { script: commands }))
+                    .pipe(ezs('booster', { script }))
                     .pipe(ezs('transit'))
                     .pipe(ezs.catch(e => e))
                     .on('error', assert.ifError)
@@ -324,7 +327,7 @@ describe('Booster', () => {
 
 /*
     describe('Boost script #6 (with error)', () => {
-        const commands = `
+        const script = `
         [transit]
         [transit]
         [transit]

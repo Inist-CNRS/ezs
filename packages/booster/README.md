@@ -35,8 +35,7 @@ file = ./script.ini
 
 ### booster
 
-Takes an `Object` delegate processing to an external pipeline
-at the first call but cache the result for all others calls
+Takes an `Object` delegate processing to an external pipeline and cache the result
 
 #### Parameters
 
@@ -45,5 +44,10 @@ at the first call but cache the result for all others calls
 -   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is descrbied in a file
 -   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is descrbied in a sting of characters
 -   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is descrbied in object
+-   `key` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the cache key identifier form the stream, in not provided, the key is computed with the first chunk
+-   `hitsByCheck` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Number of hits to verify the cache (optional, default `1000`)
+-   `maxFiles` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Number of hits to verify the cache (optional, default `100`)
+-   `maxTotalSize` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Size (bytes) maximun of the cash (1 G) (optional, default `1000000000`)
+-   `cleanupDelay` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Frequency (milliseconds) to cleanup the cahe (10 min) (optional, default `600000`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 

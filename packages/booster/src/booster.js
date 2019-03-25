@@ -8,7 +8,7 @@ const hashCoerce = hasher({
     coerce: true,
 });
 
-const cacheHandle = new Cache();
+let cacheHandle;
 
 const computeHash = (commands, environment, chunk) => {
     const commandsHash = hashCoerce.hash(commands);
@@ -20,12 +20,16 @@ const computeHash = (commands, environment, chunk) => {
 };
 
 /**
- * Takes an `Object` delegate processing to an external pipeline
- * at the first call but cache the result for all others calls
+ * Takes an `Object` delegate processing to an external pipeline and cache the result
  *
  * @param {String} [file] the external pipeline is descrbied in a file
  * @param {String} [script] the external pipeline is descrbied in a sting of characters
  * @param {String} [commands] the external pipeline is descrbied in object
+ * @param {String} [key] the cache key identifier form the stream, in not provided, the key is computed with the first chunk
+ * @param {Number} [hitsByCheck=1000] Number of hits to verify the cache
+ * @param {Number} [maxFiles=100] Number of hits to verify the cache
+ * @param {Number} [maxTotalSize=1000000000] Size (bytes) maximun of the cash (1 G)
+ * @param {Number} [cleanupDelay=600000] Frequency (milliseconds) to cleanup the cahe (10 min)
  * @returns {Object}
  */
 export default function booster(data, feed) {
@@ -37,10 +41,27 @@ export default function booster(data, feed) {
         const cmds = ezs.compileScript(script);
         const commands = this.getParam('commands', cmds.get());
         const key = this.getParam('key');
+        const hitsByCheck = Number(this.getParam('hitsByCheck', 1000));
+        const maxTotalSize = Number(this.getParam('maxTotalSize'));
+        const maxFiles = Number(this.getParam('maxFiles', 100));
+        const cleanupDelay = Number(this.getParam('cleanupDelay', 10 * 60 * 1000));
+        const rootPath = this.getParam('rootPath');
+        const directoryPath = this.getParam('directoryPath');
         const environment = this.getEnv();
 
+        if (!cacheHandle) {
+            cacheHandle = new Cache({
+                maxTotalSize,
+                cleanupDelay,
+                maxFiles,
+                directoryPath,
+                rootPath,
+                hitsByCheck,
+            });
+        }
+
         if (!commands || commands.length === 0) {
-            return feed.stop(new Error('Invalid parmeter for delegate'));
+            return feed.stop(new Error('Invalid parameter for booster'));
         }
 
         const streams = ezs.compileCommands(commands, environment);
@@ -55,8 +76,7 @@ export default function booster(data, feed) {
                 });
             };
 
-            cacheHandle
-                .has(uniqHash)
+            cacheHandle.has(uniqHash)
                 .then(cached => new Promise((resolve) => {
                     this.cached = cached;
                     if (cached) {
@@ -102,14 +122,15 @@ export default function booster(data, feed) {
                             .set(uniqHash, output)
                             .then(() => {
                                 debug('ezs')('Cache has created with hash', uniqHash);
-                                done();
+                                return cacheHandle.check();
                             })
+                            .then(done)
                             .catch((e) => {
                                 resetCacheOnError(e, 'creating');
                                 feed.stop();
                             });
                     });
-                    debug('ezs')(`Delegate first chunk #${this.getIndex()} containing ${Object.keys(data).length || 0} keys`);
+                    debug('ezs')(`Booster first chunk #${this.getIndex()} containing ${Object.keys(data).length || 0} keys`);
                     return ezs.writeTo(this.input, data, () => {
                         feed.end();
                         getup();
@@ -127,7 +148,7 @@ export default function booster(data, feed) {
                     .catch(e => feed.stop(e));
                 return this.input.end();
             }
-            debug('ezs')(`Delegate chunk #${this.getIndex()} containing ${Object.keys(data).length || 0} keys`);
+            debug('ezs')(`Booster chunk #${this.getIndex()} containing ${Object.keys(data).length || 0} keys`);
             return ezs.writeTo(this.input, data, () => feed.end());
         })
         .catch(e => feed.stop(e));
