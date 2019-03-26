@@ -103,6 +103,7 @@ describe('dispatch through server(s)', () => {
                 .catch(done);
         });
 
+
         it('part1-3.ini with paramaters', (done) => {
             const stream = from([
                 '{"a":1}\n{"a":2}\n{"a":3}\n',
@@ -139,6 +140,16 @@ describe('dispatch through server(s)', () => {
             })
             .catch(done);
     });
+
+    it('get no found script #2', (done) => {
+        fetch('http://127.0.0.1:31976/;;;?key=a&with=titi')
+            .then((res) => {
+                assert.equal(res.status, 404);
+                done();
+            })
+            .catch(done);
+    });
+
 
     it('get no found url ', (done) => {
         fetch('http://127.0.0.1:31976/script.xxx', { method: 'HEAD' })

@@ -1,6 +1,8 @@
 import debug from 'debug';
 import Feed from './feed';
 import Shell from './shell';
+import queue from 'concurrent-queue';
+
 import SafeTransform from './SafeTransform';
 
 function createErrorWith(error = {}, index = 0) {
@@ -24,6 +26,9 @@ export default class Engine extends SafeTransform {
         this.ezs = ezs;
         this.environment = environment || {};
         this.nullWasSent = false;
+        this.queue = queue().limit(ezs.settings.queue).process((task, cb) => {
+            this.execWith(task, cb);
+        });
     }
 
     _transform(chunk, encoding, done) {
@@ -35,7 +40,7 @@ export default class Engine extends SafeTransform {
             this.push(chunk);
             return done();
         }
-        return this.execWith(chunk, done);
+        return this.queue(chunk, done);
     }
 
     _flush(done) {
@@ -43,7 +48,7 @@ export default class Engine extends SafeTransform {
             return done();
         }
         this.index += 1;
-        return this.execWith(null, done);
+        return this.queue(null, done);
     }
 
     execWith(chunk, done) {

@@ -7,7 +7,7 @@ import settings from '../settings';
  * @returns {String}
  */
 export default function group(data, feed) {
-    const size = Number(this.getParam('size')) || settings.nShards;
+    const size = Number(this.getParam('size', settings.highWaterMark.object));
 
     if (this.isFirst()) {
         this.buffer = [];

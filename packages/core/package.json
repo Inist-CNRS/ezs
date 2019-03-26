@@ -54,6 +54,7 @@
         "app-module-path": "~2.2.0",
         "autocast": "~0.0.4",
         "cacache": "~11.3.2",
+        "concurrent-queue": "~7.0.2",
         "debug": "~4.1.1",
         "deep-object-diff": "~1.1.0",
         "filename-regex": "~2.0.1",

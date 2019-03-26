@@ -195,6 +195,26 @@ describe('Catch error in a pipeline', () => {
             .on('error', (err) => {
                 assert.ok(err instanceof Error);
                 done();
-            })
+            });
+    });
+
+    it('with no existing plugin', (done) => {
+        const commands = `
+            [use]
+            plugin = fake
+
+            [transit]
+        `;
+        const ten = new Decade();
+        ten
+            .pipe(ezs((input, output) => {
+                output.send({ val: input });
+            }))
+            .pipe(ezs('delegate', { script: commands }))
+            .pipe(ezs.catch(e => e))
+            .on('error', (err) => {
+                assert.ok(err instanceof Error);
+                done();
+            });
     });
 });

@@ -16,6 +16,7 @@ function decrement(data, feed) {
     if (!this.isLast()) {
         const step = this.getParam('step', 1);
         const value = data || 0;
+        feed.write();
         feed.send(value - step);
     } else {
         feed.send(data);
