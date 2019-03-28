@@ -12,8 +12,9 @@ function strict(data, sep) {
 }
 
 function CSVString(data, feed) {
-    const format = this.getParam('format', 'standard');
-    const sep = this.getParam('separator', ';');
+    const format = String(this.getParam('format', 'standard'));
+    const sep = String(this.getParam('separator', ';'));
+    const header = Boolean(this.getParam('header', true));
     let func;
     if (format === 'strict') {
         func = strict;
@@ -22,7 +23,7 @@ function CSVString(data, feed) {
     }
     if (this.isLast()) {
         feed.close();
-    } else if (this.isFirst()) {
+    } else if (this.isFirst() && header) {
         feed.write(func(Object.keys(data), sep));
         feed.send(func(data, sep));
     } else {
