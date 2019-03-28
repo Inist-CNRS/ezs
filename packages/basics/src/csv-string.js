@@ -38,6 +38,7 @@ function CSVString(data, feed) {
  * @name CSVString
  * @param {String} [format=standard] if set to "strict" the fields will wrapped with double quote
  * @param {String} [separator=;] to indicate the CSV separator
+ * @param {Boolean} [header=true] first line contains key name
  * @returns {String}
  */
 export default {

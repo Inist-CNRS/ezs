@@ -99,6 +99,7 @@ where each field is separated with a character
 
 -   `format` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** if set to "strict" the fields will wrapped with double quote (optional, default `standard`)
 -   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to indicate the CSV separator (optional, default `;`)
+-   `header` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** first line contains key name (optional, default `true`)
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
