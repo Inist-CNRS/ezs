@@ -1,3 +1,4 @@
+import ezs from 'ezs';
 import { PassThrough } from 'stream';
 import { writeTo } from './utils';
 
@@ -29,10 +30,9 @@ function ISTEXParseDotCorpus(data, feed) {
         return feed.close();
     }
     const metadata = this.ezs.metaString(data);
-    const statement = this.ezs.fromString(data);
     const input = new PassThrough({ objectMode: true });
     const output = input
-        .pipe(statement)
+        .pipe(ezs('delegate', { script: data }))
         .on('data', (chunk) => {
             feed.write({ ...metadata, ...chunk });
         })

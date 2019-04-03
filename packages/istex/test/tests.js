@@ -402,7 +402,7 @@ describe('ISTEX', () => {
                 assert.equal(result[0].id, result[3].id);
                 done();
             });
-    }).timeout(5000);
+    }).timeout(10000);
 
     it('should get identified docs once per input', (done) => {
         const result = [];
@@ -443,7 +443,7 @@ describe('ISTEX', () => {
                 assert.equal(result[0].id, result[4].id);
                 done();
             });
-    }).timeout(6000);
+    }).timeout(12000);
 });
 
 describe('ISTEXUniq', () => {
@@ -696,7 +696,7 @@ describe('ISTEXScroll', () => {
                 assert.equal(result.length, 2);
                 done();
             });
-    });
+    }).timeout(5000);
 });
 
 describe('ISTEXUnzip', () => {
