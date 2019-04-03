@@ -125,7 +125,7 @@ describe('ISTEXResult', () => {
                 assert.equal(result[3500].id.length, 40);
                 done();
             });
-    }).timeout(5000);
+    }).timeout(10000);
 });
 
 describe('ISTEXTriplify', () => {
@@ -156,7 +156,7 @@ describe('ISTEXTriplify', () => {
                 assert(result[2].includes(' <http://purl.org/dc/terms/identifier> '));
                 done();
             });
-    }).timeout(5000);
+    }).timeout(10000);
 
     it('should not return triples containing undefined', (done) => {
         const result = [];
@@ -187,7 +187,7 @@ describe('ISTEXTriplify', () => {
                 assert(!result[2].includes('undefined'));
                 done();
             });
-    }).timeout(5000);
+    }).timeout(10000);
 
     it('should return URLs in angle brackets', (done) => {
         const result = [];
@@ -216,7 +216,7 @@ describe('ISTEXTriplify', () => {
                 assert(result[1].endsWith('> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/ontology/bibo/Document> .\n'));
                 assert(result[2].includes(' <https://data.istex.fr/ontology/istex#accessURL> '));
                 assert(result[2].endsWith('> .\n'));
-                assert(result[2].includes(' <https://api.istex.fr/document/'));
+                assert(result[2].includes(' <https://api.istex.fr/ark:/67375/'));
                 assert(!result[2].includes('undefined'));
                 done();
             });
@@ -646,7 +646,7 @@ describe('ISTEXScroll', () => {
                 assert.equal(typeof result[1], 'object');
                 done();
             });
-    });
+    }).timeout(5000);
 
     it('should execute queries from input', (done) => {
         const result = [];
