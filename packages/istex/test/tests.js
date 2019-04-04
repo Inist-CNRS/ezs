@@ -107,9 +107,7 @@ describe('ISTEXFetch', () => {
 describe('ISTEXResult', () => {
     it('ISTEXResult #1', (done) => {
         const result = [];
-        from([
-            'this is an test',
-        ])
+        from([{ query: 'this is an test' }])
             .pipe(ezs('ISTEXScroll', {
                 maxPage: 2,
                 sid: 'test',
@@ -131,7 +129,7 @@ describe('ISTEXResult', () => {
 describe('ISTEXTriplify', () => {
     it('should return triples, rdfs:type and identifier', (done) => {
         const result = [];
-        from(['ezs'])
+        from([{ query: 'ezs' }])
             .pipe(ezs('ISTEXScroll', {
                 maxPage: 1,
                 sid: 'test',
@@ -160,7 +158,7 @@ describe('ISTEXTriplify', () => {
 
     it('should not return triples containing undefined', (done) => {
         const result = [];
-        from(['ezs'])
+        from([{ query: 'ezs' }])
             .pipe(ezs('ISTEXScroll', {
                 maxPage: 1,
                 sid: 'test',
@@ -191,7 +189,7 @@ describe('ISTEXTriplify', () => {
 
     it('should return URLs in angle brackets', (done) => {
         const result = [];
-        from(['language.raw:rum'])
+        from([{ query: 'language.raw:rum' }])
             .pipe(ezs('ISTEXScroll', {
                 maxPage: 1,
                 sid: 'test',
@@ -224,7 +222,7 @@ describe('ISTEXTriplify', () => {
 
     it('should begin each subject with <https://api.istex.fr/ark:/', (done) => {
         const result = [];
-        from(['language.raw:rum'])
+        from([{ query: 'language.raw:rum' }])
             .pipe(ezs('ISTEXScroll', {
                 maxPage: 1,
                 sid: 'test',
@@ -630,7 +628,7 @@ describe('ISTEXParseDotCorpus', () => {
 describe('ISTEXScroll', () => {
     it('should respect maxPage', (done) => {
         const result = [];
-        from(['this is a test'])
+        from([{ query: 'this is a test' }])
             .pipe(ezs('ISTEXScroll', {
                 maxPage: 2,
                 size: 1,
@@ -650,7 +648,7 @@ describe('ISTEXScroll', () => {
 
     it('should execute queries from input', (done) => {
         const result = [];
-        from(['ezs', 'test'])
+        from([{ query: 'ezs' }, { query: 'test' }])
             .pipe(ezs('ISTEXScroll', {
                 maxPage: 1,
                 size: 1,
@@ -666,11 +664,11 @@ describe('ISTEXScroll', () => {
                 assert.notDeepEqual(result[0], result[1]);
                 done();
             });
-    });
+    }).timeout(5000);
 
     it('should reply even only one result', (done) => {
         const result = [];
-        from(['language.raw:rum'])
+        from([{ query: 'language.raw:rum' }])
             .pipe(ezs('ISTEXScroll', {
                 sid: 'test',
             }))
@@ -687,13 +685,57 @@ describe('ISTEXScroll', () => {
     it('should go through the right number of pages', (done) => {
         const result = [];
         // ezs returns 2471 results (2018/11/16)
-        from(['ezs'])
+        from([{ query: 'ezs' }])
             .pipe(ezs('ISTEXScroll', { sid: 'test', size: 2000 }))
             .on('data', (chunk) => {
                 result.push(chunk);
             })
             .on('end', () => {
                 assert.equal(result.length, 2);
+                done();
+            });
+    }).timeout(5000);
+
+    it('should merge initial object and response in first object', (done) => {
+        const result = [];
+        from([{
+            lodex: {
+                uri: 'https://api.istex.fr/ark',
+            },
+            query: 'language.raw:rum',
+        }])
+            .pipe(ezs('ISTEXScroll', { sid: 'test' }))
+            .on('data', (chunk) => {
+                result.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(result.length, 1);
+                assert.equal(typeof result[0], 'object');
+                assert.equal(result[0].query, 'language.raw:rum');
+                assert.ok(result[0].lodex);
+                assert.equal(result[0].lodex.uri, 'https://api.istex.fr/ark');
+                done();
+            });
+    });
+
+    it('should merge initial object and response in second object', (done) => {
+        const result = [];
+        from([{
+            lodex: {
+                uri: 'https://api.istex.fr/ark',
+            },
+            query: 'ezs',
+        }])
+            .pipe(ezs('ISTEXScroll', { sid: 'test', size: 2000 }))
+            .on('data', (chunk) => {
+                result.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(result.length, 2);
+                assert.equal(typeof result[1], 'object');
+                assert.equal(result[1].query, 'ezs');
+                assert.ok(result[1].lodex);
+                assert.equal(result[1].lodex.uri, 'https://api.istex.fr/ark');
                 done();
             });
     }).timeout(5000);

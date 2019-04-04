@@ -226,7 +226,8 @@ Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Gl
 
 ### ISTEXScroll
 
-Take a string containing a query and outputs records from the ISTEX API.
+Take an object containing a query string field and output records from the
+ISTEX API. Every output record is merged with the input object.
 
 #### Parameters
 
@@ -240,7 +241,7 @@ Take a string containing a query and outputs records from the ISTEX API.
 #### Examples
 
 ```javascript
-from(['this is a test'])
+from([{ query: 'this is a test' }])
   .pipe(ezs('ISTEXScroll', {
       maxPage: 2,
       size: 1,
@@ -287,7 +288,7 @@ Output
 
 ### ISTEXUnzip
 
-Take the content of a zip file, extract JSON files, and yields JSON objects.
+Take the content of a zip file, extract JSON files, and yield JSON objects.
 
 The zip file comes from dl.istex.fr, and the `manifest.json` is not
 extracted.

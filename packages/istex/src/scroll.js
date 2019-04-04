@@ -4,10 +4,11 @@ import QueryString from 'qs';
 import fetch from 'fetch-with-proxy';
 
 /**
- * Take a string containing a query and outputs records from the ISTEX API.
+ * Take an object containing a query string field and output records from the
+ * ISTEX API. Every output record is merged with the input object.
  *
  * @example
- * from(['this is a test'])
+ * from([{ query: 'this is a test' }])
  *   .pipe(ezs('ISTEXScroll', {
  *       maxPage: 2,
  *       size: 1,
@@ -26,7 +27,7 @@ async function ISTEXScroll(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
-    const query = this.getParam('query') || data;
+    const query = this.getParam('query') || data.query || '';
     const sid = this.getParam('sid', 'ezs-istex');
     const maxPage = Number(this.getParam('maxPage'));
     const size = Number(this.getParam('size', 2000));
@@ -80,6 +81,7 @@ async function ISTEXScroll(data, feed) {
             );
             prevScrollId = scrollId;
         }
+        json = { ...json, ...data };
         feed.write(json);
 
         if (json.noMoreScrollResults) {
