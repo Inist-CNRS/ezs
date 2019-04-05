@@ -181,8 +181,8 @@ describe('ISTEXTriplify', () => {
                 assert(result[0].length > 0);
                 assert.equal(result[0].split(' ').length, 4);
                 assert(result[1].endsWith('> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/ontology/bibo/Document> .\n'));
-                assert(result[2].includes(' <http://purl.org/dc/terms/creator> '));
-                assert(!result[2].includes('undefined'));
+                assert(result.some(t => t.includes(' <http://purl.org/dc/terms/creator> ')));
+                assert(!result.some(t => t.includes('"undefined"')));
                 done();
             });
     }).timeout(10000);
