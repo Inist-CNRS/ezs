@@ -108,17 +108,17 @@ export default function convertToExtendedJsonLd(data, feed) {
     if (!this.searchKeys) {
         this.context = getContext(config, prefixes);
         this.searchKeys = Object.keys(this.context).filter(
-            v => !Object.keys(data.content).includes(v) && v !== config.istexQuery.linked,
+            v => !Object.keys(data).includes(v) && v !== config.istexQuery.linked,
         );
     }
     const newHit = {
-        ...data.content,
+        ...data,
     };
-    newHit['@id'] = `https://api.istex.fr/${data.content.arkIstex}`;
-    newHit[config.istexQuery.linked] = data.lodex.uri;
+    newHit['@id'] = `https://api.istex.fr/${data.arkIstex}`;
+    newHit[config.istexQuery.linked] = data.uri;
 
     this.searchKeys.forEach((key) => {
-        const dataFromKey = get(data.content, key);
+        const dataFromKey = get(data, key);
         newHit[key] = formatData(dataFromKey);
     });
 
