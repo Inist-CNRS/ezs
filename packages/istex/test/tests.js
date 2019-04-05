@@ -105,7 +105,7 @@ describe('ISTEXFetch', () => {
 });
 
 describe('ISTEXResult', () => {
-    it('ISTEXResult #1', (done) => {
+    it('should concatenate results', (done) => {
         const result = [];
         from([{ query: 'this is an test' }])
             .pipe(ezs('ISTEXScroll', {
@@ -121,6 +121,27 @@ describe('ISTEXResult', () => {
                 assert.equal(result[0].id.length, 40);
                 assert.equal(result[1000].id.length, 40);
                 assert.equal(result[3500].id.length, 40);
+                done();
+            });
+    }).timeout(10000);
+
+    it('should inject lodex.uri field in every hit', (done) => {
+        const result = [];
+        from([{ query: 'this is an test', lodex: { uri: 'https://uri' } }])
+            .pipe(ezs('ISTEXScroll', {
+                maxPage: 1,
+                sid: 'test',
+            }))
+            .pipe(ezs('ISTEXResult'))
+            .on('data', (chunk) => {
+                result.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(result.length, 2000);
+                assert.equal(result[0].id.length, 40);
+                assert.ok(result[0].score);
+                assert.ok(result[0].arkIstex);
+                assert.ok(result[0].uri);
                 done();
             });
     }).timeout(10000);

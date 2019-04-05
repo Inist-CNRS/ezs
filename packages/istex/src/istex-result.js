@@ -21,9 +21,11 @@ function ISTEXResult(data, feed) {
     const target = this.getParam('target');
     const handle = source ? OBJ.get(data, source) : data;
 
+    const { lodex } = handle;
+    const { uri } = lodex || { uri: null };
     const result = handle.hits || [];
     result.forEach((hitObj) => {
-        feed.write(newValue({ ...hitObj }, target, data));
+        feed.write(newValue({ ...hitObj, uri }, target, data));
     });
     feed.end();
 }
