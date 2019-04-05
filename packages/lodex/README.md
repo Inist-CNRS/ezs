@@ -63,7 +63,10 @@ Returns **any** JSONLD context with properties URI
 
 ## convertToExtendedJsonLd
 
-Convert the result of an ISTEX query to an extended JSON-LD
+Convert the result of an ISTEX query to an extended JSON-LD.
+
+Every hit must contain the URI of original lodex resource, linked to the
+query.
 
 ### Parameters
 

@@ -92,7 +92,10 @@ const formatData = (data) => {
 };
 
 /**
- * Convert the result of an ISTEX query to an extended JSON-LD
+ * Convert the result of an ISTEX query to an extended JSON-LD.
+ *
+ * Every hit must contain the URI of original lodex resource, linked to the
+ * query.
  *
  * @param {Object}  [config={}]  LODEX configuration (with `istexQuery`)
  * @param {Object}  [prefixes={bibo,dbpedia,dcterms,..}]    LOD prefixes
