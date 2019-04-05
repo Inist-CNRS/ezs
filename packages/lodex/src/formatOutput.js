@@ -24,7 +24,7 @@ function formatOutput(data, feed) {
                 feed.write(':');
                 feed.write(json(values[index]));
             });
-            feed.write(`,`);
+            feed.write(',');
         }
         feed.write(`"${keyName}":[`);
     } else {
@@ -32,8 +32,8 @@ function formatOutput(data, feed) {
     }
     keys.forEach(p => unset(data, p));
     feed.write(json(data));
-    feed.end();
+    return feed.end();
 }
 export default {
     formatOutput,
-}
+};
