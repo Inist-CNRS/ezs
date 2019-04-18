@@ -70,17 +70,8 @@ async function ISTEXScroll(data, feed) {
     if (json.noMoreScrollResults) {
         nbPages = 1;
     }
-    let prevScrollId = '';
     for (let i = 0; i < nbPages; i += 1) {
-        const { nextScrollURI, scrollId } = json;
-        if (process.env.DEBUG) {
-            // eslint-disable-next-line no-console
-            console.assert(
-                prevScrollId === scrollId,
-                `New ScrollId: ${scrollId}`,
-            );
-            prevScrollId = scrollId;
-        }
+        const { nextScrollURI } = json;
         json = { ...json, ...data };
         feed.write(json);
 
