@@ -864,7 +864,7 @@ describe('ISTEXUnzip', () => {
     }).timeout(4000);
 });
 
-describe.only('ISTEXFacet', () => {
+describe('ISTEXFacet', () => {
     it('should return aggregations', (done) => {
         const result = [];
         from([{ query: 'ezs', facet: 'publicationDate[perYear]' }])
@@ -873,7 +873,6 @@ describe.only('ISTEXFacet', () => {
                 result.push(chunk);
             })
             .on('end', () => {
-                console.log(result)
                 assert.equal(result.length, 1);
                 assert(result[0]);
                 assert(result[0].total);
