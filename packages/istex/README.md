@@ -15,27 +15,50 @@ ezs.use(require('ezs-istex'));
 
 #### Table of Contents
 
--   [ISTEXFetch](#istexfetch)
+-   [ISTEXFacet](#istexfacet)
     -   [Parameters](#parameters)
     -   [Examples](#examples)
--   [ISTEXParseDotCorpus](#istexparsedotcorpus)
-    -   [Examples](#examples-1)
--   [ISTEXResult](#istexresult)
+-   [ISTEXFetch](#istexfetch)
     -   [Parameters](#parameters-1)
--   [ISTEXSave](#istexsave)
-    -   [Parameters](#parameters-2)
--   [ISTEXTriplify](#istextriplify)
-    -   [Parameters](#parameters-3)
+    -   [Examples](#examples-1)
+-   [ISTEXParseDotCorpus](#istexparsedotcorpus)
     -   [Examples](#examples-2)
--   [ISTEX](#istex)
+-   [ISTEXResult](#istexresult)
+    -   [Parameters](#parameters-2)
+-   [ISTEXSave](#istexsave)
+    -   [Parameters](#parameters-3)
+-   [ISTEXTriplify](#istextriplify)
     -   [Parameters](#parameters-4)
     -   [Examples](#examples-3)
--   [ISTEXScroll](#istexscroll)
+-   [ISTEX](#istex)
     -   [Parameters](#parameters-5)
     -   [Examples](#examples-4)
--   [ISTEXUniq](#istexuniq)
+-   [ISTEXScroll](#istexscroll)
+    -   [Parameters](#parameters-6)
     -   [Examples](#examples-5)
+-   [ISTEXUniq](#istexuniq)
+    -   [Examples](#examples-6)
 -   [ISTEXUnzip](#istexunzip)
+
+### ISTEXFacet
+
+Take an object containing a query string field, a facet, and output
+aggregations from the ISTEX API.
+
+#### Parameters
+
+-   `query` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** ISTEX query (optional, default `"*"`)
+-   `facet` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** ISTEX facet (optional, default `"corpusName"`)
+-   `sid` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** User-agent identifier (optional, default `"ezs-istex"`)
+
+#### Examples
+
+```javascript
+from([{ query: 'ezs', facet: 'corpusName' }])
+  .pipe(ezs('ISTEXFacet', { sid: 'test', }))
+```
+
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 
 
 ### ISTEXFetch
 
