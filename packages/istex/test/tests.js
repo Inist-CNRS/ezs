@@ -863,3 +863,27 @@ describe('ISTEXUnzip', () => {
             });
     }).timeout(4000);
 });
+
+describe.only('ISTEXFacet', () => {
+    it('should return aggregations', (done) => {
+        const result = [];
+        from([{ query: 'ezs', facet: 'publicationDate[perYear]' }])
+            .pipe(ezs('ISTEXFacet', { sid: 'test' }))
+            .on('data', (chunk) => {
+                result.push(chunk);
+            })
+            .on('end', () => {
+                console.log(result)
+                assert.equal(result.length, 1);
+                assert(result[0]);
+                assert(result[0].total);
+                assert(result[0].aggregations);
+                assert(result[0].aggregations.publicationDate);
+                assert(result[0].aggregations.publicationDate.keyCount);
+                assert(result[0].aggregations.publicationDate.keyCount > 0);
+                assert(result[0].aggregations.publicationDate.buckets);
+                assert(result[0].aggregations.publicationDate.buckets.length > 0);
+                done();
+            });
+    }).timeout(10000);
+});

@@ -7,6 +7,7 @@ import ISTEXTriplify from './istex-triplify';
 import ISTEXUniq from './uniq';
 import ISTEXScroll from './scroll';
 import ISTEXUnzip from './unzip';
+import ISTEXFacet from './facet';
 
 export default {
     ISTEX,
@@ -18,4 +19,5 @@ export default {
     ISTEXUniq,
     ISTEXScroll,
     ISTEXUnzip,
+    ISTEXFacet,
 };
