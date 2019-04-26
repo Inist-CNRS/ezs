@@ -29,10 +29,16 @@ export default class Engine extends SafeTransform {
         this.queue = queue().limit(ezs.settings.queue).process((task, cb) => {
             this.execWith(task, cb);
         });
+        this.on('pipe', (src) => {
+            this.parentStream = src;
+        });
     }
 
     _transform(chunk, encoding, done) {
         if (this.nullWasSent) {
+            if (this.parentStream && this.parentStream.unpipe) {
+                this.parentStream.unpipe(this);
+            }
             return done();
         }
         this.index += 1;
