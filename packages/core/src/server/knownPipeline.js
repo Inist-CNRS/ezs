@@ -25,7 +25,9 @@ const knownPipeline = ezs => (request, response) => {
     const { headers } = request;
     response.setHeader('Content-Encoding', headers['content-encoding'] || 'identity');
     debug('ezs')(`PID ${process.pid} will execute ${pathname} commands with ${Object.keys(query).length || 0} global parameters`);
-    const input = request.pipe(ezs.uncompress(headers))
+    const input = request
+        .pipe(ezs('truncate', { length: headers['content-length'] }))
+        .pipe(ezs.uncompress(headers))
         .on('error', errorHandler);
     ezs.createPipeline(input, files)
         .pipe(ezs.catch(e => e))

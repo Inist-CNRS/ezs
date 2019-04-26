@@ -16,6 +16,7 @@ import dispatch from './dispatch';
 import delegate from './delegate';
 import singleton from './singleton';
 import tracer from './tracer';
+import truncate from './truncate';
 import dump from './dump';
 
 export default {
@@ -37,5 +38,6 @@ export default {
     tracer,
     delegate,
     singleton,
+    truncate,
     dump,
 };

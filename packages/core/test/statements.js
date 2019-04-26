@@ -293,6 +293,45 @@ describe('statements', () => {
                 done();
             });
     });
+    it('truncate#1', (done) => {
+        const res = [];
+        from(['aa', 'bb', 'cc', 'dd', 'ee'])
+            .pipe(ezs('truncate'))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.length, 5);
+                assert.equal(res.join('').length, 10);
+                done();
+            });
+    });
+    it('truncate#2', (done) => {
+        const res = [];
+        from(['aa', 'bb', 'cc', 'dd', 'ee'])
+            .pipe(ezs('truncate', { length: 4 }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.length, 2);
+                assert.equal(res.join('').length, 4);
+                done();
+            });
+    });
+    it('truncate#3', (done) => {
+        const res = [];
+        from(['aa', 'bb', 'cc', 'dd', 'ee'])
+            .pipe(ezs('truncate', { length: 5 }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.length, 3);
+                assert.equal(res.join('').length, 5);
+                done();
+            });
+    });
 
     /* Not yet ready
     it('harvest#2', (done) => {
