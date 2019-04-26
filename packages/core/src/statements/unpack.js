@@ -1,9 +1,9 @@
+const eol = '\n';
 /**
  * Take `String` and throw `Object` builded by JSON.parse on each line
  *
  * @returns {String}
  */
-const eol = '\n';
 export default function unpack(data, feed) {
     if (this.isLast()) {
         if (this.remainder) {

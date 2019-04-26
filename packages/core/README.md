@@ -29,13 +29,6 @@ With [npm](http://npmjs.org):
 
     $ npm install ezs
 
-# Tests
-
-Use [mocha](https://github.com/visionmedia/mocha) to run the tests.
-
-    $ npm install mocha
-    $ mocha test
-
 # Concepts
 
 ### Scope
@@ -58,16 +51,6 @@ Output object is an object with few methods :
 -   output.stop(withAnError)
 
 With a sync statement, you can break the pipe  with throw but with an async statement, you should use `stop(with An Error)` instead of throw.
-
-### statement modes
-
-Each statement can be executed in different modes :
-
--   **normal** : the statement is executed on each object its received
--   **unique** : the statement is executed only on the first object its received, for all other objects, the same result as the first object is return
--   **detachable** : the statement is executed on each object its received, but if ezs use a cluster or a server, the statement is executed on the server/cluster
-
-The basic way to use modes, it's with a ezs script or with ezs.dispatch function.
 
 # CLI
 
@@ -116,51 +99,36 @@ Adding bundle of statements. see the avaible modules here : <https://www.npmjs.c
 	ezs.use(files);
 ```
 
-## ezs.config = (name : String, options : Object)
-
-To set globaly a statement parameter.
-
-## ezs.pipeline = (commands, options : Object)
-
-Launch a serie of statements.
-
-## ezs.booster = (commands, options : Object)
-
-Launch a serie of statements (with cache).
-
 ## ezs.catch(func : Function)
 
 catch Error in NodeJS pipeline
+
+```javascript
+    // Example #1
+    process.stdin
+        .pipe(ezs('truncate', { length: 100 }))
+        .pipe(ezs((d, f) => f.send(new Error('Badaboum')))))
+        .pipe(ezs.catch(e => e)) // catch errors in chunks and throw a error, which breaking the pipeline
+        .on('error', console.error)
+
+    // Example #2
+    process.stdin
+        .pipe(ezs('truncate', { length: 100 }))
+        .pipe(ezs((d, f) => f.send(new Error('Badaboum')))))
+        .pipe(ezs.catch(e => console.error('Warning:', e))) // catch errors in chunks to display them without breaking the pipeline
+```
 
 ## ezs.toBuffer(options : Object)
 
 get chunk of in NodeJS pipeline and send Buffer of the chunk
 
-## to generate commands pipeline
-
-### ezs.metaString = (commands: String, options : Object)
-
-Parse an .ini string to extract global keys and values.
-
-### ezs.metaFile = (filename : String, options : Object)
-
-Parse an .ini file to extract global keys and values.
-
-### ezs.parseString = (commands : String)
-
-Parse an .ini string and return Object contains a serie of statements
-
-### ezs.fromString = (commands, options : Object)
-
-Parse an .ini string and launch a serie of statements
-
-### ezs.parseFile = (filename : String)
-
-Parse an .ini file and return Object contains a serie of statements
-
-### ezs.fromFile(filename : String, options : Object)
-
-Parse an .ini file and launch a serie of statements
+```javascript
+    process.stdin
+        .pipe(ezs('replace', { path: 'id', value: 'xxxxx' }))
+        .pipe(ezs('dump'))
+        .pipe(ezs.toBuffer())
+        .pipe(process.stdout);
+```
 
 # Statements
 
@@ -188,20 +156,24 @@ Parse an .ini file and launch a serie of statements
     -   [Parameters](#parameters-8)
 -   [keep](#keep)
     -   [Parameters](#parameters-9)
--   [eol](#eol)
--   [eol](#eol-1)
--   [replace](#replace)
+-   [pack](#pack)
     -   [Parameters](#parameters-10)
--   [shift](#shift)
+-   [replace](#replace)
     -   [Parameters](#parameters-11)
--   [shuffle](#shuffle)
+-   [shift](#shift)
     -   [Parameters](#parameters-12)
--   [tracer](#tracer)
+-   [shuffle](#shuffle)
     -   [Parameters](#parameters-13)
--   [transit](#transit)
+-   [tracer](#tracer)
     -   [Parameters](#parameters-14)
--   [ungroup](#ungroup)
+-   [transit](#transit)
     -   [Parameters](#parameters-15)
+-   [truncate](#truncate)
+    -   [Parameters](#parameters-16)
+-   [ungroup](#ungroup)
+    -   [Parameters](#parameters-17)
+-   [unpack](#unpack)
+    -   [Parameters](#parameters-18)
 
 ## assign
 
@@ -337,19 +309,14 @@ spefici fields
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-## eol
+## pack
 
 Take all `Object`, throw encoded `String`
 
-Type: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)
+### Parameters
 
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-## eol
-
-Take `String` and throw `Object` builded by JSON.parse on each line
-
-Type: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)
+-   `data`  
+-   `feed`  
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
@@ -414,6 +381,18 @@ Take `Object` and throw the same object
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
+## truncate
+
+Takes all the chunks, and closes the feed when the total length is equal to the parameter
+
+### Parameters
+
+-   `data`  
+-   `feed`  
+-   `length` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Length of the feed
+
+Returns **Mixed** 
+
 ## ungroup
 
 Take all `chunk`, and throw each item of chunks
@@ -425,14 +404,13 @@ Take all `chunk`, and throw each item of chunks
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
-# Related projects
+## unpack
 
--   <https://github.com/rvagg/through2>
--   <https://github.com/dominictarr/event-stream>
--   <https://github.com/ZJONSSON/streamz>
--   <https://github.com/ZJONSSON/etl>
--   <https://github.com/chbrown/streaming>
+Take `String` and throw `Object` builded by JSON.parse on each line
 
-# License
+### Parameters
 
-[MIT/X11](https://github.com/touv/node-ezs/blob/master/LICENSE)
+-   `data`  
+-   `feed`  
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
