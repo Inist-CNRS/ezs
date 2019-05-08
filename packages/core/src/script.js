@@ -9,12 +9,10 @@ const regex = {
 
 const parseOpts = (obj) => {
     const res = {};
-    if (typeof obj === 'object') {
-        Object.keys(obj).forEach((key) => {
-            const val = obj[key].length === 1 ? obj[key][0] : obj[key];
-            res[key] = new Expression(val);
-        });
-    }
+    Object.keys(obj).forEach((key) => {
+        const val = obj[key].length === 1 ? obj[key][0] : obj[key];
+        res[key] = new Expression(val);
+    });
     return res;
 };
 

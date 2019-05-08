@@ -1232,6 +1232,36 @@ describe('Build a pipeline', () => {
             });
     });
 
+    it('with env variable in the pipeline #3', (done) => {
+        const env = {
+            c: 1,
+        };
+        let res = 0;
+        const ten = new Decade();
+        ten
+            .pipe(ezs('replace', {
+                path: 'a',
+                value: 1,
+            }))
+            .pipe(ezs('env', {
+                path: ['check'],
+                value: true,
+            }, env))
+            .pipe(ezs('assign', {
+                path: 'check',
+                value: new Expression("env('check')"),
+            }, env))
+            .on('data', (chunk) => {
+                res += chunk.a;
+                assert.strictEqual(chunk.check, true);
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 9);
+                done();
+            });
+    });
+
+
     it('stuck/unstuck #1', (done) => {
         const env = {};
         const res = [];
@@ -1342,6 +1372,59 @@ describe('Build a pipeline', () => {
             });
     });
 
+    it('toBuffer#1', (done) => {
+        const res = [];
+        from([
+            [1, 2],
+            [3, 4],
+            [5, 6],
+            [7, 8],
+            [9, 10],
+        ])
+            .pipe(ezs.toBuffer())
+            .on('data', (chunk) => {
+                assert(Buffer.isBuffer(chunk));
+                res.push(chunk.toString());
+            })
+            .on('end', () => {
+                assert.equal(res.join(','), '1,2,3,4,5,6,7,8,9,10');
+                done();
+            });
+    });
 
-/**/
+    it('toBuffer#2', (done) => {
+        const res = [];
+        from([
+            1, 2, 3, 4,
+        ])
+            .pipe(ezs.toBuffer())
+            .on('data', (chunk) => {
+                assert(Buffer.isBuffer(chunk));
+                res.push(chunk.toString());
+            })
+            .on('end', () => {
+                assert.equal(res.join(','), '1,2,3,4');
+                done();
+            });
+    });
+
+    it('toBuffer#4', (done) => {
+        const res = [];
+        from([
+            true, false, 'true', 'false', true, Buffer.from('false'),
+        ])
+            .pipe(ezs.toBuffer())
+            .on('data', (chunk) => {
+                assert(Buffer.isBuffer(chunk));
+                res.push(chunk.toString());
+            })
+            .on('end', () => {
+                assert.equal(res.join(','), 'true,false,true,false,true,false');
+                done();
+            });
+    });
+
+
+
+    /**/
 });

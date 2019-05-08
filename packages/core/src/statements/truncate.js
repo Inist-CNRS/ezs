@@ -13,7 +13,7 @@ export default function truncate(data, feed) {
     if (this.total === undefined) {
         this.total = 0;
     }
-    this.total += data.length;
+    this.total += data.length || 1;
 
     if (len && this.total === len) {
         feed.write(data);
@@ -21,11 +21,7 @@ export default function truncate(data, feed) {
     }
     if (len && this.total > len) {
         const end = data.length - (this.total - len);
-        if (data.slice) {
-            feed.write(data.slice(0, end));
-        } else {
-            feed.write(data);
-        }
+        feed.write(data.slice(0, end));
         return feed.close();
     }
     feed.write(data);

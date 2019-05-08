@@ -333,20 +333,127 @@ describe('statements', () => {
             });
     });
 
-    /* Not yet ready
-    it('harvest#2', (done) => {
-        let check = true;
-        from([
-            'https://raw.githubusercontent.com/touv/node-ezs/master/package.no_found',
-        ])
-            .pipe(ezs('harvest'))
-            .on('data', () => {
-                check = false;
+    it('truncate#4', (done) => {
+        const res = [];
+        from([true, false, true, false, true, false, true])
+            .pipe(ezs('truncate', { length: 3 }))
+            .on('data', (chunk) => {
+                res.push(chunk);
             })
             .on('end', () => {
-                assert.ok(check);
+                assert.equal(res.length, 3);
                 done();
             });
     });
-    */
+
+    it('dump#1', (done) => {
+        const res = [];
+        from([
+        ])
+            .pipe(ezs('dump'))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.join(''), '');
+                done();
+            });
+    });
+
+    it('dump#2', (done) => {
+        const res = [];
+        from([
+            new Error(1),
+            new Error(2),
+        ])
+            .pipe(ezs('dump'))
+            .pipe(ezs.catch(() => false))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.join(''), '[]');
+                done();
+            });
+    });
+    it('dump#2bis', (done) => {
+        const res = [];
+        from([
+            new Error(1),
+            new Error(2),
+        ])
+            .pipe(ezs.catch(() => false))
+            .pipe(ezs('dump'))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.join(''), '');
+                done();
+            });
+    });
+    it('dump#3', (done) => {
+        const res = [];
+        from([
+            new Error(1),
+            1,
+            new Error(2),
+        ])
+            .pipe(ezs('dump'))
+            .pipe(ezs.catch(() => false))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.join(''), '[1]');
+                done();
+            });
+    });
+    it('dump#3bis', (done) => {
+        const res = [];
+        from([
+            new Error(1),
+            1,
+            new Error(2),
+        ])
+            .pipe(ezs.catch(() => false))
+            .pipe(ezs('dump'))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.join(''), '[1]');
+                done();
+            });
+    });
+    it('dump#4', (done) => {
+        const res = [];
+        from([
+            1,
+        ])
+            .pipe(ezs('dump'))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.join(''), '[1]');
+                done();
+            });
+    });
+    it('dump#5', (done) => {
+        const res = [];
+        from([
+            1,
+            2,
+            3,
+        ])
+            .pipe(ezs('dump', { indent : true }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.join(''), '[1,\n2,\n3]');
+                done();
+            });
+    });
 });

@@ -103,6 +103,27 @@ describe('dispatch through server(s)', () => {
                 .catch(done);
         });
 
+        it('text.ini', (done) => {
+            const data = 'azertyuiopqsdfghjklmw<xcvbn,;';
+            const stream = from([
+                data,
+            ]);
+            fetch('http://127.0.0.1:31976/transit.ini;text.ini', { method: 'POST', body: stream })
+                .then((res) => {
+                    assert.equal(res.headers.get('content-type'), 'text/plain');
+                    return res.text();
+                })
+                .then((text) => {
+                    assert.equal(text.slice(2, -2), data);
+                    done();
+                })
+                .catch(done);
+        });
+
+
+
+
+
 
         it('part1-3.ini with paramaters', (done) => {
             const stream = from([

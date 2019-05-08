@@ -10,15 +10,18 @@ export default function dump(data, feed) {
     const spaces = indent ? '    ' : null;
     const openWith = '[';
     const closeWith = ']';
-    let output = '';
     if (this.isFirst()) {
-        output = openWith;
-    } else {
-        output = separator;
+        this.opened = true;
+        feed.write(openWith);
     }
-    if (!this.isLast()) {
-        feed.write(output.concat(JSON.stringify(data, null, spaces)));
-    } else if (this.isLast() && this.getIndex() > 0) {
+    if (!this.isFirst() && !this.isLast() && !this.opened) {
+        this.opened = true;
+        feed.write(openWith.concat(JSON.stringify(data, null, spaces)));
+    } else if (!this.isFirst() && !this.isLast()) {
+        feed.write(separator.concat(JSON.stringify(data, null, spaces)));
+    } else if (this.isFirst() && !this.isLast()) {
+        feed.write(JSON.stringify(data, null, spaces));
+    } else if (this.isLast() && this.opened) {
         feed.write(closeWith);
         feed.close();
     } else {

@@ -6,12 +6,10 @@ import {
     VERSION, STARTED_AT,
 } from '../constants';
 
-const getInformations = dirPath => new Promise((resolve, reject) => {
+const getInformations = dirPath => new Promise((resolve) => {
     dir.files(dirPath, (err, files) => {
-        if (err) {
-            return reject(err);
-        }
-        const scripts = files
+        const filenames = err ? [] : files;
+        const scripts = filenames
             .filter(f => (f.search(/\.(ini|ezs)$/) > 0))
             .map(f => f.replace(dirPath, ''));
         return resolve({
@@ -34,13 +32,6 @@ const serverInformation = ezs => (request, response) => {
             };
             response.writeHead(200, responseHeaders);
             response.write(responseBody);
-            response.end();
-        })
-        .catch((error) => {
-            debug('ezs')('Server has caught an error', error);
-            if (!response.headersSent) {
-                response.writeHead(500, { 'X-Error': Parameter.encode(error.toString()) });
-            }
             response.end();
         });
 };

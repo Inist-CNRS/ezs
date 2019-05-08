@@ -15,7 +15,7 @@ export default class Output extends Transform {
     _transform(chunk, encoding, done) {
         if (Buffer.isBuffer(chunk)) {
             this.push(chunk);
-        } else if (typeof chunk === 'object') {
+        } else if (typeof chunk === 'object' || typeof chunk === 'boolean') {
             this.push(Buffer.from(chunk.toString()));
         } else if (typeof chunk === 'number') {
             this.push(Buffer.from(chunk.toString()));
