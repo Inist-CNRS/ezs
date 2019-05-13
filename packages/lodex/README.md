@@ -84,8 +84,8 @@ Extract an ISTEX API query.
 
 ### Parameters
 
--   `fields`  \[Array<Object>=\[]] list of LODEX fields
--   `labels`  \[Array<String>=["query"]]  list of fields labels to extract
+-   `fields` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** list of LODEX fields (optional, default `[]`)
+-   `labels` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** list of fields labels to extract (optional, default `["query"]`)
 
 ### Examples
 

@@ -12,8 +12,8 @@ function removeNumberInstance(uri) {
 /**
  * Extract an ISTEX API query.
  *
- * @param fields [Array<Object>=[]] list of LODEX fields
- * @param labels [Array<String>=["query"]]  list of fields labels to extract
+ * @param {Array<Object>} [fields=[]]   list of LODEX fields
+ * @param {Array<String>} [labels=["query"]]    list of fields labels to extract
  * @name extractIstexQuery
  * @example
  * {
