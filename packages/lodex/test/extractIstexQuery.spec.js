@@ -9,11 +9,7 @@ describe('extractIstexQuery', () => {
         from([{}])
             .pipe(ezs('extractIstexQuery', {
                 fields: [],
-                config: {
-                    istexQuery: {
-                        labels: '',
-                    },
-                },
+                labels: [''],
             }))
             .pipe(ezs((output, feed) => {
                 feed.close();
@@ -38,11 +34,7 @@ describe('extractIstexQuery', () => {
                         },
                     },
                 ],
-                config: {
-                    istexQuery: {
-                        labels: 'foo',
-                    },
-                },
+                labels: ['foo'],
             }))
             .pipe(ezs((output, feed) => {
                 feed.close();
@@ -70,11 +62,7 @@ describe('extractIstexQuery', () => {
                         },
                     },
                 ],
-                config: {
-                    istexQuery: {
-                        labels: 'query',
-                    },
-                },
+                labels: ['query'],
             }))
             .pipe(ezs((output) => {
                 try {
@@ -106,11 +94,7 @@ describe('extractIstexQuery', () => {
                         },
                     },
                 ],
-                config: {
-                    istexQuery: {
-                        labels: 'query',
-                    },
-                },
+                labels: ['query'],
             }))
             .pipe(ezs((output) => {
                 try {

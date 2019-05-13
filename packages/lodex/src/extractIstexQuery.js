@@ -9,15 +9,28 @@ function removeNumberInstance(uri) {
     return uri;
 }
 
+/**
+ * Extract an ISTEX API query.
+ *
+ * @param fields [Array<Object>=[]] list of LODEX fields
+ * @param labels [Array<String>=["query"]]  list of fields labels to extract
+ * @name extractIstexQuery
+ * @example
+ * {
+ *    content: 'fake query',
+ *    lodex: {
+ *       uri: 'http://resource.uri',
+ *   },
+ * }
+ * @returns
+ */
 module.exports = function extractIstexQuery(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
 
     const fields = this.getParam('fields', []);
-    const config = this.getParam('config', {});
-
-    const labels = config.istexQuery.labels.split(',');
+    const labels = this.getParam('labels', ['query']);
 
     /*
      * If we don't have any istexQuery, close the export

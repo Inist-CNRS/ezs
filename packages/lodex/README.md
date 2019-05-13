@@ -28,6 +28,9 @@ process.stdin
     -   [Parameters](#parameters-1)
 -   [convertToExtendedJsonLd](#converttoextendedjsonld)
     -   [Parameters](#parameters-2)
+-   [extractIstexQuery](#extractistexquery)
+    -   [Parameters](#parameters-3)
+    -   [Examples](#examples)
 -   [flattenPatch](#flattenpatch)
 -   [objects2columns](#objects2columns)
 
@@ -74,6 +77,26 @@ query.
 -   `feed`  
 -   `config` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** LODEX configuration (with `istexQuery`) (optional, default `{}`)
 -   `prefixes` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** LOD prefixes (optional, default `{bibo,dbpedia,dcterms,..}`)
+
+## extractIstexQuery
+
+Extract an ISTEX API query.
+
+### Parameters
+
+-   `fields`  \[Array<Object>=\[]] list of LODEX fields
+-   `labels`  \[Array<String>=["query"]]  list of fields labels to extract
+
+### Examples
+
+```javascript
+{
+   content: 'fake query',
+   lodex: {
+      uri: 'http://resource.uri',
+  },
+}
+```
 
 ## flattenPatch
 
