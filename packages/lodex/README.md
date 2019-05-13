@@ -24,12 +24,10 @@ process.stdin
 -   [convertJsonLdToNQuads](#convertjsonldtonquads)
 -   [convertToAtom](#converttoatom)
     -   [Parameters](#parameters)
--   [getContext](#getcontext)
-    -   [Parameters](#parameters-1)
 -   [convertToExtendedJsonLd](#converttoextendedjsonld)
-    -   [Parameters](#parameters-2)
+    -   [Parameters](#parameters-1)
 -   [extractIstexQuery](#extractistexquery)
-    -   [Parameters](#parameters-3)
+    -   [Parameters](#parameters-2)
     -   [Examples](#examples)
 -   [flattenPatch](#flattenpatch)
 -   [objects2columns](#objects2columns)
@@ -53,17 +51,6 @@ model.
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
-## getContext
-
-Create a JSONLD context with prefixes and istexQuery informations in config.json
-
-### Parameters
-
--   `config` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** LODEX configuration (`istexQuery`: `{linked, context}`)
--   `prefixes` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Semantic web prefixes (`bibo`, `dcterms`, etc.)
-
-Returns **any** JSONLD context with properties URI
-
 ## convertToExtendedJsonLd
 
 Convert the result of an ISTEX query to an extended JSON-LD.
@@ -73,9 +60,8 @@ query.
 
 ### Parameters
 
--   `data`  
--   `feed`  
--   `config` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** LODEX configuration (with `istexQuery`) (optional, default `{}`)
+-   `linked` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** ISTEX field which is linked to the resources
+-   `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** ISTEX fields and their associated semantic properties (optional, default `{}`)
 -   `prefixes` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** LOD prefixes (optional, default `{bibo,dbpedia,dcterms,..}`)
 
 ## extractIstexQuery

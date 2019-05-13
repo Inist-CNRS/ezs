@@ -7,7 +7,8 @@ ezs.use(statements);
 describe('conversion to extended JSON-LD', () => {
     let dataTest;
     let expectedJsonLd;
-    let config;
+    let linked;
+    let context;
 
     beforeEach(() => {
         dataTest = [
@@ -73,22 +74,17 @@ describe('conversion to extended JSON-LD', () => {
                 },
             ],
         };
-        config = {
-            istexQuery: {
-                labels: '',
-                linked: 'categories.inist',
-                context: {
-                    'categories.inist': 'https://data.istex.fr/ontology/istex#subjectInist',
-                    doi: 'http://purl.org/ontology/bibo/doi',
-                    'fulltext[0].uri': 'https://data.istex.fr/ontology/istex#accessURL',
-                },
-            },
+        linked = 'categories.inist';
+        context = {
+            'categories.inist': 'https://data.istex.fr/ontology/istex#subjectInist',
+            doi: 'http://purl.org/ontology/bibo/doi',
+            'fulltext[0].uri': 'https://data.istex.fr/ontology/istex#accessURL',
         };
     });
 
     it('should return nquads from the dataset', (done) => {
         const stream = from(dataTest).pipe(
-            ezs('convertToExtendedJsonLd', { config }),
+            ezs('convertToExtendedJsonLd', { linked, context }),
         );
         testOne(
             stream,
@@ -102,16 +98,11 @@ describe('conversion to extended JSON-LD', () => {
     it('should expand prefixes', (done) => {
         const stream = from(dataTest)
             .pipe(ezs('convertToExtendedJsonLd', {
-                config: {
-                    istexQuery: {
-                        labels: '',
-                        linked: 'categories.inist',
-                        context: {
-                            'categories.inist': 'fakeistex:subjectInist',
-                            doi: 'fakebibo:doi',
-                            'fulltext[0].uri': 'fakeistex:accessURL',
-                        },
-                    },
+                linked: 'categories.inist',
+                context: {
+                    'categories.inist': 'fakeistex:subjectInist',
+                    doi: 'fakebibo:doi',
+                    'fulltext[0].uri': 'fakeistex:accessURL',
                 },
                 prefixes: {
                     fakebibo: 'http://purl.org/ontology/bibo/',
@@ -130,16 +121,11 @@ describe('conversion to extended JSON-LD', () => {
     it('should error when prefixes are not given', (done) => {
         const stream = from(dataTest)
             .pipe(ezs('convertToExtendedJsonLd', {
-                config: {
-                    istexQuery: {
-                        labels: '',
-                        linked: 'categories.inist',
-                        context: {
-                            'categories.inist': 'istex:subjectInist',
-                            doi: 'bibo:doi',
-                            'fulltext[0].uri': 'istex:accessURL',
-                        },
-                    },
+                linked: 'categories.inist',
+                context: {
+                    'categories.inist': 'istex:subjectInist',
+                    doi: 'bibo:doi',
+                    'fulltext[0].uri': 'istex:accessURL',
                 },
                 prefixes: {
                     foo: 'bar',
@@ -161,16 +147,11 @@ describe('conversion to extended JSON-LD', () => {
     it('should error when linked is not given', (done) => {
         const stream = from(dataTest)
             .pipe(ezs('convertToExtendedJsonLd', {
-                config: {
-                    istexQuery: {
-                        labels: '',
-                        linked: undefined,
-                        context: {
-                            'categories.inist': 'istex:subjectInist',
-                            doi: 'bibo:doi',
-                            'fulltext[0].uri': 'istex:accessURL',
-                        },
-                    },
+                linked: undefined,
+                context: {
+                    'categories.inist': 'istex:subjectInist',
+                    doi: 'bibo:doi',
+                    'fulltext[0].uri': 'istex:accessURL',
                 },
             }));
         const expectedErrorJsonLd = expectedJsonLd;
@@ -190,16 +171,11 @@ describe('conversion to extended JSON-LD', () => {
     it('should error when linked is defined and has no match in context', (done) => {
         const stream = from(dataTest)
             .pipe(ezs('convertToExtendedJsonLd', {
-                config: {
-                    istexQuery: {
-                        labels: '',
-                        linked: 'unknown',
-                        context: {
-                            'categories.inist': 'istex:subjectInist',
-                            doi: 'bibo:doi',
-                            'fulltext[0].uri': 'istex:accessURL',
-                        },
-                    },
+                linked: 'unknown',
+                context: {
+                    'categories.inist': 'istex:subjectInist',
+                    doi: 'bibo:doi',
+                    'fulltext[0].uri': 'istex:accessURL',
                 },
             }));
         const expectedErrorJsonLd = expectedJsonLd;
@@ -220,10 +196,10 @@ describe('conversion to extended JSON-LD', () => {
         dataTest[0].a = [['a']];
         expectedJsonLd['@graph'][0].a = [['a']];
         expectedJsonLd['@graph'][0]['a[0]'] = ['a'];
-        config.istexQuery.context['a[0]'] = 'http://a#';
+        context['a[0]'] = 'http://a#';
         expectedJsonLd['@context']['a[0]'] = 'http://a#';
         const stream = from(dataTest)
-            .pipe(ezs('convertToExtendedJsonLd', { config }));
+            .pipe(ezs('convertToExtendedJsonLd', { linked, context }));
         testOne(
             stream,
             (data) => {

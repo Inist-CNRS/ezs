@@ -24,18 +24,19 @@ const defaultPrefixes = {
     xsd: 'http://www.w3.org/2001/XMLSchema#',
 };
 
-/**
+/*
  * Create a JSONLD context with prefixes and istexQuery informations in config.json
  *
- * @param   {Object}    config      LODEX configuration (`istexQuery`: `{linked, context}`)
- * @param   {Object}    prefixes    Semantic web prefixes (`bibo`, `dcterms`, etc.)
+ * @param {String}  linked          ISTEX field which is linked to the resources
+ * @param {Object}  queryContext    ISTEX fields and their associated semantic properties
+ * @param {Object}  prefixes        Semantic web prefixes (`bibo`, `dcterms`, etc.)
  * @return JSONLD context with properties URI
  */
-function getContext(config, prefixes) {
+function getContext(linked, queryContext, prefixes) {
     const context = {};
 
-    Object.keys(config.istexQuery.context).forEach((v) => {
-        const propertyValue = config.istexQuery.context[v];
+    Object.keys(queryContext).forEach((v) => {
+        const propertyValue = queryContext[v];
 
         if (validUrl.isWebUri(propertyValue)) {
             context[v] = propertyValue;
@@ -58,19 +59,19 @@ function getContext(config, prefixes) {
         return context[v];
     });
 
-    if (!config.istexQuery.linked) {
+    if (!linked) {
         // eslint-disable-next-line no-console
-        console.error('istexQuery.linked was not found in configuration');
-    } else if (context[config.istexQuery.linked] === undefined) {
+        console.error('linked was not found in configuration');
+    } else if (context[linked] === undefined) {
         // eslint-disable-next-line no-console
         console.error(
             'convertToExtendedJsonLd',
-            `${config.istexQuery.linked} not found in context`,
+            `${linked} not found in context`,
         );
     }
 
-    context[config.istexQuery.linked] = {
-        '@id': context[config.istexQuery.linked],
+    context[linked] = {
+        '@id': context[linked],
         '@type': '@id',
     };
 
@@ -97,28 +98,31 @@ const formatData = (data) => {
  * Every hit must contain the URI of original lodex resource, linked to the
  * query.
  *
- * @param {Object}  [config={}]  LODEX configuration (with `istexQuery`)
+ * @param {String}  linked  ISTEX field which is linked to the resources
+ * @param {Object}  [context={}]    ISTEX fields and their associated semantic properties
  * @param {Object}  [prefixes={bibo,dbpedia,dcterms,..}]    LOD prefixes
+ * @name convertToExtendedJsonLd
  */
 export default function convertToExtendedJsonLd(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
 
-    const config = this.getParam('config', {});
+    const linked = this.getParam('linked');
+    const queryContext = this.getParam('context', {});
     const prefixes = this.getParam('prefixes', defaultPrefixes);
 
     if (!this.searchKeys) {
-        this.context = getContext(config, prefixes);
+        this.context = getContext(linked, queryContext, prefixes);
         this.searchKeys = Object.keys(this.context).filter(
-            v => !Object.keys(data).includes(v) && v !== config.istexQuery.linked,
+            v => !Object.keys(data).includes(v) && v !== linked,
         );
     }
     const newHit = {
         ...data,
     };
     newHit['@id'] = `https://api.istex.fr/${data.arkIstex}`;
-    newHit[config.istexQuery.linked] = data.uri;
+    newHit[linked] = data.uri;
 
     this.searchKeys.forEach((key) => {
         const dataFromKey = get(data, key);
