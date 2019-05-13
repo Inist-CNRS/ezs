@@ -14,7 +14,7 @@ export default function convertJsonLdToNQuads(data, feed) {
         jsonld.toRDF(
             data,
             {
-                format: 'application/nquads',
+                format: 'application/n-quads',
             },
             (err, nquads) => {
                 if (err) {

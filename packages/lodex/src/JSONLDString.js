@@ -5,7 +5,7 @@ export default function JSONLDString(data, feed) {
         return feed.close();
     }
 
-    jsonld.toRDF(data, { format: 'application/nquads' }).then(
+    jsonld.toRDF(data, { format: 'application/n-quads' }).then(
         (out) => {
             feed.send(out);
         },
