@@ -1,0 +1,45 @@
+{
+  "name": "ezs-sparql",
+  "version": "1.0.0",
+  "description": "sparql module for ezs",
+  "main": "./lib/index.js",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
+    "doc": "documentation readme package.json src/* --section=Statements",
+    "build": "babel src --out-dir lib",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://apinot@github.com/Inist-CNRS/node-ezs-sparql.git"
+  },
+  "keywords": [
+    "ezs",
+    "sparql"
+  ],
+  "author": "Antoine Pinot",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Inist-CNRS/node-ezs-sparql/issues"
+  },
+  "homepage": "https://github.com/Inist-CNRS/node-ezs-sparql#readme",
+  "devDependencies": {
+    "@babel/cli": "7.4.4",
+    "@babel/core": "7.4.4",
+    "@babel/preset-env": "7.4.4",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-eslint": "10.0.1",
+    "babel-jest": "24.8.0",
+    "documentation": "11.0.0",
+    "eslint": "5.16.0",
+    "eslint-config-airbnb": "17.1.0",
+    "eslint-plugin-import": "2.17.2",
+    "eslint-plugin-jsx-a11y": "6.2.1",
+    "eslint-plugin-react": "7.13.0",
+    "ezs": "9.3.0",
+    "from": "0.1.7",
+    "jest": "24.8.0"
+  },
+  "dependencies": {}
+}
