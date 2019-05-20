@@ -34,7 +34,7 @@ async function ISTEXScroll(data, feed) {
     const scroll = this.getParam('duration', '5m');
     const field = this.getParam('field', ['doi']);
     const fields = Array.isArray(field) ? field : [field];
-    const output = `arkIstex,${fields.map(e => /\w+/.exec(e)[0]).join()}`;
+    const output = `arkIstex,${fields.map(e => /[\w+|\*]/.exec(e)[0]).join()}`;
     const location = {
         protocol: 'https:',
         host: 'api.istex.fr',
