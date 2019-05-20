@@ -1,4 +1,4 @@
-import { realpathSync } from 'fs';
+import { realpathSync, createReadStream } from 'fs';
 import { PassThrough } from 'stream';
 import yargs from 'yargs';
 import debug from 'debug';
@@ -36,6 +36,13 @@ export default function cli(errlog) {
                 describe: 'Execute commands with environement variables as input',
                 type: 'boolean',
             },
+            file: {
+                alias: 'f',
+                default: false,
+                describe: 'Execute commands with a file as input',
+                type: 'string',
+            },
+
         })
         .epilogue('for more information, find our manual at https://github.com/touv/node-ezs');
 
@@ -67,11 +74,19 @@ export default function cli(errlog) {
         input = new PassThrough(ezs.objectMode());
         input.write(process.env);
         input.end();
+    } if (argv.file) {
+        try {
+            const filename = realpathSync(argv.file);
+            debug('ezs')(`Reading file ${filename} ...`);
+            input = createReadStream(filename);
+        } catch (e) {
+            errlog(`Error: ${argv.file} doesn't exists.`);
+            process.exit(1);
+        }
     } else {
         debug('ezs')('Reading standard input...');
         input = process.stdin;
         input.resume();
-        input.setEncoding('utf8');
     }
     const server = Array.isArray(argv.server) ? argv.server : [argv.server];
     const environement = { server };
