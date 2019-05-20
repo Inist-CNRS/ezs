@@ -13,7 +13,7 @@ import { writeTo } from './utils';
  */
 export default function ISTEXUnzip(data, feed) {
     if (this.isFirst()) {
-        this.input = new PassThrough({ objectMode: true });
+        this.input = new PassThrough();
 
         const output = this.input
             .pipe(unzipper.Parse())
