@@ -102,7 +102,15 @@ describe('dispatch through server(s)', () => {
                 })
                 .catch(done);
         });
-
+        it('json.ini with paramaters GET', (done) => {
+            fetch('http://127.0.0.1:31976/json.ini?key=a&with=titi', { method: 'GET' })
+                .then(res => res.json())
+                .then((json) => {
+                    assert.equal(json[0].a, 'titi');
+                    done();
+                })
+                .catch(done);
+        });
         it('text.ini', (done) => {
             const data = 'azertyuiopqsdfghjklmw<xcvbn,;';
             const stream = from([
@@ -142,17 +150,6 @@ describe('dispatch through server(s)', () => {
 
     });
 
-
-    it('get script', (done) => {
-        fetch('http://127.0.0.1:31976/script.ini')
-            .then(res => res.text())
-            .then((text) => {
-                assert(text);
-                done();
-            })
-            .catch(done);
-    });
-
     it('get no found script', (done) => {
         fetch('http://127.0.0.1:31976/script.xxx')
             .then((res) => {
@@ -181,6 +178,14 @@ describe('dispatch through server(s)', () => {
             .catch(done);
     });
 
+    it('no found url & method', (done) => {
+        fetch('http://127.0.0.1:31976/', { method: 'OPTIONS' })
+            .then((res) => {
+                assert.equal(res.status, 404);
+                done();
+            })
+            .catch(done);
+    });
 
 
     describe('simple statements, one server', () => {

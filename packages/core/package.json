@@ -66,6 +66,7 @@
         "node-dir": "~0.1.17",
         "node-object-hash": "~1.4.2",
         "notevil": "~1.1.0",
+        "stream-iterate": "~1.2.0",
         "yargs": "~13.2.1"
     },
     "optionalDependencies": {}

@@ -3,16 +3,18 @@ import http from 'http';
 import controlServer from 'http-shutdown';
 import regex from 'filename-regex';
 import { parse } from 'url';
+import debug from 'debug';
 import knownPipeline from './knownPipeline';
 import unknownPipeline from './unknownPipeline';
 import serverInformation from './serverInformation';
-import serverPipeline from './serverPipeline';
 import notFound from './notFound';
 import Parameter from '../parameter';
 import settings from '../settings';
-import debug from 'debug';
 
-const isPipeline = filename => (filename.match(regex()).shift() !== undefined);
+const isPipeline = (filename) => {
+    const f = filename.match(regex());
+    return (f && f.shift() !== undefined);
+};
 
 function createMidddleware(ezs, method, pathname) {
     if (method === 'POST' && pathname === '/') {
@@ -23,11 +25,7 @@ function createMidddleware(ezs, method, pathname) {
         debug('ezs')(`Create middleware 'serverInformation' for ${method} ${pathname}`);
         return serverInformation(ezs);
     }
-    if (method === 'GET' && isPipeline(pathname)) {
-        debug('ezs')(`Create middleware 'serverPipeline' for ${method} ${pathname}`);
-        return serverPipeline(ezs);
-    }
-    if (method === 'POST' && isPipeline(pathname)) {
+    if (isPipeline(pathname)) {
         debug('ezs')(`Create middleware 'knownPipeline' for ${method} ${pathname}`);
         return knownPipeline(ezs);
     }
