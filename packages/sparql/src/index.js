@@ -1,3 +1,5 @@
-export default {
+import SPARQLQuery from './query';
 
+export default {
+    SPARQLQuery
 };
