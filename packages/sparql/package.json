@@ -5,6 +5,7 @@
   "main": "./lib/index.js",
   "scripts": {
     "test": "jest",
+    "test:watch": "npm test -- --watch",
     "test:coverage": "npm test -- --coverage",
     "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
     "doc": "documentation readme package.json src/* --section=Statements",

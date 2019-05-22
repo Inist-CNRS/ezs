@@ -9,11 +9,13 @@ test('get an error when empty link', (done) => {
     // TODO: add query
     from([{ link: '' }])
         .pipe(ezs('SPARQLDecodeQuery'))
+        .pipe(ezs.catch(e => e))
+        .pipe(ezs('debug', { text: 'après' }))
         .on('data', () => {
             done(new Error('Should not work'));
         })
         .on('error', (error) => {
-            assert.strictEqual(error.message, 'No share link given !');
+            assert.ok(error.message.includes('No share link given !'));
             done();
         });
 });
@@ -21,11 +23,13 @@ test('get an error when empty link', (done) => {
 test('get an error when incorrect link', (done) => {
     from([{ link: 'http://192.168.31.146:49452/triplestore/sparql/#linkincorrect' }])
         .pipe(ezs('SPARQLDecodeQuery'))
+        .pipe(ezs.catch(e => e))
         .on('data', () => {
             done(new Error('Should not work'));
         })
         .on('error', (error) => {
-            assert.strictEqual(error.message, 'Link invalid !');
+            assert.ok(error.message.includes('Invalid link !'));
+            done();
         });
 });
 
