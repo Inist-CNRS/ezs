@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const ezs = require('ezs');
 
+const sid = 'test';
 const token = process.env.ISTEX_TOKEN;
 ezs.use(require('../lib'));
 ezs.use(require('ezs-basics'));
@@ -26,11 +27,11 @@ describe('ISTEXSave', () => {
         ])
             .pipe(ezs('ISTEXFetch', {
                 source: 'id',
-                sid: 'test',
+                sid,
                 token,
             }))
             .pipe(ezs('ISTEXSave', {
-                sid: 'test',
+                sid,
                 token,
             }))
             .pipe(ezs.catch(() => done()))
@@ -60,7 +61,7 @@ describe('ISTEXFetch', () => {
         ])
             .pipe(ezs('ISTEXFetch', {
                 source: 'id',
-                sid: 'test',
+                sid,
             }))
             .on('data', (chunk) => {
                 result.push(chunk);
@@ -88,7 +89,7 @@ describe('ISTEXFetch', () => {
         ])
             .pipe(ezs('ISTEXFetch', {
                 source: 'id',
-                sid: 'test',
+                sid,
             }))
             .on('data', (chunk) => {
                 result.push(chunk);
@@ -110,7 +111,7 @@ describe('ISTEXResult', () => {
         from([{ query: 'this is an test' }])
             .pipe(ezs('ISTEXScroll', {
                 maxPage: 2,
-                sid: 'test',
+                sid,
             }))
             .pipe(ezs('ISTEXResult'))
             .on('data', (chunk) => {
@@ -130,7 +131,7 @@ describe('ISTEXResult', () => {
         from([{ query: 'this is an test', lodex: { uri: 'https://uri' } }])
             .pipe(ezs('ISTEXScroll', {
                 maxPage: 1,
-                sid: 'test',
+                sid,
             }))
             .pipe(ezs('ISTEXResult'))
             .on('data', (chunk) => {
@@ -153,10 +154,10 @@ describe('ISTEXTriplify', () => {
         from([{ query: 'ezs' }])
             .pipe(ezs('ISTEXScroll', {
                 maxPage: 1,
-                sid: 'test',
+                sid,
             }))
             .pipe(ezs('ISTEXResult', {
-                sid: 'test',
+                sid,
             }))
             .pipe(ezs('OBJFlatten'))
             .pipe(ezs('ISTEXTriplify', {
@@ -182,11 +183,11 @@ describe('ISTEXTriplify', () => {
         from([{ query: 'ezs' }])
             .pipe(ezs('ISTEXScroll', {
                 maxPage: 1,
-                sid: 'test',
+                sid,
                 field: 'author',
             }))
             .pipe(ezs('ISTEXResult', {
-                sid: 'test',
+                sid,
             }))
             .pipe(ezs('OBJFlatten', { safe: false }))
             .pipe(ezs('ISTEXTriplify', {
@@ -213,11 +214,11 @@ describe('ISTEXTriplify', () => {
         from([{ query: 'language.raw:rum' }])
             .pipe(ezs('ISTEXScroll', {
                 maxPage: 1,
-                sid: 'test',
+                sid,
                 field: 'fulltext',
             }))
             .pipe(ezs('ISTEXResult', {
-                sid: 'test',
+                sid,
             }))
             .pipe(ezs('OBJFlatten', { safe: false }))
             .pipe(ezs('ISTEXTriplify', {
@@ -246,11 +247,11 @@ describe('ISTEXTriplify', () => {
         from([{ query: 'language.raw:rum' }])
             .pipe(ezs('ISTEXScroll', {
                 maxPage: 1,
-                sid: 'test',
+                sid,
                 field: 'fulltext',
             }))
             .pipe(ezs('ISTEXResult', {
-                sid: 'test',
+                sid,
             }))
             .pipe(ezs('OBJFlatten', { safe: false }))
             .pipe(ezs('ISTEXTriplify', {
@@ -410,7 +411,7 @@ describe('ISTEX', () => {
                 query: 'this is an test',
                 size: 3,
                 maxPage: 1,
-                sid: 'test',
+                sid,
             }))
             .on('data', (chunk) => {
                 result.push(chunk);
@@ -430,7 +431,7 @@ describe('ISTEX', () => {
                 id: '87699D0C20258C18259DED2A5E63B9A50F3B3363',
                 size: 3,
                 maxPage: 1,
-                sid: 'test',
+                sid,
             }))
             .on('data', (chunk) => {
                 result.push(chunk);
@@ -451,7 +452,7 @@ describe('ISTEX', () => {
                 id: '87699D0C20258C18259DED2A5E63B9A50F3B3363',
                 size: 3,
                 maxPage: 1,
-                sid: 'test',
+                sid,
             }))
             .on('data', (chunk) => {
                 result.push(chunk);
@@ -653,7 +654,7 @@ describe('ISTEXScroll', () => {
             .pipe(ezs('ISTEXScroll', {
                 maxPage: 2,
                 size: 1,
-                sid: 'test',
+                sid,
             }))
             // .pipe(ezs('debug'))
             .on('data', (chunk) => {
@@ -673,7 +674,7 @@ describe('ISTEXScroll', () => {
             .pipe(ezs('ISTEXScroll', {
                 maxPage: 1,
                 size: 1,
-                sid: 'test',
+                sid,
             }))
             .on('data', (chunk) => {
                 result.push(chunk);
@@ -691,7 +692,7 @@ describe('ISTEXScroll', () => {
         const result = [];
         from([{ query: 'language.raw:rum' }])
             .pipe(ezs('ISTEXScroll', {
-                sid: 'test',
+                sid,
             }))
             .on('data', (chunk) => {
                 result.push(chunk);
@@ -707,7 +708,10 @@ describe('ISTEXScroll', () => {
         const result = [];
         // ezs returns 2471 results (2018/11/16)
         from([{ query: 'ezs' }])
-            .pipe(ezs('ISTEXScroll', { sid: 'test', size: 2000 }))
+            .pipe(ezs('ISTEXScroll', {
+                sid,
+                size: 2000,
+            }))
             .on('data', (chunk) => {
                 result.push(chunk);
             })
@@ -725,7 +729,9 @@ describe('ISTEXScroll', () => {
             },
             query: 'language.raw:rum',
         }])
-            .pipe(ezs('ISTEXScroll', { sid: 'test' }))
+            .pipe(ezs('ISTEXScroll', {
+                sid,
+            }))
             .on('data', (chunk) => {
                 result.push(chunk);
             })
@@ -747,7 +753,10 @@ describe('ISTEXScroll', () => {
             },
             query: 'ezs',
         }])
-            .pipe(ezs('ISTEXScroll', { sid: 'test', size: 2000 }))
+            .pipe(ezs('ISTEXScroll', {
+                sid,
+                size: 2000,
+            }))
             .on('data', (chunk) => {
                 result.push(chunk);
             })
@@ -889,7 +898,9 @@ describe('ISTEXFacet', () => {
     it('should return aggregations', (done) => {
         const result = [];
         from([{ query: 'ezs', facet: 'publicationDate[perYear]' }])
-            .pipe(ezs('ISTEXFacet', { sid: 'test' }))
+            .pipe(ezs('ISTEXFacet', {
+                sid,
+            }))
             .on('data', (chunk) => {
                 result.push(chunk);
             })
@@ -903,6 +914,49 @@ describe('ISTEXFacet', () => {
                 assert(result[0].aggregations.publicationDate.keyCount > 0);
                 assert(result[0].aggregations.publicationDate.buckets);
                 assert(result[0].aggregations.publicationDate.buckets.length > 0);
+                done();
+            });
+    }).timeout(10000);
+});
+
+describe('ISTEXFiles', () => {
+    it('should return files & content', (done) => {
+        const result = [];
+        from([
+            {
+                id: '87699D0C20258C18259DED2A5E63B9A50F3B3363',
+            },
+            {
+                id: 'ark:/67375/QHD-T00H6VNF-0',
+            },
+
+        ])
+            .pipe(ezs('ISTEXFetch', {
+                source: 'id',
+                sid,
+                token,
+            }))
+            .pipe(ezs('ISTEXFiles', {
+                fulltext: 'tei',
+                record: 'mods',
+            }))
+            .pipe(ezs('ISTEXFilesContent', {
+                sid,
+                token,
+            }))
+            .on('data', (chunk) => {
+                result.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(result.length, 4);
+                assert(result[0].source);
+                assert(result[0].content);
+                assert(result[1].source);
+                assert(result[1].content);
+                assert(result[2].source);
+                assert(result[2].content);
+                assert(result[3].source);
+                assert(result[3].content);
                 done();
             });
     }).timeout(10000);
