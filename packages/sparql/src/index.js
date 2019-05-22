@@ -1,5 +1,8 @@
+import SPARQLDecodeQuery from './decodeQuery';
 import SPARQLQuery from './query';
 
+
 export default {
-    SPARQLQuery
+    SPARQLDecodeQuery,
+    SPARQLQuery,
 };
