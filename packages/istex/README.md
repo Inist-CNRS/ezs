@@ -18,23 +18,28 @@ ezs.use(require('ezs-istex'));
 -   [ISTEXFacet](#istexfacet)
     -   [Parameters](#parameters)
     -   [Examples](#examples)
--   [ISTEXFetch](#istexfetch)
+-   [ISTEXFilesContent](#istexfilescontent)
     -   [Parameters](#parameters-1)
+-   [ISTEXFilesWrap](#istexfileswrap)
+-   [ISTEXFiles](#istexfiles)
+    -   [Parameters](#parameters-2)
+-   [ISTEXFetch](#istexfetch)
+    -   [Parameters](#parameters-3)
     -   [Examples](#examples-1)
 -   [ISTEXParseDotCorpus](#istexparsedotcorpus)
     -   [Examples](#examples-2)
 -   [ISTEXResult](#istexresult)
-    -   [Parameters](#parameters-2)
--   [ISTEXSave](#istexsave)
-    -   [Parameters](#parameters-3)
--   [ISTEXTriplify](#istextriplify)
     -   [Parameters](#parameters-4)
+-   [ISTEXSave](#istexsave)
+    -   [Parameters](#parameters-5)
+-   [ISTEXTriplify](#istextriplify)
+    -   [Parameters](#parameters-6)
     -   [Examples](#examples-3)
 -   [ISTEX](#istex)
-    -   [Parameters](#parameters-5)
+    -   [Parameters](#parameters-7)
     -   [Examples](#examples-4)
 -   [ISTEXScroll](#istexscroll)
-    -   [Parameters](#parameters-6)
+    -   [Parameters](#parameters-8)
     -   [Examples](#examples-5)
 -   [ISTEXUniq](#istexuniq)
     -   [Examples](#examples-6)
@@ -59,6 +64,44 @@ from([{ query: 'ezs', facet: 'corpusName' }])
 ```
 
 Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 
+
+### ISTEXFilesContent
+
+-   **See: ISTEXFiles**
+
+Take an Object with ISTEX `source` and check the document's file.
+Warning: to access fulltext, you have to give a `token` parameter.
+ISTEXFetch produces the stream you need to save the file.
+
+#### Parameters
+
+-   `sid` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** User-agent identifier (optional, default `"ezs-istex"`)
+-   `token` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** authentication token (see [documentation](https://doc.istex.fr/api/access/fede.html#acc%C3%A8s-programmatique-via-un-token-didentification))
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### ISTEXFilesWrap
+
+-   **See: ISTEXFiles**
+
+Take and Object with ISTEX `stream` and wrap into a single zip
+
+Returns **[Buffer](https://nodejs.org/api/buffer.html)** 
+
+### ISTEXFiles
+
+-   **See: ISTEXScroll**
+
+Take an Object with ISTEX `id` and generate an object for each file
+
+#### Parameters
+
+-   `fulltext` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** typology of the document to save (optional, default `pdf`)
+-   `metadata` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** format of the files to save (optional, default `json`)
+-   `enrichment` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** enrichment of the document to save
+-   `sid` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** User-agent identifier (optional, default `"ezs-istex"`)
+
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** 
 
 ### ISTEXFetch
 
