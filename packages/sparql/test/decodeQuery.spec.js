@@ -10,7 +10,6 @@ test('get an error when empty link', (done) => {
     from([{ link: '' }])
         .pipe(ezs('SPARQLDecodeQuery'))
         .pipe(ezs.catch(e => e))
-        .pipe(ezs('debug', { text: 'après' }))
         .on('data', () => {
             done(new Error('Should not work'));
         })
@@ -48,15 +47,3 @@ LIMIT 100`);
         })
         .on('error', done);
 });
-
-
-// test('get response', (done) => {
-//     // TODO: add query
-//     from([{ link: '' }])
-//         .pipe(ezs('SPARQLDecodeQuery'))
-//         .on('data', (data) => {
-//             // TODO add assertion(s)
-//             done();
-//         })
-//         .on('error', done);
-// });
