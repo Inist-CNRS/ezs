@@ -41,7 +41,8 @@
     "eslint-plugin-react": "7.13.0",
     "ezs": "9.3.0",
     "from": "0.1.7",
+    "fetch-with-proxy": "1.1.0",
+    "isomorphic-fetch": "2.2.1",
     "jest": "24.8.0"
-  },
-  "dependencies": {}
+  }
 }
