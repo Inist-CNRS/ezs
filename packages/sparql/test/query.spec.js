@@ -51,15 +51,15 @@ test('verify format response is in json', (done) => {
         .pipe(ezs.catch(e => e))
         .on('data', (data) => {
             if (typeof data !== 'object' || !JSON.stringify(data)) {
-                done('The data are not a JSON object !');
+                done(new Error('The data are not a JSON object !'));
             }
             if (data.results.bindings.length !== 100) {
-                done('Problem with data integrity');
+                done(new Error('Problem with data integrity'));
             }
 
             done();
         })
         .on('error', () => {
-            done('There should be no errors !');
+            done(new Error('There should be no errors !'));
         });
 });
