@@ -54,7 +54,7 @@ test('verify format response is in json', (done) => {
                 done('The data are not a JSON object !');
             }
             if (data.results.bindings.length !== 100) {
-                done('Problème with data integrity');
+                done('Problem with data integrity');
             }
 
             done();
