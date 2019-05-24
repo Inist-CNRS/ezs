@@ -6,7 +6,6 @@ import statements from '../src';
 ezs.use(statements);
 
 test('get an error when empty link', (done) => {
-    // TODO: add query
     from([{ linkQuery: '' }])
         .pipe(ezs('SPARQLDecodeQuery'))
         .pipe(ezs.catch(e => e))
