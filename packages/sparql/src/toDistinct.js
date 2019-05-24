@@ -16,7 +16,6 @@ export default function SPARQLToDisctinct(data, feed) {
         const id = elem[firstVar].value;
         const val = Number(elem[secondVar].value);
 
-        // TODO
         if (Number.isNaN(val)) {
             throw new Error('The second column should contains only numbers');
         }
