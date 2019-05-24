@@ -9,9 +9,7 @@ export default function SPARQLDecodeQuery(data, feed) {
     const reduced = linkQuery.substr(linkQuery.indexOf('#') + 1);
     const keyValuePairs = reduced.split('&').map(elem => elem.split('='));
     const cleaned = keyValuePairs.map(([key, value]) => [key, decodeURIComponent(value && value.replace(/\+/g, ' '))]);
-    const result = cleaned.reduce((acc, cur) => {
-        const key = cur[0];
-        const value = cur[1];
+    const result = cleaned.reduce((acc, [key, value]) => {
         acc[key] = value;
         return acc;
     }, {});
