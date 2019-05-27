@@ -83,7 +83,5 @@ test('verify result information and structure', (done) => {
 
             done();
         })
-        .on('error', (error) => {
-            done(error);
-        });
+        .on('error', done);
 }, 30000);
