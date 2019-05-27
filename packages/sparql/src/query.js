@@ -30,7 +30,8 @@ export default async function SPARQLQuery(data, feed) {
     try {
         responseData = await response.json();
     } catch (error) {
-        throw new Error('The data is not JSON object !');
+        error.message = `The data can't be convert into a JSON object ! \n${error.message}`;
+        throw error;
     }
 
     feed.write(responseData);

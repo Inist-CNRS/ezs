@@ -40,7 +40,7 @@ test('get an error when incorrect SPARQL endpoint', (done) => {
         })
         .on('error', (error) => {
             assert.ok(error.message.includes('Can not connect to the sparql endpoint !')
-                        || error.message.includes('The data is not JSON object !'));
+                        || error.message.includes('The data can\'t be convert into a JSON object'));
             done();
         });
 });
