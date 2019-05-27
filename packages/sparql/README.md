@@ -23,8 +23,61 @@ process.stdin
 
 #### Table of Contents
 
--   [SPARQLToDisctinct](#sparqltodisctinct)
+-   [SPARQLQuery](#sparqlquery)
     -   [Examples](#examples)
+-   [SPARQLToDisctinct](#sparqltodisctinct)
+    -   [Examples](#examples-1)
+
+### SPARQLQuery
+
+Take a SPARQL query and endpoint and send in output the execution result in JSON format.
+
+#### Examples
+
+Input:
+
+
+```javascript
+{ query: 'SELECT DISTINCT ?g, count(*) AS ?nb WHERE { graph ?g { ?s ?p ?o } } LIMIT 3',
+ endpoint: 'https://data.istex.fr/sparql/' }
+```
+
+Ouput:
+
+
+```javascript
+{ "head": { "link": [], "vars": ["g", "nb"] },
+  "results": { "distinct": false, "ordered": true, "bindings": [
+    { "g": {
+         "type": "uri",
+         "value": "http://www.openlinksw.com/schemas/virtrdf#"
+       },
+      "nb": {
+         "type": "typed-literal",
+         "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+         "value": "2477"
+    }},
+    { "g": {
+         "type": "uri",
+         "value": "https://bibliography.data.istex.fr/notice/graph"
+       },
+      "nb": {
+         "type": "typed-literal",
+         "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+         "value": "308023584"
+    }},
+    { "g": {
+         "type": "uri",
+         "value": "https://scopus-category.data.istex.fr/graph"
+       },
+      "nb": {
+         "type": "typed-literal",
+         "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+         "value": "2542"
+    }}
+  ]}
+}
+```
 
 ### SPARQLToDisctinct
 
@@ -47,7 +100,7 @@ Input:
          "value": "http://www.openlinksw.com/schemas/virtrdf#"
        },
       "nb": {
-         "type": "typed-literal", 
+         "type": "typed-literal",
          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
          "value": "2477"
     }},
