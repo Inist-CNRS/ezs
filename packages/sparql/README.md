@@ -85,6 +85,11 @@ Ouput:
 
 Format SPARQLQuery result as a LODEX routine.
 
+The input should contain **two fields**:
+
+-   the first is corresponding with the **\_id** output field
+-   the second is corresponding with the **value** output field
+
 > **Warning**: input's second field value should contain an integer
 
 #### Examples
@@ -104,8 +109,24 @@ Input:
          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
          "value": "2477"
     }},
-    { "g": { "type": "uri", "value": "https://bibliography.data.istex.fr/notice/graph" }, "nb": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "308023584" }},
-    { "g": { "type": "uri", "value": "https://scopus-category.data.istex.fr/graph" }, "nb": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "2542" }} ] } }
+    { "g": {
+         "type": "uri",
+         "value": "https://bibliography.data.istex.fr/notice/graph" },
+      "nb": {
+         "type": "typed-literal",
+         "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+         "value": "308023584" }},
+    { "g": {
+         "type": "uri",
+         "value": "https://scopus-category.data.istex.fr/graph"},
+      "nb": {
+         "type":
+         "typed-literal",
+         "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+         "value": "2542"
+    }}
+  ]}
+}
 ```
 
 Output:
