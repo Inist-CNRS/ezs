@@ -42,7 +42,7 @@ Input:
 
 ```javascript
 {
-  linkQUery: 'https://data.istex.fr/triplestore/sparql/#query=SELECT+DISTINCT+%3Fg%2C+count(*)+AS+%3Fnb+%0AWHERE+%0A%7B+%0A%09graph+%3Fg+%7B+%3Fs+%3Fp+%3Fo+%7D+%0A%7D+%0ALIMIT+3&contentTypeConstruct=text%2Fturtle&endpoint=https%3A%2F%2Fdata.istex.fr%2Fsparql%2F&outputFormat=table'
+  linkQuery: 'https://data.istex.fr/triplestore/sparql/#query=SELECT+DISTINCT+%3Fg%2C+count(*)+AS+%3Fnb+%0AWHERE+%0A%7B+%0A%09graph+%3Fg+%7B+%3Fs+%3Fp+%3Fo+%7D+%0A%7D+%0ALIMIT+3&contentTypeConstruct=text%2Fturtle&endpoint=https%3A%2F%2Fdata.istex.fr%2Fsparql%2F&outputFormat=table'
 }
 ```
 
