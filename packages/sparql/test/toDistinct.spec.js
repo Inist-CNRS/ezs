@@ -65,20 +65,14 @@ test('verify result information and structure', (done) => {
         .pipe(ezs('SPARQLToDistinct'))
         .pipe(ezs.catch(e => e))
         .on('data', (data) => {
-            if (typeof data !== 'object' || !JSON.stringify(data)) {
-                done(new Error('The data are not a JSON object !'));
-            }
-            if (data.total !== 3) {
-                done(new Error('The total should be set to 3'));
-            }
+            assert.strictEqual(typeof data, 'object');
+            assert.ok(JSON.stringify(data));
+            assert.strictEqual(data.total, 3);
 
             data.data.forEach((elem) => {
-                if (!elem._id || !elem.value) {
-                    done(new Error('Each element should have an _id field and a value field'));
-                }
-                if (Number.isNaN(elem.value)) {
-                    done(new Error('Value field of each element should be a number'));
-                }
+                assert.ok(elem.id);
+                assert.ok(elem.value);
+                assert.ok(Number.isInteger(elem.value));
             });
 
             done();
