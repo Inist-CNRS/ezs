@@ -1,3 +1,43 @@
+/**
+ * Format SPARQLQuery result as a LODEX routine.
+ *
+ * > **Warning**: input's second field value should contain an integer
+ *
+ * @example <caption>Input:</caption>
+ * { "head": { "link": [], "vars": ["g", "nb"] },
+ *   "results": { "distinct": false, "ordered": true, "bindings": [
+ *     { "g": {
+ *          "type": "uri",
+ *          "value": "http://www.openlinksw.com/schemas/virtrdf#"
+ *        },
+ *       "nb": {
+ *          "type": "typed-literal",
+ *          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+ *          "value": "2477"
+ *     }},
+ *     { "g": { "type": "uri", "value": "https://bibliography.data.istex.fr/notice/graph" }, "nb": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "308023584" }},
+ *     { "g": { "type": "uri", "value": "https://scopus-category.data.istex.fr/graph" }, "nb": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "2542" }} ] } }
+ *
+ * @example <caption>Output:</caption>
+ * {
+ *    "total": 3,
+ *    "data": [{
+ *         "_id": "http://www.openlinksw.com/schemas/virtrdf#",
+ *         "value": 2477
+ *       }, {
+ *         "_id": "https://bibliography.data.istex.fr/notice/graph",
+ *         "value": 308023584
+ *       }, {
+*          "_id": "https://scopus-category.data.istex.fr/graph",
+*          "value": 2542
+*        }
+ *    ]
+ * }
+ *
+ * @export
+ * @see SPARQLQuery
+ * @name SPARQLToDisctinct
+ */
 export default function SPARQLToDisctinct(data, feed) {
     if (this.isLast()) {
         return feed.close();
