@@ -25,9 +25,9 @@ test('get an error when result has not enougth columns', (done) => {
 test('get an error when result has to many columns', (done) => {
     from([JSON.parse(`{ "head": { "link": [], "vars": ["subject", "verb", "complement"] },
     "results": { "distinct": false, "ordered": true, "bindings": [
-      { "subject": { "type": "uri", "value": "http://www.openlinksw.com/virtrdf-data-formats#default-iid" }	, "verb": { "type": "uri", "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" }	, "complement": { "type": "uri", "value": "http://www.openlinksw.com/schemas/virtrdf#QuadMapFormat" }},
-      { "subject": { "type": "uri", "value": "http://www.openlinksw.com/virtrdf-data-formats#default-iid-nullable" }	, "verb": { "type": "uri", "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" }	, "complement": { "type": "uri", "value": "http://www.openlinksw.com/schemas/virtrdf#QuadMapFormat" }},
-      { "subject": { "type": "uri", "value": "http://www.openlinksw.com/virtrdf-data-formats#default-iid-nonblank" }	, "verb": { "type": "uri", "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" }	, "complement": { "type": "uri", "value": "http://www.openlinksw.com/schemas/virtrdf#QuadMapFormat" }} ] } }`)])
+      { "subject": { "type": "uri", "value": "http://www.openlinksw.com/virtrdf-data-formats#default-iid" }, "verb": { "type": "uri", "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" }, "complement": { "type": "uri", "value": "http://www.openlinksw.com/schemas/virtrdf#QuadMapFormat" }},
+      { "subject": { "type": "uri", "value": "http://www.openlinksw.com/virtrdf-data-formats#default-iid-nullable" }, "verb": { "type": "uri", "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" }, "complement": { "type": "uri", "value": "http://www.openlinksw.com/schemas/virtrdf#QuadMapFormat" }},
+      { "subject": { "type": "uri", "value": "http://www.openlinksw.com/virtrdf-data-formats#default-iid-nonblank" }, "verb": { "type": "uri", "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" }, "complement": { "type": "uri", "value": "http://www.openlinksw.com/schemas/virtrdf#QuadMapFormat" }} ] } }`)])
         .pipe(ezs('SPARQLToDistinct'))
         .pipe(ezs.catch(e => e))
         .on('data', () => {
