@@ -7,9 +7,7 @@ export default function SPARQLToDisctinct(data, feed) {
 
     if (vars.length !== 2) { throw new Error('Result of query should have only two columns !'); }
 
-    const firstVar = vars[0];
-    const secondVar = vars[1];
-
+    const [firstVar, secondVar] = vars;
 
     const returnedData = { total: bindings.length };
     returnedData.data = bindings.map((elem) => {
