@@ -5,10 +5,12 @@ import statement from '../src';
 
 ezs.use(statement);
 
-
 test('get an error when result has not enougth columns', (done) => {
-    from([{ query: 'SELECT DISTINCT ?p FROM <https://scopus-category.data.istex.fr/graph> WHERE { ?s ?p ?o }', endpoint: 'https://data.istex.fr/sparql/' }])
-        .pipe(ezs('SPARQLQuery'))
+    from([JSON.parse(`{ "head": { "link": [], "vars": ["p"] },
+    "results": { "distinct": false, "ordered": true, "bindings": [
+      { "p": { "type": "uri", "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" }},
+      { "p": { "type": "uri", "value": "http://purl.org/dc/terms/created" }},
+      { "p": { "type": "uri", "value": "http://purl.org/dc/terms/modified" }} ] } }`)])
         .pipe(ezs('SPARQLToDistinct'))
         .pipe(ezs.catch(e => e))
         .on('data', () => {
@@ -21,8 +23,11 @@ test('get an error when result has not enougth columns', (done) => {
 });
 
 test('get an error when result has to many columns', (done) => {
-    from([{ query: 'SELECT * WHERE { ?subject ?verb ?complement . } LIMIT 100', endpoint: 'https://data.istex.fr/sparql/' }])
-        .pipe(ezs('SPARQLQuery'))
+    from([JSON.parse(`{ "head": { "link": [], "vars": ["subject", "verb", "complement"] },
+    "results": { "distinct": false, "ordered": true, "bindings": [
+      { "subject": { "type": "uri", "value": "http://www.openlinksw.com/virtrdf-data-formats#default-iid" }	, "verb": { "type": "uri", "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" }	, "complement": { "type": "uri", "value": "http://www.openlinksw.com/schemas/virtrdf#QuadMapFormat" }},
+      { "subject": { "type": "uri", "value": "http://www.openlinksw.com/virtrdf-data-formats#default-iid-nullable" }	, "verb": { "type": "uri", "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" }	, "complement": { "type": "uri", "value": "http://www.openlinksw.com/schemas/virtrdf#QuadMapFormat" }},
+      { "subject": { "type": "uri", "value": "http://www.openlinksw.com/virtrdf-data-formats#default-iid-nonblank" }	, "verb": { "type": "uri", "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" }	, "complement": { "type": "uri", "value": "http://www.openlinksw.com/schemas/virtrdf#QuadMapFormat" }} ] } }`)])
         .pipe(ezs('SPARQLToDistinct'))
         .pipe(ezs.catch(e => e))
         .on('data', () => {
@@ -35,8 +40,11 @@ test('get an error when result has to many columns', (done) => {
 });
 
 test('get an error when the second column is not a number', (done) => {
-    from([{ query: 'SELECT ?s, ?p  WHERE { ?s ?p ?o } LIMIT 10', endpoint: 'https://data.istex.fr/sparql/' }])
-        .pipe(ezs('SPARQLQuery'))
+    from([JSON.parse(`{ "head": { "link": [], "vars": ["s", "p"] },
+    "results": { "distinct": false, "ordered": true, "bindings": [
+      { "s": { "type": "uri", "value": "http://www.openlinksw.com/virtrdf-data-formats#default-iid" }, "p": { "type": "uri", "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" }},
+      { "s": { "type": "uri", "value": "http://www.openlinksw.com/virtrdf-data-formats#default-iid-nullable" }, "p": { "type": "uri", "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" }},
+      { "s": { "type": "uri", "value": "http://www.openlinksw.com/virtrdf-data-formats#default-iid-nonblank" }, "p": { "type": "uri", "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" }} ] } }`)])
         .pipe(ezs('SPARQLToDistinct'))
         .pipe(ezs.catch(e => e))
         .on('data', () => {
@@ -49,16 +57,19 @@ test('get an error when the second column is not a number', (done) => {
 });
 
 test('verify result information and structure', (done) => {
-    from([{ query: 'SELECT DISTINCT ?g, count(*) AS ?nb WHERE { graph ?g { ?s ?p ?o } } LIMIT 5', endpoint: 'https://data.istex.fr/sparql/' }])
-        .pipe(ezs('SPARQLQuery'))
+    from([JSON.parse(`{ "head": { "link": [], "vars": ["g", "nb"] },
+                 "results": { "distinct": false, "ordered": true, "bindings": [
+                 { "g": { "type": "uri", "value": "http://www.openlinksw.com/schemas/virtrdf#" }, "nb": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "2477" }},
+                 { "g": { "type": "uri", "value": "https://bibliography.data.istex.fr/notice/graph" }, "nb": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "308023584" }},
+                 { "g": { "type": "uri", "value": "https://scopus-category.data.istex.fr/graph" }, "nb": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "2542" }} ] } }`)])
         .pipe(ezs('SPARQLToDistinct'))
         .pipe(ezs.catch(e => e))
         .on('data', (data) => {
             if (typeof data !== 'object' || !JSON.stringify(data)) {
                 done(new Error('The data are not a JSON object !'));
             }
-            if (data.total !== 5) {
-                done(new Error('The total should be set to 5'));
+            if (data.total !== 3) {
+                done(new Error('The total should be set to 3'));
             }
 
             data.data.forEach((elem) => {
