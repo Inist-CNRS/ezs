@@ -1,5 +1,5 @@
 /**
- * Take a query share link from a YASGUI editor and convert them into an object
+ * Take a query share link from a YASGUI editor and convert it into an object
  * which contains the query and the endpoint. Then, it could be used by ` SPARQLQuery ` instruction.
  *
  * @example <caption>Input:</caption>
@@ -13,6 +13,7 @@
  *
  * @export
  * @name SPARQLDecodeQuery
+ * @see SPARQLQuery
  */
 export default function SPARQLDecodeQuery(data, feed) {
     if (this.isLast()) {
