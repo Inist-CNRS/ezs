@@ -14,13 +14,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://apinot@github.com/Inist-CNRS/node-ezs-sparql.git"
+    "url": "git+https://github.com/Inist-CNRS/node-ezs-sparql.git"
   },
   "keywords": [
     "ezs",
     "sparql"
   ],
-  "author": "Antoine Pinot",
+  "contributors": [
+    {
+      "name": "Antoine Pinot",
+      "url": "https://github.com/apinot"
+    },
+    {
+      "name": "François Parmentier",
+      "url": "https://github.com/parmentf"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Inist-CNRS/node-ezs-sparql/issues"
