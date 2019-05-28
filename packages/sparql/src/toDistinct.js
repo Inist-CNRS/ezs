@@ -56,9 +56,9 @@
  *
  * @export
  * @see SPARQLQuery
- * @name SPARQLToDisctinct
+ * @name SPARQLToDistinct
  */
-export default function SPARQLToDisctinct(data, feed) {
+export default function SPARQLToDistinct(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
