@@ -17,24 +17,7 @@ test('get an error when result has not enougth columns', (done) => {
             done(new Error('Should not work'));
         })
         .on('error', (error) => {
-            assert.ok(error.message.includes('Result of query should have only two columns !'));
-            done();
-        });
-});
-
-test('get an error when result has to many columns', (done) => {
-    from([JSON.parse(`{ "head": { "link": [], "vars": ["subject", "verb", "complement"] },
-    "results": { "distinct": false, "ordered": true, "bindings": [
-      { "subject": { "type": "uri", "value": "http://www.openlinksw.com/virtrdf-data-formats#default-iid" }, "verb": { "type": "uri", "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" }, "complement": { "type": "uri", "value": "http://www.openlinksw.com/schemas/virtrdf#QuadMapFormat" }},
-      { "subject": { "type": "uri", "value": "http://www.openlinksw.com/virtrdf-data-formats#default-iid-nullable" }, "verb": { "type": "uri", "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" }, "complement": { "type": "uri", "value": "http://www.openlinksw.com/schemas/virtrdf#QuadMapFormat" }},
-      { "subject": { "type": "uri", "value": "http://www.openlinksw.com/virtrdf-data-formats#default-iid-nonblank" }, "verb": { "type": "uri", "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" }, "complement": { "type": "uri", "value": "http://www.openlinksw.com/schemas/virtrdf#QuadMapFormat" }} ] } }`)])
-        .pipe(ezs('SPARQLToDistinct'))
-        .pipe(ezs.catch(e => e))
-        .on('data', () => {
-            done(new Error('Should not work'));
-        })
-        .on('error', (error) => {
-            assert.ok(error.message.includes('Result of query should have only two columns !'));
+            assert.ok(error.message.includes('Result of query should have at least two columns !'));
             done();
         });
 });
@@ -56,6 +39,25 @@ test('get an error when the second column is not a number', (done) => {
         });
 });
 
+test('ignore the extra columns', (done) => {
+    from([JSON.parse(`{ "head": { "link": [], "vars": ["libellecatinist", "totallibellecatinist", "perThousand"] },
+    "results": { "distinct": false, "ordered": true, "bindings": [
+      { "libellecatinist": { "type": "literal", "xml:lang": "fr", "value": "Terre, ocean, espace" }, "totallibellecatinist": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "495286" }, "perThousand": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "52" }},
+      { "libellecatinist": { "type": "literal", "xml:lang": "fr", "value": "Chimie analytique" }, "totallibellecatinist": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "50760" }, "perThousand": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "5" }},
+      { "libellecatinist": { "type": "literal", "xml:lang": "fr", "value": "Biotechnologie. bioteterioration" }, "totallibellecatinist": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "38582" }, "perThousand": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "4" }} ] } }`)])
+        .pipe(ezs('SPARQLToDistinct'))
+        .pipe(ezs.catch(e => e))
+        .on('data', (data) => {
+            data.data.forEach((elem) => {
+                assert.ok(elem._id);
+                assert.ok(elem.value);
+                assert.ok(Number.isInteger(elem.value));
+            });
+            done();
+        })
+        .on('error', done);
+});
+
 test('verify result information and structure', (done) => {
     from([JSON.parse(`{ "head": { "link": [], "vars": ["g", "nb"] },
                  "results": { "distinct": false, "ordered": true, "bindings": [
@@ -70,7 +72,7 @@ test('verify result information and structure', (done) => {
             assert.strictEqual(data.total, 3);
 
             data.data.forEach((elem) => {
-                assert.ok(elem.id);
+                assert.ok(elem._id);
                 assert.ok(elem.value);
                 assert.ok(Number.isInteger(elem.value));
             });
@@ -78,4 +80,4 @@ test('verify result information and structure', (done) => {
             done();
         })
         .on('error', done);
-}, 30000);
+});

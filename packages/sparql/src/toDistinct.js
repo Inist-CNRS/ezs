@@ -1,7 +1,7 @@
 /**
  * Format SPARQLQuery result as a LODEX routine.
  *
- * The input should contain **two fields**:
+ * The input should contain **at least two fields**:
  * - the first is corresponding with the **_id** output field
  * - the second is corresponding with the **value** output field
  *
@@ -65,7 +65,7 @@ export default function SPARQLToDistinct(data, feed) {
 
     const { head: { vars }, results: { bindings } } = data;
 
-    if (vars.length !== 2) { throw new Error('Result of query should have only two columns !'); }
+    if (vars.length < 2) { throw new Error('Result of query should have at least two columns !'); }
 
     const [firstVar, secondVar] = vars;
 
@@ -83,7 +83,6 @@ export default function SPARQLToDistinct(data, feed) {
             value: val,
         };
     });
-
 
     feed.write(returnedData);
     feed.end();

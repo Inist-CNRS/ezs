@@ -27,12 +27,14 @@ process.stdin
     -   [Examples](#examples)
 -   [SPARQLQuery](#sparqlquery)
     -   [Examples](#examples-1)
--   [SPARQLToDisctinct](#sparqltodisctinct)
+-   [SPARQLToDistinct](#sparqltodistinct)
     -   [Examples](#examples-2)
 
 ### SPARQLDecodeQuery
 
-Take a query share link from a YASGUI editor and convert them into an object
+-   **See: SPARQLQuery**
+
+Take a query share link from a YASGUI editor and convert it into an object
 which contains the query and the endpoint. Then, it could be used by `SPARQLQuery` instruction.
 
 #### Examples
@@ -105,13 +107,13 @@ Ouput:
 }
 ```
 
-### SPARQLToDisctinct
+### SPARQLToDistinct
 
 -   **See: SPARQLQuery**
 
 Format SPARQLQuery result as a LODEX routine.
 
-The input should contain **two fields**:
+The input should contain **at least two fields**:
 
 -   the first is corresponding with the **\_id** output field
 -   the second is corresponding with the **value** output field
