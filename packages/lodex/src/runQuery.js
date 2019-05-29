@@ -11,6 +11,7 @@ export const createFunction = () => async function LodexRunQuery(data, feed) {
         'field',
         data.field || data.$field || 'uri',
     );
+    const collectionName = this.getParam('collection', data.collection || 'publishedDataset');
     const fds = Array.isArray(field) ? field : [field];
     const fields = fds.filter(Boolean);
     const limit = this.getParam('limit', data.limit || 1000000);
@@ -27,7 +28,7 @@ export const createFunction = () => async function LodexRunQuery(data, feed) {
         },
     );
     const db = client.db();
-    const collection = db.collection('publishedDataset');
+    const collection = db.collection(collectionName);
     const cursor = collection.find(filter, fields.length > 0 ? projection : null);
     const total = await cursor.count();
     if (total === 0) {
