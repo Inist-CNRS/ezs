@@ -17,6 +17,7 @@ import disabled from './disabled';
 import runQuery from './runQuery';
 import reduceQuery from './reduceQuery';
 import formatOutput from './formatOutput';
+import getLastCharacteristic from './getLastCharacteristic';
 
 export default {
     flattenPatch,
@@ -29,6 +30,7 @@ export default {
     extractIstexQuery,
     filterContributions,
     filterVersions,
+    getLastCharacteristic,
     linkDataset,
     useFieldNames,
     JSONLDCompacter,

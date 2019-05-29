@@ -30,6 +30,9 @@ process.stdin
     -   [Parameters](#parameters-2)
     -   [Examples](#examples)
 -   [flattenPatch](#flattenpatch)
+-   [getLastCharacteristic](#getlastcharacteristic)
+    -   [Parameters](#parameters-3)
+    -   [Examples](#examples-1)
 -   [objects2columns](#objects2columns)
 
 ## convertJsonLdToNQuads
@@ -89,6 +92,59 @@ Extract an ISTEX API query.
 Take `Object` and transform all key ending byu number on array.
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## getLastCharacteristic
+
+Get last characteristic (list of all dataset covering fields).
+
+### Parameters
+
+-   `data`  
+-   `feed`  
+
+### Examples
+
+Input:
+
+
+```javascript
+[
+  {
+    "_id" : ObjectId("5ca32c64019f45001d2b602d"),
+    "publicationDate" : ISODate("2019-04-02T09:33:24.463Z")
+  },
+  {
+    "_id" : ObjectId("5cee50bb019f45001d2b602f"),
+    "publicationDate" : ISODate("2019-05-29T09:28:27.773Z")
+  },
+  {
+    "_id" : ObjectId("5cee5119019f45001d2b6031"),
+    "publicationDate" : ISODate("2019-05-29T09:30:01.319Z")
+  },
+  {
+    "_id" : ObjectId("5cee5153019f45001d2b6032"),
+    "publicationDate" : ISODate("2019-05-29T09:30:59.770Z")
+  },
+  {
+    "_id" : ObjectId("5cee5160019f45001d2b6033"),
+    "publicationDate" : ISODate("2019-05-29T09:31:12.503Z")
+  },
+  {
+    "_id" : ObjectId("5cee530e3e9676001909ba24"),
+    "publicationDate" : ISODate("2019-05-29T09:38:22.569Z")
+  }
+]
+```
+
+Output:
+
+
+```javascript
+{
+  "_id" : ObjectId("5cee530e3e9676001909ba24"),
+  "publicationDate" : ISODate("2019-05-29T09:38:22.569Z")
+}
+```
 
 ## objects2columns
 
