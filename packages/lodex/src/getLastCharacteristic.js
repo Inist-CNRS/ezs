@@ -38,11 +38,13 @@
  * @export
  * @returns
  */
-export default function getLastCharacteristic(data, feed) {
-    if (data && Array.isArray(data)) {
-        feed.send(data[data.length - 1]);
+export default function getLastCharacteristic(chunk, feed) {
+    if (this.isLast()) {
+        feed.write(this.previousChunk);
+        feed.close();
         return;
     }
 
-    feed.send(data);
+    this.previousChunk = chunk;
+    feed.end();
 }
