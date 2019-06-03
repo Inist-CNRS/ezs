@@ -47,6 +47,7 @@ process.stdin
     -   [Parameters](#parameters-11)
 -   [TXTParse](#txtparse)
     -   [Parameters](#parameters-12)
+-   [TXTZip](#txtzip)
 -   [URLFetch](#urlfetch)
     -   [Parameters](#parameters-13)
 -   [XMLParse](#xmlparse)
@@ -199,6 +200,12 @@ Take `String` and split at each separator found
 -   `separtor` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose character which trigger the split (optional, default `\n`)
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+## TXTZip
+
+Take a String and zip it
+
+Returns **[Buffer](https://nodejs.org/api/buffer.html)** 
 
 ## URLFetch
 
