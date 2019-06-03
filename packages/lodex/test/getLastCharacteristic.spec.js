@@ -1,34 +1,19 @@
-import { PassThrough } from 'stream';
-import getLastCharacteristic from '../src/getLastCharacteristic';
+import from from 'from';
+import ezs from 'ezs';
+import ezsLodex from '../lib';
 
-class Feed extends PassThrough {
-    constructor() {
-        super({ objectMode: true });
-        this.feed = {};
-    }
-
-    send(data) {
-        this.write(data);
-        this.end();
-    }
-}
+ezs.use(ezsLodex);
 
 describe('filterVersions', () => {
-    it('should return the last Characteristic', (done) => {
-        const feed = new Feed();
-
-        getLastCharacteristic(
-            [1, 2, 3],
-            feed,
-        );
-
-        feed.on('data', (data) => {
-            expect(data).toEqual(3);
-            done();
-        });
-
-        feed.on('error', (e) => {
-            done(e);
-        });
+    it('should return the last chunk of a stream', (done) => {
+        from([1, 2, 3])
+            .pipe(ezs('getLastCharacteristic'))
+            .on('data', (data) => {
+                expect(data).toBe(3);
+            })
+            .on('end', () => {
+                done();
+            })
+            .on('error', done);
     });
 });
