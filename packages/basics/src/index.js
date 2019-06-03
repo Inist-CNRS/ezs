@@ -14,6 +14,7 @@ import SKOSObject from './skos-object';
 import JSONParse from './json-parse';
 import JSONString from './json-string';
 import URLFetch from './url-fetch';
+import TXTZip from './txt-zip';
 
 export default {
     BUFObject,
@@ -32,6 +33,7 @@ export default {
     JSONParse,
     JSONString,
     URLFetch,
+    TXTZip,
     // aliases
     bufferify: BUFObject.BUFObject,
     jsonify: JSONString.JSONString,

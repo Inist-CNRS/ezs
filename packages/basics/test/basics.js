@@ -159,7 +159,7 @@ describe('test', () => {
         from([
             'a,b\nc,d\n',
         ])
-            .pipe(ezs.fromString(cmd))
+            .pipe(ezs('delegate', { script: cmd }))
             .on('data', (chunk) => {
                 assert(typeof chunk === 'object');
                 res.push(chunk);
@@ -180,11 +180,10 @@ describe('test', () => {
         quote = \b
         [CSVObject]
         `;
-        const exe = ezs.parseString(cmd);
         from([
             'a\tb\nc\td\n',
         ])
-            .pipe(ezs.pipeline(exe))
+            .pipe(ezs('delegate', { script: cmd }))
             .on('data', (chunk) => {
                 assert(typeof chunk === 'object');
                 res.push(chunk);
@@ -204,11 +203,10 @@ describe('test', () => {
         quote = "
         [CSVObject]
         `;
-        const exe = ezs.parseString(cmd);
         from([
             '"a"\t"b"\n"c"\t"d"\n',
         ])
-            .pipe(ezs.pipeline(exe))
+            .pipe(ezs('delegate', { script: cmd }))
             .on('data', (chunk) => {
                 assert(typeof chunk === 'object');
                 res.push(chunk);
@@ -306,7 +304,7 @@ describe('test', () => {
             });
     });
 
-    it.only('XMLParse#1', (done) => {
+    it('XMLParse#1', (done) => {
         const pass = new PassThrough();
         let cnt = 0;
         pass.pipe(ezs('XMLParse', { separator: '/a/b' }))
@@ -322,7 +320,7 @@ describe('test', () => {
             '<a><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b></a>',
         );
     });
-    it.only('XMLString#1', (done) => {
+    it('XMLString#1', (done) => {
         const xml = '<a><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b></a>';
         const pass = new PassThrough();
         const output = [];
