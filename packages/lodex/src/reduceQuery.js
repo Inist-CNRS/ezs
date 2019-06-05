@@ -12,6 +12,7 @@ export const createFunction = () => async function LodexRunQuery(data, feed) {
     }
 
     const filter = this.getParam('filter', data.filter || {});
+    filter.removedAt = { $exists: false }; // Ignore removed resources
     const field = this.getParam(
         'field',
         data.field || data.$field || 'uri',
