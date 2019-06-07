@@ -11,15 +11,10 @@ describe('extractIstexQuery', () => {
                 fields: [],
                 labels: [''],
             }))
-            .pipe(ezs((output, feed) => {
-                feed.close();
-                try {
-                    expect(output).toBe(null);
-                    done();
-                } catch (e) {
-                    done(e);
-                }
-            }));
+            .on('data', () => {
+                done(new Error('should return null'));
+            })
+            .on('end', done);
     });
 
     it('should return null if no label matches the query field', (done) => {
@@ -36,15 +31,10 @@ describe('extractIstexQuery', () => {
                 ],
                 labels: ['foo'],
             }))
-            .pipe(ezs((output, feed) => {
-                feed.close();
-                try {
-                    expect(output).toBe(null);
-                    done();
-                } catch (e) {
-                    done(e);
-                }
-            }));
+            .on('data', () => {
+                done(new Error('should return null'));
+            })
+            .on('end', done);
     });
 
     it('should return a query', (done) => {

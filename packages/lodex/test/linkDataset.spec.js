@@ -23,20 +23,17 @@ describe('linkDataset', () => {
     });
 
     it('should return null when no data', (done) => {
-        const stream = from([]).pipe(
+        from([]).pipe(
             ezs('linkDataset', {
                 uri: 'http://uri',
                 scheme: 'http://scheme',
                 datasetClass: 'DataSet',
             }),
-        );
-        testOne(
-            stream,
-            (output) => {
-                expect(output).toBe(null);
-            },
-            done,
-        );
+        )
+            .on('data', () => {
+                done(new Error('should return null'));
+            })
+            .on('end', done);
     });
 
     it('should return when no data[@context]', (done) => {

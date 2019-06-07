@@ -18,6 +18,7 @@ import runQuery from './runQuery';
 import reduceQuery from './reduceQuery';
 import formatOutput from './formatOutput';
 import getLastCharacteristic from './getLastCharacteristic';
+import keyMapping from './keyMapping';
 
 export default {
     flattenPatch,
@@ -31,6 +32,7 @@ export default {
     filterContributions,
     filterVersions,
     getLastCharacteristic,
+    keyMapping,
     linkDataset,
     useFieldNames,
     JSONLDCompacter,

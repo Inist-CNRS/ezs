@@ -37,6 +37,7 @@
  *
  * @export
  * @returns
+ * @name getLastCharacteristic
  */
 export default function getLastCharacteristic(chunk, feed) {
     if (this.isLast()) {

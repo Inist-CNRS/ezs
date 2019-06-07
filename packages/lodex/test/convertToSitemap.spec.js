@@ -7,15 +7,10 @@ ezs.use(statements);
 
 describe('convertToSitemap', () => {
     it('should not error when no input', (done) => {
-        const stream = from([])
-            .pipe(ezs('convertToSitemap'));
-        testOne(
-            stream,
-            (data) => {
-                expect(data).toEqual(null);
-            },
-            done,
-        );
+        from([])
+            .pipe(ezs('convertToSitemap'))
+            .on('data', () => done(new Error('should not return data')))
+            .on('end', done);
     });
 
     it('should output when one resource', (done) => {
