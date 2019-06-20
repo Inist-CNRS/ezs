@@ -50,10 +50,12 @@ process.stdin
 -   [TXTZip](#txtzip)
 -   [URLFetch](#urlfetch)
     -   [Parameters](#parameters-13)
--   [XMLParse](#xmlparse)
+-   [URLStream](#urlstream)
     -   [Parameters](#parameters-14)
--   [XMLString](#xmlstring)
+-   [XMLParse](#xmlparse)
     -   [Parameters](#parameters-15)
+-   [XMLString](#xmlstring)
+    -   [Parameters](#parameters-16)
 
 ## BUFObject
 
@@ -211,6 +213,18 @@ Returns **[Buffer](https://nodejs.org/api/buffer.html)**
 
 Take `Object` and create a new field with the content of URL.
 Or if no target will be specified, the output will be the content of URL
+
+### Parameters
+
+-   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fecth
+-   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** choose the key to set
+-   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Pasre as JSON the content of URL (optional, default `false`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## URLStream
+
+Take `Object` as parameters of URL, throw each chunk from the result
 
 ### Parameters
 
