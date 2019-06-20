@@ -74,7 +74,7 @@ export default function cli(errlog) {
         input = new PassThrough(ezs.objectMode());
         input.write(process.env);
         input.end();
-    } if (argv.file) {
+    } else if (argv.file) {
         try {
             const filename = realpathSync(argv.file);
             debug('ezs')(`Reading file ${filename} ...`);
