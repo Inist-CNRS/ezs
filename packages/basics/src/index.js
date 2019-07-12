@@ -14,6 +14,8 @@ import SKOSObject from './skos-object';
 import JSONParse from './json-parse';
 import JSONString from './json-string';
 import URLFetch from './url-fetch';
+import URLParse from './url-parse';
+import URLString from './url-string';
 import URLStream from './url-stream';
 import TXTZip from './txt-zip';
 
@@ -34,6 +36,8 @@ export default {
     JSONParse,
     JSONString,
     URLFetch,
+    URLParse,
+    URLString,
     URLStream,
     TXTZip,
     // aliases

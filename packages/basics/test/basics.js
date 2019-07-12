@@ -336,6 +336,27 @@ describe('test', () => {
         pass.end(xml);
     });
 
+    it('URLParse/URLString', (done) => {
+        const input = [
+            'https://sciencemetrix-category-18.data.istex.fr/ark:/67375/Q4W-LHKDRZNG-N',
+            'https://www.google.com/search?q=truc&oq=truc&aqs=chrome..69i57j0j35i39l2j0l2.709j0j7&sourceid=chrome&ie=UTF-8',
+        ];
+        const output = [];
+        from(input)
+            .pipe(ezs('URLParse'))
+            .pipe(ezs('debug'))
+            .pipe(ezs('URLString'))
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(output.length, 2);
+                assert.equal(input[0], output[0]);
+                assert.equal(input[1], output[1]);
+                done();
+            });
+    });
+
     /*
     it('URLGet #1', (done) => {
         let c = 0;
