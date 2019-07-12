@@ -21,19 +21,19 @@ const uriPrefixes = Object.values(defaultPrefixes);
  *      object: { id: '"Jane Doe"' }
  *    }
  *  }, {
- *      quad: Quad {
+ *      quad: {
  *      subject: { id: 'http://uri/janedoe' },
  *      predicate: { id: 'http://schema.org/telephone' },
  *      object: { id: '"(425) 123-4567"' }
  *      }
  *  }, {
- *      quad: Quad {
+ *      quad: {
  *      subject: { id: 'http://uri/janedoe' },
  *      predicate: { id: 'http://schema.org/url' },
  *      object: { id: 'http://www.janedoe.com' }
  *      }
  *  }, {
- *      quad: Quad {
+ *      quad: {
  *      subject: { id: 'http://uri/janedoe' },
  *      predicate: { id: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type' },
  *      object: { id: 'http://schema.org/Person' }
