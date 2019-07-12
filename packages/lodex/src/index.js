@@ -19,6 +19,8 @@ import reduceQuery from './reduceQuery';
 import formatOutput from './formatOutput';
 import getLastCharacteristic from './getLastCharacteristic';
 import keyMapping from './keyMapping';
+import parseNQuads from './parseNQuads';
+import writeTurtle from './writeTurtle';
 
 export default {
     flattenPatch,
@@ -41,6 +43,8 @@ export default {
     runQuery,
     reduceQuery,
     formatOutput,
+    parseNQuads,
+    writeTurtle,
     // aliases
     fixFlatten: flattenPatch.flattenPatch,
     LodexContext: disabled.disabled,

@@ -36,6 +36,9 @@ process.stdin
     -   [Parameters](#parameters-3)
     -   [Examples](#examples-2)
 -   [objects2columns](#objects2columns)
+-   [parseNQuads](#parsenquads)
+-   [writeTurtle](#writeturtle)
+    -   [Examples](#examples-3)
 
 ## convertJsonLdToNQuads
 
@@ -195,3 +198,69 @@ Returns **any** Same object with modified keys
 Take `Object` and ...
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## parseNQuads
+
+Take N-Quads string and transform it to Objects.
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## writeTurtle
+
+Take quad or prefixes object and return turtle string.
+
+### Examples
+
+Input:
+
+
+```javascript
+[{
+   quad: {
+     subject: { id: 'http://uri/janedoe' },
+     predicate: { id: 'http://schema.org/jobTitle' },
+     object: { id: '"Professor"' }
+   }
+ }, {
+     quad: {
+     subject: { id: 'http://uri/janedoe' },
+     predicate: { id: 'http://schema.org/name' },
+     object: { id: '"Jane Doe"' }
+   }
+ }, {
+     quad: Quad {
+     subject: { id: 'http://uri/janedoe' },
+     predicate: { id: 'http://schema.org/telephone' },
+     object: { id: '"(425) 123-4567"' }
+     }
+ }, {
+     quad: Quad {
+     subject: { id: 'http://uri/janedoe' },
+     predicate: { id: 'http://schema.org/url' },
+     object: { id: 'http://www.janedoe.com' }
+     }
+ }, {
+     quad: Quad {
+     subject: { id: 'http://uri/janedoe' },
+     predicate: { id: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type' },
+     object: { id: 'http://schema.org/Person' }
+     }
+ }, { prefixes: {} }
+ ]
+```
+
+Output:
+
+
+```javascript
+'@prefix schema: <http://schema.org/>.\n'
+'@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.\n'
+'\n'
+'<http://uri/janedoe> schema:jobTitle "Professor";\n'
+'    schema:name "Jane Doe";\n'
+'    schema:telephone "(425) 123-4567";\n'
+'    schema:url <http://www.janedoe.com>;\n'
+'    a schema:Person.\n"'
+```
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** turtle
