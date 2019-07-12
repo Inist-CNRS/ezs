@@ -50,8 +50,10 @@ process.stdin
 -   [TXTZip](#txtzip)
 -   [URLFetch](#urlfetch)
     -   [Parameters](#parameters-13)
+-   [URLParse](#urlparse)
 -   [URLStream](#urlstream)
     -   [Parameters](#parameters-14)
+-   [URLString](#urlstring)
 -   [XMLParse](#xmlparse)
     -   [Parameters](#parameters-15)
 -   [XMLString](#xmlstring)
@@ -222,6 +224,12 @@ Or if no target will be specified, the output will be the content of URL
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
+## URLParse
+
+Take `String` of URL, parse it and returns `Object`
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
 ## URLStream
 
 Take `Object` as parameters of URL, throw each chunk from the result
@@ -233,6 +241,12 @@ Take `Object` as parameters of URL, throw each chunk from the result
 -   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Pasre as JSON the content of URL (optional, default `false`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## URLString
+
+Take `Object` representing a URL and stringify it
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ## XMLParse
 
