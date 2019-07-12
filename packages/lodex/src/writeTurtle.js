@@ -57,6 +57,17 @@ const uriPrefixes = Object.values(defaultPrefixes);
  */
 export default function writeTurtle(data, feed) {
     if (this.isLast()) {
+        const writer = new Writer({
+            prefixes: this.prefixes,
+        });
+        const quads = this.store.getQuads();
+        writer.addQuads(quads);
+        writer.end((error, result) => {
+            if (error) {
+                return feed.stop(new Error(error));
+            }
+            return feed.send(result);
+        });
         feed.close();
         return;
     }
@@ -79,21 +90,6 @@ export default function writeTurtle(data, feed) {
         this.prefixes = uriPrefixes.reduce(addPrefixWhenUsedInObject, this.prefixes);
 
         this.store.addQuad(quad);
-    }
-    if (data && data.prefixes) {
-        this.writer = new Writer({
-            prefixes: this.prefixes,
-        });
-        const quads = this.store.getQuads();
-        this.writer.addQuads(quads);
-        this.writer.end((error, result) => {
-            if (error) {
-                return feed.stop(new Error(error));
-            }
-            return feed.send(result);
-        });
-        this.store = null;
-        this.writer = null;
     }
     feed.end();
 }
