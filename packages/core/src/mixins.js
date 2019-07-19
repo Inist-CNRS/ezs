@@ -1,4 +1,4 @@
-import filtrex from 'filtrex';
+import { compileExpression } from 'filtrex';
 
 const fix = (input, ...args) => {
     if (args.length === 1) {
@@ -7,7 +7,7 @@ const fix = (input, ...args) => {
     return args;
 };
 
-const compute = (input, expr) => filtrex(expr)(input);
+const compute = (input, expr) => compileExpression(expr)(input);
 
 const self = input => input;
 
