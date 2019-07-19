@@ -26,10 +26,36 @@ describe('extractIstexQuery', () => {
                 fields: [
                     {
                         name: 'istexQuery',
-                        label: 'query',
-                        format: {
-                            name: 'istex',
+                        scheme: 'istex:query',
+                    },
+                ],
+                labels: ['query'],
+            }))
+            .pipe(ezs((output) => {
+                try {
+                    expect(output).toEqual({
+                        content: 'dumb',
+                        lodex: {
+                            uri: 'http://uri',
                         },
+                    });
+                    done();
+                } catch (e) {
+                    done(e);
+                }
+            }));
+    });
+
+    it('should return a query with expanded scheme', (done) => {
+        from([{
+            uri: 'http://uri',
+            istexQuery: 'dumb',
+        }])
+            .pipe(ezs('extractIstexQuery', {
+                fields: [
+                    {
+                        name: 'istexQuery',
+                        scheme: 'https://data.istex.fr/ontology/istex#query',
                     },
                 ],
                 labels: ['query'],
@@ -58,10 +84,7 @@ describe('extractIstexQuery', () => {
                 fields: [
                     {
                         name: 'istexQuery',
-                        label: 'query',
-                        format: {
-                            name: 'istex',
-                        },
+                        scheme: 'istex:query',
                     },
                 ],
                 labels: ['query'],
