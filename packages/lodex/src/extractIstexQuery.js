@@ -13,7 +13,6 @@ function removeNumberInstance(uri) {
  * Extract an ISTEX API query.
  *
  * @param {Array<Object>} [fields=[]]   list of LODEX fields
- * @param {Array<String>} [labels=["query"]]    list of fields labels to extract
  * @name extractIstexQuery
  * @example
  * {
@@ -30,7 +29,6 @@ module.exports = function extractIstexQuery(data, feed) {
     }
 
     const fields = this.getParam('fields', []);
-    const labels = this.getParam('labels', ['query']);
 
     /*
      * If we don't have any istexQuery, close the export
@@ -43,13 +41,6 @@ module.exports = function extractIstexQuery(data, feed) {
         .filter(field => field.format && field.format.name === 'istex')
         .forEach((field) => {
             const propertyName = field.name;
-
-            if (
-                !labels.includes(field.label)
-                && !(labels.length === 1 && labels[0] === '')
-            ) {
-                return feed.close();
-            }
 
             const formatedUri = removeNumberInstance(data.uri);
 
