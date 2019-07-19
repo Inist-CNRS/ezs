@@ -49,6 +49,9 @@ ezs.createCommand = (command, environment) => {
     if (!command.name) {
         throw new Error(`Bad command : ${command.name}`);
     }
+    if (command.use) {
+        Statement.load(ezs, command.use);
+    }
     if (mode === M_NORMAL || mode === M_DISPATCH) {
         return ezs(command.name, command.args, environment);
     }

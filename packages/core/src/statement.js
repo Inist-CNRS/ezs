@@ -7,6 +7,23 @@ function all() {
     return Object.keys(pluginsList);
 }
 
+function load(ezs, name) {
+    const before1 = Object.keys(pluginsList);
+    const fileName = useFile(ezs, name);
+    if (!fileName) {
+        throw new Error(
+            `'${name}' is not loaded. It was not found (try to install it).`,
+        );
+    }
+    // eslint-disable-next-line
+    ezs.use(require(fileName));
+    const after1 = Object.keys(pluginsList);
+    const diff1 = after1.filter(item => before1.indexOf(item) === -1);
+    if (diff1.length > 0) {
+        debug('ezs')(`These statements are registered: ${diff1.join(',')}`);
+    }
+}
+
 function get(ezs, plugin, opts) {
     if (plugin === 'use') {
         // very special case : to load statement in the current pipeline
@@ -17,22 +34,7 @@ function get(ezs, plugin, opts) {
                 if (!Array.isArray(names)) {
                     names = [names];
                 }
-                names.forEach((name) => {
-                    const before1 = Object.keys(pluginsList);
-                    const fileName = useFile(ezs, name);
-                    if (!fileName) {
-                        throw new Error(
-                            `'${name}' is not loaded. It was not found (try to install it).`,
-                        );
-                    }
-                    // eslint-disable-next-line
-                    ezs.use(require(fileName));
-                    const after1 = Object.keys(pluginsList);
-                    const diff1 = after1.filter(item => before1.indexOf(item) === -1);
-                    if (diff1.length > 0) {
-                        debug('ezs')(`These statements are registered: ${diff1.join(',')}`);
-                    }
-                });
+                names.forEach(name => load(ezs, name));
             }
         });
         return (data, feed) => feed.send(data);
@@ -81,5 +83,6 @@ export default {
     get,
     set,
     all,
+    load,
     exists,
 };

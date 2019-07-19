@@ -37,9 +37,10 @@ export default function Script(commands) {
                 }
             } else if (regex.section.test(line)) {
                 const matches0 = line.match(regex.section);
-                const matches1 = matches0[1].match(/(\w+)\?(\w+)/);
+                const matches1 = matches0[1].match(/([:\w]+)\?(\w+)/);
                 let mode = M_NORMAL;
                 let name = 'debug';
+                let use = '';
                 const test = '';
                 if (Array.isArray(matches1)) {
                     [, name, mode] = matches1;
@@ -47,11 +48,15 @@ export default function Script(commands) {
                     mode = M_NORMAL;
                     [, name] = matches0;
                 }
+                if (name.indexOf(':') !== -1) {
+                    [use, name] = name.split(':');
+                }
                 const newSection = {
                     mode,
                     name,
                     test,
                     args: {},
+                    use,
                 };
                 result.push(newSection);
             }
