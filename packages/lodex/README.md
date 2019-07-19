@@ -26,9 +26,12 @@ process.stdin
     -   [Parameters](#parameters)
 -   [convertToExtendedJsonLd](#converttoextendedjsonld)
     -   [Parameters](#parameters-1)
+-   [Field](#field)
+    -   [Properties](#properties)
 -   [extractIstexQuery](#extractistexquery)
     -   [Parameters](#parameters-2)
     -   [Examples](#examples)
+-   [getParam](#getparam)
 -   [flattenPatch](#flattenpatch)
 -   [getLastCharacteristic](#getlastcharacteristic)
     -   [Examples](#examples-1)
@@ -72,16 +75,27 @@ query.
 -   `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** ISTEX fields and their associated semantic properties (optional, default `{}`)
 -   `prefixes` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** LOD prefixes (optional, default `{bibo,dbpedia,dcterms,..}`)
 
+## Field
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), any>
+
+### Properties
+
+-   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The identifier of the field.
+-   `scheme` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The semantic property of the field.
+
 ## extractIstexQuery
 
 Extract an ISTEX API query.
 
 ### Parameters
 
--   `fields` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** list of LODEX fields (optional, default `[]`)
--   `labels` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** list of fields labels to extract (optional, default `["query"]`)
+-   `fields` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Field](#field)>** list of LODEX fields (optional, default `[]`)
 
 ### Examples
+
+Output:
+
 
 ```javascript
 {
@@ -91,6 +105,8 @@ Extract an ISTEX API query.
   },
 }
 ```
+
+## getParam
 
 ## flattenPatch
 

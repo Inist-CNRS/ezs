@@ -13,14 +13,13 @@ function removeNumberInstance(uri) {
  * @typedef {Object<string, any>} Field
  * @property {string} name The identifier of the field.
  * @property {string} scheme The semantic property of the field.
- * @property {Object} format The format of the field.
  */
 /**
  * Extract an ISTEX API query.
  *
  * @param {Field[]} [fields=[]]   list of LODEX fields
  * @name extractIstexQuery
- * @example
+ * @example <caption>Output:</caption>
  * {
  *    content: 'fake query',
  *    lodex: {
