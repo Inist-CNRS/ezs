@@ -10,9 +10,14 @@ function removeNumberInstance(uri) {
 }
 
 /**
+ * @typedef {Object<string, any>} Field
+ * @property {string} scheme The semantic property of the field.
+ * @property {Object} format The format of the field.
+ */
+/**
  * Extract an ISTEX API query.
  *
- * @param {Array<Object>} [fields=[]]   list of LODEX fields
+ * @param {Array<Field>} [fields=[]]   list of LODEX fields
  * @name extractIstexQuery
  * @example
  * {
@@ -37,18 +42,15 @@ module.exports = function extractIstexQuery(data, feed) {
         return feed.close();
     }
 
-    return fields
-        .filter(field => field.format && field.format.name === 'istex')
-        .forEach((field) => {
-            const propertyName = field.name;
+    const field = fields.filter(f => f.format && f.format.name === 'istex')[0];
+    const propertyName = field.name;
 
-            const formatedUri = removeNumberInstance(data.uri);
+    const formatedUri = removeNumberInstance(data.uri);
 
-            return feed.send({
-                lodex: {
-                    uri: formatedUri,
-                },
-                content: data[propertyName],
-            });
-        });
+    return feed.send({
+        lodex: {
+            uri: formatedUri,
+        },
+        content: data[propertyName],
+    });
 };
