@@ -9,7 +9,6 @@ describe('extractIstexQuery', () => {
         from([{}])
             .pipe(ezs('extractIstexQuery', {
                 fields: [],
-                labels: [''],
             }))
             .on('data', () => {
                 done(new Error('should return null'));
@@ -29,7 +28,6 @@ describe('extractIstexQuery', () => {
                         scheme: 'istex:query',
                     },
                 ],
-                labels: ['query'],
             }))
             .pipe(ezs((output) => {
                 try {
@@ -58,7 +56,6 @@ describe('extractIstexQuery', () => {
                         scheme: 'https://data.istex.fr/ontology/istex#query',
                     },
                 ],
-                labels: ['query'],
             }))
             .pipe(ezs((output) => {
                 try {
@@ -87,7 +84,6 @@ describe('extractIstexQuery', () => {
                         scheme: 'istex:query',
                     },
                 ],
-                labels: ['query'],
             }))
             .pipe(ezs((output) => {
                 try {
