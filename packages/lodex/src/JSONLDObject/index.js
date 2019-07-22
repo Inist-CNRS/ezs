@@ -57,7 +57,7 @@ export default async function JSONLDObject(data, feed) {
     const fields = this.getParam('fields', []);
     const collectionClass = this.getParam('collectionClass', '');
     const characteristics = this.getParam('characteristics', []);
-    const exportDataset = this.getParam('exportDataset', false) === 'true';
+    const exportDataset = Boolean(this.getParam('exportDataset', false));
     const hostname = this.getParam('hostname', 'https://data.istex.fr');
 
     const output = await composeAsync(
