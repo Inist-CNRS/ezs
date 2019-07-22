@@ -71,9 +71,7 @@ query.
 
 ### Parameters
 
--   `linked` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** ISTEX field which is linked to the resources
--   `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** ISTEX fields and their associated semantic properties (optional, default `{}`)
--   `prefixes` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** LOD prefixes (optional, default `{bibo,dbpedia,dcterms,..}`)
+-   `schemeForIstexQuery` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** URI to put between document and resource
 
 ## Field
 
