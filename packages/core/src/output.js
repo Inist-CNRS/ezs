@@ -19,7 +19,7 @@ export default class Output extends Transform {
             this.push(Buffer.from(chunk.toString()));
         } else if (typeof chunk === 'number') {
             this.push(Buffer.from(chunk.toString()));
-        } else if (chunk === null) {
+        } else if (!chunk) {
             this.push(null);
         } else {
             this.push(Buffer.from(chunk));

@@ -447,12 +447,104 @@ describe('statements', () => {
             2,
             3,
         ])
-            .pipe(ezs('dump', { indent : true }))
+            .pipe(ezs('dump', { indent: true }))
             .on('data', (chunk) => {
                 res.push(chunk);
             })
             .on('end', () => {
                 assert.equal(res.join(''), '[1,\n2,\n3]');
+                done();
+            });
+    });
+    it('validate#1', (done) => {
+        const res = [];
+        from([
+            { a: 1 },
+            { a: 2 },
+            { a: 3 },
+        ])
+            .pipe(ezs('validate', { path: 'a', rule: 'required|integer' }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.length, 3);
+                done();
+            });
+    });
+    it('validate#2', (done) => {
+        const res = [];
+        from([
+            { a: 1 },
+            { a: 'X' },
+            { a: 3 },
+        ])
+            .pipe(ezs('validate', { path: 'a', rule: 'required|integer' }))
+            .pipe(ezs.catch((err) => {
+                assert.ok(err instanceof Error);
+            }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.length, 2);
+                done();
+            });
+    });
+    it('validate#3', (done) => {
+        const res = [];
+        from([
+            { a: 1, b: 'X' },
+            { a: 2, b: 'Y' },
+            { a: 3, b: 'Z' },
+        ])
+            .pipe(ezs('validate', { path: ['a', 'b'], rule: 'required|integer' }))
+            .pipe(ezs.catch((err) => {
+                assert.fail(err);
+            }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.length, 3);
+                done();
+            });
+    });
+    it('validate#4', (done) => {
+        const res = [];
+        from([
+            { a: 1, b: 'X' },
+            { a: 2, b: 'Y' },
+            { a: 3, b: 'Z' },
+        ])
+            .pipe(ezs('validate', { path: ['a', 'b'], rule: ['required|integer', 'required|string'] }))
+            .pipe(ezs.catch((err) => {
+                assert.fail(err);
+            }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.length, 3);
+                done();
+            });
+    });
+    it('validate#5', (done) => {
+        const res = [];
+        from([
+            { a: 1, b: 'X' },
+            { a: 2, b: 'Y' },
+            { a: 3, b: 'Z' },
+        ])
+            .pipe(ezs('validate', { path: 'a', rule: ['required|integer', 'required|string'] }))
+            .pipe(ezs.catch((err) => {
+                assert.fail(err);
+            }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.length, 3);
                 done();
             });
     });

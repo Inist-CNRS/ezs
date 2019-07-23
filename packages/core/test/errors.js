@@ -98,7 +98,7 @@ describe('Catch error in a pipeline', () => {
             })
             .on('end', () => {
                 assert.equal(1, counter);
-                assert.equal(errmsg, 'Processing item #1 failed with Error: Plouf #1');
+                assert.equal(errmsg, '(item #1 in [plouf] failed with Error: Plouf #1)');
                 done();
             });
     });
@@ -116,7 +116,7 @@ describe('Catch error in a pipeline', () => {
             })
             .on('end', () => {
                 assert.equal(21, counter);
-                assert.equal(errmsg, 'Processing item #7 failed with Error: Plaf!');
+                assert.equal(errmsg, '(item #7 in [plaf] failed with Error: Plaf!)');
                 done();
             });
     });

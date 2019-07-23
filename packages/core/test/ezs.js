@@ -1261,6 +1261,30 @@ describe('Build a pipeline', () => {
             });
     });
 
+    it('with env variable in the pipeline #4', (done) => {
+        const env = {
+            c: 1000,
+            d: 10000,
+        };
+        let res = 0;
+        const ten = new Decade();
+        ten
+            .pipe(ezs('replace', {
+                path: 'a',
+                value: new Expression('self()'),
+            }))
+            .pipe(ezs('assign', {
+                path: 'ev',
+                value: new Expression('env()'),
+            }, env))
+            .on('data', (chunk) => {
+                res += chunk.a + chunk.ev.c + chunk.ev.d;
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 99045);
+                done();
+            });
+    });
 
     it('stuck/unstuck #1', (done) => {
         const env = {};

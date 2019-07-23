@@ -1,5 +1,6 @@
 import path from 'path';
 import { PassThrough } from 'stream';
+import writeTo from 'stream-write';
 import Engine from './engine';
 import Script from './script';
 import File from './file';
@@ -76,15 +77,7 @@ ezs.compileCommands = (commands, environment) => {
     }
     return streams;
 };
-ezs.writeTo = (stream, data, callback) => {
-    const check = stream.write(data);
-    if (!check) {
-        stream.once('drain', callback);
-    } else {
-        process.nextTick(callback);
-    }
-    return check;
-};
+ezs.writeTo = writeTo;
 ezs.createPipeline = (input, streams) => streams.reduce((amont, aval) => amont.pipe(aval), input);
 ezs.compress = options => compressStream(ezs, options);
 ezs.uncompress = options => uncompressStream(ezs, options);

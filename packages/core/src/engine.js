@@ -5,10 +5,11 @@ import queue from 'concurrent-queue';
 
 import SafeTransform from './SafeTransform';
 
-function createErrorWith(error = {}, index = 0) {
+function createErrorWith(error = {}, index = 0, funcName = null) {
     const stk = String(error.stack).split('\n');
     const erm = stk.shift();
-    const msg = `Processing item #${index} failed with ${erm}\n\t${stk.slice(0, 10).join('\n\t')}`;
+    const fn = funcName ? ` in [${funcName}]` : '';
+    const msg = `(item #${index}${fn} failed with ${erm})\n\t${stk.slice(0, 10).join('\n\t')}`;
     const err = Error(msg);
     Error.captureStackTrace(err, createErrorWith);
     debug('ezs')('Caught an', err);
@@ -65,12 +66,12 @@ export default class Engine extends SafeTransform {
             return done();
         }
         const warn = (error) => {
-            this.emit('error', createErrorWith(error, currentIndex));
+            this.emit('error', createErrorWith(error, currentIndex, this.funcName));
         };
         const push = (data) => {
             if (data instanceof Error) {
                 debug('ezs')(`Ignoring error at item #${currentIndex}`);
-                return this.push(createErrorWith(data, currentIndex));
+                return this.push(createErrorWith(data, currentIndex, this.funcName));
             }
             if (data === null) {
                 this.nullWasSent = true;
@@ -94,12 +95,12 @@ export default class Engine extends SafeTransform {
             };
             Promise.resolve(this.func.call(this.scope, chunk, feed, currentIndex)).catch((e) => {
                 debug('ezs')(`Async error thrown at item #${currentIndex}, pipeline is broken`);
-                this.emit('error', createErrorWith(e, currentIndex));
+                this.emit('error', createErrorWith(e, currentIndex, this.funcName));
                 done();
             });
         } catch (e) {
             debug('ezs')(`Sync error thrown at item #${currentIndex}, pipeline carries errors`);
-            this.push(createErrorWith(e, currentIndex));
+            this.push(createErrorWith(e, currentIndex, this.funcName));
             done();
         }
     }
