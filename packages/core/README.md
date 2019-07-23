@@ -174,6 +174,8 @@ get chunk of in NodeJS pipeline and send Buffer of the chunk
     -   [Parameters](#parameters-17)
 -   [unpack](#unpack)
     -   [Parameters](#parameters-18)
+-   [validate](#validate)
+    -   [Parameters](#parameters-19)
 
 ## assign
 
@@ -414,3 +416,18 @@ Take `String` and throw `Object` builded by JSON.parse on each line
 -   `feed`  
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+## validate
+
+-   **See: laravel validtor rules**
+
+Take `Object` and throw the same object if all rules passes
+
+### Parameters
+
+-   `data`  
+-   `feed`  
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of the field
+-   `rule` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** rule to validate the field
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
