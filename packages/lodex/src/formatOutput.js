@@ -19,10 +19,12 @@ function formatOutput(data, feed) {
         feed.write('{');
         if (keys.length > 0) {
             keys.forEach((k, index) => {
-                feed.write(index === 0 ? '' : ',');
-                feed.write(json(k));
-                feed.write(':');
-                feed.write(json(values[index]));
+                if (values[index]) {
+                    feed.write(index === 0 ? ' ' : ',');
+                    feed.write(json(k));
+                    feed.write(':');
+                    feed.write(json(values[index]));
+                }
             });
             feed.write(',');
         }
