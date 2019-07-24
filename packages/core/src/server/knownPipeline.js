@@ -3,7 +3,7 @@ import iterate from 'stream-iterate';
 import { PassThrough } from 'stream';
 
 import debug from 'debug';
-import Parameter from '../parameter';
+import errorHandler from './errorHandler';
 import { isFile } from '../file';
 
 const dispositionFrom = ({ extension }) => (extension ? `dump.${extension}` : extension);
@@ -12,27 +12,18 @@ const typeFrom = ({ mimeType }) => mimeType;
 
 const knownPipeline = ezs => (request, response) => {
     const { headers } = request;
+    const triggerError = errorHandler(request, response);
     const { pathname, query } = request.url;
-    const errorHandler = (error) => {
-        debug('ezs')('Server has caught an error', error);
-        if (!response.headersSent) {
-            response.setHeader('Content-Type', 'text/plain');
-            response.writeHead(400, { 'X-Error': Parameter.encode(error.toString()) });
-            response.write(error.toString().split('\n', 1)[0]);
-            response.end();
-        }
-    };
     const files = pathname
         .slice(1)
-        .split(';')
+        .split(',')
         .map(file => ezs.fileToServe(file))
         .filter(file => isFile(file));
 
     const meta = files.map(file => ezs.metaFile(file)).reduce((prev, cur) => _.merge(cur, prev), {});
 
     if (files.length === 0) {
-        response.writeHead(404);
-        response.end();
+        triggerError(new Error(`Cannot find ${pathname}`), 404);
         return false;
     }
     response.setHeader('Content-Encoding', encodingFrom(headers) || 'identity');
@@ -51,14 +42,14 @@ const knownPipeline = ezs => (request, response) => {
             midput = input
                 .pipe(ezs('truncate', { length: headers['content-length'] }))
                 .pipe(ezs.uncompress(headers))
-                .on('error', errorHandler);
+                .on('error', triggerError);
             input.write(firstChunk);
         }
         return midput;
     };
     const loop = midput => read((err, data, next) => {
         if (err) {
-            errorHandler(err);
+            triggerError(err);
             return false;
         }
         next();
@@ -76,13 +67,13 @@ const knownPipeline = ezs => (request, response) => {
 
     return read((firstError, firstChunk, firstCalled) => {
         if (firstError) {
-            errorHandler(firstError);
+            triggerError(firstError);
             return false;
         }
         const inputBis = createInput(firstChunk);
         ezs.createPipeline(inputBis, files.map(file => ezs('delegate', { file }, query)))
             .pipe(ezs.catch(e => e))
-            .on('error', errorHandler)
+            .on('error', triggerError)
             .pipe(ezs((data, feed) => {
                 if (!response.headersSent) {
                     response.writeHead(200);

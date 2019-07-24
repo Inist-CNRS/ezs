@@ -1,6 +1,4 @@
 import dir from 'node-dir';
-import debug from 'debug';
-import Parameter from '../parameter';
 import settings from '../settings';
 import {
     VERSION, STARTED_AT,

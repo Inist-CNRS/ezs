@@ -12,7 +12,6 @@ const settings = {
     },
     nShards: Number(process.env.EZS_NSHARDS || cpus),
     encoding: String(process.env.EZS_ENCODING || 'gzip'),
-    servePath: process.cwd(),
     port: Number(process.env.EZS_PORT || 31976),
 };
 

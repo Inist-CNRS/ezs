@@ -25,6 +25,11 @@ export default function cli(errlog) {
                 describe: 'Launch daemon on a directory containing commands script',
                 type: 'string',
             },
+            slave: {
+                alias: 'sl',
+                describe: 'Launch slave daemon to execute remote commands',
+                type: 'string',
+            },
             server: {
                 alias: 's',
                 describe: 'Server to dispach commands',
@@ -53,14 +58,19 @@ export default function cli(errlog) {
         debug.enable('ezs');
     }
     if (argv.daemon) {
+        let serverPath;
         try {
-            settings.servePath = realpathSync(argv.daemon);
+            serverPath = realpathSync(argv.daemon);
         } catch (e) {
             errlog(`Error: ${argv.daemon} doesn't exists.`);
             process.exit(1);
         }
-        debug('ezs')(`Serving ${settings.servePath} with ${settings.nShards} shards`);
-        return ezs.createCluster();
+        debug('ezs')(`Serving ${settings.path} with ${settings.nShards} shards`);
+        return ezs.createCluster(settings.port, serverPath);
+    }
+    if (argv.slave) {
+        debug('ezs')(`Waiting for remote commands with ${settings.nShards} shards`);
+        return ezs.createCluster(settings.port, false);
     }
 
     if (argv._.length === 0) {

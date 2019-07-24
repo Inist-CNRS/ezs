@@ -1,4 +1,4 @@
-import path from 'path';
+import { join } from 'path';
 import { PassThrough } from 'stream';
 import writeTo from 'stream-write';
 import Engine from './engine';
@@ -33,7 +33,7 @@ ezs.bytesMode = () => ({
 ezs.encodingMode = () => ({
     'Content-Encoding': settings.encoding,
 });
-ezs.fileToServe = file => path.join(settings.servePath, file);
+ezs.fileToServe = file => join(settings.servePath, file);
 ezs.metaString = (commands, options) => new Meta(ezs, commands, options);
 ezs.metaFile = (filename, options) => new Meta(ezs, File(ezs, filename), options);
 ezs.parseString = commands => Script(commands);
@@ -82,8 +82,8 @@ ezs.createPipeline = (input, streams) => streams.reduce((amont, aval) => amont.p
 ezs.compress = options => compressStream(ezs, options);
 ezs.uncompress = options => uncompressStream(ezs, options);
 ezs.createStream = options => new PassThrough(options);
-ezs.createServer = port => Server.createServer(ezs, port);
-ezs.createCluster = port => Server.createCluster(ezs, port);
+ezs.createServer = (port, path) => Server.createServer(ezs, port, path);
+ezs.createCluster = (port, path) => Server.createCluster(ezs, port, path);
 
 ezs.use(Statements);
 

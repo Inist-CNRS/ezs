@@ -1,5 +1,6 @@
 import debug from 'debug';
 import Parameter from '../parameter';
+import errorHandler from './errorHandler';
 
 const unknownPipeline = ezs => (request, response) => {
     const { headers } = request;
@@ -25,13 +26,7 @@ const unknownPipeline = ezs => (request, response) => {
         .pipe(ezs('unpack'))
         .pipe(ezs('ungroup'))
         .pipe(ezs('delegate', { commands }, environment))
-        .pipe(ezs.catch((error) => {
-            debug('ezs')('Server has caught an error', error);
-            if (!response.headersSent) {
-                response.writeHead(400, { 'X-Error': Parameter.encode(error.toString()) });
-                response.end();
-            }
-        }))
+        .pipe(ezs.catch(errorHandler(request, response)))
         .pipe(ezs((input, output) => {
             if (!response.headersSent) {
                 response.writeHead(200);

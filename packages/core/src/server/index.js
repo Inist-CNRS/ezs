@@ -7,8 +7,7 @@ import debug from 'debug';
 import knownPipeline from './knownPipeline';
 import unknownPipeline from './unknownPipeline';
 import serverInformation from './serverInformation';
-import notFound from './notFound';
-import Parameter from '../parameter';
+import errorHandler from './errorHandler';
 import settings from '../settings';
 
 const isPipeline = (filename) => {
@@ -16,8 +15,8 @@ const isPipeline = (filename) => {
     return (f && f.shift() !== undefined);
 };
 
-function createMidddleware(ezs, method, pathname) {
-    if (method === 'POST' && pathname === '/') {
+function createMidddleware(ezs, path, method, pathname) {
+    if (path === false && method === 'POST' && pathname === '/') {
         debug('ezs')(`Create middleware 'unknownPipeline' for ${method} ${pathname}`);
         return unknownPipeline(ezs);
     }
@@ -25,30 +24,27 @@ function createMidddleware(ezs, method, pathname) {
         debug('ezs')(`Create middleware 'serverInformation' for ${method} ${pathname}`);
         return serverInformation(ezs);
     }
-    if (isPipeline(pathname)) {
+    if (path !== false && isPipeline(pathname)) {
         debug('ezs')(`Create middleware 'knownPipeline' for ${method} ${pathname}`);
         return knownPipeline(ezs);
     }
-    debug('ezs')(`Create middleware 'notFound' for ${method} ${pathname}`);
-    return notFound();
+    const error = new Error(`Unable to create middleware for ${method} ${pathname}`);
+    return (request, response) => errorHandler(request, response)(error, 404);
 }
 
 const signals = ['SIGINT', 'SIGTERM'];
 
-function createServer(ezs, port) {
-    const serverPort = port || settings.port;
+function createServer(ezs, serverPort, serverPath) {
     const server = controlServer(http
         .createServer((request, response) => {
             const { method } = request;
             response.socket.setNoDelay(false);
             request.url = parse(request.url, true);
-            const middleware = createMidddleware(ezs, method, request.url.pathname);
+            const middleware = createMidddleware(ezs, serverPath, method, request.url.pathname);
             try {
                 middleware(request, response);
             } catch (error) {
-                debug('ezs')('Server cannot execute commands', error);
-                response.writeHead(500, { 'X-error': Parameter.encode(error.toString()) });
-                response.end();
+                errorHandler(request, response)(error);
             }
             return true;
         }));
@@ -62,7 +58,7 @@ function createServer(ezs, port) {
     return server;
 }
 
-function createCluster(ezs, port) {
+function createCluster(ezs, serverPort, serverPath) {
     let term = false;
     if (cluster.isMaster) {
         for (let i = 0; i < settings.nShards; i += 1) {
@@ -80,7 +76,7 @@ function createCluster(ezs, port) {
             });
         });
     } else {
-        createServer(ezs, port);
+        createServer(ezs, serverPort, serverPath);
     }
     return cluster;
 }

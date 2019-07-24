@@ -29,20 +29,22 @@ class Upto extends Readable {
     }
 }
 describe('dispatch through server(s)', () => {
-    const server1 = ezs.createServer();
-    const server2 = ezs.createServer(30001);
-    const server3 = ezs.createServer(30002);
-    const server4 = ezs.createServer(30003);
+    const server1 = ezs.createServer(31976, false);
+    const server2 = ezs.createServer(30001, false);
+    const server3 = ezs.createServer(30002, false);
+    const server4 = ezs.createServer(30003, false);
+    const server5 = ezs.createServer(33333, __dirname);
 
     after(() => {
         server1.close();
         server2.close();
         server3.close();
         server4.close();
+        server5.close();
     });
 
     it('get information', (done) => {
-        fetch('http://127.0.0.1:31976/')
+        fetch('http://127.0.0.1:33333/')
             .then(res => res.json())
             .then((json) => {
                 assert(json.uptime);
@@ -57,7 +59,7 @@ describe('dispatch through server(s)', () => {
                 'hello',
                 'world',
             ]);
-            fetch('http://127.0.0.1:31976/transit.ini', { method: 'POST', body: stream })
+            fetch('http://127.0.0.1:33333/transit.ini', { method: 'POST', body: stream })
                 .then(res => res.text())
                 .then((text) => {
                     assert.equal(text, 'helloworld');
@@ -70,7 +72,7 @@ describe('dispatch through server(s)', () => {
                 'hello',
                 'world',
             ]);
-            fetch('http://127.0.0.1:31976/transit.ini?toto=titi', { method: 'POST', body: stream })
+            fetch('http://127.0.0.1:33333/transit.ini?toto=titi', { method: 'POST', body: stream })
                 .then(res => res.text())
                 .then((text) => {
                     assert.equal(text, 'helloworld');
@@ -82,7 +84,7 @@ describe('dispatch through server(s)', () => {
             const stream = from([
                 '{"a":1}\n{"a":2}\n{"a":3}\n',
             ]);
-            fetch('http://127.0.0.1:31976/replace.ini?key=a&with=titi', { method: 'POST', body: stream })
+            fetch('http://127.0.0.1:33333/replace.ini?key=a&with=titi', { method: 'POST', body: stream })
                 .then(res => res.json())
                 .then((json) => {
                     assert.equal(json[0].a, 'titi');
@@ -94,7 +96,7 @@ describe('dispatch through server(s)', () => {
             const stream = from([
                 '{"a":1}\n{"a":2}\n{"a":3}\n',
             ]);
-            fetch('http://127.0.0.1:31976/transit.ini;replace.ini?key=a&with=titi', { method: 'POST', body: stream })
+            fetch('http://127.0.0.1:33333/transit.ini,replace.ini?key=a&with=titi', { method: 'POST', body: stream })
                 .then(res => res.json())
                 .then((json) => {
                     assert.equal(json[0].a, 'titi');
@@ -103,7 +105,7 @@ describe('dispatch through server(s)', () => {
                 .catch(done);
         });
         it('json.ini with paramaters GET', (done) => {
-            fetch('http://127.0.0.1:31976/json.ini?key=a&with=titi', { method: 'GET' })
+            fetch('http://127.0.0.1:33333/json.ini?key=a&with=titi', { method: 'GET' })
                 .then(res => res.json())
                 .then((json) => {
                     assert.equal(json[0].a, 'titi');
@@ -116,7 +118,7 @@ describe('dispatch through server(s)', () => {
             const stream = from([
                 data,
             ]);
-            fetch('http://127.0.0.1:31976/transit.ini;text.ini', { method: 'POST', body: stream })
+            fetch('http://127.0.0.1:33333/transit.ini,text.ini', { method: 'POST', body: stream })
                 .then((res) => {
                     assert.equal(res.headers.get('content-type'), 'text/plain');
                     return res.text();
@@ -137,7 +139,7 @@ describe('dispatch through server(s)', () => {
             const stream = from([
                 '{"a":1}\n{"a":2}\n{"a":3}\n',
             ]);
-            fetch('http://127.0.0.1:31976/part1.ini;part2.ini;assign.ini;part3.ini?key=a&with=titi', { method: 'POST', body: stream })
+            fetch('http://127.0.0.1:33333/part1.ini,part2.ini,assign.ini,part3.ini?key=a&with=titi', { method: 'POST', body: stream })
                 .then(res => res.json())
                 .then((json) => {
                     assert.equal(json[0].a, 'titi');
@@ -151,7 +153,7 @@ describe('dispatch through server(s)', () => {
     });
 
     it('get no found script', (done) => {
-        fetch('http://127.0.0.1:31976/script.xxx')
+        fetch('http://127.0.0.1:33333/script.xxx')
             .then((res) => {
                 assert.equal(res.status, 404);
                 done();
@@ -160,7 +162,7 @@ describe('dispatch through server(s)', () => {
     });
 
     it('get no found script #2', (done) => {
-        fetch('http://127.0.0.1:31976/;;;?key=a&with=titi')
+        fetch('http://127.0.0.1:33333/;;;?key=a&with=titi')
             .then((res) => {
                 assert.equal(res.status, 404);
                 done();
@@ -170,7 +172,7 @@ describe('dispatch through server(s)', () => {
 
 
     it('get no found url ', (done) => {
-        fetch('http://127.0.0.1:31976/script.xxx', { method: 'HEAD' })
+        fetch('http://127.0.0.1:33333/script.xxx', { method: 'HEAD' })
             .then((res) => {
                 assert.equal(res.status, 404);
                 done();
@@ -179,7 +181,7 @@ describe('dispatch through server(s)', () => {
     });
 
     it('no found url & method', (done) => {
-        fetch('http://127.0.0.1:31976/', { method: 'OPTIONS' })
+        fetch('http://127.0.0.1:33333/', { method: 'OPTIONS' })
             .then((res) => {
                 assert.equal(res.status, 404);
                 done();
