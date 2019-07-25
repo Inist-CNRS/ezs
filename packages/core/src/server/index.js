@@ -22,11 +22,11 @@ function createMidddleware(ezs, path, method, pathname) {
     }
     if (method === 'GET' && pathname === '/') {
         debug('ezs')(`Create middleware 'serverInformation' for ${method} ${pathname}`);
-        return serverInformation(ezs);
+        return serverInformation(ezs, path);
     }
     if (path !== false && isPipeline(pathname)) {
         debug('ezs')(`Create middleware 'knownPipeline' for ${method} ${pathname}`);
-        return knownPipeline(ezs);
+        return knownPipeline(ezs, path);
     }
     const error = new Error(`Unable to create middleware for ${method} ${pathname}`);
     return (request, response) => errorHandler(request, response)(error, 404);

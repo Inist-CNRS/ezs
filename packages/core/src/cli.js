@@ -26,9 +26,9 @@ export default function cli(errlog) {
                 type: 'string',
             },
             slave: {
-                alias: 'sl',
+                alias: 'l',
                 describe: 'Launch slave daemon to execute remote commands',
-                type: 'string',
+                type: 'boolean',
             },
             server: {
                 alias: 's',
@@ -65,7 +65,7 @@ export default function cli(errlog) {
             errlog(`Error: ${argv.daemon} doesn't exists.`);
             process.exit(1);
         }
-        debug('ezs')(`Serving ${settings.path} with ${settings.nShards} shards`);
+        debug('ezs')(`Serving ${serverPath} with ${settings.nShards} shards`);
         return ezs.createCluster(settings.port, serverPath);
     }
     if (argv.slave) {

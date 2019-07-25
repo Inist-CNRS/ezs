@@ -1,4 +1,3 @@
-import { join } from 'path';
 import { PassThrough } from 'stream';
 import writeTo from 'stream-write';
 import Engine from './engine';
@@ -33,7 +32,6 @@ ezs.bytesMode = () => ({
 ezs.encodingMode = () => ({
     'Content-Encoding': settings.encoding,
 });
-ezs.fileToServe = file => join(settings.servePath, file);
 ezs.metaString = (commands, options) => new Meta(ezs, commands, options);
 ezs.metaFile = (filename, options) => new Meta(ezs, File(ezs, filename), options);
 ezs.parseString = commands => Script(commands);

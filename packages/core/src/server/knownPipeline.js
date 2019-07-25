@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import iterate from 'stream-iterate';
+import { join } from 'path';
 import { PassThrough } from 'stream';
 
 import debug from 'debug';
@@ -10,14 +11,14 @@ const dispositionFrom = ({ extension }) => (extension ? `dump.${extension}` : ex
 const encodingFrom = headers => (headers && headers['content-encoding'] ? headers['content-encoding'] : false);
 const typeFrom = ({ mimeType }) => mimeType;
 
-const knownPipeline = ezs => (request, response) => {
+const knownPipeline = (ezs, serverPath) => (request, response) => {
     const { headers } = request;
     const triggerError = errorHandler(request, response);
     const { pathname, query } = request.url;
     const files = pathname
         .slice(1)
         .split(',')
-        .map(file => ezs.fileToServe(file))
+        .map(file => join(serverPath, file))
         .filter(file => isFile(file));
 
     const meta = files.map(file => ezs.metaFile(file)).reduce((prev, cur) => _.merge(cur, prev), {});

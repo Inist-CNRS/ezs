@@ -5,23 +5,31 @@ import {
 } from '../constants';
 
 const getInformations = dirPath => new Promise((resolve) => {
-    dir.files(dirPath, (err, files) => {
+    const infos = {
+        concurrency: settings.nShards,
+        uptime: Date.now() - STARTED_AT,
+        timestamp: Date.now(),
+        version: VERSION,
+        daemon: (dirPath !== false),
+        slave: (dirPath === false),
+    };
+    if (!dirPath) {
+        return resolve(infos);
+    }
+    return dir.files(dirPath, (err, files) => {
         const filenames = err ? [] : files;
         const scripts = filenames
             .filter(f => (f.search(/\.(ini|ezs)$/) > 0))
             .map(f => f.replace(dirPath, ''));
         return resolve({
-            concurrency: settings.nShards,
-            uptime: Date.now() - STARTED_AT,
-            timestamp: Date.now(),
-            version: VERSION,
+            ...infos,
             scripts,
         });
     });
 });
 
-const serverInformation = ezs => (request, response) => {
-    getInformations(ezs.fileToServe(''))
+const serverInformation = (ezs, serverPath) => (request, response) => {
+    getInformations(serverPath)
         .then((informations) => {
             const responseBody = JSON.stringify(informations);
             const responseHeaders = {
