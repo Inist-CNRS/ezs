@@ -62,7 +62,7 @@ export async function LodexGetCharacteristics(data, feed) {
             feed.end();
             client.close();
         });
-};
+}
 
 export default {
     getCharacteristics: LodexGetCharacteristics,

@@ -1,5 +1,4 @@
 import validUrl from 'valid-url';
-import get from 'lodash.get';
 
 /*
  * Create a JSONLD context with prefixes and istexQuery informations in config.json
@@ -29,20 +28,6 @@ function getContext(schemeForIstexQuery) {
 
     return context;
 }
-
-const checkWeb = (data) => {
-    if (validUrl.isWebUri(data)) {
-        return { '@id': data };
-    }
-    return data;
-};
-
-const formatData = (data) => {
-    if (!Array.isArray(data)) {
-        return checkWeb(data);
-    }
-    return data.map(e => checkWeb(e));
-};
 
 /**
  * Convert the result of an ISTEX query to an extended JSON-LD.

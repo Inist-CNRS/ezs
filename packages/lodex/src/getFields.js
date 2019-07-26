@@ -39,7 +39,7 @@ export async function LodexGetFields(data, feed) {
             feed.end();
             client.close();
         });
-};
+}
 
 export default {
     getFields: LodexGetFields,
