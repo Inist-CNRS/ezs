@@ -33,15 +33,18 @@ process.stdin
     -   [Examples](#examples)
 -   [getParam](#getparam)
 -   [flattenPatch](#flattenpatch)
--   [getLastCharacteristic](#getlastcharacteristic)
+-   [LodexGetCharacteristics](#lodexgetcharacteristics)
     -   [Examples](#examples-1)
+-   [LodexGetFields](#lodexgetfields)
+-   [getLastCharacteristic](#getlastcharacteristic)
+    -   [Examples](#examples-2)
 -   [keyMapping](#keymapping)
     -   [Parameters](#parameters-3)
-    -   [Examples](#examples-2)
+    -   [Examples](#examples-3)
 -   [objects2columns](#objects2columns)
 -   [parseNQuads](#parsenquads)
 -   [writeTurtle](#writeturtle)
-    -   [Examples](#examples-3)
+    -   [Examples](#examples-4)
 
 ## convertJsonLdToNQuads
 
@@ -111,6 +114,41 @@ Output:
 Take `Object` and transform all key ending byu number on array.
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## LodexGetCharacteristics
+
+Return the last characteristics (the dataset covering fields) of a LODEX.
+
+### Examples
+
+Output:
+
+
+```javascript
+[
+  {
+    "characteristics": {
+      "_id": "5d289071340bb500201b5146",
+      "qW6w": "Catégories WOS",
+      "ImiI": "Cette table correspond aux catégories Web Of Science.",
+      "alRS": "/api/run/syndication",
+      "aDLT": "Dans le cadre de l'enrichissement des documents du...",
+      "SFvt": "https://enrichment-process.data.istex.fr/ark:/67375/R0H-PWBRNFQ8-H",
+      "RzXW": "https://docs.google.com/drawings/d/1LzjO-oD6snh0MYfqxfPB7q-LU6Dev1SRmJstXFGzgvg/pub?w=960&h=720",
+      "E4jH": "https://www.etalab.gouv.fr/licence-ouverte-open-licence",
+      "MvkG": "Plateforme ISTEX",
+      "m7G5": "Inist-CNRS",
+      "1TvM": "2016-05-12",
+      "WcNl": "2019-01-16",
+      "publicationDate": "2019-07-12T13:51:45.129Z"
+    }
+  }
+]
+```
+
+## LodexGetFields
+
+Return the fields (the model) of a LODEX.
 
 ## getLastCharacteristic
 

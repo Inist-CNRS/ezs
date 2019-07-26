@@ -21,6 +21,8 @@ import getLastCharacteristic from './getLastCharacteristic';
 import keyMapping from './keyMapping';
 import parseNQuads from './parseNQuads';
 import writeTurtle from './writeTurtle';
+import getFields from './getFields';
+import getCharacteristics from './getCharacteristics';
 
 export default {
     flattenPatch,
@@ -40,6 +42,8 @@ export default {
     JSONLDCompacter,
     JSONLDString,
     JSONLDObject,
+    getFields,
+    getCharacteristics,
     runQuery,
     reduceQuery,
     formatOutput,
@@ -51,6 +55,8 @@ export default {
     LodexConfig: disabled.disabled,
     LodexParseQuery: disabled.disabled,
     LodexSetField: disabled.disabled,
+    LodexGetFields: getFields.getFields,
+    LodexGetCharacteristics: getCharacteristics.getCharacteristics,
     LodexDocuments: runQuery.runQuery,
     LodexRunQuery: runQuery.runQuery,
     LodexReduceQuery: reduceQuery.reduceQuery,
