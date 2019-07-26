@@ -28,7 +28,7 @@ import { MongoClient } from 'mongodb';
  * @export
  * @name LodexGetCharacteristics
  */
-export const createFunction = () => async function LodexGetCharacteristics(data, feed) {
+export async function LodexGetCharacteristics(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
@@ -64,5 +64,5 @@ export const createFunction = () => async function LodexGetCharacteristics(data,
 };
 
 export default {
-    getCharacteristics: createFunction(),
+    getCharacteristics: LodexGetCharacteristics,
 };

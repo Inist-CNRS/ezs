@@ -6,7 +6,7 @@ import { MongoClient } from 'mongodb';
  * @export
  * @name LodexGetFields
  */
-export const createFunction = () => async function LodexGetFields(data, feed) {
+export async function LodexGetFields(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
@@ -41,5 +41,5 @@ export const createFunction = () => async function LodexGetFields(data, feed) {
 };
 
 export default {
-    getFields: createFunction(),
+    getFields: LodexGetFields,
 };
