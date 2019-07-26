@@ -26,6 +26,7 @@ import { MongoClient } from 'mongodb';
  * ]
  *
  * @export
+ * @param {string} connectionStringURI MongoDB connection string
  * @name LodexGetCharacteristics
  */
 export async function LodexGetCharacteristics(data, feed) {

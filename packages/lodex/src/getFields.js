@@ -4,6 +4,7 @@ import { MongoClient } from 'mongodb';
  * Return the fields (the model) of a LODEX.
  *
  * @export
+ * @param {string} connectionStringURI MongoDB connection string
  * @name LodexGetFields
  */
 export async function LodexGetFields(data, feed) {

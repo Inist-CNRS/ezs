@@ -34,12 +34,14 @@ process.stdin
 -   [getParam](#getparam)
 -   [flattenPatch](#flattenpatch)
 -   [LodexGetCharacteristics](#lodexgetcharacteristics)
+    -   [Parameters](#parameters-3)
     -   [Examples](#examples-1)
 -   [LodexGetFields](#lodexgetfields)
+    -   [Parameters](#parameters-4)
 -   [getLastCharacteristic](#getlastcharacteristic)
     -   [Examples](#examples-2)
 -   [keyMapping](#keymapping)
-    -   [Parameters](#parameters-3)
+    -   [Parameters](#parameters-5)
     -   [Examples](#examples-3)
 -   [objects2columns](#objects2columns)
 -   [parseNQuads](#parsenquads)
@@ -119,6 +121,10 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Return the last characteristics (the dataset covering fields) of a LODEX.
 
+### Parameters
+
+-   `connectionStringURI` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** MongoDB connection string
+
 ### Examples
 
 Output:
@@ -149,6 +155,10 @@ Output:
 ## LodexGetFields
 
 Return the fields (the model) of a LODEX.
+
+### Parameters
+
+-   `connectionStringURI` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** MongoDB connection string
 
 ## getLastCharacteristic
 
