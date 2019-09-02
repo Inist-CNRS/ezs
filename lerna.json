@@ -1,0 +1,17 @@
+{
+  "command": {
+    "init": {
+      "exact": true
+    },
+    "publish": {
+      "conventionalCommits": true
+    },
+    "version": {
+      "allowBranch": "master"
+    }
+  },
+  "packages": [
+    "packages/*"
+  ],
+  "version": "independent"
+}
