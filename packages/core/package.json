@@ -1,5 +1,5 @@
 {
-    "name": "ezs",
+    "name": "@ezs/core",
     "version": "9.4.2",
     "description": "A wrapper to build Stream transformers with functional style",
     "directories": {
@@ -22,7 +22,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/touv/node-ezs.git"
+        "url": "git+https://github.com/Inist-CNRS/ezs.git"
     },
     "keywords": [
         "stream",
@@ -31,9 +31,9 @@
     "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/touv/node-ezs/issues"
+        "url": "https://github.com/Inist-CNRS/ezs/issues"
     },
-    "homepage": "https://github.com/touv/node-ezs#readme",
+    "homepage": "https://github.com/Inist-CNRS/ezs#readme",
     "devDependencies": {
         "@babel/cli": "^7.0.0",
         "@babel/core": "^7.0.0",
