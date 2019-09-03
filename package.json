@@ -10,11 +10,16 @@
     "@babel/plugin-syntax-import-meta": "~7.2.0",
     "@babel/preset-env": "~7.5.5",
     "@babel/register": "~7.5.5",
+    "babel-eslint": "~10.0.3",
     "documentation": "~12.1.1",
+    "eslint": "~6.3.0",
+    "eslint-config-airbnb-base": "~14.0.0",
+    "eslint-plugin-import": "~2.18.2",
     "lerna": "3.16.4"
   },
   "scripts": {
     "build": "lerna run build",
-    "doc": "lerna run doc"
+    "doc": "lerna run doc",
+    "lint": "lerna run lint"
   }
 }

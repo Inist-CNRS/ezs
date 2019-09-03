@@ -35,11 +35,7 @@
     },
     "homepage": "https://github.com/Inist-CNRS/ezs#readme",
     "devDependencies": {
-        "babel-eslint": "~10.0.2",
         "coveralls": "~3.0.5",
-        "eslint": "~6.0.1",
-        "eslint-config-airbnb-base": "~13.2.0",
-        "eslint-plugin-import": "~2.18.1",
         "from": "~0.1.7",
         "mocha": "~6.2.0",
         "node-fetch": "~2.6.0",
