@@ -10,6 +10,11 @@
     "@babel/plugin-syntax-import-meta": "~7.2.0",
     "@babel/preset-env": "~7.5.5",
     "@babel/register": "~7.5.5",
+    "documentation": "~12.1.1",
     "lerna": "3.16.4"
+  },
+  "scripts": {
+    "build": "lerna run build",
+    "doc": "lerna run doc"
   }
 }
