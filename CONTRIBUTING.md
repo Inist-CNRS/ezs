@@ -76,7 +76,7 @@ git clone https://github.com/touv/node-ezs ../old-ezs/core
 ### Import the package with lerna
 
 ```bash
-npx lerna import ../old-ezs/core --flatten
+npx lerna import ../old-ezs/core --flatten --preserve-commit
 ```
 
 ### Adapt the package.json
