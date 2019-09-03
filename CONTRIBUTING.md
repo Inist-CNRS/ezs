@@ -45,7 +45,7 @@ which package is targeted, with the `--scope=@ezs/package` option.
 If you use [babel](https://babeljs.io) to transpile your code, use
 
 ```bash
-npx lerna build
+npx lerna run build
 ```
 
 ## Publishing
