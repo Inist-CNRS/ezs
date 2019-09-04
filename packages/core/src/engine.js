@@ -1,7 +1,7 @@
 import debug from 'debug';
+import queue from 'concurrent-queue';
 import Feed from './feed';
 import Shell from './shell';
-import queue from 'concurrent-queue';
 
 import SafeTransform from './SafeTransform';
 
@@ -83,7 +83,7 @@ export default class Engine extends SafeTransform {
             this.scope.isFirst = () => (currentIndex === 1);
             this.scope.getIndex = () => currentIndex;
             this.scope.isLast = () => (chunk === null);
-            this.scope.getEnv = name => (name === undefined ? this.environment : this.environment[name]);
+            this.scope.getEnv = (name) => (name === undefined ? this.environment : this.environment[name]);
             this.scope.ezs = this.ezs;
             this.scope.emit = (d, c) => this.emit(d, c);
             this.scope.getParams = () => this.params;

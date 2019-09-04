@@ -1,8 +1,8 @@
 import { PassThrough } from 'stream';
 import http from 'http';
+import debug from 'debug';
 import Parameter from './parameter';
 import settings from './settings';
-import debug from 'debug';
 
 export const agent = new http.Agent({
     maxSockets: 0,
@@ -32,7 +32,7 @@ export const parseAddress = (commands, environment) => (srvr) => {
             serverOptions.headers[`X-Command-${index}`] = Parameter.pack(command);
         });
     Object.keys(environment)
-        .filter(keyEnv => environment[keyEnv])
+        .filter((keyEnv) => environment[keyEnv])
         .forEach((keyEnv, index) => {
             serverOptions.headers[`X-Environment-${index}`] = Parameter.pack({ k: keyEnv, v: environment[keyEnv] });
         });
@@ -46,16 +46,16 @@ export const parseAddress = (commands, environment) => (srvr) => {
     return serverOptions;
 };
 
-export const ensureArray = a => (Array.isArray(a) ? a : [a]);
+export const ensureArray = (a) => (Array.isArray(a) ? a : [a]);
 
 export const inspectServers = (servers, commands, environment, ns) => ensureArray(servers)
     .filter(Boolean)
     .filter((elem, pos, arr) => arr.indexOf(elem) === pos)
     .map(parseAddress(commands, environment))
-    .map(s => Array(ns || settings.nShards).fill(s)) // multiple each line
+    .map((s) => Array(ns || settings.nShards).fill(s)) // multiple each line
     .reduce((a, b) => a.concat(b), []); // flatten all
 
-export const connectServer = ezs => (serverOptions, index) => {
+export const connectServer = (ezs) => (serverOptions, index) => {
     const { hostname, port } = serverOptions;
     let connected = false;
     serverOptions.headers = {
@@ -107,5 +107,3 @@ export const connectServer = ezs => (serverOptions, index) => {
     const duplex = [input, output];
     return duplex;
 };
-
-

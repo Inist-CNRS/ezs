@@ -10,14 +10,14 @@ export default function singleton(data, feed) {
         const statement = this.getParam('statement');
         const environment = this.getEnv();
         const paramaters = this.getParams();
-        const savedData = Object.assign({}, data);
+        const savedData = { ...data };
         const input = new PassThrough({ objectMode: true });
         let result = {};
 
         input
             .pipe(ezs(statement, paramaters, environment))
-            .pipe(ezs.catch(e => e))
-            .on('error', e => feed.stop(e))
+            .pipe(ezs.catch((e) => e))
+            .on('error', (e) => feed.stop(e))
             .on('data', (chunk) => {
                 result = Object.assign(result, chunk);
             })

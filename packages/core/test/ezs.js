@@ -1328,7 +1328,6 @@ describe('Build a pipeline', () => {
             path = b
             value = env('b')
         `;
-        const env = {};
         const res = [];
         from([
             { a: 1, b: 5 },
@@ -1370,7 +1369,6 @@ describe('Build a pipeline', () => {
           path = b
           value = env('b')
         `;
-        const env = {};
         const res = [];
         from([
             { a: 1, b: 5 },

@@ -5,7 +5,7 @@ export default class Commands {
     constructor(commands) {
         assert(Array.isArray(commands), 'Commands should be an array.');
         this.commands = commands;
-        this.useCommands = this.commands.filter(c => c.name === 'use');
+        this.useCommands = this.commands.filter((c) => c.name === 'use');
     }
 
     getUseCommands() {
@@ -21,7 +21,7 @@ export default class Commands {
         let first = true;
         let previousMode = '';
         this.commands
-            .filter(c => c.name !== 'use')
+            .filter((c) => c.name !== 'use')
             .forEach((c) => {
                 const currentMode = c.mode === M_DISPATCH ? 'dispatch' : 'pipeline';
                 if (currentMode !== previousMode) {

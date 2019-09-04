@@ -9,7 +9,7 @@ const fix = (input, ...args) => {
 
 const compute = (input, expr) => compileExpression(expr)(input);
 
-const self = input => input;
+const self = (input) => input;
 
 export default {
     fix,

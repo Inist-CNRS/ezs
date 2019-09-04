@@ -34,15 +34,15 @@ ezs.encodingMode = () => ({
 });
 ezs.metaString = (commands, options) => new Meta(ezs, commands, options);
 ezs.metaFile = (filename, options) => new Meta(ezs, File(ezs, filename), options);
-ezs.parseString = commands => Script(commands);
-ezs.parseFile = filename => Script(File(ezs, filename));
-ezs.catch = func => new Catcher(func);
-ezs.toBuffer = options => new Output(options);
-ezs.use = plugin => Statement.set(ezs, plugin);
-ezs.addPath = p => ezsPath.push(p);
+ezs.parseString = (commands) => Script(commands);
+ezs.parseFile = (filename) => Script(File(ezs, filename));
+ezs.catch = (func) => new Catcher(func);
+ezs.toBuffer = (options) => new Output(options);
+ezs.use = (plugin) => Statement.set(ezs, plugin);
+ezs.addPath = (p) => ezsPath.push(p);
 ezs.getPath = () => ezsPath;
-ezs.loadScript = file => File(ezs, file);
-ezs.compileScript = script => new Commands(ezs.parseString(script));
+ezs.loadScript = (file) => File(ezs, file);
+ezs.compileScript = (script) => new Commands(ezs.parseString(script));
 ezs.createCommand = (command, environment) => {
     const mode = command.mode || M_NORMAL;
     if (!command.name) {
@@ -69,7 +69,7 @@ ezs.compileCommands = (commands, environment) => {
         name: 'transit',
         args: { },
     });
-    const streams = cmds.map(command => ezs.createCommand(command, environment));
+    const streams = cmds.map((command) => ezs.createCommand(command, environment));
     if (streams.length === 1) {
         return new PassThrough(ezs.objectMode());
     }
@@ -77,9 +77,9 @@ ezs.compileCommands = (commands, environment) => {
 };
 ezs.writeTo = writeTo;
 ezs.createPipeline = (input, streams) => streams.reduce((amont, aval) => amont.pipe(aval), input);
-ezs.compress = options => compressStream(ezs, options);
-ezs.uncompress = options => uncompressStream(ezs, options);
-ezs.createStream = options => new PassThrough(options);
+ezs.compress = (options) => compressStream(ezs, options);
+ezs.uncompress = (options) => uncompressStream(ezs, options);
+ezs.createStream = (options) => new PassThrough(options);
 ezs.createServer = (port, path) => Server.createServer(ezs, port, path);
 ezs.createCluster = (port, path) => Server.createCluster(ezs, port, path);
 

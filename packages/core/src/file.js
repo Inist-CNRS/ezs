@@ -16,9 +16,9 @@ export function useFile(ezs, name) {
     );
     const plugName2 = ezs
         .getPath()
-        .map(dir => resolve(dir, name))
-        .map(fil => check(fil))
-        .filter(fun => fun !== null)
+        .map((dir) => resolve(dir, name))
+        .map((fil) => check(fil))
+        .filter((fun) => fun !== null)
         .shift();
     const plugName3 = check(name);
     if (plugName1) {

@@ -6,7 +6,7 @@ export default class Catcher extends SafeTransform {
             writableObjectMode: true,
             readableObjectMode: true,
         });
-        this.func = typeof func === 'function' ? func : (e => e);
+        this.func = typeof func === 'function' ? func : ((e) => e);
     }
 
     _transform(chunk, encoding, done) {

@@ -82,7 +82,7 @@ function ignoreMe(data, feed) {
     return feed.send(data);
 }
 
-function beat(data, feed) {
+function beat(_data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
@@ -92,7 +92,7 @@ function beat(data, feed) {
     }, 1);
 }
 
-function boum(data, feed) {
+function boum(_data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
@@ -100,7 +100,7 @@ function boum(data, feed) {
 }
 
 // WARNING : https://bytearcher.com/articles/why-asynchronous-exceptions-are-uncatchable/
-function badaboum(data, feed) {
+function badaboum(_data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
@@ -109,11 +109,11 @@ function badaboum(data, feed) {
     }, 1);
 }
 
-function bang(data, feed) {
+function bang(_data, _feed) {
     throw new Error('Bang!');
 }
 
-function plouf(data, feed) {
+function plouf(_data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
@@ -143,7 +143,7 @@ function splish(data, feed) {
         resolve(data);
     });
     return p
-        .then(d => feed.send(d))
+        .then((d) => feed.send(d))
         .catch(() => feed.end());
 }
 
@@ -151,11 +151,11 @@ function splash(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
-    const p = new Promise((resolve, reject) => {
+    const p = new Promise((_resolve, reject) => {
         reject(data);
     });
     return p
-        .then(d => feed.send(d))
+        .then((d) => feed.send(d))
         .catch(() => feed.end());
 }
 

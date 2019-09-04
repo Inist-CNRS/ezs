@@ -139,9 +139,9 @@ export default function cli(errlog) {
             }
             return script;
         })
-        .map(script => new Commands(ezs.parseString(script)))
+        .map((script) => new Commands(ezs.parseString(script)))
         .reduce(runScript(argv.server), input)
-        .pipe(ezs.catch(e => e))
+        .pipe(ezs.catch((e) => e))
         .on('error', (e) => {
             errlog(e.message.split('\n').shift());
             process.exit(2);

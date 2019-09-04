@@ -18,7 +18,7 @@ function load(ezs, name) {
     // eslint-disable-next-line
     ezs.use(require(fileName));
     const after1 = Object.keys(pluginsList);
-    const diff1 = after1.filter(item => before1.indexOf(item) === -1);
+    const diff1 = after1.filter((item) => before1.indexOf(item) === -1);
     if (diff1.length > 0) {
         debug('ezs')(`These statements are registered: ${diff1.join(',')}`);
     }
@@ -34,7 +34,7 @@ function get(ezs, plugin, opts) {
                 if (!Array.isArray(names)) {
                     names = [names];
                 }
-                names.forEach(name => load(ezs, name));
+                names.forEach((name) => load(ezs, name));
             }
         });
         return (data, feed) => feed.send(data);

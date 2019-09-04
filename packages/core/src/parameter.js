@@ -1,4 +1,3 @@
-import Statement from './statement';
 import JSONezs from './json';
 
 function encode(string) {

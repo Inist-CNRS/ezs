@@ -8,6 +8,6 @@ export default function ungroup(data, feed) {
         return feed.close();
     }
     const values = Array.isArray(data) ? data : [data];
-    values.forEach(value => feed.write(value));
+    values.forEach((value) => feed.write(value));
     return feed.end();
 }

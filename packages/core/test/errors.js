@@ -211,7 +211,7 @@ describe('Catch error in a pipeline', () => {
                 output.send({ val: input });
             }))
             .pipe(ezs('delegate', { script: commands }))
-            .pipe(ezs.catch(e => e))
+            .pipe(ezs.catch((e) => e))
             .on('error', (err) => {
                 assert.ok(err instanceof Error);
                 done();

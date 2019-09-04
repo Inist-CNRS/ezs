@@ -15,6 +15,6 @@ export default function keep(data, feed) {
         keys = [keys];
     }
     const obj = {};
-    keys.filter(k => typeof k === 'string').forEach(key => _.set(obj, key, _.get(data, key)));
+    keys.filter((k) => typeof k === 'string').forEach((key) => _.set(obj, key, _.get(data, key)));
     return feed.send(obj);
 }

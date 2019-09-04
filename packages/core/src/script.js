@@ -62,7 +62,7 @@ export default function Script(commands) {
             }
         }
     });
-    const cmd = result.map(command => ({
+    const cmd = result.map((command) => ({
         ...command,
         args: parseOpts(command.args),
     }));

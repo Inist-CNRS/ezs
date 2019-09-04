@@ -27,9 +27,9 @@ export default function delegate(data, feed) {
         this.input = new PassThrough({ objectMode: true });
 
         const output = ezs.createPipeline(this.input, streams)
-            .pipe(ezs.catch(e => feed.write(e)))
-            .on('error', e => feed.write(e))
-            .on('data', d => feed.write(d));
+            .pipe(ezs.catch((e) => feed.write(e)))
+            .on('error', (e) => feed.write(e))
+            .on('data', (d) => feed.write(d));
 
         this.whenFinish = new Promise((resolve) => {
             output.on('end', resolve);
@@ -40,7 +40,7 @@ export default function delegate(data, feed) {
     if (this.isLast()) {
         this.whenFinish
             .then(() => feed.close())
-            .catch(e => feed.stop(e));
+            .catch((e) => feed.stop(e));
         return this.input.end();
     }
     debug('ezs')(`Delegate chunk #${this.getIndex()} containing ${Object.keys(data).length || 0} keys`);
