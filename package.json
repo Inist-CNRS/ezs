@@ -14,6 +14,7 @@
     "@types/jest": "~24.0.18",
     "babel-eslint": "~10.0.3",
     "babel-jest": "~24.9.0",
+    "coveralls": "~3.0.6",
     "documentation": "~12.1.1",
     "eslint": "~6.3.0",
     "eslint-config-airbnb-base": "~14.0.0",
@@ -28,6 +29,7 @@
     "doc": "lerna run doc",
     "lint": "lerna run lint",
     "test": "jest",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls"
   }
 }
