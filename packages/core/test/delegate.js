@@ -29,7 +29,7 @@ describe('delegate through file(s)', () => {
     describe('simple statements, one server', () => {
         const script = `
             [use]
-            plugin = test/locals
+            plugin = packages/core/test/locals
 
             [increment]
             step = 3
@@ -318,7 +318,7 @@ describe('delegate through file(s)', () => {
                 assert.strictEqual(res, 500000);
                 done();
             });
-    }).timeout(100000);
+    }, 100000);
 
     it('with stuck/unstuck simple pipeline', (done) => {
         const script = `

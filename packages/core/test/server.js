@@ -35,7 +35,7 @@ describe('dispatch through server(s)', () => {
     const server4 = ezs.createServer(30003, false);
     const server5 = ezs.createServer(33333, __dirname);
 
-    after(() => {
+    afterAll(() => {
         server1.close();
         server2.close();
         server3.close();
@@ -193,7 +193,7 @@ describe('dispatch through server(s)', () => {
     describe('simple statements, one server', () => {
         const script = `
             [use]
-            plugin = test/locals
+            plugin = packages/core/test/locals
 
             [increment]
             step = 3
@@ -614,12 +614,12 @@ describe('dispatch through server(s)', () => {
                 assert.strictEqual(res, 500000);
                 done();
             });
-    }).timeout(100000);
+    }, 100000);
 
     it('with a lot of delayed commands in distributed pipeline', (done) => {
         const script = `
             [use]
-            plugin = test/locals
+            plugin = packages/core/test/locals
 
             [beat?detachable]
 
@@ -640,13 +640,13 @@ describe('dispatch through server(s)', () => {
                 assert.strictEqual(res, 10000);
                 done();
             });
-    }).timeout(50000);
+    }, 50000);
 
 
     it('with a same commands', (done) => {
         const script = `
             [use]
-            plugin = test/locals
+            plugin = packages/core/test/locals
 
             [increment]
             step = 1

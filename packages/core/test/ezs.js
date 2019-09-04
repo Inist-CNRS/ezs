@@ -461,7 +461,7 @@ describe('Build a pipeline', () => {
     it('with use command in the pipeline', (done) => {
         const commands = `
             [use]
-            plugin = test/locals
+            plugin = packages/core/test/locals
 
             [boum]
 
@@ -482,7 +482,7 @@ describe('Build a pipeline', () => {
     it('with slow command in the pipeline', (done) => {
         const commands = `
             [use]
-            plugin = test/locals
+            plugin = packages/core/test/locals
 
             [slow]
 
@@ -501,11 +501,11 @@ describe('Build a pipeline', () => {
                 assert.strictEqual(res, 90);
                 done();
             });
-    }).timeout(5000);
+    }, 5000);
     it('with input break during the executionpipeline', (done) => {
         const commands = `
             [use]
-            plugin = test/locals
+            plugin = packages/core/test/locals
 
             [transit]
 
@@ -535,7 +535,7 @@ describe('Build a pipeline', () => {
     it('with input break during the executionpipeline (async))', (done) => {
         const commands = `
             [use]
-            plugin = test/locals
+            plugin = packages/core/test/locals
 
             [slow]
             time = 2
@@ -566,7 +566,7 @@ describe('Build a pipeline', () => {
     it('with input file pipeline', (done) => {
         const commands = `
             [use]
-            plugin = test/locals
+            plugin = packages/core/test/locals
 
         `;
         let res = 0;
@@ -594,7 +594,7 @@ describe('Build a pipeline', () => {
     // it('with bad statement in the pipeline', (done) => {
     //    const commands = `
     //        [use]
-    //        plugin = test/locals
+    //        plugin = packages/core/test/locals
     //
     //        [bad]
     //
@@ -1160,7 +1160,7 @@ describe('Build a pipeline', () => {
     it('with no transformation but with an accumulator in a script', (done) => {
         const commands = `
             [use]
-            plugin = test/locals
+            plugin = packages/core/test/locals
 
             [accu]
         `;
@@ -1353,7 +1353,7 @@ describe('Build a pipeline', () => {
     it('stuck/unstuck #3', (done) => {
         const commands = `
           [env]
-          path = a 
+          path = a
           value = get('a')
           path = b
           value = get('b')
@@ -1447,8 +1447,6 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
-
-
 
     /**/
 });
