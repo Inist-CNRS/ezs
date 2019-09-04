@@ -8,4 +8,5 @@ module.exports = {
         '**/?(*.)+(spec|test).[tj]s?(x)',
     ],
     testPathIgnorePatterns: ['/node_modules/', 'locals.js'],
+    coveragePathIgnorePatterns: ['/node_modules', '/test/']
 };

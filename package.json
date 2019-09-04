@@ -27,6 +27,7 @@
     "build": "lerna run build",
     "doc": "lerna run doc",
     "lint": "lerna run lint",
-    "test": "jest"
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   }
 }
