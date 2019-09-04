@@ -2,7 +2,7 @@ before_install:
   - npm i -g npm@latest
 
 install:
-  - npm ci
+  - npm run bootstrap
 
 after_success: 'npm run coveralls'
 language: node_js

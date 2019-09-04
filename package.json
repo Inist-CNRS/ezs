@@ -26,6 +26,7 @@
   },
   "scripts": {
     "build": "lerna run build",
+    "bootstrap": "lerna bootstrap --hoist",
     "doc": "lerna run doc",
     "lint": "lerna run lint",
     "test": "jest",
