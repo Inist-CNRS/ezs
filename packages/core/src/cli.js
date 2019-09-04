@@ -49,7 +49,7 @@ export default function cli(errlog) {
             },
 
         })
-        .epilogue('for more information, find our manual at https://github.com/touv/node-ezs');
+        .epilogue('for more information, find our manual at https://github.com/Inist-CNRS/ezs');
 
     const { argv } = args;
 
