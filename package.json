@@ -8,20 +8,25 @@
     "@babel/plugin-proposal-json-strings": "~7.2.0",
     "@babel/plugin-syntax-dynamic-import": "~7.2.0",
     "@babel/plugin-syntax-import-meta": "~7.2.0",
+    "@babel/plugin-transform-modules-commonjs": "~7.5.0",
     "@babel/preset-env": "~7.5.5",
     "@babel/register": "~7.5.5",
+    "@types/jest": "~24.0.18",
     "babel-eslint": "~10.0.3",
+    "babel-jest": "~24.9.0",
     "documentation": "~12.1.1",
     "eslint": "~6.3.0",
     "eslint-config-airbnb-base": "~14.0.0",
     "eslint-plugin-import": "~2.18.2",
     "from": "~0.1.7",
+    "jest": "~24.9.0",
     "lerna": "3.16.4",
     "node-fetch": "~2.6.0"
   },
   "scripts": {
     "build": "lerna run build",
     "doc": "lerna run doc",
-    "lint": "lerna run lint"
+    "lint": "lerna run lint",
+    "test": "jest"
   }
 }

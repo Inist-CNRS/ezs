@@ -35,9 +35,6 @@
     },
     "homepage": "https://github.com/Inist-CNRS/ezs#readme",
     "devDependencies": {
-        "coveralls": "~3.0.5",
-        "mocha": "~6.2.0",
-        "nyc": "~14.1.1"
     },
     "dependencies": {
         "app-module-path": "~2.2.0",

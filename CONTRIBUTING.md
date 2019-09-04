@@ -40,6 +40,15 @@ dependency to a new package.
 Each time you use a package-specific lerna command, don't forget to precise
 which package is targeted, with the `--scope=@ezs/package` option.
 
+## Install
+
+To install the dependencies of the packages, use
+[bootstrap](https://github.com/lerna/lerna/tree/master/commands/bootstrap).
+
+```bash
+npx lerna bootstrap
+```
+
 ## Transpiling
 
 If you use [babel](https://babeljs.io) to transpile your code, use
@@ -92,6 +101,14 @@ The `packages/core/package.json` has to be adapted:
 
 We ant to use the same dev depencies for all packages, so we can hoist them to
 the root of the lerna repository.
+
+### Use jest for tests
+
+If you come from mocha, you have to change the `it(...).timeout(10000)`s to
+`it(..., 10000)`.
+
+Also, consider that tests are launched from the repository's root, not from the
+packages' root.
 
 ### List the new package
 
