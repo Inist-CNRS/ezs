@@ -1,6 +1,6 @@
 {
     "name": "@ezs/core",
-    "version": "0.0.0",
+    "version": "1.0.0",
     "description": "A wrapper to build Stream transformers with functional style",
     "directories": {
         "test": "test"
@@ -34,8 +34,6 @@
         "url": "https://github.com/Inist-CNRS/ezs/issues"
     },
     "homepage": "https://github.com/Inist-CNRS/ezs#readme",
-    "devDependencies": {
-    },
     "dependencies": {
         "app-module-path": "~2.2.0",
         "autocast": "~0.0.4",
@@ -56,6 +54,5 @@
         "stream-write": "~1.0.1",
         "validatorjs": "~3.15.1",
         "yargs": "~13.3.0"
-    },
-    "optionalDependencies": {}
+    }
 }
