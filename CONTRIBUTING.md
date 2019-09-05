@@ -96,6 +96,7 @@ The `packages/core/package.json` has to be adapted:
 - its `repository.url`, from `git+https://github.com/touv/node-ezs.git` to `git+https://github.com/Inist-CNRS/ezs.git`
 - its `bugs.url`
 - its `homepage`, from `https://github.com/touv/node-ezs#readme` to `https://github.com/Inist-CNRS/ezs/packages/core#readme`
+- add a `publishConfig.access` and set it to `"public"`
 
 ### Hoist devDependencies
 
