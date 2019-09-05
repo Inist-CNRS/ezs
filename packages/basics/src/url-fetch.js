@@ -9,23 +9,23 @@ function URLFetch(data, feed) {
         return feed.send(data);
     }
     fetch(url)
-    .then((response) => {
-        if (response.status !== 200) {
-            const msg = `Received status code ${response.statusCode} (${
-          response.statusMessage
-        })'`;
-            throw new Error(msg);
-        }
-        return json ? response.json() : response.text();
-    })
-    .then((body) => {
-        if (target && typeof target === 'string' && typeof data === 'object') {
-            data[target] = body;
-            return feed.send(data);
-        }
-        return feed.send(body);
-    })
-    .catch(error => feed.send(error));
+        .then((response) => {
+            if (response.status !== 200) {
+                const msg = `Received status code ${response.statusCode} (${
+                    response.statusMessage
+                })'`;
+                throw new Error(msg);
+            }
+            return json ? response.json() : response.text();
+        })
+        .then((body) => {
+            if (target && typeof target === 'string' && typeof data === 'object') {
+                data[target] = body;
+                return feed.send(data);
+            }
+            return feed.send(body);
+        })
+        .catch((error) => feed.send(error));
 }
 
 /**

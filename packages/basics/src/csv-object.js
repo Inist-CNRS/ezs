@@ -4,7 +4,7 @@ function CSVObject(data, feed) {
     }
 
     if (!this.columns) {
-        this.columns = data.map(name => name.replace(/\./g, ''));
+        this.columns = data.map((name) => name.replace(/\./g, ''));
 
         const countCols = {};
         const renamedCols = {};
@@ -24,7 +24,7 @@ function CSVObject(data, feed) {
     if (Array.isArray(data)) {
         const obj = {};
         data.forEach((item, index) => {
-            const columnName = this.columns[index] ? this.columns[index].trim() : 'Column #'.concat(index);
+            const columnName = this.columns[index] ? this.columns[index].trim() : 'Column #'.concat(String(index));
             obj[columnName] = item;
         });
         return feed.send(obj);

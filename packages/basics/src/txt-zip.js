@@ -6,9 +6,9 @@ function TXTZip(data, feed) {
         this.input = new PassThrough();
         this.gzip = zlib.createGzip();
         const output = this.input.pipe(this.gzip);
-        output.on('data', d => feed.write(d));
+        output.on('data', (d) => feed.write(d));
         output.on('end', () => feed.close());
-        output.on('error', e => feed.stop(e));
+        output.on('error', (e) => feed.stop(e));
     }
 
     if (this.isLast()) {

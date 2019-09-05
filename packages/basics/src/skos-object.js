@@ -3,7 +3,7 @@ function Concept(data, feed) {
     Object.keys(data).forEach((key) => {
         const newkey = key.replace('skos$', '');
         if (Array.isArray(data[key])) {
-            data[key].filter(x => x.xml$lang).forEach((item) => {
+            data[key].filter((x) => x.xml$lang).forEach((item) => {
                 const localkey = newkey.concat('@').concat(item.xml$lang);
                 obj[localkey] = item.$t;
             });

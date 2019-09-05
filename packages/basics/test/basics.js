@@ -1,6 +1,6 @@
 const assert = require('assert');
 const from = require('from');
-const ezs = require('ezs');
+const ezs = require('@ezs/core');
 const { PassThrough } = require('stream');
 
 ezs.use(require('../lib'));

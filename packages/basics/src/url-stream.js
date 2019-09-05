@@ -27,12 +27,12 @@ function URLStream(data, feed) {
             return body;
         })
         .then((stream) => {
-            stream.on('data', chunk => feed.write(chunk));
-            stream.on('error', error => feed.stop(error));
+            stream.on('data', (chunk) => feed.write(chunk));
+            stream.on('error', (error) => feed.stop(error));
             stream.on('end', () => feed.close());
             return stream;
         })
-        .catch(error => feed.stop(error));
+        .catch((error) => feed.stop(error));
 }
 
 /**

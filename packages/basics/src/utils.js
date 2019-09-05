@@ -5,3 +5,5 @@ export function writeTo(stream, data, cb) {
         process.nextTick(cb);
     }
 }
+
+export default writeTo;

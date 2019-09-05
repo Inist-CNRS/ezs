@@ -6,7 +6,7 @@ function CSVParse(data, feed) {
     const quote = this.getParam('quote');
     if (!this.handle) {
         this.handle = CSV.createStream({ separator, quote });
-        this.handle.on('data', obj => feed.write(obj));
+        this.handle.on('data', (obj) => feed.write(obj));
     }
     if (!this.isLast()) {
         writeTo(this.handle,
