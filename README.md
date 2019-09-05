@@ -9,3 +9,10 @@ Repository containing all @ezs packages (monorepo)
 ## Packages
 
 - [@ezs/core](./packages/core#readme)
+
+## History
+
+This [repository](https://github.com/Inist-CNRS/ezs) is a grouping of several packages.
+They were named `ezs-*`, and are now named `@ezs/*`  (except `ezs` which is now named `@ezs/core`).
+
+`@ezs/core@1.0.0` comes from `ezs@9.4.2`.
