@@ -93,15 +93,21 @@ npx lerna import ../old-ezs/core --flatten --preserve-commit
 The `packages/core/package.json` has to be adapted:
 
 - its `name`, from `ezs` to `@ezs/core`
-- its `repository.url`, from `git+https://github.com/touv/node-ezs.git` to `git+https://github.com/Inist-CNRS/ezs.git`
+- its `repository.url`, from `git+https://github.com/touv/node-ezs.git` to
+  `git+https://github.com/Inist-CNRS/ezs.git`
 - its `bugs.url`
-- its `homepage`, from `https://github.com/touv/node-ezs#readme` to `https://github.com/Inist-CNRS/ezs/packages/core#readme`
+- its `homepage`, from `https://github.com/touv/node-ezs#readme` to
+  `https://github.com/Inist-CNRS/ezs/packages/core#readme`
 - add a `publishConfig.access` and set it to `"public"`
+- modify the `build` script if necessary: from `babel src --out-dir lib` to
+  `babel --root-mode upward src --out-dir lib`
 
 ### Hoist devDependencies
 
-We ant to use the same dev depencies for all packages, so we can hoist them to
+We want to use the same dev depencies for all packages, so we can hoist them to
 the root of the lerna repository.
+
+Don't hoist devDependencies like `@ezs/core`.
 
 ### Use jest for tests
 

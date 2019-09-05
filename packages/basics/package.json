@@ -1,13 +1,13 @@
 {
-  "name": "ezs-basics",
-  "version": "3.11.0",
-  "description": "Basics statements form EZS",
+  "name": "@ezs/basics",
+  "version": "0.0.0",
+  "description": "Basics statements for EZS",
   "directories": {
     "test": "test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/touv/node-ezs-basics.git"
+    "url": "git+https://github.com/Inist-CNRS/ezs.git"
   },
   "keywords": [
     "ezs"
@@ -15,47 +15,36 @@
   "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/touv/node-ezs-basics/issues"
+    "url": "https://github.com/Inist-CNRS/ezs/issues"
   },
-  "homepage": "https://github.com/touv/node-ezs-basics#readme",
+  "homepage": "https://github.com/Inist-CNRS/ezs/packages/basics#readme",
   "dependencies": {
-    "JSONStream": "1.3.1",
-    "csv-string": "3.1.2",
-    "fetch-with-proxy": "1.1.0",
-    "flat": "2.0.1",
-    "isomorphic-fetch": "2.2.1",
-    "tmp-filepath": "2.0.0",
-    "xml-mapping": "1.7.1",
-    "xml-splitter": "1.2.1"
+    "JSONStream": "~1.3.5",
+    "csv-string": "~3.1.6",
+    "fetch-with-proxy": "~1.1.0",
+    "flat": "~4.1.0",
+    "isomorphic-fetch": "~2.2.1",
+    "tmp-filepath": "~2.0.0",
+    "xml-mapping": "~1.7.1",
+    "xml-splitter": "~1.2.1"
   },
   "main": "./lib/index.js",
   "scripts": {
-    "test": "istanbul test ./node_modules/.bin/_mocha -- -R spec",
     "doc": "documentation readme package.json src/* --section=Statements",
     "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
-    "build": "babel src --out-dir lib",
+    "build": "babel --root-mode upward src --out-dir lib",
     "prepublish": "npm run build",
     "pretest": "npm run build",
     "preversion": "npm run doc"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-eslint": "^7.2.1",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-3": "^6.24.1",
-    "documentation": "8.1.2",
-    "eslint": "5.15.3",
-    "eslint-config-airbnb": "^14.1.0",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^4.0.0",
-    "eslint-plugin-react": "^6.10.3",
-    "ezs": "9.3.0",
-    "from": "^0.1.7",
-    "istanbul": "^0.4.5",
-    "mocha": "5.2.0",
-    "pako": "1.0.10"
+    "@ezs/core": "1.0.0",
+    "pako": "~1.0.10"
   },
   "peerDependencies": {
-    "ezs": "*"
+    "@ezs/core": "*"
   }
 }
