@@ -10,12 +10,9 @@
         "ezs": "./bin/ezs"
     },
     "scripts": {
-        "test": "mocha --require @babel/register --exit",
-        "coverage": "nyc --reporter=text mocha --reporter dot --require @babel/register --exit",
-        "coveralls": "nyc --reporter=text-lcov mocha --reporter dot --require @babel/register --exit | coveralls",
         "doc": "documentation readme package.json src/* --section=Statements",
         "lint": "eslint --ext=.js ./test/*.js ./src/*.js ./src/statements/*.js",
-        "build": "babel src --out-dir lib",
+        "build": "babel --root-mode upward src --out-dir lib",
         "prepublish": "npm run build",
         "postversion": "git push && git push --tags",
         "#pretest": "npm run build"
