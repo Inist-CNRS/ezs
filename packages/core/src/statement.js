@@ -43,7 +43,8 @@ function get(ezs, plugin, opts) {
     } if (typeof plugin === 'string' && pluginsList[plugin]) {
         return pluginsList[plugin];
     } if (typeof plugin === 'object') {
-        const firstKey = Object.keys(plugin).slice(0, 1);
+        const keys = Object.keys(plugin);
+        const firstKey = keys.length ? keys[0] : '';
         if (typeof plugin[firstKey] === 'function') {
             return plugin[firstKey];
         }
