@@ -33,7 +33,7 @@
     "bugs": {
         "url": "https://github.com/Inist-CNRS/ezs/issues"
     },
-    "homepage": "https://github.com/Inist-CNRS/ezs#readme",
+    "homepage": "https://github.com/Inist-CNRS/ezs/packages/core#readme",
     "dependencies": {
         "app-module-path": "~2.2.0",
         "autocast": "~0.0.4",
