@@ -1,6 +1,6 @@
 {
   "name": "@ezs/analytics",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Analytics statements for EZS",
   "directories": {
     "test": "test"
@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/Inist-CNRS/ezs/packages/analytics#readme",
   "dependencies": {
-    "@ezs/core": "1.1.0",
+    "@ezs/core": "1.1.1",
     "lda": "~0.2.0",
     "leveldown": "~5.1.1",
     "levelup": "~4.1.0",
@@ -45,8 +45,6 @@
   },
   "publishConfig": {
     "acces": "public"
-  },
-  "devDependencies": {
   },
   "peerDependencies": {
     "@ezs/core": "*"
