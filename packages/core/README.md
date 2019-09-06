@@ -1,15 +1,10 @@
 # Make pipeline of streams easy : Easy Streams
 
-<!-- [![Build Status](https://travis-ci.org/Inist-CNRS/ezs.png?branch=master)](https://travis-ci.org/Inist-CNRS/ezs) -->
+[![npm version](https://img.shields.io/npm/v/@ezs/core)](https://npm.im/@ezs/core)
+[![license](https://img.shields.io/npm/l/@ezs/core)](https://npm.im/@ezs/core)
 
-<!-- [![npm version](https://img.shields.io/npm/v/ezs.svg)](https://npm.im/ezs) -->
-
-<!-- [![license](https://img.shields.io/npm/l/ezs.svg)](https://npm.im/ezs) -->
-
-<!-- [![Coverage Status](https://coveralls.io/repos/github/Inist-CNRS/ezs/badge.svg?branch=master)](https://coveralls.io/github/Inist-CNRS/ezs?branch=master) -->
-
-It's just a wrapper to build Stream transformers with functional style. It's
-like the koa / expressjs middlewares !
+It's just a wrapper to build Stream transformers with functional style.
+It's like the koa / expressjs middlewares !
 
 ## Example
 
