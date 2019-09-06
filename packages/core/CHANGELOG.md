@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.0.0...@ezs/core@1.1.0) (2019-09-06)
+
+
+### Features
+
+* **core:** Allow the use of an [@ezs](https://github.com/ezs) package ([b5df9d0](https://github.com/Inist-CNRS/ezs/commit/b5df9d0))
+
+
+
+
+
 # 1.0.0 (2019-09-05)
 
 
