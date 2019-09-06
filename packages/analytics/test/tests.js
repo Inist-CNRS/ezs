@@ -1,8 +1,8 @@
 const assert = require('assert');
 const from = require('from');
-const ezs = require('ezs');
+const ezs = require('../../core/src');
 
-ezs.use(require('../lib'));
+ezs.use(require('../src'));
 
 describe('test', () => {
     it('distinct', (done) => {
@@ -217,7 +217,7 @@ describe('test', () => {
             { id: 1, value: { f: 1 } },
         ])
             .pipe(ezs('reducing'))
-          .pipe(ezs('merging'))
+            .pipe(ezs('merging'))
             .on('data', (chunk) => {
                 assert(typeof chunk === 'object');
                 res.push(chunk);
@@ -331,8 +331,10 @@ describe('test', () => {
         `;
         const res = [];
         from([
-            { id: 'lorem',
+            {
+                id: 'lorem',
                 value: [
+                    /* eslint-disable object-curly-newline */
                     { b1: 'consectetur', b2: undefined, c1: 1, c2: undefined },
                     { b1: 'adipiscing', b2: undefined, c1: 4, c2: undefined },
                     { b1: 'dolor', b2: undefined, c1: 2, c2: undefined },
@@ -348,6 +350,7 @@ describe('test', () => {
                     { b1: undefined, b2: '2017', c1: undefined, c2: 5 },
                     { b1: undefined, b2: '2018', c1: undefined, c2: 3 },
                     { b1: undefined, b2: '2015', c1: undefined, c2: 2 },
+                    /* eslint-enable object-curly-newline */
                 ],
             },
         ])
@@ -408,7 +411,7 @@ describe('test', () => {
 
     it('slice #1', (done) => {
         const res = [];
-        from([ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22 ])
+        from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22])
             .pipe(ezs('slice'))
             .on('data', (chunk) => {
                 res.push(chunk);
@@ -423,7 +426,7 @@ describe('test', () => {
 
     it('slice #2', (done) => {
         const res = [];
-        from([ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22 ])
+        from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22])
             .pipe(ezs('slice', { start: 2, size: 2 }))
             .on('data', (chunk) => {
                 res.push(chunk);
@@ -455,7 +458,8 @@ describe('test', () => {
             { a: 12, b: 'm' },
             { a: 6, b: 'n' },
         ])
-            .pipe(ezs('distribute', { id: 'a', value: 'b', start: 2, size: 10, step : 2  }))
+            // eslint-disable-next-line object-curly-newline
+            .pipe(ezs('distribute', { id: 'a', value: 'b', start: 2, size: 10, step: 2 }))
             .on('data', (chunk) => {
                 res.push(chunk);
             })
@@ -487,7 +491,9 @@ describe('test', () => {
             { a: 10, b: 'l' },
             { a: 12, b: 'm' },
         ])
-            .pipe(ezs('distribute', { id: 'a', value: 'b', start: 2, size: 10, step : 2, default: 'x' }))
+            .pipe(ezs('distribute', {
+                id: 'a', value: 'b', start: 2, size: 10, step: 2, default: 'x',
+            }))
             .on('data', (chunk) => {
                 res.push(chunk);
             })
@@ -515,7 +521,7 @@ describe('test', () => {
             { id: '2000', value: 1 },
             { id: '2001', value: 2 },
         ])
-            .pipe(ezs('distribute', { step : 1 }))
+            .pipe(ezs('distribute', { step: 1 }))
             .on('data', (chunk) => {
                 res.push(chunk);
             })
@@ -531,19 +537,19 @@ describe('test', () => {
             });
     });
 
-     it('distribute #4', (done) => {
+    it('distribute #4', (done) => {
         const res = [];
-         from([
-             { id: '2013', value: 8 },
-             { id: '2009', value: 6 },
-             { id: '2011', value: 7 },
-             { id: '2007', value: 5 },
-             { id: '2003', value: 3 },
-             { id: '2005', value: 4 },
-             { id: '2000', value: 1 },
-             { id: '2001', value: 2 },
-         ])
-            .pipe(ezs('distribute', { step : 3 }))
+        from([
+            { id: '2013', value: 8 },
+            { id: '2009', value: 6 },
+            { id: '2011', value: 7 },
+            { id: '2007', value: 5 },
+            { id: '2003', value: 3 },
+            { id: '2005', value: 4 },
+            { id: '2000', value: 1 },
+            { id: '2001', value: 2 },
+        ])
+            .pipe(ezs('distribute', { step: 3 }))
             .on('data', (chunk) => {
                 res.push(chunk);
             })
@@ -556,127 +562,124 @@ describe('test', () => {
                 assert.equal(2012, res[4].id);
                 done();
             });
-     });
-
+    });
 
     it('greater #1', (done) => {
         const res = [];
-         from([
-             { id: 2000, value: 1 },
-             { id: 2001, value: 2 },
-             { id: 2003, value: 3 },
-             { id: 2005, value: 4 },
-             { id: 2007, value: 5 },
-             { id: 2009, value: 6 },
-             { id: 2011, value: 7 },
-             { id: 2013, value: 8 },
-         ])
-            .pipe(ezs('greater', { than : 3 }))
+        from([
+            { id: 2000, value: 1 },
+            { id: 2001, value: 2 },
+            { id: 2003, value: 3 },
+            { id: 2005, value: 4 },
+            { id: 2007, value: 5 },
+            { id: 2009, value: 6 },
+            { id: 2011, value: 7 },
+            { id: 2013, value: 8 },
+        ])
+            .pipe(ezs('greater', { than: 3 }))
             .on('data', (chunk) => {
                 res.push(chunk);
             })
             .on('end', () => {
                 assert.equal(6, res.length);
                 assert.equal(2003, res[0].id);
-                assert.equal(2013, res[res.length-1].id);
+                assert.equal(2013, res[res.length - 1].id);
                 done();
             });
     });
 
     it('greater #2', (done) => {
         const res = [];
-         from([
-             { id: 2000, value: 1 },
-             { id: 2001, value: 2 },
-             { id: 2003, value: 3 },
-             { id: 2005, value: 4 },
-             { id: 2007, value: 5 },
-             { id: 2009, value: 6 },
-             { id: 2011, value: 7 },
-             { id: 2013, value: 8 },
-         ])
-            .pipe(ezs('greater', { than : 3, strict: true }))
+        from([
+            { id: 2000, value: 1 },
+            { id: 2001, value: 2 },
+            { id: 2003, value: 3 },
+            { id: 2005, value: 4 },
+            { id: 2007, value: 5 },
+            { id: 2009, value: 6 },
+            { id: 2011, value: 7 },
+            { id: 2013, value: 8 },
+        ])
+            .pipe(ezs('greater', { than: 3, strict: true }))
             .on('data', (chunk) => {
                 res.push(chunk);
             })
             .on('end', () => {
                 assert.equal(5, res.length);
                 assert.equal(2005, res[0].id);
-                assert.equal(2013, res[res.length-1].id);
+                assert.equal(2013, res[res.length - 1].id);
                 done();
             });
     });
 
-
     it('greater #3', (done) => {
         const res = [];
-         from([
-             { id: 2000, value: 1 },
-             { id: 2001, value: 2 },
-             { id: 2003, value: 3 },
-             { id: 2005, value: 4 },
-             { id: 2007, value: 5 },
-             { id: 2009, value: 6 },
-             { id: 2011, value: 7 },
-             { id: 2013, value: 8 },
-         ])
-            .pipe(ezs('greater', { than : 2005, strict: true, path: 'id' }))
+        from([
+            { id: 2000, value: 1 },
+            { id: 2001, value: 2 },
+            { id: 2003, value: 3 },
+            { id: 2005, value: 4 },
+            { id: 2007, value: 5 },
+            { id: 2009, value: 6 },
+            { id: 2011, value: 7 },
+            { id: 2013, value: 8 },
+        ])
+            .pipe(ezs('greater', { than: 2005, strict: true, path: 'id' }))
             .on('data', (chunk) => {
                 res.push(chunk);
             })
             .on('end', () => {
                 assert.equal(4, res.length);
                 assert.equal(2007, res[0].id);
-                assert.equal(2013, res[res.length-1].id);
+                assert.equal(2013, res[res.length - 1].id);
                 done();
             });
     });
 
-
     it('less #1', (done) => {
         const res = [];
-         from([
-             { id: 2000, value: 1 },
-             { id: 2001, value: 2 },
-             { id: 2003, value: 3 },
-             { id: 2005, value: 4 },
-             { id: 2007, value: 5 },
-             { id: 2009, value: 6 },
-             { id: 2011, value: 7 },
-             { id: 2013, value: 8 },
-         ])
-            .pipe(ezs('less', { than : 3 }))
+        from([
+            { id: 2000, value: 1 },
+            { id: 2001, value: 2 },
+            { id: 2003, value: 3 },
+            { id: 2005, value: 4 },
+            { id: 2007, value: 5 },
+            { id: 2009, value: 6 },
+            { id: 2011, value: 7 },
+            { id: 2013, value: 8 },
+        ])
+            .pipe(ezs('less', { than: 3 }))
             .on('data', (chunk) => {
                 res.push(chunk);
             })
             .on('end', () => {
                 assert.equal(3, res.length);
                 assert.equal(2000, res[0].id);
-                assert.equal(2003, res[res.length-1].id);
+                assert.equal(2003, res[res.length - 1].id);
                 done();
             });
     });
 
     it('less #2', (done) => {
         const res = [];
-         from([
-             { id: 2000, value: 1 },
-             { id: 2001, value: 2 },
-             { id: 2003, value: 3 },
-             { id: 2005, value: 4 },
-             { id: 2007, value: 5 },
-             { id: 2009, value: 6 },
-             { id: 2011, value: 7 },
-             { id: 2013, value: 8 },
-         ])
-            .pipe(ezs('less', { than : 3, strict: true }))
+        from([
+            { id: 2000, value: 1 },
+            { id: 2001, value: 2 },
+            { id: 2003, value: 3 },
+            { id: 2005, value: 4 },
+            { id: 2007, value: 5 },
+            { id: 2009, value: 6 },
+            { id: 2011, value: 7 },
+            { id: 2013, value: 8 },
+        ])
+            .pipe(ezs('less', { than: 3, strict: true }))
             .on('data', (chunk) => {
                 res.push(chunk);
             })
             .on('end', () => {
                 assert.equal(2, res.length);
                 assert.equal(2000, res[0].id);
-                assert.equal(2001, res[res.length-1].id);
+                assert.equal(2001, res[res.length - 1].id);
                 done();
             });
     });
@@ -684,42 +687,41 @@ describe('test', () => {
 
     it('less #3', (done) => {
         const res = [];
-         from([
-             { id: 2000, value: 1 },
-             { id: 2001, value: 2 },
-             { id: 2003, value: 3 },
-             { id: 2005, value: 4 },
-             { id: 2007, value: 5 },
-             { id: 2009, value: 6 },
-             { id: 2011, value: 7 },
-             { id: 2013, value: 8 },
-         ])
-            .pipe(ezs('less', { than : 2005, strict: true, path: 'id' }))
+        from([
+            { id: 2000, value: 1 },
+            { id: 2001, value: 2 },
+            { id: 2003, value: 3 },
+            { id: 2005, value: 4 },
+            { id: 2007, value: 5 },
+            { id: 2009, value: 6 },
+            { id: 2011, value: 7 },
+            { id: 2013, value: 8 },
+        ])
+            .pipe(ezs('less', { than: 2005, strict: true, path: 'id' }))
             .on('data', (chunk) => {
                 res.push(chunk);
             })
             .on('end', () => {
                 assert.equal(3, res.length);
                 assert.equal(2000, res[0].id);
-                assert.equal(2003, res[res.length-1].id);
+                assert.equal(2003, res[res.length - 1].id);
                 done();
             });
     });
 
-
     it('drop #1', (done) => {
         const res = [];
-         from([
-             { id: 2000, value: 1 },
-             { id: 2001, value: 2 },
-             { id: 2003, value: 3 },
-             { id: 2005, value: 4 },
-             { id: 2007, value: 5 },
-             { id: 2009, value: 3 },
-             { id: 2011, value: 7 },
-             { id: 2013, value: 8 },
-         ])
-            .pipe(ezs('drop', { if : 3 }))
+        from([
+            { id: 2000, value: 1 },
+            { id: 2001, value: 2 },
+            { id: 2003, value: 3 },
+            { id: 2005, value: 4 },
+            { id: 2007, value: 5 },
+            { id: 2009, value: 3 },
+            { id: 2011, value: 7 },
+            { id: 2013, value: 8 },
+        ])
+            .pipe(ezs('drop', { if: 3 }))
             .on('data', (chunk) => {
                 res.push(chunk);
             })
@@ -729,20 +731,19 @@ describe('test', () => {
             });
     });
 
-
     it('drop #2', (done) => {
         const res = [];
-         from([
-             { id: 2000, value: 1 },
-             { id: 2001, value: 2 },
-             { id: 2003, value: 3 },
-             { id: 2005, value: 4 },
-             { id: 2007, value: 5 },
-             { id: 2003, value: 3 },
-             { id: 2011, value: 7 },
-             { id: 2013, value: 8 },
-         ])
-            .pipe(ezs('drop', { if : 2003, path: 'id' }))
+        from([
+            { id: 2000, value: 1 },
+            { id: 2001, value: 2 },
+            { id: 2003, value: 3 },
+            { id: 2005, value: 4 },
+            { id: 2007, value: 5 },
+            { id: 2003, value: 3 },
+            { id: 2011, value: 7 },
+            { id: 2013, value: 8 },
+        ])
+            .pipe(ezs('drop', { if: 2003, path: 'id' }))
             .on('data', (chunk) => {
                 res.push(chunk);
             })
@@ -754,16 +755,16 @@ describe('test', () => {
 
     it('drop #3', (done) => {
         const res = [];
-         from([
-             { id: 2000, value: 1 },
-             { id: 2001, value: 2 },
-             { id: 2003, value: null },
-             { id: 2005, value: '' },
-             { id: 2007, value: 5 },
-             { id: 2003, value: 3 },
-             { id: 2011, value: undefined },
-             { id: 2013, value: 8 },
-         ])
+        from([
+            { id: 2000, value: 1 },
+            { id: 2001, value: 2 },
+            { id: 2003, value: null },
+            { id: 2005, value: '' },
+            { id: 2007, value: 5 },
+            { id: 2003, value: 3 },
+            { id: 2011, value: undefined },
+            { id: 2013, value: 8 },
+        ])
             .pipe(ezs('drop'))
             .on('data', (chunk) => {
                 res.push(chunk);
@@ -776,17 +777,17 @@ describe('test', () => {
 
     it('drop #4', (done) => {
         const res = [];
-         from([
-             { id: 2000, value: 1 },
-             { id: 2001, value: 2 },
-             { id: 2003, value: 3 },
-             { id: 2005, value: 4 },
-             { id: 2007, value: 5 },
-             { id: 2003, value: 6 },
-             { id: 2011, value: 7 },
-             { id: 2013, value: 8 },
-         ])
-            .pipe(ezs('drop', { if: [2,3,4] }))
+        from([
+            { id: 2000, value: 1 },
+            { id: 2001, value: 2 },
+            { id: 2003, value: 3 },
+            { id: 2005, value: 4 },
+            { id: 2007, value: 5 },
+            { id: 2003, value: 6 },
+            { id: 2011, value: 7 },
+            { id: 2013, value: 8 },
+        ])
+            .pipe(ezs('drop', { if: [2, 3, 4] }))
             .on('data', (chunk) => {
                 res.push(chunk);
             })
@@ -799,16 +800,16 @@ describe('test', () => {
 
     it('drop #5', (done) => {
         const res = [];
-         from([
-             { id: 2000, value: 1 },
-             { id: 2001, value: 2 },
-             { id: 2004, value: 3 },
-             { id: 2005, value: 4 },
-             { id: 2007, value: 5 },
-             { id: 2003, value: 6 },
-             { id: 2011, value: 7 },
-             { id: 2013, value: 8 },
-         ])
+        from([
+            { id: 2000, value: 1 },
+            { id: 2001, value: 2 },
+            { id: 2004, value: 3 },
+            { id: 2005, value: 4 },
+            { id: 2007, value: 5 },
+            { id: 2003, value: 6 },
+            { id: 2011, value: 7 },
+            { id: 2013, value: 8 },
+        ])
             .pipe(ezs('drop', { path: ['id', 'value'], if: [2, 3, 2007, 2003] }))
             .on('data', (chunk) => {
                 res.push(chunk);
@@ -819,20 +820,19 @@ describe('test', () => {
             });
     });
 
-
     it('filter #1', (done) => {
         const res = [];
-         from([
-             { id: 2000, value: 1 },
-             { id: 2001, value: 2 },
-             { id: 2003, value: 3 },
-             { id: 2005, value: 4 },
-             { id: 2007, value: 5 },
-             { id: 2009, value: 3 },
-             { id: 2011, value: 7 },
-             { id: 2013, value: 8 },
-         ])
-            .pipe(ezs('filter', { if : 3 }))
+        from([
+            { id: 2000, value: 1 },
+            { id: 2001, value: 2 },
+            { id: 2003, value: 3 },
+            { id: 2005, value: 4 },
+            { id: 2007, value: 5 },
+            { id: 2009, value: 3 },
+            { id: 2011, value: 7 },
+            { id: 2013, value: 8 },
+        ])
+            .pipe(ezs('filter', { if: 3 }))
             .on('data', (chunk) => {
                 res.push(chunk);
             })
@@ -842,7 +842,6 @@ describe('test', () => {
                 done();
             });
     });
-
 
     it('filter #2', (done) => {
         const res = [];
@@ -856,7 +855,7 @@ describe('test', () => {
             { id: 2011, value: 7 },
             { id: 2013, value: 8 },
         ])
-            .pipe(ezs('filter', { if : 2003, path: 'id' }))
+            .pipe(ezs('filter', { if: 2003, path: 'id' }))
             .on('data', (chunk) => {
                 res.push(chunk);
             })
@@ -901,7 +900,7 @@ describe('test', () => {
             { id: 2011, value: 7 },
             { id: 2013, value: 8 },
         ])
-            .pipe(ezs('filter', { if: [2,3,4] }))
+            .pipe(ezs('filter', { if: [2, 3, 4] }))
             .on('data', (chunk) => {
                 res.push(chunk);
             })
@@ -910,7 +909,6 @@ describe('test', () => {
                 done();
             });
     });
-
 
     it('filter #5', (done) => {
         const res = [];
@@ -937,7 +935,4 @@ describe('test', () => {
                 done();
             });
     });
-
-
-
 });

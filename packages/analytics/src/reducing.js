@@ -1,6 +1,6 @@
 import get from 'lodash.get';
 import Store from './store';
-import core from './core';
+
 /**
  * Take `Object` group value of { id, value } objectpath
  *
@@ -14,7 +14,7 @@ export default function reducing(data, feed) {
     }
     if (this.isLast()) {
         this.store.cast()
-            .on('data', item => feed.write(item))
+            .on('data', (item) => feed.write(item))
             .on('end', () => feed.close());
     } else {
         const id = get(data, this.getParam('id', 'id')) || this.getIndex();

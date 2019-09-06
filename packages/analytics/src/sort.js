@@ -1,5 +1,4 @@
 import get from 'lodash.get';
-import uniq from 'lodash.uniq';
 import Store from './store';
 
 /**
@@ -15,16 +14,17 @@ export default function sort(data, feed) {
     if (this.isLast()) {
         const reverse = this.getParam('reverse', false);
         this.store.cast({ reverse })
-            .on('data', item => feed.write(item.value))
+            .on('data', (item) => feed.write(item.value))
             .on('end', () => feed.close());
     } else {
-
         const path = this.getParam('path', 'id');
         const fields = Array.isArray(path) ? path : [path];
         const values = fields
-            .filter(k => typeof k === 'string')
-            .map(key => get(data, key))
-            .map(val => typeof val === 'number' ? val.toFixed(20).toString().padStart(40, '0') : String(val).slice(0,20).padEnd(20, '~'))
+            .filter((k) => typeof k === 'string')
+            .map((key) => get(data, key))
+            .map((val) => (typeof val === 'number'
+                ? val.toFixed(20).toString().padStart(40, '0')
+                : String(val).slice(0, 20).padEnd(20, '~')));
 
         const key = fields.length > 1 ? values.join(',') : values[0];
         const idx = this.getIndex().toString().padStart(20, '0');

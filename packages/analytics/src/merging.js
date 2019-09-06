@@ -5,8 +5,9 @@ import core from './core';
 
 function customizer(objValue, srcValue) {
     if (Array.isArray(objValue)) {
-        return objValue.concat(srcValue).filter(x => x != null);
-    } else if (objValue) {
+        return objValue.concat(srcValue).filter((x) => x != null);
+    }
+    if (objValue) {
         return [].concat([objValue, srcValue]);
     }
     return objValue;
@@ -29,9 +30,9 @@ export default function merging(data, feed) {
     const values = Array.isArray(value) ? value : [value];
     if (id && value) {
         const vls = values
-            .filter(k => typeof k === 'object')
+            .filter((k) => typeof k === 'object')
             .reduce((prev, cur) => mergeWith(prev, cur, customizer), {});
-        Object.keys(vls).forEach(key => vls[key] === undefined && delete vls[key]);
+        Object.keys(vls).forEach((key) => vls[key] === undefined && delete vls[key]);
         feed.write(core(id, vls));
     }
     feed.end();

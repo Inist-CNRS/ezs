@@ -18,11 +18,11 @@ export default function pluck(data, feed) {
     }
 
     fields
-        .filter(k => typeof k === 'string')
-        .map(key => [key, get(data, key)])
-        .filter(x => x[1])
-        .map(item => ([item[0], (item[1] instanceof Array ? item[1] : [item[1]])]))
-        .reduce((prev, cur) => prev.concat(cur[1].map(x => ([cur[0], x]))), [])
-        .forEach(item => feed.write(core(item[0], item[1])));
+        .filter((k) => typeof k === 'string')
+        .map((key) => [key, get(data, key)])
+        .filter((x) => x[1])
+        .map((item) => ([item[0], (item[1] instanceof Array ? item[1] : [item[1]])]))
+        .reduce((prev, cur) => prev.concat(cur[1].map((x) => ([cur[0], x]))), [])
+        .forEach((item) => feed.write(core(item[0], item[1])));
     feed.end();
 }

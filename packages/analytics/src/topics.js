@@ -12,7 +12,7 @@ export default function topics(data, feed) {
         feed.close();
         return;
     }
-    const topics = this.getParam('topics', 2);
+    const topicsP = this.getParam('topics', 2);
     const terms = this.getParam('terms', 5);
     const language = this.getParam('language', 'en');
     const seed = this.getParam('seed', 123);
@@ -21,7 +21,7 @@ export default function topics(data, feed) {
     const value = get(data, this.getParam('value', 'value'));
     const values = Array.isArray(value) ? value : [value];
     if (id && value) {
-        const result = lda(values, topics, terms, languages, seed);
+        const result = lda(values, topicsP, terms, languages, seed);
         result.forEach((topic, topicIndex) => {
             topic.forEach((term) => {
                 feed.write({ ...term, topic: (topicIndex + 1), id: data.id });
@@ -30,4 +30,3 @@ export default function topics(data, feed) {
     }
     feed.end();
 }
-

@@ -15,11 +15,11 @@ export default function distinct(data, feed) {
     const fields = Array.isArray(path) ? path : [path];
 
     fields
-        .filter(k => typeof k === 'string')
-        .map(key => get(data, key))
-        .filter(x => x)
-        .map(item => (item instanceof Array ? item : [item]))
+        .filter((k) => typeof k === 'string')
+        .map((key) => get(data, key))
+        .filter((x) => x)
+        .map((item) => (item instanceof Array ? item : [item]))
         .reduce((pre, cur) => pre.concat(cur), [])
-        .forEach(item => feed.write(core(item, 1)));
+        .forEach((item) => feed.write(core(item, 1)));
     feed.end();
 }

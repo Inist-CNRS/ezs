@@ -18,7 +18,7 @@ function hammingDistance(x, y) {
     return distance;
 }
 
-const equalTo = (id, distance) => item => item.id.some(key => hammingDistance(key, id) <= distance);
+const equalTo = (id, distance) => (item) => item.id.some((key) => hammingDistance(key, id) <= distance);
 
 /**
  * Take `Object` like { id, value } and reduce all value with
@@ -33,7 +33,7 @@ export default function groupingByHamming(data, feed) {
         this.stats = [];
     }
     if (this.isLast()) {
-        this.stats.forEach(key => feed.write(core(key.id, key.value)));
+        this.stats.forEach((key) => feed.write(core(key.id, key.value)));
         feed.close();
         return;
     }

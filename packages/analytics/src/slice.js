@@ -1,6 +1,3 @@
-import get from 'lodash.get';
-import { store } from './globals';
-
 /**
  * Take `Object` and throw the same object onl if there in the section of the stream between start and start + size
  * stream is numbered from 1
@@ -11,9 +8,10 @@ import { store } from './globals';
  */
 export default function slice(data, feed) {
     if (this.isLast()) {
-        return feed.close();
+        feed.close();
+        return;
     }
-    const start = Number(this.getParam('start')) || 1;
+    const start = Number(this.getParam('start')) || 1;
     const size = Number(this.getParam('size')) || 10;
     const stop = start + size;
     const index = Number(this.getIndex());
@@ -27,5 +25,3 @@ export default function slice(data, feed) {
         feed.end();
     }
 }
-
-

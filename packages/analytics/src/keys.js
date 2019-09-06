@@ -11,6 +11,6 @@ export default function keys(data, feed) {
         return;
     }
     Object.keys(data)
-        .forEach(item => feed.write(core(item, 1)));
+        .forEach((item) => feed.write(core(item, 1)));
     feed.end();
 }

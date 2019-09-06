@@ -2,7 +2,7 @@ import get from 'lodash.get';
 import uniq from 'lodash.uniq';
 import core from './core';
 
-const equalTo = id => item => item.id.some(key => key === id);
+const equalTo = (id) => (item) => item.id.some((key) => key === id);
 /**
  * Take `Object` like { id, value } and reduce all value with the same id in single object
  *
@@ -15,7 +15,7 @@ export default function groupingByEquality(data, feed) {
         this.stats = [];
     }
     if (this.isLast()) {
-        this.stats.forEach(key => feed.write(core(key.id, key.value)));
+        this.stats.forEach((key) => feed.write(core(key.id, key.value)));
         feed.close();
         return;
     }

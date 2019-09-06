@@ -9,18 +9,18 @@ import get from 'lodash.get';
  */
 export default function filter(data, feed) {
     if (this.isLast()) {
-        return feed.close();
+        feed.close(); return;
     }
     const path = this.getParam('path', 'value');
     const paths = Array.isArray(path) ? path : [path];
-    const condition = this.getParam('if') || [];
+    const condition = this.getParam('if') || [];
     const conditions = Array.isArray(condition) ? condition : [condition];
 
     if (conditions.length === 0) {
         conditions.push('', null, undefined);
     }
 
-    if (paths.map(p => conditions.indexOf(get(data, p)) !== -1).indexOf(true) !== -1) {
+    if (paths.map((p) => conditions.indexOf(get(data, p)) !== -1).indexOf(true) !== -1) {
         feed.send(data);
     } else {
         feed.end();

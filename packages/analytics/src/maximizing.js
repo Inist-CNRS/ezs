@@ -16,7 +16,7 @@ export default function maximizing(data, feed) {
     const value = get(data, this.getParam('value', 'value'));
     const values = Array.isArray(value) ? value : [value];
     if (id && value) {
-        feed.write(core(id, values.map(x => Number(x)).reduce((a, b) => (a > b ? a : b))));
+        feed.write(core(id, values.map((x) => Number(x)).reduce((a, b) => (a > b ? a : b))));
     }
     feed.end();
 }

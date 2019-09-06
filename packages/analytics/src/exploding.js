@@ -17,7 +17,7 @@ export default function exploding(data, feed) {
     const value = get(data, this.getParam('value', 'value'));
     const values = Array.isArray(value) ? value : [value];
     if (id && value) {
-        values.forEach(val => feed.write(core(id, val)));
+        values.forEach((val) => feed.write(core(id, val)));
     }
 
     feed.end();

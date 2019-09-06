@@ -18,16 +18,16 @@ export default function graph(data, feed) {
     }
 
     const values = fields
-        .map(key => get(data, key))
-        .filter(x => x)
-        .map(item => (item instanceof Array ? item : [item]))
+        .map((key) => get(data, key))
+        .filter((x) => x)
+        .map((item) => (item instanceof Array ? item : [item]))
         .reduce((pre, cur) => pre.concat(cur), [])
         .sort();
 
     values.forEach(
         (v, i) => values
-        .slice(i + 1)
-        .forEach(w => feed.write(core([v, w], 1))),
+            .slice(i + 1)
+            .forEach((w) => feed.write(core([v, w], 1))),
     );
     feed.end();
 }

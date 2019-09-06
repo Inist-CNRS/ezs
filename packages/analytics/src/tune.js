@@ -16,57 +16,53 @@ import clone from 'lodash.clone';
 import core from './core';
 
 
-
 const normalize = (s) => {
     if (typeof s === 'string') {
         return String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').padEnd(40, '~');
-    } else if (typeof s === 'number') {
-        return s.toFixed(20).toString().padStart(40, '0');
-    } else {
-        return String(s);
     }
-}
+    if (typeof s === 'number') {
+        return s.toFixed(20).toString().padStart(40, '0');
+    }
+    return String(s);
+};
 
 const vector = (input, size) => {
     const v = Array(size).fill(0);
-    input.split('').map(x => x.charCodeAt(0)).forEach((x, i) => v[i] = x);
+    input.split('').map((x) => x.charCodeAt(0)).forEach((x, i) => { v[i] = x; });
     return v;
 };
 
 const cosine = (x, y) => {
     const m = Math.max(x.length, y.length);
     return _cosine(vector(normalize(x), m), vector(normalize(y), m));
-}
+};
 
 const hamming = (x, y) => {
     const m = Math.max(x.length, y.length);
     return _hamming(vector(normalize(x), m), vector(normalize(y), m));
-}
+};
 
 const euclidean = (x, y) => {
     const m = Math.max(x.length, y.length);
     return _euclidean(vector(normalize(x), m), vector(normalize(y), m));
-}
+};
 
 const canberra = (x, y) => {
     const m = Math.max(x.length, y.length);
     return _canberra(vector(normalize(x), m), vector(normalize(y), m));
-}
+};
 
 const chebyshev = (x, y) => {
     const m = Math.max(x.length, y.length);
     return _chebyshev(vector(normalize(x), m), vector(normalize(y), m));
-}
+};
 
 const manhattan = (x, y) => {
     const m = Math.max(x.length, y.length);
     return _manhattan(vector(normalize(x), m), vector(normalize(y), m));
-}
+};
 
-const numerical = (x, y) => {
-    return (x + 1) / ( y + 1);
-}
-
+const numerical = (x, y) => (x + 1) / (y + 1);
 
 
 const methods = {
@@ -101,8 +97,8 @@ export default function tune(data, feed) {
     const method = this.getParam('method', 'natural');
     const fields = Array.isArray(path) ? path : [path];
     const currentValue = fields
-        .filter(k => typeof k === 'string')
-        .map(key => get(data, key))
+        .filter((k) => typeof k === 'string')
+        .map((key) => get(data, key))
         .shift();
 
     if (!methods[method] && method !== 'natural') {
@@ -111,15 +107,16 @@ export default function tune(data, feed) {
 
 
     if (method === 'natural') {
-        return feed.send(core(normalize(currentValue), data));
-
+        feed.send(core(normalize(currentValue), data));
+        return;
     }
 
 
     if (!this.previousValue) {
         this.previousValue = currentValue;
         this.previousDistance = 1;
-        return feed.send(core(1, data));
+        feed.send(core(1, data));
+        return;
     }
 
 
@@ -138,7 +135,6 @@ AAA > null VS AAA = 1       >>  1              = 1
 EEE >  AAA VS EZZ = 0.333   >>  1 / 0.33       = 3,0303
 ZZZ >  EEE VS ZZZ = -0.89   >> 3,0303 / - 0,89 = −3,404831461
 SSS >  ZZZ VS SSS = 1.66    >> -3,4048 / 1,66  = −2,05110329
-
 
 
 1

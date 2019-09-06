@@ -1,8 +1,8 @@
 const assert = require('assert');
 const from = require('from');
-const ezs = require('ezs');
+const ezs = require('../../core/src');
 
-ezs.use(require('../lib'));
+ezs.use(require('../src'));
 
 describe('network', () => {
     it('graph', (done) => {
@@ -87,28 +87,28 @@ describe('network', () => {
         from([
             {
                 id: 'doc#1',
-                a: [ 1, 2, 3 ],
-                b: [ 1, 2, 4 ]
+                a: [1, 2, 3],
+                b: [1, 2, 4],
             },
             {
                 id: 'doc#2',
-                a: [ 1, 2, 4 ],
-                b: [ 1, 2, 4 ]
+                a: [1, 2, 4],
+                b: [1, 2, 4],
             },
             {
                 id: 'doc#3',
                 c: [
-                    [ 1, 2, 6 ],
-                    [ 1, 2, 7 ]
-                ]
+                    [1, 2, 6],
+                    [1, 2, 7],
+                ],
             },
             {
                 id: 'doc#4',
-                a: [ 1, 2, 3 ],
-                b: [ 1, 2, 7 ]
+                a: [1, 2, 3],
+                b: [1, 2, 7],
             },
         ])
-            .pipe(ezs('segment', { aggregate : false, path: ['a', 'b', 'c'] }))
+            .pipe(ezs('segment', { aggregate: false, path: ['a', 'b', 'c'] }))
             .on('data', (chunk) => {
                 assert(typeof chunk === 'object');
                 res.push(chunk);
@@ -168,5 +168,4 @@ describe('network', () => {
                 done();
             });
     });
-
 });

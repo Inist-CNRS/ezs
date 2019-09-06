@@ -19,25 +19,25 @@ export default function segment(data, feed) {
     const fields = Array.isArray(path) ? path : [path];
 
     const valuesOrig = fields
-        .filter(k => typeof k === 'string')
-        .map(key => get(data, key))
-        .filter(x => x)
-        .map(item => (Array.isArray(item) ? item : [item]))
+        .filter((k) => typeof k === 'string')
+        .map((key) => get(data, key))
+        .filter((x) => x)
+        .map((item) => (Array.isArray(item) ? item : [item]));
 
     const values = valuesOrig[0] && Array.isArray(valuesOrig[0][0]) ? flatten(valuesOrig) : valuesOrig;
 
     if (aggr) {
         values.reduce((pre, cur) => pre.concat(cur), [])
-        .reduce((pre, cur) => {
-            if (pre) {
-                feed.write(core([pre, cur], 1))
-            }
-            return cur;
-        }, false);
+            .reduce((pre, cur) => {
+                if (pre) {
+                    feed.write(core([pre, cur], 1));
+                }
+                return cur;
+            }, false);
     } else {
-        values.map(item => item.reduce((pre, cur) => {
+        values.map((item) => item.reduce((pre, cur) => {
             if (pre) {
-                feed.write(core([pre, cur], 1))
+                feed.write(core([pre, cur], 1));
             }
             return cur;
         }, false));

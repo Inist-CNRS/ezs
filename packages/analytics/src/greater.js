@@ -1,7 +1,8 @@
 import get from 'lodash.get';
 
 /**
- * Take `Object` and throw the same object only if there the value of the select field is greater (or equal) than a value 
+ * Take `Object` and throw the same object only if there the value of the select
+ * field is greater (or equal) than a value
  *
  * @param {String} [path=value] path of the field to compare
  * @param {Number} [than=0] value to compare
@@ -10,10 +11,10 @@ import get from 'lodash.get';
  */
 export default function greater(data, feed) {
     if (this.isLast()) {
-        return feed.close();
+        feed.close(); return;
     }
     const strict = Boolean(this.getParam('strict', false));
-    const than = Number(this.getParam('than')) || 0;
+    const than = Number(this.getParam('than')) || 0;
     const path = this.getParam('path', 'value');
     const key = Array.isArray(path) ? path.shift() : path;
     const value = Number(get(data, key)) || 0;
@@ -24,5 +25,3 @@ export default function greater(data, feed) {
         feed.end();
     }
 }
-
-

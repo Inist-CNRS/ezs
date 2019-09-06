@@ -1,8 +1,8 @@
 const assert = require('assert');
 const from = require('from');
-const ezs = require('ezs');
+const ezs = require('../../core/src');
 
-ezs.use(require('../lib'));
+ezs.use(require('../src'));
 
 describe('topics', () => {
     it('should return when topics', (done) => {

@@ -17,9 +17,9 @@ export default function count(data, feed) {
     }
 
     fields
-        .filter(k => typeof k === 'string')
-        .filter(key => get(data, key))
-        .filter(x => x)
-        .forEach(item => feed.write(core(item, 1)));
+        .filter((k) => typeof k === 'string')
+        .filter((key) => get(data, key))
+        .filter((x) => x)
+        .forEach((item) => feed.write(core(item, 1)));
     feed.end();
 }

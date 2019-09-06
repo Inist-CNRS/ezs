@@ -6,12 +6,12 @@ export default function output(data, feed) {
     const indent = this.getParam('indent', false);
     const extract = this.getParam('extract');
     const extracts = Array.isArray(extract) ? extract : [extract];
-    const keys = extracts.filter(x => x);
+    const keys = extracts.filter((x) => x);
 
-    const json = d => JSON.stringify(d, null, indent ? '    ' : null);
+    const json = (d) => JSON.stringify(d, null, indent ? '    ' : null);
 
     if (this.isFirst() && !this.isLast()) {
-        const values = keys.map(p => get(data, p));
+        const values = keys.map((p) => get(data, p));
         feed.write('{');
         if (keys.length > 0) {
             keys.forEach((k, index) => {
@@ -28,7 +28,7 @@ export default function output(data, feed) {
         feed.write(',\n');
     }
     if (!this.isLast()) {
-        keys.forEach(p => unset(data, p));
+        keys.forEach((p) => unset(data, p));
         feed.write(json(data));
     } else if (this.isLast() && this.getIndex() > 0) {
         feed.write(']}');

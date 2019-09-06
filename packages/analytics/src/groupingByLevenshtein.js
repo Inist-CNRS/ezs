@@ -35,7 +35,7 @@ function levenshteinDistance(a, b) {
     return distanceMatrix[b.length][a.length];
 }
 
-const equalTo = (id, distance) => item => item.id.some(key => levenshteinDistance(key, id) <= distance);
+const equalTo = (id, distance) => (item) => item.id.some((key) => levenshteinDistance(key, id) <= distance);
 
 /**
  * Take `Object` like { id, value } and reduce all value with
@@ -51,12 +51,12 @@ export default function groupingByLevenshtein(data, feed) {
         this.stats = [];
     }
     if (this.isLast()) {
-        this.stats.forEach(key => feed.write(core(key.id, key.value)));
+        this.stats.forEach((key) => feed.write(core(key.id, key.value)));
         feed.close();
         return;
     }
     const distance = Number(this.getParam('distance', 1)) || 1;
-    const id = get(data, this.getParam('id', 'id')) || this.getIndex();    
+    const id = get(data, this.getParam('id', 'id')) || this.getIndex();
     const value = get(data, this.getParam('value', 'value'));
     const finder = equalTo(id, distance);
     if (id && value) {

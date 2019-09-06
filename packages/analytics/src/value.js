@@ -15,9 +15,10 @@ export default function value(data, feed) {
     const fields = Array.isArray(path) ? path : [path];
 
     const val = fields
-        .filter(k => typeof k === 'string')
-        .map(key => get(data, key))
-        .filter(x => x)
+        .filter((k) => typeof k === 'string')
+        .map((key) => get(data, key))
+        .filter((x) => x)
+        // eslint-disable-next-line no-unexpected-multiline
         [0];
     feed.send(val);
 }

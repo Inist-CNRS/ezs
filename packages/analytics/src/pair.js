@@ -18,16 +18,16 @@ export default function pair(data, feed) {
     }
 
     const values = fields
-        .map(key => get(data, key))
-        .filter(x => x)
-        .map(item => (item instanceof Array ? item : [item]));
+        .map((key) => get(data, key))
+        .filter((x) => x)
+        .map((item) => (item instanceof Array ? item : [item]));
 
     values
         .forEach((v, i) => {
             const a = values.slice(i + 1).reduce((pre, cur) => pre.concat(cur), []);
             if (a.length > 0) {
                 v.forEach((w) => {
-                    a.forEach(x => feed.write(core([w, x], 1)));
+                    a.forEach((x) => feed.write(core([w, x], 1)));
                 });
             }
         });

@@ -1,5 +1,4 @@
 import get from 'lodash.get';
-import set from 'lodash.set';
 import core from './core';
 import Store from './store';
 
@@ -15,7 +14,6 @@ import Store from './store';
  * @returns {Object}
  */
 export default function distribute(data, feed) {
-
     const id = get(data, this.getParam('id', 'id')) || this.getIndex();
     const value = get(data, this.getParam('value', 'value'));
 
@@ -25,40 +23,39 @@ export default function distribute(data, feed) {
         this.min = null;
     }
     if (this.isLast()) {
-
         const start = Number(this.getParam('start', this.min));
         const step = Number(this.getParam('step', 1));
-        const size = Number(this.getParam('size', (this.max - this.min) ));
+        const size = Number(this.getParam('size', (this.max - this.min)));
         const leng = Math.ceil(size / step);
         const stop = start + size;
         const defval = this.getParam('default', 0);
 
         const ruler = Array(leng);
         let j = 0;
-        for (let i = start; i <= stop;  i += step) {
+        for (let i = start; i <= stop; i += step) {
             ruler[j] = i;
-            ++j;
+            j += 1;
         }
         let x = 0;
         this.store.cast()
-            .on('data', item => {
-                const key = parseInt(item.id)
+            .on('data', (item) => {
+                const key = parseInt(item.id, 10);
                 const idx = ruler.indexOf(key);
                 if (idx > x) {
-                    for (let k = x; k < idx; ++k) {
+                    for (let k = x; k < idx; k += 1) {
                         const newobj = core(ruler[k], defval);
                         feed.write(newobj);
-                        ++x;
+                        x += 1;
                     }
                     feed.write(item.value);
-                    ++x;
+                    x += 1;
                 } else if (idx === x) {
                     feed.write(item.value);
-                    ++x;
+                    x += 1;
                 }
             })
             .on('end', () => {
-                for (let l = x; l < ruler.length; ++l) {
+                for (let l = x; l < ruler.length; l += 1) {
                     const newobj = core(ruler[l], defval);
                     feed.write(newobj);
                 }
