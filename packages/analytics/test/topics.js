@@ -24,7 +24,7 @@ describe('topics', () => {
                 res.push(chunk);
             })
             .on('end', () => {
-                assert.equal('dogs', res[0].term);
+                expect(res.map((item) => item.term)).toContain('dogs');
                 assert.equal(10, res.length);
                 done();
             });
