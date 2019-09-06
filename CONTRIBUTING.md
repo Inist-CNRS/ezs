@@ -107,7 +107,17 @@ The `packages/core/package.json` has to be adapted:
 We want to use the same dev depencies for all packages, so we can hoist them to
 the root of the lerna repository.
 
-Don't hoist devDependencies like `@ezs/core`.
+Don't hoist devDependencies like `@ezs/core` (but you shouldn't depend on `@ezs`
+package, see [Use the src files in tests](#use-the-src-files-in-tests)).
+
+### Install package dependencies
+
+To install the dependencies of the packages, use
+[bootstrap](https://github.com/lerna/lerna/tree/master/commands/bootstrap).
+
+```bash
+npx lerna bootstrap
+```
 
 ### Use jest for tests
 
