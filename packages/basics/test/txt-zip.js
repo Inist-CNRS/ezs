@@ -1,9 +1,9 @@
 const assert = require('assert');
 const from = require('from');
-const ezs = require('@ezs/core');
 const pako = require('pako');
+const ezs = require('../../core/src');
 
-ezs.use(require('../lib'));
+ezs.use(require('../src'));
 
 describe('txt-zip', () => {
     it('should zip a stream containing a string', (done) => {

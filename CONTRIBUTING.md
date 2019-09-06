@@ -117,6 +117,24 @@ If you come from mocha, you have to change the `it(...).timeout(10000)`s to
 Also, consider that tests are launched from the repository's root, not from the
 packages' root.
 
+### Use the src files in tests
+
+To have right test coverage numbers, use `require('../src')` instead of
+`require('../lib')`, and
+
+```js
+const ezs = require('../../core/src');
+```
+
+instead of
+
+```js
+const ezs = require('@ezs/core');
+```
+
+If you don't, transpiled files are used (`lib`), and they ignored by jest
+coverage.
+
 ### List the new package
 
 Add the new package in the list of the [root's README](./README.md).
