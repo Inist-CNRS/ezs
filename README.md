@@ -10,6 +10,7 @@ Repository containing all @ezs packages (monorepo)
 
 - [@ezs/core](./packages/core#readme)
 - [@ezs/basics](./packages/basics#readme)
+- [@ezs/analytics](./packages/analytics#readme)
 
 ## History
 
