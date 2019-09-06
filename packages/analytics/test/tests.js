@@ -235,7 +235,7 @@ describe('test', () => {
     });
 
     it('merging #2', (done) => {
-        const commands = `
+        const script = `
             [replace]
             path = id
             value = get('a')
@@ -271,7 +271,7 @@ describe('test', () => {
             { a: 'ipsum', b2: '2015', c2: 2 },
 
         ])
-            .pipe(ezs.fromString(commands))
+            .pipe(ezs('delegate', { script }))
             .on('data', (chunk) => {
                 assert(typeof chunk === 'object');
                 res.push(chunk);
@@ -314,7 +314,7 @@ describe('test', () => {
     });
 
     it.skip('exploding', (done) => {
-        const commands = `
+        const script = `
             [exploding]
             id = id
             value = value
@@ -354,7 +354,7 @@ describe('test', () => {
                 ],
             },
         ])
-            .pipe(ezs.fromString(commands))
+            .pipe(ezs('delegate', { script }))
             .on('data', (chunk) => {
                 assert(typeof chunk === 'object');
                 res.push(chunk);
@@ -366,7 +366,7 @@ describe('test', () => {
     });
 
     it('split & count', (done) => {
-        const commands = `
+        const script = `
             [replace]
             path = id
             value = a
@@ -396,7 +396,7 @@ describe('test', () => {
             { a: 'adipiscing elit sit amet' },
             { a: 'consectetur adipiscing lorem ipsum dolor sit amet' },
         ])
-            .pipe(ezs.fromString(commands))
+            .pipe(ezs('delegate', { script }))
             .on('data', (chunk) => {
                 assert(typeof chunk === 'object');
                 res.push(chunk);
