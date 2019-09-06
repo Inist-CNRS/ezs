@@ -44,10 +44,10 @@
     "postversion": "git push && git push --tags"
   },
   "publishConfig": {
-    "acces": "public"
+    "access": "public"
   },
   "peerDependencies": {
     "@ezs/core": "*"
   },
-  "gitHead": "e67c68e05ca3f82373c83f08424f3cb8b91933c2"
+  "gitHead": "5657de2b3756cf343d9d8b7e3ed759ed43868bab"
 }
