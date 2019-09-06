@@ -98,9 +98,15 @@ The `packages/core/package.json` has to be adapted:
 - its `bugs.url`
 - its `homepage`, from `https://github.com/touv/node-ezs#readme` to
   `https://github.com/Inist-CNRS/ezs/packages/core#readme`
+- change `dependencies` version from `^a.b.c` to `~a.b.c`
 - add a `publishConfig.access` and set it to `"public"`
 - modify the `build` script if necessary: from `babel src --out-dir lib` to
   `babel --root-mode upward src --out-dir lib`
+- replace, in `peerDependencies`, `"ezs": "^5.1.4"` with `"@ezs/core": "*"`
+
+### Adapt README
+
+Rename `ezs` to `@ezs/core`...
 
 ### Hoist devDependencies
 
@@ -144,6 +150,14 @@ const ezs = require('@ezs/core');
 
 If you don't, transpiled files are used (`lib`), and they ignored by jest
 coverage.
+
+### Lint the JavaScript files
+
+To lint a single package (say `@ezs/analytics`), use:
+
+```bash
+npx lerna run lint --scope=@ezs/analytics
+```
 
 ### List the new package
 
