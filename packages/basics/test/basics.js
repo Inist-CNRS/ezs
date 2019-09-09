@@ -237,6 +237,67 @@ describe('test', () => {
                 done();
             });
     });
+
+    it('CSVObject #5 same column name', (done) => {
+        let res = [];
+        from([
+            ['a', 'a', 'b', 'b', 'b'],
+            [1, 2, 3, 4, 5],
+        ])
+            .pipe(ezs('CSVObject'))
+            .on('data', (chunk) => {
+                expect(typeof chunk).toBe('object');
+                res = [...res, chunk];
+            })
+            .on('end', () => {
+                expect(res).toStrictEqual([{
+                    a1: 1,
+                    a2: 2,
+                    b1: 3,
+                    b2: 4,
+                    b3: 5,
+                }]);
+                done();
+            });
+    });
+
+    it('CSVObject #6 lacking column name', (done) => {
+        let res = [];
+        from([
+            ['a'],
+            [1, 2],
+        ])
+            .pipe(ezs('CSVObject'))
+            .on('data', (chunk) => {
+                expect(typeof chunk).toBe('object');
+                res = [...res, chunk];
+            })
+            .on('end', () => {
+                expect(res).toStrictEqual([{
+                    a: 1,
+                    'Column #1': 2,
+                }]);
+                done();
+            });
+    });
+
+    it('CSVObject #7 data not array', (done) => {
+        let res = [];
+        from([
+            ['a'],
+            { z: 1 },
+        ])
+            .pipe(ezs('CSVObject'))
+            .on('data', (chunk) => {
+                expect(typeof chunk).toBe('object');
+                res = [...res, chunk];
+            })
+            .on('end', () => {
+                expect(res).toStrictEqual([]);
+                done();
+            });
+    });
+
     it('OBJStandardize #1', (done) => {
         from([
             {
