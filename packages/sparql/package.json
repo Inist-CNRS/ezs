@@ -1,20 +1,20 @@
 {
-  "name": "ezs-sparql",
+  "name": "@ezs/sparql",
   "version": "1.0.0",
-  "description": "sparql module for ezs",
+  "description": "SPARQL module for ezs",
   "main": "./lib/index.js",
   "scripts": {
-    "test": "jest",
-    "test:watch": "npm test -- --watch",
-    "test:coverage": "npm test -- --coverage",
     "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
     "doc": "documentation readme package.json src/* --section=Statements",
-    "build": "babel src --out-dir lib",
+    "build": "babel --root-mode upward src --out-dir lib",
     "prepublish": "npm run build"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Inist-CNRS/node-ezs-sparql.git"
+    "url": "git+https://github.com/Inist-CNRS/ezs.git"
   },
   "keywords": [
     "ezs",
@@ -32,9 +32,12 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Inist-CNRS/node-ezs-sparql/issues"
+    "url": "https://github.com/Inist-CNRS/ezs/issues"
   },
-  "homepage": "https://github.com/Inist-CNRS/node-ezs-sparql#readme",
+  "homepage": "https://github.com/Inist-CNRS/ezs/packages/sparql#readme",
+  "dependencies": {
+
+  },
   "devDependencies": {
     "@babel/cli": "7.4.4",
     "@babel/core": "7.4.4",
