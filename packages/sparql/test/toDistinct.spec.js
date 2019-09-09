@@ -1,6 +1,6 @@
 import assert from 'assert';
-import ezs from 'ezs';
 import from from 'from';
+import ezs from '../../core/src';
 import statement from '../src';
 
 ezs.use(statement);
