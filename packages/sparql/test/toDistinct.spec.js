@@ -12,7 +12,7 @@ test('get an error when result has not enougth columns', (done) => {
       { "p": { "type": "uri", "value": "http://purl.org/dc/terms/created" }},
       { "p": { "type": "uri", "value": "http://purl.org/dc/terms/modified" }} ] } }`)])
         .pipe(ezs('SPARQLToDistinct'))
-        .pipe(ezs.catch(e => e))
+        .pipe(ezs.catch((e) => e))
         .on('data', () => {
             done(new Error('Should not work'));
         })
@@ -29,7 +29,7 @@ test('get an error when the second column is not a number', (done) => {
       { "s": { "type": "uri", "value": "http://www.openlinksw.com/virtrdf-data-formats#default-iid-nullable" }, "p": { "type": "uri", "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" }},
       { "s": { "type": "uri", "value": "http://www.openlinksw.com/virtrdf-data-formats#default-iid-nonblank" }, "p": { "type": "uri", "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" }} ] } }`)])
         .pipe(ezs('SPARQLToDistinct'))
-        .pipe(ezs.catch(e => e))
+        .pipe(ezs.catch((e) => e))
         .on('data', () => {
             done(new Error('Should not work !'));
         })
@@ -46,7 +46,7 @@ test('ignore the extra columns', (done) => {
       { "libellecatinist": { "type": "literal", "xml:lang": "fr", "value": "Chimie analytique" }, "totallibellecatinist": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "50760" }, "perThousand": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "5" }},
       { "libellecatinist": { "type": "literal", "xml:lang": "fr", "value": "Biotechnologie. bioteterioration" }, "totallibellecatinist": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "38582" }, "perThousand": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "4" }} ] } }`)])
         .pipe(ezs('SPARQLToDistinct'))
-        .pipe(ezs.catch(e => e))
+        .pipe(ezs.catch((e) => e))
         .on('data', (data) => {
             data.data.forEach((elem) => {
                 assert.ok(elem._id);
@@ -65,7 +65,7 @@ test('verify result information and structure', (done) => {
                  { "g": { "type": "uri", "value": "https://bibliography.data.istex.fr/notice/graph" }, "nb": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "308023584" }},
                  { "g": { "type": "uri", "value": "https://scopus-category.data.istex.fr/graph" }, "nb": { "type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "2542" }} ] } }`)])
         .pipe(ezs('SPARQLToDistinct'))
-        .pipe(ezs.catch(e => e))
+        .pipe(ezs.catch((e) => e))
         .on('data', (data) => {
             assert.strictEqual(typeof data, 'object');
             assert.ok(JSON.stringify(data));

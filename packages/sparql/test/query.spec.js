@@ -8,7 +8,7 @@ ezs.use(statements);
 test('get an error when empty query', (done) => {
     from([{ query: '', endpoint: 'https://data.istex.fr/sparql/' }])
         .pipe(ezs('SPARQLQuery'))
-        .pipe(ezs.catch(e => e))
+        .pipe(ezs.catch((e) => e))
         .on('data', () => {
             done(new Error('Should not work'));
         })
@@ -21,7 +21,7 @@ test('get an error when empty query', (done) => {
 test('get an error when empty SPQARQL endpoint', (done) => {
     from([{ query: 'SELECT * WHERE { ?subject ?verb ?complement . } LIMIT 100', endpoint: '' }])
         .pipe(ezs('SPARQLQuery'))
-        .pipe(ezs.catch(e => e))
+        .pipe(ezs.catch((e) => e))
         .on('data', () => {
             done(new Error('Should not work'));
         })
@@ -34,7 +34,7 @@ test('get an error when empty SPQARQL endpoint', (done) => {
 test('get an error when incorrect SPARQL endpoint', (done) => {
     from([{ query: 'SELECT * WHERE { ?subject ?verb ?complement . } LIMIT 100', endpoint: 'https://data.istex.fr/spa' }])
         .pipe(ezs('SPARQLQuery'))
-        .pipe(ezs.catch(e => e))
+        .pipe(ezs.catch((e) => e))
         .on('data', () => {
             done(new Error('Should not work'));
         })
@@ -48,7 +48,7 @@ test('get an error when incorrect SPARQL endpoint', (done) => {
 test('verify format response is in json', (done) => {
     from([{ query: 'SELECT * WHERE { ?subject ?verb ?complement . } LIMIT 100', endpoint: 'https://data.istex.fr/sparql/' }])
         .pipe(ezs('SPARQLQuery'))
-        .pipe(ezs.catch(e => e))
+        .pipe(ezs.catch((e) => e))
         .on('data', (data) => {
             if (typeof data !== 'object' || !JSON.stringify(data)) {
                 done(new Error('The data are not a JSON object !'));

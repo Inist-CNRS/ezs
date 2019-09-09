@@ -8,7 +8,7 @@ ezs.use(statements);
 test('get an error when empty link', (done) => {
     from([{ linkQuery: '' }])
         .pipe(ezs('SPARQLDecodeQuery'))
-        .pipe(ezs.catch(e => e))
+        .pipe(ezs.catch((e) => e))
         .on('data', () => {
             done(new Error('Should not work'));
         })
@@ -21,7 +21,7 @@ test('get an error when empty link', (done) => {
 test('get an error when incorrect link', (done) => {
     from([{ linkQuery: 'http://192.168.31.146:49452/triplestore/sparql/#linkincorrect' }])
         .pipe(ezs('SPARQLDecodeQuery'))
-        .pipe(ezs.catch(e => e))
+        .pipe(ezs.catch((e) => e))
         .on('data', () => {
             done(new Error('Should not work'));
         })
