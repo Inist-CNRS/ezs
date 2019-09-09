@@ -68,4 +68,30 @@ describe('TXTParse', () => {
                 done();
             });
     });
+
+    it('should generate with a separator parameter', (done) => {
+        let res = [];
+        from(['a*b*', 'c*d*'])
+            .pipe(ezs('TXTParse', { separator: '*' }))
+            .on('data', (data) => {
+                res = [...res, data];
+            })
+            .on('end', () => {
+                expect(res).toStrictEqual(['a', 'b', 'c', 'd']);
+                done();
+            });
+    });
+
+    it('should not generate with a tab separator', (done) => {
+        let res = [];
+        from(['a\tb\t', 'c\td\t'])
+            .pipe(ezs('TXTParse', { separator: '\t' }))
+            .on('data', (data) => {
+                res = [...res, data];
+            })
+            .on('end', () => {
+                expect(res).toStrictEqual([]);
+                done();
+            });
+    });
 });
