@@ -1,12 +1,12 @@
 # Install
 
-```
+```bash
 npm install -g ezs
 ```
 
-# Run exemples
+## Run exemples
 
-```
+```bash
 ./csv-to-json.ezs < data/csv
 ./chunk-counter.ezs < data/csv
 ./compute.ezs < data/csv
@@ -20,5 +20,4 @@ npm install -g ezs
 ./xml-to-csv.ezs < data/rss
 ./url-fetch.ezs < data/csv
 ./url-merge.ezs < data/csv
-
 ```
