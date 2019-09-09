@@ -1,14 +1,18 @@
-# node-ezs-sparql
+# @ezs/sparql
+
+[![npm version](https://img.shields.io/npm/v/@ezs/sparql)](https://npm.im/@ezs/sparql)
+[![license](https://img.shields.io/npm/l/@ezs/sparql)](https://npm.im/@ezs/sparql)
 
 SPARQL module for ezs
 
-This package cannot be used alone. [ezs](https://www.npmjs.com/package/ezs) has to be installed
+This package cannot be used alone.
+[@ezs/core](https://www.npmjs.com/package/@ezs/core) has to be installed
 
 ## Usage
 
 ```js
-import ezs from 'ezs';
-import sparql from 'ezs-sparql';
+import ezs from '@ezs/core';
+import sparql from '@ezs/sparql';
 
 ezs.use(sparql);
 
