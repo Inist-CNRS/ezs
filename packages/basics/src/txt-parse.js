@@ -34,7 +34,7 @@ function TXTParse(data, feed) {
  * @name TXTParse
  * @alias split
  * @alias segmenter
- * @param {String} [separtor=\n] choose character which trigger the split
+ * @param {String} [separator="\n"] choose character which trigger the split
  * @returns {String}
  */
 export default {
