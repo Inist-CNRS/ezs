@@ -42,7 +42,7 @@ WHERE {
 }
 LIMIT 100`);
             assert.strictEqual(endpoint, 'https://data.istex.fr/sparql/');
-            done();
         })
+        .on('end', done)
         .on('error', done);
 });
