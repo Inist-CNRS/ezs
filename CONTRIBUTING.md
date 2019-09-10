@@ -22,7 +22,7 @@ There are tools to ease conventional commits:
 
 Use [jest](https://jestjs.io) to create tests.
 
-Put your tests files into a package's `__tests__` directory.
+Put your tests files into a package's `__tests__`, or `test` directory.
 
 Then, you can run all tests via
 
@@ -88,6 +88,14 @@ git clone https://github.com/touv/node-ezs ../old-ezs/core
 npx lerna import ../old-ezs/core --flatten --preserve-commit
 ```
 
+### Remove package-lock
+
+Because it seems that `lerna bootstrap` does not remove old packages.
+
+```bash
+rm packages/core/package-lock.json
+```
+
 ### Adapt the package.json
 
 The `packages/core/package.json` has to be adapted:
@@ -98,6 +106,7 @@ The `packages/core/package.json` has to be adapted:
 - its `bugs.url`
 - its `homepage`, from `https://github.com/touv/node-ezs#readme` to
   `https://github.com/Inist-CNRS/ezs/packages/core#readme`
+- in `scripts`, keep only `lint`, `doc`, `build`, `prepublish`, `preversion`
 - change `dependencies` version from `^a.b.c` to `~a.b.c`
 - add a `publishConfig.access` and set it to `"public"`
 - modify the `build` script if necessary: from `babel src --out-dir lib` to
@@ -125,14 +134,6 @@ To install the dependencies of the packages, use
 npx lerna bootstrap
 ```
 
-### Use jest for tests
-
-If you come from mocha, you have to change the `it(...).timeout(10000)`s to
-`it(..., 10000)`.
-
-Also, consider that tests are launched from the repository's root, not from the
-packages' root.
-
 ### Use the src files in tests
 
 To have right test coverage numbers, use `require('../src')` instead of
@@ -148,8 +149,16 @@ instead of
 const ezs = require('@ezs/core');
 ```
 
-If you don't, transpiled files are used (`lib`), and they ignored by jest
+If you don't, transpiled files are used (`lib`), and they are ignored by jest
 coverage.
+
+### Use jest for tests
+
+If you come from mocha, you have to change the `it(...).timeout(10000)`s to
+`it(..., 10000)`.
+
+Also, consider that tests are launched from the repository's root, not from the
+packages' root.
 
 ### Lint the JavaScript files
 
