@@ -1,4 +1,4 @@
-import ezs from 'ezs';
+import ezs from '@ezs/core';
 import { PassThrough } from 'stream';
 import os from 'os';
 import queue from 'async.queue';
@@ -8,7 +8,7 @@ import ISTEXResult from './istex-result';
 import ISTEXFetch from './istex-fetch';
 
 
-const worker = stream => (data, done) => {
+const worker = (stream) => (data, done) => {
     writeTo(stream, data, () => done());
 };
 
@@ -26,7 +26,7 @@ const getAndWriteQueries = (data, options, feed) => new Promise(
         });
         const q = queue(worker(inputQuery), os.cpus().length);
         q.drain = () => inputQuery.end();
-        data.forEach(query => q.push({ query }));
+        data.forEach((query) => q.push({ query }));
 
         return inputQuery
             .pipe(ezs(ISTEXScroll, options))
@@ -57,7 +57,7 @@ const getAndWriteIdentifiers = (data, options, feed) => new Promise(
         });
         const q = queue(worker(input), os.cpus().length);
         q.drain = () => input.end();
-        data.forEach(id => q.push({ id }));
+        data.forEach((id) => q.push({ id }));
 
         return input
             .pipe(ezs(ISTEXFetch, options))

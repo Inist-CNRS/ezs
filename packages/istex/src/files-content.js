@@ -38,7 +38,7 @@ function ISTEXFilesContent(data, feed) {
             return getStream.buffer(response.body);
         }
         return Promise.reject(new Error('Non-existing file'));
-    }).then(content => feed.send({
+    }).then((content) => feed.send({
         ...data,
         content,
     })).catch(() => feed.end());

@@ -1,4 +1,4 @@
-import ezs from 'ezs';
+import ezs from '@ezs/core';
 import { PassThrough } from 'stream';
 import { writeTo } from './utils';
 

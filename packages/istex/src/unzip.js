@@ -35,8 +35,8 @@ export default function ISTEXUnzip(data, feed) {
                     entry.autodrain();
                 }
             })
-            .on('error', e => feed.write(e))
-            .on('data', d => feed.write(d));
+            .on('error', (e) => feed.write(e))
+            .on('data', (d) => feed.write(d));
 
         this.whenFinish = new Promise((resolve, reject) => {
             output.on('end', resolve);
@@ -46,7 +46,7 @@ export default function ISTEXUnzip(data, feed) {
     if (this.isLast()) {
         this.whenFinish
             .then(() => feed.close())
-            .catch(e => feed.stop(e));
+            .catch((e) => feed.stop(e));
         this.input.end();
     } else {
         writeTo(this.input, data, () => feed.end());

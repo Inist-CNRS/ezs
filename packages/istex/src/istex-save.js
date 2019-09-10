@@ -8,14 +8,14 @@ import writeFile from 'write';
 import InistARK from 'inist-ark';
 
 const ark = new InistARK();
-const worker = options => ({ source, target }, done) => fetch(source, options)
+const worker = (options) => ({ source, target }, done) => fetch(source, options)
     .then((response) => {
         if (!isStream(response.body)) {
             return done(new Error('Unexpected response'));
         }
         return response.body
             .pipe(writeFile.stream(target))
-            .on('end', err => done(err))
+            .on('end', (err) => done(err))
             .on('close', () => done(target));
     });
 
@@ -61,7 +61,7 @@ function ISTEXSave(data, feed) {
     }
 
     const identifiers = data.hits
-        ? data.hits.map(hit => hit.arkIstex)
+        ? data.hits.map((hit) => hit.arkIstex)
         : [data.arkIstex];
     const files = identifiers.map((arkIstex) => {
         const { name: arkName } = ark.parse(arkIstex);
@@ -86,7 +86,7 @@ function ISTEXSave(data, feed) {
     };
     const q = queue(worker(o), os.cpus().length);
     q.drain = () => feed.end();
-    files.forEach(file => q.push(file, filename => feed.write(filename)));
+    files.forEach((file) => q.push(file, (filename) => feed.write(filename)));
 }
 
 export default {

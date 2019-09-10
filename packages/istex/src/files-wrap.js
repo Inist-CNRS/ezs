@@ -11,6 +11,7 @@ const add2archive = (archive, { content, name }) => {
         + ' before this statement.',
     );
 };
+
 /**
  * Take and Object with ISTEX `stream` and wrap into a single zip
  *
@@ -28,9 +29,9 @@ function ISTEXFilesWrap(data, feed) {
             },
         });
         this.archive.pipe(this.output);
-        this.output.on('data', d => feed.write(d));
+        this.output.on('data', (d) => feed.write(d));
         this.output.on('end', () => feed.close());
-        this.output.on('error', e => feed.stop(e));
+        this.output.on('error', (e) => feed.stop(e));
         this.firstChunk = data;
         feed.end();
         return;

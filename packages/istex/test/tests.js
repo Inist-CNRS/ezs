@@ -2,12 +2,12 @@ const assert = require('assert');
 const from = require('from');
 const fs = require('fs');
 const path = require('path');
-const ezs = require('ezs');
+const ezs = require('../../core/src');
 
 const sid = 'test';
 const token = process.env.ISTEX_TOKEN;
-ezs.use(require('../lib'));
-ezs.use(require('ezs-basics'));
+ezs.use(require('../src'));
+ezs.use(require('../../basics/src'));
 
 if (token) {
     console.warn('Using ISTEX_TOKEN', token);
@@ -44,7 +44,7 @@ describe('ISTEXSave', () => {
                 assert(result[0].endsWith('.pdf'));
                 done();
             });
-    }).timeout(5000);
+    }, 5000);
 });
 
 describe('ISTEXFetch', () => {
@@ -74,7 +74,7 @@ describe('ISTEXFetch', () => {
                 assert.equal(result[1].ark[0], 'ark:/67375/QHD-T00H6VNF-0');
                 done();
             });
-    }).timeout(5000);
+    }, 5000);
 
     it('should return an error when the ID does not exist', (done) => {
         const result = [];
@@ -102,7 +102,7 @@ describe('ISTEXFetch', () => {
                 assert(result[1] instanceof Error);
                 done();
             });
-    }).timeout(5000);
+    }, 5000);
 });
 
 describe('ISTEXResult', () => {
@@ -124,7 +124,7 @@ describe('ISTEXResult', () => {
                 assert.equal(result[3500].id.length, 40);
                 done();
             });
-    }).timeout(10000);
+    }, 10000);
 
     it('should inject lodex.uri field in every hit', (done) => {
         const result = [];
@@ -145,7 +145,7 @@ describe('ISTEXResult', () => {
                 assert.ok(result[0].uri);
                 done();
             });
-    }).timeout(10000);
+    }, 10000);
 });
 
 describe('ISTEXTriplify', () => {
@@ -176,7 +176,7 @@ describe('ISTEXTriplify', () => {
                 assert(result[2].includes(' <http://purl.org/dc/terms/identifier> '));
                 done();
             });
-    }).timeout(10000);
+    }, 10000);
 
     it('should not return triples containing undefined', (done) => {
         const result = [];
@@ -203,11 +203,11 @@ describe('ISTEXTriplify', () => {
                 assert(result[0].length > 0);
                 assert.equal(result[0].split(' ').length, 4);
                 assert(result[1].endsWith('> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/ontology/bibo/Document> .\n'));
-                assert(result.some(t => t.includes(' <http://purl.org/dc/terms/creator> ')));
-                assert(!result.some(t => t.includes('"undefined"')));
+                assert(result.some((t) => t.includes(' <http://purl.org/dc/terms/creator> ')));
+                assert(!result.some((t) => t.includes('"undefined"')));
                 done();
             });
-    }).timeout(10000);
+    }, 10000);
 
     it('should return URLs in angle brackets', (done) => {
         const result = [];
@@ -240,7 +240,7 @@ describe('ISTEXTriplify', () => {
                 assert(!result[2].includes('undefined'));
                 done();
             });
-    }).timeout(5000);
+    }, 5000);
 
     it('should begin each subject with <https://api.istex.fr/ark:/', (done) => {
         const result = [];
@@ -272,7 +272,7 @@ describe('ISTEXTriplify', () => {
                 assert(!result[2].includes('undefined'));
                 done();
             });
-    }).timeout(5000);
+    }, 5000);
 
     it('should not yield undefined values', (done) => {
         const result = [];
@@ -298,7 +298,7 @@ describe('ISTEXTriplify', () => {
                 assert.equal('<https://api.istex.fr/ark:/fake> <https://data.istex.fr/ontology/istex#affiliation> "E-mail: ivan.couee@univ-rennes1.fr" .\n', result[2]);
                 done();
             });
-    }).timeout(5000);
+    }, 5000);
 
     it('should escape double quotes', (done) => {
         const result = [];
@@ -324,7 +324,7 @@ describe('ISTEXTriplify', () => {
                 assert.equal(result[2], '<https://api.istex.fr/ark:/fake> <https://data.istex.fr/ontology/istex#affiliation> "E-mail: \\"ivan.couee@univ-rennes1.fr\\"" .\n');
                 done();
             });
-    }).timeout(5000);
+    }, 5000);
 
     it('should yield as many triples as properties', (done) => {
         const result = [];
@@ -351,7 +351,7 @@ describe('ISTEXTriplify', () => {
                 assert.equal('<https://api.istex.fr/ark:/fake> <https://data.istex.fr/ontology/istex#fakeProperty> "E-mail: ivan.couee@univ-rennes1.fr" .\n', result[3]);
                 done();
             });
-    }).timeout(5000);
+    }, 5000);
 
     it('should yield matching properties', (done) => {
         const result = [];
@@ -374,7 +374,7 @@ describe('ISTEXTriplify', () => {
                 assert.equal('<https://api.istex.fr/ark:/fake> <https://data.istex.fr/ontology/istex#affiliation> "E-mail: ivan.couee@univ-rennes1.fr" .\n', result[2]);
                 done();
             });
-    }).timeout(5000);
+    }, 5000);
 
     it('should not yield triples including "undefined"', (done) => {
         const result = [];
@@ -397,10 +397,10 @@ describe('ISTEXTriplify', () => {
                 result.push(chunk);
             })
             .on('end', () => {
-                assert(!result.some(triple => triple.includes('undefined')));
+                assert(!result.some((triple) => triple.includes('undefined')));
                 done();
             });
-    }).timeout(5000);
+    }, 5000);
 });
 
 describe('ISTEX', () => {
@@ -422,7 +422,7 @@ describe('ISTEX', () => {
                 assert.equal(result[0].id, result[3].id);
                 done();
             });
-    }).timeout(10000);
+    }, 10000);
 
     it('should get identified docs once per input', (done) => {
         const result = [];
@@ -442,7 +442,7 @@ describe('ISTEX', () => {
                 assert.equal(result[0].id, result[1].id);
                 done();
             });
-    }).timeout(5000);
+    }, 5000);
 
     it('should apply query & id once per input', (done) => {
         const result = [];
@@ -463,7 +463,7 @@ describe('ISTEX', () => {
                 assert.equal(result[0].id, result[4].id);
                 done();
             });
-    }).timeout(12000);
+    }, 12000);
 });
 
 describe('ISTEXUniq', () => {
@@ -623,7 +623,7 @@ describe('ISTEXParseDotCorpus', () => {
                     '2FF3F5B1477986B9C617BB75CA3333DBEE99EB05');
                 done();
             });
-    }).timeout(5000);
+    }, 5000);
 
     it('should parse query', (done) => {
         const result = [];
@@ -644,7 +644,7 @@ describe('ISTEXParseDotCorpus', () => {
                 assert.equal(result[0].publisher, 'CNRS');
                 done();
             });
-    }).timeout(5000);
+    }, 5000);
 });
 
 describe('ISTEXScroll', () => {
@@ -666,7 +666,7 @@ describe('ISTEXScroll', () => {
                 assert.equal(typeof result[1], 'object');
                 done();
             });
-    }).timeout(5000);
+    }, 5000);
 
     it('should execute queries from input', (done) => {
         const result = [];
@@ -686,7 +686,7 @@ describe('ISTEXScroll', () => {
                 assert.notDeepEqual(result[0], result[1]);
                 done();
             });
-    }).timeout(5000);
+    }, 5000);
 
     it('should reply even only one result', (done) => {
         const result = [];
@@ -719,7 +719,7 @@ describe('ISTEXScroll', () => {
                 assert.equal(result.length, 2);
                 done();
             });
-    }).timeout(5000);
+    }, 5000);
 
     it('should merge initial object and response in first object', (done) => {
         const result = [];
@@ -768,7 +768,7 @@ describe('ISTEXScroll', () => {
                 assert.equal(result[1].lodex.uri, 'https://api.istex.fr/ark');
                 done();
             });
-    }).timeout(5000);
+    }, 5000);
 });
 
 describe('ISTEXUnzip', () => {
@@ -891,7 +891,7 @@ describe('ISTEXUnzip', () => {
                 assert.equal(result[999].qualityIndicators.score, 2.699);
                 done();
             });
-    }).timeout(4000);
+    }, 4000);
 });
 
 describe('ISTEXFacet', () => {
@@ -916,7 +916,7 @@ describe('ISTEXFacet', () => {
                 assert(result[0].aggregations.publicationDate.buckets.length > 0);
                 done();
             });
-    }).timeout(10000);
+    }, 10000);
 });
 
 describe('ISTEXFiles', () => {
@@ -959,5 +959,5 @@ describe('ISTEXFiles', () => {
                 assert(result[3].content);
                 done();
             });
-    }).timeout(10000);
+    }, 10000);
 });

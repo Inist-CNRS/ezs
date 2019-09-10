@@ -1,6 +1,6 @@
 const assert = require('assert');
 
-const { getSubject } = require('../lib/utils');
+const { getSubject } = require('../src/utils');
 
 describe('utils', () => {
     describe('getSubject', () => {

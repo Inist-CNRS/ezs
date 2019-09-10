@@ -38,9 +38,9 @@ function ISTEXFiles(data, feed) {
 
     const identifiers = data.hits ? data.hits : [data];
     identifiers.map(({ id, arkIstex }) => [
-        ...enrichments.filter(Boolean).map(extension => `${arkIstex}/enrichment.${extension}`),
-        ...typologies.filter(Boolean).map(extension => `${arkIstex}/fulltext.${extension}`),
-        ...records.map(extension => `${arkIstex}/record.${extension}`),
+        ...enrichments.filter(Boolean).map((extension) => `${arkIstex}/enrichment.${extension}`),
+        ...typologies.filter(Boolean).map((extension) => `${arkIstex}/fulltext.${extension}`),
+        ...records.map((extension) => `${arkIstex}/record.${extension}`),
     ].forEach((pathname) => {
         const urlObj = {
             ...location,

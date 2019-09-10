@@ -52,7 +52,7 @@ function ISTEXFetch(data, feed) {
     };
     const urlStr = URL.format(urlObj);
     fetch(urlStr)
-        .then(response => response.json())
+        .then((response) => response.json())
         .then((json) => {
             if (json._error) {
                 throw new Error(json._error);
