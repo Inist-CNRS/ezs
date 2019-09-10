@@ -215,7 +215,7 @@ describe('dispatch through server(s)', () => {
             const ten = new Upto(10);
             ten
                 .pipe(ezs('dispatch', { commands, server }))
-                .pipe(ezs('debug'))
+                // .pipe(ezs('debug'))
                 .on('data', (chunk) => {
                     res += chunk;
                 })
