@@ -774,7 +774,7 @@ describe('ISTEXScroll', () => {
 describe('ISTEXUnzip', () => {
     it('should get 10 elements', (done) => {
         const result = [];
-        fs.createReadStream('./examples/data/istex-subset-2019-03-15-10.zip')
+        fs.createReadStream('./packages/istex/examples/data/istex-subset-2019-03-15-10.zip')
             .pipe(ezs('ISTEXUnzip'))
             // .pipe(ezs('debug'))
             .on('data', (chunk) => {
@@ -790,13 +790,13 @@ describe('ISTEXUnzip', () => {
     it('should get 10 elements (with delegate)', (done) => {
         const script = `
             [use]
-            plugin = istex
+            #plugin = istex
+            plugin = ./packages/istex
             [ISTEXUnzip]
         `;
         const result = [];
-        fs.createReadStream('./examples/data/istex-subset-2019-03-15-10.zip')
+        fs.createReadStream('./packages/istex/examples/data/istex-subset-2019-03-15-10.zip')
             .pipe(ezs('delegate', { script }))
-            // .pipe(ezs('debug'))
             .on('data', (chunk) => {
                 result.push(chunk);
             })
@@ -810,7 +810,7 @@ describe('ISTEXUnzip', () => {
 
     it('should get JSON objects', (done) => {
         const result = [];
-        fs.createReadStream('./examples/data/istex-subset-2019-03-15-10.zip')
+        fs.createReadStream('./packages/istex/examples/data/istex-subset-2019-03-15-10.zip')
             .pipe(ezs('ISTEXUnzip'))
             // .pipe(ezs('debug'))
             .on('data', (chunk) => {
@@ -826,7 +826,7 @@ describe('ISTEXUnzip', () => {
 
     it('should get proper first JSON object', (done) => {
         const result = [];
-        fs.createReadStream('./examples/data/istex-subset-2019-03-15-10.zip')
+        fs.createReadStream('./packages/istex/examples/data/istex-subset-2019-03-15-10.zip')
             .pipe(ezs('ISTEXUnzip'))
             // .pipe(ezs('debug'))
             .on('data', (chunk) => {
@@ -849,7 +849,7 @@ describe('ISTEXUnzip', () => {
 
     it('should get proper last JSON object', (done) => {
         const result = [];
-        fs.createReadStream('./examples/data/istex-subset-2019-03-15-10.zip')
+        fs.createReadStream('./packages/istex/examples/data/istex-subset-2019-03-15-10.zip')
             .pipe(ezs('ISTEXUnzip'))
             // .pipe(ezs('debug'))
             .on('data', (chunk) => {
@@ -873,7 +873,7 @@ describe('ISTEXUnzip', () => {
 
     it('should work on 1000 elements', (done) => {
         const result = [];
-        fs.createReadStream('./examples/data/istex-subset-2019-03-15-1000.zip')
+        fs.createReadStream('./packages/istex/examples/data/istex-subset-2019-03-15-1000.zip')
             .pipe(ezs('ISTEXUnzip'))
             // .pipe(ezs('debug'))
             .on('data', (chunk) => {
