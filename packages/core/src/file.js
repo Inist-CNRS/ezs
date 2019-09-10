@@ -25,25 +25,25 @@ export function useFile(ezs, name) {
         .shift();
     const plugName4 = check(name);
     if (plugName1) {
-        debug('ezs')(`Using '${name}' from ${plugName1}`);
+        debug('ezs:core:file')(`Using '${name}' from ${plugName1}`);
         return plugName1;
     }
     if (plugName2) {
-        debug('ezs')(`Using '${name}' from ${plugName2}`);
+        debug('ezs:core:file')(`Using '${name}' from ${plugName2}`);
         return plugName2;
     }
     if (plugName3) {
-        debug('ezs')(`Using '${name}' from ${plugName3}`);
+        debug('ezs:core:file')(`Using '${name}' from ${plugName3}`);
         return plugName3;
     }
     if (plugName4) {
-        debug('ezs')(`Using '${name}' from ${plugName2}`);
+        debug('ezs:core:file')(`Using '${name}' from ${plugName2}`);
         return plugName4;
     }
-    debug('ezs')(`Unable to find '${name}' from ${plugName1}`);
-    debug('ezs')(`Unable to find '${name}' from ${plugName2}`);
-    debug('ezs')(`Unable to find '${name}' from ${plugName3}`);
-    debug('ezs')(`Unable to find '${name}' from ${plugName4}`);
+    debug('ezs:core:file')(`Unable to find '${name}' from ${plugName1}`);
+    debug('ezs:core:file')(`Unable to find '${name}' from ${plugName2}`);
+    debug('ezs:core:file')(`Unable to find '${name}' from ${plugName3}`);
+    debug('ezs:core:file')(`Unable to find '${name}' from ${plugName4}`);
     return false;
 }
 
