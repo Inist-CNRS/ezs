@@ -117,6 +117,13 @@ The `packages/core/package.json` has to be adapted:
 
 Rename `ezs` to `@ezs/core`...
 
+Add the badges (change `sparql` to the name of the package's directory):
+
+```md
+[![npm version](https://img.shields.io/npm/v/@ezs/sparql)](https://npm.im/@ezs/sparql)
+[![license](https://img.shields.io/npm/l/@ezs/sparql)](https://npm.im/@ezs/sparql)
+```
+
 ### Hoist devDependencies
 
 We want to use the same dev depencies for all packages, so we can hoist them to
