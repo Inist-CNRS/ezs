@@ -1,5 +1,8 @@
 # ISTEX statements for ezs
 
+[![npm version](https://img.shields.io/npm/v/@ezs/istex)](https://npm.im/@ezs/istex)
+[![license](https://img.shields.io/npm/l/@ezs/istex)](https://npm.im/@ezs/istex)
+
 This package cannot be used alone. [@ezs/core](../core) has to be installed.
 
 ## Usage
