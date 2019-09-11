@@ -12,6 +12,7 @@ Repository containing all @ezs packages (monorepo)
 - [@ezs/basics](./packages/basics#readme)
 - [@ezs/analytics](./packages/analytics#readme)
 - [@ezs/sparql](./packages/sparql#readme)
+- [@ezs/istex](./packages/istex#readme)
 
 ## History
 

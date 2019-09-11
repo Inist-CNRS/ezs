@@ -405,7 +405,7 @@ describe('test', () => {
         const output = [];
         from(input)
             .pipe(ezs('URLParse'))
-            .pipe(ezs('debug'))
+            // .pipe(ezs('debug'))
             .pipe(ezs('URLString'))
             .on('data', (chunk) => {
                 output.push(chunk);

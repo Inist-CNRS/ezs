@@ -59,3 +59,6 @@ typings/
 
 # next.js build output
 .next
+
+# @ezs/istex tests get a PDF file
+*.pdf

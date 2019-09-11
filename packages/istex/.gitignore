@@ -1,0 +1,12 @@
+*.tgz
+*.swp
+*.swo
+README.html
+node_modules
+coverage/
+*.sw?
+lib
+*.pdf
+examples/debug.md
+istex*.nq*
+biblio*.nq*

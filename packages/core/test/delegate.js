@@ -57,7 +57,7 @@ describe('delegate through file(s)', () => {
             const ten = new Upto(10);
             ten
                 .pipe(ezs('delegate', { commands }))
-                .pipe(ezs('debug'))
+                // .pipe(ezs('debug'))
                 .on('data', (chunk) => {
                     res += chunk;
                 })

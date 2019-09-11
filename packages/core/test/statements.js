@@ -157,7 +157,7 @@ describe('statements', () => {
         from(data)
             .pipe(ezs('transit'))
             .pipe(ezs('tracer'))
-            .pipe(ezs('debug'))
+            // .pipe(ezs('debug'))
             .on('data', (chunk) => {
                 assert.equal(chunk, data[index]);
                 index += 1;
@@ -201,7 +201,7 @@ describe('statements', () => {
         const after = [];
         from(before)
             .pipe(ezs('shuffle', { path: ['a', 'b'] }))
-            .pipe(ezs('debug'))
+            // .pipe(ezs('debug'))
             .on('data', (chunk) => {
                 after.push(chunk);
             })

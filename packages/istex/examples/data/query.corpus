@@ -1,0 +1,22 @@
+#
+# A .corpus to get 32 documents from ISTEX API.
+# Comment maxPage and size lines to get more than 2000 documents.
+#
+# title        The first 32 documents matching the "ezs" query.
+# author       François
+# publisher    CNRS
+# licence      CC-By
+# versionInfo  1
+
+[ISTEX]
+query = ezs
+field = doi
+field = author
+field = title
+field = language
+field = publicationDate
+field = subject
+field = host
+field = fulltext
+maxPage = 1
+size = 32

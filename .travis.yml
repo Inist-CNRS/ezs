@@ -1,20 +1,17 @@
 before_install:
-  - npm i -g npm@latest
-
+- npm i -g npm@latest
 install:
-  - npm run bootstrap
-
-after_success: 'npm run coveralls'
+- npm run bootstrap
+after_success: npm run coveralls
 language: node_js
-
 sudo: false
-
 node_js:
-  - "10"
-
+- '10'
 env:
-    global:
-        - NODE_ENV=test
+  global:
+  - NODE_ENV=test
+  matrix:
+    secure: 2mvtVCobUrwY8zQuH8LCcLT8A0TR2XRQjpr7S6m649YMQdUJq9eUycj3WaR09dogXW28WemB4D/qcCDb535GtbzjD8sxTSAiYNQhN4liqyISePVdNiEHfJwFZF9f0ytJdFY7KfzP3mixKGxfNOyEvrL6K+mqYPoTm9/Gk3ZaFQ1I+6q94Fvrv2jWM2X477YEDJuX60kycuLGPq13TlH4XyDiQKh9OCDKmpRzVWl75Yh6Re3RIxDEhJvqiATZ7xXJ9tRT0Y92qABo3CUb/9dOnhw8k0e4bmfq0InDQBmhdykhbsHy6hOdgtcofZuEANFpf57NIa+4z5mPuJeu5896GiOqe5HycpLJ0nQDKrYCWUhxGOpgjgzjBmA2R4gmOMwCV4ogaudg2aCKGDvKRtjJe500nV7qhf909I7+uBxkEBdT9pH8Igz6lqjANUA05Uedh3oZwkqltHBDMVktjBfOO88Nk8jpyM5J+KDbwUCn8NvBcm5mC3o7His9bR+zgma4M34l1oQoQBeQlbz21ems3F19NaWHZhRClDCaAHGRbatO/RVJKjy/5wDXk4Z2B1bVrH3j4sYhFTASxIjHhzybH9FqZikl65MGyli9qZtPB7PdBg7HHA1W1BZm4mm6KXZcNbMpHglbDrOnnIlx/s/Zk26pLiYLNuTtOKGnZOL6gWM=
 cache:
-    directories:
-        - node_modules
+  directories:
+  - node_modules

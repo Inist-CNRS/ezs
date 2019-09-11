@@ -1,0 +1,21 @@
+#
+# A .corpus to get the Wiley 5345607 documents from ISTEX API.
+# Comment maxPage and size lines to get more than 2000 documents.
+#
+# author       François
+# publisher    CNRS
+# licence      CC-By
+# versionInfo  1
+
+[ISTEX]
+query = corpusName.raw:wiley
+field = doi
+field = author
+field = title
+field = language
+field = publicationDate
+field = subject
+field = host
+field = fulltext
+#maxPage = 1
+#size = 32
