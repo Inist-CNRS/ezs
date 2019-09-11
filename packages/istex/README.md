@@ -5,7 +5,7 @@ This package cannot be used alone. [@ezs/core](../core) has to be installed.
 ## Usage
 
 ```js
-var ezs = require('@ezs');
+var ezs = require('@ezs/core');
 ezs.use(require('@ezs/istex'));
 ```
 
