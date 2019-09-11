@@ -604,7 +604,7 @@ describe('ISTEXUniq', () => {
 });
 
 describe('ISTEXParseDotCorpus', () => {
-    it.skip('should parse identifiers', (done) => {
+    it('should parse identifiers', (done) => {
         const result = [];
         const corpus = fs.readFileSync(path.resolve(__dirname,
             './1notice.corpus'));
@@ -612,7 +612,7 @@ describe('ISTEXParseDotCorpus', () => {
             corpus.toString(),
         ])
             .pipe(ezs('ISTEXParseDotCorpus'))
-            .pipe(ezs('debug'))
+            // .pipe(ezs('debug'))
             .on('data', (chunk) => {
                 result.push(chunk);
             })
