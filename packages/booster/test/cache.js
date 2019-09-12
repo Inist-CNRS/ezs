@@ -3,7 +3,7 @@ import from from 'from';
 import sleep from 'sleepjs';
 import Cache from '../src/cache';
 
-describe('test', () => {
+describe('cache', () => {
     const handle = new Cache({
         cleanupDelay: 500,
         maxFiles: 3,
