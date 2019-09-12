@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/@ezs/booster)](https://npm.im/@ezs/booster)
 [![license](https://img.shields.io/npm/l/@ezs/booster)](https://npm.im/@ezs/booster)
 
-This package cannot be used alone. EZS has to be installed.
+This package cannot be used alone. [@ezs/core](../core) has to be installed.
 
 ## Example
 
