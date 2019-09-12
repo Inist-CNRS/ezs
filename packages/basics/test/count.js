@@ -9,7 +9,7 @@ describe('OBJCount', () => {
         from(['a'])
             .pipe(ezs('OBJCount'))
             .on('data', (data) => {
-                expect(data).toBe(2);
+                expect(data).toBe(1);
                 expect(typeof data).toBe('number');
                 done();
             });
@@ -20,7 +20,7 @@ describe('OBJCount', () => {
             .pipe(ezs('OBJCount'))
             .on('data', (data) => {
                 // TODO: check it is really the expected behaviour
-                expect(data).toBe(5);
+                expect(data).toBe(4);
                 done();
             });
     });
