@@ -16,7 +16,45 @@ There are tools to ease conventional commits:
 
 - [VSCode Commitizen](https://github.com/KnisterPeter/vscode-commitizen)
 - [Commitizen cli](http://commitizen.github.io/cz-cli/)
+- [Cheat Sheet](https://www.cheatography.com/albelop/cheat-sheets/conventional-commits/)
 - ...
+
+### Commit examples
+
+#### Fixing a bug
+
+If you just fixed a bug in `packages/core`, you can use:
+
+```bash
+git commit -m "fix (core): Chuck Norris got it!"
+```
+
+where the optional `(core)` part says that the fix concerns the core package.
+
+> **Note**: in this case, the lerna version will increase the patch version.
+
+#### Add a feature
+
+If you just added a feature in `packages/foo`:
+
+```bash
+git commit -m "feat (foo): Add marvelous new feature bar"
+```
+
+> **Note**: that will imply that
+> `npx lerna version --exact --conventional-commits` will increase at least
+> the minor version of the package.
+
+#### Breaking change
+
+If you introduced a breaking change in `packages/bar`:
+
+```bash
+git commit -m 'fix (bar): Fixed issue #4
+
+BREAKING_CHANGE: baz function has changed parameters
+'
+```
 
 ## Create tests
 
