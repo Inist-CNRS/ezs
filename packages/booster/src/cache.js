@@ -41,12 +41,12 @@ export default class Cache {
 
     has(key) {
         return cacache.get.info(this.cachePath, key)
-            .then(i => (i !== null));
+            .then((i) => (i !== null));
     }
 
     get(key) {
         this.hits += 1;
-        return new Promise(resolve => resolve(cacache.get.stream(this.cachePath, key)));
+        return new Promise((resolve) => resolve(cacache.get.stream(this.cachePath, key)));
     }
 
     clear() {
@@ -71,8 +71,8 @@ export default class Cache {
 
     clean() {
         return cacache.ls(this.cachePath)
-            .then(info => Object.keys(info).map(k => info[k]))
-            .then(entries => Promise.all(entries.map(entry => new Promise((resolve, reject) => fs.stat(
+            .then((info) => Object.keys(info).map((k) => info[k]))
+            .then((entries) => Promise.all(entries.map((entry) => new Promise((resolve, reject) => fs.stat(
                 path.resolve(
                     this.cachePath,
                     entry.path,
@@ -88,7 +88,7 @@ export default class Cache {
                     });
                 },
             )))))
-            .then(entriesAugmented => entriesAugmented.sort((a, b) => (a.atime - b.atime)))
+            .then((entriesAugmented) => entriesAugmented.sort((a, b) => (a.atime - b.atime)))
             .then((entriesSorted) => {
                 const { maxFiles, maxTotalSize } = this.options;
                 const toRemove = [];
@@ -107,6 +107,6 @@ export default class Cache {
 
                 return toRemove.concat(entriesSorted);
             })
-            .then(entriesDepreciated => Promise.all(entriesDepreciated.map(entry => this.del(entry.key))));
+            .then((entriesDepreciated) => Promise.all(entriesDepreciated.map((entry) => this.del(entry.key))));
     }
 }

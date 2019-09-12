@@ -108,7 +108,7 @@ function badaboum(data, feed) {
     }, 1);
 }
 
-function bang(data, feed) {
+function bang() {
     throw new Error('Bang!');
 }
 
@@ -142,7 +142,7 @@ function splish(data, feed) {
         resolve(data);
     });
     return p
-        .then(d => feed.send(d))
+        .then((d) => feed.send(d))
         .catch(() => feed.end());
 }
 
@@ -154,7 +154,7 @@ function splash(data, feed) {
         reject(data);
     });
     return p
-        .then(d => feed.send(d))
+        .then((d) => feed.send(d))
         .catch(() => feed.end());
 }
 

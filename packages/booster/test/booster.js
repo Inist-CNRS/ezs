@@ -61,7 +61,7 @@ describe('Booster', () => {
                     .pipe(ezs((input, output) => {
                         output.send(input);
                     }))
-                    .pipe(ezs('booster', { 
+                    .pipe(ezs('booster', {
                         script,
                         cleanupOnStartup: true,
                     }))
@@ -91,7 +91,6 @@ describe('Booster', () => {
                     }))
                     .pipe(ezs('booster', { script }))
                     .on('cache:connected', (id) => {
-                        console.log('cid', cid);
                         cid = id;
                     })
                     .on('error', assert.ifError)
@@ -250,7 +249,7 @@ describe('Booster', () => {
                     }))
                     .pipe(ezs('booster', { script }))
                     .pipe(ezs('transit'))
-                    .pipe(ezs.catch(e => e))
+                    .pipe(ezs.catch((e) => e))
                     .on('error', (error) => {
                         assert(error instanceof Error);
                         done();
@@ -289,7 +288,7 @@ describe('Booster', () => {
                     .on('cache:created', (id) => {
                         cid = id;
                     })
-                    .pipe(ezs.catch(e => assert(e)))
+                    .pipe(ezs.catch((e) => assert(e)))
                     .on('data', (chunk) => {
                         res += chunk;
                     })
@@ -311,7 +310,7 @@ describe('Booster', () => {
                     }))
                     .pipe(ezs('booster', { script }))
                     .pipe(ezs('transit'))
-                    .pipe(ezs.catch(e => e))
+                    .pipe(ezs.catch((e) => e))
                     .on('error', assert.ifError)
                     .on('data', (chunk) => {
                         res += chunk;

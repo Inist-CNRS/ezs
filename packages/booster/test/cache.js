@@ -29,7 +29,7 @@ describe('test', () => {
     describe('add keys', () => {
         before(() => handle.clear());
 
-        const sleep = delay => new Promise((resolve) => {
+        const sleep = (delay) => new Promise((resolve) => {
             setTimeout(resolve, delay);
         });
         it('and clean cache automaticaly', async () => {
