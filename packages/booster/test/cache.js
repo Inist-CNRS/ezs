@@ -1,5 +1,6 @@
 import assert from 'assert';
 import from from 'from';
+import sleep from 'sleepjs';
 import Cache from '../src/cache';
 
 describe('test', () => {
@@ -10,7 +11,7 @@ describe('test', () => {
     });
 
     describe('add keys', () => {
-        before(() => handle.clear());
+        beforeAll(() => handle.clear());
         it('and clean cache on demand', async () => {
             await handle.set('key#1', from(['a', 'b', 'c']));
             await handle.set('key#2', from(['a', 'b', 'c']));
@@ -27,11 +28,8 @@ describe('test', () => {
     });
 
     describe('add keys', () => {
-        before(() => handle.clear());
+        beforeAll(() => handle.clear());
 
-        const sleep = (delay) => new Promise((resolve) => {
-            setTimeout(resolve, delay);
-        });
         it('and clean cache automaticaly', async () => {
             await handle.set('key#1', from(['a', 'b', 'c']));
             await handle.set('key#2', from(['a', 'b', 'c']));

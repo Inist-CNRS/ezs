@@ -21,7 +21,7 @@ export default class Cache {
         if (cleanupDelay && (maxFiles || maxTotalSize)) {
             setInterval(() => {
                 this.clean();
-            }, cleanupDelay).unref();
+            }, cleanupDelay);
         }
         this.hitsByCheck = hitsByCheck || 1000;
         this.hits = 0;

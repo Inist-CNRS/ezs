@@ -1,7 +1,7 @@
 import assert from 'assert';
 import { Readable } from 'stream';
 import fs from 'fs';
-import ezs from 'ezs';
+import ezs from '../../core/src';
 import Cache from '../src/cache';
 
 ezs.use(require('../src'));
@@ -24,7 +24,7 @@ class Decade extends Readable {
 }
 
 describe('Booster', () => {
-    before(() => {
+    beforeAll(() => {
         const handle = new Cache();
         return handle.clear();
     });
