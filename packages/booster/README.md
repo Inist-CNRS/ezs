@@ -1,4 +1,7 @@
-# Boosterfor EZS plugin
+# @ezs/booster
+
+[![npm version](https://img.shields.io/npm/v/@ezs/booster)](https://npm.im/@ezs/booster)
+[![license](https://img.shields.io/npm/l/@ezs/booster)](https://npm.im/@ezs/booster)
 
 This package cannot be used alone. EZS has to be installed.
 
@@ -13,16 +16,6 @@ plugin = booster
 [booster]
 file = ./script.ini
 ```
-
-## Installation
-
-    $ git clone https://github.com/touv/node-booster.git
-    $ cd node-booster
-    $ npm install -g ezs
-    $ npm install
-    $ npm link
-    $ npm run build 
-    $ echo "booster do something !" | ./examples/booster.ezs
 
 ## Statements
 
