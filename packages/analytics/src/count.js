@@ -3,6 +3,7 @@ import core from './core';
 /**
  * Take `Object` object getting some fields with json path, and do ...
  *
+ * @name count
  * @param {String} path
  * @returns {Object}
  */

@@ -4,8 +4,10 @@ import core from './core';
 
 const equalTo = (id) => (item) => item.id.some((key) => key === id);
 /**
- * Take `Object` like { id, value } and reduce all value with the same id in single object
+ * Take `Object` like `{ id, value }` and reduce all values with the same `id`
+ * in a single object
  *
+ * @name groupingByEquality
  * @param {String} [id=id] path to use for id
  * @param {String} [value=value] path to use for value
  * @returns {Object}

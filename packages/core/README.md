@@ -164,25 +164,20 @@ get chunk of in NodeJS pipeline and send Buffer of the chunk
 -   [keep](#keep)
     -   [Parameters](#parameters-9)
 -   [pack](#pack)
-    -   [Parameters](#parameters-10)
 -   [replace](#replace)
-    -   [Parameters](#parameters-11)
+    -   [Parameters](#parameters-10)
 -   [shift](#shift)
-    -   [Parameters](#parameters-12)
 -   [shuffle](#shuffle)
-    -   [Parameters](#parameters-13)
+    -   [Parameters](#parameters-11)
 -   [tracer](#tracer)
-    -   [Parameters](#parameters-14)
+    -   [Parameters](#parameters-12)
 -   [transit](#transit)
-    -   [Parameters](#parameters-15)
 -   [truncate](#truncate)
-    -   [Parameters](#parameters-16)
+    -   [Parameters](#parameters-13)
 -   [ungroup](#ungroup)
-    -   [Parameters](#parameters-17)
 -   [unpack](#unpack)
-    -   [Parameters](#parameters-18)
 -   [validate](#validate)
-    -   [Parameters](#parameters-19)
+    -   [Parameters](#parameters-14)
 
 ### assign
 
@@ -190,8 +185,6 @@ Take `Object` and add new field
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of the new field
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value of the new field
 
@@ -203,8 +196,6 @@ Take all `String`, concat them and thow just one
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `beginWith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Add value at the begin
 -   `joinWith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** use value to join 2 chunk
 -   `endWith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Add value at the end
@@ -217,8 +208,6 @@ Take `Object` , print it and throw the same object
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `level` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** console level : log or error (optional, default `log`)
 -   `text` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** text before the dump (optional, default `valueOf`)
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to print
@@ -231,22 +220,18 @@ Takes an `Object` delegate processing to an external pipeline
 
 #### Parameters
 
--   `data`  
--   `feed`  
--   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is descrbied in a file
--   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is descrbied in a sting of characters
--   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is descrbied in object
+-   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
+-   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
+-   `commands` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** the external pipeline is described in an object
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### dispatch
 
-Takes an `Object` dispatch processing to an external pipeline in one or more servers
+Takes an `Object` dispatch processing to an external pipeline on one or more servers
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `server` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** servers to dispatch data
 -   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is descrbied in a file
 -   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is descrbied in a sting of characters
@@ -256,26 +241,21 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### dump
 
-Take all `Object` and genereta a json array
+Take all `Object` and generete a JSON array
 
 #### Parameters
 
--   `data`  
--   `feed`  
--   `indent` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** indent JSON (optional, default `false`)
+-   `indent` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** indent JSON (optional, default `false`)
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ### env
 
-Take `Object` and send the same object
-but in the meantime, it is possible to add
-new environment field
+Take `Object` and send the same object but in the meantime, it is possible to
+add new environment field
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of the new field
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value of the new field
 
@@ -287,20 +267,16 @@ Take `Object` and throw each value of fields
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to extract
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### group
 
-Take all `chunk`, and throw array of chunks
+Take all `chunk`s, and throw one array of chunks
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `size` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Size of each partition
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
@@ -308,12 +284,10 @@ Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 ### keep
 
 Take `Object` and throw the same object but keep only
-spefici fields
+specific fields
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to keep
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
@@ -322,21 +296,14 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Take all `Object`, throw encoded `String`
 
-#### Parameters
-
--   `data`  
--   `feed`  
-
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ### replace
 
-Take `Object` and create a new object with some fields
+Take `Object` and replace it with a new object with some fields
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of the new field
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value of the new field
 
@@ -344,12 +311,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### shift
 
-Take the first `Object` and close the feed
-
-#### Parameters
-
--   `data`  
--   `feed`  
+Return the first `Object` and close the feed
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -359,20 +321,17 @@ Take `Object`, shuffle data of the whole object or only some fields specified by
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to shuffle
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### tracer
 
-Take `Object`, print a character and throw the same object
+Take `Object`, print a character and throw the same object.
+Useful to see the progress in the stream.
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `print` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** character to print at each object (optional, default `.`)
 -   `last` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** character to print at last call (optional, default `.`)
 -   `first` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** character to print at first call (optional, default `.`)
@@ -383,11 +342,6 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Take `Object` and throw the same object
 
-#### Parameters
-
--   `data`  
--   `feed`  
-
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### truncate
@@ -396,20 +350,15 @@ Takes all the chunks, and closes the feed when the total length is equal to the 
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `length` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Length of the feed
 
-Returns **Mixed** 
+Returns **any** 
 
 ### ungroup
 
-Take all `chunk`, and throw each item of chunks
+-   **See: group**
 
-#### Parameters
-
--   `data`  
--   `feed`  
+Take all `chunk`s, and throw one item for every chunk
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
@@ -417,23 +366,17 @@ Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Take `String` and throw `Object` builded by JSON.parse on each line
 
-#### Parameters
-
--   `data`  
--   `feed`  
-
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+Returns **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### validate
 
--   **See: laravel validtor rules**
+-   **See: laravel validator rules**
+-   **See: <https://github.com/skaterdav85/validatorjs#readme>**
 
-Take `Object` and throw the same object if all rules passes
+Take `Object` and throw the same object if all rules pass
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of the field
 -   `rule` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** rule to validate the field
 

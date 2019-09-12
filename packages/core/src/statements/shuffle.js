@@ -14,6 +14,7 @@ function shuf(input) {
 /**
  * Take `Object`, shuffle data of the whole object or only some fields specified by path
  *
+ * @name shuffle
  * @param {String} [path] path of field to shuffle
  * @returns {Object}
  */

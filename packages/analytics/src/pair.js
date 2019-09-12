@@ -4,6 +4,7 @@ import core from './core';
 /**
  * Take `Object` object getting some fields with json path, and do ...
  *
+ * @name pair
  * @param {String} path
  * @returns {Object}
  */

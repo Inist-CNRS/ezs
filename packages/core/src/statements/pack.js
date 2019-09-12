@@ -2,6 +2,7 @@ const eol = '\n';
 /**
  * Take all `Object`, throw encoded `String`
  *
+ * @name pack
  * @returns {String}
  */
 export default function pack(data, feed) {

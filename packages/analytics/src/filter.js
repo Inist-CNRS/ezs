@@ -3,8 +3,9 @@ import get from 'lodash.get';
 /**
  * Take `Object` and throw the same object only if there the value of the select field is equals than a value
  *
- * @param {String} [path=value] path of the field to compare
- * @param {Number} [if=''] value to compare
+ * @name filter
+ * @param {String} [path="value"] path of the field to compare
+ * @param {Number} [if=""] value to compare
  * @returns {Object}
  */
 export default function filter(data, feed) {

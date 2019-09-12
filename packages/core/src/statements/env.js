@@ -1,10 +1,10 @@
 import _ from 'lodash';
 
 /**
- * Take `Object` and send the same object
- * but in the meantime, it is possible to add
- * new environment field
+ * Take `Object` and send the same object but in the meantime, it is possible to
+ * add new environment field
  *
+ * @name env
  * @param {String} [path] path of the new field
  * @param {String} [value] value of the new field
  * @returns {Object}

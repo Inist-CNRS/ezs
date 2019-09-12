@@ -5,8 +5,9 @@ import Store from './store';
 /**
  * Take `Object` like { id, value } and throw a serie of number value
  *
- * @param {String} [id=id] path to use for id
- * @param {String} [value=value] path to use for value
+ * @name distribute
+ * @param {String} [id="id"] path to use for id
+ * @param {String} [value="value"] path to use for value
  * @param {String} [step=1] step between each valut
  * @param {Number} [start=min value in the stream] first value to throw
  * @param {Number} [size=(min value - max value) in the stream] size of the distribution

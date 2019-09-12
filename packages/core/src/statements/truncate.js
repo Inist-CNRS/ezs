@@ -1,8 +1,9 @@
 /**
  * Takes all the chunks, and closes the feed when the total length is equal to the parameter
  *
+ * @name truncate
  * @param {Number} [length] Length of the feed
- * @returns {Mixed}
+ * @returns {any}
  */
 export default function truncate(data, feed) {
     if (this.isLast()) {

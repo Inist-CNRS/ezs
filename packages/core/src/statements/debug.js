@@ -4,6 +4,7 @@ import _ from 'lodash';
 /**
  * Take `Object` , print it and throw the same object
  *
+ * @name debug
  * @param {String} [level=log] console level : log or error
  * @param {String} [text=valueOf] text before the dump
  * @param {String} [path] path of field to print

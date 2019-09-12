@@ -1,7 +1,9 @@
 /**
- * Take all `chunk`, and throw each item of chunks
+ * Take all `chunk`s, and throw one item for every chunk
  *
+ * @name ungroup
  * @returns {String}
+ * @see group
  */
 export default function ungroup(data, feed) {
     if (this.isLast()) {

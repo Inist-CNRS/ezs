@@ -59,26 +59,28 @@ process.stdin
     -   [Parameters](#parameters-15)
 -   [minimizing](#minimizing)
     -   [Parameters](#parameters-16)
--   [pair](#pair)
+-   [output](#output)
     -   [Parameters](#parameters-17)
--   [pluck](#pluck)
+-   [pair](#pair)
     -   [Parameters](#parameters-18)
--   [reducing](#reducing)
+-   [pluck](#pluck)
     -   [Parameters](#parameters-19)
--   [segment](#segment)
+-   [reducing](#reducing)
     -   [Parameters](#parameters-20)
--   [slice](#slice)
+-   [segment](#segment)
     -   [Parameters](#parameters-21)
--   [sort](#sort)
+-   [slice](#slice)
     -   [Parameters](#parameters-22)
--   [summing](#summing)
+-   [sort](#sort)
     -   [Parameters](#parameters-23)
--   [topics](#topics)
+-   [summing](#summing)
     -   [Parameters](#parameters-24)
--   [tune](#tune)
+-   [topics](#topics)
     -   [Parameters](#parameters-25)
--   [value](#value)
+-   [tune](#tune)
     -   [Parameters](#parameters-26)
+-   [value](#value)
+    -   [Parameters](#parameters-27)
 
 ### count
 
@@ -86,8 +88,6 @@ Take `Object` object getting some fields with json path, and do ...
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
@@ -98,9 +98,7 @@ Take `Object` object getting some fields with json path, and do ...
 
 #### Parameters
 
--   `data`  
--   `feed`  
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path (optional, default `id`)
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path (optional, default `"id"`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -110,10 +108,8 @@ Take `Object` like { id, value } and throw a serie of number value
 
 #### Parameters
 
--   `data`  
--   `feed`  
--   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
--   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
+-   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `"id"`)
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `"value"`)
 -   `step` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** step between each valut (optional, default `1`)
 -   `start` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** first value to throw (optional, default `minvalueinthestream`)
 -   `size` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** size of the distribution (optional, default `(minvalue-maxvalue)inthestream`)
@@ -127,10 +123,8 @@ Take `Object` and throw the same object only if there the value of the select fi
 
 #### Parameters
 
--   `data`  
--   `feed`  
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to compare (optional, default `value`)
--   `if` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** value to compare (optional, default `''`)
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to compare (optional, default `"value"`)
+-   `if` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** value to compare (optional, default `""`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -141,10 +135,8 @@ and throw object of each value. The new object is build with [id] and eac value.
 
 #### Parameters
 
--   `data`  
--   `feed`  
--   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
--   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
+-   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `"id"`)
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `"value"`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -154,10 +146,8 @@ Take `Object` and throw the same object only if there the value of the select fi
 
 #### Parameters
 
--   `data`  
--   `feed`  
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to compare (optional, default `value`)
--   `if` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** value to compare (optional, default `''`)
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to compare (optional, default `"value"`)
+-   `if` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** value to compare (optional, default `""`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -167,22 +157,18 @@ Take `Object` object getting some fields with json path, and do ...
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### greater
 
-Take `Object` and throw the same object only if there the value of the select
+Take `Object` and throw the same object only if the value of the selected
 field is greater (or equal) than a value
 
 #### Parameters
 
--   `data`  
--   `feed`  
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to compare (optional, default `value`)
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to compare (optional, default `"value"`)
 -   `than` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** value to compare (optional, default `0`)
 -   `strict` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** greater than but not equal (optional, default `false`)
 
@@ -190,12 +176,11 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### groupingByEquality
 
-Take `Object` like { id, value } and reduce all value with the same id in single object
+Take `Object` like `{ id, value }` and reduce all values with the same `id`
+in a single object
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
 
@@ -203,27 +188,23 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### groupingByHamming
 
-Take `Object` like { id, value } and reduce all value with
-ID which have the same Hamming distance in single object
+Take `Object` like `{ id, value }` and reduce all `value` with `id` which
+have the same Hamming distance in a single object
 
 #### Parameters
 
--   `data`  
--   `feed`  
--   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
--   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
+-   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `"id"`)
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `"value"`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### groupingByLevenshtein
 
-Take `Object` like { id, value } and reduce all value with
-ID which have the same Levenshtein distance in single object
+Take `Object` like `{ id, value }` and reduce all `value`s with
+`id` which have the same Levenshtein distance in a single object
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
 -   `distance` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** minimal levenshtein distance to have a same id (optional, default `1`)
@@ -232,12 +213,11 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### groupingByModulo
 
-Take `Object` like { id, value } and reduce all value with the same modulo comptuation in ansingle object
+Take `Object` like `{ id, value }` and reduce all `value`s with the same
+modulo computation in a ansingle object
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
 
@@ -249,20 +229,17 @@ Take `Object` and throws all its keys
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### less
 
-Take `Object` and throw the same object only if there the value of the select field is less (or equal) than a value
+Take `Object` and throw the same object only if the value of the selected
+field is less (or equal) than a value
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to compare (optional, default `value`)
 -   `than` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** value to compare (optional, default `0`)
 -   `strict` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** less than but not equal (optional, default `false`)
@@ -271,12 +248,10 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### maximizing
 
-Take special `Object` like {id, value} and replace value with the max of values
+Take special `Object` like `{id, value}` and replace `value` with the max of `value`s
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
 
@@ -284,12 +259,10 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### merging
 
-Take special `Object` like {id, value} and replace value with the merge of values
+Take special `Object` like `{id, value}` and replace `value` with the merge of `value`s
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
 
@@ -297,16 +270,25 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### minimizing
 
-Take special `Object` like {id, value} and replace value with the min of values
+Take special `Object` like `{id, value}` and replace `value` with the min of
+`value`s
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### output
+
+TO BE DESCRIBED
+
+#### Parameters
+
+-   `keyName` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `indent` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+-   `extract` **any** 
 
 ### pair
 
@@ -314,33 +296,27 @@ Take `Object` object getting some fields with json path, and do ...
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### pluck
 
-Take `Object` object getting value of fields (with json path)
-and throws a object of each value
+Take `Object` object getting value of fields (with json `path`) and throws an
+object for each value
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use form group by (optional, default `id`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### reducing
 
-Take `Object` group value of { id, value } objectpath
+Take `Object` group value of `{ id, value }` objectpath
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
 
@@ -348,13 +324,11 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### segment
 
-Take `Object` object getting some fields with json path, and
-throw segment of value. Ex: get [a,b,c] and throw [a,b], [b,c]
+Take `Object` object getting some fields with json path, and throw segment of
+value. Ex: get `[a,b,c]` and throw `[a,b], [b,c]`
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path (optional, default `value`)
 -   `aggregate` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** aggregate all values for all paths (or not) (optional, default `true`)
 
@@ -362,13 +336,11 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### slice
 
-Take `Object` and throw the same object onl if there in the section of the stream between start and start + size
-stream is numbered from 1
+Take `Object` and throw the same object only if it is in the section of the
+stream between start and start + size. stream is numbered from 1
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `start` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** start of the slice (optional, default `0`)
 -   `size` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** size of the slice (optional, default `10`)
 
@@ -380,20 +352,17 @@ Take all `Object` and sort them with dedicated key
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### summing
 
-Take special `Object` like {id, value} and replace value with the sum of values
+Take special `Object` like `{id, value}` and replace `value` with the sum of
+`value`s
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
 
@@ -405,8 +374,6 @@ Take `Object` and take values with [value] path (must be an array)
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
 
@@ -418,8 +385,6 @@ Take all `Object` and sort them with selected field
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for the sort key (optional, default `id`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
@@ -430,8 +395,6 @@ Take `Object` object and getting the value field
 
 #### Parameters
 
--   `data`  
--   `feed`  
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the pah of the value field (optional, default `value`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 

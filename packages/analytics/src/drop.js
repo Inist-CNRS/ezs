@@ -3,8 +3,9 @@ import get from 'lodash.get';
 /**
  * Take `Object` and throw the same object only if there the value of the select field is not equals than a value
  *
- * @param {String} [path=value] path of the field to compare
- * @param {Number} [if=''] value to compare
+ * @name drop
+ * @param {String} [path="value"] path of the field to compare
+ * @param {Number} [if=""] value to compare
  * @returns {Object}
  */
 export default function drop(data, feed) {

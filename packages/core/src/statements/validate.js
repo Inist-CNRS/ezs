@@ -3,11 +3,13 @@ import _ from 'lodash';
 import Validator from 'validatorjs';
 
 /**
- * Take `Object` and throw the same object if all rules passes
+ * Take `Object` and throw the same object if all rules pass
  *
+ * @name validate
  * @param {String} [path] path of the field
  * @param {String} [rule] rule to validate the field
- * @see laravel validtor rules
+ * @see laravel validator rules
+ * @see https://github.com/skaterdav85/validatorjs#readme
  * @returns {Object}
  */
 export default function validate(data, feed) {

@@ -4,9 +4,10 @@ import debug from 'debug';
 /**
  * Takes an `Object` delegate processing to an external pipeline
  *
- * @param {String} [file] the external pipeline is descrbied in a file
- * @param {String} [script] the external pipeline is descrbied in a sting of characters
- * @param {String} [commands] the external pipeline is descrbied in object
+ * @name delegate
+ * @param {String} [file] the external pipeline is described in a file
+ * @param {String} [script] the external pipeline is described in a string of characters
+ * @param {Object} [commands] the external pipeline is described in an object
  * @returns {Object}
  */
 export default function delegate(data, feed) {

@@ -85,6 +85,7 @@ const allMethods = Object.keys(methods).join(',');
 /**
  * Take all `Object` and sort them with selected field
  *
+ * @name tune
  * @param {String} [path=id] path to use for the sort key
  * @returns {Object}
  */

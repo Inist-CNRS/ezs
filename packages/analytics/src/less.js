@@ -1,8 +1,10 @@
 import get from 'lodash.get';
 
 /**
- * Take `Object` and throw the same object only if there the value of the select field is less (or equal) than a value
+ * Take `Object` and throw the same object only if the value of the selected
+ * field is less (or equal) than a value
  *
+ * @name less
  * @param {String} [path=value] path of the field to compare
  * @param {Number} [than=0] value to compare
  * @param {Boolean} [strict=false] less than but not equal

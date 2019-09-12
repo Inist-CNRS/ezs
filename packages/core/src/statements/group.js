@@ -1,8 +1,9 @@
 import settings from '../settings';
 
 /**
- * Take all `chunk`, and throw array of chunks
+ * Take all `chunk`s, and throw one array of chunks
  *
+ * @name group
  * @param {Number} [size] Size of each partition
  * @returns {String}
  */

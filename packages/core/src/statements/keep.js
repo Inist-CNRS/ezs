@@ -1,8 +1,9 @@
 import _ from 'lodash';
 /**
  * Take `Object` and throw the same object but keep only
- * spefici fields
+ * specific fields
  *
+ * @name keep
  * @param {String} [path] path of field to keep
  * @returns {Object}
  */

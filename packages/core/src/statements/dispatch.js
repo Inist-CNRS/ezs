@@ -3,8 +3,9 @@ import debug from 'debug';
 import { inspectServers, connectServer } from '../client';
 
 /**
- * Takes an `Object` dispatch processing to an external pipeline in one or more servers
+ * Takes an `Object` dispatch processing to an external pipeline on one or more servers
  *
+ * @name dispatch
  * @param {String} [server] servers to dispatch data
  * @param {String} [file] the external pipeline is descrbied in a file
  * @param {String} [script] the external pipeline is descrbied in a sting of characters

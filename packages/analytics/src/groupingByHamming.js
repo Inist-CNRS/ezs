@@ -21,11 +21,12 @@ function hammingDistance(x, y) {
 const equalTo = (id, distance) => (item) => item.id.some((key) => hammingDistance(key, id) <= distance);
 
 /**
- * Take `Object` like { id, value } and reduce all value with
- * ID which have the same Hamming distance in single object
-
- * @param {String} [id=id] path to use for id
- * @param {String} [value=value] path to use for value
+ * Take `Object` like `{ id, value }` and reduce all `value` with `id` which
+ * have the same Hamming distance in a single object
+ *
+ * @name groupingByHamming
+ * @param {String} [id="id"] path to use for id
+ * @param {String} [value="value"] path to use for value
  * @returns {Object}
  */
 export default function groupingByHamming(data, feed) {

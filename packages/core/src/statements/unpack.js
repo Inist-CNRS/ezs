@@ -2,7 +2,8 @@ const eol = '\n';
 /**
  * Take `String` and throw `Object` builded by JSON.parse on each line
  *
- * @returns {String}
+ * @name unpack
+ * @returns {object}
  */
 export default function unpack(data, feed) {
     if (this.isLast()) {

@@ -1,9 +1,10 @@
 import get from 'lodash.get';
 import core from './core';
 /**
- * Take `Object` object getting value of fields (with json path)
- * and throws a object of each value
+ * Take `Object` object getting value of fields (with json `path`) and throws an
+ * object for each value
  *
+ * @name pluck
  * @param {String} [path=id] path to use form group by
  * @returns {Object}
  */

@@ -1,10 +1,11 @@
 import get from 'lodash.get';
 
 /**
- * Take `Object` and throw the same object only if there the value of the select
+ * Take `Object` and throw the same object only if the value of the selected
  * field is greater (or equal) than a value
  *
- * @param {String} [path=value] path of the field to compare
+ * @name greater
+ * @param {String} [path="value"] path of the field to compare
  * @param {Number} [than=0] value to compare
  * @param {Boolean} [strict=false] greater than but not equal
  * @returns {Object}

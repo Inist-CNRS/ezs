@@ -3,6 +3,7 @@ import get from 'lodash.get';
 /**
  * Take `Object` object and getting the value field
  *
+ * @name value
  * @param {String} [path=value] the pah of the value field
  * @returns {Object}
  */

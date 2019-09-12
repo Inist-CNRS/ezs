@@ -2,8 +2,9 @@ import get from 'lodash.get';
 import Store from './store';
 
 /**
- * Take `Object` group value of { id, value } objectpath
+ * Take `Object` group value of `{ id, value }` objectpath
  *
+ * @name reducing
  * @param {String} [id=id] path to use for id
  * @param {String} [value=value] path to use for value
  * @returns {Object}

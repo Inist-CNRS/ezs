@@ -1,7 +1,8 @@
 /**
- * Take all `Object` and genereta a json array
+ * Take all `Object` and generete a JSON array
  *
- * @param {String} [indent=false] indent JSON
+ * @name dump
+ * @param {boolean} [indent=false] indent JSON
  * @returns {String}
  */
 export default function dump(data, feed) {

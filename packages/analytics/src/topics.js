@@ -3,6 +3,7 @@ import get from 'lodash.get';
 /**
  * Take `Object` and take values with [value] path (must be an array)
  *
+ * @name topics
  * @param {String} [id=id] path to use for id
  * @param {String} [value=value] path to use for value
  * @returns {Object}

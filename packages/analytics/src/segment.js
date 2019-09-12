@@ -1,10 +1,12 @@
 import get from 'lodash.get';
 import flatten from 'lodash.flatten';
 import core from './core';
+
 /**
- * Take `Object` object getting some fields with json path, and
- * throw segment of value. Ex: get [a,b,c] and throw [a,b], [b,c]
+ * Take `Object` object getting some fields with json path, and throw segment of
+ * value. Ex: get `[a,b,c]` and throw `[a,b], [b,c]`
  *
+ * @name segment
  * @param {String} [path=value] path
  * @param {Boolean} [aggregate=true] aggregate all values for all paths (or not)
  * @returns {Object}

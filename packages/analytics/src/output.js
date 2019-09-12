@@ -1,6 +1,14 @@
 import get from 'lodash.get';
 import unset from 'lodash.unset';
 
+/**
+ * TO BE DESCRIBED
+ *
+ * @name output
+ * @param {string} keyName
+ * @param {boolean} indent
+ * @param {any} extract
+ */
 export default function output(data, feed) {
     const keyName = this.getParam('keyName', 'data');
     const indent = this.getParam('indent', false);

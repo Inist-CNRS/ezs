@@ -3,7 +3,8 @@ import core from './core';
 /**
  * Take `Object` object getting some fields with json path, and do ...
  *
- * @param {String} [path=id] path
+ * @name distinct
+ * @param {String} [path="id"] path
  * @returns {Object}
  */
 export default function distinct(data, feed) {
