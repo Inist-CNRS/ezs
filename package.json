@@ -22,7 +22,8 @@
     "from": "~0.1.7",
     "jest": "~24.9.0",
     "lerna": "3.16.4",
-    "node-fetch": "~2.6.0"
+    "node-fetch": "~2.6.0",
+    "sleepjs": "^3.0.1"
   },
   "scripts": {
     "build": "lerna run build",

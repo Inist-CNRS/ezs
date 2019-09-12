@@ -27,6 +27,7 @@
     "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
     "doc": "documentation readme package.json src/* --section=Statements",
     "build": "babel --root-mode upward src --out-dir lib",
+    "preversion": "npm run doc",
     "prepublish": "npm run build"
   },
   "publishConfig": {
@@ -34,8 +35,5 @@
   },
   "peerDependencies": {
     "@ezs/core": "*"
-  },
-  "devDependencies": {
-    "sleepjs": "^3.0.1"
   }
 }
