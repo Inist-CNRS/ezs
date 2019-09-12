@@ -10,7 +10,7 @@ describe('cache', () => {
         maxTotalSize: 6,
     });
 
-    describe('add keys', () => {
+    describe('add keys an first time', () => {
         beforeAll(() => handle.clear());
         it('and clean cache on demand', async () => {
             await handle.set('key#1', from(['a', 'b', 'c']));
@@ -27,7 +27,7 @@ describe('cache', () => {
         });
     });
 
-    describe('add keys', () => {
+    describe('add keys an second time', () => {
         beforeAll(() => handle.clear());
 
         it('and clean cache automaticaly', async () => {
