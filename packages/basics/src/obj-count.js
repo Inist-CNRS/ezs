@@ -1,6 +1,6 @@
 function OBJCount(data, feed) {
     if (this.isLast()) {
-        feed.send(this.getIndex());
+        feed.send(this.getIndex() - 1);
     } else {
         feed.end();
     }
