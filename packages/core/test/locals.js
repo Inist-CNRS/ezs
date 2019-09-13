@@ -109,7 +109,7 @@ function badaboum(_data, feed) {
     }, 1);
 }
 
-function bang(_data, _feed) {
+function bang() {
     throw new Error('Bang!');
 }
 
