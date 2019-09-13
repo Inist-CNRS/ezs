@@ -13,6 +13,7 @@ Repository containing all @ezs packages (monorepo)
 - [@ezs/analytics](./packages/analytics#readme)
 - [@ezs/sparql](./packages/sparql#readme)
 - [@ezs/istex](./packages/istex#readme)
+- [@ezs/booster](./packages/booster#readme)
 
 ## History
 
