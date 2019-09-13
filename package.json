@@ -26,6 +26,7 @@
     "sleepjs": "^3.0.1"
   },
   "scripts": {
+    "commit": "git status && npx git-cz -a",
     "build": "lerna run build",
     "bootstrap": "lerna bootstrap --hoist",
     "doc": "lerna run doc",
