@@ -93,7 +93,7 @@ export default class Engine extends SafeTransform {
                 }
                 return defval;
             };
-            Promise.resolve(this.func.call(this.scope, chunk, feed, currentIndex)).catch((e) => {
+            return Promise.resolve(this.func.call(this.scope, chunk, feed, currentIndex)).catch((e) => {
                 debug('ezs')(`Async error thrown at item #${currentIndex}, pipeline is broken`);
                 this.emit('error', createErrorWith(e, currentIndex, this.funcName));
                 done();
@@ -101,7 +101,7 @@ export default class Engine extends SafeTransform {
         } catch (e) {
             debug('ezs')(`Sync error thrown at item #${currentIndex}, pipeline carries errors`);
             this.push(createErrorWith(e, currentIndex, this.funcName));
-            done();
+            return done();
         }
     }
 }
