@@ -1,4 +1,4 @@
-import ezs from 'ezs';
+import ezs from '../../core/src';
 
 const testOne = (stream, expectation, done) => {
     stream.pipe(

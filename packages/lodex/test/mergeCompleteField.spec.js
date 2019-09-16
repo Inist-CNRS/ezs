@@ -218,7 +218,7 @@ describe('JSONLDObject / mergeCompleteField', () => {
         };
         const res = await mergeCompleteField(output, field, fields, data);
         expect(res).toBeTruthy();
-        const name = Object.keys(res).find(n => n !== '@context');
+        const name = Object.keys(res).find((n) => n !== '@context');
         expect(name).toBeTruthy();
         expect(res).toEqual({
             '@context': {
@@ -260,7 +260,7 @@ describe('JSONLDObject / mergeCompleteField', () => {
         };
         const res = await mergeCompleteField(output, field, fields, data);
         expect(res).toBeTruthy();
-        const name = Object.keys(res).find(n => n !== '@context');
+        const name = Object.keys(res).find((n) => n !== '@context');
         expect(name).toBeTruthy();
         expect(res).toEqual({
             '@context': {
@@ -302,7 +302,7 @@ describe('JSONLDObject / mergeCompleteField', () => {
         };
         const res = await mergeCompleteField(output, field, fields, data);
         expect(res).toBeTruthy();
-        const name = Object.keys(res).find(n => n !== '@context');
+        const name = Object.keys(res).find((n) => n !== '@context');
         expect(name).toBeTruthy();
         expect(res).toEqual({
             '@context': {

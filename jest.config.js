@@ -7,6 +7,6 @@ module.exports = {
         '**/__tests__/**/*.[jt]s?(x)',
         '**/?(*.)+(spec|test).[tj]s?(x)',
     ],
-    testPathIgnorePatterns: ['/node_modules/', 'locals.js'],
+    testPathIgnorePatterns: ['/node_modules/', 'locals.js', 'testOne.js', 'testAll.js'],
     coveragePathIgnorePatterns: ['/node_modules/', '/test/', '/lib/'],
 };

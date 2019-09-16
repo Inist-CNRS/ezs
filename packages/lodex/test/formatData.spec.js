@@ -67,7 +67,7 @@ describe('JSONLDObject / formatData', () => {
                 uri: 'http://uri.param',
             },
             'prop',
-            uri => uri.replace('http://uri.param', 'http://localhost:3000'),
+            (uri) => uri.replace('http://uri.param', 'http://localhost:3000'),
         );
         expect(output).toEqual([
             { '@id': 'http://localhost:3000/ftp://uri' },

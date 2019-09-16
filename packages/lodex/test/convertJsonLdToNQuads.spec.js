@@ -1,6 +1,6 @@
-import ezs from 'ezs';
 import from from 'from';
 import testOne from './testOne';
+import ezs from '../../core/src';
 
 import statements from '../src';
 

@@ -1,6 +1,6 @@
 import from from 'from';
-import ezs from 'ezs';
-import ezsLodex from '../lib';
+import ezs from '../../core/src';
+import ezsLodex from '../src';
 
 ezs.use(ezsLodex);
 

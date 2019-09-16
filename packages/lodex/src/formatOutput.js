@@ -6,16 +6,16 @@ function formatOutput(data, feed) {
     const indent = this.getParam('indent', false);
     const extract = this.getParam('extract');
     const extracts = Array.isArray(extract) ? extract : [extract];
-    const keys = extracts.filter(x => x);
+    const keys = extracts.filter((x) => x);
 
-    const json = d => JSON.stringify(d, null, indent ? '    ' : null);
+    const json = (d) => JSON.stringify(d, null, indent ? '    ' : null);
 
     if (this.isLast()) {
         feed.write(']}\n');
         return feed.close();
     }
     if (this.isFirst() && !this.isLast()) {
-        const values = keys.map(p => get(data, p));
+        const values = keys.map((p) => get(data, p));
         feed.write('{');
         if (keys.length > 0) {
             keys.forEach((k, index) => {
@@ -32,7 +32,7 @@ function formatOutput(data, feed) {
     } else {
         feed.write(',\n');
     }
-    keys.forEach(p => unset(data, p));
+    keys.forEach((p) => unset(data, p));
     feed.write(json(data));
     return feed.end();
 }

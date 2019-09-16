@@ -1,6 +1,6 @@
 import from from 'from';
 import { Feed } from 'feed';
-import ezs from 'ezs';
+import ezs from '../../core/src';
 import statements from '../src';
 
 ezs.use(statements);
@@ -64,12 +64,11 @@ describe('convertToAtom', () => {
                     expect(lines[8]).toBe('    <entry>');
                     expect(lines[9]).toBe('        <title type="html"><![CDATA[Title]]></title>');
                     expect(lines[10]).toBe('        <id>http://uri</id>');
-                    expect(lines[11]).toBe('        <link href="http://uri">');
-                    expect(lines[12]).toBe('        </link>');
-                    expect(lines[13]).toContain('<updated>');
-                    expect(lines[14]).toBe('        <summary type="html"><![CDATA[Description.]]></summary>');
-                    expect(lines[15]).toBe('    </entry>');
-                    expect(lines[16]).toBe('</feed>');
+                    expect(lines[11]).toBe('        <link href="http://uri"/>');
+                    expect(lines[12]).toContain('<updated>');
+                    expect(lines[13]).toBe('        <summary type="html"><![CDATA[Description.]]></summary>');
+                    expect(lines[14]).toBe('    </entry>');
+                    expect(lines[15]).toBe('</feed>');
                     done();
                 } catch (e) {
                     done(e);
@@ -92,7 +91,7 @@ describe('convertToAtom', () => {
             .pipe(ezs((input) => {
                 try {
                     const lines = input.split('\n');
-                    expect(lines.length).toBe(25);
+                    expect(lines.length).toBe(23);
                     done();
                 } catch (e) {
                     done(e);

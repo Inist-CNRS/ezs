@@ -19,8 +19,8 @@ export default function convertToAtom(data, feed) {
         return feed.close();
     }
 
-    const title = fields.find(f => f.overview && f.overview === 1);
-    const description = fields.find(f => f.overview && f.overview === 2);
+    const title = fields.find((f) => f.overview && f.overview === 1);
+    const description = fields.find((f) => f.overview && f.overview === 2);
 
     if (title === undefined || description === undefined) {
         return feed.end();

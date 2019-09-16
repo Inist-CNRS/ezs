@@ -61,7 +61,7 @@ describe('convertToCSV', () => {
     });
 
     describe('getCsvField', () => {
-        const getCharacteristicByName = name => `${name}_value`;
+        const getCharacteristicByName = (name) => `${name}_value`;
         const getCsvField = getCsvFieldFactory(getCharacteristicByName);
 
         it('should return an object with the specified label', () => {

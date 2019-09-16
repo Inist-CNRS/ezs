@@ -1,9 +1,9 @@
 import from from 'from';
-import ezs, { use } from 'ezs';
+import ezs from '../../core/src';
 import testOne from './testOne';
 import statements from '../src';
 
-use(statements);
+ezs.use(statements);
 
 describe('objects2columns', () => {
     it('should return when columns', (done) => {

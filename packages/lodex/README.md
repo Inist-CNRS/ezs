@@ -1,12 +1,16 @@
-# A collection of `ezs` functions for Lodex.
+# A collection of `ezs` functions for Lodex
 
-This package cannot be used alone. [ezs](https://www.npmjs.com/package/ezs) has to be installed
+[![npm version](https://img.shields.io/npm/v/@ezs/lodex)](https://npm.im/@ezs/lodex)
+[![license](https://img.shields.io/npm/l/@ezs/lodex)](https://npm.im/@ezs/lodex)
+
+This package cannot be used alone.
+[@ezs/core](https://www.npmjs.com/package/@ezs/core) has to be installed.
 
 ## Usage
 
 ```js
-import ezs from 'ezs';
-import lodex from 'ezs-lodex';
+import ezs from '@ezs/core';
+import lodex from '@ezs/lodex';
 
 ezs.use(lodex);
 

@@ -1,4 +1,4 @@
-const ezs = require('ezs');
+const ezs = require('../../core/src');
 
 const testAll = (stream, expectation, done) => {
     stream.pipe(

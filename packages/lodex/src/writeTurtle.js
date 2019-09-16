@@ -64,7 +64,7 @@ export default function writeTurtle(data, feed) {
         writer.addQuads(quads);
         writer.end((error, result) => {
             if (error) {
-                return feed.stop(new Error(error));
+                return feed.stop(new Error(error.message));
             }
             return feed.send(result);
         });
@@ -77,7 +77,7 @@ export default function writeTurtle(data, feed) {
     }
     if (data && data.quad) {
         const { quad } = data;
-        const addPrefixWhenUsedInString = string => (prefixes, prefix, i) => (string.includes(prefix)
+        const addPrefixWhenUsedInString = (string) => (prefixes, prefix, i) => (string.includes(prefix)
             ? { ...prefixes, [aliasPrefixes[i]]: prefix }
             : prefixes);
 

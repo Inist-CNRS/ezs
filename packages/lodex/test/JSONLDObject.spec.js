@@ -1,6 +1,6 @@
-import ezs from 'ezs';
 import from from 'from';
 
+import ezs from '../../core/src';
 import statements from '../src';
 
 ezs.use(statements);
@@ -362,7 +362,7 @@ describe('JSONLDObject', () => {
             })
             .on('end', () => {
                 expect(res).toHaveLength(1);
-                const name = Object.keys(res[0]).find(k => !['@id', '@context'].includes(k));
+                const name = Object.keys(res[0]).find((k) => !['@id', '@context'].includes(k));
                 const expected = [{
                     '@id': 'http://uri/1',
                     '@context': {
