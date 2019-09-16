@@ -8,5 +8,5 @@ module.exports = {
         '**/?(*.)+(spec|test).[tj]s?(x)',
     ],
     testPathIgnorePatterns: ['/node_modules/', 'locals.js', 'testOne.js', 'testAll.js'],
-    coveragePathIgnorePatterns: ['/node_modules/', '/test/', '/lib/'],
+    coveragePathIgnorePatterns: ['/node_modules/', '/test/', '/lib/', '/lodex/src/reducers/'],
 };
