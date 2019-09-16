@@ -14,6 +14,7 @@ Repository containing all @ezs packages (monorepo)
 - [@ezs/sparql](./packages/sparql#readme)
 - [@ezs/istex](./packages/istex#readme)
 - [@ezs/booster](./packages/booster#readme)
+- [@ezs/lodex](./packages/lodex#readme)
 
 ## History
 
