@@ -87,6 +87,8 @@ To install the dependencies of the packages, use
 npx lerna bootstrap
 ```
 
+To install devDependencies (at root level), use `npm install`.
+
 ## Transpiling
 
 If you use [babel](https://babeljs.io) to transpile your code, use

@@ -32,7 +32,7 @@
     "build": "lerna run build",
     "bootstrap": "lerna bootstrap --hoist",
     "doc": "lerna run doc",
-    "lint": "lerna run lint",
+    "lint": "lerna run --no-bail lint",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls"
