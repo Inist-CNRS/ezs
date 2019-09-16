@@ -145,7 +145,7 @@ The `packages/core/package.json` has to be adapted:
   `git+https://github.com/Inist-CNRS/ezs.git`
 - its `bugs.url`
 - its `homepage`, from `https://github.com/touv/node-ezs#readme` to
-  `https://github.com/Inist-CNRS/ezs/tree/masterpackages/core#readme`
+  `https://github.com/Inist-CNRS/ezs/tree/master/packages/core#readme`
 - in `scripts`, keep only `lint`, `doc`, `build`, `prepublish`, `preversion`
 - change `dependencies` version from `^a.b.c` to `~a.b.c`
 - add a `publishConfig.access` and set it to `"public"`
