@@ -103,8 +103,8 @@ Only if you have the rights (to GitHub for the first line, to npm
 [`@ezs`](https://www.npmjs.com/org/ezs) organization for the second line).
 
 ```bash
-npx lerna version --exact --conventional-commits
-npx lerna publish from-package
+npm run release:version
+npm run release:publish
 ```
 
 ## Use @ezs organization
