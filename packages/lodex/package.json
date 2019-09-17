@@ -1,6 +1,6 @@
 {
     "name": "@ezs/lodex",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "ezs dedicated statements for Lodex",
     "directories": {
         "test": "test"
@@ -41,8 +41,6 @@
     },
     "publishConfig": {
         "access": "public"
-    },
-    "devDependencies": {
     },
     "peerDependencies": {
         "@ezs/core": "*"
