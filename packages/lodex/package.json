@@ -1,0 +1,50 @@
+{
+    "name": "@ezs/lodex",
+    "version": "1.0.0",
+    "description": "ezs dedicated statements for Lodex",
+    "directories": {
+        "test": "test"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Inist-CNRS/ezs.git"
+    },
+    "keywords": [
+        "ezs"
+    ],
+    "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Inist-CNRS/ezs/issues"
+    },
+    "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/lodex#readme",
+    "dependencies": {
+        "jsonld": "~1.7.0",
+        "lodash.get": "~4.4.2",
+        "lodash.omit": "~4.5.0",
+        "lodash.set": "~4.3.2",
+        "lodash.unset": "~4.5.2",
+        "lodash.zipobject": "~4.1.3",
+        "mongodb": "~3.3.2",
+        "n3": "~1.2.0",
+        "node-object-hash": "~2.0.0",
+        "valid-url": "~1.0.9",
+        "xml-writer": "~1.7.0"
+    },
+    "main": "./lib/index.js",
+    "scripts": {
+        "doc": "documentation readme package.json src/* --section=Statements",
+        "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
+        "build": "babel --root-mode upward src --out-dir lib",
+        "prepublish": "npm run build",
+        "preversion": "npm run doc"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "devDependencies": {
+    },
+    "peerDependencies": {
+        "@ezs/core": "*"
+    }
+}

@@ -1,0 +1,23 @@
+#!/usr/bin/env ezs
+
+[use]
+plugin = basics
+plugin = lodex
+
+# Take JSON to generate CSV
+
+[JSONParse]
+separator = *
+
+# Simplify each object 
+[OBJFlatten]
+
+# Patch Flatten Object
+[flattenPatch]
+
+# make unformm each object
+[OBJStandardize]
+
+# genreate csv
+[CSVString]
+format = strict
