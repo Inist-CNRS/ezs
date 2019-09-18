@@ -62,3 +62,7 @@ typings/
 
 # @ezs/istex tests get a PDF file
 *.pdf
+
+# vim swap files
+*.swp
+*.swo
