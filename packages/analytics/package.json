@@ -17,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/Inist-CNRS/ezs/issues"
   },
-  "homepage": "https://github.com/Inist-CNRS/ezs/packages/analytics#readme",
+  "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/analytics#readme",
   "dependencies": {
     "@ezs/core": "1.1.6",
     "lda": "~0.2.0",

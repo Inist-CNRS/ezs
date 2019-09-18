@@ -35,7 +35,7 @@
   "bugs": {
     "url": "https://github.com/Inist-CNRS/ezs/issues"
   },
-  "homepage": "https://github.com/Inist-CNRS/ezs/packages/sparql#readme",
+  "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/sparql#readme",
   "dependencies": {
     "fetch-with-proxy": "1.1.0",
     "isomorphic-fetch": "2.2.1"

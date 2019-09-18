@@ -28,7 +28,7 @@
     "bugs": {
         "url": "https://github.com/Inist-CNRS/ezs/issues"
     },
-    "homepage": "https://github.com/Inist-CNRS/ezs/packages/istex#readme",
+    "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/istex#readme",
     "scripts": {
         "doc": "documentation readme package.json src/* --section=Statements",
         "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
