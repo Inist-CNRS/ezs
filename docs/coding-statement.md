@@ -1,12 +1,12 @@
 #  Fonctionnement d’une instruction
 
-La fonction est exécutée pour chaque élément du flux d'entrée, plus une dernière fois pour indiquer qu'il n'y  a plus d’élément à traiter. A chaque fois elle reçoit deux paramètres `data` & `feed`.
+La fonction est exécutée pour chaque élément du flux d'entrée, plus une dernière fois pour indiquer qu'il n'y  a plus d’élément à traiter. A chaque fois, elle reçoit deux paramètres : `data` & `feed`.
 
 >  Si un flux contient 10 éléments, la fonction sera exécutée 11 fois
 
 
 
-Chaque fonction possède son `scope ` lui donnant accès à des fonctions dédiés. Le `scope` est partagé entre chaque appel pour chaque élément.
+Chaque fonction possède un  `scope ` lui donnant accès à des fonctions dédiées. Le `scope` est partagé entre chaque appel pour chaque élément.
 
 ## data
 
@@ -18,7 +18,7 @@ Est un objet permettant de contrôler le flux en sortie de la fonction. Il perme
 
 ### feed.write(something) 
 
-Permet d'envoyer un élément dans le flux de sortie. Cette fonction  peut-être exécuté plusieurs fois
+Permet d'envoyer un élément dans le flux de sortie. Cette fonction  peut-être exécutée plusieurs fois
 
 ### feed.end()
 
@@ -26,17 +26,39 @@ Permet de fermer le flux pour l’élément courant.
 
 ### feed.send(something)
 
-Permet d'enchainer `feed.write` et `feed.end` en une seule fonction.
+Permet d’enchaîner `feed.write` et `feed.end` en une seule fonction.
 
 ### feed.close()
 
-Permet de fermer définitivement le flux de sortie, plus aucun élement ne pourra être envoyé.
+Permet de fermer définitivement le flux de sortie, plus aucun élément ne pourra être envoyé.
 
 ### feed.stop(withAnError)
 
 Permet de fermer le flux de sortie en précisant l'erreur ayant provoqué l’arrêt impromptu, plus aucun élément ne pourra être envoyé.
 
 ## Scope
+
+### Environnement partagé
+
+Le scope de chaque fonction est le même entre chaque appel à la fonction pour  chaque élément du flux. C’est un moyen simple pour partager des données entre 2 appels de fonctions.
+
+Exemple :
+
+```
+function count(data, feed) {
+	if (!this.count) {
+		this.count = 0;
+	}
+    if (this.isLast()) {
+    	feed.write(this.count);
+        return feed.close();        
+    }
+    this.count += 1;
+    return feed.end();
+}
+```
+
+
 
 ### this.getParam(name, defaultValue)
 
@@ -62,7 +84,7 @@ La gestion des erreurs est primordiale lors d’un traitement de flux. Il existe
 
 ### Erreur de données
 
-Ce type d’erreur ne bloque pas l’exécution de l’instruction, celle-ci a traité un élément en erreur. L’instruction peut décider d’ignorer l’élément ou le remplacer par un objet erreur. Cette dernière possibilité offre la possibilité de recenser les éléments erreurs tout en traitant tout les autres.
+Ce type d’erreur ne bloque pas l’exécution de l’instruction, celle-ci a traité un élément en erreur qui n’impacte pas le traitement des autres éléments. L’instruction peut décider d’ignorer l’élément ou de le remplacer par un objet erreur. Cette dernière possibilité permet de recenser les éléments erreurs tout en traitant les autres.
 
 Exemple :
 
@@ -82,7 +104,7 @@ function check(data, feed) {
 
 Ce type d’erreur bloque l’exécution de l’instruction, et implique qu’aucun autre élément ne pourra être traité. 
 
-Pour arrêter le flux, il est possible de lancer une erreur via un `throw`.  Attention, cela ne vaut que pour des instructions synchrones. Dans tout les autre cas, il est nécessaire d’arrêter le flux avec un `feed.stop` 
+Pour arrêter le flux, il est possible de lancer une erreur via un `throw`.  Attention, cela ne vaut que pour des instructions synchrones. Dans tout les autres cas, il est nécessaire d’arrêter le flux avec un `feed.stop` 
 
 Exemple :
 
@@ -103,7 +125,7 @@ function plouf(data, feed) {
 
 ### Les erreurs de données
 
-la fonction `ezs.catch` permet d’extraire les erreurs des données d’un flux. Une fois extraite les données, il possible d’arrêter le le flux ou de continuer sans les erreurs.
+la fonction `ezs.catch` permet d’extraire les erreurs des données d’un flux. Une fois extraite des données, il possible d’arrêter le flux ou de continuer sans les erreurs.
 
 ```
  // Example #1

@@ -44,7 +44,7 @@ process.stdin
 
 ## Exécuter une instruction locale
 
-Le principaleintérêt d’ @ezs est de regrouper des instructions dans des paquets npm, néanmoins il est possible de créer et utiliser des fonctions javascript locale
+Le principal intérêt d’ @ezs est de regrouper des instructions dans des paquets npm, néanmoins il est possible de créer et utiliser des fonctions Javascript locale
 
 Le programme suivant affichera chaque `chunk` dans la console.
 ```
@@ -61,5 +61,5 @@ process.stdin
 ```
 
 > Si l'usage des `arrows functions` est possible, il n'est pas recommandé. 
-> @ezs utilise le scope de chaque fonction pour proposer plusieurs helpers qui 
-> permettent de traiter finnement les différents moment d'une exécutino au fil de l'eau (premier appel, dernier appel, etc.)
+> @ezs utilise le scope de chaque fonction pour proposer plusieurs “helpers” qui 
+> permettent de traiter finement les différents moment d'une exécution au fil de l'eau (premier appel, dernier appel, etc.). Voir le [fonctionnent d’une instruction](coding-statement.md)
