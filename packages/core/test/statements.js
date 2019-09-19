@@ -548,4 +548,44 @@ describe('statements', () => {
                 done();
             });
     });
+
+    describe('time', () => {
+        it('should return a time', (done) => {
+            let res = [];
+            from([1])
+                .pipe(ezs('time'))
+                .on('error', done)
+                .on('data', (data) => {
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    expect(res).toHaveLength(1);
+                    expect(res[0]).toHaveProperty('time');
+                    expect(res[0].time).toBeGreaterThanOrEqual(0);
+                    done();
+                });
+        });
+
+        it('should measure the time of a script', (done) => {
+            let res = [];
+            const script = `
+            [transit]
+            `;
+            from([1])
+                .pipe(ezs('time', { script }))
+                .pipe(ezs('debug'))
+                .on('error', done)
+                .on('data', (data) => {
+                    console.log({data})
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    console.log({res})
+                    expect(res).toHaveLength(1);
+                    expect(res[0]).toHaveProperty('time');
+                    expect(res[0].time).toBeGreaterThanOrEqual(0);
+                    done();
+                });
+        });
+    });
 });

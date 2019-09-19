@@ -19,6 +19,7 @@ import tracer from './tracer';
 import truncate from './truncate';
 import validate from './validate';
 import dump from './dump';
+import time from './time';
 
 export default {
     extract,
@@ -42,4 +43,5 @@ export default {
     truncate,
     validate,
     dump,
+    time,
 };
