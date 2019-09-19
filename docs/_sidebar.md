@@ -1,7 +1,7 @@
 - Usage 
 
   - [Démarrer](quickstart.md)
-  - [Plugins](plugins.md)
+  - [Plugin](plugin.md)
   - [Instruction](statement.md)
   - [Fichier .ini](ini.md)
   
@@ -9,5 +9,13 @@
 
   - [d’une instruction](coding-statement.md)
   - [d’un fichier .ini](coding-ini.md)
-  - 
   
+- Plugins
+
+  - [core](plugin-core.md)
+  - [basics](plugin-basics.md)
+  - [analytics](plugin-analytics.md)
+  - [sparql](plugin-sparql.md)
+  - [istex](plugin-istex.md)
+  - [booster](plugin-booster.md)
+  - [lodex](plugin-lodex.md)

@@ -33,7 +33,7 @@
     },
     "main": "./lib/index.js",
     "scripts": {
-        "doc": "documentation readme package.json src/* --section=Statements",
+        "doc": "documentation readme src/* --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-lodex.md --section=usage",
         "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
         "build": "babel --root-mode upward src --out-dir lib",
         "prepublish": "npm run build",
