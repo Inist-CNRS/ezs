@@ -21,6 +21,7 @@
     "eslint-plugin-import": "~2.18.2",
     "feed": "~4.0.0",
     "from": "~0.1.7",
+    "git-cz": "~3.2.1",
     "jest": "~24.9.0",
     "lerna": "3.16.4",
     "node-fetch": "~2.6.0",
@@ -37,5 +38,10 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls"
+  },
+  "config": {
+      "commitizen": {
+          "path": "git-cz"
+      }
   }
 }
