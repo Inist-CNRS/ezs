@@ -22,8 +22,8 @@ Takes an `Object` delegate processing to an external pipeline and cache the resu
 
 #### Parameters
 
--   `data`
--   `feed`
+-   `data`  
+-   `feed`  
 -   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is descrbied in a file
 -   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is descrbied in a sting of characters
 -   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is descrbied in object
@@ -33,4 +33,4 @@ Takes an `Object` delegate processing to an external pipeline and cache the resu
 -   `maxTotalSize` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Size (bytes) maximun of the cash (1 G) (optional, default `1000000000`)
 -   `cleanupDelay` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Frequency (milliseconds) to cleanup the cahe (10 min) (optional, default `600000`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
