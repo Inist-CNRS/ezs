@@ -550,19 +550,17 @@ describe('statements', () => {
     });
 
     describe('time', () => {
-        it('should return a time', (done) => {
-            let res = [];
+        it('should return an error when no script', (done) => {
             from([1])
                 .pipe(ezs('time'))
-                .on('error', done)
-                .on('data', (data) => {
-                    res = [...res, data];
+                .pipe(ezs('debug'))
+                .pipe(ezs.catch())
+                .on('error', (err) => {
+                    expect(err).toBeInstanceOf(Error);
+                    done();
                 })
                 .on('end', () => {
-                    expect(res).toHaveLength(1);
-                    expect(res[0]).toHaveProperty('time');
-                    expect(res[0].time).toBeGreaterThanOrEqual(0);
-                    done();
+                    done(new Error('should return an error'));
                 });
         });
 
@@ -573,14 +571,12 @@ describe('statements', () => {
             `;
             from([1])
                 .pipe(ezs('time', { script }))
-                .pipe(ezs('debug'))
+                .pipe(ezs.catch())
                 .on('error', done)
                 .on('data', (data) => {
-                    console.log({data})
                     res = [...res, data];
                 })
                 .on('end', () => {
-                    console.log({res})
                     expect(res).toHaveLength(1);
                     expect(res[0]).toHaveProperty('time');
                     expect(res[0].time).toBeGreaterThanOrEqual(0);
