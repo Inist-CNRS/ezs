@@ -40,8 +40,8 @@
     "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls"
   },
   "config": {
-      "commitizen": {
-          "path": "git-cz"
-      }
+    "commitizen": {
+      "path": "git-cz"
+    }
   }
 }
