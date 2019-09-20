@@ -1,12 +1,11 @@
 # sparql
 
-Ce plugin est propose une série d'instructions lié à l’usage d’un SPARQL Endpoint
+Ce plugin propose une série d'instructions liée à l’usage d’un SPARQL Endpoint.
 
 ## installation
 
-```
+```bash
 npm install @es/sparql
 ```
 
 ## usage
-

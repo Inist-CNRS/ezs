@@ -1,10 +1,12 @@
 # lodex
 
-Ce plugin est propose une série d'instructions spécifiques à l’usage de [lodex](https://lodex.inist.fr)
+Ce plugin propose une série d'instructions spécifiques à l’usage de [lodex](https://lodex.inist.fr)
 
 ## installation
 
-    npm install @es/core
+```bash
+npm install @ezs/core
+```
 
 ## usage
 
@@ -31,7 +33,7 @@ Ce plugin est propose une série d'instructions spécifiques à l’usage de [lo
 
 Take a JSON-LD object and transform it into NQuads triples.
 
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**
 
 ### convertToAtom
 
@@ -44,7 +46,7 @@ model.
 -   `atomFeed` **Feed** A feed of resources, see [feed](https://github.com/jpmonette/feed) (optional, default `{}`)
 -   `config` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** LODEX configuration (with `perPage`) (optional, default `{}`)
 
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**
 
 ### convertToExtendedJsonLd
 
@@ -94,7 +96,7 @@ Output:
 
 Take `Object` and transform all key ending byu number on array.
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
 
 ### LodexGetCharacteristics
 
@@ -187,7 +189,7 @@ Output:
 }
 ```
 
-Returns **any** 
+Returns **any**
 
 ### keyMapping
 
@@ -238,13 +240,13 @@ Returns **any** Same object with modified keys
 
 Take `Object` and ...
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
 
 ### parseNQuads
 
 Take N-Quads string and transform it to Objects.
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
 
 ### writeTurtle
 

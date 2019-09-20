@@ -4,7 +4,9 @@ Ce plugin propose une série d'instructions liées à l’usage de l’API [ISTE
 
 ## installation
 
-    npm install @es/core
+```bash
+npm install @ezs/istex
+```
 
 ## usage
 
@@ -44,7 +46,7 @@ from([{ query: 'ezs', facet: 'corpusName' }])
   .pipe(ezs('ISTEXFacet', { sid: 'test', }))
 ```
 
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>**
 
 ### ISTEXFilesContent
 
@@ -59,7 +61,7 @@ ISTEXFetch produces the stream you need to save the file.
 -   `sid` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** User-agent identifier (optional, default `"ezs-istex"`)
 -   `token` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** authentication token (see [documentation](https://doc.istex.fr/api/access/fede.html#acc%C3%A8s-programmatique-via-un-token-didentification))
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
 
 ### ISTEXFilesWrap
 
@@ -67,7 +69,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Take and Object with ISTEX `stream` and wrap into a single zip
 
-Returns **[Buffer](https://nodejs.org/api/buffer.html)** 
+Returns **[Buffer](https://nodejs.org/api/buffer.html)**
 
 ### ISTEXFiles
 
@@ -82,7 +84,7 @@ Take an Object with ISTEX `id` and generate an object for each file
 -   `enrichment` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** enrichment of the document to save
 -   `sid` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** User-agent identifier (optional, default `"ezs-istex"`)
 
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** 
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)**
 
 ### ISTEXFetch
 
@@ -91,7 +93,7 @@ Take `Object` with `id` and returns the document's metadata
 #### Parameters
 
 -   `source` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Field to use to fetch documents (optional, default `"id"`)
--   `target` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `target` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**
 -   `id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** ISTEX Identifier of a document (optional, default `data.id`)
 -   `sid` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** User-agent identifier (optional, default `"ezs-istex"`)
 
@@ -115,7 +117,7 @@ will produce two JSON records.
 .pipe(ezs('ISTEXFetch', { source: 'id' }))
 ```
 
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>**
 
 ### ISTEXParseDotCorpus
 
@@ -148,7 +150,7 @@ field = fulltext
 id 2FF3F5B1477986B9C617BB75CA3333DBEE99EB05
 ```
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
 
 ### ISTEXResult
 
@@ -164,7 +166,7 @@ This should be placed after ISTEXScroll.
 -   `source` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**  (optional, default `data`)
 -   `target` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**  (optional, default `feed`)
 
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>**
 
 ### ISTEXSave
 
@@ -182,7 +184,7 @@ ISTEXFetch produces the stream you need to save the file.
 -   `sid` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** User-agent identifier (optional, default `"ezs-istex"`)
 -   `token` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** authentication token (see [documentation](https://doc.istex.fr/api/access/fede.html#acc%C3%A8s-programmatique-via-un-token-didentification))
 
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** 
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)**
 
 ### ISTEXTriplify
 
@@ -243,7 +245,7 @@ output:
     <https://data.istex.fr/ontology/istex#affiliation> "University of Reading" ;
 ```
 
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**
 
 ### ISTEX
 
@@ -269,7 +271,7 @@ Take an array and returns matching documents for every value of the array
 }))
 ```
 
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>**
 
 ### ISTEXScroll
 
@@ -296,7 +298,7 @@ from([{ query: 'this is a test' }])
   }))
 ```
 
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>**
 
 ### ISTEXUniq
 
