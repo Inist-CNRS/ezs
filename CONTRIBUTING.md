@@ -147,6 +147,7 @@ The `packages/core/package.json` has to be adapted:
 - its `homepage`, from `https://github.com/touv/node-ezs#readme` to
   `https://github.com/Inist-CNRS/ezs/tree/master/packages/core#readme`
 - in `scripts`, keep only `lint`, `doc`, `build`, `prepublish`, `preversion`
+- for the `doc` script, use something like: `documentation readme src/* --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-sparql.md --section=usage` (don't forget to create the `docs/plugin-sparql.md` file, using other plugins' model)
 - change `dependencies` version from `^a.b.c` to `~a.b.c`
 - add a `publishConfig.access` and set it to `"public"`
 - modify the `build` script if necessary: from `babel src --out-dir lib` to
