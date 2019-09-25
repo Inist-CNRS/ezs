@@ -1,5 +1,8 @@
 before_install:
 - npm i -g npm@latest
+branches:
+  only:
+    - master
 install:
 - npm run bootstrap
 after_success: npm run coveralls
