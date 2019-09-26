@@ -6,6 +6,7 @@ export const createFunction = () => async function LodexRunQuery(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
+    const referer = this.getParam('referer', data.referer);
     const filter = this.getParam('filter', data.filter || {});
     filter.removedAt = { $exists: false }; // Ignore removed resources
     const field = this.getParam(
@@ -42,6 +43,9 @@ export const createFunction = () => async function LodexRunQuery(data, feed) {
         if (typeof data1 === 'object') {
             if (data1) {
                 set(data1, 'total', total);
+            }
+            if (referer) {
+                set(data1, 'referer', referer);
             }
             feed.write(data1);
         }
