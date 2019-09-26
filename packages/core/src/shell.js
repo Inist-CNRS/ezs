@@ -1,7 +1,13 @@
+import vm from 'vm';
 import autocast from 'autocast';
 import _ from 'lodash';
-import safeEval from 'notevil';
 import mixins from './mixins';
+
+const safeEval = (code, sandbox) => {
+    const script = new vm.Script(code);
+    const context = vm.createContext(sandbox);
+    return script.runInContext(context);
+};
 
 const parse = (chunk, environment) => (expression) => {
     const js = [];
