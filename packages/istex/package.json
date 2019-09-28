@@ -1,6 +1,6 @@
 {
     "name": "@ezs/istex",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "ISTEX statements for EZS",
     "main": "./lib/index.js",
     "directories": {
@@ -40,7 +40,7 @@
         "access": "public"
     },
     "dependencies": {
-        "@ezs/core": "1.1.6",
+        "@ezs/core": "1.1.7",
         "archiver": "~3.1.1",
         "async.queue": "~0.5.2",
         "dot-prop": "~5.1.0",
