@@ -27,6 +27,8 @@ npm install @ezs/core
 -   [keyMapping](#keymapping)
 -   [objects2columns](#objects2columns)
 -   [parseNQuads](#parsenquads)
+-   [LodexReduceQuery](#lodexreducequery)
+-   [LodexRunQuery](#lodexrunquery)
 -   [writeTurtle](#writeturtle)
 
 ### convertJsonLdToNQuads
@@ -245,6 +247,39 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 ### parseNQuads
 
 Take N-Quads string and transform it to Objects.
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### LodexReduceQuery
+
+Get  ̀Object\` contains a MongoDB query and throw the result
+
+#### Parameters
+
+-   `reducer` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** The name of the reducer to use
+-   `referer` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Some data sould be injetc on each result object
+-   `filter` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** MongoDB filter
+-   `minValue` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
+-   `maxValue` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
+-   `maxSize` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
+-   `orderBy` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** sort the result
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### LodexRunQuery
+
+Get  ̀Object\` contains a MongoDB query and throw the result
+
+#### Parameters
+
+-   `collection` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the collection to use (optional, default `publishedDataset`)
+-   `referer` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Some data sould be injetc on each result object
+-   `filter` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** MongoDB filter
+-   `field` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limti the object result with some fields
+-   `limit` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
+-   `skip` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
+-   `maxSize` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
+-   `orderBy` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** sort the result
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
