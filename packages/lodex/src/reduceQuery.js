@@ -7,9 +7,9 @@ import reducers from './reducers';
 const hashCoerce = hasher({ sort: false, coerce: true });
 
 /**
- * Get un ̀Object` contains a MongoDB query
+ * Get  ̀Object` contains a MongoDB query and throw the result
  *
- * @name convertToAtom
+ * @name LodexReduceQuery
  * @param {String}  [reducer]     The name of the reducer to use
  * @param {Object}  [referer]     Some data sould be injetc on each result object
  * @param {Object}    [filter]     MongoDB filter
@@ -19,8 +19,8 @@ const hashCoerce = hasher({ sort: false, coerce: true });
  * @param {Object}    [orderBy]     sort the result
  * @returns {Object}
  */
-
-export const createFunction = () => async function LodexRunQuery(data, feed) {
+s
+export const createFunction = () => async function LodexReduceQuery(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
