@@ -252,7 +252,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### LodexReduceQuery
 
-Get  ̀Object\` contains a MongoDB query and throw the result
+Take an `Object` containing a MongoDB query and throw the result
 
 #### Parameters
 
@@ -268,7 +268,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### LodexRunQuery
 
-Get  ̀Object\` contains a MongoDB query and throw the result
+Take `Object` containing a MongoDB query and throw the result
 
 #### Parameters
 

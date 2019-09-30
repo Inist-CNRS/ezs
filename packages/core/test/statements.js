@@ -548,4 +548,40 @@ describe('statements', () => {
                 done();
             });
     });
+
+    describe('time', () => {
+        it('should return an error when no script', (done) => {
+            from([1])
+                .pipe(ezs('time'))
+                .pipe(ezs('debug'))
+                .pipe(ezs.catch())
+                .on('error', (err) => {
+                    expect(err).toBeInstanceOf(Error);
+                    done();
+                })
+                .on('end', () => {
+                    done(new Error('should return an error'));
+                });
+        });
+
+        it('should measure the time of a script', (done) => {
+            let res = [];
+            const script = `
+            [transit]
+            `;
+            from([1])
+                .pipe(ezs('time', { script }))
+                .pipe(ezs.catch())
+                .on('error', done)
+                .on('data', (data) => {
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    expect(res).toHaveLength(1);
+                    expect(res[0]).toHaveProperty('time');
+                    expect(res[0].time).toBeGreaterThanOrEqual(0);
+                    done();
+                });
+        });
+    });
 });

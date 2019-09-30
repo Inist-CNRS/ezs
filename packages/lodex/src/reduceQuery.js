@@ -7,19 +7,18 @@ import reducers from './reducers';
 const hashCoerce = hasher({ sort: false, coerce: true });
 
 /**
- * Get  ̀Object` contains a MongoDB query and throw the result
+ * Take an `Object` containing a MongoDB query and throw the result
  *
  * @name LodexReduceQuery
- * @param {String}  [reducer]     The name of the reducer to use
- * @param {Object}  [referer]     Some data sould be injetc on each result object
- * @param {Object}    [filter]     MongoDB filter
- * @param {Object}    [minValue]     limit the result
- * @param {Object}    [maxValue]     limit the result
- * @param {Object}    [maxSize]     limit the result
- * @param {Object}    [orderBy]     sort the result
+ * @param {String}  [reducer]   The name of the reducer to use
+ * @param {Object}  [referer]   Some data sould be injetc on each result object
+ * @param {Object}  [filter]    MongoDB filter
+ * @param {Object}  [minValue]  limit the result
+ * @param {Object}  [maxValue]  limit the result
+ * @param {Object}  [maxSize]   limit the result
+ * @param {Object}  [orderBy]   sort the result
  * @returns {Object}
  */
-s
 export const createFunction = () => async function LodexReduceQuery(data, feed) {
     if (this.isLast()) {
         return feed.close();

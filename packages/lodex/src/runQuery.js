@@ -3,17 +3,17 @@ import zipObject from 'lodash.zipobject';
 import { MongoClient } from 'mongodb';
 
 /**
- * Get  ̀Object` contains a MongoDB query and throw the result
+ * Take `Object` containing a MongoDB query and throw the result
  *
  * @name LodexRunQuery
- * @param {String}  [collection=publishedDataset]     The name of the collection to use
- * @param {Object}  [referer]     Some data sould be injetc on each result object
- * @param {Object}    [filter]     MongoDB filter
- * @param {Object}    [field]     limti the object result with some fields
- * @param {Object}    [limit]     limit the result
- * @param {Object}    [skip]     limit the result
- * @param {Object}    [maxSize]     limit the result
- * @param {Object}    [orderBy]     sort the result
+ * @param {String}  [collection=publishedDataset]   The name of the collection to use
+ * @param {Object}  [referer]   Some data sould be injetc on each result object
+ * @param {Object}  [filter]    MongoDB filter
+ * @param {Object}  [field]     limti the object result with some fields
+ * @param {Object}  [limit]     limit the result
+ * @param {Object}  [skip]      limit the result
+ * @param {Object}  [maxSize]   limit the result
+ * @param {Object}  [orderBy]   sort the result
  * @returns {Object}
  */
 export const createFunction = () => async function LodexRunQuery(data, feed) {
