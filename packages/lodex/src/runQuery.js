@@ -7,9 +7,9 @@ import { MongoClient } from 'mongodb';
  *
  * @name LodexRunQuery
  * @param {String}  [collection=publishedDataset]   The name of the collection to use
- * @param {Object}  [referer]   Some data sould be injetc on each result object
+ * @param {Object}  [referer]   Some data sould be injected on each result object
  * @param {Object}  [filter]    MongoDB filter
- * @param {Object}  [field]     limti the object result with some fields
+ * @param {Object}  [field]     limit the object result to some fields
  * @param {Object}  [limit]     limit the result
  * @param {Object}  [skip]      limit the result
  * @param {Object}  [maxSize]   limit the result
