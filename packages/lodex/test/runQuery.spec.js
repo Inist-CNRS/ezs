@@ -23,13 +23,17 @@ describe('runQuery', () => {
     afterEach(() => mongoUnit.drop());
 
     it('should return results', (done) => {
-        console.log({connectionStringURI})
+        let res = [];
         from([{
             connectionStringURI,
         }])
             .pipe(ezs('LodexRunQuery'))
             .pipe(ezs('debug'))
+            .on('data', (data) => {
+                res = [...res, data];
+            })
             .on('end', () => {
+                expect(res).toHaveLength(10);
                 done();
             });
     });
