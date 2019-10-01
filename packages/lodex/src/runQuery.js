@@ -12,8 +12,6 @@ import { MongoClient } from 'mongodb';
  * @param {Object}  [field]     limit the object result to some fields
  * @param {Object}  [limit]     limit the result
  * @param {Object}  [skip]      limit the result
- * @param {Object}  [maxSize]   limit the result
- * @param {Object}  [orderBy]   sort the result
  * @returns {Object}
  */
 export const createFunction = () => async function LodexRunQuery(data, feed) {
