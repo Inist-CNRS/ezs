@@ -131,7 +131,7 @@ describe('runQuery', () => {
             });
     });
 
-    it('should select one field', (done) => {
+    it.skip('should select one field', (done) => {
         let res = [];
         from([{
             connectionStringURI,
@@ -151,7 +151,7 @@ describe('runQuery', () => {
             });
     });
 
-    it('should select an array of fields', (done) => {
+    it.skip('should select an array of fields', (done) => {
         let res = [];
         from([{
             connectionStringURI,
