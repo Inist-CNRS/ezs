@@ -63,13 +63,110 @@ describe('runQuery', () => {
             skip: 9,
         }])
             .pipe(ezs('LodexRunQuery'))
-            .pipe(ezs('debug'))
+            // .pipe(ezs('debug'))
             .on('data', (data) => {
                 res = [...res, data];
             })
             .on('end', () => {
                 expect(res).toHaveLength(1);
                 expect(res[0].uri).toBe('ark:/67375/XTP-L5L7X3NF-P');
+                done();
+            });
+    });
+
+    it('should return the total number of results / 0', (done) => {
+        let res = [];
+        from([{
+            connectionStringURI,
+            filter: { _id: 0 },
+        }])
+            .pipe(ezs('LodexRunQuery'))
+            // .pipe(ezs('debug'))
+            .on('data', (data) => {
+                res = [...res, data];
+            })
+            .on('end', () => {
+                expect(res).toHaveLength(1);
+                expect(res[0].total).toBe(0);
+                done();
+            });
+    });
+
+    it('should return the total number of results / 10', (done) => {
+        let res = [];
+        from([{
+            connectionStringURI,
+            limit: 1,
+        }])
+            .pipe(ezs('LodexRunQuery'))
+            // .pipe(ezs('debug'))
+            .on('data', (data) => {
+                res = [...res, data];
+            })
+            .on('end', () => {
+                expect(res).toHaveLength(1);
+                expect(res[0].total).toBe(10);
+                done();
+            });
+    });
+
+    it('should return referer', (done) => {
+        let res = [];
+        from([{
+            connectionStringURI,
+            limit: 2,
+            referer: 'referer',
+        }])
+            .pipe(ezs('LodexRunQuery'))
+            // .pipe(ezs('debug'))
+            .on('data', (data) => {
+                res = [...res, data];
+            })
+            .on('end', () => {
+                expect(res).toHaveLength(2);
+                expect(res[0].total).toBe(10);
+                expect(res[0].referer).toBe('referer');
+                expect(res[1].referer).toBe('referer');
+                done();
+            });
+    });
+
+    it('should select one field', (done) => {
+        let res = [];
+        from([{
+            connectionStringURI,
+            limit: 2,
+            field: 'uri',
+        }])
+            .pipe(ezs('LodexRunQuery'))
+            .pipe(ezs('debug'))
+            .on('data', (data) => {
+                res = [...res, data];
+            })
+            .on('end', () => {
+                expect(res).toHaveLength(2);
+                expect(res[0].uri).toBeDefined();
+                expect(res[0].versions).not.toBeDefined();
+                done();
+            });
+    });
+
+    it('should select an array of fields', (done) => {
+        let res = [];
+        from([{
+            connectionStringURI,
+            limit: 2,
+            field: ['uri'],
+        }])
+            .pipe(ezs('LodexRunQuery'))
+            .pipe(ezs('debug'))
+            .on('data', (data) => {
+                res = [...res, data];
+            })
+            .on('end', () => {
+                expect(res).toHaveLength(2);
+                expect(res[0].uri).toBeDefined();
+                expect(res[0].versions).not.toBeDefined();
                 done();
             });
     });
