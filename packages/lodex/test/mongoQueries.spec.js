@@ -225,6 +225,92 @@ describe('mongo queries', () => {
                 });
         });
 
+        it('should take field into account', (done) => {
+            let res = [];
+            from([{
+                connectionStringURI,
+            }])
+                .pipe(ezs('LodexReduceQuery', {
+                    reducer: 'distinct',
+                    field: 'publicationDate',
+                }))
+                .on('data', (data) => {
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    expect(res).toHaveLength(2);
+                    expect(res).toEqual([{
+                        _id: '2018-06-22T09:38:36.468Z',
+                        total: 2,
+                        value: 5,
+                    }, {
+                        _id: '2018-06-22T09:38:36.469Z',
+                        total: 2,
+                        value: 5,
+                    }]);
+                    done();
+                });
+        });
+
+        it('should take minValue into account', (done) => {
+            let res = [];
+            from([{
+                connectionStringURI,
+            }])
+                .pipe(ezs('LodexReduceQuery', {
+                    reducer: 'distinct',
+                    field: 'publicationDate',
+                    minValue: 6,
+                }))
+                .on('data', (data) => {
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    expect(res).toHaveLength(1);
+                    expect(res).toEqual([{ total: 0 }]);
+                    done();
+                });
+        });
+
+        it('should take maxValue into account', (done) => {
+            let res = [];
+            from([{
+                connectionStringURI,
+            }])
+                .pipe(ezs('LodexReduceQuery', {
+                    reducer: 'distinct',
+                    field: 'publicationDate',
+                    maxValue: 4,
+                }))
+                .on('data', (data) => {
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    expect(res).toHaveLength(1);
+                    expect(res).toEqual([{ total: 0 }]);
+                    done();
+                });
+        });
+
+        it('should inject referer into the results', (done) => {
+            let res = [];
+            from([{
+                connectionStringURI,
+            }])
+                .pipe(ezs('LodexReduceQuery', {
+                    reducer: 'distinct',
+                    referer: 'referer',
+                }))
+                .on('data', (data) => {
+                    expect(data).toHaveProperty('referer');
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    expect(res).toHaveLength(10);
+                    done();
+                });
+        });
+
         describe('count', () => {
             it('should count the fields/resources(?) values', (done) => {
                 let res = [];
