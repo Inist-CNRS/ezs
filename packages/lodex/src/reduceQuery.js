@@ -7,16 +7,21 @@ import reducers from './reducers';
 const hashCoerce = hasher({ sort: false, coerce: true });
 
 /**
- * Take an `Object` containing a MongoDB query and throw the result
+ * Take an `Object` containing a MongoDB query, and a reducer, then throw the
+ * result.
+ *
+ * The input object must contain a `connectionStringURI` property, containing
+ * the connection string to MongoDB.
  *
  * @name LodexReduceQuery
- * @param {String}  [reducer]   The name of the reducer to use
- * @param {Object}  [referer]   Some data sould be injetc on each result object
- * @param {Object}  [filter]    MongoDB filter
- * @param {Object}  [minValue]  limit the result
- * @param {Object}  [maxValue]  limit the result
- * @param {Object}  [maxSize]   limit the result
- * @param {Object}  [orderBy]   sort the result
+ * @param {String}   reducer         The name of the reducer to use
+ * @param {Object}   [referer]       data injected into every result object
+ * @param {Object}   [filter={}]     MongoDB filter
+ * @param {string[]} [field="uri"]   limit the result to some fields
+ * @param {Object}   [minValue]      limit the result
+ * @param {Object}   [maxValue]      limit the result
+ * @param {Object}   [maxSize=1000000]  limit the result
+ * @param {Object}   [orderBy]       sort the result
  * @returns {Object}
  */
 export const createFunction = () => async function LodexReduceQuery(data, feed) {
@@ -37,6 +42,12 @@ export const createFunction = () => async function LodexReduceQuery(data, feed) 
     const maxSize = this.getParam('maxSize', data.maxSize || 1000000);
 
     const reducer = this.getParam('reducer');
+    if (!reducer) {
+        throw new Error('reducer= must be defined as parameter.');
+    }
+    if (!reducers[reducer]) {
+        throw new Error(`Unknown reducer '${reducer}'`);
+    }
 
     const { map, reduce, finalize } = reducers[reducer];
     const fds = Array.isArray(field) ? field : [field];
@@ -67,12 +78,6 @@ export const createFunction = () => async function LodexReduceQuery(data, feed) 
     const db = client.db();
     const collection = db.collection('publishedDataset');
 
-    if (!reducer) {
-        throw new Error('reducer= must be defined as parameter.');
-    }
-    if (!reducers[reducer]) {
-        throw new Error(`Unknown reducer '${reducer}'`);
-    }
     const result = await collection.mapReduce(map, reduce, options);
 
     const total = await result.count();

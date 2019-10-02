@@ -28,6 +28,7 @@ npm install @es/core
 -   [replace](#replace)
 -   [shift](#shift)
 -   [shuffle](#shuffle)
+-   [time](#time)
 -   [tracer](#tracer)
 -   [transit](#transit)
 -   [truncate](#truncate)
@@ -180,6 +181,46 @@ Take `Object`, shuffle data of the whole object or only some fields specified by
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to shuffle
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### time
+
+Measure the execution time of a script, on each chunk on input.
+
+#### Parameters
+
+-   `script` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
+
+#### Examples
+
+Input
+
+
+```javascript
+[1]
+```
+
+Program
+
+
+```javascript
+const script = `
+[transit]
+`;
+from([1])
+    .pipe(ezs('time', { script }))
+```
+
+Output
+
+
+```javascript
+[{
+  data: 1,
+  time: 15 // milliseconds
+}]
+```
+
+Returns **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### tracer
 

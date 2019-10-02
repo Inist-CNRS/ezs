@@ -21,6 +21,7 @@ npm install @ezs/core
 -   [extractIstexQuery](#extractistexquery)
 -   [getParam](#getparam)
 -   [flattenPatch](#flattenpatch)
+-   [LodexOutput](#lodexoutput)
 -   [LodexGetCharacteristics](#lodexgetcharacteristics)
 -   [LodexGetFields](#lodexgetfields)
 -   [getLastCharacteristic](#getlastcharacteristic)
@@ -99,6 +100,51 @@ Output:
 Take `Object` and transform all key ending byu number on array.
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### LodexOutput
+
+Format the output in compliance with LODEX routines format.
+
+#### Parameters
+
+-   `keyName` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** name of the `data` property (optional, default `data`)
+-   `indent` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** indent or not (optional, default `false`)
+-   `extract` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>?** fields to put at the root of the output
+                                      object
+
+#### Examples
+
+Input
+
+
+```javascript
+[
+     { _id: 1, value: 2, total: 2 },
+     { _id: 2, value: 4, total: 2 }
+]
+```
+
+Script
+
+
+```javascript
+.pipe(ezs('LodexOutput', { extract: 'total' }))
+```
+
+Output
+
+
+```javascript
+{
+    data [
+        { _id: 1, value: 2 },
+        { _id: 2, value: 4 }
+    ],
+    total: 2
+}
+```
+
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ### LodexGetCharacteristics
 
@@ -252,16 +298,21 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### LodexReduceQuery
 
-Take an `Object` containing a MongoDB query and throw the result
+Take an `Object` containing a MongoDB query, and a reducer, then throw the
+result.
+
+The input object must contain a `connectionStringURI` property, containing
+the connection string to MongoDB.
 
 #### Parameters
 
--   `reducer` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** The name of the reducer to use
--   `referer` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Some data sould be injetc on each result object
--   `filter` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** MongoDB filter
+-   `reducer` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the reducer to use
+-   `referer` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** data injected into every result object
+-   `filter` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** MongoDB filter (optional, default `{}`)
+-   `field` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** limit the result to some fields (optional, default `"uri"`)
 -   `minValue` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
 -   `maxValue` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
--   `maxSize` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
+-   `maxSize` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** limit the result (optional, default `1000000`)
 -   `orderBy` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** sort the result
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
@@ -270,16 +321,17 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Take `Object` containing a MongoDB query and throw the result
 
+The input object must contain a `connectionStringURI` property, containing
+the connection string to MongoDB.
+
 #### Parameters
 
--   `collection` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the collection to use (optional, default `publishedDataset`)
--   `referer` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Some data sould be injetc on each result object
+-   `collection` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** collection to use (optional, default `"publishedDataset"`)
+-   `referer` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** data injected into every result object
 -   `filter` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** MongoDB filter
--   `field` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limti the object result with some fields
+-   `field` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** limit the result to some fields (optional, default `"uri"`)
 -   `limit` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
 -   `skip` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
--   `maxSize` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
--   `orderBy` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** sort the result
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 

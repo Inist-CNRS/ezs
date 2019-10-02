@@ -219,3 +219,20 @@ npx lerna run lint --scope=@ezs/analytics
 ### List the new package
 
 Add the new package in the list of the [root's README](./README.md).
+
+## TroubleShooting
+
+If your tests don't pass in `packages/lodex/test/mongoQuery.spec.js`, you may be
+behind a proxy.
+
+It uses [mongo-unit](https://www.npmjs.com/package/mongo-unit) which in turn
+uses [mongodb-prebuilt](https://www.npmjs.com/package/mongodb-prebuilt), which
+uses [mongodb-download](https://www.npmjs.com/package/mongodb-download), which
+tries to download, at first run (that is, the first time you launch the tests,
+not at install time), a prebuilt version of MongoDB.
+
+It puts it into `~/.mongodb-prebuilt/mongodb-download/`. But if you are behind a
+proxy, the download won't work.
+
+The only solution we found is to launch the test on a network without proxy *at
+least once*. Once the file is downloaded, tests will work.

@@ -5,15 +5,16 @@ import { MongoClient } from 'mongodb';
 /**
  * Take `Object` containing a MongoDB query and throw the result
  *
+ * The input object must contain a `connectionStringURI` property, containing
+ * the connection string to MongoDB.
+ *
  * @name LodexRunQuery
- * @param {String}  [collection=publishedDataset]   The name of the collection to use
- * @param {Object}  [referer]   Some data sould be injetc on each result object
- * @param {Object}  [filter]    MongoDB filter
- * @param {Object}  [field]     limti the object result with some fields
- * @param {Object}  [limit]     limit the result
- * @param {Object}  [skip]      limit the result
- * @param {Object}  [maxSize]   limit the result
- * @param {Object}  [orderBy]   sort the result
+ * @param {String}  [collection="publishedDataset"]  collection to use
+ * @param {Object}  [referer]      data injected into every result object
+ * @param {Object}  [filter]       MongoDB filter
+ * @param {Object}  [field="uri"]  limit the result to some fields
+ * @param {Object}  [limit]        limit the result
+ * @param {Object}  [skip]         limit the result
  * @returns {Object}
  */
 export const createFunction = () => async function LodexRunQuery(data, feed) {
