@@ -2,11 +2,12 @@ import from from 'from';
 import mongoUnit from 'mongo-unit';
 import ezs from '../../core/src';
 import ezsLodex from '../src';
+import publishedDataset from './fixture.publishedDataset.json';
+import publishedCharacteristic from './fixture.publishedCharacteristic.json';
 
 ezs.use(ezsLodex);
 
 describe('mongo queries', () => {
-    const publishedDataset = require('./fixture.publishedDataset.json');
     let connectionStringURI;
 
     beforeAll((done) => {
@@ -19,6 +20,45 @@ describe('mongo queries', () => {
             .catch(done);
     }, 150000);
     afterAll(() => mongoUnit.stop());
+
+    describe('getCharacteristics', () => {
+        beforeEach(() => mongoUnit.initDb(connectionStringURI, publishedCharacteristic));
+        afterEach(() => mongoUnit.drop());
+
+        it('should return characteristics', (done) => {
+            let res = [];
+            from([{
+                connectionStringURI,
+            }])
+                .pipe(ezs('LodexGetCharacteristics'))
+                .pipe(ezs('debug'))
+                .on('data', (data) => {
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    expect(res).toHaveLength(1);
+                    expect(res).toEqual([{
+                        characteristics: {
+                            _id: '5b2cc39cc767d60017eb131f',
+                            V99c: 'Jeu de données sur les types de contenu',
+                            AtQO: 'Ce jeu correspond au choix de documenter des données ISTEX et plus particulièrement'
+                                + " les types de contenu utilisés dans ISTEX.\r\n \r\nIls ont fait l'objet d'une"
+                                + " homogénéisation opérée par l'équipe ISTEX-DATA et d'un alignement avec le jeu de"
+                                + ' données types de publication. \r\n\r\nCes types permettent de retranscrire la'
+                                + " structuration initiale de l'ouvrage.",
+                            gLBB: '/api/run/syndication',
+                            G0Ux: 'https://docs.google.com/drawings/d/1rtQ5_GT9QIHKzEjXU5vzSiAnmcu-hdNuyuEArOwUEU4/pub?w=960&h=720',
+                            etxw: '2017-10-02',
+                            '7IpS': 'LODEX Team',
+                            CAhi: 'http://www.istex.fr/wp-content/uploads/2015/02/2015_Licence-type-ISTEX.pdf',
+                            PJTS: 'ISTEX',
+                            publicationDate: '2018-06-22T09:38:36.475Z',
+                        },
+                    }]);
+                    done();
+                });
+        });
+    });
 
     describe('runQuery', () => {
         beforeEach(() => mongoUnit.initDb(connectionStringURI, publishedDataset));
