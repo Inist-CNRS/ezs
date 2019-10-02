@@ -14,13 +14,14 @@ const hashCoerce = hasher({ sort: false, coerce: true });
  * the connection string to MongoDB.
  *
  * @name LodexReduceQuery
- * @param {String}  reducer       The name of the reducer to use
- * @param {Object}  [referer]     data injected into every result object
- * @param {Object}  [filter={}]   MongoDB filter
- * @param {Object}  [minValue]    limit the result
- * @param {Object}  [maxValue]    limit the result
- * @param {Object}  [maxSize=1000000]     limit the result
- * @param {Object}  [orderBy]     sort the result
+ * @param {String}   reducer         The name of the reducer to use
+ * @param {Object}   [referer]       data injected into every result object
+ * @param {Object}   [filter={}]     MongoDB filter
+ * @param {string[]} [field="uri"]   limit the result to some fields
+ * @param {Object}   [minValue]      limit the result
+ * @param {Object}   [maxValue]      limit the result
+ * @param {Object}   [maxSize=1000000]  limit the result
+ * @param {Object}   [orderBy]       sort the result
  * @returns {Object}
  */
 export const createFunction = () => async function LodexReduceQuery(data, feed) {
