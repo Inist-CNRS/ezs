@@ -193,6 +193,38 @@ describe('mongo queries', () => {
         beforeEach(() => mongoUnit.initDb(connectionStringURI, publishedDataset));
         afterEach(() => mongoUnit.drop());
 
+        it('should throw when no reducer is given', (done) => {
+            from([{
+                connectionStringURI,
+            }])
+                .pipe(ezs('LodexReduceQuery'))
+                .pipe(ezs('debug'))
+                .on('error', (err) => {
+                    expect(err).toBeInstanceOf(Error);
+                    expect(err.message).toContain('reducer= must be defined as parameter.');
+                    done();
+                })
+                .on('end', () => {
+                    done(new Error('No error was thrown!'));
+                });
+        });
+
+        it('should throw when the reducer is not found', (done) => {
+            from([{
+                connectionStringURI,
+            }])
+                .pipe(ezs('LodexReduceQuery', { reducer: 'foo' }))
+                .pipe(ezs('debug'))
+                .on('error', (err) => {
+                    expect(err).toBeInstanceOf(Error);
+                    expect(err.message).toContain('Unknown reducer \'foo\'');
+                    done();
+                })
+                .on('end', () => {
+                    done(new Error('No error was thrown!'));
+                });
+        });
+
         describe('count', () => {
             it('should count the fields/resources(?) values', (done) => {
                 let res = [];

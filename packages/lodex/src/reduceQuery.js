@@ -41,6 +41,12 @@ export const createFunction = () => async function LodexReduceQuery(data, feed) 
     const maxSize = this.getParam('maxSize', data.maxSize || 1000000);
 
     const reducer = this.getParam('reducer');
+    if (!reducer) {
+        throw new Error('reducer= must be defined as parameter.');
+    }
+    if (!reducers[reducer]) {
+        throw new Error(`Unknown reducer '${reducer}'`);
+    }
 
     const { map, reduce, finalize } = reducers[reducer];
     const fds = Array.isArray(field) ? field : [field];
@@ -71,12 +77,6 @@ export const createFunction = () => async function LodexReduceQuery(data, feed) 
     const db = client.db();
     const collection = db.collection('publishedDataset');
 
-    if (!reducer) {
-        throw new Error('reducer= must be defined as parameter.');
-    }
-    if (!reducers[reducer]) {
-        throw new Error(`Unknown reducer '${reducer}'`);
-    }
     const result = await collection.mapReduce(map, reduce, options);
 
     const total = await result.count();
