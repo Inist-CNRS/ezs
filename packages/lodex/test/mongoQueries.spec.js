@@ -6,6 +6,7 @@ import ezsLodex from '../src';
 ezs.use(ezsLodex);
 
 describe('mongo queries', () => {
+    const publishedDataset = require('./fixture.publishedDataset.json');
     let connectionStringURI;
 
     beforeAll((done) => {
@@ -20,7 +21,6 @@ describe('mongo queries', () => {
     afterAll(() => mongoUnit.stop());
 
     describe('runQuery', () => {
-        const publishedDataset = require('./fixture.publishedDataset.json');
         beforeEach(() => mongoUnit.initDb(connectionStringURI, publishedDataset));
         afterEach(() => mongoUnit.drop());
 
@@ -186,6 +186,55 @@ describe('mongo queries', () => {
                     expect(res[0].versions).not.toBeDefined();
                     done();
                 });
+        });
+    });
+
+    describe('reduceQuery', () => {
+        beforeEach(() => mongoUnit.initDb(connectionStringURI, publishedDataset));
+        afterEach(() => mongoUnit.drop());
+
+        describe('count', () => {
+            it('should count the fields/resources(?) values', (done) => {
+                let res = [];
+                from([{
+                    connectionStringURI,
+                }])
+                    .pipe(ezs('LodexReduceQuery', { reducer: 'count' }))
+                    .on('data', (data) => {
+                        res = [...res, data];
+                    })
+                    .on('end', () => {
+                        expect(res).toHaveLength(1);
+                        expect(res).toEqual([{
+                            _id: 'uri',
+                            total: 1,
+                            value: 10,
+                        }]);
+                        done();
+                    });
+            });
+        });
+
+        describe('distinct', () => {
+            it('should return the different distinct values', (done) => {
+                let res = [];
+                from([{
+                    connectionStringURI,
+                }])
+                    .pipe(ezs('LodexReduceQuery', { reducer: 'distinct' }))
+                    .on('data', (data) => {
+                        res = [...res, data];
+                    })
+                    .on('end', () => {
+                        expect(res).toHaveLength(10);
+                        expect(res[0]).toEqual({
+                            _id: 'ark:/67375/XTP-1JC4F85T-7',
+                            total: 10,
+                            value: 1,
+                        });
+                        done();
+                    });
+            });
         });
     });
 });
