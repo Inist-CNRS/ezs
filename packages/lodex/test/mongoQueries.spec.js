@@ -4,6 +4,7 @@ import ezs from '../../core/src';
 import ezsLodex from '../src';
 import publishedDataset from './fixture.publishedDataset.json';
 import publishedCharacteristic from './fixture.publishedCharacteristic.json';
+import field from './fixture.field.json';
 
 ezs.use(ezsLodex);
 
@@ -31,7 +32,6 @@ describe('mongo queries', () => {
                 connectionStringURI,
             }])
                 .pipe(ezs('LodexGetCharacteristics'))
-                .pipe(ezs('debug'))
                 .on('data', (data) => {
                     res = [...res, data];
                 })
@@ -60,17 +60,53 @@ describe('mongo queries', () => {
         });
     });
 
+    describe('getFields', () => {
+        beforeEach(() => mongoUnit.initDb(connectionStringURI, field));
+        afterEach(() => mongoUnit.drop());
+
+        it('should return the fields', (done) => {
+            let res = [];
+            from([{
+                connectionStringURI,
+            }])
+                .pipe(ezs('LodexGetFields'))
+                .on('data', (data) => {
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    expect(res).toHaveLength(20);
+                    expect(res[0]).toEqual({
+                        fields: {
+                            _id: '5b2bd064c767d60017eb130f',
+                            cover: 'collection',
+                            display_on_list: true,
+                            label: 'uri',
+                            name: 'uri',
+                            position: 0,
+                            transformers: [{
+                                args: [{
+                                    name: 'column',
+                                    type: 'column',
+                                    value: 'uri',
+                                }],
+                                operation: 'COLUMN',
+                            }],
+                        },
+                    });
+                    done();
+                });
+        });
+    });
+
     describe('runQuery', () => {
         beforeEach(() => mongoUnit.initDb(connectionStringURI, publishedDataset));
         afterEach(() => mongoUnit.drop());
 
         it('should return results', (done) => {
             let res = [];
-            from([
-                {
-                    connectionStringURI,
-                },
-            ])
+            from([{
+                connectionStringURI,
+            }])
                 .pipe(ezs('LodexRunQuery'))
                 // .pipe(ezs('debug'))
                 .on('data', (data) => {
