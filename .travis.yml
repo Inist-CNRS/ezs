@@ -5,7 +5,7 @@ branches:
     - master
 install:
 - npm run bootstrap
-after_success: npm run coveralls
+after_script: npm run coveralls
 language: node_js
 sudo: false
 node_js:
