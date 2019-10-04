@@ -1,8 +1,11 @@
-const assert = require('assert');
-const from = require('from');
-const fs = require('fs');
-const path = require('path');
-const ezs = require('../../core/src');
+import assert from 'assert';
+import from from 'from';
+import fs from 'fs';
+import path from 'path';
+import ezs from '../../core/src';
+import ISTEXFacet from '../src/facet';
+import ISTEXFilesContent from '../src/files-content';
+import ISTEXFiles from '../src/files';
 
 const sid = 'test';
 const token = process.env.ISTEX_TOKEN;
@@ -899,7 +902,7 @@ describe('ISTEXFacet', () => {
     it('should return aggregations', (done) => {
         const result = [];
         from([{ query: 'ezs', facet: 'publicationDate[perYear]' }])
-            .pipe(ezs('ISTEXFacet', {
+            .pipe(ezs(ISTEXFacet, {
                 sid,
             }))
             .on('data', (chunk) => {
@@ -921,6 +924,10 @@ describe('ISTEXFacet', () => {
 });
 
 describe('ISTEXFiles', () => {
+    afterAll((done) => {
+        fs.unlink('QHD-T00H6VNF-0-fulltext.pdf', done);
+    });
+
     it('should return files & content', (done) => {
         const result = [];
         from([
@@ -937,11 +944,11 @@ describe('ISTEXFiles', () => {
                 sid,
                 token,
             }))
-            .pipe(ezs('ISTEXFiles', {
+            .pipe(ezs(ISTEXFiles, {
                 fulltext: 'tei',
                 record: 'mods',
             }))
-            .pipe(ezs('ISTEXFilesContent', {
+            .pipe(ezs(ISTEXFilesContent, {
                 sid,
                 token,
             }))
@@ -961,4 +968,22 @@ describe('ISTEXFiles', () => {
                 done();
             });
     }, 10000);
+
+    describe('ISTEXFilesContent', () => {
+        it('should throw an error when no source is given', (done) => {
+            from([{}])
+                .pipe(ezs(ISTEXFilesContent, { sid, token }))
+                .on('error', () => { done(); })
+                .on('end', () => { done(new Error('Should throw')); });
+        });
+
+        it('should return an empty stream when source is non-existing', (done) => {
+            from([{ source: 'http://foo.bar' }])
+                .pipe(ezs(ISTEXFilesContent, { sid, token }))
+                .on('data', () => {
+                    done(new Error('Should not give any data'));
+                })
+                .on('end', done);
+        });
+    });
 });
