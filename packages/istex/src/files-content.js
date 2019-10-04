@@ -23,9 +23,8 @@ function ISTEXFilesContent(data, feed) {
         headers.Authorization = `Bearer ${token}`;
     }
     if (!data.source) {
-        throw new Error(
-            '[ISTEXFiles] should be defined'
-            + ' before this statement.',
+        return feed.stop(
+            new Error('[ISTEXFiles] should be used before this statement.'),
         );
     }
     const options = {
