@@ -20,6 +20,12 @@
   - [booster](plugin-booster.md)
   - [lodex](plugin-lodex.md)
 
+- Avancé
+
+  - [Serveur de traitement](server.md)
+  - [Ligne de commande](cli.md)
+  - [API](api.md)
+
 - **Links**
-- [![Github](https://icongram.jgog.in/simple/github.svg?color=808080&size=16)Github](https://github.com/Inist-CNRS/ezs)
-- [![NPM](https://icongram.jgog.in/simple/npm.svg?colored&size=16)NPM](https://www.npmjs.com/search?q=keywords:ezs)
+- [![Github](https://icongr.am/devicon/github-original.svg)Github](https://github.com/Inist-CNRS/ezs)
+- [![NPM](https://icongr.am/devicon/npm-original-wordmark.svg)NPM](https://www.npmjs.com/search?q=keywords:ezs)

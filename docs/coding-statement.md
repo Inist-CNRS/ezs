@@ -1,5 +1,7 @@
 # Fonctionnement d’une instruction
 
+## Présentation
+
 La fonction est exécutée pour chaque élément du flux d'entrée, plus une dernière
 fois pour indiquer qu'il n'y a plus d’élément à traiter. À chaque fois, elle
 reçoit deux paramètres : `data` & `feed`.

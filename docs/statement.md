@@ -1,5 +1,7 @@
 # Instruction
 
+## Présentation
+
 Un instruction est une fonction JavaScript qui permet de traiter chaque élément
 d’un flux (stream). @ezs/core se charge de la rendre compatible avec les
 `stream` NodeJS.

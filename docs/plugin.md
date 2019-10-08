@@ -1,5 +1,7 @@
 # Les plugins
 
+## Présentation
+
 Les _plugins_ sont une série d’instructions généralement regroupées par
 thématique ou par usage dans un paquet NPM.
 Les instructions sont documentées dans le fichier `README.md` du paquet.

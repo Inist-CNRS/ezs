@@ -1,5 +1,6 @@
 # Fichier .ini
 
+## Présentation
 
 
 ezs propose un [DSL](https://fr.wikipedia.org/wiki/Langage_d%C3%A9di%C3%A9) permettant de décrire une chaîne de  traitements d’un flux de données dans un fichier texte. L’objectif est de pouvoir modifier, enrichir, corriger  une chaîne de traitements sans toucher au code du programme, de l’application en charge de son exécution. Il devient ainsi possible d’adapter simplement les traitements aux données, ceci sans compétence Javascript.
@@ -13,7 +14,7 @@ Une chaîne de traitements correspond à un fichier, ce fichier respecte la synt
 
 L'ordonnancement des sections correspond à l’ordonnancement des traitements.
 
-###Note
+### Note
 
 *Les paramètres en entêtes du fichier (non rattaché à une section) ne sont pas utilisés directement par ezs, mais ils peuvent servir de métadonnées à destination de l’application ou le programme en charge de son exécution*
 
@@ -23,7 +24,7 @@ Voici un fichier .ini est son équivalent en .js
 
 ### .ini
 
-```
+```ini
 ; Take JSON to generate CSV
 [use]
 plugin = basics
@@ -49,7 +50,7 @@ format = strict
 
 ### .js
 
-```
+```js
 // Take JSON to generate CSV
 
 import basics from 'ezs-bascis';

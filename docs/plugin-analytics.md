@@ -1,5 +1,7 @@
 # analytics
 
+## Présentation
+
 Ce plugin est propose une série d'instructions pour croiser, compter, trier, agréger des flux d’objets Javascript
 
 ## installation
