@@ -8,13 +8,13 @@ Repository containing all @ezs packages (monorepo)
 
 ## Packages
 
-- [@ezs/core](./packages/core#readme)
-- [@ezs/basics](./packages/basics#readme)
-- [@ezs/analytics](./packages/analytics#readme)
-- [@ezs/sparql](./packages/sparql#readme)
-- [@ezs/istex](./packages/istex#readme)
-- [@ezs/booster](./packages/booster#readme)
-- [@ezs/lodex](./packages/lodex#readme)
+- [@ezs/core](./packages/core#readme) [![npm version](https://img.shields.io/npm/v/@ezs/core)](https://npm.im/@ezs/core)
+- [@ezs/basics](./packages/basics#readme) [![npm version](https://img.shields.io/npm/v/@ezs/basics)](https://npm.im/@ezs/basics)
+- [@ezs/analytics](./packages/analytics#readme) [![npm version](https://img.shields.io/npm/v/@ezs/analytics)](https://npm.im/@ezs/analytics)
+- [@ezs/sparql](./packages/sparql#readme) [![npm version](https://img.shields.io/npm/v/@ezs/sparql)](https://npm.im/@ezs/sparql)
+- [@ezs/istex](./packages/istex#readme) [![npm version](https://img.shields.io/npm/v/@ezs/istex)](https://npm.im/@ezs/istex)
+- [@ezs/booster](./packages/booster#readme) [![npm version](https://img.shields.io/npm/v/@ezs/booster)](https://npm.im/@ezs/booster)
+- [@ezs/lodex](./packages/lodex#readme) [![npm version](https://img.shields.io/npm/v/@ezs/lodex)](https://npm.im/@ezs/lodex)
 
 ## History
 
