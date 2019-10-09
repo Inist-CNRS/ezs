@@ -25,7 +25,7 @@
   "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
-    "doc": "documentation readme src/* --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-booster.md --section=usage",
+    "doc": "documentation readme src/* --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-booster.md --section=usage  && cp ../../docs/plugin-booster.md ./README.md",
     "build": "babel --root-mode upward src --out-dir lib",
     "preversion": "npm run doc",
     "prepublish": "npm run build"
