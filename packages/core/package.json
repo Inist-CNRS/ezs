@@ -54,5 +54,8 @@
         "validatorjs": "~3.17.1",
         "yargs": "~13.3.0"
     },
-    "gitHead": "10c5734b0ad27a7bf8cdd400afde2221b3a7c606"
+    "gitHead": "10c5734b0ad27a7bf8cdd400afde2221b3a7c606",
+    "devDependencies": {
+        "@ezs/basics": "^1.0.7"
+    }
 }
