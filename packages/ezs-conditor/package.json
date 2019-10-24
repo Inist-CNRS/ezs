@@ -1,0 +1,54 @@
+{
+  "name": "ezs-conditor",
+  "version": "1.0.0",
+  "description": "ezs statements for Conditor",
+  "main": "lib/index.js",
+  "bin": {
+    "affAlign": "./bin/affAlign.js",
+    "compareRnsr": "./bin/compareRnsr.js"
+  },
+  "scripts": {
+    "build": "babel src --out-dir lib",
+    "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
+    "test": "jest",
+    "release": "standard-version"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/conditor-project/ezs-conditor.git"
+  },
+  "keywords": [
+    "conditor",
+    "affiliations",
+    "alignment",
+    "ezs",
+    "stream"
+  ],
+  "author": "François Parmentier <francois.parmentier@gmail.com>",
+  "license": "CECILL-2.1",
+  "bugs": {
+    "url": "https://github.com/conditor-project/ezs-conditor/issues"
+  },
+  "homepage": "https://github.com/conditor-project/ezs-conditor#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.6.4",
+    "@babel/plugin-transform-modules-commonjs": "^7.6.0",
+    "@babel/preset-env": "^7.6.3",
+    "@ezs/basics": "^1.0.7",
+    "@ezs/core": "^1.1.7",
+    "@types/jest": "^24.0.19",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^24.9.0",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "from": "^0.1.7",
+    "jest": "^24.9.0",
+    "jest-config": "^24.9.0",
+    "standard-version": "^7.0.0"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^3.13.0"
+  }
+}

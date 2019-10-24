@@ -1,0 +1,1005 @@
+[
+  {
+    "sourceUid": "hal$hal-01588823",
+    "authors": [
+      {
+        "forename": "Pascale",
+        "isni": [],
+        "surname": "ARGOD",
+        "researcherId": "",
+        "halAuthorId": "1121064",
+        "affiliations": [
+          {
+            "ref": "struct-136101",
+            "address": "EA4426, Université Bordeaux Montaigne, Médiation, Information, Communication, Art MICA, MSHA, 10 esplanade des antilles, 33607 pessac cedex, FR",
+            "isni": [],
+            "idRef": [
+              "155971247"
+            ],
+            "rnsr": [
+              "200919217D"
+            ]
+          }
+        ],
+        "orcId": [],
+        "idHal": "2352",
+        "idRef": [],
+        "viaf": []
+      }
+    ],
+    "_score": 19.061226
+  },
+  {
+    "sourceUid": "hal$halshs-01345487",
+    "authors": [
+      {
+        "forename": "Richard",
+        "isni": [],
+        "surname": "Hillman",
+        "researcherId": "",
+        "halAuthorId": "166708",
+        "affiliations": [
+          {
+            "ref": "struct-542727",
+            "address": "Ministère de la Culture et de la Communication MCC, Université de Tours, Centre National de la Recherche Scientifique CNRS, Centre d'études supérieures de la Renaissance UMR 7323 CESR, 59 Rue Néricault-Destouches - BP 12050 37020 TOURS CEDEX 1, FR",
+            "isni": [
+              "0000000122597504"
+            ],
+            "idRef": [
+              "026365642",
+              "026404478",
+              "02636817X"
+            ],
+            "rnsr": []
+          }
+        ],
+        "orcId": [],
+        "idHal": "11160",
+        "idRef": [],
+        "viaf": []
+      }
+    ],
+    "_score": 18.003662
+  },
+  {
+    "sourceUid": "hal$hal-01614021",
+    "authors": [
+      {
+        "forename": "Paolo",
+        "isni": [],
+        "surname": "Melindi-Ghidi",
+        "researcherId": "",
+        "halAuthorId": "1649962",
+        "affiliations": [
+          {
+            "ref": "struct-2564",
+            "address": "UMR7235, Université Paris Nanterre UPN, UMR7235, Centre National de la Recherche Scientifique CNRS, EconomiX, Bâtiment G200 Avenue de la République92001 NANTERRE CEDEX, FR",
+            "isni": [
+              "0000000122597504"
+            ],
+            "idRef": [
+              "175385920",
+              "026403587",
+              "02636817X"
+            ],
+            "rnsr": [
+              "201120461X"
+            ]
+          }
+        ],
+        "orcId": [],
+        "idHal": "",
+        "idRef": [],
+        "viaf": []
+      },
+      {
+        "forename": "Tom",
+        "isni": [],
+        "surname": "Dedeurwaerdere",
+        "researcherId": "",
+        "halAuthorId": "1242530",
+        "affiliations": [],
+        "orcId": [],
+        "idHal": "",
+        "idRef": [],
+        "viaf": []
+      },
+      {
+        "forename": "Authors",
+        "isni": [],
+        "surname": "Other",
+        "researcherId": "",
+        "halAuthorId": "1650037",
+        "affiliations": [],
+        "orcId": [],
+        "idHal": "",
+        "idRef": [],
+        "viaf": []
+      }
+    ],
+    "_score": 17.27451
+  },
+  {
+    "sourceUid": "hal$hal-01442858",
+    "authors": [
+      {
+        "forename": "Adrien",
+        "isni": [],
+        "surname": "GUILLE",
+        "researcherId": "",
+        "halAuthorId": "687313",
+        "affiliations": [
+          {
+            "ref": "struct-23766",
+            "address": "EA3083, Université Lumière - Lyon 2 UL2, Equipe de Recherche en Ingénierie des Connaissances ERIC, Université Lumière Lyon 2 5 avenue Pierre Mendès-France 69676 Bron Cedex, FR",
+            "isni": [],
+            "idRef": [],
+            "rnsr": []
+          }
+        ],
+        "orcId": [],
+        "idHal": "437",
+        "idRef": [],
+        "viaf": []
+      },
+      {
+        "forename": "Edmundo-Pavel",
+        "isni": [],
+        "surname": "Soriano-Morales",
+        "researcherId": "",
+        "halAuthorId": "1401495",
+        "affiliations": [
+          {
+            "ref": "struct-183072",
+            "address": "Université Claude Bernard Lyon 1 UCBL, EA3083, Université Lumière - Lyon 2 UL2, Entrepôts, Représentation et Ingénierie des Connaissances ERIC, Université Lumière Lyon 2 5 avenue Pierre Mendès-France 69676 Bron Cedex, FR",
+            "isni": [
+              "0000000121686185"
+            ],
+            "idRef": [
+              "168642174",
+              "026402823"
+            ],
+            "rnsr": []
+          }
+        ],
+        "orcId": [],
+        "idHal": "",
+        "idRef": [],
+        "viaf": []
+      },
+      {
+        "forename": "Ciprian-Octavian",
+        "isni": [],
+        "surname": "Truică",
+        "researcherId": "",
+        "halAuthorId": "1396677",
+        "affiliations": [
+          {
+            "ref": "struct-204332",
+            "address": "University Politehnica of Bucharest [Romania] UPB, Splaiul Independentei nr. 313, sector 6, BucurestiCP 060042ROUMANIE, RO",
+            "isni": [],
+            "idRef": [
+              "067072089"
+            ],
+            "rnsr": []
+          }
+        ],
+        "orcId": [],
+        "idHal": "",
+        "idRef": [],
+        "viaf": []
+      }
+    ],
+    "_score": 16.992489
+  },
+  {
+    "sourceUid": "hal$insu-01388706",
+    "authors": [
+      {
+        "forename": "Françoise",
+        "isni": [],
+        "surname": "Girard",
+        "researcherId": "",
+        "halAuthorId": "1110987",
+        "affiliations": [
+          {
+            "ref": "struct-409347",
+            "address": "Réseau Renatis, Mission pour l'Interdisciplinarité, CNRS, FR",
+            "isni": [],
+            "idRef": [],
+            "rnsr": []
+          },
+          {
+            "ref": "struct-242601",
+            "address": "École polytechnique X, Université Paris-Saclay, UMR9168, Centre National de la Recherche Scientifique CNRS, Laboratoire de chimie moléculaire LCM, Ecole polytechnique 91128 Palaiseau Cedex, FR",
+            "isni": [
+              "0000000122597504"
+            ],
+            "idRef": [
+              "199292272",
+              "027309320",
+              "02636817X"
+            ],
+            "rnsr": [
+              "201420758G"
+            ]
+          }
+        ],
+        "orcId": [],
+        "idHal": "",
+        "idRef": [],
+        "viaf": []
+      },
+      {
+        "forename": "Angèle",
+        "isni": [],
+        "surname": "Séné",
+        "researcherId": "",
+        "halAuthorId": "1110923",
+        "affiliations": [
+          {
+            "ref": "struct-53946",
+            "address": "DRF/IRFU, Commissariat à l'énergie atomique et aux énergies alternatives CEA, Université Paris-Saclay, Institut de Recherches sur les lois Fondamentales de l'Univers IRFU, CEA SaclayF-91191 Gif sur Yvette cedex, FR",
+            "isni": [],
+            "idRef": [],
+            "rnsr": [
+              "199118599K"
+            ]
+          }
+        ],
+        "orcId": [],
+        "idHal": "",
+        "idRef": [],
+        "viaf": []
+      },
+      {
+        "forename": "Nathalie",
+        "isni": [],
+        "surname": "Pothier",
+        "researcherId": "",
+        "halAuthorId": "1110570",
+        "affiliations": [
+          {
+            "ref": "struct-197066",
+            "address": "Institut national des sciences de l'Univers INSU - CNRS, Observatoire de Paris, Université d'Orléans UO, UMS3116, Centre National de la Recherche Scientifique CNRS, Observatoire des Sciences de l'Univers en région Centre OSUC, Campus Géosciences, 1A rue de la Férollerie, 45071 Orléans, FR",
+            "isni": [
+              "0000 0001 2154 1736",
+              "0000000121581666",
+              "0000000122597504"
+            ],
+            "idRef": [
+              "029349265",
+              "026402971",
+              "02636817X"
+            ],
+            "rnsr": [
+              "200610854B"
+            ]
+          }
+        ],
+        "orcId": [],
+        "idHal": "2124",
+        "idRef": [],
+        "viaf": []
+      },
+      {
+        "forename": "Alina",
+        "isni": [],
+        "surname": "Deniau",
+        "researcherId": "",
+        "halAuthorId": "1110568",
+        "affiliations": [
+          {
+            "ref": "struct-409347",
+            "address": "Réseau Renatis, Mission pour l'Interdisciplinarité, CNRS, FR",
+            "isni": [],
+            "idRef": [],
+            "rnsr": []
+          }
+        ],
+        "orcId": [
+          "https://orcid.org/0000-0003-4619-5184"
+        ],
+        "idHal": "449",
+        "idRef": [],
+        "viaf": []
+      },
+      {
+        "forename": "Véronique",
+        "isni": [],
+        "surname": "Prêtre",
+        "researcherId": "",
+        "halAuthorId": "1406010",
+        "affiliations": [
+          {
+            "ref": "struct-411575",
+            "address": "CentraleSupélec, 3, rue Joliot Curie,Plateau de Moulon,91192 GIF-SUR-YVETTE Cedex, FR",
+            "isni": [],
+            "idRef": [
+              "184443237"
+            ],
+            "rnsr": []
+          }
+        ],
+        "orcId": [],
+        "idHal": "11482",
+        "idRef": [],
+        "viaf": []
+      },
+      {
+        "forename": "Manuel",
+        "isni": [
+          "http://isni.org/isni/0000000078365203"
+        ],
+        "surname": "Durand-Barthez",
+        "researcherId": "http://www.researcherid.com/rid/G6034-2012",
+        "halAuthorId": "110746",
+        "affiliations": [
+          {
+            "ref": "struct-154357",
+            "address": "École nationale des chartes ENC, Unité Régionale de Formation à l'Information Scientifique et Technique de Paris URFIST Paris, 17 rue des Bernardins 75005 Paris, FR",
+            "isni": [],
+            "idRef": [],
+            "rnsr": []
+          }
+        ],
+        "orcId": [
+          "https://orcid.org/0000-0003-4378-2981"
+        ],
+        "idHal": "1342",
+        "idRef": [
+          "https://www.idref.fr/035485833"
+        ],
+        "viaf": [
+          "https://viaf.org/viaf/268729091"
+        ]
+      }
+    ],
+    "_score": 15.883697
+  },
+  {
+    "sourceUid": "hal$hal-01403839",
+    "authors": [
+      {
+        "forename": "Jean-Francois",
+        "isni": [],
+        "surname": "Moreau",
+        "researcherId": "",
+        "halAuthorId": "1422211",
+        "affiliations": [
+          {
+            "ref": "struct-473693",
+            "address": "Université de Bordeaux UB, UMR 5164, Centre National de la Recherche Scientifique CNRS, Immunology from Concept and Experiments to Translation ImmunoConcept, FR",
+            "isni": [
+              "0000000122597504"
+            ],
+            "idRef": [
+              "02636817X"
+            ],
+            "rnsr": []
+          },
+          {
+            "ref": "struct-300122",
+            "address": "CHU Bordeaux [Bordeaux], place Amélie Raba Léon33076 BORDEAUX CEDEX, FR",
+            "isni": [],
+            "idRef": [],
+            "rnsr": []
+          }
+        ],
+        "orcId": [],
+        "idHal": "",
+        "idRef": [],
+        "viaf": []
+      },
+      {
+        "forename": "Thomas",
+        "isni": [],
+        "surname": "Pradeu",
+        "researcherId": "",
+        "halAuthorId": "819715",
+        "affiliations": [
+          {
+            "ref": "struct-1342",
+            "address": "Université Panthéon-Sorbonne UP1, UMR8590, Centre National de la Recherche Scientifique CNRS, Département d'Etudes Cognitives - ENS Paris DEC, Institut d'Histoire et de Philosophie des Sciences et des Techniques IHPST, 13 Rue du four 75006 PARIS, FR",
+            "isni": [
+              "0000000122597504"
+            ],
+            "idRef": [
+              "02636817X"
+            ],
+            "rnsr": [
+              "199812918E"
+            ]
+          },
+          {
+            "ref": "struct-473693",
+            "address": "Université de Bordeaux UB, UMR 5164, Centre National de la Recherche Scientifique CNRS, Immunology from Concept and Experiments to Translation ImmunoConcept, FR",
+            "isni": [
+              "0000000122597504"
+            ],
+            "idRef": [
+              "02636817X"
+            ],
+            "rnsr": []
+          }
+        ],
+        "orcId": [
+          "https://orcid.org/0000-0002-6590-3281"
+        ],
+        "idHal": "9251",
+        "idRef": [],
+        "viaf": []
+      },
+      {
+        "forename": "Andrea",
+        "isni": [],
+        "surname": "Grignolio",
+        "researcherId": "",
+        "halAuthorId": "1422212",
+        "affiliations": [
+          {
+            "ref": "struct-229915",
+            "address": "Università degli Studi di Roma \"La Sapienza\" [Rome], Piazzale Aldo Moro 5, 00185 Roma, IT",
+            "isni": [],
+            "idRef": [],
+            "rnsr": []
+          }
+        ],
+        "orcId": [],
+        "idHal": "",
+        "idRef": [],
+        "viaf": []
+      },
+      {
+        "forename": "Christine",
+        "isni": [],
+        "surname": "Nardini",
+        "researcherId": "",
+        "halAuthorId": "1422213",
+        "affiliations": [
+          {
+            "ref": "struct-13",
+            "address": "École normale supérieure - Lyon ENS Lyon, Université Claude Bernard Lyon 1 UCBL, UMR5672, Centre National de la Recherche Scientifique CNRS, Laboratoire de Physique de l'ENS Lyon Phys-ENS, 46 allée d'Italie 69007 Lyon, FR",
+            "isni": [
+              "0000000121686185",
+              "0000000122597504"
+            ],
+            "idRef": [
+              "182438627",
+              "149154992",
+              "026402823",
+              "02636817X"
+            ],
+            "rnsr": []
+          }
+        ],
+        "orcId": [],
+        "idHal": "",
+        "idRef": [],
+        "viaf": []
+      },
+      {
+        "forename": "Filippo",
+        "isni": [],
+        "surname": "Castiglione",
+        "researcherId": "",
+        "halAuthorId": "1277342",
+        "affiliations": [
+          {
+            "ref": "struct-125443",
+            "address": "Politecnico di Milano [Milan], Piazza Leonardo da Vinci, 32 20133 Milano, IT",
+            "isni": [],
+            "idRef": [],
+            "rnsr": []
+          }
+        ],
+        "orcId": [],
+        "idHal": "",
+        "idRef": [],
+        "viaf": []
+      },
+      {
+        "forename": "Paolo",
+        "isni": [],
+        "surname": "Tieri",
+        "researcherId": "",
+        "halAuthorId": "1422214",
+        "affiliations": [
+          {
+            "ref": "struct-125443",
+            "address": "Politecnico di Milano [Milan], Piazza Leonardo da Vinci, 32 20133 Milano, IT",
+            "isni": [],
+            "idRef": [],
+            "rnsr": []
+          }
+        ],
+        "orcId": [],
+        "idHal": "",
+        "idRef": [],
+        "viaf": []
+      },
+      {
+        "forename": "Miriam",
+        "isni": [],
+        "surname": "Capri",
+        "researcherId": "",
+        "halAuthorId": "507031",
+        "affiliations": [
+          {
+            "ref": "struct-119906",
+            "address": "CIG - Interdepartmental Center “L.Galvani”, CIG - Interdepartmental Center “L.Galvani”, IT",
+            "isni": [],
+            "idRef": [],
+            "rnsr": []
+          }
+        ],
+        "orcId": [],
+        "idHal": "",
+        "idRef": [],
+        "viaf": []
+      },
+      {
+        "forename": "Stefano",
+        "isni": [],
+        "surname": "Salvioli",
+        "researcherId": "",
+        "halAuthorId": "507032",
+        "affiliations": [
+          {
+            "ref": "struct-39732",
+            "address": "Università di Bologna [Bologna] UNIBO, Centro Interdipartimentale Galvani CIG, IT",
+            "isni": [],
+            "idRef": [],
+            "rnsr": []
+          },
+          {
+            "ref": "struct-261776",
+            "address": "Università di Bologna [Bologna] UNIBO, Departmento of Experimental, Diagnostic and Specialty Medicine, IT",
+            "isni": [],
+            "idRef": [],
+            "rnsr": []
+          }
+        ],
+        "orcId": [],
+        "idHal": "",
+        "idRef": [],
+        "viaf": []
+      },
+      {
+        "forename": "Jean-Luc",
+        "isni": [],
+        "surname": "Taupin",
+        "researcherId": "",
+        "halAuthorId": "80994",
+        "affiliations": [
+          {
+            "ref": "struct-245898",
+            "address": "Institut Universitaire d'Hématologie IUH, U1160, Institut National de la Santé et de la Recherche Médicale INSERM, Alloimmunité-Autoimmunité-Transplantation A2T, Institut Universitaire d’Hématologie (IUH) - Université Paris Diderot - 1 avenue Claude Vellefaux 75010 Paris, FR",
+            "isni": [
+              "0000000121514068"
+            ],
+            "idRef": [
+              "225595508",
+              "027542084",
+              "026388278"
+            ],
+            "rnsr": [
+              "201420725W"
+            ]
+          }
+        ],
+        "orcId": [],
+        "idHal": "",
+        "idRef": [],
+        "viaf": []
+      },
+      {
+        "forename": "Paolo",
+        "isni": [],
+        "surname": "Garagnani",
+        "researcherId": "",
+        "halAuthorId": "1422215",
+        "affiliations": [
+          {
+            "ref": "struct-30978",
+            "address": "Università di Bologna [Bologna] UNIBO, Via Zamboni, 33 - 40126 Bologna, IT",
+            "isni": [],
+            "idRef": [],
+            "rnsr": []
+          }
+        ],
+        "orcId": [],
+        "idHal": "",
+        "idRef": [],
+        "viaf": []
+      },
+      {
+        "forename": "Claudio",
+        "isni": [],
+        "surname": "Franceschi",
+        "researcherId": "",
+        "halAuthorId": "507049",
+        "affiliations": [
+          {
+            "ref": "struct-30978",
+            "address": "Università di Bologna [Bologna] UNIBO, Via Zamboni, 33 - 40126 Bologna, IT",
+            "isni": [],
+            "idRef": [],
+            "rnsr": []
+          }
+        ],
+        "orcId": [],
+        "idHal": "",
+        "idRef": [],
+        "viaf": []
+      }
+    ],
+    "_score": 15.822856
+  },
+  {
+    "sourceUid": "hal$hal-01734949",
+    "authors": [
+      {
+        "forename": "Vincent",
+        "isni": [],
+        "surname": "Liquete",
+        "researcherId": "",
+        "halAuthorId": "1571425",
+        "affiliations": [
+          {
+            "ref": "struct-24472",
+            "address": "Université Sciences et Technologies - Bordeaux 1, Institut Polytechnique de Bordeaux, UMR5218, Centre National de la Recherche Scientifique CNRS, Laboratoire de l'intégration, du matériau au système IMS, 33405 TALENCE CEDEX, FR",
+            "isni": [
+              "0000000122597504"
+            ],
+            "idRef": [
+              "02636817X"
+            ],
+            "rnsr": []
+          }
+        ],
+        "orcId": [],
+        "idHal": "",
+        "idRef": [],
+        "viaf": []
+      },
+      {
+        "forename": "Karel",
+        "isni": [],
+        "surname": "Soumagnac",
+        "researcherId": "",
+        "halAuthorId": "1591872",
+        "affiliations": [
+          {
+            "ref": "struct-24472",
+            "address": "Université Sciences et Technologies - Bordeaux 1, Institut Polytechnique de Bordeaux, UMR5218, Centre National de la Recherche Scientifique CNRS, Laboratoire de l'intégration, du matériau au système IMS, 33405 TALENCE CEDEX, FR",
+            "isni": [
+              "0000000122597504"
+            ],
+            "idRef": [
+              "02636817X"
+            ],
+            "rnsr": []
+          }
+        ],
+        "orcId": [],
+        "idHal": "18295",
+        "idRef": [],
+        "viaf": []
+      }
+    ],
+    "_score": 15.623702
+  },
+  {
+    "sourceUid": "hal$hal-01939319",
+    "authors": [
+      {
+        "forename": "Jorge",
+        "isni": [],
+        "surname": "Lopez-Castroman",
+        "researcherId": "",
+        "halAuthorId": "1567458",
+        "affiliations": [
+          {
+            "ref": "struct-258773",
+            "address": "Centre Hospitalier Régional Universitaire [Montpellier] CHRU Montpellier, 191 avenue du doyen Gaston Giraud 34295 Montpellier cedex 5, FR",
+            "isni": [],
+            "idRef": [],
+            "rnsr": []
+          },
+          {
+            "ref": "struct-361498",
+            "address": "Centre Hospitalier Régional Universitaire de Nîmes CHRU Nîmes, 4 Rue du Professeur Robert Debré, 30029 Nîmes, FR",
+            "isni": [],
+            "idRef": [],
+            "rnsr": []
+          },
+          {
+            "ref": "struct-139836",
+            "address": "Université Montpellier 1 UM1, U1061, Institut National de la Santé et de la Recherche Médicale INSERM, Université de Montpellier UM, Neuropsychiatrie : recherche épidémiologique et clinique, Hôpital La Colombière 39 AV Charles Flahault BP 34493 -Pav 42 Calixte Cavalier 34093 CEDEX 5 Montpellier, FR",
+            "isni": [
+              "0000000120970141"
+            ],
+            "idRef": [
+              "026388278"
+            ],
+            "rnsr": []
+          }
+        ],
+        "orcId": [],
+        "idHal": "",
+        "idRef": [],
+        "viaf": []
+      },
+      {
+        "forename": "Enrique",
+        "isni": [],
+        "surname": "Baca-Garcia",
+        "researcherId": "",
+        "halAuthorId": "551023",
+        "affiliations": [],
+        "orcId": [],
+        "idHal": "",
+        "idRef": [],
+        "viaf": []
+      },
+      {
+        "forename": "WORECA ",
+        "isni": [],
+        "surname": "authors",
+        "researcherId": "",
+        "halAuthorId": "11337859",
+        "affiliations": [],
+        "orcId": [],
+        "idHal": "",
+        "idRef": [],
+        "viaf": []
+      },
+      {
+        "forename": "Philippe",
+        "isni": [],
+        "surname": "Courtet",
+        "researcherId": "",
+        "halAuthorId": "157768",
+        "affiliations": [
+          {
+            "ref": "struct-258773",
+            "address": "Centre Hospitalier Régional Universitaire [Montpellier] CHRU Montpellier, 191 avenue du doyen Gaston Giraud 34295 Montpellier cedex 5, FR",
+            "isni": [],
+            "idRef": [],
+            "rnsr": []
+          },
+          {
+            "ref": "struct-139836",
+            "address": "Université Montpellier 1 UM1, U1061, Institut National de la Santé et de la Recherche Médicale INSERM, Université de Montpellier UM, Neuropsychiatrie : recherche épidémiologique et clinique, Hôpital La Colombière 39 AV Charles Flahault BP 34493 -Pav 42 Calixte Cavalier 34093 CEDEX 5 Montpellier, FR",
+            "isni": [
+              "0000000120970141"
+            ],
+            "idRef": [
+              "026388278"
+            ],
+            "rnsr": []
+          }
+        ],
+        "orcId": [],
+        "idHal": "",
+        "idRef": [],
+        "viaf": []
+      },
+      {
+        "forename": "Maria",
+        "isni": [],
+        "surname": "Oquendo",
+        "researcherId": "",
+        "halAuthorId": "11137065",
+        "affiliations": [],
+        "orcId": [],
+        "idHal": "",
+        "idRef": [],
+        "viaf": []
+      }
+    ],
+    "_score": 15.461357
+  },
+  {
+    "sourceUid": "hal$tel-01710723",
+    "authors": [
+      {
+        "forename": "Gisela",
+        "isni": [],
+        "surname": "Bergonzoni",
+        "researcherId": "",
+        "halAuthorId": "11133923",
+        "affiliations": [
+          {
+            "ref": "struct-489661",
+            "address": "EA 3206, Université de Rennes 2 UR2, Centre d'Etudes des Langues et Littératures Anciennes et Modernes CELLAM, Université Rennes 2 - UFR Arts, Lettres et Communication. Place du Recteur Henri Le Moal. 35043 RENNES CEDEX, FR",
+            "isni": [],
+            "idRef": [
+              "081543492"
+            ],
+            "rnsr": [
+              "200014504V"
+            ]
+          },
+          {
+            "ref": "struct-528428",
+            "address": "Centre d'Etudes des langues et littératures anciennes et modernes, FR",
+            "isni": [],
+            "idRef": [],
+            "rnsr": []
+          }
+        ],
+        "orcId": [],
+        "idHal": "",
+        "idRef": [],
+        "viaf": []
+      }
+    ],
+    "_score": 15.12705
+  },
+  {
+    "sourceUid": "hal$hal-01626136",
+    "authors": [
+      {
+        "forename": "Nour",
+        "isni": [],
+        "surname": "Halawani",
+        "researcherId": "",
+        "halAuthorId": "1662150",
+        "affiliations": [
+          {
+            "ref": "struct-411815",
+            "address": "Ampère, Ampère, Département Energie Electrique EE, FR",
+            "isni": [
+              "0000000121686185",
+              "0000 0001 2292 0228",
+              "0000000122597504"
+            ],
+            "idRef": [
+              "111871166",
+              "026402823",
+              "052444724",
+              "162105150",
+              "02636817X"
+            ],
+            "rnsr": [
+              "199911701C"
+            ]
+          }
+        ],
+        "orcId": [],
+        "idHal": "",
+        "idRef": [],
+        "viaf": []
+      },
+      {
+        "forename": "Jean-Louis",
+        "isni": [],
+        "surname": "Augé",
+        "researcherId": "",
+        "halAuthorId": "389474",
+        "affiliations": [
+          {
+            "ref": "struct-411815",
+            "address": "Ampère, Ampère, Département Energie Electrique EE, FR",
+            "isni": [
+              "0000000121686185",
+              "0000 0001 2292 0228",
+              "0000000122597504"
+            ],
+            "idRef": [
+              "111871166",
+              "026402823",
+              "052444724",
+              "162105150",
+              "02636817X"
+            ],
+            "rnsr": [
+              "199911701C"
+            ]
+          }
+        ],
+        "orcId": [
+          "https://orcid.org/0000-0003-4053-2434"
+        ],
+        "idHal": "170589",
+        "idRef": [],
+        "viaf": []
+      },
+      {
+        "forename": "Hervé",
+        "isni": [],
+        "surname": "Morel",
+        "researcherId": "",
+        "halAuthorId": "168385",
+        "affiliations": [
+          {
+            "ref": "struct-411815",
+            "address": "Ampère, Ampère, Département Energie Electrique EE, FR",
+            "isni": [
+              "0000000121686185",
+              "0000 0001 2292 0228",
+              "0000000122597504"
+            ],
+            "idRef": [
+              "111871166",
+              "026402823",
+              "052444724",
+              "162105150",
+              "02636817X"
+            ],
+            "rnsr": [
+              "199911701C"
+            ]
+          }
+        ],
+        "orcId": [
+          "https://orcid.org/0000-0001-7866-0437"
+        ],
+        "idHal": "10296",
+        "idRef": [],
+        "viaf": []
+      },
+      {
+        "forename": "O.",
+        "isni": [],
+        "surname": "Gain",
+        "researcherId": "",
+        "halAuthorId": "438568",
+        "affiliations": [
+          {
+            "ref": "struct-90413",
+            "address": "Université Claude Bernard Lyon 1 UCBL, Institut National des Sciences Appliquées de Lyon INSA Lyon, Université Jean Monnet [Saint-Étienne] UJM, UMR5223, Centre National de la Recherche Scientifique CNRS, Ingénierie des Matériaux Polymères - Laboratoire des Matériaux Polymères et des Biomatériaux IMP-LMPB, Bâtiment ISTIL 15, Bd. André Latarget Université Claude Bernard 43, Bd du 11 Novembre 1918 69622 Villeurbanne Cédex, FR",
+            "isni": [
+              "0000000121686185",
+              "0000 0001 2292 0228",
+              "0000000122597504"
+            ],
+            "idRef": [
+              "026402823",
+              "052444724",
+              "162105150",
+              "02636817X"
+            ],
+            "rnsr": []
+          }
+        ],
+        "orcId": [],
+        "idHal": "",
+        "idRef": [],
+        "viaf": []
+      },
+      {
+        "forename": "S.",
+        "isni": [],
+        "surname": "Pruvost",
+        "researcherId": "",
+        "halAuthorId": "158142",
+        "affiliations": [
+          {
+            "ref": "struct-203996",
+            "address": "Université Claude Bernard Lyon 1 UCBL, Institut National des Sciences Appliquées de Lyon INSA Lyon, Université Jean Monnet [Saint-Étienne] UJM, UMR5223, Centre National de la Recherche Scientifique CNRS, Ingénierie des Matériaux Polymères - Site INSA Lyon IMP, 17, Av. Jean Capelle 69621 Villeurbanne Cedex, FR",
+            "isni": [
+              "0000000121686185",
+              "0000 0001 2292 0228",
+              "0000000122597504"
+            ],
+            "idRef": [
+              "026402823",
+              "052444724",
+              "162105150",
+              "02636817X"
+            ],
+            "rnsr": []
+          }
+        ],
+        "orcId": [],
+        "idHal": "",
+        "idRef": [],
+        "viaf": []
+      }
+    ],
+    "_score": 14.975548
+  }
+]
