@@ -1,5 +1,6 @@
 import { promises } from 'fs';
 import xmlParser from 'fast-xml-parser';
+import { includesLowerCase, includesLowerCaseArray } from './strings';
 
 /**
  * @typedef {Object<string, any>} RepNatStrRech
@@ -46,10 +47,10 @@ import xmlParser from 'fast-xml-parser';
  */
 
 const hasLabel = (address, etabAssocs) => etabAssocs[0] && etabAssocs.some(
-    (etabAssoc) => address.includes(etabAssoc.label || '**'),
+    (etabAssoc) => includesLowerCase(address, etabAssoc.label || '**'),
 );
 const hasNumero = (address, etabAssocs) => etabAssocs[0] && etabAssocs.some(
-    (etabAssoc) => address.includes(String(etabAssoc.numero) || '**'),
+    (etabAssoc) => includesLowerCase(address, String(etabAssoc.numero) || '**'),
 );
 /**
  * Say if numero follows label (optionnally with one token between both, or
@@ -61,10 +62,11 @@ const hasNumero = (address, etabAssocs) => etabAssocs[0] && etabAssocs.some(
 const followsNumeroLabel = (tokens, etabAssocs) => etabAssocs[0]
     && etabAssocs.some(
         (etabAssoc) => {
+            const lowerCaseTokens = tokens.map((t) => t.toLowerCase());
             const { label, numero } = etabAssoc;
-            if (tokens.includes(`${label}${numero}`)) return true;
-            const labelIndex = tokens.indexOf(label);
-            const numeroIndex = tokens.indexOf(String(numero));
+            if (includesLowerCaseArray(tokens, `${label}${numero}`)) return true;
+            const labelIndex = lowerCaseTokens.indexOf(label.toLowerCase());
+            const numeroIndex = lowerCaseTokens.indexOf(String(numero));
             if (labelIndex === -1) return false;
             if (numeroIndex === -1) return false;
             if (numeroIndex < labelIndex) return false;
@@ -73,8 +75,8 @@ const followsNumeroLabel = (tokens, etabAssocs) => etabAssocs[0]
         },
     );
 const hasPostalAddress = (address, structure) => (
-    address.includes(structure.ville_postale || '**')
-    || address.includes(String(structure.code_postal) || '**')
+    includesLowerCase(address, structure.ville_postale || '**')
+    || includesLowerCase(address, String(structure.code_postal) || '**')
 );
 
 /**
@@ -85,7 +87,7 @@ const hasPostalAddress = (address, structure) => (
  * @param {Structure} structure
  * @returns {boolean}
  */
-const hasIntitule = (address, structure) => address.includes(structure.intitule || '**');
+const hasIntitule = (address, structure) => includesLowerCase(address, structure.intitule || '**');
 
 /**
  * Say if the `structure` is in `address` according to the presence of sigle.
@@ -94,7 +96,7 @@ const hasIntitule = (address, structure) => address.includes(structure.intitule 
  * @param {Structure} structure
  * @returns {boolean}
  */
-const hasSigle = (address, structure) => address.includes(structure.sigle || '**');
+const hasSigle = (address, structure) => includesLowerCase(address, structure.sigle || '**');
 
 /**
  * Check that for at least one of the tutelles (`structure.etabAssoc.*.etab`):
@@ -117,8 +119,8 @@ const hasTutelle = (address, structure) => {
             && address.includes(etab.libelle || '**')) {
             return true;
         }
-        if (address.includes(etab.sigle || '**')
-            || address.includes(etab.libelle || '**')) {
+        if (includesLowerCase(address, etab.sigle || '**')
+            || includesLowerCase(address, etab.libelle || '**')) {
             return true;
         }
         return keep;
