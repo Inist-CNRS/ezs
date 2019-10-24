@@ -10,8 +10,8 @@
   "scripts": {
     "build": "babel src --out-dir lib",
     "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
-    "test": "jest",
-    "release": "standard-version"
+    "release": "standard-version",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
