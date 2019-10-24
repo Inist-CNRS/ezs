@@ -9,6 +9,7 @@
   },
   "scripts": {
     "build": "babel src --out-dir lib",
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
     "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
     "release": "standard-version",
     "test": "jest"
@@ -40,6 +41,7 @@
     "@types/jest": "^24.0.19",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
+    "coveralls": "^3.0.7",
     "eslint": "^6.5.1",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
