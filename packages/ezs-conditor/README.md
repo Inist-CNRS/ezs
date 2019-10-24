@@ -1,5 +1,9 @@
 # ezs-conditor
 
+[![npm version](https://img.shields.io/npm/v/ezs-conditor)](https://npm.im/ezs-conditor)
+[![Build Status](https://travis-ci.org/conditor-project/ezs-conditor.png?branch=master)](https://travis-ci.org/conditor-project/ezs-conditor)
+[![Coverage Status](https://coveralls.io/repos/github/conditor-project/ezs-conditor/badge.svg?branch=master)](https://coveralls.io/github/conditor-project/ezs-conditor?branch=master)
+
 Instructions EZS pour Conditor.
 
 ## Instructions
