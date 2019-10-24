@@ -1,0 +1,16 @@
+before_install:
+- npm i -g npm@latest
+branches:
+  only:
+    - master
+after_script: npm run coveralls
+language: node_js
+sudo: false
+node_js:
+- '10'
+env:
+  global:
+  - NODE_ENV=test
+cache:
+  directories:
+  - node_modules
