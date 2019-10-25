@@ -38,11 +38,19 @@ function get(ezs, plugin, opts) {
             }
         });
         return (data, feed) => feed.send(data);
-    } if (typeof plugin === 'function') {
+    }
+    if (typeof plugin === 'function') {
         return plugin;
-    } if (typeof plugin === 'string' && pluginsList[plugin]) {
+    }
+    if (typeof plugin === 'string' && pluginsList[plugin]) {
         return pluginsList[plugin];
-    } if (typeof plugin === 'object') {
+    }
+    if (typeof plugin === 'string' && plugin.indexOf(':') !== -1) {
+        const [use, name] = plugin.split(':');
+        load(ezs, use);
+        return get(ezs, name, opts);
+    }
+    if (typeof plugin === 'object') {
         const keys = Object.keys(plugin);
         const firstKey = keys.length ? keys[0] : '';
         if (typeof plugin[firstKey] === 'function') {
