@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-* Add the feature to README ([7c1defb](https://github.com/conditor-project/ezs-conditor/commit/7c1defb3a365064c2265c2173ba3a2b3af73ae8a))
+* Ignore accents ([7c1defb](https://github.com/conditor-project/ezs-conditor/commit/7c1defb3a365064c2265c2173ba3a2b3af73ae8a))
 
 ## [1.1.0](https://github.com/conditor-project/ezs-conditor/compare/v1.0.0...v1.1.0) (2019-10-25)
 
