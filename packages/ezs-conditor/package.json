@@ -39,6 +39,7 @@
     "@ezs/basics": "^1.0.7",
     "@ezs/core": "^1.1.7",
     "@types/jest": "^24.0.19",
+    "@types/ramda": "^0.26.33",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
     "coveralls": "^3.0.7",
@@ -51,6 +52,8 @@
     "standard-version": "^7.0.0"
   },
   "dependencies": {
-    "fast-xml-parser": "^3.13.0"
+    "fast-xml-parser": "^3.13.0",
+    "ramda": "^0.26.1",
+    "unidecode": "^0.1.8"
   }
 }

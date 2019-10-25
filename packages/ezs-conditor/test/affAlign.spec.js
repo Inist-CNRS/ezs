@@ -136,6 +136,32 @@ describe('co-aff-align', () => {
                 });
         });
 
+        it('should find the conditorRnsr even without accented chars', (done) => {
+            let res = [];
+            from([{
+                authors: [{
+                    affiliations: [{
+                        address: 'droits, pouvoirs et societes, CNRS, 13628',
+                    }],
+                }],
+            }])
+                .pipe(ezs('affAlign'))
+                .on('data', (data) => {
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    expect(res).toEqual([{
+                        authors: [{
+                            affiliations: [{
+                                address: 'droits, pouvoirs et societes, CNRS, 13628',
+                                conditorRnsr: ['200810699Z'],
+                            }],
+                        }],
+                    }]);
+                    done();
+                });
+        });
+
         it('should not find the conditorRnsr with only a label', (done) => {
             let res = [];
             from([{

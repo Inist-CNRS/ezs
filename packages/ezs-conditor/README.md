@@ -6,7 +6,23 @@
 
 Instructions EZS pour Conditor.
 
-## Instructions
+## Installation
+
+```bash
+npm install @ezs/core
+npm install ezs-conditor
+```
+
+## Scripts
+
+```bash
+$ ./bin/affAlign.js < data/1000-notices-conditor-hal.json | ./bin/compareRnsr.js
+recall: 0.5172413793103449
+correct: 720
+total: 1392
+```
+
+## Instructions EZS
 
 ### affAlign
 
@@ -56,7 +72,7 @@ Sortie:
 
 ```bash
 curl 'https://api-integ.conditor.fr/v1/records?q="source:hal%20AND%20authors>affiliations>\"*\""&page_size=10&includes=authors,sourceUid&access_token=...' \
-    > test/fixture-10-notices-conditor-hal.json
+    > data/10-notices-conditor-hal.json
 ```
 
 #### Règles certaines
@@ -80,3 +96,6 @@ On trouve la bonne structure (et donc son `num_nat_struct`):
   séquence, ex: `GDR2945` `GDR 2945` ou `GDR CNRS 2945`) dans `address`,
 - soit `sigle` est présent dans `address`,
 - soit `intitule` est présent dans `address`.
+
+À partir de la version 1.1, quand on cherche une chaîne de caractères, on ne
+tient plus compte de sa casse.
