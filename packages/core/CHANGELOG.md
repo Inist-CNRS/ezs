@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.1.7...@ezs/core@1.2.0) (2019-10-25)
+
+
+### Bug Fixes
+
+* 🐛 find statement with prefix ([6f74b33](https://github.com/Inist-CNRS/ezs/commit/6f74b33)), closes [#15](https://github.com/Inist-CNRS/ezs/issues/15)
+
+
+### Features
+
+* **core:** Add naive version of time statement ([8bede60](https://github.com/Inist-CNRS/ezs/commit/8bede60))
+
+
+
+
+
 ## [1.1.7](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.1.6...@ezs/core@1.1.7) (2019-09-28)
 
 **Note:** Version bump only for package @ezs/core

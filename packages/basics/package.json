@@ -1,6 +1,6 @@
 {
   "name": "@ezs/basics",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Basics statements for EZS",
   "directories": {
     "test": "test"
@@ -41,7 +41,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "@ezs/core": "1.1.7",
+    "@ezs/core": "1.2.0",
     "pako": "~1.0.10"
   },
   "peerDependencies": {

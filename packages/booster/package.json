@@ -1,6 +1,6 @@
 {
   "name": "@ezs/booster",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "booster statements for EZS",
   "directories": {
     "test": "test"
