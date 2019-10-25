@@ -99,3 +99,6 @@ On trouve la bonne structure (et donc son `num_nat_struct`):
 
 À partir de la version 1.1, quand on cherche une chaîne de caractères, on ne
 tient plus compte de sa casse.
+
+À partir de la version 1.2, quand on cherche une chaîne de caractères, on ne
+tient plus compte des accents.
