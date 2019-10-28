@@ -29,8 +29,6 @@ Voici un fichier .ini est son équivalent en .js
 [use]
 plugin = basics
 
-
-
 ; Step #1 : Parse JSON input (from elasticsearch result )
 [JSONParse]
 separator = hits.*
@@ -57,20 +55,20 @@ import basics from 'ezs-bascis';
 ezz.use(basics);
 
 // Step #1 : Parse JSON input (from elasticsearch result )
-const s1 = input.ezs('JSONParse', { 
+const s1 = input.pipe(ezs('JSONParse', { 
 	'separator' : 'hits.*'
-});
+}));
 
 // Step #2 : Simplify each object 
-const s2 = s1.ezs('OBJFlatten');
+const s2 = s1.pipe(ezs('OBJFlatten'));
 
 // Step #3 : make uniform each object
-const s3 = s2.ezs('OBJStandardize');
+const s3 = s2.pipe(ezs('OBJStandardize'));
 
 // Step #4 : genreate csv
-const s4 = s3.ezs('CSVString', { 
+const s4 = s3.pipe(ezs('CSVString', { 
 	'format': 'strict'
-});
+}));
 
 ```
 
