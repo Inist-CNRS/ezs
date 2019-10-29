@@ -44,7 +44,7 @@ export async function injectDatasetFields(data, feed) {
 
     const collection = db.collection('publishedCharacteristic');
     const cursor = collection.find();
-    cursor
+    return cursor
         .limit(1)
         .sort({ publicationDate: -1 })
         .on('data', (characteristics) => {

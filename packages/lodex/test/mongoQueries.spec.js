@@ -13,7 +13,7 @@ describe('mongo queries', () => {
 
     beforeAll((done) => {
         mongoUnit
-            .start()
+            .start( { verbose: false })
             .then((testMongoUrl) => {
                 connectionStringURI = testMongoUrl;
                 done();
@@ -429,6 +429,42 @@ describe('mongo queries', () => {
                         done();
                     });
             });
+        });
+    });
+
+    describe('injectDatasetFields', () => {
+        beforeEach(() => mongoUnit.initDb(connectionStringURI, publishedCharacteristic));
+        afterEach(() => mongoUnit.drop());
+
+        it('should inject dataset fiels in each item', (done) => {
+            const res = [];
+            from([
+                {
+                    item: 1,
+                },
+                {
+                    item: 2,
+                },
+                {
+                    item: 3,
+                },
+            ])
+                .pipe(ezs('injectDatasetFields', {
+                    connectionStringURI,
+                }))
+                .on('data', (data) => {
+                    res.push(data);
+                })
+                .on('end', () => {
+                    expect(res).toHaveLength(3);
+                    expect(res[0].item).toEqual(1);
+                    expect(res[0].PJTS).toEqual('ISTEX');
+                    expect(res[1].item).toEqual(2);
+                    expect(res[1].PJTS).toEqual('ISTEX');
+                    expect(res[2].item).toEqual(3);
+                    expect(res[2].PJTS).toEqual('ISTEX');
+                    done();
+                });
         });
     });
 });
