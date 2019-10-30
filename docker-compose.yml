@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  test:
+    build:
+      context: .
+    environment:
+      - NODE_ENV=development
+    entrypoint: npm test
+    volumes:
+      - "./packages:/app/packages"
