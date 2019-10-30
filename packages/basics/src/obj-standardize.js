@@ -1,10 +1,10 @@
-import ezs from '@ezs/core';
 import tmpFilepath from 'tmp-filepath';
 import fs from 'fs';
 import { writeTo } from './utils';
 
 function OBJStandardize(data, feed) {
     const self = this;
+    const { ezs } = this;
     if (!self.tmpFile) {
         self.tmpFile = tmpFilepath('.bin');
         self.struct = [];
