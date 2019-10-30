@@ -1,0 +1,10 @@
+# Ignore all files by default
+*
+
+# White list only the required files
+!package-lock.json
+!package.json
+!packages/
+!jest.config.js
+!lerna.json
+!babel.config.js
