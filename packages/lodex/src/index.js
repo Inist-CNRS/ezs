@@ -23,6 +23,7 @@ import parseNQuads from './parseNQuads';
 import writeTurtle from './writeTurtle';
 import getFields from './getFields';
 import getCharacteristics from './getCharacteristics';
+import injectDatasetFields from './injectDatasetFields';
 
 export default {
     flattenPatch,
@@ -44,6 +45,7 @@ export default {
     JSONLDObject,
     getFields,
     getCharacteristics,
+    injectDatasetFields,
     runQuery,
     reduceQuery,
     formatOutput,
