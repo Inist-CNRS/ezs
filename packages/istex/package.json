@@ -40,7 +40,6 @@
         "access": "public"
     },
     "dependencies": {
-        "@ezs/core": "1.2.0",
         "archiver": "~3.1.1",
         "async.queue": "~0.5.2",
         "dot-prop": "~5.1.0",
@@ -56,5 +55,8 @@
     },
     "peerDependencies": {
         "@ezs/core": "*"
+    },
+    "devDependencies": {
+        "@ezs/core": "1.2.0"
     }
 }

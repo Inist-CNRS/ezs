@@ -19,7 +19,6 @@
   },
   "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/analytics#readme",
   "dependencies": {
-    "@ezs/core": "1.2.0",
     "lda": "~0.2.0",
     "leveldown": "~5.1.1",
     "levelup": "~4.1.0",
@@ -48,5 +47,8 @@
   "peerDependencies": {
     "@ezs/core": "*"
   },
-  "gitHead": "5657de2b3756cf343d9d8b7e3ed759ed43868bab"
+  "gitHead": "5657de2b3756cf343d9d8b7e3ed759ed43868bab",
+  "devDependencies": {
+    "@ezs/core": "^1.2.0"
+  }
 }
