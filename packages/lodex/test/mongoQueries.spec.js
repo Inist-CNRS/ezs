@@ -511,4 +511,76 @@ describe('mongo queries', () => {
                 });
         });
     });
+
+    describe('labelizeFieldID', () => {
+        beforeEach(() => mongoUnit.initDb(connectionStringURI, field));
+        afterEach(() => mongoUnit.drop());
+
+        const input = [
+            {
+                tfFF: 1,
+                BoJb: 'A',
+                toto: true,
+            },
+            {
+                tfFF: 2,
+                BoJb: 'B',
+                toto: true,
+            },
+            {
+                tfFF: 3,
+                BoJb: 'C',
+                toto: true,
+            },
+        ];
+
+        it('should labelize each item', (done) => {
+            const res = [];
+            from(input)
+                .pipe(ezs('labelizeFieldID', {
+                    connectionStringURI,
+                }))
+                .on('data', (data) => {
+                    res.push(data);
+                })
+                .on('end', () => {
+                    expect(res).toHaveLength(3);
+                    expect(res[0].titre).toEqual(1);
+                    expect(res[0]['définition anglais']).toEqual('A');
+                    expect(res[0].toto).toEqual(true);
+                    expect(res[1].titre).toEqual(2);
+                    expect(res[1]['définition anglais']).toEqual('B');
+                    expect(res[1].toto).toEqual(true);
+                    expect(res[2].titre).toEqual(3);
+                    expect(res[2]['définition anglais']).toEqual('C');
+                    expect(res[2].toto).toEqual(true);
+                    done();
+                });
+        });
+
+        it('should labelize each item', (done) => {
+            const res = [];
+            from(input)
+                .pipe(ezs('labelizeFieldID', {
+                    connectionStringURI,
+                    suffix: true,
+                }))
+                .on('data', (data) => {
+                    res.push(data);
+                })
+                .on('end', () => {
+                    expect(res).toHaveLength(3);
+                    expect(res[0]['titre - tfFF']).toEqual(1);
+                    expect(res[0]['définition anglais - BoJb']).toEqual('A');
+                    expect(res[0].toto).toEqual(true);
+                    expect(res[1]['titre - tfFF']).toEqual(2);
+                    expect(res[1]['définition anglais - BoJb']).toEqual('B');
+                    expect(res[1].toto).toEqual(true);
+                    expect(res[2]['titre - tfFF']).toEqual(3);
+                    expect(res[2]['définition anglais - BoJb']).toEqual('C');
+                    expect(res[2].toto).toEqual(true);
+                    done();
+                });
+        });
+    });
 });

@@ -25,6 +25,7 @@ import getFields from './getFields';
 import getCharacteristics from './getCharacteristics';
 import injectDatasetFields from './injectDatasetFields';
 import injectSyndicationFrom from './injectSyndicationFrom';
+import labelizeFieldID from './labelizeFieldID';
 
 export default {
     flattenPatch,
@@ -48,6 +49,7 @@ export default {
     getCharacteristics,
     injectDatasetFields,
     injectSyndicationFrom,
+    labelizeFieldID,
     runQuery,
     reduceQuery,
     formatOutput,
