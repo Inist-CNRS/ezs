@@ -432,6 +432,50 @@ describe('mongo queries', () => {
         });
     });
 
+    describe('injectSyndicationFrom', () => {
+        beforeEach(() => {
+            mongoUnit.initDb(connectionStringURI, publishedDataset);
+            mongoUnit.initDb(connectionStringURI, field);
+        });
+        afterEach(() => mongoUnit.drop());
+
+        it('should inject title & summary in each item', (done) => {
+            const res = [];
+            from([
+                {
+                    source: 'ark:/67375/XTP-1JC4F85T-7',
+                },
+                {
+                    source: 'ark:/67375/XTP-HPN7T1Q2-R',
+                },
+                {
+                    source: 'ark:/67375/XTP-HPN7T1Q2-R',
+                },
+            ])
+                .pipe(ezs('injectSyndicationFrom', {
+                    connectionStringURI,
+                    path: 'source',
+                }))
+                .pipe(ezs('debug'))
+                .on('data', (data) => {
+                    res.push(data);
+                })
+                .on('end', () => {
+                    expect(res).toHaveLength(3);
+                    expect(res[0].source).toEqual('ark:/67375/XTP-1JC4F85T-7');
+                    expect(res[0]['source-title']).toEqual('research-article');
+                    expect(res[0]['source-summary']).toContain('Il s’agit d’une source primaire. ');
+                    expect(res[1].source).toEqual('ark:/67375/XTP-HPN7T1Q2-R');
+                    expect(res[1]['source-title']).toEqual('abstract');
+                    expect(res[1]['source-summary']).toContain('Résumé d’un papier ou ');
+                    expect(res[2].source).toEqual('ark:/67375/XTP-HPN7T1Q2-R');
+                    expect(res[2]['source-title']).toEqual('abstract');
+                    expect(res[2]['source-summary']).toEqual('Résumé d’un papier ou d’une présentation qui a été présentée ou publiée séparément.');
+                    done();
+                });
+        });
+    });
+
     describe('injectDatasetFields', () => {
         beforeEach(() => mongoUnit.initDb(connectionStringURI, publishedCharacteristic));
         afterEach(() => mongoUnit.drop());

@@ -20,6 +20,7 @@
     "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/lodex#readme",
     "dependencies": {
         "jsonld": "~1.7.0",
+        "lodash.find": "4.6.0",
         "lodash.get": "~4.4.2",
         "lodash.omit": "~4.5.0",
         "lodash.set": "~4.3.2",
@@ -28,6 +29,7 @@
         "mongodb": "~3.3.2",
         "n3": "~1.2.0",
         "node-object-hash": "~2.0.0",
+        "quick-lru": "4.0.1",
         "valid-url": "~1.0.9",
         "xml-writer": "~1.7.0"
     },

@@ -22,6 +22,7 @@
             "position": 2,
             "scheme": "http://purl.org/dc/terms/title",
             "language": null,
+            "overview": 1,
             "format": {
                 "args": {
                     "level": 4
