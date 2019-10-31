@@ -27,9 +27,9 @@ import { MongoClient } from 'mongodb';
  *
  * @export
  * @param {string} connectionStringURI MongoDB connection string
- * @name LodexGetCharacteristics
+ * @name injectDatasetFields
  */
-export async function injectDatasetFields(data, feed) {
+export async function LodexInjectDatasetFields(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
@@ -62,5 +62,5 @@ export async function injectDatasetFields(data, feed) {
 }
 
 export default {
-    injectDatasetFields,
+    injectDatasetFields: LodexInjectDatasetFields,
 };
