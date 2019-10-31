@@ -59,7 +59,6 @@ export async function LodexInjectSyndicationFrom(data, feed) {
     } else {
         const docs = await this.collection.find({ uri }).toArray();
         const doc = get(docs.pop(), 'versions').shift();
-        console.log(uri, doc);
         title = get(doc, this.titleFieldName);
         summary = get(doc, this.summaryFieldName);
         this.lru.set(uri, [title, summary]);
