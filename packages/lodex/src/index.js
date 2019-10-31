@@ -24,6 +24,7 @@ import writeTurtle from './writeTurtle';
 import getFields from './getFields';
 import getCharacteristics from './getCharacteristics';
 import injectDatasetFields from './injectDatasetFields';
+import labelizeFieldID from './labelizeFieldID';
 
 export default {
     flattenPatch,
@@ -46,6 +47,7 @@ export default {
     getFields,
     getCharacteristics,
     injectDatasetFields,
+    labelizeFieldID,
     runQuery,
     reduceQuery,
     formatOutput,
