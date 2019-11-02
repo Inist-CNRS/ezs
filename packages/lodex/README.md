@@ -25,7 +25,10 @@ npm install @ezs/core
 -   [LodexGetCharacteristics](#lodexgetcharacteristics)
 -   [LodexGetFields](#lodexgetfields)
 -   [getLastCharacteristic](#getlastcharacteristic)
+-   [injectDatasetFields](#injectdatasetfields)
+-   [LodexInjectSyndicationFrom](#lodexinjectsyndicationfrom)
 -   [keyMapping](#keymapping)
+-   [labelizeFieldID](#labelizefieldid)
 -   [objects2columns](#objects2columns)
 -   [parseNQuads](#parsenquads)
 -   [LodexReduceQuery](#lodexreducequery)
@@ -239,6 +242,68 @@ Output:
 
 Returns **any** 
 
+### injectDatasetFields
+
+Inject in each item the last characteristics (the dataset covering fields) of a LODEX.
+
+#### Parameters
+
+-   `connectionStringURI` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** MongoDB connection string
+
+#### Examples
+
+Output:
+
+
+```javascript
+[
+  {
+    "characteristics": {
+      "_id": "5d289071340bb500201b5146",
+      "qW6w": "Catégories WOS",
+      "ImiI": "Cette table correspond aux catégories Web Of Science.",
+      "alRS": "/api/run/syndication",
+      "aDLT": "Dans le cadre de l'enrichissement des documents du...",
+      "SFvt": "https://enrichment-process.data.istex.fr/ark:/67375/R0H-PWBRNFQ8-H",
+      "RzXW": "https://docs.google.com/drawings/d/1LzjO-oD6snh0MYfqxfPB7q-LU6Dev1SRmJstXFGzgvg/pub?w=960&h=720",
+      "E4jH": "https://www.etalab.gouv.fr/licence-ouverte-open-licence",
+      "MvkG": "Plateforme ISTEX",
+      "m7G5": "Inist-CNRS",
+      "1TvM": "2016-05-12",
+      "WcNl": "2019-01-16",
+      "publicationDate": "2019-07-12T13:51:45.129Z"
+    }
+  }
+]
+```
+
+### LodexInjectSyndicationFrom
+
+Inject title & description (syndicationà from field what conatsin the uri of one resource
+
+#### Parameters
+
+-   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Field path contains URI
+-   `connectionStringURI` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** MongoDB connection string
+
+#### Examples
+
+Output:
+
+
+```javascript
+[
+  {
+{
+      "id": "uri:/ZD44DSQ",
+      "id-title": "Titre de la ressource uri:/ZD44DSQ",
+      "id-description": "Description de la ressource uri:/ZD44DSQ",
+      "value": 10
+    }
+  }
+]
+```
+
 ### keyMapping
 
 Take an object and map its keys to the one in mapping parameters.
@@ -283,6 +348,45 @@ Output
 ```
 
 Returns **any** Same object with modified keys
+
+### labelizeFieldID
+
+Inject in each item the last characteristics (the dataset covering fields) of a LODEX.
+
+#### Parameters
+
+-   `connectionStringURI` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** MongoDB connection string
+-   `suffix` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Add ID field as a suffix
+
+#### Examples
+
+Input:
+
+
+```javascript
+[
+  {
+      "xderc": "Catégories WOS",
+      "34Ddd": "Cette table correspond aux catégories Web Of Science.",
+      "SD2Fs": "/api/run/syndication",
+    }
+  }
+]
+```
+
+Output:
+
+
+```javascript
+[
+  {
+      "Titre": "Catégories WOS",
+      "Description": "Cette table correspond aux catégories Web Of Science.",
+      "URL": "/api/run/syndication",
+    }
+  }
+]
+```
 
 ### objects2columns
 
