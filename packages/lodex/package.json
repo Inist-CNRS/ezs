@@ -30,6 +30,7 @@
         "mongodb": "~3.3.2",
         "n3": "~1.2.0",
         "node-object-hash": "~2.0.0",
+        "quick-lru": "4.0.1",
         "valid-url": "~1.0.9",
         "xml-writer": "~1.7.0"
     },
