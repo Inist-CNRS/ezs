@@ -433,10 +433,10 @@ describe('mongo queries', () => {
     });
 
     describe('injectSyndicationFrom', () => {
-        beforeEach(() => {
-            mongoUnit.initDb(connectionStringURI, publishedDataset);
-            mongoUnit.initDb(connectionStringURI, field);
-        });
+        beforeEach(() => Promise.all([
+            mongoUnit.initDb(connectionStringURI, publishedDataset),
+            mongoUnit.initDb(connectionStringURI, field),
+        ]));
         afterEach(() => mongoUnit.drop());
 
         it('should inject title & summary in each item', (done) => {
