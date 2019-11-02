@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.1.1...@ezs/lodex@1.2.0) (2019-11-02)
+
+
+### Features
+
+* 🎸 new statement : injectSyndicationFrom ([5976b13](https://github.com/Inist-CNRS/ezs/commit/5976b13))
+* 🎸 new statement : labelizeFieldID ([9a19ae2](https://github.com/Inist-CNRS/ezs/commit/9a19ae2))
+
+
+
+
+
 ## [1.1.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.1.0...@ezs/lodex@1.1.1) (2019-10-25)
 
 **Note:** Version bump only for package @ezs/lodex
