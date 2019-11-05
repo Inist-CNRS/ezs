@@ -16,4 +16,3 @@ RUN npx mongodb-download --downloadDir=/root/.mongodb-prebuilt/
 # Following lines allow to generate & install node_modules
 COPY package.json ./
 RUN npm install
-RUN npx lerna bootstrap
