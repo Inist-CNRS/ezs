@@ -1,6 +1,6 @@
 import mapKeys from 'lodash.mapkeys';
 import find from 'lodash.find';
-import { MongoClient } from 'mongodb';
+import mongoDatabase from './mongoDatabase';
 
 /**
  * Inject in each item the last characteristics (the dataset covering fields) of a LODEX.
@@ -39,19 +39,12 @@ export async function LodexLabelizeFieldID(data, feed) {
     const suffix = this.getParam('suffix', false);
     if (this.isFirst()) {
         const connectionStringURI = this.getParam('connectionStringURI');
-        const client = await MongoClient.connect(
-            connectionStringURI,
-            {
-                useNewUrlParser: true,
-            },
-        );
-        const db = client.db();
+        const db = await mongoDatabase(connectionStringURI);
         const collection = db.collection('field');
         this.fields = await collection
             .find()
             .sort({ position: 1, cover: 1 })
             .toArray();
-        client.close();
     }
     return feed.send(mapKeys(data, (value, key) => {
         const field = find(this.fields, { name: key });

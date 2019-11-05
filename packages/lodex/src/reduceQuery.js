@@ -1,7 +1,6 @@
 import hasher from 'node-object-hash';
 import set from 'lodash.set';
-
-import { MongoClient } from 'mongodb';
+import mongoDatabase from './mongoDatabase';
 import reducers from './reducers';
 
 const hashCoerce = hasher({ sort: false, coerce: true });
@@ -69,13 +68,7 @@ export const createFunction = () => async function LodexReduceQuery(data, feed) 
         'connectionStringURI',
         data.connectionStringURI || '',
     );
-    const client = await MongoClient.connect(
-        connectionStringURI,
-        {
-            useNewUrlParser: true,
-        },
-    );
-    const db = client.db();
+    const db = await mongoDatabase(connectionStringURI);
     const collection = db.collection('publishedDataset');
 
     const result = await collection.mapReduce(map, reduce, options);
@@ -126,7 +119,6 @@ export const createFunction = () => async function LodexReduceQuery(data, feed) 
     });
     stream.on('end', () => {
         feed.end();
-        client.close();
     });
 };
 

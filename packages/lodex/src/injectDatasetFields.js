@@ -1,4 +1,4 @@
-import { MongoClient } from 'mongodb';
+import mongoDatabase from './mongoDatabase';
 
 /**
  * Inject in each item the last characteristics (the dataset covering fields) of a LODEX.
@@ -34,14 +34,7 @@ export async function LodexInjectDatasetFields(data, feed) {
         return feed.close();
     }
     const connectionStringURI = this.getParam('connectionStringURI');
-    const client = await MongoClient.connect(
-        connectionStringURI,
-        {
-            useNewUrlParser: true,
-        },
-    );
-    const db = client.db();
-
+    const db = await mongoDatabase(connectionStringURI);
     const collection = db.collection('publishedCharacteristic');
     const cursor = collection.find();
     return cursor
@@ -57,7 +50,6 @@ export async function LodexInjectDatasetFields(data, feed) {
         })
         .on('end', () => {
             feed.end();
-            client.close();
         });
 }
 
