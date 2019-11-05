@@ -13,7 +13,7 @@ describe('mongo queries', () => {
 
     beforeAll((done) => {
         mongoUnit
-            .start( { verbose: false })
+            .start({ verbose: false })
             .then((testMongoUrl) => {
                 connectionStringURI = testMongoUrl;
                 done();
@@ -31,6 +31,11 @@ describe('mongo queries', () => {
             from([{
                 connectionStringURI,
             }])
+            // to test disabled instructions: all  actions will not do anything
+                .pipe(ezs('LodexContext'))
+                .pipe(ezs('LodexConfig'))
+                .pipe(ezs('LodexParseQuery'))
+                .pipe(ezs('LodexSetField'))
                 .pipe(ezs('LodexGetCharacteristics'))
                 .on('data', (data) => {
                     res = [...res, data];
