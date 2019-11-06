@@ -1,9 +1,6 @@
-import ezs from '@ezs/core';
 import { PassThrough } from 'stream';
 import { writeTo } from './utils';
 import istex from './istex';
-
-ezs.use(istex);
 
 /**
  * Parse a `.corpus` file content, and execute the action contained in the
@@ -29,6 +26,8 @@ ezs.use(istex);
  * @returns {Object}
  */
 function ISTEXParseDotCorpus(data, feed) {
+    const { ezs } = this;
+    ezs.use(istex);
     if (this.isLast()) {
         return feed.close();
     }
