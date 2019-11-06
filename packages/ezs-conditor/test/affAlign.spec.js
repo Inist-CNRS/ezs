@@ -69,6 +69,32 @@ describe('co-aff-align', () => {
             });
     });
 
+    it('should not retrieve rnsr of universities only on sigle', (done) => {
+        let res = [];
+        from([{
+            authors: [{
+                affiliations: [{
+                    address: 'EA4426, Université Bordeaux Montaigne, Médiation, Information, Communication, Art MICA,'
+                        + ' MSHA, 10 esplanade des antilles, 33607 pessac cedex, FR',
+                }],
+            }],
+        }])
+            .pipe(ezs('affAlign'))
+            .on('data', (data) => { res = [...res, data]; })
+            .on('end', () => {
+                expect(res).toEqual([{
+                    authors: [{
+                        affiliations: [{
+                            address: 'EA4426, Université Bordeaux Montaigne, Médiation, Information, Communication,'
+                                + ' Art MICA, MSHA, 10 esplanade des antilles, 33607 pessac cedex, FR',
+                            conditorRnsr: ['200719511G', '200919217D'],
+                        }],
+                    }],
+                }]);
+                done();
+            });
+    });
+
     describe('label & numero', () => {
         it('should find the conditorRnsr', (done) => {
             let res = [];

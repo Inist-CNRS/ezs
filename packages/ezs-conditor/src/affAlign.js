@@ -1,7 +1,8 @@
-import { isIn, getRNSR } from './rnsr';
+import { isIn } from './rnsr';
+import { depleteString } from './strings';
 
 /** @type {import('./rnsr').RepNatStrRech} RNSR */
-let RNSR;
+import RNSR from '../data/RNSR.json';
 
 /**
  * @typedef {Object<string, any>} Affiliation
@@ -31,7 +32,7 @@ let RNSR;
  * @returns {Affiliation[]}
  */
 const addRnsrInAffiliation = (affiliations, affiliation) => {
-    const isInAddress = isIn(affiliation.address);
+    const isInAddress = isIn(depleteString(affiliation.address));
     const conditorRnsr = RNSR.structures.structure
         .filter(isInAddress)
         .map((s) => s.num_nat_struct);
@@ -61,9 +62,6 @@ export default async function affAlign(data, feed) {
     }
     if (!data.authors) {
         return feed.send(new Error('affAlign: notice should have authors'));
-    }
-    if (!RNSR) {
-        RNSR = await getRNSR();
     }
     const authors = data.authors.reduce(addRnsrInAuthor, []);
     const notice = { ...data, authors };
