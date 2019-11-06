@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/conditor-project/ezs-conditor/compare/v1.2.0...v1.3.0) (2019-11-06)
+
+
+### Features
+
+* Add prepareRnsrJson ([a93b3ea](https://github.com/conditor-project/ezs-conditor/commit/a93b3eaccb0d565cf9def77706782ef85da2fee8))
+
+
+### Bug Fixes
+
+* Fix hasTutelle ([de050d2](https://github.com/conditor-project/ezs-conditor/commit/de050d2df6d50906a8c4dc78f9022bbb1ee11c78))
+
 ## [1.2.0](https://github.com/conditor-project/ezs-conditor/compare/v1.1.0...v1.2.0) (2019-10-25)
 
 

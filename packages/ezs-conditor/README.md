@@ -17,8 +17,8 @@ npm install ezs-conditor
 
 ```bash
 $ ./bin/affAlign.js < data/1000-notices-conditor-hal.json | ./bin/compareRnsr.js
-recall: 0.5416666666666666
-correct: 754
+recall: 0.6487068965517241
+correct: 903
 total: 1392
 ```
 
@@ -102,3 +102,5 @@ tient plus compte de sa casse.
 
 À partir de la version 1.2, quand on cherche une chaîne de caractères, on ne
 tient plus compte des accents.
+
+À partir de la version 1.3, le traitement est plus rapide.
