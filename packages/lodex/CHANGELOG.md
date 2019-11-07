@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.2.0...@ezs/lodex@1.3.0) (2019-11-07)
+
+
+### Features
+
+* 🎸 keep db connection open ([6bc7e95](https://github.com/Inist-CNRS/ezs/commit/6bc7e9505fe50f7c0ce9411037f439aa1db0b628))
+
+
+
+
+
 # [1.2.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.1.1...@ezs/lodex@1.2.0) (2019-11-02)
 
 
