@@ -1,5 +1,5 @@
-.PHONY: test help
-.DEFAULT_GOAL: help
+.PHONY: test help clean
+.DEFAULT_GOAL: help clean
 
 default: help
 
@@ -20,3 +20,5 @@ test-core: build-test ## test only mongo statements
 build-test:
 	@docker-compose build test
 
+clean:
+	@rm -Rf ./node_modules/ ./packages/*/node_modules/ ./packages/*/lib/ ./package-lock.json ./packages/*/package-lock.json

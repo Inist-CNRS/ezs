@@ -1,4 +1,4 @@
-import { MongoClient } from 'mongodb';
+import mongoDatabase from './mongoDatabase';
 
 /**
  * Return the fields (the model) of a LODEX.
@@ -15,13 +15,7 @@ export async function LodexGetFields(data, feed) {
         'connectionStringURI',
         data.connectionStringURI || '',
     );
-    const client = await MongoClient.connect(
-        connectionStringURI,
-        {
-            useNewUrlParser: true,
-        },
-    );
-    const db = client.db();
+    const db = await mongoDatabase(connectionStringURI);
     const collection = db.collection('field');
     const cursor = collection.find();
 
@@ -37,7 +31,6 @@ export async function LodexGetFields(data, feed) {
         })
         .on('end', () => {
             feed.end();
-            client.close();
         });
 }
 

@@ -1,7 +1,7 @@
-import { MongoClient } from 'mongodb';
 import get from 'lodash.get';
 import find from 'lodash.find';
 import QuickLRU from 'quick-lru';
+import mongoDatabase from './mongoDatabase';
 
 /**
  * Inject title & description (syndicationà from field what conatsin the uri of one resource
@@ -27,13 +27,7 @@ import QuickLRU from 'quick-lru';
 export async function LodexInjectSyndicationFrom(data, feed) {
     const connectionStringURI = this.getParam('connectionStringURI');
     if (this.isFirst()) {
-        this.client = await MongoClient.connect(
-            connectionStringURI,
-            {
-                useNewUrlParser: true,
-            },
-        );
-        const db = this.client.db();
+        const db = await mongoDatabase(connectionStringURI);
         this.collection = db.collection('publishedDataset');
 
         const fields = await db.collection('field')
@@ -45,7 +39,6 @@ export async function LodexInjectSyndicationFrom(data, feed) {
         this.lru = new QuickLRU({ maxSize: 100 });
     }
     if (this.isLast()) {
-        this.client.close();
         return feed.close();
     }
 

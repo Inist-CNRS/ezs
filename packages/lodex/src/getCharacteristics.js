@@ -1,4 +1,4 @@
-import { MongoClient } from 'mongodb';
+import mongoDatabase from './mongoDatabase';
 
 /**
  * Return the last characteristics (the dataset covering fields) of a LODEX.
@@ -37,14 +37,7 @@ export async function LodexGetCharacteristics(data, feed) {
         'connectionStringURI',
         data.connectionStringURI || '',
     );
-    const client = await MongoClient.connect(
-        connectionStringURI,
-        {
-            useNewUrlParser: true,
-        },
-    );
-    const db = client.db();
-
+    const db = await mongoDatabase(connectionStringURI);
     const collection = db.collection('publishedCharacteristic');
     const cursor = collection.find();
     cursor
@@ -60,7 +53,6 @@ export async function LodexGetCharacteristics(data, feed) {
         })
         .on('end', () => {
             feed.end();
-            client.close();
         });
 }
 

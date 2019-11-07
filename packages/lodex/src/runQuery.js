@@ -1,6 +1,6 @@
 import set from 'lodash.set';
 import zipObject from 'lodash.zipobject';
-import { MongoClient } from 'mongodb';
+import mongoDatabase from './mongoDatabase';
 
 /**
  * Take `Object` containing a MongoDB query and throw the result
@@ -38,13 +38,7 @@ export const createFunction = () => async function LodexRunQuery(data, feed) {
         'connectionStringURI',
         data.connectionStringURI || '',
     );
-    const client = await MongoClient.connect(
-        connectionStringURI,
-        {
-            useNewUrlParser: true,
-        },
-    );
-    const db = client.db();
+    const db = await mongoDatabase(connectionStringURI);
     const collection = db.collection(collectionName);
     const cursor = collection.find(filter, fields.length > 0 ? projection : null);
     const total = await cursor.count();
@@ -70,7 +64,6 @@ export const createFunction = () => async function LodexRunQuery(data, feed) {
     });
     stream.on('end', () => {
         feed.end();
-        client.close();
     });
 };
 
