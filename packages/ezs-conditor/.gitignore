@@ -68,3 +68,6 @@ token.txt
 
 # Useless format files
 data/*.xlsx
+
+# Result files
+res*.tsv
