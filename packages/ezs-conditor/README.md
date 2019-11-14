@@ -104,3 +104,6 @@ tient plus compte de sa casse.
 tient plus compte des accents.
 
 À partir de la version 1.3, le traitement est plus rapide.
+
+À partir de la version 1.4, plus de structures sont retrouvées, et avec moins de
+faux positifs (on cherche les sigles exacts, pas un sous-chaîne).
