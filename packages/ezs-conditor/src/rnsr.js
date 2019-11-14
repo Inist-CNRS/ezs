@@ -76,7 +76,7 @@ const followsNumeroLabel = (tokens, etabAssocs) => etabAssocs[0]
         },
     );
 const hasPostalAddress = (address, structure) => (
-    address.includes(structure.ville_postale_appauvrie || '**')
+    address.includes((structure.ville_postale_appauvrie || '**').split(' ')[0])
     || address.includes(String(structure.code_postal) || '**')
 );
 
@@ -97,7 +97,7 @@ const hasIntitule = (address, structure) => address.includes(structure.intituleA
  * @param {Structure} structure
  * @returns {boolean}
  */
-const hasSigle = (address, structure) => address.includes(structure.sigleAppauvri || '**');
+const hasSigle = (address, structure) => address.split(/[ -,]/).includes(structure.sigleAppauvri || '**');
 
 /**
  * Check that for at least one of the tutelles (`structure.etabAssoc.*.etab`):
@@ -148,7 +148,7 @@ const hasEtabAssocs = (structure) => {
 export const hasLabelAndNumero = (address, structure) => {
     if (!hasLabel(address, structure.etabAssoc)) return false;
     if (!hasNumero(address, structure.etabAssoc)) return false;
-    const tokens = address.split(/[ -]/);
+    const tokens = address.split(/[ -,]/);
     if (!followsNumeroLabel(tokens, structure.etabAssoc)) return false;
     return true;
 };

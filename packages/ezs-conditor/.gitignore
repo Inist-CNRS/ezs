@@ -65,3 +65,6 @@ lib/
 
 # Secret files
 token.txt
+
+# Useless format files
+data/*.xlsx

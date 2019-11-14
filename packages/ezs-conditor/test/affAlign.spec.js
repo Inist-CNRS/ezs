@@ -376,6 +376,35 @@ describe('co-aff-align', () => {
                     done();
                 });
         });
+
+        it('should find the conditorRnsr when label is separated from previous with comma', (done) => {
+            let res = [];
+            from([{
+                authors: [{
+                    affiliations: [{
+                        address: 'univ montpellier, cnrs, inst natl rech agron, montpellier supagro,u386,umr 5004,'
+                            + ' f-34060 montpellier 1, france',
+                    }],
+                }],
+            }])
+                .pipe(ezs('affAlign'))
+                .on('data', (data) => {
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    expect(res).toHaveLength(1);
+                    expect(res[0]).toEqual({
+                        authors: [{
+                            affiliations: [{
+                                address: 'univ montpellier, cnrs, inst natl rech agron, montpellier supagro,u386,'
+                                    + 'umr 5004, f-34060 montpellier 1, france',
+                                conditorRnsr: ['195817959H'],
+                            }],
+                        }],
+                    });
+                    done();
+                });
+        });
     });
 
     describe('sigle seul', () => {
