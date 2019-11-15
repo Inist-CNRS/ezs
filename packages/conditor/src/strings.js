@@ -6,5 +6,6 @@ export const removeAccents = (str) => unidecode(str);
  * Deplete string from accents and upper case.
  * @param {string} str
  * @returns {string}
+ * @private
  */
 export const depleteString = compose(toLower, removeAccents, String);

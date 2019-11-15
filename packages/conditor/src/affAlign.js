@@ -11,17 +11,20 @@ import RNSR from '../data/RNSR.json';
  * @property {string[]} isni
  * @property {string[]} idRef
  * @property {string[]} rnsr
+ * @private
  */
 
 /**
  * @typedef {Object<string, any>} Author
  * @property {Affiliation[]} affiliations
+ * @private
  */
 
 /**
  * @typedef {Object<string, any>} Notice
  * @property {Author[]} authors
  * @property {string[]} rnsr
+ * @private
  */
 
 /**
@@ -30,6 +33,7 @@ import RNSR from '../data/RNSR.json';
  * @param {Affiliation[]} affiliations
  * @param {Affiliation} affiliation
  * @returns {Affiliation[]}
+ * @private
  */
 const addRnsrInAffiliation = (affiliations, affiliation) => {
     const isInAddress = isIn(depleteString(affiliation.address));
@@ -46,6 +50,7 @@ const addRnsrInAffiliation = (affiliations, affiliation) => {
  * @param {Author[]} authors
  * @param {Author} author
  * @return {Author[]}
+ * @private
  */
 const addRnsrInAuthor = (authors, author) => {
     const affiliationsRnsr = author.affiliations.reduce(addRnsrInAffiliation, []);

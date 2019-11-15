@@ -1,12 +1,14 @@
 /**
  * @typedef {Object<string, any>} RepNatStrRech
  * @property {Structures} structures
+ * @private
  */
 
 /**
  * @typedef {Object<string, any>} Structures
  * @property {Object} origineDonnees
  * @property {Structure[]} structure
+ * @private
  */
 
 /**
@@ -23,6 +25,7 @@
  * @property {string} ville_postale
  * @property {string} ville_postale_appauvrie
  * @property {EtabAssoc[]} etabAssoc
+ * @private
  */
 
 /**
@@ -35,6 +38,7 @@
  * @property {string} label
  * @property {string} labelAppauvri
  * @property {number} numero
+ * @private
  */
 
 /**
@@ -46,6 +50,7 @@
  * @property {string} libelleAppauvri
  * @property {string} [numUAI]
  * @property {string} [SirenSiret]
+ * @private
  */
 
 const hasLabel = (address, etabAssocs) => etabAssocs[0] && etabAssocs.some(
@@ -60,6 +65,7 @@ const hasNumero = (address, etabAssocs) => etabAssocs[0] && etabAssocs.some(
  * @param {string[]} tokens depleted tokens (lowercase, without accents)
  * @param {EtabAssoc[]} etabAssocs
  * @returns {boolean}
+ * @private
  */
 const followsNumeroLabel = (tokens, etabAssocs) => etabAssocs[0]
     && etabAssocs.some(
@@ -87,6 +93,7 @@ const hasPostalAddress = (address, structure) => (
  * @param {string} address
  * @param {Structure} structure
  * @returns {boolean}
+ * @private
  */
 const hasIntitule = (address, structure) => address.includes(structure.intituleAppauvri || '**');
 
@@ -96,6 +103,7 @@ const hasIntitule = (address, structure) => address.includes(structure.intituleA
  * @param {string} address
  * @param {Structure} structure
  * @returns {boolean}
+ * @private
  */
 const hasSigle = (address, structure) => address.split(/[ -,]/).includes(structure.sigleAppauvri || '**');
 
@@ -108,6 +116,7 @@ const hasSigle = (address, structure) => address.split(/[ -,]/).includes(structu
  * @param {string} address
  * @param {Structure} structure
  * @returns {boolean}
+ * @private
  */
 const hasTutelle = (address, structure) => {
     const tutelles = structure.etabAssoc
@@ -129,6 +138,7 @@ const hasTutelle = (address, structure) => {
  * Checks that structure has etabAssocs
  * @param {Structure} structure
  * @returns {boolean}
+ * @private
  */
 const hasEtabAssocs = (structure) => {
     if (!structure.etabAssoc) return false;
@@ -144,6 +154,7 @@ const hasEtabAssocs = (structure) => {
  * @param {string} address
  * @param {Structure} structure
  * @returns {boolean}
+ * @private
  */
 export const hasLabelAndNumero = (address, structure) => {
     if (!hasLabel(address, structure.etabAssoc)) return false;
@@ -159,6 +170,7 @@ export const hasLabelAndNumero = (address, structure) => {
  * @export
  * @param {string}  address depleted address (without accents, lowercase)
  * @returns {Function} a function that look for the `structure` within `address`
+ * @private
  */
 export const isIn = (address) => (/** {Structure} */structure) => (
     hasEtabAssocs(structure)
