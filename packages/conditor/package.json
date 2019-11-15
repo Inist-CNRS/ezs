@@ -1,7 +1,10 @@
 {
-  "name": "ezs-conditor",
+  "name": "@ezs/conditor",
   "version": "1.4.0",
   "description": "ezs statements for Conditor",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "lib/index.js",
   "bin": {
     "affAlign": "./bin/affAlign.js",
@@ -11,15 +14,15 @@
   },
   "scripts": {
     "build": "babel src --out-dir lib",
-    "coveralls": "cat ./coverage/lcov.info | coveralls",
+    "doc": "documentation readme src/* --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-conditor.md --section=usage && cp ../../docs/plugin-conditor.md ./README.md",
     "lint": "eslint --ext=.js ./test/*.js ./src/*.js ./bin/*.js",
     "prepublish": "npm run build",
-    "release": "standard-version",
-    "test": "jest"
+    "pretest": "npm run build",
+    "preversion": "npm run doc"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/conditor-project/ezs-conditor.git"
+    "url": "git+https://github.com/Inist-CNRS/ezs.git"
   },
   "keywords": [
     "conditor",
@@ -31,33 +34,16 @@
   "author": "François Parmentier <francois.parmentier@gmail.com>",
   "license": "CECILL-2.1",
   "bugs": {
-    "url": "https://github.com/conditor-project/ezs-conditor/issues"
+    "url": "https://github.com/Inist-CNRS/ezs/issues"
   },
-  "homepage": "https://github.com/conditor-project/ezs-conditor#readme",
-  "devDependencies": {
-    "@babel/cli": "^7.7.0",
-    "@babel/core": "^7.7.0",
-    "@babel/plugin-transform-modules-commonjs": "^7.7.0",
-    "@babel/preset-env": "^7.7.1",
-    "@ezs/basics": "^1.0.9",
-    "@ezs/core": "^1.2.1",
-    "@types/jest": "^24.0.22",
-    "@types/ramda": "^0.26.33",
-    "babel-eslint": "^10.0.3",
-    "babel-jest": "^24.9.0",
-    "coveralls": "^3.0.7",
-    "eslint": "^6.6.0",
-    "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.18.2",
-    "from": "^0.1.7",
-    "jest": "^24.9.0",
-    "jest-config": "^24.9.0",
-    "standard-version": "^7.0.0"
-  },
+  "homepage": "https://github.com/Inist-CNRS/ezs/packages/conditor#readme",
   "dependencies": {
-    "csv-string": "^3.1.6",
-    "fast-xml-parser": "^3.14.0",
-    "ramda": "^0.26.1",
-    "unidecode": "^0.1.8"
+    "csv-string": "3.1.6",
+    "fast-xml-parser": "3.14.0",
+    "ramda": "0.26.1",
+    "unidecode": "0.1.8"
+  },
+  "peerDependencies": {
+    "@ezs/core": "*"
   }
 }

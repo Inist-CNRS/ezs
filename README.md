@@ -15,6 +15,7 @@ Repository containing all @ezs packages (monorepo)
 - [@ezs/istex](./packages/istex#readme) [![npm version](https://img.shields.io/npm/v/@ezs/istex)](https://npm.im/@ezs/istex)
 - [@ezs/booster](./packages/booster#readme) [![npm version](https://img.shields.io/npm/v/@ezs/booster)](https://npm.im/@ezs/booster)
 - [@ezs/lodex](./packages/lodex#readme) [![npm version](https://img.shields.io/npm/v/@ezs/lodex)](https://npm.im/@ezs/lodex)
+- [@ezs/conditor](./packages/conditor#readme) [![npm version](https://img.shields.io/npm/v/@ezs/conditor)](https://npm.im/@ezs/conditor)
 
 ## History
 

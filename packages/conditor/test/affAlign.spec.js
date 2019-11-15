@@ -1,5 +1,5 @@
 import from from 'from';
-import ezs from '@ezs/core';
+import ezs from '../../core/src';
 import statements from '../src';
 
 ezs.use(statements);

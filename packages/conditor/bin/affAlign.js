@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+/* eslint-disable import/no-unresolved */
+// @ezs/core and @ezs/basics have to be installed
 
 const ezs = require('@ezs/core');
 const basics = require('@ezs/basics');

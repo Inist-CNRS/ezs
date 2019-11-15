@@ -13,6 +13,13 @@ les documents de l'API
 npm install @ezs/conditor
 ```
 
+## Scripts
+
+```bash
+$ ./bin/affAlign.js < data/1000-notices-conditor-hal.json | ./bin/compareRnsr.js
+recall: 0.7162356321839081
+correct: 997
+total: 1392
+```
+
 ## usage
-
-
