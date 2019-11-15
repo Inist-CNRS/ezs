@@ -48,7 +48,7 @@ export async function LodexLabelizeFieldID(data, feed) {
     }
     return feed.send(mapKeys(data, (value, key) => {
         const field = find(this.fields, { name: key });
-        const compl = suffix ? ` - ${key}`: '';
+        const compl = suffix ? ` - ${key}` : '';
         return field && field.label ? `${field.label}${compl}` : key;
     }));
 }

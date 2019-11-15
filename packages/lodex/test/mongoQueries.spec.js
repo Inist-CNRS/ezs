@@ -475,7 +475,8 @@ describe('mongo queries', () => {
                     expect(res[1]['source-summary']).toContain('Résumé d’un papier ou ');
                     expect(res[2].source).toEqual('ark:/67375/XTP-HPN7T1Q2-R');
                     expect(res[2]['source-title']).toEqual('abstract');
-                    expect(res[2]['source-summary']).toEqual('Résumé d’un papier ou d’une présentation qui a été présentée ou publiée séparément.');
+                    expect(res[2]['source-summary']).toEqual('Résumé d’un papier ou d’une présentation qui a été '
+                        + 'présentée ou publiée séparément.');
                     done();
                 });
         });
