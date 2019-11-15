@@ -172,13 +172,23 @@ export const hasLabelAndNumero = (address, structure) => {
  * @returns {Function} a function that look for the `structure` within `address`
  * @private
  */
-export const isIn = (address) => (/** {Structure} */structure) => (
-    hasEtabAssocs(structure)
-    && hasPostalAddress(address, structure)
-    && hasTutelle(address, structure)
-    && (
-        hasSigle(address, structure)
-        || hasIntitule(address, structure)
-        || hasLabelAndNumero(address, structure)
-    )
-);
+export function isIn(address) {
+    /**
+     * Check that the `address` from the closure contains the `structure`.
+     *
+     * @param {Structure} structure
+     * @returns {boolean}
+     * @private
+     */
+    function isInAddress(structure) {
+        return hasEtabAssocs(structure)
+        && hasPostalAddress(address, structure)
+        && hasTutelle(address, structure)
+        && (
+            hasSigle(address, structure)
+            || hasIntitule(address, structure)
+            || hasLabelAndNumero(address, structure)
+        );
+    }
+    return isInAddress;
+}

@@ -58,6 +58,50 @@ const addRnsrInAuthor = (authors, author) => {
     return [...authors, authorRnsr];
 };
 
+/**
+ * Find the RNSR identifiers in the authors affiliation addresses.
+ *
+ * Input file:
+ *
+ * ```json
+ * [{
+ *      "authors": [{
+ *          "affiliations": [{
+ *              "address": "GDR 2989 Université Versailles Saint-Quentin-en-Yvelines, 63009"
+ *          }]
+ *      }]
+ * }]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [use]
+ * plugin = basics
+ * plugin = conditor
+ *
+ * [JSONParse]
+ * [affAlign]
+ * [JSONString]
+ * indent = true
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [{
+ *      "authors": [{
+ *          "affiliations": [{
+ *              "address": "GDR 2989 Université Versailles Saint-Quentin-en-Yvelines, 63009",
+ *              "conditorRnsr": ["200619958X"]
+ *          }]
+ *      }]
+ * }]
+ * ```
+ *
+ * @export
+ * @name affAlign
+ */
 export default async function affAlign(data, feed) {
     if (this.isLast()) {
         return feed.close();
