@@ -30,16 +30,17 @@ total: 1392
 Les règles certaines utilisées par [affAlign](#affAlign), appliquées à l'adresse
 de l'affiliation à aligner sont les suivantes:
 
-- le `code_postal` **ou** la `ville_postale` de la structure doivent être présents,
-- **et**  pour au moins une des tutelles (`etabAssoc.*.etab`, et `etabAssoc.*.etab.natTutEtab` vaut `TUTE`):
-  - soit `etabAssoc.*.etab.sigle` ou le `etabAssoc.*.etab.libelle` sont présents,
-  - soit `etabAssoc.*.etab.libelle` commence par `Université` et le
-    `etabAssoc.*.etab.libelle` est présent (mais pas le
-    `etabAssoc.*.etab.sigle`).
-- **et** on trouve la bonne structure:
-  - soit `etabAssoc.*.label` et `etabAssoc.*.numero` sont présents proches et en séquence (ex: `GDR2945`, `GDR 2945` ou `GDR mot 2945`),
-  - soit `sigle` est présent,
-  - soit `intitule` est présent.
+-   le `code_postal` **ou** la `ville_postale` de la structure doivent être présents,
+-   **et**  pour au moins une des tutelles (`etabAssoc.*.etab`, et `etabAssoc.*.etab.natTutEtab` vaut `TUTE`):
+    -   soit `etabAssoc.*.etab.sigle` ou le `etabAssoc.*.etab.libelle` sont présents,
+    -   soit `etabAssoc.*.etab.libelle` commence par `Université` et le
+        `etabAssoc.*.etab.libelle` est présent (mais pas le
+        `etabAssoc.*.etab.sigle`).
+-   **et** on trouve la bonne structure:
+    -   soit `etabAssoc.*.label` et `etabAssoc.*.numero` sont présents proches et en
+        séquence (ex: `GDR2945`, `GDR 2945` ou `GDR mot 2945`),
+    -   soit `sigle` est présent,
+    -   soit `intitule` est présent.
 
 Sachant qu'on appauvrit (casse, accents) tous les champs.
 
@@ -51,6 +52,7 @@ Sachant qu'on appauvrit (casse, accents) tous les champs.
 
 -   [RNSR](#rnsr)
 -   [affAlign](#affalign)
+-   [compareRnsr](#comparernsr)
 
 ### RNSR
 
@@ -94,4 +96,38 @@ Output:
          }]
      }]
 }]
+```
+
+### compareRnsr
+
+Take Conditor JSON documents and compute the recall of
+`authors.affiliations.conditorRnsr` in relation to
+`authors.affiliations.rnsr`.
+
+#### Examples
+
+Input
+
+
+```javascript
+[{
+     "authors": [{
+         "affiliations": [{
+             "address": "GDR 2989 Université Versailles Saint-Quentin-en-Yvelines, 63009",
+             "rnsr": ["200619958X"],
+             "conditorRnsr": ["200619958X"]
+         }]
+     }]
+}]
+```
+
+Output
+
+
+```javascript
+{
+     "correct": 1,
+     "total": 1,
+     "recall": 1
+}
 ```
