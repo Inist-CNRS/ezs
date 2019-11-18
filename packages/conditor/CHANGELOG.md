@@ -1,3 +1,20 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# 1.5.0 (2019-11-18)
+
+
+### Features
+
+* **conditor:** Add compareRnsr statement ([c108bf0](https://github.com/Inist-CNRS/ezs/commit/c108bf005a60879df9a1919f73f9d4a4dee34f72))
+* **conditor:** Import ezs-conditor ([d4071a7](https://github.com/Inist-CNRS/ezs/commit/d4071a7d66afc1093662a72e40ccca74b8edf0b3))
+
+
+
+
+
 # Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
