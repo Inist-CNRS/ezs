@@ -14,6 +14,8 @@ test: build-test ## run all tests
 test-mongo: build-test ## test only mongo statements
 	@docker-compose -f ./docker-compose.yml run --rm test ./packages/lodex/test/mongoQueries.spec.js
 
+test-lodex: build-test ## test only lodex statements
+	@docker-compose -f ./docker-compose.yml run --rm test ./packages/lodex/test
 test-core: build-test ## test only mongo statements
 	@docker-compose -f ./docker-compose.yml run --rm test ./packages/core/test
 
