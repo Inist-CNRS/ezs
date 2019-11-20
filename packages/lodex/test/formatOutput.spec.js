@@ -70,4 +70,16 @@ describe('formatOutput', () => {
                 done();
             });
     });
+
+    it('should return empty array', (done) => {
+        let res = '';
+        from([
+        ])
+            .pipe(ezs('LodexOutput'))
+            .on('data', (data) => { res += data; })
+            .on('end', () => {
+                expect(res).toEqual('');
+                done();
+            });
+    });
 });
