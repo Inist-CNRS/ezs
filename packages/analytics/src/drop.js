@@ -14,7 +14,7 @@ export default function drop(data, feed) {
     }
     const path = this.getParam('path', 'value');
     const paths = Array.isArray(path) ? path : [path];
-    const condition = this.getParam('if') || [];
+    const condition = this.getParam('if', []);
     const conditions = Array.isArray(condition) ? condition : [condition];
 
     if (conditions.length === 0) {

@@ -820,6 +820,28 @@ describe('test', () => {
             });
     });
 
+    it('drop #6', (done) => {
+        const res = [];
+        from([
+            { id: 2000, value: 1 },
+            { id: 2001, value: 2 },
+            { id: 2003, value: 0 },
+            { id: 2005, value: 4 },
+            { id: 2007, value: 5 },
+            { id: 2009, value: 0 },
+            { id: 2011, value: 7 },
+            { id: 2013, value: 8 },
+        ])
+            .pipe(ezs('drop', { if: 0 }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(6, res.length);
+                done();
+            });
+    });
+
     it('filter #1', (done) => {
         const res = [];
         from([
