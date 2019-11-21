@@ -1,5 +1,6 @@
 import URL from 'url';
 import QueryString from 'qs';
+import fetch from 'fetch-with-proxy';
 
 const result = require('dotenv').config();
 
@@ -54,12 +55,14 @@ export default async function conditorScroll(data, feed) {
         search: QueryString.stringify(parameters),
     };
     const urlStr = URL.format(urlObj);
+    console.log('urlStr', JSON.stringify(urlStr));
     let response = await fetch(urlStr);
+    console.log('response', JSON.stringify(response, null, 2));
     const json = await response.json();
-    console.log('headers:', JSON.stringify(response.headers._headers, null, 2));
-    console.log('X-Total-Count', JSON.stringify(response.headers.get('X-Total-Count')), response.headers._headers['x-total-count']);
-    console.log('X-Result-Count', JSON.stringify(response.headers.get['X-Result-Count']), response.headers._headers['x-result-count']);
-    console.log('Scroll-Id', JSON.stringify(response.headers.get['Scroll-Id']), response.headers._headers['scroll-id']);
+    // console.log('headers:', JSON.stringify(response.headers._headers, null, 2));
+    // console.log('X-Total-Count', JSON.stringify(response.headers.get('X-Total-Count')), response.headers._headers['x-total-count']);
+    // console.log('X-Result-Count', JSON.stringify(response.headers.get['X-Result-Count']), response.headers._headers['x-result-count']);
+    // console.log('Scroll-Id', JSON.stringify(response.headers.get['Scroll-Id']), response.headers._headers['scroll-id']);
     if (response.headers.get['X-Total-Count'] === '0') {
         return feed.send(new Error('No result.'));
     }
