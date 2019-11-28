@@ -506,7 +506,7 @@ describe('affAlign', () => {
                 expect(res[0]).toEqual({
                     authors: [{
                         affiliations: [{
-                            address: 'LAM/IRAM, CNRS, Vandoeuvre-lès-Nancy',
+                            address: 'Nano Grand Est, CNRS, Vandoeuvre-lès-Nancy',
                             conditorRnsr: ['200619946J'],
                         }],
                     }],
