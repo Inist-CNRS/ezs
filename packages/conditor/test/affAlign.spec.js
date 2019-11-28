@@ -461,6 +461,60 @@ describe('affAlign', () => {
             });
     });
 
+    it('should find structure with a quote in the address', (done) => {
+        let res = [];
+        from([{
+            authors: [{
+                affiliations: [{
+                    address: 'LAM/IRAM, CNRS, St Martin d\'Hères',
+                }],
+            }],
+        }])
+            .pipe(ezs('affAlign'))
+            .on('data', (data) => {
+                res = [...res, data];
+            })
+            .on('end', () => {
+                expect(res).toHaveLength(1);
+                expect(res[0]).toEqual({
+                    authors: [{
+                        affiliations: [{
+                            address: 'LAM/IRAM, CNRS, St Martin d\'Hères',
+                            conditorRnsr: ['199921733G'],
+                        }],
+                    }],
+                });
+                done();
+            });
+    });
+
+    it('should find structure with a dash in the address', (done) => {
+        let res = [];
+        from([{
+            authors: [{
+                affiliations: [{
+                    address: 'Nano Grand Est, CNRS, Vandoeuvre-lès-Nancy',
+                }],
+            }],
+        }])
+            .pipe(ezs('affAlign'))
+            .on('data', (data) => {
+                res = [...res, data];
+            })
+            .on('end', () => {
+                expect(res).toHaveLength(1);
+                expect(res[0]).toEqual({
+                    authors: [{
+                        affiliations: [{
+                            address: 'LAM/IRAM, CNRS, Vandoeuvre-lès-Nancy',
+                            conditorRnsr: ['200619946J'],
+                        }],
+                    }],
+                });
+                done();
+            });
+    });
+
     describe('sigle seul', () => {
         it('should find the conditorRnsr', (done) => {
             let res = [];
