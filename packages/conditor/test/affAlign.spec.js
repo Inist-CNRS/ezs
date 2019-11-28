@@ -4,7 +4,7 @@ import statements from '../src';
 
 ezs.use(statements);
 
-describe('co-aff-align', () => {
+describe('affAlign', () => {
     it('should end', (done) => {
         from([1, 2])
             .pipe(ezs('affAlign'))
@@ -405,6 +405,60 @@ describe('co-aff-align', () => {
                     done();
                 });
         });
+    });
+
+    it('should find st martin d heres and not only st', (done) => {
+        let res = [];
+        from([{
+            authors: [{
+                affiliations: [{
+                    address: 'LAM/IRAM, CNRS, St Martin d Hères',
+                }],
+            }],
+        }])
+            .pipe(ezs('affAlign'))
+            .on('data', (data) => {
+                res = [...res, data];
+            })
+            .on('end', () => {
+                expect(res).toHaveLength(1);
+                expect(res[0]).toEqual({
+                    authors: [{
+                        affiliations: [{
+                            address: 'LAM/IRAM, CNRS, St Martin d Hères',
+                            conditorRnsr: ['199921733G'],
+                        }],
+                    }],
+                });
+                done();
+            });
+    });
+
+    it('should not find structure based only on st', (done) => {
+        let res = [];
+        from([{
+            authors: [{
+                affiliations: [{
+                    address: 'LAM/IRAM, CNRS, St Martin',
+                }],
+            }],
+        }])
+            .pipe(ezs('affAlign'))
+            .on('data', (data) => {
+                res = [...res, data];
+            })
+            .on('end', () => {
+                expect(res).toHaveLength(1);
+                expect(res[0]).toEqual({
+                    authors: [{
+                        affiliations: [{
+                            address: 'LAM/IRAM, CNRS, St Martin',
+                            conditorRnsr: [],
+                        }],
+                    }],
+                });
+                done();
+            });
     });
 
     describe('sigle seul', () => {
