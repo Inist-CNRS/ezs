@@ -42,7 +42,7 @@ de l'affiliation à aligner sont les suivantes:
     -   soit `sigle` est présent,
     -   soit `intitule` est présent.
 
-Sachant qu'on appauvrit (casse, accents) tous les champs.
+Sachant qu'on appauvrit (casse, accents, tiret, apostrophe) tous les champs.
 
 ## usage
 
