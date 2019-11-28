@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@1.6.0...@ezs/conditor@1.7.0) (2019-11-28)
+
+
+### Features
+
+* **conditor:** Don't parse numero as an integer ([139683b](https://github.com/Inist-CNRS/ezs/commit/139683bb7ff202f7ad7c0e9a7f51dbbeadab6f59))
+
+
+
+
+
 # [1.6.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@1.5.0...@ezs/conditor@1.6.0) (2019-11-28)
 
 
