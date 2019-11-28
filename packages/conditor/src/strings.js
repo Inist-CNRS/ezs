@@ -5,7 +5,7 @@ export const removeAccents = (str) => unidecode(str);
 export const removeDash = replace(/-/g, ' ');
 export const removeQuote = replace(/'/g, ' ');
 /**
- * Deplete string from accents and upper case.
+ * Deplete string from accents, upper case, dash and simple quotes.
  * @param {string} str
  * @returns {string}
  * @private
