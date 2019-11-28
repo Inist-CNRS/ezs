@@ -3,7 +3,7 @@
 // @ezs/core and @ezs/basics have to be installed
 
 const ezs = require('@ezs/core');
-const ezsBasics = require('@ezs/basics');
+const ezsBasics = require('../../basics/lib');
 
 ezs.use(ezsBasics);
 

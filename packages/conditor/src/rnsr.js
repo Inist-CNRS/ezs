@@ -82,7 +82,7 @@ const followsNumeroLabel = (tokens, etabAssocs) => etabAssocs[0]
         },
     );
 const hasPostalAddress = (address, structure) => (
-    address.includes((structure.ville_postale_appauvrie || '**').split(' ')[0])
+    address.includes((structure.ville_postale_appauvrie || '**').split(' cedex')[0])
     || address.includes(String(structure.code_postal) || '**')
 );
 
