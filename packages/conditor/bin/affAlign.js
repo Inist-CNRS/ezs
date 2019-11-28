@@ -3,7 +3,7 @@
 // @ezs/core and @ezs/basics have to be installed
 
 const ezs = require('@ezs/core');
-const basics = require('@ezs/basics');
+const basics = require('../../basics/lib');
 const affAlign = require('../lib');
 
 ezs.use(affAlign);
