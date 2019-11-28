@@ -18,6 +18,7 @@ import URLParse from './url-parse';
 import URLString from './url-string';
 import URLStream from './url-stream';
 import TXTZip from './txt-zip';
+import ZIPExtract from './zip-extract';
 
 export default {
     BUFObject,
@@ -40,6 +41,7 @@ export default {
     URLString,
     URLStream,
     TXTZip,
+    ZIPExtract,
     // aliases
     bufferify: BUFObject.BUFObject,
     jsonify: JSONString.JSONString,
