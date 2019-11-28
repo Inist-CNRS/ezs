@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.10](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.0.9...@ezs/analytics@1.0.10) (2019-11-28)
+
+
+### Bug Fixes
+
+* 🐛 drop statement ignores parameter when it's equal to 0 ([67be481](https://github.com/Inist-CNRS/ezs/commit/67be4815db210e139ced50819012b467e03c580a))
+
+
+
+
+
 ## [1.0.9](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.0.8...@ezs/analytics@1.0.9) (2019-11-07)
 
 **Note:** Version bump only for package @ezs/analytics

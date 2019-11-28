@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@1.5.0...@ezs/conditor@1.6.0) (2019-11-28)
+
+
+### Bug Fixes
+
+* **conditor:** Fix test ([1a03f36](https://github.com/Inist-CNRS/ezs/commit/1a03f36274bced1f74df9111e61a3fd7281e13d1))
+* **conditor:** Make bin work within git repository ([74f633e](https://github.com/Inist-CNRS/ezs/commit/74f633eed470c2807c7869dc0c75261e18793cbd))
+
+
+### Features
+
+* **conditor:** Make CEDEX test work ([a928f1c](https://github.com/Inist-CNRS/ezs/commit/a928f1c7ff8eb4c333f4512d01309e14b2f97fc3))
+
+
+
+
+
 # 1.5.0 (2019-11-18)
 
 
