@@ -13,6 +13,7 @@ async function getRNSR() {
         ignoreAttributes: true,
         ignoreNameSpace: true,
         trimValues: true,
+        parseNodeValue: false,
     });
     return RNSR;
 }
