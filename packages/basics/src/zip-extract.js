@@ -4,16 +4,25 @@ import micromatch from 'micromatch';
 import { writeTo } from './utils';
 
 /**
- * Take the content of a zip file, extract somd files, and yield JSON objects or TEXT.
+ * Take the content of a zip file, extract some files, and yield JSON.
+ * By default, files are scanned as JSON files.
+ * The JSON object is sent to the output stream for each file.
+ * If JSON option is disabled, it returns to the output stream
+ * an object for each file found like :
+ *
+ *  {
+ *     id: file name,
+ *     value: file contents,
+ *  }
  *
  * @name ZIPExtract
- * @param {Boolean} [path="*.json"] Regex to select the files to extract
+ * @param {Boolean} [path="**\/*.json"] Regex to select the files to extract
  * @param {Boolean} [json=true] transforms each file into an Object (JSON)
  * @returns <Object>
  */
 export default function ZIPExtract(data, feed) {
     const parseJSON = this.getParam('json', true);
-    const filesPatern = this.getParam('path', '*.json');
+    const filesPatern = this.getParam('path', '**/*.json');
     if (this.isFirst()) {
         this.input = new PassThrough();
 
@@ -28,10 +37,14 @@ export default function ZIPExtract(data, feed) {
                         })
                         .on('end', () => {
                             if (parseJSON) {
-                                const obj = JSON.parse(str);
-                                feed.write(obj);
+                                try {
+                                    const obj = JSON.parse(str);
+                                    feed.write(obj);
+                                } catch (e) {
+                                    feed.write(e);
+                                }
                             } else {
-                                feed.write(str);
+                                feed.write({ id: entry.path, value: str });
                             }
                         });
                 } else {

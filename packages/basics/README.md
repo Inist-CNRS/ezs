@@ -34,6 +34,7 @@ npm install @ezs/basics
 -   [URLString](#urlstring)
 -   [XMLParse](#xmlparse)
 -   [XMLString](#xmlstring)
+-   [ZIPExtract](#zipextract)
 
 ### BUFObject
 
@@ -248,3 +249,23 @@ Take `Object` and transform it into a XML string
 -   `contentElement` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Content element name for the tag which start and close each item (optional, default `item`)
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+### ZIPExtract
+
+Take the content of a zip file, extract some files, and yield JSON.
+By default, files are scanned as JSON files.
+The JSON object is sent to the output stream for each file.
+If JSON option is disabled, it returns to the output stream
+an object for each file found like :
+
+ {
+    id: file name,
+    value: file contents,
+ }
+
+#### Parameters
+
+-   `path` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Regex to select the files to extract (optional, default `"**\/*.json"`)
+-   `json` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** transforms each file into an Object (JSON) (optional, default `true`)
+
+Returns **any** <Object>
