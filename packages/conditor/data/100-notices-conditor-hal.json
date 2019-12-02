@@ -1,6 +1,9 @@
 [
   {
-    "sourceUid": "hal$hal-01588823",
+    "xPublicationDate": [
+      "2015-01-01",
+      "2015-01-01"
+    ],
     "authors": [
       {
         "forename": "Pascale",
@@ -27,10 +30,12 @@
         "viaf": []
       }
     ],
-    "_score": 19.061226
+    "_score": 19.061522
   },
   {
-    "sourceUid": "hal$halshs-01345487",
+    "xPublicationDate": [
+      "2016-07"
+    ],
     "authors": [
       {
         "forename": "Richard",
@@ -59,10 +64,12 @@
         "viaf": []
       }
     ],
-    "_score": 18.003662
+    "_score": 18.004007
   },
   {
-    "sourceUid": "hal$hal-01614021",
+    "xPublicationDate": [
+      "2016"
+    ],
     "authors": [
       {
         "forename": "Paolo",
@@ -117,10 +124,12 @@
         "viaf": []
       }
     ],
-    "_score": 17.27451
+    "_score": 17.27458
   },
   {
-    "sourceUid": "hal$hal-01442858",
+    "xPublicationDate": [
+      "2016"
+    ],
     "authors": [
       {
         "forename": "Adrien",
@@ -190,10 +199,12 @@
         "viaf": []
       }
     ],
-    "_score": 16.992489
+    "_score": 16.992863
   },
   {
-    "sourceUid": "hal$insu-01388706",
+    "xPublicationDate": [
+      "2016"
+    ],
     "authors": [
       {
         "forename": "Françoise",
@@ -355,10 +366,13 @@
         ]
       }
     ],
-    "_score": 15.883697
+    "_score": 15.8838625
   },
   {
-    "sourceUid": "hal$hal-01403839",
+    "xPublicationDate": [
+      "2017",
+      "2016-11-19"
+    ],
     "authors": [
       {
         "forename": "Jean-Francois",
@@ -634,10 +648,12 @@
         "viaf": []
       }
     ],
-    "_score": 15.822856
+    "_score": 15.823094
   },
   {
-    "sourceUid": "hal$hal-01734949",
+    "xPublicationDate": [
+      "2017-07-21"
+    ],
     "authors": [
       {
         "forename": "Vincent",
@@ -688,10 +704,13 @@
         "viaf": []
       }
     ],
-    "_score": 15.623702
+    "_score": 15.623966
   },
   {
-    "sourceUid": "hal$hal-01939319",
+    "xPublicationDate": [
+      "2015-03",
+      "2014-12-20"
+    ],
     "authors": [
       {
         "forename": "Jorge",
@@ -799,10 +818,12 @@
         "viaf": []
       }
     ],
-    "_score": 15.461357
+    "_score": 15.461464
   },
   {
-    "sourceUid": "hal$tel-01710723",
+    "xPublicationDate": [
+      "2017-12-13"
+    ],
     "authors": [
       {
         "forename": "Gisela",
@@ -836,10 +857,13 @@
         "viaf": []
       }
     ],
-    "_score": 15.12705
+    "_score": 15.127399
   },
   {
-    "sourceUid": "hal$hal-01626136",
+    "xPublicationDate": [
+      "2017-02-01",
+      "2017-02-01"
+    ],
     "authors": [
       {
         "forename": "Nour",
@@ -1000,10 +1024,12 @@
         "viaf": []
       }
     ],
-    "_score": 14.975548
+    "_score": 14.97575
   },
   {
-    "sourceUid": "hal$hal-01726529",
+    "xPublicationDate": [
+      "2014"
+    ],
     "authors": [
       {
         "forename": "Anne-Marie",
@@ -1040,10 +1066,12 @@
         "viaf": []
       }
     ],
-    "_score": 14.924088
+    "_score": 14.924495
   },
   {
-    "sourceUid": "hal$halshs-01590448",
+    "xPublicationDate": [
+      "2017-09-07"
+    ],
     "authors": [
       {
         "forename": "Padraic",
@@ -1072,10 +1100,12 @@
         "viaf": []
       }
     ],
-    "_score": 14.6421585
+    "_score": 14.642381
   },
   {
-    "sourceUid": "hal$tel-01674182",
+    "xPublicationDate": [
+      "2014-10-10"
+    ],
     "authors": [
       {
         "forename": "Pierre",
@@ -1106,10 +1136,12 @@
         "viaf": []
       }
     ],
-    "_score": 14.367532
+    "_score": 14.367689
   },
   {
-    "sourceUid": "hal$hal-01356167",
+    "xPublicationDate": [
+      "2016"
+    ],
     "authors": [
       {
         "forename": "Palmyre H.",
@@ -1200,10 +1232,13 @@
         "viaf": []
       }
     ],
-    "_score": 14.06003
+    "_score": 14.060183
   },
   {
-    "sourceUid": "hal$sic_01097580",
+    "xPublicationDate": [
+      "2014-12-19",
+      "2014-12-19"
+    ],
     "authors": [
       {
         "forename": "Michèle",
@@ -1397,10 +1432,12 @@
         "viaf": []
       }
     ],
-    "_score": 14.027734
+    "_score": 14.027895
   },
   {
-    "sourceUid": "hal$hal-02108076",
+    "xPublicationDate": [
+      "2017"
+    ],
     "authors": [
       {
         "forename": "farge",
@@ -1426,10 +1463,12 @@
         "viaf": []
       }
     ],
-    "_score": 14.006387
+    "_score": 14.006645
   },
   {
-    "sourceUid": "hal$halshs-01394941",
+    "xPublicationDate": [
+      "2015-10-01"
+    ],
     "authors": [
       {
         "forename": "Marion",
@@ -1497,10 +1536,12 @@
         "viaf": []
       }
     ],
-    "_score": 13.933763
+    "_score": 13.93406
   },
   {
-    "sourceUid": "hal$hal-01269864",
+    "xPublicationDate": [
+      "2015"
+    ],
     "authors": [
       {
         "forename": "Assen",
@@ -1525,10 +1566,12 @@
         "viaf": []
       }
     ],
-    "_score": 13.635666
+    "_score": 13.635952
   },
   {
-    "sourceUid": "hal$hal-01490139",
+    "xPublicationDate": [
+      "2016-09"
+    ],
     "authors": [
       {
         "forename": "Anais",
@@ -1609,10 +1652,12 @@
         "viaf": []
       }
     ],
-    "_score": 13.552727
+    "_score": 13.553105
   },
   {
-    "sourceUid": "hal$hal-01112636",
+    "xPublicationDate": [
+      "2014"
+    ],
     "authors": [
       {
         "forename": "Laurence",
@@ -1667,10 +1712,13 @@
         "viaf": []
       }
     ],
-    "_score": 13.441561
+    "_score": 13.441749
   },
   {
-    "sourceUid": "hal$halshs-01274879",
+    "xPublicationDate": [
+      "2015",
+      "2016-02"
+    ],
     "authors": [
       {
         "forename": "Marion",
@@ -1744,10 +1792,12 @@
         "viaf": []
       }
     ],
-    "_score": 13.360903
+    "_score": 13.361153
   },
   {
-    "sourceUid": "hal$hal-01840701",
+    "xPublicationDate": [
+      "2016"
+    ],
     "authors": [
       {
         "forename": "Joseph",
@@ -1836,10 +1886,12 @@
         "viaf": []
       }
     ],
-    "_score": 13.269663
+    "_score": 13.270046
   },
   {
-    "sourceUid": "hal$hal-01184676",
+    "xPublicationDate": [
+      "2014-06-01"
+    ],
     "authors": [
       {
         "forename": "F.",
@@ -2002,10 +2054,12 @@
         "viaf": []
       }
     ],
-    "_score": 13.199149
+    "_score": 13.199174
   },
   {
-    "sourceUid": "hal$hal-01397699",
+    "xPublicationDate": [
+      "2016"
+    ],
     "authors": [
       {
         "forename": "Denis",
@@ -2052,10 +2106,12 @@
         "viaf": []
       }
     ],
-    "_score": 13.127501
+    "_score": 13.127583
   },
   {
-    "sourceUid": "hal$hal-01371381",
+    "xPublicationDate": [
+      "2016"
+    ],
     "authors": [
       {
         "forename": "Thomas",
@@ -2088,10 +2144,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.944018
+    "_score": 12.944235
   },
   {
-    "sourceUid": "hal$hal-01424821",
+    "xPublicationDate": [
+      "2014"
+    ],
     "authors": [
       {
         "forename": "Kmar",
@@ -2149,10 +2207,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.785549
+    "_score": 12.785787
   },
   {
-    "sourceUid": "hal$sic_01568856",
+    "xPublicationDate": [
+      "2017-07-10"
+    ],
     "authors": [
       {
         "forename": "Anne",
@@ -2205,10 +2265,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.641532
+    "_score": 12.641797
   },
   {
-    "sourceUid": "hal$halshs-01599188",
+    "xPublicationDate": [
+      "2017-06-01"
+    ],
     "authors": [
       {
         "forename": "Anne",
@@ -2259,10 +2321,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.641532
+    "_score": 12.641797
   },
   {
-    "sourceUid": "hal$hal-01294443",
+    "xPublicationDate": [
+      "2016-05-01"
+    ],
     "authors": [
       {
         "forename": "Alberto",
@@ -2312,10 +2376,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.624004
+    "_score": 12.624265
   },
   {
-    "sourceUid": "hal$hal-01394738",
+    "xPublicationDate": [
+      "2016"
+    ],
     "authors": [
       {
         "forename": "Widad",
@@ -2408,10 +2474,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.567717
+    "_score": 12.567982
   },
   {
-    "sourceUid": "hal$hal-01864253",
+    "xPublicationDate": [
+      "2017"
+    ],
     "authors": [
       {
         "forename": "Benoit",
@@ -2525,10 +2593,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.52586
+    "_score": 12.525978
   },
   {
-    "sourceUid": "hal$hal-01668341",
+    "xPublicationDate": [
+      "2015-04"
+    ],
     "authors": [
       {
         "forename": "Giuliano",
@@ -2584,10 +2654,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.441756
+    "_score": 12.442102
   },
   {
-    "sourceUid": "hal$hal-01137245",
+    "xPublicationDate": [
+      "2014-02-01"
+    ],
     "authors": [
       {
         "forename": "Alain",
@@ -2657,10 +2729,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.427306
+    "_score": 12.427616
   },
   {
-    "sourceUid": "hal$halshs-01599187",
+    "xPublicationDate": [
+      "2016-02-04"
+    ],
     "authors": [
       {
         "forename": "Anne",
@@ -2723,10 +2797,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.357497
+    "_score": 12.357606
   },
   {
-    "sourceUid": "hal$hal-01707271",
+    "xPublicationDate": [
+      "2017"
+    ],
     "authors": [
       {
         "forename": "Lampros",
@@ -2809,10 +2885,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.3566265
+    "_score": 12.35696
   },
   {
-    "sourceUid": "hal$sic_01275077",
+    "xPublicationDate": [
+      "2016-02-04"
+    ],
     "authors": [
       {
         "forename": "Alexandre",
@@ -2841,10 +2919,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.348124
+    "_score": 12.348249
   },
   {
-    "sourceUid": "hal$hal-01053967",
+    "xPublicationDate": [
+      "2014-09-06"
+    ],
     "authors": [
       {
         "forename": "Piotr",
@@ -3108,10 +3188,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01885725",
+    "xPublicationDate": [
+      "2015"
+    ],
     "authors": [
       {
         "forename": "Núria",
@@ -3175,10 +3257,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01610848",
+    "xPublicationDate": [
+      "2015"
+    ],
     "authors": [
       {
         "forename": "Jan",
@@ -3285,10 +3369,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01721507",
+    "xPublicationDate": [
+      "2015"
+    ],
     "authors": [
       {
         "forename": "N.",
@@ -3575,10 +3661,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01525878",
+    "xPublicationDate": [
+      "2017-04-15"
+    ],
     "authors": [
       {
         "forename": "Olivier",
@@ -3722,10 +3810,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$halshs-01819009",
+    "xPublicationDate": [
+      "2017"
+    ],
     "authors": [
       {
         "forename": "Anna",
@@ -3834,10 +3924,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01457336",
+    "xPublicationDate": [
+      "2015-11"
+    ],
     "authors": [
       {
         "forename": "Burak",
@@ -3934,10 +4026,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01177308",
+    "xPublicationDate": [
+      "2015"
+    ],
     "authors": [
       {
         "forename": "Annick",
@@ -4000,10 +4094,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$halshs-01574032",
+    "xPublicationDate": [
+      "2015"
+    ],
     "authors": [
       {
         "forename": "Baudouin",
@@ -4056,10 +4152,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01922571",
+    "xPublicationDate": [
+      "2015"
+    ],
     "authors": [
       {
         "forename": "Florence",
@@ -4087,10 +4185,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$halshs-01383291",
+    "xPublicationDate": [
+      "2016"
+    ],
     "authors": [
       {
         "forename": "Estelle",
@@ -4117,10 +4217,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$halshs-01700419",
+    "xPublicationDate": [
+      "2014-01-21"
+    ],
     "authors": [
       {
         "forename": "Gwenola",
@@ -4152,10 +4254,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01251585",
+    "xPublicationDate": [
+      "2014"
+    ],
     "authors": [
       {
         "forename": "Christina",
@@ -4183,10 +4287,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01725930",
+    "xPublicationDate": [
+      "2015"
+    ],
     "authors": [
       {
         "forename": "Danièle",
@@ -4214,10 +4320,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01762070",
+    "xPublicationDate": [
+      "2015"
+    ],
     "authors": [
       {
         "forename": "Christophe",
@@ -4240,10 +4348,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$halshs-00951363",
+    "xPublicationDate": [
+      "2014"
+    ],
     "authors": [
       {
         "forename": "Mehdi",
@@ -4277,10 +4387,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$halshs-01685356",
+    "xPublicationDate": [
+      "2015-07-08"
+    ],
     "authors": [
       {
         "forename": "Martial",
@@ -4325,10 +4437,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01387263",
+    "xPublicationDate": [
+      "2014"
+    ],
     "authors": [
       {
         "forename": "Qiang",
@@ -4444,10 +4558,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-00999752",
+    "xPublicationDate": [
+      "2014-12"
+    ],
     "authors": [
       {
         "forename": "Thomas",
@@ -4538,10 +4654,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$halshs-01223212",
+    "xPublicationDate": [
+      "2015"
+    ],
     "authors": [
       {
         "forename": "Laurence",
@@ -4573,10 +4691,13 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01374645",
+    "xPublicationDate": [
+      "2015",
+      "2015"
+    ],
     "authors": [
       {
         "forename": "Florence",
@@ -4605,10 +4726,13 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01100572",
+    "xPublicationDate": [
+      "2014-12-01",
+      "2014-08-27"
+    ],
     "authors": [
       {
         "forename": "Renaud",
@@ -4671,10 +4795,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01115959",
+    "xPublicationDate": [
+      "2014"
+    ],
     "authors": [
       {
         "forename": "Philippe",
@@ -4737,10 +4863,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01388250",
+    "xPublicationDate": [
+      "2014"
+    ],
     "authors": [
       {
         "forename": "Elise",
@@ -4843,10 +4971,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01958289",
+    "xPublicationDate": [
+      "2014"
+    ],
     "authors": [
       {
         "forename": "Fraser",
@@ -4969,10 +5099,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01387856",
+    "xPublicationDate": [
+      "2014"
+    ],
     "authors": [
       {
         "forename": "Sylverin",
@@ -5015,10 +5147,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01374648",
+    "xPublicationDate": [
+      "2015"
+    ],
     "authors": [
       {
         "forename": "Florence",
@@ -5047,10 +5181,13 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01475876",
+    "xPublicationDate": [
+      "2016",
+      "2016"
+    ],
     "authors": [
       {
         "forename": "Andrzej",
@@ -5138,10 +5275,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01632193",
+    "xPublicationDate": [
+      "2015"
+    ],
     "authors": [
       {
         "forename": "Emmanuel",
@@ -5183,10 +5322,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01549649",
+    "xPublicationDate": [
+      "2015"
+    ],
     "authors": [
       {
         "forename": "Julien",
@@ -5222,10 +5363,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$halshs-01260251",
+    "xPublicationDate": [
+      "2015"
+    ],
     "authors": [
       {
         "forename": "Kamila",
@@ -5259,10 +5402,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01794154",
+    "xPublicationDate": [
+      "2015-09"
+    ],
     "authors": [
       {
         "forename": "Daniel",
@@ -5291,10 +5436,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01630002",
+    "xPublicationDate": [
+      "2017"
+    ],
     "authors": [
       {
         "forename": "Bérengère",
@@ -5347,10 +5494,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01765501",
+    "xPublicationDate": [
+      "2016"
+    ],
     "authors": [
       {
         "forename": "Lionel L.",
@@ -5398,10 +5547,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01840651",
+    "xPublicationDate": [
+      "2015"
+    ],
     "authors": [
       {
         "forename": "Catherine",
@@ -5542,10 +5693,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01621797",
+    "xPublicationDate": [
+      "2017"
+    ],
     "authors": [
       {
         "forename": "Regina Fernandes",
@@ -5620,10 +5773,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01617328",
+    "xPublicationDate": [
+      "2017"
+    ],
     "authors": [
       {
         "forename": "Jean-Claude",
@@ -5698,10 +5853,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$halshs-01762127",
+    "xPublicationDate": [
+      "2017"
+    ],
     "authors": [
       {
         "forename": "Émeline",
@@ -5739,10 +5896,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$halshs-01103893",
+    "xPublicationDate": [
+      "2014"
+    ],
     "authors": [
       {
         "forename": "Maryse",
@@ -5773,10 +5932,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$halshs-01121220",
+    "xPublicationDate": [
+      "2014"
+    ],
     "authors": [
       {
         "forename": "Julie",
@@ -5819,10 +5980,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$halshs-01383306",
+    "xPublicationDate": [
+      "2016"
+    ],
     "authors": [
       {
         "forename": "Cinzia",
@@ -5849,10 +6012,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01860919",
+    "xPublicationDate": [
+      "2017"
+    ],
     "authors": [
       {
         "forename": "Jennifer",
@@ -5883,10 +6048,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01417486",
+    "xPublicationDate": [
+      "2015"
+    ],
     "authors": [
       {
         "forename": "Nada",
@@ -5989,10 +6156,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$cea-01817865",
+    "xPublicationDate": [
+      "2014"
+    ],
     "authors": [
       {
         "forename": "S.",
@@ -6041,10 +6210,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$halshs-01543102",
+    "xPublicationDate": [
+      "2014"
+    ],
     "authors": [
       {
         "forename": "Julia",
@@ -6083,10 +6254,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01148321",
+    "xPublicationDate": [
+      "2014-07-01"
+    ],
     "authors": [
       {
         "forename": "Camille",
@@ -6209,10 +6382,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01915285",
+    "xPublicationDate": [
+      "2014"
+    ],
     "authors": [
       {
         "forename": "Francis",
@@ -6244,10 +6419,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$halshs-01153330",
+    "xPublicationDate": [
+      "2014"
+    ],
     "authors": [
       {
         "forename": "Anne",
@@ -6278,10 +6455,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01282479",
+    "xPublicationDate": [
+      "2014"
+    ],
     "authors": [
       {
         "forename": "Reina Patricia",
@@ -6312,10 +6491,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$halshs-01256633",
+    "xPublicationDate": [
+      "2014-11-21"
+    ],
     "authors": [
       {
         "forename": "Claude",
@@ -6342,10 +6523,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01019661",
+    "xPublicationDate": [
+      "2014-07-07"
+    ],
     "authors": [
       {
         "forename": "Georgios",
@@ -6476,10 +6659,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$halshs-01216792",
+    "xPublicationDate": [
+      "2014"
+    ],
     "authors": [
       {
         "forename": "Isabelle",
@@ -6510,10 +6695,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01532044",
+    "xPublicationDate": [
+      "2014-04"
+    ],
     "authors": [
       {
         "forename": "Yueying",
@@ -6670,10 +6857,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$halshs-01145826",
+    "xPublicationDate": [
+      "2014"
+    ],
     "authors": [
       {
         "forename": "Katia",
@@ -6736,10 +6925,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$halshs-01543341",
+    "xPublicationDate": [
+      "2014"
+    ],
     "authors": [
       {
         "forename": "Clément",
@@ -6787,10 +6978,12 @@
         ]
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01999321",
+    "xPublicationDate": [
+      "2017-09-05"
+    ],
     "authors": [
       {
         "forename": "Jaroslav",
@@ -6924,10 +7117,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$halshs-01721860",
+    "xPublicationDate": [
+      "2017"
+    ],
     "authors": [
       {
         "forename": "Frédérique",
@@ -6957,10 +7152,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01838622",
+    "xPublicationDate": [
+      "2017"
+    ],
     "authors": [
       {
         "forename": "Léonor",
@@ -7035,10 +7232,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01626065",
+    "xPublicationDate": [
+      "2017-09"
+    ],
     "authors": [
       {
         "forename": "François",
@@ -7183,10 +7382,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$halshs-01168627",
+    "xPublicationDate": [
+      "2014"
+    ],
     "authors": [
       {
         "forename": "Stefan Cihan",
@@ -7230,10 +7431,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01650850",
+    "xPublicationDate": [
+      "2014-01"
+    ],
     "authors": [
       {
         "forename": "Emmanuel",
@@ -7261,10 +7464,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01838616",
+    "xPublicationDate": [
+      "2017"
+    ],
     "authors": [
       {
         "forename": "Ouriel",
@@ -7327,10 +7532,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$halshs-01582603",
+    "xPublicationDate": [
+      "2015"
+    ],
     "authors": [
       {
         "forename": "Sandrine",
@@ -7406,10 +7613,12 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   },
   {
-    "sourceUid": "hal$hal-01762082",
+    "xPublicationDate": [
+      "2014"
+    ],
     "authors": [
       {
         "forename": "Christophe",
@@ -7432,6 +7641,6 @@
         "viaf": []
       }
     ],
-    "_score": 12.30341
+    "_score": 12.303701
   }
 ]
