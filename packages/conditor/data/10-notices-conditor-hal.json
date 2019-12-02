@@ -1,6 +1,9 @@
 [
   {
-    "sourceUid": "hal$hal-01588823",
+    "xPublicationDate": [
+      "2015-01-01",
+      "2015-01-01"
+    ],
     "authors": [
       {
         "forename": "Pascale",
@@ -27,10 +30,12 @@
         "viaf": []
       }
     ],
-    "_score": 19.061226
+    "_score": 19.061522
   },
   {
-    "sourceUid": "hal$halshs-01345487",
+    "xPublicationDate": [
+      "2016-07"
+    ],
     "authors": [
       {
         "forename": "Richard",
@@ -59,10 +64,12 @@
         "viaf": []
       }
     ],
-    "_score": 18.003662
+    "_score": 18.004007
   },
   {
-    "sourceUid": "hal$hal-01614021",
+    "xPublicationDate": [
+      "2016"
+    ],
     "authors": [
       {
         "forename": "Paolo",
@@ -117,10 +124,12 @@
         "viaf": []
       }
     ],
-    "_score": 17.27451
+    "_score": 17.27458
   },
   {
-    "sourceUid": "hal$hal-01442858",
+    "xPublicationDate": [
+      "2016"
+    ],
     "authors": [
       {
         "forename": "Adrien",
@@ -190,10 +199,12 @@
         "viaf": []
       }
     ],
-    "_score": 16.992489
+    "_score": 16.992863
   },
   {
-    "sourceUid": "hal$insu-01388706",
+    "xPublicationDate": [
+      "2016"
+    ],
     "authors": [
       {
         "forename": "Françoise",
@@ -355,10 +366,13 @@
         ]
       }
     ],
-    "_score": 15.883697
+    "_score": 15.8838625
   },
   {
-    "sourceUid": "hal$hal-01403839",
+    "xPublicationDate": [
+      "2017",
+      "2016-11-19"
+    ],
     "authors": [
       {
         "forename": "Jean-Francois",
@@ -634,10 +648,12 @@
         "viaf": []
       }
     ],
-    "_score": 15.822856
+    "_score": 15.823094
   },
   {
-    "sourceUid": "hal$hal-01734949",
+    "xPublicationDate": [
+      "2017-07-21"
+    ],
     "authors": [
       {
         "forename": "Vincent",
@@ -688,10 +704,13 @@
         "viaf": []
       }
     ],
-    "_score": 15.623702
+    "_score": 15.623966
   },
   {
-    "sourceUid": "hal$hal-01939319",
+    "xPublicationDate": [
+      "2015-03",
+      "2014-12-20"
+    ],
     "authors": [
       {
         "forename": "Jorge",
@@ -799,10 +818,12 @@
         "viaf": []
       }
     ],
-    "_score": 15.461357
+    "_score": 15.461464
   },
   {
-    "sourceUid": "hal$tel-01710723",
+    "xPublicationDate": [
+      "2017-12-13"
+    ],
     "authors": [
       {
         "forename": "Gisela",
@@ -836,10 +857,13 @@
         "viaf": []
       }
     ],
-    "_score": 15.12705
+    "_score": 15.127399
   },
   {
-    "sourceUid": "hal$hal-01626136",
+    "xPublicationDate": [
+      "2017-02-01",
+      "2017-02-01"
+    ],
     "authors": [
       {
         "forename": "Nour",
@@ -1000,6 +1024,6 @@
         "viaf": []
       }
     ],
-    "_score": 14.975548
+    "_score": 14.97575
   }
 ]
