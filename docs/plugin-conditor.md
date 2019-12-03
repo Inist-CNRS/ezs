@@ -18,8 +18,8 @@ npm install @ezs/conditor
 
 ```bash
 $ ./bin/affAlign.js < data/1000-notices-conditor-hal.json | ./bin/compareRnsr.js
-recall: 0.7212643678160919
-correct: 1004
+recall: 0.7104885057471264
+correct: 989
 total: 1392
 ```
 
