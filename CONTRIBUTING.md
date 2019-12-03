@@ -220,6 +220,10 @@ npx lerna run lint --scope=@ezs/analytics
 
 Add the new package in the list of the [root's README](./README.md).
 
+### Add the package in the gh-pages
+
+Add the new package in the [documentation side bar](./docs/_sidebar.md).
+
 ## TroubleShooting
 
 If your tests don't pass in `packages/lodex/test/mongoQuery.spec.js`, you may be
