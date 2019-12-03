@@ -1,3 +1,4 @@
+import { any, pipe, slice } from 'ramda';
 import { isIn } from './rnsr';
 import { depleteString } from './strings';
 
@@ -27,36 +28,46 @@ import RNSR from '../data/RNSR.json';
  * @private
  */
 
-/**
- * Add `conditorRnsr` in `affiliation`, and add `affiliation` to `affiliations`.
- *
- * @param {Affiliation[]} affiliations
- * @param {Affiliation} affiliation
- * @returns {Affiliation[]}
- * @private
- */
-const addRnsrInAffiliation = (affiliations, affiliation) => {
+const isValidYear = (min, max) => (year) => {
+    if (min > year) return false;
+    if (max && max < year) return false;
+    return true;
+};
+
+const existedInYears = (years) => (structure) => {
+    if (years.length === 0) return true;
+    const createdAt = Number(structure.annee_creation);
+    const closedAt = structure.an_fermeture && Number(structure.an_fermeture);
+    return any(isValidYear(createdAt, closedAt), years);
+};
+
+const addRnsrFromYearsInAffiliation = (years) => (affiliations, affiliation) => {
     const isInAddress = isIn(depleteString(affiliation.address));
     const conditorRnsr = RNSR.structures.structure
+        .filter(existedInYears(years))
         .filter(isInAddress)
         .map((s) => s.num_nat_struct);
     const affiliationRnsr = { ...affiliation, conditorRnsr };
     return [...affiliations, affiliationRnsr];
 };
 
-/**
- * Add `conditorRnsr` in `author`'s `affiliations`.
- *
- * @param {Author[]} authors
- * @param {Author} author
- * @return {Author[]}
- * @private
- */
-const addRnsrInAuthor = (authors, author) => {
-    const affiliationsRnsr = author.affiliations.reduce(addRnsrInAffiliation, []);
+const addRnsrFromYearsInAuthor = (years) => (authors, author) => {
+    const affiliationsRnsr = author.affiliations.reduce(addRnsrFromYearsInAffiliation(years), []);
     const authorRnsr = { ...author, affiliations: affiliationsRnsr };
     return [...authors, authorRnsr];
 };
+
+/**
+ * Get the year part of a string
+ *
+ * @example
+ * getYear("2016-06-23"); // 2016
+ *
+ * @param {string} str
+ * @returns {number}
+ * @private
+ */
+const getYear = pipe(slice(0, 4), Number);
 
 /**
  * Find the RNSR identifiers in the authors affiliation addresses.
@@ -114,7 +125,10 @@ export default async function affAlign(data, feed) {
     if (!data.authors) {
         return feed.send(new Error('affAlign: notice should have authors'));
     }
-    const authors = data.authors.reduce(addRnsrInAuthor, []);
+    const xPublicationDate = data.xPublicationDate || [];
+    /** @type number[] */
+    const xPublicationYears = xPublicationDate.map(getYear);
+    const authors = data.authors.reduce(addRnsrFromYearsInAuthor(xPublicationYears), []);
     const notice = { ...data, authors };
     feed.write(notice);
     return feed.end();
