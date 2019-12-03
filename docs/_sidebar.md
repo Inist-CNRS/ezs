@@ -19,6 +19,7 @@
   - [istex](plugin-istex.md)
   - [booster](plugin-booster.md)
   - [lodex](plugin-lodex.md)
+  - [conditor](plugin-conditor.md)
 
 - Avancé
 
