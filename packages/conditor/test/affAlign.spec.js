@@ -660,7 +660,7 @@ describe('affAlign', () => {
         it('should not find older structures', (done) => {
             let res = [];
             from([{
-                xPublicationDate: '2018',
+                xPublicationDate: ['2018'],
                 authors: [{
                     affiliations: [{
                         address: 'GREYC, CNRS, UMR 6072, Université Basse-Normandie Caen',
@@ -673,7 +673,7 @@ describe('affAlign', () => {
                 })
                 .on('end', () => {
                     expect(res).toEqual([{
-                        xPublicationDate: '2018',
+                        xPublicationDate: ['2018'],
                         authors: [{
                             affiliations: [{
                                 address: 'GREYC, CNRS, UMR 6072, Université Basse-Normandie Caen',
