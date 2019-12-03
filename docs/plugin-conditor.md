@@ -52,6 +52,7 @@ Sachant qu'on appauvrit (casse, accents, tiret, apostrophe) tous les champs.
 
 -   [RNSR](#rnsr)
 -   [affAlign](#affalign)
+-   [xPublicationYears](#xpublicationyears)
 -   [compareRnsr](#comparernsr)
 
 ### RNSR
@@ -64,6 +65,7 @@ Input file:
 
 ```json
 [{
+     "xPublicationDate": ["2012-01-01", "2012-01-01"],
      "authors": [{
          "affiliations": [{
              "address": "GDR 2989 Université Versailles Saint-Quentin-en-Yvelines, 63009"
@@ -89,6 +91,7 @@ Output:
 
 ```json
 [{
+     "xPublicationDate": ["2012-01-01", "2012-01-01"],
      "authors": [{
          "affiliations": [{
              "address": "GDR 2989 Université Versailles Saint-Quentin-en-Yvelines, 63009",
@@ -97,6 +100,8 @@ Output:
      }]
 }]
 ```
+
+### xPublicationYears
 
 ### compareRnsr
 
