@@ -65,6 +65,7 @@ const addRnsrInAuthor = (authors, author) => {
  *
  * ```json
  * [{
+ *      "xPublicationDate": ["2012-01-01", "2012-01-01"],
  *      "authors": [{
  *          "affiliations": [{
  *              "address": "GDR 2989 Université Versailles Saint-Quentin-en-Yvelines, 63009"
@@ -90,6 +91,7 @@ const addRnsrInAuthor = (authors, author) => {
  *
  * ```json
  * [{
+ *      "xPublicationDate": ["2012-01-01", "2012-01-01"],
  *      "authors": [{
  *          "affiliations": [{
  *              "address": "GDR 2989 Université Versailles Saint-Quentin-en-Yvelines, 63009",

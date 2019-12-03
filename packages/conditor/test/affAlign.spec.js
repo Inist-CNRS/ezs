@@ -655,4 +655,34 @@ describe('affAlign', () => {
                 });
         });
     });
+
+    describe('xPublicationDate', () => {
+        it('should not find older structures', (done) => {
+            let res = [];
+            from([{
+                xPublicationDate: '2018',
+                authors: [{
+                    affiliations: [{
+                        address: 'GREYC, CNRS, UMR 6072, Université Basse-Normandie Caen',
+                    }],
+                }],
+            }])
+                .pipe(ezs('affAlign'))
+                .on('data', (data) => {
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    expect(res).toEqual([{
+                        xPublicationDate: '2018',
+                        authors: [{
+                            affiliations: [{
+                                address: 'GREYC, CNRS, UMR 6072, Université Basse-Normandie Caen',
+                                conditorRnsr: ['201722568L'],
+                            }],
+                        }],
+                    }]);
+                    done();
+                });
+        });
+    });
 });
