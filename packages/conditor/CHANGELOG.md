@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@1.7.0...@ezs/conditor@1.8.0) (2019-12-03)
+
+
+### Features
+
+* **conditor:** Take xPublicationDate into account ([1ad2e7c](https://github.com/Inist-CNRS/ezs/commit/1ad2e7cf4847fc0fc9f0cb219f7e7355d79f42b1))
+
+
+
+
+
 # [1.7.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@1.6.0...@ezs/conditor@1.7.0) (2019-11-28)
 
 
