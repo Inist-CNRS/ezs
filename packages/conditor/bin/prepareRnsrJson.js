@@ -68,6 +68,8 @@ const simplifyStructure = (structure) => {
         intituleAppauvri: depleteString(structure.intitule),
         sigleAppauvri: depleteString(structure.sigle),
         ville_postale_appauvrie: depleteString(structure.ville_postale),
+        annee_creation: structure.annee_creation,
+        an_fermeture: structure.an_fermeture,
     };
     return simplifiedStructure;
 };

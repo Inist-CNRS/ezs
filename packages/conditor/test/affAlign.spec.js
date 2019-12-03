@@ -655,4 +655,90 @@ describe('affAlign', () => {
                 });
         });
     });
+
+    describe('xPublicationDate', () => {
+        it('should not find older structures', (done) => {
+            let res = [];
+            from([{
+                xPublicationDate: ['2018'],
+                authors: [{
+                    affiliations: [{
+                        address: 'GREYC, CNRS, UMR 6072, Université Basse-Normandie Caen',
+                    }],
+                }],
+            }])
+                .pipe(ezs('affAlign'))
+                .on('data', (data) => {
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    expect(res).toEqual([{
+                        xPublicationDate: ['2018'],
+                        authors: [{
+                            affiliations: [{
+                                address: 'GREYC, CNRS, UMR 6072, Université Basse-Normandie Caen',
+                                conditorRnsr: ['201722568L'],
+                            }],
+                        }],
+                    }]);
+                    done();
+                });
+        });
+
+        it('should not find newer structures', (done) => {
+            let res = [];
+            from([{
+                xPublicationDate: ['2008'],
+                authors: [{
+                    affiliations: [{
+                        address: 'GREYC, CNRS, UMR 6072, Université Basse-Normandie Caen',
+                    }],
+                }],
+            }])
+                .pipe(ezs('affAlign'))
+                .on('data', (data) => {
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    expect(res).toEqual([{
+                        xPublicationDate: ['2008'],
+                        authors: [{
+                            affiliations: [{
+                                address: 'GREYC, CNRS, UMR 6072, Université Basse-Normandie Caen',
+                                conditorRnsr: ['200012161Y'],
+                            }],
+                        }],
+                    }]);
+                    done();
+                });
+        });
+
+        it('should not find affilation older than structures', (done) => {
+            let res = [];
+            from([{
+                xPublicationDate: ['1998'],
+                authors: [{
+                    affiliations: [{
+                        address: 'GREYC, CNRS, UMR 6072, Université Basse-Normandie Caen',
+                    }],
+                }],
+            }])
+                .pipe(ezs('affAlign'))
+                .on('data', (data) => {
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    expect(res).toEqual([{
+                        xPublicationDate: ['1998'],
+                        authors: [{
+                            affiliations: [{
+                                address: 'GREYC, CNRS, UMR 6072, Université Basse-Normandie Caen',
+                                conditorRnsr: [],
+                            }],
+                        }],
+                    }]);
+                    done();
+                });
+        });
+    });
 });
