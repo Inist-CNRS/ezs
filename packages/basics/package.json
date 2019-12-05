@@ -24,6 +24,7 @@
     "fetch-with-proxy": "~1.1.0",
     "flat": "~4.1.0",
     "isomorphic-fetch": "~2.2.1",
+    "micromatch": "4.0.2",
     "tmp-filepath": "~2.0.0",
     "xml-mapping": "~1.7.1",
     "xml-splitter": "~1.2.1"
