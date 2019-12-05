@@ -607,7 +607,7 @@ describe('dispatch through server(s)', () => {
                 assert.strictEqual(res, 500000);
                 done();
             });
-    }, 100000);
+    }, 200000);
 
     it('with a lot of delayed commands in distributed pipeline', (done) => {
         const script = `
