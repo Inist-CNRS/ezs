@@ -64,4 +64,99 @@ describe('Conditor scroll', () => {
                 done();
             });
     });
+
+    it('should say when no result is given', (done) => {
+        fetch
+            .mockReturnValueOnce({
+                json: async () => ({ number: 1 }),
+                headers: {
+                    _headers: {
+                        'x-total-count': '0',
+                    },
+                },
+            });
+        from([{ q: '' }])
+            .pipe(ezs('conditorScroll', { page_size: 1 }))
+            .pipe(ezs.catch((e) => {
+                expect(e).toBeInstanceOf(Error);
+                expect(e.message).toContain('No result.');
+                done();
+            }));
+    });
+
+    it('should say when no total is given in result', (done) => {
+        fetch
+            .mockReturnValueOnce({
+                json: async () => ({ number: 1 }),
+                headers: {
+                    _headers: {
+                        'x-result-count': '0',
+                    },
+                },
+            });
+        from([{ q: '' }])
+            .pipe(ezs('conditorScroll', { page_size: 1 }))
+            .pipe(ezs.catch((e) => {
+                expect(e).toBeInstanceOf(Error);
+                expect(e.message).toContain('Unexpected response.');
+                done();
+            }));
+    });
+
+    it('should say when there are no scroll results', (done) => {
+        fetch
+            .mockReturnValueOnce({
+                json: async () => ({ number: 1 }),
+                headers: {
+                    _headers: {
+                        'x-result-count': '1',
+                        'x-total-count': '2',
+                    },
+                },
+            })
+            .mockReturnValueOnce({
+                json: async () => ({ number: 2 }),
+                headers: {
+                    _headers: {
+                        'x-result-count': '1',
+                        'x-total-count': '0',
+                    },
+                },
+            });
+        from([{ q: '' }])
+            .pipe(ezs('conditorScroll', { page_size: 1 }))
+            .pipe(ezs.catch((e) => {
+                expect(e).toBeInstanceOf(Error);
+                expect(e.message).toContain('No result.');
+                done();
+            }));
+    });
+
+    it('should say when there are no scroll total count', (done) => {
+        fetch
+            .mockReturnValueOnce({
+                json: async () => ({ number: 1 }),
+                headers: {
+                    _headers: {
+                        'x-result-count': '1',
+                        'x-total-count': '2',
+                    },
+                },
+            })
+            .mockReturnValueOnce({
+                json: async () => ({ number: 2 }),
+                headers: {
+                    _headers: {
+                        'x-result-count': '1',
+                    },
+                },
+            });
+        from([{ q: '' }])
+            .pipe(ezs('conditorScroll', { page_size: 1 }))
+            .pipe(ezs.catch((e) => {
+                expect(e).toBeInstanceOf(Error);
+                expect(e.message).toContain('Unexpected response.');
+                done();
+            }));
+    });
 });
