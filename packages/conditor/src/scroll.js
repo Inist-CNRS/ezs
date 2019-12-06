@@ -2,11 +2,16 @@ import URL from 'url';
 import QueryString from 'qs';
 import fetch from 'fetch-with-proxy';
 
-const result = require('dotenv').config();
+// Tests mock fetch, so that there is no need for CONDITOR_TOKEN
+if (process.env.NODE_ENV !== 'test') {
+    // eslint-disable-next-line global-require
+    const result = require('dotenv').config();
 
-if (result.error) {
-    throw result.error;
+    if (result.error) {
+        throw result.error;
+    }
 }
+
 const token = process.env.CONDITOR_TOKEN;
 
 // Because response.headers.get() does not work well
