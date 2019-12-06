@@ -9,8 +9,22 @@ if (result.error) {
 }
 const token = process.env.CONDITOR_TOKEN;
 
+// Because response.headers.get() does not work well
+// eslint-disable-next-line no-underscore-dangle
+const getHeader = (header) => (response) => response.headers._headers[header.toLowerCase()];
+const getTotalFromHeader = getHeader('X-Total-Count');
+const getResultCountFromHeader = getHeader('X-Result-Count');
+const getScrollIdFromHeader = getHeader('Scroll-Id');
+
 /**
- * Use scroll to return all results from Conditor API
+ * Use scroll to return all results from Conditor API.
+ *
+ * > :warning: you have to put a valid token into a `.env` file, under
+ * > `CONDITOR_TOKEN` variable:
+ *
+ * ```
+ * CONDITOR_TOKEN=eyJhbG...
+ * ```
  *
  * @export
  * @name conditorScroll
@@ -55,29 +69,22 @@ export default async function conditorScroll(data, feed) {
         search: QueryString.stringify(parameters),
     };
     const urlStr = URL.format(urlObj);
-    console.log('urlStr', JSON.stringify(urlStr));
     let response = await fetch(urlStr);
-    console.log('response', JSON.stringify(response, null, 2));
-    const json = await response.json();
-    // console.log('headers:', JSON.stringify(response.headers._headers, null, 2));
-    // console.log('X-Total-Count', JSON.stringify(response.headers.get('X-Total-Count')), response.headers._headers['x-total-count']);
-    // console.log('X-Result-Count', JSON.stringify(response.headers.get['X-Result-Count']), response.headers._headers['x-result-count']);
-    // console.log('Scroll-Id', JSON.stringify(response.headers.get['Scroll-Id']), response.headers._headers['scroll-id']);
-    if (response.headers.get['X-Total-Count'] === '0') {
+    let json = await response.json();
+    if (getTotalFromHeader(response) === '0') {
         return feed.send(new Error('No result.'));
     }
-    // TODO: treat an error
-    if (response.headers.get['X-Total-Count'] === undefined) {
+    if (getTotalFromHeader(response) === undefined) {
         return feed.send(new Error('Unexpected response.'));
     }
-    this.resultsCount += Number(response.headers.get['X-Result-Count']);
+    this.resultsCount += Number(getResultCountFromHeader(response));
     feed.write(json);
 
-    while (this.resultsCount < Number(response.headers.get['X-Total-Count'])) {
+    while (this.resultsCount < Number(getTotalFromHeader(response))) {
         const scrollLocation = {
             protocol: 'https',
             host: 'api.conditor.fr',
-            patname: `/v1/scroll/${response.headers.get['Scroll-Id']}`,
+            patname: `/v1/scroll/${getScrollIdFromHeader(response)}`,
         };
         const scrollParameters = {
             access_token: token,
@@ -88,17 +95,17 @@ export default async function conditorScroll(data, feed) {
             search: QueryString.stringify(scrollParameters),
         };
         const scrollUrlStr = URL.format(scrollUrlObj);
-        console.log('scrollUrlStr', JSON.stringify(scrollUrlStr));
         // eslint-disable-next-line no-await-in-loop
         response = await fetch(scrollUrlStr);
-        if (response.headers.get['X-Total-Count'] === 0) {
+        if (Number(getTotalFromHeader(response)) === 0) {
             return feed.send(new Error('No result.'));
         }
-        // TODO: treat an error
-        if (response.headers.get['X-Total-Count'] === undefined) {
+        if (getTotalFromHeader(response) === undefined) {
             return feed.send(new Error('Unexpected response.'));
         }
-        this.resultsCount += Number(response.headers.get['X-Result-Count']);
+        this.resultsCount += Number(getResultCountFromHeader(response));
+        // eslint-disable-next-line no-await-in-loop
+        json = await response.json();
         feed.write(json);
     }
 
