@@ -4,6 +4,7 @@ import fetch from 'fetch-with-proxy';
 import {
     head, pathOr, pipe, toLower,
 } from 'ramda';
+import ProgressBar from 'progress';
 
 // Tests mock fetch, so that there is no need for CONDITOR_TOKEN
 if (process.env.NODE_ENV !== 'test') {
@@ -38,12 +39,13 @@ const getScrollIdFromHeader = getHeader('Scroll-Id');
  *
  * @export
  * @name conditorScroll
- * @param {string} [q=""]           query
- * @param {string} [scroll="5m"]    duration of the scroll
- * @param {number} [page_size=1000] size of the pages
- * @param {string} includes         fields to get in the response
- * @param {string} excludes         fields to exclude from the response
- * @param {string} [sid="ezs-conditor"]    User-agent identifier
+ * @param {string}  [q=""]           query
+ * @param {string}  [scroll="5m"]    duration of the scroll
+ * @param {number}  [page_size=1000] size of the pages
+ * @param {string}  includes         fields to get in the response
+ * @param {string}  excludes         fields to exclude from the response
+ * @param {string}  [sid="ezs-conditor"]    User-agent identifier
+ * @param {boolean} [progress=false] display a progress bar in stderr
  * @returns {object[]}
  */
 export default async function conditorScroll(data, feed) {
@@ -59,6 +61,7 @@ export default async function conditorScroll(data, feed) {
     const includes = this.getParam('includes');
     const excludes = this.getParam('excludes');
     const sid = this.getParam('sid') || data.sid || 'ezs-conditor';
+    const progress = this.getParam('progress') || data.progress || false;
 
     const location = {
         protocol: 'https:',
@@ -90,8 +93,14 @@ export default async function conditorScroll(data, feed) {
     this.resultsCount += Number(getResultCountFromHeader(response));
     feed.write(json);
 
-    while (this.resultsCount < Number(getTotalFromHeader(response))) {
-        console.error(`${this.resultsCount} < ${Number(getTotalFromHeader(response))}`);
+    const total = Number(getTotalFromHeader(response));
+    let bar;
+    if (progress) {
+        bar = new ProgressBar('[:bar] :current / :total :elapseds <- :etas', { total });
+        bar.tick(this.resultsCount);
+    }
+
+    while (this.resultsCount < total) {
         const scrollLocation = {
             protocol: 'https',
             host: 'api.conditor.fr',
@@ -114,7 +123,11 @@ export default async function conditorScroll(data, feed) {
         if (getTotalFromHeader(response) === undefined) {
             return feed.send(new Error('Unexpected response.'));
         }
-        this.resultsCount += Number(getResultCountFromHeader(response));
+        const resultCount = Number(getResultCountFromHeader(response));
+        if (progress) {
+            bar.tick(resultCount);
+        }
+        this.resultsCount += resultCount;
         // eslint-disable-next-line no-await-in-loop
         json = await response.json();
         feed.write(json);

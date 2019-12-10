@@ -43,6 +43,7 @@
     "fast-xml-parser": "3.14.0",
     "fetch-with-proxy": "1.1.0",
     "isomorphic-fetch": "2.2.1",
+    "progress": "2.0.3",
     "qs": "6.9.1",
     "ramda": "0.26.1",
     "unidecode": "0.1.8"
