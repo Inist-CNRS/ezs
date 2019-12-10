@@ -38,7 +38,7 @@
   },
   "homepage": "https://github.com/Inist-CNRS/ezs/packages/conditor#readme",
   "dependencies": {
-    "csv-string": "3.1.6",
+    "csv-string": "3.1.7",
     "dotenv": "8.2.0",
     "fast-xml-parser": "3.14.0",
     "fetch-with-proxy": "1.1.0",
