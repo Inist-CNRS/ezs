@@ -1,7 +1,9 @@
 import URL from 'url';
 import QueryString from 'qs';
 import fetch from 'fetch-with-proxy';
-import { head, pipe } from 'ramda';
+import {
+    head, pathOr, pipe, toLower,
+} from 'ramda';
 
 // Tests mock fetch, so that there is no need for CONDITOR_TOKEN
 if (process.env.NODE_ENV !== 'test') {
@@ -16,9 +18,8 @@ if (process.env.NODE_ENV !== 'test') {
 const token = process.env.CONDITOR_TOKEN;
 
 // Because response.headers.get() does not work well
-// eslint-disable-next-line no-underscore-dangle
 const getHeader = (header) => pipe(
-    (response) => response.headers._headers[header.toLowerCase()] || [],
+    pathOr([], ['headers', '_headers', toLower(header)]),
     head,
 );
 const getTotalFromHeader = getHeader('X-Total-Count');
