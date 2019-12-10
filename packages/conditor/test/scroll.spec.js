@@ -13,8 +13,8 @@ describe('Conditor scroll', () => {
                 json: async () => ({ number: 1 }),
                 headers: {
                     _headers: {
-                        'x-result-count': '1',
-                        'x-total-count': '1',
+                        'x-result-count': ['1'],
+                        'x-total-count': ['1'],
                         // eslint-disable-next-line max-len
                         'scroll-id': 'DnF1ZXJ5VGhlbkZldGNoBQAAAAADvF-MFklPNnVqLWFQUUZhT0V2bkhyQzVYMlEAAAAABIJ93RYtbU51a2dpcFNoNjMta3lwVlM3cEZBAAAAAASCfdwWLW1OdWtnaXBTaDYzLWt5cFZTN3BGQQAAAAAEwkNgFnE2OWNyRFlIUzdHeUtVLUFNMDNZZWcAAAAAA7xfjRZJTzZ1ai1hUFFGYU9Fdm5IckM1WDJR',
                     },
@@ -34,8 +34,8 @@ describe('Conditor scroll', () => {
                 json: async () => ({ number: 1 }),
                 headers: {
                     _headers: {
-                        'x-result-count': '1',
-                        'x-total-count': '2',
+                        'x-result-count': ['1'],
+                        'x-total-count': ['2'],
                         // eslint-disable-next-line max-len
                         'scroll-id': 'DnF1ZXJ5VGhlbkZldGNoBQAAAAADvF-MFklPNnVqLWFQUUZhT0V2bkhyQzVYMlEAAAAABIJ93RYtbU51a2dpcFNoNjMta3lwVlM3cEZBAAAAAASCfdwWLW1OdWtnaXBTaDYzLWt5cFZTN3BGQQAAAAAEwkNgFnE2OWNyRFlIUzdHeUtVLUFNMDNZZWcAAAAAA7xfjRZJTzZ1ai1hUFFGYU9Fdm5IckM1WDJR',
                     },
@@ -45,8 +45,8 @@ describe('Conditor scroll', () => {
                 json: async () => ({ number: 2 }),
                 headers: {
                     _headers: {
-                        'x-result-count': '1',
-                        'x-total-count': '2',
+                        'x-result-count': ['1'],
+                        'x-total-count': ['2'],
                         // eslint-disable-next-line max-len
                         'scroll-id': 'DnF1ZXJ5VGhlbkZldGNoBQAAAAADvF-MFklPNnVqLWFQUUZhT0V2bkhyQzVYMlEAAAAABIJ93RYtbU51a2dpcFNoNjMta3lwVlM3cEZBAAAAAASCfdwWLW1OdWtnaXBTaDYzLWt5cFZTN3BGQQAAAAAEwkNgFnE2OWNyRFlIUzdHeUtVLUFNMDNZZWcAAAAAA7xfjRZJTzZ1ai1hUFFGYU9Fdm5IckM1WDJR',
                     },
@@ -71,7 +71,7 @@ describe('Conditor scroll', () => {
                 json: async () => ({ number: 1 }),
                 headers: {
                     _headers: {
-                        'x-total-count': '0',
+                        'x-total-count': ['0'],
                     },
                 },
             });
@@ -90,7 +90,7 @@ describe('Conditor scroll', () => {
                 json: async () => ({ number: 1 }),
                 headers: {
                     _headers: {
-                        'x-result-count': '0',
+                        'x-result-count': ['0'],
                     },
                 },
             });
@@ -98,7 +98,7 @@ describe('Conditor scroll', () => {
             .pipe(ezs('conditorScroll', { page_size: 1 }))
             .pipe(ezs.catch((e) => {
                 expect(e).toBeInstanceOf(Error);
-                expect(e.message).toContain('Unexpected response.');
+                expect(e.message).toContain('Unexpected first response.');
                 done();
             }));
     });
@@ -109,8 +109,8 @@ describe('Conditor scroll', () => {
                 json: async () => ({ number: 1 }),
                 headers: {
                     _headers: {
-                        'x-result-count': '1',
-                        'x-total-count': '2',
+                        'x-result-count': ['1'],
+                        'x-total-count': ['2'],
                     },
                 },
             })
@@ -138,8 +138,8 @@ describe('Conditor scroll', () => {
                 json: async () => ({ number: 1 }),
                 headers: {
                     _headers: {
-                        'x-result-count': '1',
-                        'x-total-count': '2',
+                        'x-result-count': ['1'],
+                        'x-total-count': ['2'],
                     },
                 },
             })
@@ -147,7 +147,7 @@ describe('Conditor scroll', () => {
                 json: async () => ({ number: 2 }),
                 headers: {
                     _headers: {
-                        'x-result-count': '1',
+                        'x-result-count': ['1'],
                     },
                 },
             });
