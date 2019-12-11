@@ -1,4 +1,5 @@
 import debug from 'debug';
+import sizeof from 'object-sizeof';
 import Parameter from '../parameter';
 import errorHandler from './errorHandler';
 
@@ -20,7 +21,9 @@ const unknownPipeline = ezs => (request, response) => {
             };
         })
         .reduce((prev, cur) => Object.assign(prev, cur), {});
-    debug('ezs')(`PID ${process.pid} will execute ${commands.length || 0} commands with ${Object.keys(environment).length || 0} global parameters`);
+    debug('ezs')(
+        `PID ${process.pid} will execute ${commands.length} commands with ${sizeof(environment)} of global parameters`,
+    );
     request
         .pipe(ezs.uncompress(headers))
         .pipe(ezs('unpack'))

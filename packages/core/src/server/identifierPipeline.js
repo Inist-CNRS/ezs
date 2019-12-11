@@ -1,20 +1,19 @@
 import iterate from 'stream-iterate';
-import { join, basename } from 'path';
+import { join } from 'path';
 import debug from 'debug';
 import sizeof from 'object-sizeof';
 import errorHandler from './errorHandler';
 import executePipeline from './executePipeline';
 import { isFile } from '../file';
+import { RX_IDENTIFIER } from '../constants';
 
-const knownPipeline = (ezs, serverPath) => (request, response) => {
+const identifierPipeline = (ezs, serverPath) => (request, response) => {
     const { headers } = request;
     const triggerError = errorHandler(request, response);
-    const { pathname, query } = request.url;
-    const files = pathname
-        .slice(1)
-        .split(',')
-        .map((file) => basename(file, '.ini'))
-        .map((file) => file.concat('.ini'))
+    const { query } = request.url;
+    query.identifier = request.url.pathname.slice(1);
+    const pathname = query.identifier.match(RX_IDENTIFIER).shift().slice(0, -2);
+    const files = [`${pathname}.ini`]
         .map((file) => join(serverPath, file))
         .filter((file) => isFile(file));
     if (files.length === 0) {
@@ -27,4 +26,4 @@ const knownPipeline = (ezs, serverPath) => (request, response) => {
     return executePipeline(ezs, files, headers, query, triggerError, read, response);
 };
 
-export default knownPipeline;
+export default identifierPipeline;
