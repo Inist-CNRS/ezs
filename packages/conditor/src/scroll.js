@@ -37,12 +37,31 @@ const getScrollIdFromHeader = getHeader('Scroll-Id');
  * CONDITOR_TOKEN=eyJhbG...
  * ```
  *
+ * @example <caption>Input</caption>
+ * {
+ *   "q": "Test",
+ *   "page_size": 1,
+ *   "max_page": 1,
+ *   "includes": "sourceUid"
+ * }
+ *
+ * @example <caption>Output</caption>
+ * [[
+ *     {
+ *         "sourceUid": "hal$hal-01412764",
+ *         "_score": 5.634469,
+ *         "_sort": [
+ *             0
+ *         ]
+ *     }
+ * ]]
+ *
  * @export
  * @name conditorScroll
  * @param {string}  [q=""]             query
  * @param {string}  [scroll="5m"]      duration of the scroll
  * @param {number}  [page_size=1000]   size of the pages
- * @param {number}  [max_page=1000000] size of the pages
+ * @param {number}  [max_page=1000000] maximum number of pages
  * @param {string}  includes           fields to get in the response
  * @param {string}  excludes           fields to exclude from the response
  * @param {string}  [sid="ezs-conditor"]    User-agent identifier

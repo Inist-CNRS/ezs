@@ -53,6 +53,7 @@ Sachant qu'on appauvrit (casse, accents) tous les champs.
 -   [RNSR](#rnsr)
 -   [affAlign](#affalign)
 -   [compareRnsr](#comparernsr)
+-   [conditorScroll](#conditorscroll)
 
 ### RNSR
 
@@ -131,3 +132,54 @@ Output
      "recall": 1
 }
 ```
+
+### conditorScroll
+
+Use scroll to return all results from Conditor API.
+
+> :warning: you have to put a valid token into a `.env` file, under
+> `CONDITOR_TOKEN` variable:
+
+    CONDITOR_TOKEN=eyJhbG...
+
+#### Parameters
+
+-   `q` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** query (optional, default `""`)
+-   `scroll` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** duration of the scroll (optional, default `"5m"`)
+-   `page_size` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** size of the pages (optional, default `1000`)
+-   `max_page` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** maximum number of pages (optional, default `1000000`)
+-   `includes` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** fields to get in the response
+-   `excludes` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** fields to exclude from the response
+-   `sid` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** User-agent identifier (optional, default `"ezs-conditor"`)
+-   `progress` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** display a progress bar in stderr (optional, default `false`)
+
+#### Examples
+
+Input
+
+
+```javascript
+{
+  "q": "Test",
+  "page_size": 1,
+  "max_page": 1,
+  "includes": "sourceUid"
+}
+```
+
+Output
+
+
+```javascript
+[[
+    {
+        "sourceUid": "hal$hal-01412764",
+        "_score": 5.634469,
+        "_sort": [
+            0
+        ]
+    }
+]]
+```
+
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 
