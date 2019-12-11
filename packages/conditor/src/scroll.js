@@ -39,13 +39,14 @@ const getScrollIdFromHeader = getHeader('Scroll-Id');
  *
  * @export
  * @name conditorScroll
- * @param {string}  [q=""]           query
- * @param {string}  [scroll="5m"]    duration of the scroll
- * @param {number}  [page_size=1000] size of the pages
- * @param {string}  includes         fields to get in the response
- * @param {string}  excludes         fields to exclude from the response
+ * @param {string}  [q=""]             query
+ * @param {string}  [scroll="5m"]      duration of the scroll
+ * @param {number}  [page_size=1000]   size of the pages
+ * @param {number}  [max_page=1000000] size of the pages
+ * @param {string}  includes           fields to get in the response
+ * @param {string}  excludes           fields to exclude from the response
  * @param {string}  [sid="ezs-conditor"]    User-agent identifier
- * @param {boolean} [progress=false] display a progress bar in stderr
+ * @param {boolean} [progress=false]   display a progress bar in stderr
  * @returns {object[]}
  */
 export default async function conditorScroll(data, feed) {
@@ -58,6 +59,7 @@ export default async function conditorScroll(data, feed) {
     const q = this.getParam('q') || data.query;
     const scroll = this.getParam('scroll') || data.scroll || '5m';
     const pageSize = this.getParam('page_size') || data.page_size || 1000;
+    const maxPage = this.getParam('max_page') || data.max_page || 1000000;
     const includes = this.getParam('includes');
     const excludes = this.getParam('excludes');
     const sid = this.getParam('sid') || data.sid || 'ezs-conditor';
@@ -90,6 +92,7 @@ export default async function conditorScroll(data, feed) {
     if (getTotalFromHeader(response) === undefined) {
         return feed.send(new Error('Unexpected first response.'));
     }
+    this.page = 1;
     this.resultsCount += Number(getResultCountFromHeader(response));
     feed.write(json);
 
@@ -100,7 +103,7 @@ export default async function conditorScroll(data, feed) {
         bar.tick(this.resultsCount);
     }
 
-    while (this.resultsCount < total) {
+    while (this.resultsCount < total && this.page < maxPage) {
         const scrollLocation = {
             protocol: 'https',
             host: 'api.conditor.fr',
@@ -123,6 +126,7 @@ export default async function conditorScroll(data, feed) {
         if (getTotalFromHeader(response) === undefined) {
             return feed.send(new Error('Unexpected response.'));
         }
+        this.page += 1;
         const resultCount = Number(getResultCountFromHeader(response));
         if (progress) {
             bar.tick(resultCount);

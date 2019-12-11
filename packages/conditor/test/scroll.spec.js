@@ -159,4 +159,27 @@ describe('Conditor scroll', () => {
                 done();
             }));
     });
+
+    it('should return according to max_page', (done) => {
+        let nbPages = 0;
+        fetch
+            .mockReturnValueOnce({
+                json: async () => ({ number: 1 }),
+                headers: {
+                    _headers: {
+                        'x-result-count': ['1'],
+                        'x-total-count': ['2'],
+                    },
+                },
+            });
+        from([{ q: '' }])
+            .pipe(ezs('conditorScroll', { page_size: 1, max_page: 1 }))
+            .on('data', () => {
+                nbPages += 1;
+            })
+            .on('end', () => {
+                expect(nbPages).toBe(1);
+                done();
+            });
+    });
 });
