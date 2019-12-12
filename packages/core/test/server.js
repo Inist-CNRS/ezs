@@ -113,7 +113,7 @@ describe('dispatch through server(s)', () => {
                 })
                 .catch(done);
         });
-        it('text.ini', (done) => {
+        it('text.ini #1', (done) => {
             const data = 'azertyuiopqsdfghjklmw<xcvbn,;';
             const stream = from([
                 data,
@@ -129,6 +129,37 @@ describe('dispatch through server(s)', () => {
                 })
                 .catch(done);
         });
+
+        it('text.ini #2', (done) => {
+            const data = 'azertyuiopqsdfghjklmw<xcvbn,;';
+            const stream = from([
+                data,
+            ]);
+            fetch('http://127.0.0.1:33333/transit,text', { method: 'POST', body: stream })
+                .then((res) => {
+                    assert.equal(res.headers.get('content-type'), 'text/plain');
+                    return res.text();
+                })
+                .then((text) => {
+                    assert.equal(text.slice(2, -2), data);
+                    done();
+                })
+                .catch(done);
+        });
+
+        it('truc.ini', (done) => {
+            fetch('http://127.0.0.1:33333/truc:/My_identifier?bidule=truc', { method: 'GET' })
+                .then((res) => {
+                    assert.equal(res.headers.get('content-type'), 'application/json');
+                    return res.json();
+                })
+                .then((result) => {
+                    assert.equal(result[0].truc, 'My_identifier');
+                    done();
+                })
+                .catch(done);
+        });
+
 
         it('part1-3.ini with paramaters', (done) => {
             const stream = from([

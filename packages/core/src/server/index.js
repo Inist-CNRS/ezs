@@ -1,32 +1,42 @@
 import cluster from 'cluster';
 import http from 'http';
 import controlServer from 'http-shutdown';
-import regex from 'filename-regex';
 import { parse } from 'url';
 import debug from 'debug';
 import knownPipeline from './knownPipeline';
+import identifierPipeline from './identifierPipeline';
 import unknownPipeline from './unknownPipeline';
 import serverInformation from './serverInformation';
 import errorHandler from './errorHandler';
 import settings from '../settings';
+import { RX_IDENTIFIER, RX_FILENAME } from '../constants';
 
 const isPipeline = (filename) => {
-    const f = filename.match(regex());
+    const f = filename.match(RX_FILENAME);
     return (f && f.shift() !== undefined);
 };
 
-function createMidddleware(ezs, path, method, pathname) {
-    if (path === false && method === 'POST' && pathname === '/') {
+const isIdentifier = (filename) => {
+    const f = filename.slice(1).match(RX_IDENTIFIER);
+    return (f && f.shift() !== undefined);
+};
+
+function createMidddleware(ezs, serverPath, method, pathname) {
+    if (serverPath === false && method === 'POST' && pathname === '/') {
         debug('ezs')(`Create middleware 'unknownPipeline' for ${method} ${pathname}`);
         return unknownPipeline(ezs);
     }
     if (method === 'GET' && pathname === '/') {
         debug('ezs')(`Create middleware 'serverInformation' for ${method} ${pathname}`);
-        return serverInformation(ezs, path);
+        return serverInformation(ezs, serverPath);
     }
-    if (path !== false && isPipeline(pathname)) {
+    if (serverPath !== false && isIdentifier(pathname)) {
+        debug('ezs')(`Create middleware 'identifierPipeline' for ${method} ${pathname}`);
+        return identifierPipeline(ezs, serverPath);
+    }
+    if (serverPath !== false && isPipeline(pathname)) {
         debug('ezs')(`Create middleware 'knownPipeline' for ${method} ${pathname}`);
-        return knownPipeline(ezs, path);
+        return knownPipeline(ezs, serverPath);
     }
     const error = new Error(`Unable to create middleware for ${method} ${pathname}`);
     return (request, response) => errorHandler(request, response)(error, 404);
@@ -50,7 +60,7 @@ function createServer(ezs, serverPort, serverPath) {
         }));
     server.setTimeout(0);
     server.listen(serverPort);
-    signals.forEach(signal => process.on(signal, () => {
+    signals.forEach((signal) => process.on(signal, () => {
         debug('ezs')(`Signal received, stoping server with PID ${process.pid}`);
         server.shutdown(() => process.exit(0));
     }));
@@ -72,7 +82,7 @@ function createCluster(ezs, serverPort, serverPath) {
         signals.forEach((signal) => {
             process.on(signal, () => {
                 term = true;
-                Object.keys(cluster.workers).forEach(id => cluster.workers[id].kill());
+                Object.keys(cluster.workers).forEach((id) => cluster.workers[id].kill());
             });
         });
     } else {
