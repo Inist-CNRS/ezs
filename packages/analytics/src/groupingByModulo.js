@@ -10,6 +10,28 @@ const equalTo = (id) => (item) => item.id.some((key) => key === id);
  * Take `Object` like `{ id, value }` and reduce all `value`s with the same
  * modulo computation in a ansingle object
  *
+ * ```json
+ * [{
+ * }]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [use]
+ * plugin = analytics
+ *
+ * [groupingByModulo]
+ *
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [
+ * ]
+ * ```
+ *
  * @name groupingByModulo
  * @param {String} [id=id] path to use for id
  * @param {String} [value=value] path to use for value

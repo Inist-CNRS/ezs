@@ -24,6 +24,28 @@ const equalTo = (id, distance) => (item) => item.id.some((key) => hammingDistanc
  * Take `Object` like `{ id, value }` and reduce all `value` with `id` which
  * have the same Hamming distance in a single object
  *
+ * ```json
+ * [{
+ * }]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [use]
+ * plugin = analytics
+ *
+ * [groupingByHamming]
+ *
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [
+ * ]
+ * ```
+ *
  * @name groupingByHamming
  * @param {String} [id="id"] path to use for id
  * @param {String} [value="value"] path to use for value

@@ -4,6 +4,28 @@ import core from './core';
  * Take `Object` object getting value of fields (with json `path`) and throws an
  * object for each value
  *
+ * ```json
+ * [{
+ * }]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [use]
+ * plugin = analytics
+ *
+ * [pluck]
+ *
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [
+ * ]
+ * ```
+ *
  * @name pluck
  * @param {String} [path=id] path to use form group by
  * @returns {Object}

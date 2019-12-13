@@ -3,6 +3,28 @@ import core from './core';
 /**
  * Take `Object` object getting some fields with json path, and do ...
  *
+ * ```json
+ * [{
+ * }]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [use]
+ * plugin = analytics
+ *
+ * [distinct]
+ *
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [
+ * ]
+ * ```
+ *
  * @name distinct
  * @param {String} [path="id"] path
  * @returns {Object}

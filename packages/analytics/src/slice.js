@@ -2,6 +2,28 @@
  * Take `Object` and throw the same object only if it is in the section of the
  * stream between start and start + size. stream is numbered from 1
  *
+ * ```json
+ * [{
+ * }]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [use]
+ * plugin = analytics
+ *
+ * [drop]
+ *
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [
+ * ]
+ * ```
+ *
  * @name slice
  * @param {Number} [start=0] start of the slice
  * @param {Number} [size=10] size of the slice

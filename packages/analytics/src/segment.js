@@ -6,6 +6,28 @@ import core from './core';
  * Take `Object` object getting some fields with json path, and throw segment of
  * value. Ex: get `[a,b,c]` and throw `[a,b], [b,c]`
  *
+ * ```json
+ * [{
+ * }]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [use]
+ * plugin = analytics
+ *
+ * [segment]
+ *
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [
+ * ]
+ * ```
+ *
  * @name segment
  * @param {String} [path=value] path
  * @param {Boolean} [aggregate=true] aggregate all values for all paths (or not)

@@ -4,6 +4,28 @@ import Store from './store';
 /**
  * Take `Object` group value of `{ id, value }` objectpath
  *
+ * ```json
+ * [{
+ * }]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [use]
+ * plugin = analytics
+ *
+ * [drop]
+ *
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [
+ * ]
+ * ```
+ *
  * @name reducing
  * @param {String} [id=id] path to use for id
  * @param {String} [value=value] path to use for value

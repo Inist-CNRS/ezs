@@ -2,6 +2,28 @@ import core from './core';
 /**
  * Take `Object` and throws all its keys
  *
+ * ```json
+ * [{
+ * }]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [use]
+ * plugin = analytics
+ *
+ * [keys]
+ *
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [
+ * ]
+ * ```
+ *
  * @name keys
  * @param {String} path
  * @returns {Object}

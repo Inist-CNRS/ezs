@@ -5,6 +5,28 @@ import Store from './store';
 /**
  * Take `Object` like { id, value } and throw a serie of number value
  *
+ * ```json
+ * [{
+ * }]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [use]
+ * plugin = analytics
+ *
+ * [distribute]
+ *
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [
+ * ]
+ * ```
+ *
  * @name distribute
  * @param {String} [id="id"] path to use for id
  * @param {String} [value="value"] path to use for value
