@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.0.12...@ezs/basics@1.1.0) (2019-12-13)
+
+
+### Features
+
+* 🎸 new statement ZIPExtract ([75fa47c](https://github.com/Inist-CNRS/ezs/commit/75fa47c317aa9498f248fb096feea1f722728b59))
+
+
+
+
+
 ## [1.0.12](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.0.11...@ezs/basics@1.0.12) (2019-11-28)
 
 **Note:** Version bump only for package @ezs/basics

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.0.10...@ezs/analytics@1.1.0) (2019-12-13)
+
+
+### Features
+
+* 🎸 new statement [multiply] ([145a8ef](https://github.com/Inist-CNRS/ezs/commit/145a8ef6a913c57a11624c308949552d43c3dfb1))
+
+
+
+
+
 ## [1.0.10](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.0.9...@ezs/analytics@1.0.10) (2019-11-28)
 
 

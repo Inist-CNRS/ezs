@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.2.4...@ezs/core@1.3.0) (2019-12-13)
+
+
+### Features
+
+* 🎸 special server route for identifiers ([07e06de](https://github.com/Inist-CNRS/ezs/commit/07e06de4193cf3a4e3c53f0f7c464f4e444bd5bc))
+
+
+
+
+
 ## [1.2.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.2.3...@ezs/core@1.2.4) (2019-11-28)
 
 **Note:** Version bump only for package @ezs/core
