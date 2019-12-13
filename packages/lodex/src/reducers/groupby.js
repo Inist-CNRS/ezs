@@ -29,3 +29,7 @@ module.exports.map = function () {
 module.exports.reduce = function (key, values) {
     return { docs: values };
 };
+
+module.exports.finalize = function finalize(key, value) {
+    return value;
+};

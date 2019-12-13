@@ -36,3 +36,7 @@ module.exports.map = function () {
 module.exports.reduce = function (key, values) {
     return Array.sum(values);
 };
+
+module.exports.finalize = function finalize(key, value) {
+    return value;
+};

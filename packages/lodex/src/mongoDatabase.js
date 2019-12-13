@@ -8,6 +8,7 @@ async function mongoDatabase(connectionStringURI) {
             {
                 useNewUrlParser: true,
                 poolSize: 10,
+                useUnifiedTopology: true,
             },
         );
     }

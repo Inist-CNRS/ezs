@@ -46,3 +46,7 @@ module.exports.reduce = function (key, values) {
     }
     return target;
 };
+
+module.exports.finalize = function finalize(key, value) {
+    return value;
+};
