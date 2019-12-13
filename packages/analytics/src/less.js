@@ -4,6 +4,28 @@ import get from 'lodash.get';
  * Take `Object` and throw the same object only if the value of the selected
  * field is less (or equal) than a value
  *
+ * ```json
+ * [{
+ * }]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [use]
+ * plugin = analytics
+ *
+ * [less]
+ *
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [
+ * ]
+ * ```
+ *
  * @name less
  * @param {String} [path=value] path of the field to compare
  * @param {Number} [than=0] value to compare

@@ -62,3 +62,7 @@ module.exports.finalize = function finalize(key, value) {
     delete value.diff;
     return value;
 };
+
+module.exports.finalize = function finalize(key, value) {
+    return value;
+};

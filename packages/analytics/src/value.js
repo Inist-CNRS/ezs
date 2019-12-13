@@ -3,6 +3,28 @@ import get from 'lodash.get';
 /**
  * Take `Object` object and getting the value field
  *
+ * ```json
+ * [{
+ * }]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [use]
+ * plugin = analytics
+ *
+ * [value]
+ *
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [
+ * ]
+ * ```
+ *
  * @name value
  * @param {String} [path=value] the pah of the value field
  * @returns {Object}

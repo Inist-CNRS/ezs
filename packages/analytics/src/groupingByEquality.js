@@ -7,6 +7,28 @@ const equalTo = (id) => (item) => item.id.some((key) => key === id);
  * Take `Object` like `{ id, value }` and reduce all values with the same `id`
  * in a single object
  *
+ * ```json
+ * [{
+ * }]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [use]
+ * plugin = analytics
+ *
+ * [groupingByEquality]
+ *
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [
+ * ]
+ * ```
+ *
  * @name groupingByEquality
  * @param {String} [id=id] path to use for id
  * @param {String} [value=value] path to use for value

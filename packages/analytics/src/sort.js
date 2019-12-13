@@ -4,6 +4,28 @@ import Store from './store';
 /**
  * Take all `Object` and sort them with dedicated key
  *
+ * ```json
+ * [{
+ * }]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [use]
+ * plugin = analytics
+ *
+ * [sort]
+ *
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [
+ * ]
+ * ```
+ *
  * @name sort
  * @param {String} [path=id] path to use for id
  * @returns {Object}

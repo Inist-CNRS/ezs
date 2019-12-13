@@ -3,6 +3,42 @@ import get from 'lodash.get';
 /**
  * Take `Object` and throw the same object only if there the value of the select field is equals than a value
  *
+ *  * ```json
+ * [
+ *           { id: 2000, value: 1 },
+ *           { id: 2001, value: 2 },
+ *           { id: 2003, value: 3 },
+ *           { id: 2005, value: 4 },
+ *           { id: 2007, value: 5 },
+ *           { id: 2003, value: 3 },
+ *           { id: 2011, value: 7 },
+ *           { id: 2013, value: 8 },
+ * ]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [use]
+ * plugin = analytics
+ *
+ * [filter]
+ * path = id
+ * if = 2003
+ * if = 2013
+ *
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ *  [
+ *           { id: 2003, value: 3 },
+ *           { id: 2003, value: 3 },
+ *           { id: 2013, value: 8 },
+ *  ]
+ * ```
+ *
  * @name filter
  * @param {String} [path="value"] path of the field to compare
  * @param {Number} [if=""] value to compare

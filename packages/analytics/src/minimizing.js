@@ -5,6 +5,28 @@ import core from './core';
  * Take special `Object` like `{id, value}` and replace `value` with the min of
  * `value`s
  *
+ * ```json
+ * [{
+ * }]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [use]
+ * plugin = analytics
+ *
+ * [drop]
+ *
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [
+ * ]
+ * ```
+ *
  * @name minimizing
  * @param {String} [id=id] path to use for id
  * @param {String} [value=value] path to use for value

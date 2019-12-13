@@ -4,6 +4,28 @@ import get from 'lodash.get';
  * Take `Object` and throw the same object only if the value of the selected
  * field is greater (or equal) than a value
  *
+ * ```json
+ * [{
+ * }]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [use]
+ * plugin = analytics
+ *
+ * [greater]
+ *
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [
+ * ]
+ * ```
+ *
  * @name greater
  * @param {String} [path="value"] path of the field to compare
  * @param {Number} [than=0] value to compare

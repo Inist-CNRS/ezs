@@ -16,6 +16,28 @@ function customizer(objValue, srcValue) {
 /**
  * Take special `Object` like `{id, value}` and replace `value` with the merge of `value`s
  *
+ * ```json
+ * [{
+ * }]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [use]
+ * plugin = analytics
+ *
+ * [merging]
+ *
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [
+ * ]
+ * ```
+ *
  * @name merging
  * @param {String} [id=id] path to use for id
  * @param {String} [value=value] path to use for value

@@ -3,6 +3,28 @@ import get from 'lodash.get';
 /**
  * Take `Object` and take values with [value] path (must be an array)
  *
+ * ```json
+ * [{
+ * }]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [use]
+ * plugin = analytics
+ *
+ * [topics]
+ *
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [
+ * ]
+ * ```
+ *
  * @name topics
  * @param {String} [id=id] path to use for id
  * @param {String} [value=value] path to use for value

@@ -27,3 +27,7 @@ module.exports.map = function () {
 module.exports.reduce = function (key, values) {
     return values.reduce(function (a, b) { return a < b ? a : b; });
 };
+
+module.exports.finalize = function finalize(key, value) {
+    return value;
+};

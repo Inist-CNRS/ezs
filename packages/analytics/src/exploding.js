@@ -4,6 +4,28 @@ import core from './core';
  * Take `Object` and take values with [value] path (must be an array)
  * and throw object of each value. The new object is build with [id] and eac value.
  *
+ * ```json
+ * [{
+ * }]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [use]
+ * plugin = analytics
+ *
+ * [exploding]
+ *
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [
+ * ]
+ * ```
+ *
  * @name exploding
  * @param {String} [id="id"] path to use for id
  * @param {String} [value="value"] path to use for value
