@@ -26,6 +26,7 @@ import greater from './greater';
 import less from './less';
 import drop from './drop';
 import filter from './filter';
+import multiply from './mulitply';
 
 export default {
     count,
@@ -56,4 +57,5 @@ export default {
     less,
     drop,
     filter,
+    multiply,
 };

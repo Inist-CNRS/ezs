@@ -957,4 +957,117 @@ describe('test', () => {
                 done();
             });
     });
+
+    it('multiply #1', (done) => {
+        const res = [];
+        from([
+            { a: 2000, b: 1 },
+            { a: 2001, b: 2 },
+            { a: 2013, b: 8 },
+        ])
+            .pipe(ezs('multiply', { path: 'toto.titi', value: ['X', 'Y', 'Z'] }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(9, res.length);
+                assert.equal(2000, res[0].a);
+                assert.equal('X', res[0].toto.titi);
+                assert.equal(2000, res[1].a);
+                assert.equal('Y', res[1].toto.titi);
+                assert.equal(2000, res[2].a);
+                assert.equal('Z', res[2].toto.titi);
+                assert.equal(2013, res[6].a);
+                assert.equal('X', res[6].toto.titi);
+                assert.equal(2013, res[7].a);
+                assert.equal('Y', res[7].toto.titi);
+                assert.equal(2013, res[8].a);
+                assert.equal('Z', res[8].toto.titi);
+                done();
+            });
+    });
+
+    it('multiply #2', (done) => {
+        const res = [];
+        from([
+            { a: 2000, b: 1 },
+            { a: 2001, b: 2 },
+            { a: 2013, b: 8 },
+        ])
+            .pipe(ezs('multiply', { path: 'toto.titi', value: 'X' }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(3, res.length);
+                assert.equal(2000, res[0].a);
+                assert.equal('X', res[0].toto.titi);
+                assert.equal(2013, res[2].a);
+                assert.equal('X', res[2].toto.titi);
+                done();
+            });
+    });
+
+    it('multiply #3', (done) => {
+        const res = [];
+        from([
+            { a: 2000, b: 1 },
+            { a: 2001, b: 2 },
+            { a: 2013, b: 8 },
+        ])
+            .pipe(ezs('multiply', { path: ['toto.titi', 'truc.bidule'], value: 'X' }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(3, res.length);
+                assert.equal(2000, res[0].a);
+                assert.equal('X', res[0].toto.titi);
+                assert.equal(2013, res[2].a);
+                assert.equal('X', res[2].toto.titi);
+                done();
+            });
+    });
+
+    it('multiply #4', (done) => {
+        const res = [];
+        from([
+            { a: 2000, b: 1 },
+            { a: 2001, b: 2 },
+            { a: 2013, b: 8 },
+        ])
+            .pipe(ezs('multiply', { path: 'toto.titi' }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(3, res.length);
+                assert.equal(2000, res[0].a);
+                assert(!res[0].toto);
+                assert.equal(2013, res[2].a);
+                assert(!res[2].toto);
+                done();
+            });
+    });
+
+    it('multiply #5', (done) => {
+        const res = [];
+        from([
+            { a: 2000, b: 1 },
+            { a: 2001, b: 2 },
+            { a: 2013, b: 8 },
+        ])
+            .pipe(ezs('multiply', { path: null }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(3, res.length);
+                assert.equal(2000, res[0].a);
+                assert(!res[0].toto);
+                assert.equal(2013, res[2].a);
+                assert(!res[2].toto);
+                done();
+            });
+    });
 });
