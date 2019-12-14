@@ -61,7 +61,7 @@ describe('distance', () => {
             })
             .on('end', () => {
                 assert.equal(5, res.length);
-                assert.equal(0.5714, res[0].value);
+                assert.equal(0.5714285714285714, res[0].value);
                 assert.equal(1, res[4].value);
                 done();
             });
@@ -91,7 +91,7 @@ describe('distance', () => {
             })
             .on('end', () => {
                 assert.equal(5, res.length);
-                assert.equal(0.1683, res[0].value);
+                assert.equal(0.16825613079019075, res[0].value);
                 assert.equal(1.000, res[3].value);
                 assert.equal(1.000, res[4].value);
                 done();

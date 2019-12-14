@@ -77,7 +77,6 @@ export default function distance(data, feed) {
         feed.close();
         return;
     }
-    const fractionalDigits = Number(this.getParam('digits', 4));
     const idPath = this.getParam('id', 'id');
     let id1;
     let id2;
@@ -109,7 +108,7 @@ export default function distance(data, feed) {
         const value = ((measurement * 200) / (value1.length + value2.length)) / 100;
         const result = {
             id: [id1, id2],
-            value: (1 - value).toFixed(fractionalDigits),
+            value: (1 - value),
         };
         feed.send(result);
         return;
@@ -119,7 +118,7 @@ export default function distance(data, feed) {
         const value = (((1 + measurement) * 200) / (value1 + value2 + 2)) / 100;
         const result = {
             id: [id1, id2],
-            value: value.toFixed(fractionalDigits),
+            value,
         };
         feed.send(result);
         return;
