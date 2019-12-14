@@ -27,6 +27,7 @@ import less from './less';
 import drop from './drop';
 import filter from './filter';
 import multiply from './mulitply';
+import distance from './distance';
 
 export default {
     count,
@@ -58,4 +59,5 @@ export default {
     drop,
     filter,
     multiply,
+    distance,
 };

@@ -67,7 +67,7 @@ export default function multiply(data, feed) {
         feed.send(data);
         return;
     }
-    values.forEach((x) => {
+    values.filter(Boolean).filter((x) => typeof x !== 'function').forEach((x) => {
         feed.write(set(clone(data), key, x));
     });
     feed.end();

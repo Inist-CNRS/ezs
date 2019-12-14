@@ -1,22 +1,7 @@
 import get from 'lodash.get';
 import uniq from 'lodash.uniq';
 import core from './core';
-
-function hammingDistance(x, y) {
-    const len = Math.min(x.length, y.length);
-    const a = x.slice(0, len - 1);
-    const b = y.slice(0, len - 1);
-
-    let distance = 0;
-
-    for (let i = 0; i < a.length; i += 1) {
-        if (a[i] !== b[i]) {
-            distance += 1;
-        }
-    }
-
-    return distance;
-}
+import { hammingDistance } from './algorithms';
 
 const equalTo = (id, distance) => (item) => item.id.some((key) => hammingDistance(key, id) <= distance);
 

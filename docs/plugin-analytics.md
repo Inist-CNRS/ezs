@@ -17,6 +17,7 @@ npm install @ezs/analytics
 #### Table of Contents
 
 -   [count](#count)
+-   [distance](#distance)
 -   [distinct](#distinct)
 -   [distribute](#distribute)
 -   [drop](#drop)
@@ -74,6 +75,80 @@ Output:
 #### Parameters
 
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### distance
+
+To compare 2 fields with 2 id and compute a distance
+
+-   for arrays, the distance is calculated according to the number of element in common
+
+```json
+[{
+           {
+              id_of_a: 1,
+              id_of_b: 2,
+              a: ['x', 'y'],
+              b: ['x', 'z'],
+          },
+          {
+              id_of_a: 1,
+              id_of_b: 3,
+              a: ['x', 'y'],
+              b: ['y', 'z'],
+          },
+          {
+              id_of_a: 1,
+              id_of_b: 4,
+              a: ['x', 'y'],
+              b: ['z'],
+          },
+          {
+              id_of_a: 1,
+              id_of_b: 5,
+              a: ['x', 'y'],
+              b: ['x', 'y', 'z'],
+          },
+          {
+              id_of_a: 1,
+              id_of_b: 6,
+              a: ['x', 'y'],
+              b: ['x', 'y'],
+          },
+}]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[distance]
+id = id_of_a
+id = id_of_b
+value = a
+value = b
+```
+
+Output:
+
+```json
+[
+    { id: [ 1, 2 ], value: 0.5 },
+    { id: [ 1, 3 ], value: 0.5 },
+    { id: [ 1, 4 ], value: 0 },
+    { id: [ 1, 5 ], value: 0.8 },
+    { id: [ 1, 6 ], value: 1 }
+  ]
+
+]
+```
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path (optional, default `value`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -293,6 +368,14 @@ field is greater (or equal) than a value
 
 ```json
 [{
+          { id: 2000, value: 1 },
+          { id: 2001, value: 2 },
+          { id: 2003, value: 3 },
+          { id: 2005, value: 4 },
+          { id: 2007, value: 5 },
+          { id: 2009, value: 6 },
+          { id: 2011, value: 7 },
+          { id: 2013, value: 8 },
 }]
 ```
 
@@ -303,12 +386,19 @@ Script:
 plugin = analytics
 
 [greater]
+than = 3
+strict = true
 ```
 
 Output:
 
 ```json
 [
+          { id: 2005, value: 4 },
+          { id: 2007, value: 5 },
+          { id: 2009, value: 6 },
+          { id: 2011, value: 7 },
+          { id: 2013, value: 8 },
 ]
 ```
 
@@ -747,6 +837,10 @@ Take `Object` group value of `{ id, value }` objectpath
 
 ```json
 [{
+         { id: 'x', value: 2 },
+         { id: 't', value: 2 },
+         { id: 'x', value: 3 },
+         { id: 'x', value: 5 },
 }]
 ```
 
@@ -756,13 +850,15 @@ Script:
 [use]
 plugin = analytics
 
-[drop]
+[reducing]
 ```
 
 Output:
 
 ```json
 [
+         { id: 'x', value: [2, 3, 5] },
+         { id: 't', value: [2] },
 ]
 ```
 
@@ -780,6 +876,42 @@ value. Ex: get `[a,b,c]` and throw `[a,b], [b,c]`
 
 ```json
 [{
+          {
+              id: 'doc#1',
+              value: [
+                   1,
+                   2,
+                  3,
+                   4,
+               ],
+          },
+          {
+              id: 'doc#2',
+              value: [
+                  4,
+                  5,
+                  6,
+              ],
+          },
+          {
+              id: 'doc#3',
+              value: [
+                  6,
+                  7,
+              ]
+          },
+          {
+              id: 'doc#4',
+              value: [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+              ]
+          }
 }]
 ```
 
@@ -790,12 +922,25 @@ Script:
 plugin = analytics
 
 [segment]
+path = value
 ```
 
 Output:
 
 ```json
 [
+  { id: [ 1, 2 ], value: 1 }
+  { id: [ 2, 3 ], value: 1 }
+  { id: [ 3, 4 ], value: 1 }
+  { id: [ 4, 5 ], value: 1 }
+  { id: [ 5, 6 ], value: 1 }
+  { id: [ 6, 7 ], value: 1 }
+  { id: [ 1, 2 ], value: 1 }
+  { id: [ 2, 3 ], value: 1 }
+  { id: [ 3, 4 ], value: 1 }
+  { id: [ 4, 5 ], value: 1 }
+  { id: [ 5, 6 ], value: 1 }
+  { id: [ 6, 7 ], value: 1 }
 ]
 ```
 

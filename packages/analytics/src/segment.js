@@ -8,6 +8,42 @@ import core from './core';
  *
  * ```json
  * [{
+ *           {
+ *               id: 'doc#1',
+ *               value: [
+ *                    1,
+ *                    2,
+ *                   3,
+ *                    4,
+ *                ],
+ *           },
+ *           {
+ *               id: 'doc#2',
+ *               value: [
+ *                   4,
+ *                   5,
+ *                   6,
+ *               ],
+ *           },
+ *           {
+ *               id: 'doc#3',
+ *               value: [
+ *                   6,
+ *                   7,
+ *               ]
+ *           },
+ *           {
+ *               id: 'doc#4',
+ *               value: [
+ *                   1,
+ *                   2,
+ *                   3,
+ *                   4,
+ *                   5,
+ *                   6,
+ *                   7,
+ *               ]
+ *           }
  * }]
  * ```
  *
@@ -18,6 +54,7 @@ import core from './core';
  * plugin = analytics
  *
  * [segment]
+ * path = value
  *
  * ```
  *
@@ -25,6 +62,18 @@ import core from './core';
  *
  * ```json
  * [
+ *   { id: [ 1, 2 ], value: 1 }
+ *   { id: [ 2, 3 ], value: 1 }
+ *   { id: [ 3, 4 ], value: 1 }
+ *   { id: [ 4, 5 ], value: 1 }
+ *   { id: [ 5, 6 ], value: 1 }
+ *   { id: [ 6, 7 ], value: 1 }
+ *   { id: [ 1, 2 ], value: 1 }
+ *   { id: [ 2, 3 ], value: 1 }
+ *   { id: [ 3, 4 ], value: 1 }
+ *   { id: [ 4, 5 ], value: 1 }
+ *   { id: [ 5, 6 ], value: 1 }
+ *   { id: [ 6, 7 ], value: 1 }
  * ]
  * ```
  *
