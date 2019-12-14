@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.1.0...@ezs/analytics@1.2.0) (2019-12-14)
+
+
+### Features
+
+* 🎸 new statement [distance] ([4d6162a](https://github.com/Inist-CNRS/ezs/commit/4d6162a4f5927e3cf582712301a723d019863686))
+
+
+
+
+
 # [1.1.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.0.10...@ezs/analytics@1.1.0) (2019-12-13)
 
 
