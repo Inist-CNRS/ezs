@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.2.0...@ezs/analytics@1.2.1) (2019-12-14)
+
+
+### Bug Fixes
+
+* 🐛 do not convert number to stringx ([aeb1947](https://github.com/Inist-CNRS/ezs/commit/aeb1947e73996edbaf5f5038a41f9e7bc4ee9212))
+
+
+
+
+
 # [1.2.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.1.0...@ezs/analytics@1.2.0) (2019-12-14)
 
 
