@@ -6,6 +6,10 @@ import Store from './store';
  *
  * ```json
  * [{
+ *          { id: 'x', value: 2 },
+ *          { id: 't', value: 2 },
+ *          { id: 'x', value: 3 },
+ *          { id: 'x', value: 5 },
  * }]
  * ```
  *
@@ -15,7 +19,7 @@ import Store from './store';
  * [use]
  * plugin = analytics
  *
- * [drop]
+ * [reducing]
  *
  * ```
  *
@@ -23,6 +27,8 @@ import Store from './store';
  *
  * ```json
  * [
+ *          { id: 'x', value: [2, 3, 5] },
+ *          { id: 't', value: [2] },
  * ]
  * ```
  *
