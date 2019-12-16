@@ -41,6 +41,8 @@ de l'affiliation à aligner sont les suivantes:
         séquence (ex: `GDR2945`, `GDR 2945` ou `GDR mot 2945`),
     -   soit `sigle` est présent,
     -   soit `intitule` est présent.
+-   **et** la structure existait lors de la publication: une des
+    `xPublicationDate` est entre `annee_creation` et l'éventuelle `an_fermeture`.
 
 Sachant qu'on appauvrit (casse, accents, tiret, apostrophe) tous les champs.
 
