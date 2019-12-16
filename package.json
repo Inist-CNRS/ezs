@@ -38,7 +38,7 @@
     "doc": "lerna run doc",
     "lint": "lerna run --no-bail lint",
     "pretest": "npm run bootstrap",
-    "test": "jest",
+    "test": "NODE_ENV=test jest",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "config": {
