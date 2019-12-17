@@ -426,11 +426,9 @@ describe('mongo queries', () => {
                     })
                     .on('end', () => {
                         expect(res).toHaveLength(10);
-                        expect(res[0]).toEqual({
-                            _id: 'ark:/67375/XTP-1JC4F85T-7',
-                            total: 10,
-                            value: 1,
-                        });
+                        expect(res[0].total).toEqual(10);
+                        expect(res[0].value).toEqual(1);
+                        expect(res[0]._id).toMatch(/^ark:\//);
                         done();
                     });
             });
