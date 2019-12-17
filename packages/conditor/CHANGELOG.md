@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@1.8.1...@ezs/conditor@1.9.0) (2019-12-16)
+
+
+### Bug Fixes
+
+* **conditor:** Fix conditorScroll ([ee0c253](https://github.com/Inist-CNRS/ezs/commit/ee0c2536a85f21c0eb642f750efc29475f251abc))
+* **conditor:** Fix headers use ([96664b3](https://github.com/Inist-CNRS/ezs/commit/96664b3da5f474b22f58f5f64efa325ce6a2c325))
+* **conditor:** Fix query in example ([ddab721](https://github.com/Inist-CNRS/ezs/commit/ddab7217c916ff2d3a815b44df32044d7befc7bd))
+
+
+### Features
+
+* **conditor:** Add conditorScroll ([5b4d9a8](https://github.com/Inist-CNRS/ezs/commit/5b4d9a841b8aae8258e414b353009a6e7b4e1903))
+* **conditor:** Add max_page param to conditorScroll ([106c127](https://github.com/Inist-CNRS/ezs/commit/106c127961b302ced208f99df4c22ef06c40d8df))
+* **conditor:** Add optional progress bar to conditorScroll ([cc2d7c9](https://github.com/Inist-CNRS/ezs/commit/cc2d7c97a73cbc379cf76095f87f5f93fa1bcdfd))
+
+
+
+
+
 ## [1.8.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@1.8.0...@ezs/conditor@1.8.1) (2019-12-13)
 
 **Note:** Version bump only for package @ezs/conditor
