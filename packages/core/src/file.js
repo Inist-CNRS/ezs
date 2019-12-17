@@ -10,20 +10,21 @@ function check(name) {
         return null;
     }
 }
-export function useFile(ezs, name) {
-    const plugName1 = check(
-        '@ezs/'.concat(name.replace(/^@ezs\//, '')),
-    );
-    const plugName2 = check(
-        'ezs-'.concat(name.replace(/^ezs-/, '')),
-    );
-    const plugName3 = ezs
-        .getPath()
+function findFileIn(paths, name) {
+    return paths
         .map((dir) => resolve(dir, name))
         .map((fil) => check(fil))
-        .filter((fun) => fun !== null)
+        .filter(Boolean)
         .shift();
-    const plugName4 = check(name);
+}
+export function useFile(ezs, name) {
+    const names = [
+        name,
+        '@ezs/'.concat(name.replace(/^@ezs\//, '')),
+        'ezs-'.concat(name.replace(/^ezs-/, '')),
+    ];
+    const plugName1 = names.map((n) => check(n)).filter(Boolean).shift();
+    const plugName2 = names.map((n) => findFileIn(ezs.getPath(), n)).filter(Boolean).shift();
     if (plugName1) {
         debug('ezs:core:file')(`Using '${name}' from ${plugName1}`);
         return plugName1;
@@ -32,18 +33,8 @@ export function useFile(ezs, name) {
         debug('ezs:core:file')(`Using '${name}' from ${plugName2}`);
         return plugName2;
     }
-    if (plugName3) {
-        debug('ezs:core:file')(`Using '${name}' from ${plugName3}`);
-        return plugName3;
-    }
-    if (plugName4) {
-        debug('ezs:core:file')(`Using '${name}' from ${plugName2}`);
-        return plugName4;
-    }
     debug('ezs:core:file')(`Unable to find '${name}' from ${plugName1}`);
     debug('ezs:core:file')(`Unable to find '${name}' from ${plugName2}`);
-    debug('ezs:core:file')(`Unable to find '${name}' from ${plugName3}`);
-    debug('ezs:core:file')(`Unable to find '${name}' from ${plugName4}`);
     return false;
 }
 
@@ -57,11 +48,13 @@ export function isFile(file) {
 
 export default function File(ezs, name) {
     try {
-        const filename = useFile(ezs, name);
+        const filename = [findFileIn(ezs.getPath(), name), check(name)].filter(Boolean).shift();
         if (!filename) {
+            debug('ezs:core:file')(`Unable to find '${name}' from ${filename}`);
             return false;
         }
         if (!isFile(filename)) {
+            debug('ezs:core:file')(`Invalid file '${name}' from ${filename}`);
             return false;
         }
         ezs.addPath(dirname(filename));
