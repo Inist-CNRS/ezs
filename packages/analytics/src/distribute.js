@@ -41,7 +41,7 @@ export default function distribute(data, feed) {
     const value = get(data, this.getParam('value', 'value'));
 
     if (!this.store) {
-        this.store = new Store('sort');
+        this.store = new Store(this.ezs, 'sort');
         this.max = null;
         this.min = null;
     }

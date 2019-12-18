@@ -58,6 +58,5 @@
     },
     "gitHead": "10c5734b0ad27a7bf8cdd400afde2221b3a7c606",
     "devDependencies": {
-        "@ezs/basics": "1.1.0"
     }
 }
