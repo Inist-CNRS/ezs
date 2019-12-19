@@ -1,6 +1,7 @@
 import { PassThrough } from 'stream';
 import writeTo from 'stream-write';
 import globalModules from 'global-modules';
+import { resolve } from 'path';
 import Engine from './engine';
 import Script from './script';
 import File from './file';
@@ -19,7 +20,7 @@ import {
 
 
 const ezs = (name, options, environment) => new Engine(ezs, Statement.get(ezs, name, options), options, environment);
-const ezsPath = [process.cwd(), globalModules];
+const ezsPath = [resolve(__dirname, '../..'), process.cwd(), globalModules];
 
 ezs.settings = settings;
 ezs.objectMode = () => ({
