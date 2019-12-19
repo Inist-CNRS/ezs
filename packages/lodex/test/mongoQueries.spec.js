@@ -320,15 +320,16 @@ describe('mongo queries', () => {
                 })
                 .on('end', () => {
                     expect(res).toHaveLength(2);
-                    expect(res).toEqual([{
+                    expect(res).toContainEqual({
                         _id: '2018-06-22T09:38:36.468Z',
                         total: 2,
                         value: 5,
-                    }, {
+                    });
+                    expect(res).toContainEqual({
                         _id: '2018-06-22T09:38:36.469Z',
                         total: 2,
                         value: 5,
-                    }]);
+                    });
                     done();
                 });
         });
