@@ -158,6 +158,11 @@ Take `Object` object getting some fields with json path, and do ...
 
 ```json
 [{
+          { a: 'x', b: 'z' },
+          { a: 't', b: 'z' },
+          { a: 't', b: 'z' },
+          { a: 'x', b: 'z' },
+          { a: 'x', b: 'z' },
 }]
 ```
 
@@ -168,12 +173,18 @@ Script:
 plugin = analytics
 
 [distinct]
+path = a
 ```
 
 Output:
 
 ```json
 [
+          { id: 'x', value: 1 },
+          { id: 't', value: 1 },
+          { id: 't', value: 1 },
+          { id: 'x', value: 1 },
+          { id: 'x', value: 1 },
 ]
 ```
 
