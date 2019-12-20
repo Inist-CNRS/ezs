@@ -53,10 +53,6 @@ export default function File(ezs, name) {
             debug('ezs:core:file')(`Unable to find '${name}' from ${filename}`);
             return false;
         }
-        if (!isFile(filename)) {
-            debug('ezs:core:file')(`Invalid file '${name}' from ${filename}`);
-            return false;
-        }
         ezs.addPath(dirname(filename));
         return readFileSync(filename, 'utf8');
     } catch (e) {
