@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.1.0...@ezs/basics@1.1.1) (2019-12-20)
+
+
+### Bug Fixes
+
+* **basics:** 🐛 missing package unzipper ([b04c502](https://github.com/Inist-CNRS/ezs/commit/b04c502982eea3aed745d46154bbe853a2b0c752))
+
+
+
+
+
 # [1.1.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.0.12...@ezs/basics@1.1.0) (2019-12-13)
 
 

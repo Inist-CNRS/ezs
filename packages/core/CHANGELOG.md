@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.3.0...@ezs/core@1.3.1) (2019-12-20)
+
+
+### Bug Fixes
+
+* **core:** 🐛 missing package with Travis ([93e2414](https://github.com/Inist-CNRS/ezs/commit/93e24148a7f921852dda1d2ca88a2db05dc55999))
+
+
+
+
+
 # [1.3.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.2.4...@ezs/core@1.3.0) (2019-12-13)
 
 
