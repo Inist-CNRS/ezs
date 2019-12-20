@@ -1,7 +1,6 @@
 import levelup from 'levelup';
 import leveldown from 'leveldown';
 import tmpFilepath from 'tmp-filepath';
-import ezs from '@ezs/core';
 import core from './core';
 
 const encodeKey = (k) => JSON.stringify(k).split(' ').join('~');
@@ -22,9 +21,10 @@ function decode(data, feed) {
 
 
 export default class Store {
-    constructor(source) {
+    constructor(ezs, source) {
         this.file = tmpFilepath(`.${source}`);
         this.db = levelup(leveldown(this.file));
+        this.ezs = ezs;
     }
 
     get(key) {
@@ -52,7 +52,7 @@ export default class Store {
     cast(opt) {
         return this.db.createReadStream(opt)
             .on('end', () => this.close())
-            .pipe(ezs(decode));
+            .pipe(this.ezs(decode));
     }
 
     close() {

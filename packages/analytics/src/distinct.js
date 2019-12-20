@@ -5,6 +5,11 @@ import core from './core';
  *
  * ```json
  * [{
+ *           { a: 'x', b: 'z' },
+ *           { a: 't', b: 'z' },
+ *           { a: 't', b: 'z' },
+ *           { a: 'x', b: 'z' },
+ *           { a: 'x', b: 'z' },
  * }]
  * ```
  *
@@ -15,6 +20,7 @@ import core from './core';
  * plugin = analytics
  *
  * [distinct]
+ * path = a
  *
  * ```
  *
@@ -22,6 +28,11 @@ import core from './core';
  *
  * ```json
  * [
+ *           { id: 'x', value: 1 },
+ *           { id: 't', value: 1 },
+ *           { id: 't', value: 1 },
+ *           { id: 'x', value: 1 },
+ *           { id: 'x', value: 1 },
  * ]
  * ```
  *

@@ -39,7 +39,7 @@ import Store from './store';
  */
 export default function reducing(data, feed) {
     if (!this.store) {
-        this.store = new Store('reducing');
+        this.store = new Store(this.ezs, 'reducing');
     }
     if (this.isLast()) {
         this.store.cast()

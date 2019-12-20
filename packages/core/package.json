@@ -43,6 +43,7 @@
         "deep-object-diff": "~1.1.0",
         "filename-regex": "~2.0.1",
         "filtrex": "~1.0.0",
+        "global-modules": "~2.0.0",
         "http-shutdown": "~1.2.1",
         "lodash": "~4.17.15",
         "merge2": "~1.2.3",
@@ -56,7 +57,5 @@
         "yargs": "~13.3.0"
     },
     "gitHead": "10c5734b0ad27a7bf8cdd400afde2221b3a7c606",
-    "devDependencies": {
-        "@ezs/basics": "1.1.0"
-    }
+    "devDependencies": {}
 }

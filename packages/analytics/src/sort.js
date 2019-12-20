@@ -32,7 +32,7 @@ import Store from './store';
  */
 export default function sort(data, feed) {
     if (!this.store) {
-        this.store = new Store('sort');
+        this.store = new Store(this.ezs, 'sort');
     }
     if (this.isLast()) {
         const reverse = this.getParam('reverse', false);
@@ -47,7 +47,7 @@ export default function sort(data, feed) {
             .map((key) => get(data, key))
             .map((val) => (typeof val === 'number'
                 ? val.toFixed(20).toString().padStart(40, '0')
-                : String(val).slice(0, 20).padEnd(20, '~')));
+                : String(val).slice(0, 40).padEnd(40, '~')));
 
         const key = fields.length > 1 ? values.join(',') : values[0];
         const idx = this.getIndex().toString().padStart(20, '0');
