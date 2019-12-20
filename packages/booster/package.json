@@ -35,5 +35,6 @@
   },
   "peerDependencies": {
     "@ezs/core": "*"
-  }
+  },
+  "gitHead": "bc1be6636627b450c72d59ec404c43d87d7a42aa"
 }

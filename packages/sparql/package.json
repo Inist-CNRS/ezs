@@ -39,5 +39,6 @@
   "dependencies": {
     "fetch-with-proxy": "1.1.0",
     "isomorphic-fetch": "2.2.1"
-  }
+  },
+  "gitHead": "bc1be6636627b450c72d59ec404c43d87d7a42aa"
 }

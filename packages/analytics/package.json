@@ -47,7 +47,7 @@
   "peerDependencies": {
     "@ezs/core": "*"
   },
-  "gitHead": "5657de2b3756cf343d9d8b7e3ed759ed43868bab",
+  "gitHead": "bc1be6636627b450c72d59ec404c43d87d7a42aa",
   "devDependencies": {
     "@ezs/core": "1.2.2"
   }
