@@ -32,7 +32,7 @@ import Store from './store';
  * @param {String} [value="value"] path to use for value
  * @param {String} [step=1] step between each valut
  * @param {Number} [start=min value in the stream] first value to throw
- * @param {Number} [size=(min value - max value) in the stream] size of the distribution
+ * @param {Number} [size=(max value - min value) in the stream] size of the distribution
  * @param {Number} [default=0] default value for missing object
  * @returns {Object}
  */
