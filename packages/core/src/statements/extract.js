@@ -3,6 +3,39 @@ import _ from 'lodash';
 /**
  * Take `Object` and throw each value of fields
  *
+ * ```json
+ * [{
+ *    a: 'abcdefg',
+ *    b: '1234567',
+ *    c: 'XXXXXXX',
+ * },
+ * {
+ *    a: 'abcdefg',
+ *    b: '1234567',
+ *    c: 'XXXXXXX',
+ * }]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [extract]
+ * path = a
+ * path = b
+ *
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [
+ *    'abcdefg',
+ *    '1234567',
+ *    'abcdefg',
+ *    '1234567',
+ * }]
+ * ```
+ *
  * @name extract
  * @param {String} [path] path of field to extract
  * @returns {Object}

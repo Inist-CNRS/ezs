@@ -1,6 +1,36 @@
 /**
  * Take all `chunk`s, and throw one item for every chunk
  *
+ * ```json
+ * [
+ *      [ 'a', 'b', 'c' ],
+ *      [ 'd', 'e', 'f' ],
+ *      [ 'g', 'h' ],
+ * ]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [ungroup]
+ *
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [
+ *      'a',
+ *      'b',
+ *      'c',
+ *      'd',
+ *      'e',
+ *      'f',
+ *      'g',
+ *      'h',
+ * ]
+ * ```
+ *
  * @name ungroup
  * @returns {String}
  * @see group

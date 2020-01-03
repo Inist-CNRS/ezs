@@ -1,6 +1,33 @@
 /**
  * Take all `String`, concat them and thow just one
  *
+ * ```json
+ * [
+ *      'a',
+ *      'b',
+ *      'c',
+ * ]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [concat]
+ * beginWith = <
+ * joinWith = |
+ * endWith = >
+ *
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [
+ *      '<a|b|c>',
+ * ]
+ * ```
+
+ *
  * @name concat
  * @param {String} [beginWith] Add value at the begin
  * @param {String} [joinWith] use value to join 2 chunk

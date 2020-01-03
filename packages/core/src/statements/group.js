@@ -3,12 +3,44 @@ import settings from '../settings';
 /**
  * Take all `chunk`s, and throw one array of chunks
  *
+ * ```json
+ * [
+ *      'a',
+ *      'b',
+ *      'c',
+ *      'd',
+ *      'e',
+ *      'f',
+ *      'g',
+ *      'h',
+ * ]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [group]
+ * length = 3
+ *
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [
+ *      [ 'a', 'b', 'c' ],
+ *      [ 'd', 'e', 'f' ],
+ *      [ 'g', 'h' ],
+ * ]
+ * ```
+ *
  * @name group
- * @param {Number} [size] Size of each partition
+ * @param {Number} [length] Size of each partition
  * @returns {String}
  */
 export default function group(data, feed) {
-    const size = Number(this.getParam('size', settings.highWaterMark.object));
+    const len = Number(this.getParam('length', settings.highWaterMark.object));
+    const size = Number(this.getParam('size', len));
 
     if (this.isFirst()) {
         this.buffer = [];

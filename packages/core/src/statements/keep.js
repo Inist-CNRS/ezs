@@ -1,7 +1,42 @@
 import _ from 'lodash';
 /**
- * Take `Object` and throw the same object but keep only
- * specific fields
+ * Take `Object` and throw the same object but keep only specific fields
+ * Input file:
+ *
+ * ```json
+ * [{
+ *    a: 'abcdefg',
+ *    b: '1234567',
+ *    c: 'XXXXXXX',
+ * },
+ * {
+ *    a: 'abcdefg',
+ *    b: '1234567',
+ *    c: 'XXXXXXX',
+ * }]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [keep]
+ * path = a
+ * path = b
+ *
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [{
+ *    a: 'abcdefg',
+ *    b: '1234567',
+ * },
+ * {
+ *    a: 'abcdefg',
+ *    b: '1234567',
+ * }]
+ * ```
  *
  * @name keep
  * @param {String} [path] path of field to keep
