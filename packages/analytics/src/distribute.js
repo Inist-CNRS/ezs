@@ -32,7 +32,7 @@ import Store from './store';
  * @param {String} [value="value"] path to use for value
  * @param {String} [step=1] step between each valut
  * @param {Number} [start=min value in the stream] first value to throw
- * @param {Number} [size=(min value - max value) in the stream] size of the distribution
+ * @param {Number} [size=(max value in the stream) - start] size of the distribution
  * @param {Number} [default=0] default value for missing object
  * @returns {Object}
  */
@@ -48,7 +48,7 @@ export default function distribute(data, feed) {
     if (this.isLast()) {
         const start = Number(this.getParam('start', this.min));
         const step = Number(this.getParam('step', 1));
-        const size = Number(this.getParam('size', (this.max - this.min)));
+        const size = Number(this.getParam('size', (this.max - start)));
         const leng = Math.ceil(size / step);
         const stop = start + size;
         const defval = this.getParam('default', 0);

@@ -2,6 +2,8 @@ const assert = require('assert');
 const from = require('from');
 const ezs = require('../../core/src');
 
+const data01 = require('./data01.json');
+
 ezs.use(require('../src'));
 
 describe('test', () => {
@@ -560,6 +562,21 @@ describe('test', () => {
                 assert.equal(2006, res[2].id);
                 assert.equal(2009, res[3].id);
                 assert.equal(2012, res[4].id);
+                done();
+            });
+    });
+
+    it('distribute #5', (done) => {
+        const res = [];
+        from(data01)
+            .pipe(ezs('groupingByModulo', { modulo: 1 }))
+            .pipe(ezs('summing'))
+            .pipe(ezs('distribute', { step: 1, start: 1 }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(10, res.length);
                 done();
             });
     });
