@@ -1,6 +1,6 @@
 {
   "name": "@ezs/storage",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Storage statements for EZS",
   "directories": {
     "test": "test"
@@ -38,7 +38,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "devDependencies": {},
   "peerDependencies": {
     "@ezs/core": "*"
   }

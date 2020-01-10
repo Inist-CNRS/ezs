@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.2.2...@ezs/analytics@1.2.4) (2020-01-10)
+
+
+### Bug Fixes
+
+* 🐛 start parameter should be use to compute the size ([bf87f52](https://github.com/Inist-CNRS/ezs/commit/bf87f525e40206e68e139dc14e964f7a96e18ab6))
+
+
+
+
+
 ## [1.2.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.2.2...@ezs/analytics@1.2.3) (2020-01-10)
 
 

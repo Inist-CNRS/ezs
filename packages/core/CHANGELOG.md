@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.3.1...@ezs/core@1.5.0) (2020-01-10)
+
+
+### Features
+
+* **core:** new statement [ignore] ([0d818b6](https://github.com/Inist-CNRS/ezs/commit/0d818b66caff74e66345cecda739af75e6c0ef7a))
+
+
+
+
+
 # [1.4.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.3.1...@ezs/core@1.4.0) (2020-01-10)
 
 
