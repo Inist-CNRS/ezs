@@ -1,5 +1,46 @@
 /**
  * Takes all the chunks, and closes the feed when the total length is equal to the parameter
+ * Input file:
+ *
+ * ```json
+ * [{
+ *    a: 1,
+ * },
+ * {
+ *    a: 2,
+ * },
+ * {
+ *    a: 3,
+ * },
+ * {
+ *    a: 4,
+ * },
+ * {
+ *    a: 5,
+ * }]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [truncate]
+ * length = 3
+ *
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [{
+ *    a: 1,
+ * },
+ * {
+ *    a: 2,
+ * },
+ * {
+ *    a: 3,
+ * }]
+ * ```
  *
  * @name truncate
  * @param {Number} [length] Length of the feed

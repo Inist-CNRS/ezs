@@ -48,7 +48,7 @@ export default function distribute(data, feed) {
     if (this.isLast()) {
         const start = Number(this.getParam('start', this.min));
         const step = Number(this.getParam('step', 1));
-        const size = Number(this.getParam('size', (this.max - this.min)));
+        const size = Number(this.getParam('size', (this.max - start)));
         const leng = Math.ceil(size / step);
         const stop = start + size;
         const defval = this.getParam('default', 0);

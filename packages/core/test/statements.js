@@ -346,6 +346,44 @@ describe('statements', () => {
             });
     });
 
+    it('ignore#1', (done) => {
+        const res = [];
+        from(['aa', 'bb', 'cc', 'dd', 'ee'])
+            .pipe(ezs('ignore', { length: 5 }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.length, 0);
+                done();
+            });
+    });
+    it('ignore#2', (done) => {
+        const res = [];
+        from(['aa', 'bb', 'cc', 'dd', 'ee'])
+            .pipe(ezs('ignore', { length: 2 }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+        .on('end', () => {
+                assert.equal(res.length, 3);
+                assert.equal(res[0], 'cc');
+                done();
+            });
+    });
+    it('ignore#3', (done) => {
+        const res = [];
+        from(['aa', 'bb', 'cc', 'dd', 'ee'])
+            .pipe(ezs('ignore'))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.length, 5);
+                done();
+            });
+    });
+
     it('dump#1', (done) => {
         const res = [];
         from([

@@ -1,5 +1,34 @@
 /**
  * Take `Object` and throw the same object
+* Input file:
+ *
+ * ```json
+ * [{
+ *    a: 1,
+ * },
+ * {
+ *    a: 2,
+ * }]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [transit]
+ *
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [{
+ *    a: 1,
+ * },
+ * {
+ *    a: 2,
+ * }]
+ * ```
+ *
  *
  * @name transit
  * @returns {Object}

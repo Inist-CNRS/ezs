@@ -2,6 +2,54 @@ import _ from 'lodash';
 
 /**
  * Take `Object` and replace it with a new object with some fields
+ * Input file:
+ *
+ * ```json
+ * [{
+ *    a: 1,
+ * },
+ * {
+ *    a: 2,
+ * },
+ * {
+ *    a: 3,
+ * },
+ * {
+ *    a: 4,
+ * },
+ * {
+ *    a: 5,
+ * }]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [replace]
+ * path = b.c
+ * value = 'X'
+ *
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [{
+ *    b: { c: "X" },
+ * },
+ * {
+ *    b: { c: "X" },
+ * },
+ * {
+ *    b: { c: "X" },
+ * },
+ * {
+ *    b: { c: "X" },
+ * },
+ * {
+ *    b: { c: "X" },
+ * }]
+ * ```
  *
  * @name replace
  * @param {String} [path] path of the new field

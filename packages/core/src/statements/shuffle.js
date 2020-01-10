@@ -13,6 +13,39 @@ function shuf(input) {
 
 /**
  * Take `Object`, shuffle data of the whole object or only some fields specified by path
+ * Input file:
+ *
+ * ```json
+ * [{
+ *    a: 'abcdefg',
+ *    b: '1234567',
+ * },
+ * {
+ *    a: 'abcdefg',
+ *    b: '1234567',
+ * }]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [shuffle]
+ * path = a
+ *
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [{
+ *    a: 'cadbefg',
+ *    b: '1234567',
+ * },
+ * {
+ *    a: 'dcaegbf',
+ *    b: '1234567',
+ * }]
+ * ```
  *
  * @name shuffle
  * @param {String} [path] path of field to shuffle

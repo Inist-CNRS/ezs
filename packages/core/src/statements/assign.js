@@ -2,6 +2,59 @@ import _ from 'lodash';
 
 /**
  * Take `Object` and add new field
+ * Input file:
+ *
+ * ```json
+ * [{
+ *    a: 1,
+ * },
+ * {
+ *    a: 2,
+ * },
+ * {
+ *    a: 3,
+ * },
+ * {
+ *    a: 4,
+ * },
+ * {
+ *    a: 5,
+ * }]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [assign]
+ * path = b.c
+ * value = 'X'
+ *
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [{
+ *    a: 1,
+ *    b: { c: "X" },
+ * },
+ * {
+ *    a: 2,
+ *    b: { c: "X" },
+ * },
+ * {
+ *    a: 3,
+ *    b: { c: "X" },
+ * },
+ * {
+ *    a: 4,
+ *    b: { c: "X" },
+ * },
+ * {
+ *    a: 5,
+ *    b: { c: "X" },
+ * }]
+ * ```
  *
  * @name assign
  * @param {String} [path] path of the new field

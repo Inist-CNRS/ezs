@@ -5,8 +5,8 @@ import shift from './shift';
 import keep from './keep';
 import debug from './debug';
 import concat from './concat';
-import unpack from './unpack'; // unpack
-import pack from './pack'; // pack
+import unpack from './unpack';
+import pack from './pack';
 import transit from './transit';
 import shuffle from './shuffle';
 import env from './env';
@@ -20,6 +20,7 @@ import truncate from './truncate';
 import validate from './validate';
 import dump from './dump';
 import time from './time';
+import ignore from './ignore';
 
 export default {
     extract,
@@ -44,4 +45,5 @@ export default {
     validate,
     dump,
     time,
+    ignore,
 };
