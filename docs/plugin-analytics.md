@@ -225,7 +225,7 @@ Output:
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `"value"`)
 -   `step` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** step between each valut (optional, default `1`)
 -   `start` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** first value to throw (optional, default `minvalueinthestream`)
--   `size` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** size of the distribution (optional, default `(minvalue-maxvalue)inthestream`)
+-   `size` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** size of the distribution (optional, default `(maxvalue-minvalue)inthestream`)
 -   `default` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** default value for missing object (optional, default `0`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 

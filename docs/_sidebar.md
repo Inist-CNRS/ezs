@@ -20,6 +20,7 @@
   - [booster](plugin-booster.md)
   - [lodex](plugin-lodex.md)
   - [conditor](plugin-conditor.md)
+  - [storage](plugin-storage.md)
 
 - Avancé
 
