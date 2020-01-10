@@ -23,6 +23,7 @@ npm install @ezs/core
 -   [env](#env)
 -   [extract](#extract)
 -   [group](#group)
+-   [ignore](#ignore)
 -   [keep](#keep)
 -   [pack](#pack)
 -   [replace](#replace)
@@ -39,6 +40,58 @@ npm install @ezs/core
 ### assign
 
 Take `Object` and add new field
+Input file:
+
+```json
+[{
+   a: 1,
+},
+{
+   a: 2,
+},
+{
+   a: 3,
+},
+{
+   a: 4,
+},
+{
+   a: 5,
+}]
+```
+
+Script:
+
+```ini
+[assign]
+path = b.c
+value = 'X'
+```
+
+Output:
+
+```json
+[{
+   a: 1,
+   b: { c: "X" },
+},
+{
+   a: 2,
+   b: { c: "X" },
+},
+{
+   a: 3,
+   b: { c: "X" },
+},
+{
+   a: 4,
+   b: { c: "X" },
+},
+{
+   a: 5,
+   b: { c: "X" },
+}]
+```
 
 #### Parameters
 
@@ -50,6 +103,31 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 ### concat
 
 Take all `String`, concat them and thow just one
+
+```json
+[
+     'a',
+     'b',
+     'c',
+]
+```
+
+Script:
+
+```ini
+[concat]
+beginWith = <
+joinWith = |
+endWith = >
+```
+
+Output:
+
+```json
+[
+     '<a|b|c>',
+]
+```
 
 #### Parameters
 
@@ -122,6 +200,38 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Take `Object` and throw each value of fields
 
+```json
+[{
+   a: 'abcdefg',
+   b: '1234567',
+   c: 'XXXXXXX',
+},
+{
+   a: 'abcdefg',
+   b: '1234567',
+   c: 'XXXXXXX',
+}]
+```
+
+Script:
+
+```ini
+[extract]
+path = a
+path = b
+```
+
+Output:
+
+```json
+[
+   'abcdefg',
+   '1234567',
+   'abcdefg',
+   '1234567',
+}]
+```
+
 #### Parameters
 
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to extract
@@ -132,16 +242,127 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Take all `chunk`s, and throw one array of chunks
 
+```json
+[
+     'a',
+     'b',
+     'c',
+     'd',
+     'e',
+     'f',
+     'g',
+     'h',
+]
+```
+
+Script:
+
+```ini
+[group]
+length = 3
+```
+
+Output:
+
+```json
+[
+     [ 'a', 'b', 'c' ],
+     [ 'd', 'e', 'f' ],
+     [ 'g', 'h' ],
+]
+```
+
 #### Parameters
 
--   `size` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Size of each partition
+-   `length` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Size of each partition
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
+### ignore
+
+Takes all the chunks, and ignore the firtst N chunk
+Input file:
+
+```json
+[{
+   a: 1,
+},
+{
+   a: 2,
+},
+{
+   a: 3,
+},
+{
+   a: 4,
+},
+{
+   a: 5,
+}]
+```
+
+Script:
+
+```ini
+[ignore]
+length = 3
+```
+
+Output:
+
+```json
+[{
+   a: 4,
+},
+{
+   a: 5,
+}]
+```
+
+#### Parameters
+
+-   `length` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Length of the feed
+
+Returns **any** 
+
 ### keep
 
-Take `Object` and throw the same object but keep only
-specific fields
+Take `Object` and throw the same object but keep only specific fields
+Input file:
+
+```json
+[{
+   a: 'abcdefg',
+   b: '1234567',
+   c: 'XXXXXXX',
+},
+{
+   a: 'abcdefg',
+   b: '1234567',
+   c: 'XXXXXXX',
+}]
+```
+
+Script:
+
+```ini
+[keep]
+path = a
+path = b
+```
+
+Output:
+
+```json
+[{
+   a: 'abcdefg',
+   b: '1234567',
+},
+{
+   a: 'abcdefg',
+   b: '1234567',
+}]
+```
 
 #### Parameters
 
@@ -158,6 +379,53 @@ Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 ### replace
 
 Take `Object` and replace it with a new object with some fields
+Input file:
+
+```json
+[{
+   a: 1,
+},
+{
+   a: 2,
+},
+{
+   a: 3,
+},
+{
+   a: 4,
+},
+{
+   a: 5,
+}]
+```
+
+Script:
+
+```ini
+[replace]
+path = b.c
+value = 'X'
+```
+
+Output:
+
+```json
+[{
+   b: { c: "X" },
+},
+{
+   b: { c: "X" },
+},
+{
+   b: { c: "X" },
+},
+{
+   b: { c: "X" },
+},
+{
+   b: { c: "X" },
+}]
+```
 
 #### Parameters
 
@@ -169,12 +437,77 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 ### shift
 
 Return the first `Object` and close the feed
+Input file:
+
+```json
+[{
+   a: 1,
+},
+{
+   a: 2,
+},
+{
+   a: 3,
+},
+{
+   a: 4,
+},
+{
+   a: 5,
+}]
+```
+
+Script:
+
+```ini
+[shift]
+```
+
+Output:
+
+```json
+[{
+   a: 1,
+}]
+```
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### shuffle
 
 Take `Object`, shuffle data of the whole object or only some fields specified by path
+Input file:
+
+```json
+[{
+   a: 'abcdefg',
+   b: '1234567',
+},
+{
+   a: 'abcdefg',
+   b: '1234567',
+}]
+```
+
+Script:
+
+```ini
+[shuffle]
+path = a
+```
+
+Output:
+
+```json
+[{
+   a: 'cadbefg',
+   b: '1234567',
+},
+{
+   a: 'dcaegbf',
+   b: '1234567',
+}]
+```
 
 #### Parameters
 
@@ -238,12 +571,79 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 ### transit
 
 Take `Object` and throw the same object
+Input file:
+
+```json
+[{
+   a: 1,
+},
+{
+   a: 2,
+}]
+```
+
+Script:
+
+```ini
+[transit]
+```
+
+Output:
+
+```json
+[{
+   a: 1,
+},
+{
+   a: 2,
+}]
+```
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### truncate
 
 Takes all the chunks, and closes the feed when the total length is equal to the parameter
+Input file:
+
+```json
+[{
+   a: 1,
+},
+{
+   a: 2,
+},
+{
+   a: 3,
+},
+{
+   a: 4,
+},
+{
+   a: 5,
+}]
+```
+
+Script:
+
+```ini
+[truncate]
+length = 3
+```
+
+Output:
+
+```json
+[{
+   a: 1,
+},
+{
+   a: 2,
+},
+{
+   a: 3,
+}]
+```
 
 #### Parameters
 
@@ -256,6 +656,35 @@ Returns **any**
 -   **See: group**
 
 Take all `chunk`s, and throw one item for every chunk
+
+```json
+[
+     [ 'a', 'b', 'c' ],
+     [ 'd', 'e', 'f' ],
+     [ 'g', 'h' ],
+]
+```
+
+Script:
+
+```ini
+[ungroup]
+```
+
+Output:
+
+```json
+[
+     'a',
+     'b',
+     'c',
+     'd',
+     'e',
+     'f',
+     'g',
+     'h',
+]
+```
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
