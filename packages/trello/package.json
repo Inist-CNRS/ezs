@@ -1,0 +1,36 @@
+{
+    "name": "@ezs/trello",
+    "version": "0.0.0",
+    "description": "EZS statements for Trello API",
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Inist-CNRS/ezs.git"
+    },
+    "keywords": [
+        "ezs"
+    ],
+    "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Inist-CNRS/ezs/issues"
+    },
+    "homepage": "https://github.com/Inist-CNRS/ezs#readme",
+    "dependencies": {
+        "trello": "^0.10.0"
+    },
+    "main": "./lib/index.js",
+    "scripts": {
+        "doc": "documentation readme src/* --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-trello.md --section=usage  && cp ../../docs/plugin-trello.md ./README.md",
+        "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
+        "build": "babel --root-mode upward src --out-dir lib",
+        "prepublish": "npm run build",
+        "pretest": "npm run build",
+        "preversion": "npm run doc"
+    },
+    "peerDependencies": {
+        "ezs": "*"
+    }
+}
