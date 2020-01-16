@@ -3,7 +3,50 @@ import _ from 'lodash';
 import Validator from 'validatorjs';
 
 /**
- * Take `Object` and throw the same object if all rules pass
+ * From a `Object`, throw the same object if all rules pass
+ *
+ * Input file:
+ *
+ * ```json
+ * [{
+ *    a: 1,
+ *    b: 'titi',
+ * },
+ * {
+ *    a: 2,
+ *    b: 'toto',
+ * },
+ * {
+ *    a: false,
+ * },
+ * ]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [validate]
+ * path = a
+ * rule = required|number
+ *
+ * path = a
+ * rule = required|string
+ *
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [{
+ *    a: 1,
+ *    b: 'titi',
+ * },
+ * {
+ *    a: 2,
+ *    b: 'toto',
+ * },
+ * }]
+ * ```
  *
  * @name validate
  * @param {String} [path] path of the field
