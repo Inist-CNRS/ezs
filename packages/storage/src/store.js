@@ -5,8 +5,8 @@ import pathExists from 'path-exists';
 import makeDir from 'make-dir';
 import { promises as fsp } from 'fs';
 
+const EZS_STORAGE_PATH = process.env.EZS_STORAGE_PATH || tmpdir();
 const encodeKey = (k) => k;
-
 const encodeValue = (v) => JSON.stringify(v);
 const decodeValue = (v) => JSON.parse(String(v));
 
@@ -52,7 +52,7 @@ export default async function factory(ezs, location) {
     if (!location) {
         return Promise.reject(new Error('Invalid location: undefined'));
     }
-    const fullpath = path.resolve(tmpdir(), `store_${location}`);
+    const fullpath = path.resolve(EZS_STORAGE_PATH, `store_${location}`);
     const check = await pathExists(fullpath);
 
     if (!handle[fullpath] || check !== true) {

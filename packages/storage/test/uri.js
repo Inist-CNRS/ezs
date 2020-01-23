@@ -30,6 +30,9 @@ describe('isURI', () => {
     test('with uri', () => {
         expect(isURI('uid:/XXX')).toBe(true);
     });
+    test('with ark', () => {
+        expect(isURI('ark:/67375/6H6-05FM5LNG-3')).toBe(true);
+    });
 });
 
 describe('ncda', () => {
@@ -148,10 +151,17 @@ describe('parseURI', () => {
         expect(identifier).toBe('VfSynF4z');
         expect(batch).toBe('123');
     });
-    test('with ark', () => {
+    test('with ark #1', () => {
         const { batch, identifier, checksum } = parseURI('ark:/12345/123-VfSynF4z-i');
         expect(checksum).toBe('i');
         expect(identifier).toBe('VfSynF4z');
         expect(batch).toBe('123');
+    });
+
+    test('with ark #2', () => {
+        const { batch, identifier, checksum } = parseURI('ark:/67375/6H6-N2DZ9KRM-5');
+        expect(checksum).toBe('5');
+        expect(identifier).toBe('N2DZ9KRM');
+        expect(batch).toBe('6H6');
     });
 });

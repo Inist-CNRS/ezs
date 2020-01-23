@@ -1,28 +1,28 @@
+import get from 'lodash.get';
+import set from 'lodash.set';
 import generate from 'nanoid/async/generate';
 import nolookalikes from 'nanoid-dictionary/nolookalikes';
 import { isURI, checkdigit } from './uri';
 
 /**
- * Take `Object`, and compute & add a URI
+ * Take `Object`, and compute & add a identifier
  *
- * @param {String} [batch = auto] batch ID (3 characters) (same for all objects)
+ * @param {String} [scheme = uid] scheme prefix
+ * @param {String} [path = uri] path containing the object Identifier
  * @returns {String}
  */
 export default async function identify(data, feed) {
-    const batchName = this.getParam('batch', '');
-    const batchNames = Array.isArray(batchName) ? batchName : [batchName];
-    const batchid = String(batchNames.shift()).split('');
+    const scheme = this.getParam('scheme', 'uid');
+    const pathName = this.getParam('path', 'uri');
+    const path = Array.isArray(pathName) ? pathName.shift() : pathName;
+    const uri = get(data, path);
     if (this.isLast()) {
         return feed.close();
     }
-    if (!this.prefix) {
-        this.prefix = await generate(nolookalikes, 3);
-    }
-    if (!isURI(data.uri)) {
-        const batch = this.prefix.split('').map((x, i) => (batchid[i] || x)).join('');
+    if (!isURI(uri)) {
         const identifier = await generate(nolookalikes, 8);
-        const checksum = checkdigit(batch + identifier);
-        data.uri = `uid:/${batch}-${identifier}-${checksum}`;
+        const checksum = checkdigit(identifier);
+        set(data, path, `${scheme}:/${identifier}${checksum}`);
     }
     return feed.send(data);
 }

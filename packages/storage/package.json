@@ -21,6 +21,7 @@
   "dependencies": {
     "leveldown": "^5.4.1",
     "levelup": "^4.3.2",
+    "lodash.get": "^4.4.2",
     "make-dir": "^3.0.0",
     "nanoid": "^2.1.8",
     "nanoid-dictionary": "^2.0.0",
