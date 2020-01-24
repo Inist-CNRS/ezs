@@ -13,6 +13,7 @@ const settings = {
     nShards: Number(process.env.EZS_NSHARDS || cpus),
     encoding: String(process.env.EZS_ENCODING || 'gzip'),
     port: Number(process.env.EZS_PORT || 31976),
+    server: process.env.EZS_SERVER ? String(process.env.EZS_SERVER).split(',').map((h) => h.trim()) : null,
 };
 
 export default settings;

@@ -82,11 +82,39 @@ describe('save', () => {
     });
 });
 describe('load', () => {
-    it('with uid', (done) => {
+    it('with uid & batchID', (done) => {
         const input = [...identifiers];
         const output = [];
         from(input)
             .pipe(ezs('load', { batch: 'test' }))
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                expect(output.length).toEqual(6);
+                expect(output[0]).toEqual(data[0]);
+                done();
+            });
+    });
+    it('with uid & all batches', (done) => {
+        const input = [...identifiers];
+        const output = [];
+        from(input)
+            .pipe(ezs('load', { batch: 'te*' }))
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                expect(output.length).toEqual(6);
+                expect(output[0]).toEqual(data[0]);
+                done();
+            });
+    });
+    it('with uid & selected batches', (done) => {
+        const input = [...identifiers];
+        const output = [];
+        from(input)
+            .pipe(ezs('load', { batch: 'tes?' }))
             .on('data', (chunk) => {
                 output.push(chunk);
             })

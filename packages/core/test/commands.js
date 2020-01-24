@@ -11,7 +11,7 @@ describe('analsye commands', () => {
             [increment]
             step = 1
 
-            [increment?single]
+            [increment?unique]
             step = 2
 
             [increment?detachable]

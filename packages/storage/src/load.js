@@ -1,4 +1,4 @@
-import store from './store';
+import store, { batchCheck } from './store';
 import { isURI } from './uri';
 
 /**
@@ -11,13 +11,13 @@ export default async function load(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
-    const batchName = this.getParam('batch', 'ezs');
-    const batch = Array.isArray(batchName) ? batchName.shift() : batchName;
-
     if (!isURI(data)) {
         return feed.end();
     }
-    return store(this.ezs, batch)
+    const batchName = this.getParam('batch', 'ezs');
+    const batches = await batchCheck(batchName);
+    const promises = batches.map((batch) => store(this.ezs, batch));
+    return Promise.race(promises)
         .then((handle) => handle.get(data))
         .then((value) => feed.send(value))
         .catch(() => feed.end());

@@ -33,3 +33,22 @@ export default async function save(data, feed) {
         .then(() => feed.send(uri))
         .catch((e) => feed.stop(e));
 }
+/*
+ *    const batchName = this.getParam('batch', 'ezs');
+    const batches = await batchCheck(batchName);
+    if (!isURI(uri)) {
+        return feed.end();
+    }
+    if (this.isFirst() && reset === true) {
+        const handles = batches.map((batch) => store(this.ezs, batch));
+        await Promise.all(handles)
+            .then((hdl) => hdl.map((st) => st.reset()));
+    }
+    const handles = batches.map((batch) => store(this.ezs, batch));
+    const saves = Promise.all(handles)
+        .then((hdl) => hdl.map((h) => h.set(uri, data)))
+        .catch((e) => feed.stop(e));
+    return Promise.all(saves)
+        .then(() => feed.send(uri))
+        .catch((e) => feed.stop(e));
+        */

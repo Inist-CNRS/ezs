@@ -1,9 +1,14 @@
 import _ from 'lodash';
 import { PassThrough } from 'stream';
+import { server } from '../settings';
+import { parseCommand } from '../script';
 
 const dispositionFrom = ({ extension }) => (extension ? `dump.${extension}` : extension);
 const encodingFrom = (headers) => (headers && headers['content-encoding'] ? headers['content-encoding'] : false);
 const typeFrom = ({ mimeType }) => mimeType;
+const onlyOne = (item) => (Array.isArray(item) ? item.shift() : item);
+const prependCommand = ({ prepend }) => parseCommand(onlyOne(prepend));
+const appendCommand = ({ append }) => parseCommand(onlyOne(append));
 
 function executePipeline(ezs, files, headers, query, triggerError, read, response) {
     const meta = files.map((file) => ezs.metaFile(file)).reduce((prev, cur) => _.merge(cur, prev), {});
@@ -11,6 +16,8 @@ function executePipeline(ezs, files, headers, query, triggerError, read, respons
     response.setHeader('Content-Encoding', encodingFrom(headers) || 'identity');
     response.setHeader('Content-Disposition', dispositionFrom(meta) || 'inline');
     response.setHeader('Content-Type', typeFrom(meta) || 'application/octet-stream');
+    const prepend2Pipeline = prependCommand(meta);
+    const append2Pipeline = appendCommand(meta);
 
     const input = new PassThrough();
     const createInput = (firstChunk) => {
@@ -51,7 +58,14 @@ function executePipeline(ezs, files, headers, query, triggerError, read, respons
             return false;
         }
         const inputBis = createInput(firstChunk);
-        ezs.createPipeline(inputBis, files.map((file) => ezs('delegate', { file }, query)))
+        const statements = files.map((file) => ezs('delegate', { file, server }, query));
+        if (prepend2Pipeline) {
+            statements.unshift(ezs.createCommand(prepend2Pipeline, query));
+        }
+        if (append2Pipeline) {
+            statements.push(ezs.createCommand(append2Pipeline, query));
+        }
+        ezs.createPipeline(inputBis, statements)
             .pipe(ezs.catch((e) => e))
             .on('error', triggerError)
             .pipe(ezs((data, feed) => {

@@ -3,6 +3,7 @@ import cacache from 'cacache';
 import { tmpdir } from 'os';
 import pathExists from 'path-exists';
 import makeDir from 'make-dir';
+import mm from 'micromatch';
 import { promises as fsp } from 'fs';
 
 const EZS_STORAGE_PATH = process.env.EZS_STORAGE_PATH || tmpdir();
@@ -17,6 +18,20 @@ function readContent(data, feed) {
     fsp.readFile(data.path)
         .then((content) => feed.send(decodeValue(content)))
         .catch((e) => feed.stop(e));
+}
+
+export const batchList = () => fsp.readdir(EZS_STORAGE_PATH).then(
+    (files) => files.filter((file) => (file.indexOf('store_') === 0)).map((file) => file.substring(6)),
+);
+export async function batchCheck(batch) {
+    const existingBatchs = await batchList();
+    const batchs = Array.isArray(batch) ? [batch] : batch;
+
+    const matches = mm(existingBatchs, batchs);
+    if (matches.length === 0 && batch.match(/\w+/)) {
+        return [batch];
+    }
+    return matches;
 }
 
 export class Store {
