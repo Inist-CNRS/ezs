@@ -70,7 +70,7 @@ describe('save', () => {
         const input = [...data];
         from(input)
             .pipe(ezs('identify'))
-            .pipe(ezs('save', { batch: 'test', reset: true }))
+            .pipe(ezs('save', { domain: 'test', reset: true }))
             .on('data', (chunk) => {
                 identifiers.push(chunk);
             })
@@ -82,11 +82,11 @@ describe('save', () => {
     });
 });
 describe('load', () => {
-    it('with uid & batchID', (done) => {
+    it('with uid & domainID', (done) => {
         const input = [...identifiers];
         const output = [];
         from(input)
-            .pipe(ezs('load', { batch: 'test' }))
+            .pipe(ezs('load', { domain: 'test' }))
             .on('data', (chunk) => {
                 output.push(chunk);
             })
@@ -96,11 +96,11 @@ describe('load', () => {
                 done();
             });
     });
-    it('with uid & all batches', (done) => {
+    it('with uid & all domaines', (done) => {
         const input = [...identifiers];
         const output = [];
         from(input)
-            .pipe(ezs('load', { batch: 'te*' }))
+            .pipe(ezs('load', { domain: 'test' }))
             .on('data', (chunk) => {
                 output.push(chunk);
             })
@@ -110,11 +110,11 @@ describe('load', () => {
                 done();
             });
     });
-    it('with uid & selected batches', (done) => {
+    it('with uid & selected domaines', (done) => {
         const input = [...identifiers];
         const output = [];
         from(input)
-            .pipe(ezs('load', { batch: 'tes?' }))
+            .pipe(ezs('load', { domain: 'test' }))
             .on('data', (chunk) => {
                 output.push(chunk);
             })
@@ -130,7 +130,7 @@ describe('flow', () => {
         const input = [{ }];
         const output = [];
         from(input)
-            .pipe(ezs('flow', { batch: 'test' }))
+            .pipe(ezs('flow', { domain: 'test' }))
             .on('data', (chunk) => {
                 output.push(chunk);
             })
@@ -144,7 +144,7 @@ describe('flow', () => {
         const input = [{ }];
         const output = [];
         from(input)
-            .pipe(ezs('flow', { batch: 'ezs', length: 2 }))
+            .pipe(ezs('flow', { domain: 'test', length: 2 }))
             .on('data', (chunk) => {
                 output.push(chunk);
             })

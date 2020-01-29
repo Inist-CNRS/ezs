@@ -20,54 +20,54 @@ function readContent(data, feed) {
         .catch((e) => feed.stop(e));
 }
 
-export const batchList = () => fsp.readdir(EZS_STORAGE_PATH).then(
+export const domainList = () => fsp.readdir(EZS_STORAGE_PATH).then(
     (files) => files.filter((file) => (file.indexOf('store_') === 0)).map((file) => file.substring(6)),
 );
-export async function batchCheck(batch) {
-    const existingBatchs = await batchList();
-    const batchs = Array.isArray(batch) ? [batch] : batch;
+export async function domainCheck(domain) {
+    const existingdomains = await domainList();
+    const domains = Array.isArray(domain) ? [domain] : domain;
 
-    const matches = mm(existingBatchs, batchs);
-    if (matches.length === 0 && batch.match(/\w+/)) {
-        return [batch];
+    const matches = mm(existingdomains, domains);
+    if (matches.length === 0 && domain.match(/\w+/)) {
+        return [domain];
     }
     return matches;
 }
 
 export class Store {
-    constructor(ezs, location) {
-        this.location = location;
+    constructor(ezs, domain) {
+        this.domain = domain;
         this.ezs = ezs;
     }
 
     get(key) {
-        return cacache.get(this.location, encodeKey(key)).then(({ data }) => Promise.resolve(decodeValue(data)));
+        return cacache.get(this.domain, encodeKey(key)).then(({ data }) => Promise.resolve(decodeValue(data)));
     }
 
     set(key, value) {
-        return cacache.put(this.location,
+        return cacache.put(this.domain,
             encodeKey(key),
             encodeValue(value));
     }
 
     all(length) {
-        const { ezs, location } = this;
-        return cacache.ls.stream(location)
+        const { ezs, domain } = this;
+        return cacache.ls.stream(domain)
             .pipe(ezs(readContent))
             .pipe(ezs('truncate', { length }));
     }
 
     reset() {
-        return cacache.rm.all(this.location);
+        return cacache.rm.all(this.domain);
     }
 }
 
 const handle = {};
-export default async function factory(ezs, location) {
-    if (!location) {
-        return Promise.reject(new Error('Invalid location: undefined'));
+export default async function factory(ezs, domain) {
+    if (!domain) {
+        return Promise.reject(new Error('Invalid domain: undefined'));
     }
-    const fullpath = path.resolve(EZS_STORAGE_PATH, `store_${location}`);
+    const fullpath = path.resolve(EZS_STORAGE_PATH, `store_${domain}`);
     const check = await pathExists(fullpath);
 
     if (!handle[fullpath] || check !== true) {

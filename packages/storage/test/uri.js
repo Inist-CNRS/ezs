@@ -151,23 +151,23 @@ describe('parseURI', () => {
         }).toThrow();
     });
     test('with uri', () => {
-        const { batch, identifier, checksum } = parseURI('uid:/123-VfSynF4z-i');
+        const { domain, identifier, checksum } = parseURI('uid:/123-VfSynF4z-i');
         expect(checksum).toBe('i');
         expect(identifier).toBe('VfSynF4z');
-        expect(batch).toBe('123');
+        expect(domain).toBe('123');
     });
     test.skip('with ark #1', () => {
-        const { batch, identifier, checksum } = parseURI('ark:/12345/123-VfSynF4z-i');
+        const { domain, identifier, checksum } = parseURI('ark:/12345/123-VfSynF4z-i');
         expect(checksum).toBe('i');
         expect(identifier).toBe('VfSynF4z');
-        expect(batch).toBe('123');
+        expect(domain).toBe('123');
     });
 
     test.skip('with ark #2', () => {
-        const { batch, identifier, checksum } = parseURI('ark:/67375/6H6-N2DZ9KRM-5');
+        const { domain, identifier, checksum } = parseURI('ark:/67375/6H6-N2DZ9KRM-5');
         expect(checksum).toBe('5');
         expect(identifier).toBe('N2DZ9KRM');
-        expect(batch).toBe('6H6');
+        expect(domain).toBe('6H6');
     });
 });
 
@@ -207,5 +207,4 @@ describe('uri2url', () => {
                 done();
             });
     });
-
 });

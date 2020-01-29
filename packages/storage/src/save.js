@@ -6,7 +6,7 @@ import { isURI } from './uri';
  * Take `Object`, to save it into a store and throw an URL
  *
  * @param {String} [path=uri] path containing the object Identifier
- * @param {String} [batch=ezs] batch ID (same for all objects)
+ * @param {String} [domain=ezs] domain ID (same for all objects)
  * @param {Boolean} [reset=false] if the store already exists, you will erase all previous content
  * @returns {Object}
  */
@@ -18,33 +18,33 @@ export default async function save(data, feed) {
     const pathName = this.getParam('path', 'uri');
     const path = Array.isArray(pathName) ? pathName.shift() : pathName;
     const uri = get(data, path);
-    const batchName = this.getParam('batch', 'ezs');
-    const batch = Array.isArray(batchName) ? batchName.shift() : batchName;
+    const domainName = this.getParam('domain', 'ezs');
+    const domain = Array.isArray(domainName) ? domainName.shift() : domainName;
 
     if (!isURI(uri)) {
         return feed.end();
     }
     if (this.isFirst() && reset === true) {
-        const st = await store(this.ezs, batch);
-        await st.reset(batch);
+        const st = await store(this.ezs, domain);
+        await st.reset(domain);
     }
-    return store(this.ezs, batch)
+    return store(this.ezs, domain)
         .then((handle) => handle.set(uri, data))
         .then(() => feed.send(uri))
         .catch((e) => feed.stop(e));
 }
 /*
- *    const batchName = this.getParam('batch', 'ezs');
-    const batches = await batchCheck(batchName);
+ *    const domainName = this.getParam('domain', 'ezs');
+    const domaines = await domainCheck(domainName);
     if (!isURI(uri)) {
         return feed.end();
     }
     if (this.isFirst() && reset === true) {
-        const handles = batches.map((batch) => store(this.ezs, batch));
+        const handles = domaines.map((domain) => store(this.ezs, domain));
         await Promise.all(handles)
             .then((hdl) => hdl.map((st) => st.reset()));
     }
-    const handles = batches.map((batch) => store(this.ezs, batch));
+    const handles = domaines.map((domain) => store(this.ezs, domain));
     const saves = Promise.all(handles)
         .then((hdl) => hdl.map((h) => h.set(uri, data)))
         .catch((e) => feed.stop(e));

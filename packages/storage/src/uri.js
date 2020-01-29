@@ -50,15 +50,15 @@ export function parseURI(input) {
     if (!parsedURI) {
         throw new Error(`Parse URI failed. Invalid syntax for scheme (${input})`);
     }
-    const [, batch, identifier, checksum] = parsedURI;
-    const check = checkdigit(batch + identifier);
+    const [, domain, identifier, checksum] = parsedURI;
+    const check = checkdigit(domain + identifier);
 
     if (check !== checksum) {
         throw new Error(`Parse URI failed. Invalid checksum (${checksum})`);
     }
     return {
         scheme,
-        batch,
+        domain,
         identifier,
         checksum,
     };
