@@ -1,9 +1,18 @@
 import debug from 'debug';
 import queue from 'concurrent-queue';
+import { hrtime } from 'process';
 import Feed from './feed';
 import Shell from './shell';
 
 import SafeTransform from './SafeTransform';
+
+const nanoZero = () => BigInt(0);
+const nano2sec = (ns) => {
+    const sec = ns / BigInt(1e9);
+    const msec = (ns / BigInt(1e6)) - (sec * BigInt(1e3));
+    const time = Number(sec) + (Number(msec) / 10000);
+    return Number(time).toFixed(4);
+};
 
 function createErrorWith(error = {}, index = 0, funcName = null) {
     const stk = String(error.stack).split('\n');
@@ -22,6 +31,7 @@ export default class Engine extends SafeTransform {
         this.func = func;
         this.funcName = String(func.name);
         this.index = 0;
+        this.ttime = nanoZero();
         this.params = params || {};
         this.scope = {};
         this.ezs = ezs;
@@ -36,21 +46,31 @@ export default class Engine extends SafeTransform {
     }
 
     _transform(chunk, encoding, done) {
+        const start = hrtime.bigint();
+        const next = () => {
+            if (debug.enabled('ezs')) {
+                this.ttime += (hrtime.bigint() - start);
+            }
+            done();
+        };
         if (this.nullWasSent) {
             if (this.parentStream && this.parentStream.unpipe) {
                 this.parentStream.unpipe(this);
             }
-            return done();
+            return next();
         }
         this.index += 1;
         if (chunk instanceof Error) {
             this.push(chunk);
-            return done();
+            return next();
         }
-        return this.queue(chunk, done);
+        return this.queue(chunk, next);
     }
 
     _flush(done) {
+        if (debug.enabled('ezs')) {
+            debug('ezs')(`${nano2sec(this.ttime)}s elapsed for [${this.funcName || 'unamed'}] `);
+        }
         if (this.nullWasSent) {
             return done();
         }
