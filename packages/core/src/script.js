@@ -21,7 +21,7 @@ export const parseCommand = (cmdline) => {
     if (!cmdline) {
         return cmdline;
     }
-    const matches1 = cmdline.match(/([:\w]+)\?(\w+)/);
+    const matches1 = cmdline.match(/([:\w]+)\?(.*)/);
     let args = {};
     let mode = M_NORMAL;
     let name = 'debug';
