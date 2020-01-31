@@ -2,8 +2,9 @@ import { PassThrough } from 'stream';
 import writeTo from 'stream-write';
 import globalModules from 'global-modules';
 import { resolve } from 'path';
+import LRU from 'lru-cache';
 import Engine from './engine';
-import Script from './script';
+import Script, { parseCommand } from './script';
 import File from './file';
 import Output from './output';
 import Commands from './commands';
@@ -21,7 +22,22 @@ import {
 
 const ezs = (name, options, environment) => new Engine(ezs, Statement.get(ezs, name, options), options, environment);
 const ezsPath = [resolve(__dirname, '../..'), process.cwd(), globalModules];
+const ezsCache = new LRU(settings.cache);
 
+ezs.memoize = (key, func) => {
+    if (!key) {
+        return func();
+    }
+    const cached = ezsCache.get(key);
+    if (cached) {
+        return cached;
+    }
+    const tocache = func();
+    if (tocache) {
+        ezsCache.set(key, tocache);
+    }
+    return tocache;
+};
 ezs.settings = settings;
 ezs.objectMode = () => ({
     objectMode: true,
@@ -34,17 +50,18 @@ ezs.bytesMode = () => ({
 ezs.encodingMode = () => ({
     'Content-Encoding': settings.encoding,
 });
-ezs.metaString = (commands, options) => new Meta(ezs, commands, options);
-ezs.metaFile = (filename, options) => new Meta(ezs, File(ezs, filename), options);
+ezs.metaString = (commands, options) => ezs.memoize(`ezs.metaFile>${commands}`, () => new Meta(ezs, commands, options));
+ezs.metaFile = (filename, options) => ezs.memoize(`ezs.metaFile>${filename}`, () => new Meta(ezs, ezs.loadScript(filename), options));
 ezs.parseString = (commands) => Script(commands);
-ezs.parseFile = (filename) => Script(File(ezs, filename));
+ezs.parseFile = (filename) => Script(ezs.loadScript(filename));
 ezs.catch = (func) => new Catcher(func);
 ezs.toBuffer = (options) => new Output(options);
 ezs.use = (plugin) => Statement.set(ezs, plugin);
 ezs.addPath = (p) => ezsPath.push(p);
 ezs.getPath = () => ezsPath;
-ezs.loadScript = (file) => File(ezs, file);
+ezs.loadScript = (file) => ezs.memoize(`ezs.loadScript>${file}`, () => File(ezs, file));
 ezs.compileScript = (script) => new Commands(ezs.parseString(script));
+ezs.parseCommand = (command) => ezs.memoize(`ezs.parseCommand>${command}`, () => parseCommand(command));
 ezs.createCommand = (command, environment) => {
     const mode = command.mode || M_NORMAL;
     if (!command.name) {

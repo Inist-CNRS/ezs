@@ -4,7 +4,7 @@ import {
     VERSION, STARTED_AT,
 } from '../constants';
 
-const getInformations = dirPath => new Promise((resolve) => {
+const getInformations = (dirPath) => new Promise((resolve) => {
     const infos = {
         concurrency: settings.nShards,
         uptime: Date.now() - STARTED_AT,

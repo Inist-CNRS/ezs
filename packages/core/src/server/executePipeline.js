@@ -1,23 +1,24 @@
 import _ from 'lodash';
 import { PassThrough } from 'stream';
 import { server } from '../settings';
-import { parseCommand } from '../script';
 
-const dispositionFrom = ({ extension }) => (extension ? `dump.${extension}` : extension);
-const encodingFrom = (headers) => (headers && headers['content-encoding'] ? headers['content-encoding'] : false);
-const typeFrom = ({ mimeType }) => mimeType;
+const dispositionFrom = ({ extension }) => (extension ? `dump.${extension}` : 'inline');
+const encodingFrom = (headers) => (headers && headers['content-encoding'] ? headers['content-encoding'] : 'identity');
+const typeFrom = ({ mimeType }) => (mimeType || 'application/octet-stream');
 const onlyOne = (item) => (Array.isArray(item) ? item.shift() : item);
-const prependCommand = ({ prepend }) => parseCommand(onlyOne(prepend));
-const appendCommand = ({ append }) => parseCommand(onlyOne(append));
 
 function executePipeline(ezs, files, headers, query, triggerError, read, response) {
-    const meta = files.map((file) => ezs.metaFile(file)).reduce((prev, cur) => _.merge(cur, prev), {});
-
-    response.setHeader('Content-Encoding', encodingFrom(headers) || 'identity');
-    response.setHeader('Content-Disposition', dispositionFrom(meta) || 'inline');
-    response.setHeader('Content-Type', typeFrom(meta) || 'application/octet-stream');
-    const prepend2Pipeline = prependCommand(meta);
-    const append2Pipeline = appendCommand(meta);
+    const meta = ezs.memoize(`executePipeline>${files}`,
+        () => files.map((file) => ezs.metaFile(file)).reduce((prev, cur) => _.merge(cur, prev), {}));
+    const contentEncoding = encodingFrom(headers);
+    const contentDisposition = dispositionFrom(meta);
+    const contentType = typeFrom(meta);
+    const { prepend, append } = meta;
+    const prepend2Pipeline = ezs.parseCommand(onlyOne(prepend));
+    const append2Pipeline = ezs.parseCommand(onlyOne(append));
+    response.setHeader('Content-Encoding', contentEncoding);
+    response.setHeader('Content-Disposition', contentDisposition);
+    response.setHeader('Content-Type', contentType);
 
     const input = new PassThrough();
     const createInput = (firstChunk) => {
