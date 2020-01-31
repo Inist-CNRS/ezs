@@ -5,7 +5,6 @@ import sizeof from 'object-sizeof';
 import errorHandler from './errorHandler';
 import executePipeline from './executePipeline';
 import { isFile } from '../file';
-import { RX_IDENTIFIER } from '../constants';
 
 const identifierPipeline = (ezs, serverPath) => (request, response) => {
     const { headers } = request;

@@ -1,6 +1,8 @@
+import { hostname } from 'os';
 import get from 'lodash.get';
-import store from './store';
-import { isURI } from './uri';
+import {
+    validKey, encodeKey, encodeValue, lmdbEnv,
+} from './store';
 
 /**
  * Take `Object`, to save it into a store and throw an URL
@@ -11,9 +13,9 @@ import { isURI } from './uri';
  * @returns {Object}
  */
 export default async function save(data, feed) {
-    if (this.isLast()) {
-        return feed.close();
-    }
+    const { ezs } = this;
+    const protocol = this.getParam('protocol', 'http:');
+    const host = this.getParam('host', `${hostname()}:${ezs.settings.port}`);
     const reset = Boolean(this.getParam('reset', false));
     const pathName = this.getParam('path', 'uri');
     const path = Array.isArray(pathName) ? pathName.shift() : pathName;
@@ -21,34 +23,35 @@ export default async function save(data, feed) {
     const domainName = this.getParam('domain', 'ezs');
     const domain = Array.isArray(domainName) ? domainName.shift() : domainName;
 
-    if (!isURI(uri)) {
+    if (this.isFirst()) {
+        if (this.dbi) {
+            this.dbi.close();
+        }
+        this.dbi = lmdbEnv(this.ezs).openDbi({
+            name: domain,
+            create: true,
+        });
+    }
+    if (this.isLast()) {
+        this.dbi.close();
+        return feed.close();
+    }
+    if (!validKey(uri)) {
         return feed.end();
     }
     if (this.isFirst() && reset === true) {
-        const st = await store(this.ezs, domain);
-        await st.reset(domain);
+        this.dbi.drop();
+        this.dbi = lmdbEnv(this.ezs).openDbi({
+            name: domain,
+            create: true,
+        });
     }
-    return store(this.ezs, domain)
-        .then((handle) => handle.set(uri, data))
-        .then(() => feed.send(uri))
-        .catch((e) => feed.stop(e));
+    const txn = lmdbEnv(this.ezs).beginTxn();
+    txn.putString(this.dbi, encodeKey(uri), encodeValue(data));
+    txn.commit();
+
+    if (protocol && host) {
+        return feed.send(`${protocol}//${host}/${uri}`);
+    }
+    return feed.send(uri);
 }
-/*
- *    const domainName = this.getParam('domain', 'ezs');
-    const domaines = await domainCheck(domainName);
-    if (!isURI(uri)) {
-        return feed.end();
-    }
-    if (this.isFirst() && reset === true) {
-        const handles = domaines.map((domain) => store(this.ezs, domain));
-        await Promise.all(handles)
-            .then((hdl) => hdl.map((st) => st.reset()));
-    }
-    const handles = domaines.map((domain) => store(this.ezs, domain));
-    const saves = Promise.all(handles)
-        .then((hdl) => hdl.map((h) => h.set(uri, data)))
-        .catch((e) => feed.stop(e));
-    return Promise.all(saves)
-        .then(() => feed.send(uri))
-        .catch((e) => feed.stop(e));
-        */

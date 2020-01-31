@@ -2,7 +2,33 @@ import get from 'lodash.get';
 import set from 'lodash.set';
 import generate from 'nanoid/async/generate';
 import nolookalikes from 'nanoid-dictionary/nolookalikes';
-import { isURI, checkdigit } from './uri';
+import { validKey } from './store';
+
+
+//
+// JS implentation of NCDA
+// see http://search.cpan.org/~jak/Noid/noid#NOID_CHECK_DIGIT_ALGORITHM
+//
+export function ncda(input, alphabet = []) {
+    if (!input || typeof input !== 'string') {
+        return '';
+    }
+    const R = alphabet.length;
+    const chr = input.split('');
+    const ord = [];
+    const pos = [];
+    chr.forEach((c, i) => {
+        const z = alphabet.indexOf(c);
+        ord.push(z > 0 ? z : 0);
+        pos.push(i + 1);
+    });
+    let sum = 0;
+    pos.forEach((p, i) => {
+        sum += p * ord[i];
+    });
+    const x = sum % R;
+    return alphabet[x] || '';
+}
 
 /**
  * Take `Object`, and compute & add a identifier
@@ -19,9 +45,9 @@ export default async function identify(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
-    if (!isURI(uri)) {
+    if (!validKey(uri)) {
         const identifier = await generate(nolookalikes, 8);
-        const checksum = checkdigit(identifier);
+        const checksum = ncda(identifier, nolookalikes);
         set(data, path, `${scheme}:/${identifier}${checksum}`);
     }
     return feed.send(data);
