@@ -11,10 +11,11 @@ const identifierPipeline = (ezs, serverPath) => (request, response) => {
     const triggerError = errorHandler(request, response);
     const { query } = request.url;
     const identifier = request.url.pathname.slice(1);
-    const pathname = 'uri.ini';
-    const files = [pathname]
+    const scheme = identifier.substr(0, identifier.indexOf(':'));
+    const pathname = `${scheme}.ini`;
+    const files = ezs.memoize(`identifierPipeline>${pathname}`, () => [pathname]
         .map((file) => join(serverPath, file))
-        .filter((file) => isFile(file));
+        .filter((file) => isFile(file)));
     if (files.length === 0) {
         triggerError(new Error(`Cannot find ${pathname}`), 404);
         return false;
