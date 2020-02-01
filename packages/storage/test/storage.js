@@ -80,6 +80,42 @@ describe('save', () => {
                 done();
             });
     });
+
+    it('with invalid object', (done) => {
+        const input = [
+            { a: 1 },
+            { a: 1 },
+            { a: 1 },
+        ];
+        const result = [];
+        from(input)
+            .pipe(ezs('save', { domain: 'test2', reset: true, host: false }))
+            .on('data', (chunk) => {
+                result.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(result.length, 0);
+                done();
+            });
+    });
+
+    it('with object to get URL', (done) => {
+        const input = [...data];
+        const result = [];
+        from(input)
+            .pipe(ezs('identify'))
+            .pipe(ezs('save', { domain: 'test3', reset: true }))
+            .on('data', (chunk) => {
+                result.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(result.length, 6);
+                expect(result[0]).toMatch(':31976');
+                expect(result[1]).toMatch(':31976');
+                expect(result[2]).toMatch(':31976');
+                done();
+            });
+    });
 });
 describe('load', () => {
     it('with uid #1', (done) => {
@@ -121,6 +157,20 @@ describe('load', () => {
             .on('end', () => {
                 expect(output.length).toEqual(6);
                 expect(output[0]).toEqual(data[0]);
+                done();
+            });
+    });
+
+    it('with invalid uri', (done) => {
+        const input = [1, 2, 3, 4];
+        const output = [];
+        from(input)
+            .pipe(ezs('load', { domain: 'test2' }))
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                expect(output.length).toEqual(0);
                 done();
             });
     });

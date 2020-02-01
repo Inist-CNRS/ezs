@@ -24,9 +24,6 @@ export default async function save(data, feed) {
     const domain = Array.isArray(domainName) ? domainName.shift() : domainName;
 
     if (this.isFirst()) {
-        if (this.dbi) {
-            this.dbi.close();
-        }
         this.dbi = lmdbEnv(this.ezs).openDbi({
             name: domain,
             create: true,

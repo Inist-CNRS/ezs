@@ -11,9 +11,6 @@ import {
 export default async function load(data, feed) {
     const domain = this.getParam('domain', 'ezs');
     if (this.isFirst()) {
-        if (this.dbi) {
-            this.dbi.close();
-        }
         this.dbi = lmdbEnv(this.ezs).openDbi({
             name: domain,
             create: true,

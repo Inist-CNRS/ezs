@@ -5,7 +5,8 @@ import makeDir from 'make-dir';
 import lmdb from 'node-lmdb';
 
 const EZS_STORAGE_PATH = process.env.EZS_STORAGE_PATH || tmpdir();
-
+const maxDbs = cpus().length ** 2;
+const mapSize = totalmem() / 2;
 let handle;
 export const validKey = (input) => (Boolean(input) && typeof input === 'string' && input.search(/\w+:(\/?\/?)[^\s]+/g) >= 0);
 export const encodeKey = (k) => k;
@@ -22,8 +23,8 @@ export const lmdbEnv = () => {
     handle = new lmdb.Env();
     handle.open({
         path,
-        mapSize: totalmem() / 2,
-        maxDbs: cpus().length * 2,
+        mapSize,
+        maxDbs,
     });
     return handle;
 };

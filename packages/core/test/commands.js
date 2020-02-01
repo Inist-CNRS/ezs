@@ -98,3 +98,10 @@ describe('compile command', () => {
         strm.end();
     });
 });
+describe('memoize', () => {
+    it('with invalid key', () => {
+        expect(ezs.memoize(null, () => true)).toBeTruthy();
+        expect(ezs.memoize(null, () => true)).toBeTruthy();
+        expect(ezs.memoize(null, () => true)).toBeTruthy();
+    });
+})

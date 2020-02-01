@@ -14,9 +14,6 @@ export default async function flow(data, feed) {
     const domainName = this.getParam('domain', 'ezs');
     const domain = Array.isArray(domainName) ? domainName.shift() : domainName;
     if (this.isFirst()) {
-        if (this.dbi) {
-            this.dbi.close();
-        }
         this.dbi = lmdbEnv(this.ezs).openDbi({
             name: domain,
         });
