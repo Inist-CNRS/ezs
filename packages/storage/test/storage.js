@@ -36,7 +36,7 @@ describe('identify', () => {
         const output = [];
         from(input)
             .pipe(ezs('keep', { path: ['a', 'b'] }))
-            .pipe(ezs('identify', { path: '_id' }))
+            .pipe(ezs('identify', { path: ['_id', 'id'] }))
             .pipe(ezs('extract', { path: '_id' }))
             .on('data', (chunk) => {
                 output.push(chunk);
@@ -89,7 +89,12 @@ describe('save', () => {
         ];
         const result = [];
         from(input)
-            .pipe(ezs('save', { domain: 'test2', reset: true, host: false }))
+            .pipe(ezs('save', {
+                domain: ['test2', 'test4'], // only the first
+                reset: true,
+                host: false,
+                path: ['uri', 'id'], // only the first
+            }))
             .on('data', (chunk) => {
                 result.push(chunk);
             })

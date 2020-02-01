@@ -148,13 +148,13 @@ describe('dispatch through server(s)', () => {
         });
 
         it('uri.ini', (done) => {
-            fetch('http://127.0.0.1:33333/truc:/My_identifier?arg1=val1', { method: 'GET' })
+            fetch('http://127.0.0.1:33333/uri:/My_identifier?arg1=val1', { method: 'GET' })
                 .then((res) => {
                     assert.equal(res.headers.get('content-type'), 'application/json');
                     return res.json();
                 })
                 .then((result) => {
-                    assert.equal(result[0].truc, 'My_identifier');
+                    assert.equal(result[0].truc, 'uri:/My_identifier');
                     assert.equal(result[0].arg, 'val1');
                     done();
                 })
