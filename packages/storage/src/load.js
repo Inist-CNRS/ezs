@@ -1,22 +1,30 @@
-import store from './store';
-import { parseURI } from './uri';
+import {
+    validKey, encodeKey, decodeValue, lmdbEnv,
+} from './store';
 
 /**
- * Take `String`, containing a URI throw all the documents that match
+ * With a `String`, containing a URI throw all the documents that match
  *
- * @param {String} [store=repo] id of the local database
+ * @param {String} [domain=ezs] domain ID (that should contains the uri input)
  * @returns {String}
  */
 export default async function load(data, feed) {
+    const domain = this.getParam('domain', 'ezs');
+    if (this.isFirst()) {
+        this.dbi = lmdbEnv(this.ezs).openDbi({
+            name: domain,
+            create: true,
+        });
+    }
     if (this.isLast()) {
+        this.dbi.close();
         return feed.close();
     }
-    const { batch } = parseURI(data);
-    if (!batch) {
-        return feed.send(new Error(`Unable to parse URI (${data.uri})`));
+    if (!validKey(data)) {
+        return feed.end();
     }
-    return store(this.ezs, batch)
-        .then((handle) => handle.get(data))
-        .then((value) => feed.send(value))
-        .catch(() => feed.end());
+    const txn = lmdbEnv(this.ezs).beginTxn({ readOnly: true });
+    const value = feed.send(decodeValue(txn.getString(this.dbi, encodeKey(data))));
+    txn.commit();
+    return feed.send(value);
 }

@@ -11,7 +11,7 @@ describe('analsye commands', () => {
             [increment]
             step = 1
 
-            [increment?single]
+            [increment?unique]
             step = 2
 
             [increment?detachable]
@@ -98,3 +98,10 @@ describe('compile command', () => {
         strm.end();
     });
 });
+describe('memoize', () => {
+    it('with invalid key', () => {
+        expect(ezs.memoize(null, () => true)).toBeTruthy();
+        expect(ezs.memoize(null, () => true)).toBeTruthy();
+        expect(ezs.memoize(null, () => true)).toBeTruthy();
+    });
+})

@@ -1,5 +1,6 @@
 import assert from 'assert';
 import Dir from 'path';
+import debug from 'debug';
 import from from 'from';
 import fs from 'fs';
 import { Readable, PassThrough } from 'stream';
@@ -7,6 +8,8 @@ import ezs from '../src';
 import Expression from '../src/expression';
 
 ezs.use(require('./locals'));
+
+debug.enable('ezs');
 
 class Decade extends Readable {
     constructor() {

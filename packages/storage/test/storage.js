@@ -15,7 +15,7 @@ const data = [
     { a: 6, b: 'f', uri: 'uid:/ezs-V9neThkw-e' },
 ];
 describe('identify', () => {
-    it('with no batch', (done) => {
+    it('with no uri #1', (done) => {
         const input = [...data];
         const output = [];
         from(input)
@@ -31,77 +31,35 @@ describe('identify', () => {
                 done();
             });
     });
-    it('with batch', (done) => {
+    it('with no uri #2', (done) => {
         const input = [...data];
         const output = [];
         from(input)
             .pipe(ezs('keep', { path: ['a', 'b'] }))
-            .pipe(ezs('identify', { batch: '123' }))
-            .pipe(ezs('extract', { path: 'uri' }))
+            .pipe(ezs('identify', { path: ['_id', 'id'] }))
+            .pipe(ezs('extract', { path: '_id' }))
             .on('data', (chunk) => {
                 output.push(chunk);
             })
             .on('end', () => {
                 assert.equal(output.length, 6);
                 assert.equal(output[0].indexOf('uid:'), 0);
-                assert.equal(output[0].indexOf('123-'), 5);
                 done();
             });
     });
-
-    it('with batch too long', (done) => {
+    it('with no uri #3', (done) => {
         const input = [...data];
         const output = [];
         from(input)
             .pipe(ezs('keep', { path: ['a', 'b'] }))
-            .pipe(ezs('identify', { batch: '12345' }))
+            .pipe(ezs('identify', { scheme: 'toto' }))
             .pipe(ezs('extract', { path: 'uri' }))
             .on('data', (chunk) => {
                 output.push(chunk);
             })
             .on('end', () => {
                 assert.equal(output.length, 6);
-                assert.equal(output[0].indexOf('uid:'), 0);
-                assert.equal(output[0].indexOf('123-'), 5);
-                assert.equal(output[0].indexOf('12345'), -1);
-                done();
-            });
-    });
-
-    it('with batch too short', (done) => {
-        const input = [...data];
-        const output = [];
-        from(input)
-            .pipe(ezs('keep', { path: ['a', 'b'] }))
-            .pipe(ezs('identify', { batch: '12' }))
-            .pipe(ezs('extract', { path: 'uri' }))
-            .on('data', (chunk) => {
-                output.push(chunk);
-            })
-            .on('end', () => {
-                assert.equal(output.length, 6);
-                assert.equal(output[0].indexOf('uid:'), 0);
-                assert.equal(output[0].indexOf('12'), 5);
-                assert.equal(output[0].indexOf('12-'), -1);
-                assert.equal(output[0][8], '-');
-                done();
-            });
-    });
-
-    it('with batch with wrong type', (done) => {
-        const input = [...data];
-        const output = [];
-        from(input)
-            .pipe(ezs('keep', { path: ['a', 'b'] }))
-            .pipe(ezs('identify', { batch: 123 }))
-            .pipe(ezs('extract', { path: 'uri' }))
-            .on('data', (chunk) => {
-                output.push(chunk);
-            })
-            .on('end', () => {
-                assert.equal(output.length, 6);
-                assert.equal(output[0].indexOf('uid:'), 0);
-                assert.equal(output[0].indexOf('123-'), 5);
+                assert.equal(output[0].indexOf('toto:'), 0);
                 done();
             });
     });
@@ -111,8 +69,8 @@ describe('save', () => {
     it('with object', (done) => {
         const input = [...data];
         from(input)
-            .pipe(ezs('identify', { batch: 'ezs' }))
-            .pipe(ezs('save', { reset: true }))
+            .pipe(ezs('identify'))
+            .pipe(ezs('save', { domain: 'test', reset: true, host: false }))
             .on('data', (chunk) => {
                 identifiers.push(chunk);
             })
@@ -122,13 +80,54 @@ describe('save', () => {
                 done();
             });
     });
+
+    it('with invalid object', (done) => {
+        const input = [
+            { a: 1 },
+            { a: 1 },
+            { a: 1 },
+        ];
+        const result = [];
+        from(input)
+            .pipe(ezs('save', {
+                domain: ['test2', 'test4'], // only the first
+                reset: true,
+                host: false,
+                path: ['uri', 'id'], // only the first
+            }))
+            .on('data', (chunk) => {
+                result.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(result.length, 0);
+                done();
+            });
+    });
+
+    it('with object to get URL', (done) => {
+        const input = [...data];
+        const result = [];
+        from(input)
+            .pipe(ezs('identify'))
+            .pipe(ezs('save', { domain: 'test3', reset: true }))
+            .on('data', (chunk) => {
+                result.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(result.length, 6);
+                expect(result[0]).toMatch(':31976');
+                expect(result[1]).toMatch(':31976');
+                expect(result[2]).toMatch(':31976');
+                done();
+            });
+    });
 });
 describe('load', () => {
-    it('with uid', (done) => {
+    it('with uid #1', (done) => {
         const input = [...identifiers];
         const output = [];
         from(input)
-            .pipe(ezs('load'))
+            .pipe(ezs('load', { domain: 'test' }))
             .on('data', (chunk) => {
                 output.push(chunk);
             })
@@ -138,13 +137,55 @@ describe('load', () => {
                 done();
             });
     });
+    it('with uid #2', (done) => {
+        const input = [...identifiers];
+        const output = [];
+        from(input)
+            .pipe(ezs('load', { domain: 'test' }))
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                expect(output.length).toEqual(6);
+                expect(output[0]).toEqual(data[0]);
+                done();
+            });
+    });
+    it('with uid #3', (done) => {
+        const input = [...identifiers];
+        const output = [];
+        from(input)
+            .pipe(ezs('load', { domain: 'test' }))
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                expect(output.length).toEqual(6);
+                expect(output[0]).toEqual(data[0]);
+                done();
+            });
+    });
+
+    it('with invalid uri', (done) => {
+        const input = [1, 2, 3, 4];
+        const output = [];
+        from(input)
+            .pipe(ezs('load', { domain: 'test2' }))
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                expect(output.length).toEqual(0);
+                done();
+            });
+    });
 });
 describe('flow', () => {
     it('with no options', (done) => {
         const input = [{ }];
         const output = [];
         from(input)
-            .pipe(ezs('flow', { batch: 'ezs' }))
+            .pipe(ezs('flow', { domain: 'test' }))
             .on('data', (chunk) => {
                 output.push(chunk);
             })
@@ -158,7 +199,7 @@ describe('flow', () => {
         const input = [{ }];
         const output = [];
         from(input)
-            .pipe(ezs('flow', { batch: 'ezs', length: 2 }))
+            .pipe(ezs('flow', { domain: 'test', length: 2 }))
             .on('data', (chunk) => {
                 output.push(chunk);
             })
