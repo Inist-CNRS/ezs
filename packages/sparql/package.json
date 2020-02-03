@@ -1,6 +1,6 @@
 {
   "name": "@ezs/sparql",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "SPARQL module for ezs",
   "main": "./lib/index.js",
   "scripts": {

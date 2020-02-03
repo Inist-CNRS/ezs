@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.5.0...@ezs/core@1.5.1) (2020-02-03)
+
+
+### Bug Fixes
+
+* 🐛 dirname was lost ([9bddefd](https://github.com/Inist-CNRS/ezs/commit/9bddefdce55743ad0ca8dd0d5fcee9fc41235d2a))
+
+
+
+
+
 # [1.5.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.3.1...@ezs/core@1.5.0) (2020-01-10)
 
 

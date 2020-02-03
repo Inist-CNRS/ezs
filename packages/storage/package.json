@@ -1,6 +1,6 @@
 {
   "name": "@ezs/storage",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Storage statements for EZS",
   "directories": {
     "test": "test"
