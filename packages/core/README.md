@@ -699,7 +699,49 @@ Returns **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 -   **See: laravel validator rules**
 -   **See: <https://github.com/skaterdav85/validatorjs#readme>**
 
-Take `Object` and throw the same object if all rules pass
+From a `Object`, throw the same object if all rules pass
+
+Input file:
+
+```json
+[{
+   a: 1,
+   b: 'titi',
+},
+{
+   a: 2,
+   b: 'toto',
+},
+{
+   a: false,
+},
+]
+```
+
+Script:
+
+```ini
+[validate]
+path = a
+rule = required|number
+
+path = a
+rule = required|string
+```
+
+Output:
+
+```json
+[{
+   a: 1,
+   b: 'titi',
+},
+{
+   a: 2,
+   b: 'toto',
+},
+}]
+```
 
 #### Parameters
 

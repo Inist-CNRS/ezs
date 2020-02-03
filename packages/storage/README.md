@@ -23,38 +23,40 @@ npm install @ezs/storage
 
 ### flow
 
-Take an `Object` and replace it with all the objects of the same batch contained in the store.
+Take an `Object` and replace it with all the objects of the same domain contained in the store.
 Warning: order is not guaranteed
 
 #### Parameters
 
 -   `data`  
 -   `feed`  
+-   `domain` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** domain ID (same for all objects) (optional, default `ezs`)
 -   `length` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** limit the number of output objects
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### identify
 
-Take `Object`, and compute & add a URI
+Take `Object`, and compute & add a identifier
 
 #### Parameters
 
 -   `data`  
 -   `feed`  
--   `batch` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** batch ID (3 characters) (same for all objects) (optional, default `auto`)
+-   `scheme` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** scheme prefix (optional, default `uid`)
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path containing the object Identifier (optional, default `uri`)
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ### load
 
-Take `String`, containing a URI throw all the documents that match
+With a `String`, containing a URI throw all the documents that match
 
 #### Parameters
 
 -   `data`  
 -   `feed`  
--   `store` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** id of the local database (optional, default `repo`)
+-   `domain` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** domain ID (that should contains the uri input) (optional, default `ezs`)
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
@@ -66,6 +68,8 @@ Take `Object`, to save it into a store and throw an URL
 
 -   `data`  
 -   `feed`  
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path containing the object Identifier (optional, default `uri`)
+-   `domain` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** domain ID (same for all objects) (optional, default `ezs`)
 -   `reset` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** if the store already exists, you will erase all previous content (optional, default `false`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
