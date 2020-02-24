@@ -1,0 +1,39 @@
+import InistArk from 'inist-ark';
+
+const ARBITRARY_SUBPUBLISHER = '39D';
+
+export const autoGenerateUri = ({ naan, subpublisher, uriSize }) => () =>
+    new Promise((resolve, reject) => {
+        try {
+            if (naan && subpublisher) {
+                const ark = new InistArk({
+                    naan,
+                    subpublisher,
+                });
+
+                return resolve(ark.generate());
+            }
+
+            const ark = new InistArk({
+                subpublisher: ARBITRARY_SUBPUBLISHER,
+            });
+
+            const { identifier } = ark.parse(ark.generate());
+            if (uriSize && Number.isInteger(uriSize)) {
+                return resolve(`uid:/${identifier.slice(0, uriSize)}`);
+            }
+            return resolve(`uid:/${identifier}`);
+        } catch (error) {
+            return reject(error);
+        }
+    });
+
+const transformation = autoGenerateUri;
+
+transformation.getMetas = () => ({
+    name: 'AUTOGENERATE_URI',
+    type: 'value',
+    args: [],
+});
+
+export default transformation;
