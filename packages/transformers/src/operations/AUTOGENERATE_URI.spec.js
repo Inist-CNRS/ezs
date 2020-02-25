@@ -7,7 +7,7 @@ describe('AUTOGENERATE_URI', () => {
         const arkUri = await autoGenerateUri({
             naan: '67375',
             subpublisher: '39D',
-        })(
+        })('newA', 'a')(
             {
                 a: 1,
                 b: 2,
@@ -29,7 +29,7 @@ describe('AUTOGENERATE_URI', () => {
     });
 
     it('should generate a valid ark identifier when no config supplied', async () => {
-        const arkUri = await autoGenerateUri({})(
+        const arkUri = await autoGenerateUri({})('newA', 'a')(
             {
                 a: 1,
                 b: 2,
