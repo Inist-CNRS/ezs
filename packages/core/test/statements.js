@@ -537,9 +537,8 @@ describe('statements', () => {
             { a: 3, b: 'Z' },
         ])
             .pipe(ezs('validate', { path: ['a', 'b'], rule: 'required|integer' }))
-            .pipe(ezs.catch((err) => {
-                assert.fail(err);
-            }))
+            .pipe(ezs.catch())
+            .on('error', done)
             .on('data', (chunk) => {
                 res.push(chunk);
             })
@@ -556,9 +555,8 @@ describe('statements', () => {
             { a: 3, b: 'Z' },
         ])
             .pipe(ezs('validate', { path: ['a', 'b'], rule: ['required|integer', 'required|string'] }))
-            .pipe(ezs.catch((err) => {
-                assert.fail(err);
-            }))
+            .pipe(ezs.catch())
+            .on('error', done)
             .on('data', (chunk) => {
                 res.push(chunk);
             })
@@ -575,9 +573,8 @@ describe('statements', () => {
             { a: 3, b: 'Z' },
         ])
             .pipe(ezs('validate', { path: 'a', rule: ['required|integer', 'required|string'] }))
-            .pipe(ezs.catch((err) => {
-                assert.fail(err);
-            }))
+            .pipe(ezs.catch())
+            .on('error', done)
             .on('data', (chunk) => {
                 res.push(chunk);
             })
@@ -618,6 +615,89 @@ describe('statements', () => {
                     expect(res).toHaveLength(1);
                     expect(res[0]).toHaveProperty('time');
                     expect(res[0].time).toBeGreaterThanOrEqual(0);
+                    done();
+                });
+        });
+    });
+    describe('exchange', () => {
+        it('with one value (string)', (done) => {
+            const res = [];
+            const script = `
+            [exchange]
+            value = fix('HAHA')
+            `;
+            from([
+                { a: 1, b: 'X' },
+                { a: 2, b: 'Y' },
+                { a: 3, b: 'Z' },
+            ])
+                .pipe(ezs('delegate', { script }))
+                .pipe(ezs.catch())
+                .on('error', done)
+                .on('data', (chunk) => {
+                    res.push(chunk);
+                })
+                .on('end', () => {
+                    console.log({res});
+                    assert.equal(res.length, 3);
+                    assert.equal(res[0], 'HAHA');
+                    assert.equal(res[1], 'HAHA');
+                    assert.equal(res[2], 'HAHA');
+                    done();
+                });
+        });
+        it('with one value (object)', (done) => {
+            const res = [];
+            const script = `
+            [exchange]
+            value = omit('b')
+            `;
+            from([
+                { a: 1, b: 'X' },
+                { a: 2, b: 'Y' },
+                { a: 3, b: 'Z' },
+            ])
+                .pipe(ezs('delegate', { script }))
+                .on('data', (chunk) => {
+                    res.push(chunk);
+                })
+                .on('end', () => {
+                    assert.equal(res.length, 3);
+                    assert.equal(res[0].a, 1);
+                    assert.equal(res[0].b, undefined);
+                    assert.equal(res[1].a, 2);
+                    assert.equal(res[1].b, undefined);
+                    assert.equal(res[2].a, 3);
+                    assert.equal(res[2].b, undefined);
+                    done();
+                });
+        });
+        it('with two values', (done) => {
+            const res = [];
+            const script = `
+            [exchange]
+            value = fix('HAHA')
+            value = fix('HIHI')
+            `;
+            from([
+                { a: 1, b: 'X' },
+                { a: 2, b: 'Y' },
+                { a: 3, b: 'Z' },
+            ])
+                .pipe(ezs('delegate', { script }))
+                .pipe(ezs.catch())
+                .on('error', done)
+                .on('data', (chunk) => {
+                    res.push(chunk);
+                })
+                .on('end', () => {
+                    assert.equal(res.length, 3);
+                    assert.equal(res[0][0], 'HAHA');
+                    assert.equal(res[0][1], 'HIHI');
+                    assert.equal(res[1][0], 'HAHA');
+                    assert.equal(res[1][1], 'HIHI');
+                    assert.equal(res[2][0], 'HAHA');
+                    assert.equal(res[2][1], 'HIHI');
                     done();
                 });
         });

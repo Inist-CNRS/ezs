@@ -21,6 +21,7 @@ import validate from './validate';
 import dump from './dump';
 import time from './time';
 import ignore from './ignore';
+import exchange from './exchange';
 
 export default {
     extract,
@@ -46,4 +47,5 @@ export default {
     dump,
     time,
     ignore,
+    exchange,
 };
