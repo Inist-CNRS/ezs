@@ -45,15 +45,19 @@ function formatOutput(data, feed) {
         const values = keys.map((p) => get(data, p));
         feed.write('{');
         if (keys.length > 0) {
+            let check = false;
             keys.forEach((k, index) => {
                 if (values[index]) {
+                    check = true;
                     feed.write(index === 0 ? ' ' : ',');
                     feed.write(json(k));
                     feed.write(':');
                     feed.write(json(values[index]));
                 }
             });
-            feed.write(',');
+            if (check) {
+                feed.write(',');
+            }
         }
         feed.write(`"${keyName}":[`);
     } else {
