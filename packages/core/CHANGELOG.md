@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.5.1...@ezs/core@1.6.0) (2020-02-25)
+
+
+### Features
+
+* 🎸 new statement [exchange] ([848f174](https://github.com/Inist-CNRS/ezs/commit/848f17440d9c655d6f2284b1c6d65a670c0feeea))
+
+
+
+
+
 ## [1.5.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.5.0...@ezs/core@1.5.1) (2020-02-03)
 
 
