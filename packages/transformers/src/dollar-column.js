@@ -9,5 +9,5 @@ import dollar from './dollar';
  * @returns {Object}
  */
 export default function $COLUMN(data, feed) {
-    return dollar(this, data, feed, transformer);
+    return dollar(this, data, feed, transformer, data);
 }

@@ -1,14 +1,27 @@
 import _ from 'lodash';
 
-export default async function dollar(statement, data, feed, transformer) {
+export default async function dollar(statement, data, feed, transformer, doc) {
     if (statement.isLast()) {
         return feed.close();
     }
-    const paths = statement.getParam('path');
-    const path = Array.isArray(paths) ? paths.shift() : paths;
+    const fields = statement.getParam('field');
+    const field = Array.isArray(fields) ? fields.shift() : fields;
     const { args } = transformer.getMetas();
-
-    const values = args.map((arg) => ({ ...arg, value: statement.getParam(arg.name) }));
+    let index = -1;
+    const values = args.map((arg) => {
+        const vals = statement.getParam(arg.name);
+        if (Array.isArray(vals)) {
+            index += 1;
+            return {
+                ...arg,
+                value: vals[index],
+            };
+        }
+        return {
+            ...arg,
+            value: vals,
+        };
+    });
     let newData;
     if (data.$origin) {
         newData = { ...data };
@@ -17,11 +30,11 @@ export default async function dollar(statement, data, feed, transformer) {
             $origin: { ...data },
         };
     }
-    const input = _.get(data, path, data);
+    const input = doc || _.get(data, field, null);
 
     const output = await transformer(input, values)(input);
 
-    _.set(newData, path, output);
+    _.set(newData, field, output);
 
     return feed.send(newData);
 }

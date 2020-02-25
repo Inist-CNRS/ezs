@@ -8,7 +8,7 @@ describe('$VALUE', () => {
     test('with valid parameter', (done) => {
         const script = `
             [$VALUE]
-            path = aaa
+            field = aaa
             value = toto
 
             [exchange]

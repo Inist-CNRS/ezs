@@ -8,7 +8,7 @@ describe('$URLENCODE', () => {
     test('with valid parameter', (done) => {
         const script = `
             [$URLENCODE]
-            path = b
+            field = b
 
             [exchange]
             value = omit('$origin')

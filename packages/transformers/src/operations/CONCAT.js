@@ -1,6 +1,6 @@
 const transformation = (_, args) => {
     const sourceFields = args
-        .filter(a => a.name === 'column')
+        .filter(a => a.name.slice(0, 6) === 'column')
         .map(({ value }) => value);
 
     if (!sourceFields) {

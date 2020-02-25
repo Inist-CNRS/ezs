@@ -4,37 +4,37 @@ import statements from '.';
 
 ezs.use(statements);
 
-describe('$REPLACE', () => {
+describe('$PREFIX', () => {
     test('with valid parameter', (done) => {
         const script = `
-            [$REPLACE]
+            [$PREFIX]
             field = b
-            searchValue = un
-            replaceValue = 1
+            with = >
 
             [exchange]
             value = omit('$origin')
         `;
-        const res = [];
-        from([
+        const input = [
             { a: 1, b: 'un deux', c: true },
             { a: 2, b: 'un trois', c: true },
             { a: 3, b: 'un quatre', c: false },
             { a: 4, b: 'un cinq', c: true },
-        ])
+        ];
+        const output = [];
+        from(input)
             .pipe(ezs('delegate', { script }))
             .pipe(ezs.catch())
             .on('error', done)
             .on('data', (chunk) => {
                 expect(chunk).toEqual(expect.any(Object));
-                res.push(chunk);
+                output.push(chunk);
             })
             .on('end', () => {
-                expect(res.length).toBe(4);
-                expect(res[0].b).toEqual('1 deux');
-                expect(res[1].b).toEqual('1 trois');
-                expect(res[2].b).toEqual('1 quatre');
-                expect(res[3].b).toEqual('1 cinq');
+                expect(output.length).toBe(4);
+                expect(output[0].b).toEqual('>un deux');
+                expect(output[1].b).toEqual('>un trois');
+                expect(output[2].b).toEqual('>un quatre');
+                expect(output[3].b).toEqual('>un cinq');
                 done();
             });
     });

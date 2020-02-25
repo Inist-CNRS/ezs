@@ -1,10 +1,13 @@
 import InistArk from 'inist-ark';
 
-const ARBITRARY_SUBPUBLISHER = '39D';
-
-export const autoGenerateUri = ({ naan, subpublisher, uriSize }) => () =>
+export const autoGenerateUri = (globalConfig) => (statementParamters) => () =>
     new Promise((resolve, reject) => {
         try {
+            const config = globalConfig || {};
+            const args = statementParamters || {};
+            const naan = config.naan || args.naan || '00000';
+            const subpublisher = config.subpublisher || args.subpublisher || '000';
+            const uriSize = config.uriSize || args.uriSize || false;
             if (naan && subpublisher) {
                 const ark = new InistArk({
                     naan,
@@ -15,7 +18,7 @@ export const autoGenerateUri = ({ naan, subpublisher, uriSize }) => () =>
             }
 
             const ark = new InistArk({
-                subpublisher: ARBITRARY_SUBPUBLISHER,
+                subpublisher,
             });
 
             const { identifier } = ark.parse(ark.generate());
@@ -28,7 +31,7 @@ export const autoGenerateUri = ({ naan, subpublisher, uriSize }) => () =>
         }
     });
 
-const transformation = autoGenerateUri;
+const transformation = autoGenerateUri();
 
 transformation.getMetas = () => ({
     name: 'AUTOGENERATE_URI',
