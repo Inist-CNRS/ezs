@@ -21,6 +21,7 @@ npm install @ezs/core
 -   [dispatch](#dispatch)
 -   [dump](#dump)
 -   [env](#env)
+-   [exchange](#exchange)
 -   [extract](#extract)
 -   [group](#group)
 -   [ignore](#ignore)
@@ -193,6 +194,50 @@ add new environment field
 
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of the new field
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value of the new field
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### exchange
+
+Take `Object` and throw un new item computed by the value= parameter
+Input file:
+
+```json
+[{
+   a: 'abcdefg',
+   b: '1234567',
+   c: 'XXXXXXX',
+},
+{
+   a: 'abcdefg',
+   b: '1234567',
+   c: 'XXXXXXX',
+}]
+```
+
+Script:
+
+```ini
+[exchange]
+value = omit('c')
+```
+
+Output:
+
+```json
+[{
+   a: 'abcdefg',
+   b: '1234567',
+},
+{
+   a: 'abcdefg',
+   b: '1234567',
+}]
+```
+
+#### Parameters
+
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value to replace input object
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
