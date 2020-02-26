@@ -1,0 +1,42 @@
+{
+  "name": "@ezs/transformers",
+  "version": "1.0.0",
+  "description": "LODEX transformers statements for EZS",
+  "directories": {
+    "test": "src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Inist-CNRS/ezs.git"
+  },
+  "keywords": [
+    "ezs"
+  ],
+  "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Inist-CNRS/ezs/issues"
+  },
+  "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/transformers#readme",
+  "dependencies": {
+    "lodash.flatten": "^4.4.0",
+    "lodash.get": "^4.4.2",
+    "lodash.uniq": "^4.5.0",
+    "sprintf-js": "^1.1.2"
+  },
+  "main": "./lib/index.js",
+  "scripts": {
+    "doc": "documentation readme src/* --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-transformers.md --section=usage  && cp ../../docs/plugin-transformers.md ./README.md",
+    "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
+    "build": "babel --root-mode upward src --out-dir lib",
+    "prepublish": "npm run build",
+    "pretest": "npm run build",
+    "preversion": "npm run doc"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "@ezs/core": "*"
+  }
+}
