@@ -4,7 +4,6 @@ import UPPERCASE from './operations/UPPERCASE';
 import LOWERCASE from './operations/LOWERCASE';
 import VALUE from './operations/VALUE';
 import CONCAT from './operations/CONCAT';
-import JBJ from './operations/JBJ';
 import JOIN from './operations/JOIN';
 import CONCAT_URI from './operations/CONCAT_URI';
 import SPLIT from './operations/SPLIT';
@@ -96,7 +95,6 @@ export const transformers = {
     LOWERCASE,
     VALUE,
     CONCAT,
-    JBJ,
     JOIN,
     CONCAT_URI,
     SPLIT,
@@ -128,7 +126,6 @@ export const transformersMetas = [
     LOWERCASE,
     VALUE,
     CONCAT,
-    JBJ,
     JOIN,
     CONCAT_URI,
     SPLIT,
