@@ -2,10 +2,20 @@ import transformer from './operations/CONCAT_URI';
 import dollar from './dollar';
 
 /**
- * compoer un identifiant avec plsuieurs champs
+ * compoer un identifiant avec plusieurs champs
  *
- * @param {String} [path] field path to apply the transformation
- * @param {String} [value] value to use during the transformation
+ * Exemple :
+ *
+ * ```ini
+ * [$CONCAT_URI]
+ * field = identifiant
+ * column = nom
+ * column = prenom
+ * separator = -
+ * ```
+ * @param {String} [field] field path to get the result of the transformation
+ * @param {String} [column] field path to get data
+ * @param {String} [separator] glue between each column
  * @returns {Object}
  */
 export default function $CONCAT_URI(data, feed) {

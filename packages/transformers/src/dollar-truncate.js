@@ -4,8 +4,17 @@ import dollar from './dollar';
 /**
  * tronque, prend les premières valeurs d'un tableau, d'une chaîne
  *
- * @param {String} [path] field path to apply the transformation
- * @param {String} [value] value to use during the transformation
+ * Exemple :
+ *
+ * ```ini
+ * [$TRUNCATE]
+ * field = title
+ * gap = 25
+ *
+ * ```
+ *
+ * @param {String} [field] field path to apply the transformation
+ * @param {String} [gap] how many items or characters to keep
  * @returns {Object}
  */
 export default function $TRUNCATE(data, feed) {

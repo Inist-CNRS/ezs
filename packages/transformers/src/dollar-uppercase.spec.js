@@ -9,7 +9,6 @@ describe('$UPPERCASE', () => {
         const script = `
             [$UPPERCASE]
             field = b
-            gap = 3
 
             [exchange]
             value = omit('$origin')

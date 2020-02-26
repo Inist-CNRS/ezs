@@ -3,9 +3,15 @@ import dollar from './dollar';
 
 /**
  * transformer une chaîne de caractères en nombre
+ *
+* Exemple :
+ *
+ * ```ini
+ * [$NUMBER]
+ * field = counter
+ * ```
  * 
- * @param {String} [path] field path to apply the transformation
- * @param {String} [value] value to use during the transformation
+ * @param {String} [feild] field path to apply the transformation
  * @returns {Object}
  */
 export default function $NUMBER(data, feed) {

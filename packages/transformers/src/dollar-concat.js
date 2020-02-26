@@ -4,8 +4,17 @@ import dollar from './dollar';
 /**
  * concaténer deux valeurs
  *
- * @param {String} [path] field path to apply the transformation
- * @param {String} [value] value to use during the transformation
+ * Exemple :
+ *
+ * ```ini
+ * [$CONCAT]
+ * field = result
+ * columns = part1
+ * columns = part2
+ * ```
+ *
+ * @param {String} [field] field path to get the result of the transformation
+ * @param {String} [columns] field path to get value
  * @returns {Object}
  */
 export default function $CONCAT(data, feed) {

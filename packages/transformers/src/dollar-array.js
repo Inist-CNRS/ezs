@@ -4,8 +4,14 @@ import dollar from './dollar';
 /**
  * transformer une chaîne de caractères en tableau avec un seul element
  *
- * @param {String} [path] field path to apply the transformation
- * @param {String} [value] value to use during the transformation
+ * Exemple :
+ *
+ * ```ini
+ * [$ARRAY]
+ * field = keywords
+ * ```
+ *
+ * @param {String} [field] field path to apply the transformation
  * @returns {Object}
  */
 export default function $ARRAY(data, feed) {

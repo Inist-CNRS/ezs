@@ -4,8 +4,19 @@ import dollar from './dollar';
 /**
  * remplacer une chaîne par une autre
  *
- * @param {String} [path] field path to apply the transformation
- * @param {String} [value] value to use during the transformation
+ * Exemple :
+ *
+ * ```ini
+ * [$REPLACE]
+ * field = title
+ * searchValue = 1
+ * replaceValue = un
+ *
+ * ```
+ *
+ * @param {String} [field] field path to apply the transformation
+ * @param {String} [searchValue] value to search
+ * @param {String} [replaceValue] value to replace with
  * @returns {Object}
  */
 export default function $REPLACE(data, feed) {

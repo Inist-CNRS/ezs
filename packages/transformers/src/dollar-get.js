@@ -4,8 +4,16 @@ import dollar from './dollar';
 /**
  * Récupére toutes les valeurs correspondant à un chemin (dot path)
  *
- * @param {String} [path] field path to apply the transformation
- * @param {String} [value] value to use during the transformation
+ *  Exemple :
+ *
+ * ```ini
+ * [$GET]
+ * field = output
+ * path = input
+ * ```
+ *
+ * @param {String} [field] field path to get the result of the transformation
+ * @param {String} [path] field path to get value
  * @returns {Object}
  */
 export default function $GET(data, feed) {

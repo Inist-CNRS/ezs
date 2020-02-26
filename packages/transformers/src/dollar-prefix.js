@@ -4,8 +4,16 @@ import dollar from './dollar';
 /**
  * préfixer la valeur avec une chaîne de caractères
  *
- * @param {String} [path] field path to apply the transformation
- * @param {String} [value] value to use during the transformation
+ * Exemple :
+ *
+ * ```ini
+ * [$PREFIX]
+ * field = title
+ * with = #
+ * ```
+ *
+ * @param {String} [field] field path to apply the transformation
+ * @param {String} [vith] value to add at the begining of the field
  * @returns {Object}
  */
 export default function $PREFIX(data, feed) {

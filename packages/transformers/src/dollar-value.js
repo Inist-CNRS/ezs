@@ -4,8 +4,16 @@ import dollar from './dollar';
 /**
  * Fixer une valeur
  *
- * @param {String} [path] field path to apply the transformation
- * @param {String} [value] value to use during the transformation
+ * Exemple :
+ *
+ * ```ini
+ * [$VALUE]
+ * field = title
+ * value = Hello world
+ * ```
+ *
+ * @param {String} [field] new field path
+ * @param {String} [value] value to use to set the field
  * @returns {Object}
  */
 export default function $VALUE(data, feed) {

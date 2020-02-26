@@ -4,8 +4,14 @@ import dollar from './dollar';
 /**
  * Analyser un chaine de caractère comme étant du JSON
  *
- * @param {String} [path] field path to apply the transformation
- * @param {String} [value] value to use during the transformation
+ * Exemple :
+ *
+ * ```ini
+ * [$PARSE]
+ * field = json
+ * ```
+ *
+ * @param {String} [field] field path to apply the transformation
  * @returns {Object}
  */
 export default function $PARSE(data, feed) {

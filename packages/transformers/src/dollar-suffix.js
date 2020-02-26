@@ -4,8 +4,16 @@ import dollar from './dollar';
 /**
  * ajoute une chaîne de caractères à la fin d'une chaîne ou d'un tableau
  *
- * @param {String} [path] field path to apply the transformation
- * @param {String} [value] value to use during the transformation
+ * Exemple :
+ *
+ * ```ini
+ * [$SUFFIX]
+ * field = title
+ * with = !
+ * ```
+ *
+ * @param {String} [field] field path to apply the transformation
+ * @param {String} [with] value to add at the end of the field
  * @returns {Object}
  */
 export default function $SUFFIX(data, feed) {

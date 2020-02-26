@@ -4,8 +4,14 @@ import dollar from './dollar';
 /**
  * appliquer un patron (template)
  *
- * @param {String} [path] field path to apply the transformation
- * @param {String} [value] value to use during the transformation
+ * ```ini
+ * [$DEFAULT]
+ * field = source
+ * with = (%s:%s)
+ * ```
+ *
+ * @param {String} [field] field path to get data source (must be an array)
+ * @param {String} [with] template string like sprintf
  * @returns {Object}
  */
 export default function $FORMAT(data, feed) {

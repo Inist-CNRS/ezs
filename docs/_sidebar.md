@@ -21,6 +21,7 @@
   - [lodex](plugin-lodex.md)
   - [conditor](plugin-conditor.md)
   - [storage](plugin-storage.md)
+  - [transformers](plugin-transformers.md)
 
 - Avancé
 

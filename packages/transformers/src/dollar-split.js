@@ -4,8 +4,17 @@ import dollar from './dollar';
 /**
  * segmente une chaîne de caractères en tableau
  *
- * @param {String} [path] field path to apply the transformation
- * @param {String} [value] value to use during the transformation
+ * Exemple :
+ *
+ * ```ini
+ * [$SPLIT]
+ * field = title
+ * separator = |
+ *
+ * ```
+ *
+ * @param {String} [field] field path to apply the transformation
+ * @param {String} [separator] value to use to split the field
  * @returns {Object}
  */
 export default function $SPLIT(data, feed) {
