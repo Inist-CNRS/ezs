@@ -14,19 +14,74 @@ npm install @ezs/istex
 
 #### Table of Contents
 
--   [ISTEXFacet](#istexfacet)
--   [ISTEXFilesContent](#istexfilescontent)
--   [ISTEXFilesWrap](#istexfileswrap)
 -   [ISTEXFiles](#istexfiles)
+-   [ISTEXUnzip](#istexunzip)
+-   [ISTEXFilesContent](#istexfilescontent)
+-   [ISTEXResult](#istexresult)
+-   [ISTEXFacet](#istexfacet)
+-   [ISTEXFilesWrap](#istexfileswrap)
+-   [ISTEXScroll](#istexscroll)
 -   [ISTEXFetch](#istexfetch)
 -   [ISTEXParseDotCorpus](#istexparsedotcorpus)
--   [ISTEXResult](#istexresult)
 -   [ISTEXSave](#istexsave)
 -   [ISTEXTriplify](#istextriplify)
--   [ISTEX](#istex)
--   [ISTEXScroll](#istexscroll)
 -   [ISTEXUniq](#istexuniq)
--   [ISTEXUnzip](#istexunzip)
+-   [ISTEX](#istex)
+
+### ISTEXFiles
+
+-   **See: ISTEXScroll**
+
+Take an Object with ISTEX `id` and generate an object for each file
+
+#### Parameters
+
+-   `fulltext` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** typology of the document to save (optional, default `pdf`)
+-   `metadata` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** format of the files to save (optional, default `json`)
+-   `enrichment` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** enrichment of the document to save
+-   `sid` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** User-agent identifier (optional, default `"ezs-istex"`)
+
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** 
+
+### ISTEXUnzip
+
+Take the content of a zip file, extract JSON files, and yield JSON objects.
+
+The zip file comes from dl.istex.fr, and the `manifest.json` is not
+extracted.
+
+Returns **any** Array<Object>
+
+### ISTEXFilesContent
+
+-   **See: ISTEXFiles**
+
+Take an Object with ISTEX `source` and check the document's file.
+Warning: to access fulltext, you have to give a `token` parameter.
+ISTEXFetch produces the stream you need to save the file.
+
+#### Parameters
+
+-   `sid` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** User-agent identifier (optional, default `"ezs-istex"`)
+-   `token` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** authentication token (see [documentation](https://doc.istex.fr/api/access/fede.html#acc%C3%A8s-programmatique-via-un-token-didentification))
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### ISTEXResult
+
+-   **See: ISTEXScroll**
+
+Take `Object` containing results of ISTEX API, and returns `hits` value
+(documents).
+
+This should be placed after ISTEXScroll.
+
+#### Parameters
+
+-   `source` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**  (optional, default `data`)
+-   `target` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**  (optional, default `feed`)
+
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 
 
 ### ISTEXFacet
 
@@ -48,21 +103,6 @@ from([{ query: 'ezs', facet: 'corpusName' }])
 
 Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 
 
-### ISTEXFilesContent
-
--   **See: ISTEXFiles**
-
-Take an Object with ISTEX `source` and check the document's file.
-Warning: to access fulltext, you have to give a `token` parameter.
-ISTEXFetch produces the stream you need to save the file.
-
-#### Parameters
-
--   `sid` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** User-agent identifier (optional, default `"ezs-istex"`)
--   `token` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** authentication token (see [documentation](https://doc.istex.fr/api/access/fede.html#acc%C3%A8s-programmatique-via-un-token-didentification))
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
 ### ISTEXFilesWrap
 
 -   **See: ISTEXFiles**
@@ -71,20 +111,32 @@ Take and Object with ISTEX `stream` and wrap into a single zip
 
 Returns **[Buffer](https://nodejs.org/api/buffer.html)** 
 
-### ISTEXFiles
+### ISTEXScroll
 
--   **See: ISTEXScroll**
-
-Take an Object with ISTEX `id` and generate an object for each file
+Take an object containing a query string field and output records from the
+ISTEX API. Every output record is merged with the input object.
 
 #### Parameters
 
--   `fulltext` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** typology of the document to save (optional, default `pdf`)
--   `metadata` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** format of the files to save (optional, default `json`)
--   `enrichment` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** enrichment of the document to save
+-   `query` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** ISTEX query (optional, default `input`)
 -   `sid` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** User-agent identifier (optional, default `"ezs-istex"`)
+-   `maxPage` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Maximum number of pages to get
+-   `size` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** size of each page of results (optional, default `2000`)
+-   `duration` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** maximum duration between two requests (optional, default `"5m"`)
+-   `field` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** fields to get (optional, default `["doi"]`)
 
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** 
+#### Examples
+
+```javascript
+from([{ query: 'this is a test' }])
+  .pipe(ezs('ISTEXScroll', {
+      maxPage: 2,
+      size: 1,
+      sid: 'test',
+  }))
+```
+
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 
 
 ### ISTEXFetch
 
@@ -151,22 +203,6 @@ id 2FF3F5B1477986B9C617BB75CA3333DBEE99EB05
 ```
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### ISTEXResult
-
--   **See: ISTEXScroll**
-
-Take `Object` containing results of ISTEX API, and returns `hits` value
-(documents).
-
-This should be placed after ISTEXScroll.
-
-#### Parameters
-
--   `source` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**  (optional, default `data`)
--   `target` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**  (optional, default `feed`)
-
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 
 
 ### ISTEXSave
 
@@ -247,59 +283,6 @@ output:
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
-### ISTEX
-
-Take an array and returns matching documents for every value of the array
-
-#### Parameters
-
--   `query` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>)** ISTEX query (or queries) (optional, default `data.query||[]`)
--   `id` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>)** ISTEX id (or ids) (optional, default `data.id||[]`)
--   `maxPage` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** maximum number of pages to get
--   `size` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** size of each page of results
--   `duration` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** maximum duration between two requests (ex: "30s")
--   `field` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** fields to output
-
-#### Examples
-
-```javascript
-.pipe(ezs('ISTEX', {
-  query: 'this is a test',
-  size: 3,
-  maxPage: 1,
-  sid: 'test'
-}))
-```
-
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 
-
-### ISTEXScroll
-
-Take an object containing a query string field and output records from the
-ISTEX API. Every output record is merged with the input object.
-
-#### Parameters
-
--   `query` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** ISTEX query (optional, default `input`)
--   `sid` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** User-agent identifier (optional, default `"ezs-istex"`)
--   `maxPage` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Maximum number of pages to get
--   `size` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** size of each page of results (optional, default `2000`)
--   `duration` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** maximum duration between two requests (optional, default `"5m"`)
--   `field` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** fields to get (optional, default `["doi"]`)
-
-#### Examples
-
-```javascript
-from([{ query: 'this is a test' }])
-  .pipe(ezs('ISTEXScroll', {
-      maxPage: 2,
-      size: 1,
-      sid: 'test',
-  }))
-```
-
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 
-
 ### ISTEXUniq
 
 Remove duplicates triples within a single document's set of triples (same
@@ -335,11 +318,28 @@ Output
 <https://api.istex.fr/ark:/67375/NVC-JMPZTKTT-R> <https://data.istex.fr/ontology/istex#affiliation> "Department of Public Health, University of Sydney, Australia." .
 ```
 
-### ISTEXUnzip
+### ISTEX
 
-Take the content of a zip file, extract JSON files, and yield JSON objects.
+Take an array and returns matching documents for every value of the array
 
-The zip file comes from dl.istex.fr, and the `manifest.json` is not
-extracted.
+#### Parameters
 
-Returns **any** Array<Object>
+-   `query` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>)** ISTEX query (or queries) (optional, default `data.query||[]`)
+-   `id` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>)** ISTEX id (or ids) (optional, default `data.id||[]`)
+-   `maxPage` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** maximum number of pages to get
+-   `size` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** size of each page of results
+-   `duration` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** maximum duration between two requests (ex: "30s")
+-   `field` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** fields to output
+
+#### Examples
+
+```javascript
+.pipe(ezs('ISTEX', {
+  query: 'this is a test',
+  size: 3,
+  maxPage: 1,
+  sid: 'test'
+}))
+```
+
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 

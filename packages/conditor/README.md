@@ -53,58 +53,12 @@ Sachant qu'on appauvrit (casse, accents, tiret, apostrophe) tous les champs.
 #### Table of Contents
 
 -   [RNSR](#rnsr)
--   [affAlign](#affalign)
--   [xPublicationYears](#xpublicationyears)
 -   [compareRnsr](#comparernsr)
 -   [conditorScroll](#conditorscroll)
+-   [affAlign](#affalign)
+-   [xPublicationYears](#xpublicationyears)
 
 ### RNSR
-
-### affAlign
-
-Find the RNSR identifiers in the authors affiliation addresses.
-
-Input file:
-
-```json
-[{
-     "xPublicationDate": ["2012-01-01", "2012-01-01"],
-     "authors": [{
-         "affiliations": [{
-             "address": "GDR 2989 Université Versailles Saint-Quentin-en-Yvelines, 63009"
-         }]
-     }]
-}]
-```
-
-Script:
-
-```ini
-[use]
-plugin = basics
-plugin = conditor
-
-[JSONParse]
-[affAlign]
-[JSONString]
-indent = true
-```
-
-Output:
-
-```json
-[{
-     "xPublicationDate": ["2012-01-01", "2012-01-01"],
-     "authors": [{
-         "affiliations": [{
-             "address": "GDR 2989 Université Versailles Saint-Quentin-en-Yvelines, 63009",
-             "conditorRnsr": ["200619958X"]
-         }]
-     }]
-}]
-```
-
-### xPublicationYears
 
 ### compareRnsr
 
@@ -190,3 +144,49 @@ Output
 ```
 
 Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 
+
+### affAlign
+
+Find the RNSR identifiers in the authors affiliation addresses.
+
+Input file:
+
+```json
+[{
+     "xPublicationDate": ["2012-01-01", "2012-01-01"],
+     "authors": [{
+         "affiliations": [{
+             "address": "GDR 2989 Université Versailles Saint-Quentin-en-Yvelines, 63009"
+         }]
+     }]
+}]
+```
+
+Script:
+
+```ini
+[use]
+plugin = basics
+plugin = conditor
+
+[JSONParse]
+[affAlign]
+[JSONString]
+indent = true
+```
+
+Output:
+
+```json
+[{
+     "xPublicationDate": ["2012-01-01", "2012-01-01"],
+     "authors": [{
+         "affiliations": [{
+             "address": "GDR 2989 Université Versailles Saint-Quentin-en-Yvelines, 63009",
+             "conditorRnsr": ["200619958X"]
+         }]
+     }]
+}]
+```
+
+### xPublicationYears

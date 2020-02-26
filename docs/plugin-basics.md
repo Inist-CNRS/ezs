@@ -14,27 +14,49 @@ npm install @ezs/basics
 
 #### Table of Contents
 
--   [BUFObject](#bufobject)
--   [CSVObject](#csvobject)
--   [CSVParse](#csvparse)
--   [CSVString](#csvstring)
--   [JSONParse](#jsonparse)
--   [JSONString](#jsonstring)
 -   [OBJCount](#objcount)
--   [OBJFlatten](#objflatten)
--   [OBJStandardize](#objstandardize)
--   [SKOSObject](#skosobject)
--   [TXTConcat](#txtconcat)
--   [TXTObject](#txtobject)
--   [TXTParse](#txtparse)
--   [TXTZip](#txtzip)
--   [URLFetch](#urlfetch)
 -   [URLParse](#urlparse)
--   [URLStream](#urlstream)
 -   [URLString](#urlstring)
--   [XMLParse](#xmlparse)
--   [XMLString](#xmlstring)
+-   [BUFObject](#bufobject)
+-   [TXTObject](#txtobject)
+-   [TXTConcat](#txtconcat)
 -   [ZIPExtract](#zipextract)
+-   [OBJFlatten](#objflatten)
+-   [XMLString](#xmlstring)
+-   [CSVParse](#csvparse)
+-   [JSONParse](#jsonparse)
+-   [TXTZip](#txtzip)
+-   [JSONString](#jsonstring)
+-   [XMLParse](#xmlparse)
+-   [TXTParse](#txtparse)
+-   [URLFetch](#urlfetch)
+-   [CSVString](#csvstring)
+-   [CSVObject](#csvobject)
+-   [URLStream](#urlstream)
+-   [SKOSObject](#skosobject)
+-   [OBJStandardize](#objstandardize)
+
+### OBJCount
+
+Take `Object` and count how many objects are received and sent the total
+
+#### Parameters
+
+-   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
+
+Returns **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+
+### URLParse
+
+Take `String` of URL, parse it and returns `Object`
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### URLString
+
+Take `Object` representing a URL and stringify it
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ### BUFObject
 
@@ -47,121 +69,6 @@ For example, it's useful to send string to browser.
 
 Returns **[Buffer](https://nodejs.org/api/buffer.html)** 
 
-### CSVObject
-
-Take `Array` and transform rows into object.
-Each row (Array) is tranformed
-into a object where keys are the value of the first row
-
-#### Parameters
-
--   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### CSVParse
-
--   **See: <https://github.com/Inist-CNRS/node-csv-string>**
-
-Take `String` and parse CSV  to generate object
-
-#### Parameters
-
--   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to indicate the CSV separator (optional, default `auto`)
--   `quote` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to indicate the CSV quote. (optional, default `auto`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### CSVString
-
-Take `Object` and transform row  into string
-where each field is separated with a character
-
-#### Parameters
-
--   `format` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** if set to "strict" the fields will wrapped with double quote (optional, default `standard`)
--   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to indicate the CSV separator (optional, default `;`)
--   `header` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** first line contains key name (optional, default `true`)
-
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-### JSONParse
-
--   **See: <https://github.com/dominictarr/JSONStream>**
-
-Take `String` and parse JSON and generate objects
-
-#### Parameters
-
--   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to split at every JSONPath found (optional, default `*`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### JSONString
-
-Take `Object` and generate JSON
-
-#### Parameters
-
--   `wrap` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** every document are wrapped into an array (optional, default `true`)
--   `indent` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** indent JSON (optional, default `false`)
-
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-### OBJCount
-
-Take `Object` and count how many objects are received and sent the total
-
-#### Parameters
-
--   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
-
-Returns **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
-
-### OBJFlatten
-
--   **See: <https://www.npmjs.com/package/flat>**
-
-Take `Object` and flat it with delimited character.
-
-#### Parameters
-
--   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose a character for  flatten keys (optional, default `/`)
--   `safe` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** preserve arrays and their contents, (optional, default `false`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### OBJStandardize
-
-Take `Object` and standardize it so each object will have the sames keys
-
-#### Parameters
-
--   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### SKOSObject
-
-Take `Object` generated by XMLMapping & SKOS data and
-create a new basic object with only keys & values
-
-#### Parameters
-
--   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### TXTConcat
-
-Take `String` and concat all items in just one string
-
-#### Parameters
-
--   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
-
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
 ### TXTObject
 
 Take `String` and generate an object with a key and a value, where the value is the input string.
@@ -172,81 +79,13 @@ Take `String` and generate an object with a key and a value, where the value is 
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### TXTParse
+### TXTConcat
 
-Take `String` and split at each separator found
-
-#### Parameters
-
--   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose character which trigger the split (optional, default `"\n"`)
-
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-### TXTZip
-
-Take a String and zip it
-
-Returns **[Buffer](https://nodejs.org/api/buffer.html)** 
-
-### URLFetch
-
-Take `Object` and create a new field with the content of URL.
-Or if no target will be specified, the output will be the content of URL
+Take `String` and concat all items in just one string
 
 #### Parameters
 
--   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fecth
--   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** choose the key to set
--   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Pasre as JSON the content of URL (optional, default `false`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### URLParse
-
-Take `String` of URL, parse it and returns `Object`
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### URLStream
-
-Take `Object` as parameters of URL, throw each chunk from the result
-
-#### Parameters
-
--   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fecth
--   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** choose the key to set
--   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Pasre as JSON the content of URL (optional, default `false`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### URLString
-
-Take `Object` representing a URL and stringify it
-
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-### XMLParse
-
--   **See: <https://www.npmjs.com/package/xml-splitter>**
-
-Take `String` as XML input, parse it and split it in multi document at each path found
-
-#### Parameters
-
--   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fecth
--   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** choose the key to set
--   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose a character for flatten keys (optional, default `/`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### XMLString
-
-Take `Object` and transform it into a XML string
-
-#### Parameters
-
--   `rootElement` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Root element name for the tag which start and close the feed (optional, default `items`)
--   `contentElement` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Content element name for the tag which start and close each item (optional, default `item`)
+-   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
@@ -269,3 +108,164 @@ an object for each file found like :
 -   `json` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** transforms each file into an Object (JSON) (optional, default `true`)
 
 Returns **any** <Object>
+
+### OBJFlatten
+
+-   **See: <https://www.npmjs.com/package/flat>**
+
+Take `Object` and flat it with delimited character.
+
+#### Parameters
+
+-   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose a character for  flatten keys (optional, default `/`)
+-   `safe` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** preserve arrays and their contents, (optional, default `false`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### XMLString
+
+Take `Object` and transform it into a XML string
+
+#### Parameters
+
+-   `rootElement` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Root element name for the tag which start and close the feed (optional, default `items`)
+-   `contentElement` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Content element name for the tag which start and close each item (optional, default `item`)
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+### CSVParse
+
+-   **See: <https://github.com/Inist-CNRS/node-csv-string>**
+
+Take `String` and parse CSV  to generate object
+
+#### Parameters
+
+-   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to indicate the CSV separator (optional, default `auto`)
+-   `quote` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to indicate the CSV quote. (optional, default `auto`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### JSONParse
+
+-   **See: <https://github.com/dominictarr/JSONStream>**
+
+Take `String` and parse JSON and generate objects
+
+#### Parameters
+
+-   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to split at every JSONPath found (optional, default `*`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### TXTZip
+
+Take a String and zip it
+
+Returns **[Buffer](https://nodejs.org/api/buffer.html)** 
+
+### JSONString
+
+Take `Object` and generate JSON
+
+#### Parameters
+
+-   `wrap` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** every document are wrapped into an array (optional, default `true`)
+-   `indent` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** indent JSON (optional, default `false`)
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+### XMLParse
+
+-   **See: <https://www.npmjs.com/package/xml-splitter>**
+
+Take `String` as XML input, parse it and split it in multi document at each path found
+
+#### Parameters
+
+-   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fecth
+-   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** choose the key to set
+-   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose a character for flatten keys (optional, default `/`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### TXTParse
+
+Take `String` and split at each separator found
+
+#### Parameters
+
+-   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose character which trigger the split (optional, default `"\n"`)
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+### URLFetch
+
+Take `Object` and create a new field with the content of URL.
+Or if no target will be specified, the output will be the content of URL
+
+#### Parameters
+
+-   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fecth
+-   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** choose the key to set
+-   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Pasre as JSON the content of URL (optional, default `false`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### CSVString
+
+Take `Object` and transform row  into string
+where each field is separated with a character
+
+#### Parameters
+
+-   `format` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** if set to "strict" the fields will wrapped with double quote (optional, default `standard`)
+-   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to indicate the CSV separator (optional, default `;`)
+-   `header` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** first line contains key name (optional, default `true`)
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+### CSVObject
+
+Take `Array` and transform rows into object.
+Each row (Array) is tranformed
+into a object where keys are the value of the first row
+
+#### Parameters
+
+-   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### URLStream
+
+Take `Object` as parameters of URL, throw each chunk from the result
+
+#### Parameters
+
+-   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fecth
+-   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** choose the key to set
+-   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Pasre as JSON the content of URL (optional, default `false`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### SKOSObject
+
+Take `Object` generated by XMLMapping & SKOS data and
+create a new basic object with only keys & values
+
+#### Parameters
+
+-   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### OBJStandardize
+
+Take `Object` and standardize it so each object will have the sames keys
+
+#### Parameters
+
+-   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 

@@ -16,10 +16,22 @@ npm install @ezs/storage
 
 #### Table of Contents
 
--   [flow](#flow)
--   [identify](#identify)
 -   [load](#load)
+-   [flow](#flow)
 -   [save](#save)
+-   [identify](#identify)
+
+### load
+
+With a `String`, containing a URI throw all the documents that match
+
+#### Parameters
+
+-   `data`  
+-   `feed`  
+-   `domain` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** domain ID (that should contains the uri input) (optional, default `ezs`)
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ### flow
 
@@ -35,31 +47,6 @@ Warning: order is not guaranteed
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### identify
-
-Take `Object`, and compute & add a identifier
-
-#### Parameters
-
--   `data`  
--   `feed`  
--   `scheme` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** scheme prefix (optional, default `uid`)
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path containing the object Identifier (optional, default `uri`)
-
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-### load
-
-With a `String`, containing a URI throw all the documents that match
-
-#### Parameters
-
--   `data`  
--   `feed`  
--   `domain` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** domain ID (that should contains the uri input) (optional, default `ezs`)
-
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
 ### save
 
 Take `Object`, to save it into a store and throw an URL
@@ -73,3 +60,16 @@ Take `Object`, to save it into a store and throw an URL
 -   `reset` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** if the store already exists, you will erase all previous content (optional, default `false`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### identify
+
+Take `Object`, and compute & add a identifier
+
+#### Parameters
+
+-   `data`  
+-   `feed`  
+-   `scheme` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** scheme prefix (optional, default `uid`)
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path containing the object Identifier (optional, default `uri`)
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
