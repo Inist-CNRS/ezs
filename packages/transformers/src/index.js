@@ -1,5 +1,36 @@
+// Promises
+import COLUMN from './operations/COLUMN';
+import UPPERCASE from './operations/UPPERCASE';
+import LOWERCASE from './operations/LOWERCASE';
+import VALUE from './operations/VALUE';
+import CONCAT from './operations/CONCAT';
+import JBJ from './operations/JBJ';
+import JOIN from './operations/JOIN';
+import CONCAT_URI from './operations/CONCAT_URI';
+import SPLIT from './operations/SPLIT';
+import PREFIX from './operations/PREFIX';
+import SUFFIX from './operations/SUFFIX';
+import DEFAULT from './operations/DEFAULT';
+import STRING from './operations/STRING';
+import REMOVE from './operations/REMOVE';
+import REPLACE from './operations/REPLACE';
+import NUMBER from './operations/NUMBER';
+import BOOLEAN from './operations/BOOLEAN';
+import TRUNCATE from './operations/TRUNCATE';
+import SHIFT from './operations/SHIFT';
+import TRIM from './operations/TRIM';
+import CAPITALIZE from './operations/CAPITALIZE';
+import UNIQ from './operations/UNIQ';
+import FORMAT from './operations/FORMAT';
+import PARSE from './operations/PARSE';
+import SELECT from './operations/SELECT';
+import GET from './operations/GET';
+import ARRAY from './operations/ARRAY';
+import MASK from './operations/MASK';
+import URLENCODE from './operations/URLENCODE';
+
+// EZS statements
 import $ARRAY from './dollar-array';
-import $AUTOGENERATE_URI from './dollar-autogenerate-uri';
 import $BOOLEAN from './dollar-boolean';
 import $CAPITALIZE from './dollar-capitalize';
 import $COLUMN from './dollar-column';
@@ -28,10 +59,8 @@ import $UPPERCASE from './dollar-uppercase';
 import $URLENCODE from './dollar-urlencode';
 import $VALUE from './dollar-value';
 
-
 export default {
     $ARRAY,
-    $AUTOGENERATE_URI,
     $BOOLEAN,
     $CAPITALIZE,
     $COLUMN,
@@ -60,3 +89,69 @@ export default {
     $URLENCODE,
     $VALUE,
 };
+
+export const transformers = {
+    COLUMN,
+    UPPERCASE,
+    LOWERCASE,
+    VALUE,
+    CONCAT,
+    JBJ,
+    JOIN,
+    CONCAT_URI,
+    SPLIT,
+    PREFIX,
+    SUFFIX,
+    DEFAULT,
+    REMOVE,
+    REPLACE,
+    STRING,
+    NUMBER,
+    BOOLEAN,
+    TRUNCATE,
+    SHIFT,
+    TRIM,
+    CAPITALIZE,
+    UNIQ,
+    FORMAT,
+    PARSE,
+    SELECT,
+    GET,
+    ARRAY,
+    MASK,
+    URLENCODE,
+};
+
+export const transformersMetas = [
+    COLUMN,
+    UPPERCASE,
+    LOWERCASE,
+    VALUE,
+    CONCAT,
+    JBJ,
+    JOIN,
+    CONCAT_URI,
+    SPLIT,
+    PREFIX,
+    SUFFIX,
+    DEFAULT,
+    STRING,
+    REMOVE,
+    REPLACE,
+    NUMBER,
+    BOOLEAN,
+    TRUNCATE,
+    SHIFT,
+    TRIM,
+    CAPITALIZE,
+    UNIQ,
+    FORMAT,
+    PARSE,
+    SELECT,
+    GET,
+    ARRAY,
+    MASK,
+    URLENCODE,
+]
+    .map((transformation) => transformation.getMetas())
+    .sort((x, y) => x.name.localeCompare(y.name));
