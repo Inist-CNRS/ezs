@@ -13,6 +13,7 @@ import DEFAULT from './operations/DEFAULT';
 import STRING from './operations/STRING';
 import REMOVE from './operations/REMOVE';
 import REPLACE from './operations/REPLACE';
+import REPLACE_REGEX from './operations/REPLACE_REGEX';
 import NUMBER from './operations/NUMBER';
 import BOOLEAN from './operations/BOOLEAN';
 import TRUNCATE from './operations/TRUNCATE';
@@ -27,6 +28,8 @@ import GET from './operations/GET';
 import ARRAY from './operations/ARRAY';
 import MASK from './operations/MASK';
 import URLENCODE from './operations/URLENCODE';
+import MAPPING from './operations/MAPPING';
+import TRUNCATE_WORDS from './operations/TRUNCATE_WORDS';
 
 // EZS statements
 import $ARRAY from './dollar-array';
@@ -46,6 +49,7 @@ import $PARSE from './dollar-parse';
 import $PREFIX from './dollar-prefix';
 import $REMOVE from './dollar-remove';
 import $REPLACE from './dollar-replace';
+import $REPLACE_REGEX from './dollar-replace-regex';
 import $SELECT from './dollar-select';
 import $SHIFT from './dollar-shift';
 import $SPLIT from './dollar-split';
@@ -57,6 +61,8 @@ import $UNIQ from './dollar-uniq';
 import $UPPERCASE from './dollar-uppercase';
 import $URLENCODE from './dollar-urlencode';
 import $VALUE from './dollar-value';
+import $MAPPING from './dollar-mapping';
+import $TRUNCATE_WORDS from './dollar-truncate-words';
 
 export default {
     $ARRAY,
@@ -76,6 +82,7 @@ export default {
     $PREFIX,
     $REMOVE,
     $REPLACE,
+    $REPLACE_REGEX,
     $SELECT,
     $SHIFT,
     $SPLIT,
@@ -87,6 +94,8 @@ export default {
     $UPPERCASE,
     $URLENCODE,
     $VALUE,
+    $MAPPING,
+    $TRUNCATE_WORDS,
 };
 
 export const transformers = {
@@ -103,6 +112,7 @@ export const transformers = {
     DEFAULT,
     REMOVE,
     REPLACE,
+    REPLACE_REGEX,
     STRING,
     NUMBER,
     BOOLEAN,
@@ -118,6 +128,8 @@ export const transformers = {
     ARRAY,
     MASK,
     URLENCODE,
+    MAPPING,
+    TRUNCATE_WORDS,
 };
 
 export const transformersMetas = [
@@ -135,6 +147,7 @@ export const transformersMetas = [
     STRING,
     REMOVE,
     REPLACE,
+    REPLACE_REGEX,
     NUMBER,
     BOOLEAN,
     TRUNCATE,
