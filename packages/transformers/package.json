@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/transformers#readme",
   "dependencies": {
+    "json-6": "^1.0.4",
     "lodash.flatten": "^4.4.0",
     "lodash.get": "^4.4.2",
     "lodash.uniq": "^4.5.0",
