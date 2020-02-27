@@ -105,10 +105,13 @@ npm install @ezs/transformers
 -   [$SUFFIX](#suffix)
 -   [$VALUE](#value)
 -   [$CONCAT](#concat)
+-   [$MAPPING](#mapping)
 -   [$SELECT](#select)
 -   [$SPLIT](#split)
+-   [$TRUNCATE_WORDS](#truncate_words)
 -   [$TRUNCATE](#truncate)
 -   [$CONCAT_URI](#concat_uri)
+-   [$REPLACE_REGEX](#replace_regex)
 -   [$REPLACE](#replace)
 
 ### $ARRAY
@@ -571,6 +574,28 @@ columns = part2
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
+### $MAPPING
+
+Opération permettant le remplacement à partir d'une table
+(équivalent à l'enchaînement de plusieurs opération REPLACE)
+
+Exemple :
+
+```ini
+[$MAPPING]
+field = keywords
+list = "hello":"bonjour", "hi":"salut"
+```
+
+#### Parameters
+
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to apply the transformation
+-   `list` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the mapping list
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
 ### $SELECT
 
 Prendre une valeir dans un objet à partir de son chemin (dot path)
@@ -610,6 +635,28 @@ separator = |
 -   `feed`  
 -   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to apply the transformation
 -   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value to use to split the field
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### $TRUNCATE_WORDS
+
+Opération permettant la troncature par nombre de mots
+et non pas par nombre de caractères comme pour opération TRUNCATE
+
+Exemple :
+
+```ini
+[$TRUNCATE_WORDS]
+field = title
+gap = 10
+```
+
+#### Parameters
+
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to apply the transformation
+-   `gap` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** how many words to keep
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -655,6 +702,29 @@ separator = -
 -   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to get the result of the transformation
 -   `column` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to get data
 -   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** glue between each column
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### $REPLACE_REGEX
+
+remplacer une chaîne par une autre via une exrpression régulière
+
+Exemple :
+
+```ini
+[$REPLACE_REGEX]
+field = title
+searchValue = $hel\w+
+replaceValue = bonjour
+```
+
+#### Parameters
+
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to apply the transformation
+-   `searchValue` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** regex to search
+-   `replaceValue` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value to replace with
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 

@@ -14,7 +14,7 @@ import dollar from './dollar';
  * ```
  *
  * @param {String} [field] field path to apply the transformation
- * @param {String} [with] the mapping list
+ * @param {String} [list] the mapping list
  * @returns {Object}
  */
 export default function $MAPPING(data, feed) {
