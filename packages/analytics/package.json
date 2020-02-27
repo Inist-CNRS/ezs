@@ -1,6 +1,6 @@
 {
   "name": "@ezs/analytics",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "Analytics statements for EZS",
   "directories": {
     "test": "test"

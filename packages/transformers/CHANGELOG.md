@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/transformers@1.1.0...@ezs/transformers@1.2.0) (2020-02-27)
+
+
+### Features
+
+* 🎸 new operations ([046c08d](https://github.com/Inist-CNRS/ezs/commit/046c08d3c9869aa863e20f663ca8beb355088762))
+
+
+
+
+
 # 1.1.0 (2020-02-26)
 
 
