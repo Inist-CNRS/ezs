@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/transformers@1.2.0...@ezs/transformers@1.2.1) (2020-02-27)
+
+
+### Bug Fixes
+
+* 🐛 missing metas declaration ([eaf4fab](https://github.com/Inist-CNRS/ezs/commit/eaf4fab41495df9cdd30d06c9b72c83971df68e5))
+
+
+
+
+
 # [1.2.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/transformers@1.1.0...@ezs/transformers@1.2.0) (2020-02-27)
 
 
