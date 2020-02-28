@@ -22,6 +22,7 @@ npm install @ezs/basics
 -   [TXTConcat](#txtconcat)
 -   [ZIPExtract](#zipextract)
 -   [OBJFlatten](#objflatten)
+-   [INIString](#inistring)
 -   [XMLString](#xmlstring)
 -   [CSVParse](#csvparse)
 -   [JSONParse](#jsonparse)
@@ -121,6 +122,12 @@ Take `Object` and flat it with delimited character.
 -   `safe` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** preserve arrays and their contents, (optional, default `false`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### INIString
+
+Take `Object` and generate INI
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ### XMLString
 
