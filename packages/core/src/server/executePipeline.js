@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { PassThrough } from 'stream';
-import { server } from '../settings';
+import settings from '../settings';
 
 const dispositionFrom = ({ extension }) => (extension ? `dump.${extension}` : 'inline');
 const encodingFrom = (headers) => (headers && headers['content-encoding'] ? headers['content-encoding'] : 'identity');
@@ -59,7 +59,9 @@ function executePipeline(ezs, files, headers, query, triggerError, read, respons
             return false;
         }
         const inputBis = createInput(firstChunk);
-        const statements = files.map((file) => ezs('delegate', { file, server }, query));
+        const { server } = settings;
+        const execMode = server ? 'dispatch' : 'delegate';
+        const statements = files.map((file) => ezs(execMode, { file, server }, query));
         if (prepend2Pipeline) {
             statements.unshift(ezs.createCommand(prepend2Pipeline, query));
         }
