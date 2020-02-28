@@ -4,6 +4,7 @@ import from from 'from';
 import fetch from 'node-fetch';
 import { Readable } from 'stream';
 import ezs from '../src';
+import { parseAddress } from '../src/client';
 import JSONezs from '../src/json';
 
 ezs.use(require('./locals'));
@@ -794,3 +795,11 @@ describe('dispatch through server(s)', () => {
 
     /**/
 });
+
+describe('parseAddress', () => {
+    it('return null with invalid type', (done) => {
+        assert.equal(parseAddress({}, {})({}), null);
+        done();
+    });
+})
+
