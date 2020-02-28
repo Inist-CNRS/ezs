@@ -18,5 +18,5 @@ import dollar from './dollar';
  * @returns {Object}
  */
 export default function $CONCAT(data, feed) {
-    return dollar(this, data, feed, transformer, data);
+    return dollar(this, data, feed, transformer, true);
 }
