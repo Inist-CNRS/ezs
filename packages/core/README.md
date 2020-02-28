@@ -14,7 +14,6 @@ npm install @ezs/core
 
 #### Table of Contents
 
--   [dump](#dump)
 -   [pack](#pack)
 -   [unpack](#unpack)
 -   [tracer](#tracer)
@@ -31,22 +30,13 @@ npm install @ezs/core
 -   [exchange](#exchange)
 -   [extract](#extract)
 -   [keep](#keep)
+-   [dump](#dump)
 -   [ignore](#ignore)
 -   [truncate](#truncate)
 -   [shuffle](#shuffle)
 -   [validate](#validate)
 -   [replace](#replace)
 -   [assign](#assign)
-
-### dump
-
-Take all `Object` and generete a JSON array
-
-#### Parameters
-
--   `indent` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** indent JSON (optional, default `false`)
-
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ### pack
 
@@ -478,6 +468,54 @@ Output:
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to keep
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### dump
+
+Take all `Object` and generete a JSON array
+
+```json
+[
+    { a: 1 },
+    { a: 2 },
+    { a: 3 },
+    { a: 4 },
+    { a: 5 }
+]
+```
+
+Script:
+
+```ini
+[dump]
+indent = true
+```
+
+Output:
+
+```json
+ [{
+    "a": 1
+   },
+   {
+    "a": 2
+   },
+   {
+    "a": 3
+   },
+   {
+    "a": 4
+   },
+   {
+    "a": 5
+   }
+]
+```
+
+#### Parameters
+
+-   `indent` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** indent JSON (optional, default `false`)
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ### ignore
 

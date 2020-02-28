@@ -5,7 +5,7 @@ import statements from '.';
 ezs.use(statements);
 
 describe('chaining transformer', () => {
-    test('with valid parameter', (done) => {
+    test('with to transformers', (done) => {
         const script = `
             [$PREFIX]
             field = b
