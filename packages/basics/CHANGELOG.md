@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.1.5...@ezs/basics@1.2.0) (2020-02-28)
+
+
+### Features
+
+* 🎸 new statement [INIString] ([b544681](https://github.com/Inist-CNRS/ezs/commit/b5446812a3fc16295f300e7c2bc9faaded8af6e9))
+
+
+
+
+
 ## [1.1.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.1.4...@ezs/basics@1.1.5) (2020-02-27)
 
 **Note:** Version bump only for package @ezs/basics

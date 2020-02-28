@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.6.2...@ezs/core@1.6.3) (2020-02-28)
+
+
+### Bug Fixes
+
+* 🐛 small fix to avoid double ending in some cases ([2024384](https://github.com/Inist-CNRS/ezs/commit/202438411109728cb2ec7a4f2b8883150f6ea79d))
+
+
+
+
+
 ## [1.6.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.6.1...@ezs/core@1.6.2) (2020-02-27)
 
 **Note:** Version bump only for package @ezs/core
