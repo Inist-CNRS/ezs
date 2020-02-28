@@ -19,6 +19,7 @@ import URLString from './url-string';
 import URLStream from './url-stream';
 import TXTZip from './txt-zip';
 import ZIPExtract from './zip-extract';
+import INIString from './ini-string';
 
 export default {
     BUFObject,
@@ -42,6 +43,7 @@ export default {
     URLStream,
     TXTZip,
     ZIPExtract,
+    INIString,
     // aliases
     bufferify: BUFObject.BUFObject,
     jsonify: JSONString.JSONString,
