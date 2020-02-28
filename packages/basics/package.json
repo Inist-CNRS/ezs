@@ -1,6 +1,6 @@
 {
   "name": "@ezs/basics",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Basics statements for EZS",
   "directories": {
     "test": "test"
