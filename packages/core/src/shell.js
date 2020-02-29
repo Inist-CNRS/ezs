@@ -9,6 +9,17 @@ const safeEval = (code, sandbox) => {
     return script.runInContext(context);
 };
 
+const generateCode = (expressionValue) => {
+    const js = [];
+    js.push('_.chain(self).');
+    js.push(expressionValue.replace(/([)]\s*->\s*)/g, ').'));
+    js.push('.value();');
+    const code = js.join('');
+    const script = new vm.Script(code);
+    return script;
+};
+
+
 const parse = (chunk, environment) => (expression) => {
     const js = [];
     js.push('_.chain(self).');
@@ -41,17 +52,49 @@ const analyse = (chunk, environment) => (expression) => {
     return autocast(expression);
 };
 
-export default function Shell(expression, chunk, environment) {
-    if (Array.isArray(expression)) {
-        return expression.map((item) => {
-            if (typeof expression !== 'function') {
-                return item;
-            }
-            return item(analyse(chunk, environment));
+export default class Shell {
+    constructor(ezs, environment) {
+        this.environment = environment;
+        this.lodash = _.runInContext();
+        this.lodash.mixin({
+            ...mixins,
+            env: (i, p, d) => (p ? _.get(this.environment, p, d) : this.environment),
         });
     }
-    if (!expression || !expression.through) {
-        return expression;
+
+    run(expression, chunk) {
+        if (Array.isArray(expression)) {
+            return expression.map((item) => {
+                if (typeof expression !== 'function') {
+                    return item;
+                }
+                return item(this.analyse(chunk));
+            });
+        }
+        if (!expression || !expression.through) {
+            return expression;
+        }
+        return expression.through(this.analyse(chunk));
     }
-    return expression.through(analyse(chunk, environment));
+
+    analyse(chunk) {
+        const via = (expressionValue) => {
+            if (Array.isArray(expressionValue)) {
+                return expressionValue.map(this.analyse(chunk));
+            }
+            if (!expressionValue || typeof expressionValue !== 'string') {
+                return expressionValue;
+            }
+            if (expressionValue.match(/^[a-zA-Z][a-zA-Z0-9]*[(]/)) {
+                const code = generateCode(expressionValue);
+                const context = vm.createContext({
+                    _: this.lodash,
+                    self: chunk,
+                });
+                return code.runInContext(context);
+            }
+            return autocast(expressionValue);
+        };
+        return via;
+    }
 }

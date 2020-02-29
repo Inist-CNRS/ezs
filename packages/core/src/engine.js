@@ -43,6 +43,7 @@ export default class Engine extends SafeTransform {
         this.on('pipe', (src) => {
             this.parentStream = src;
         });
+        this.shell = new Shell(ezs, this.environment);
     }
 
     _transform(chunk, encoding, done) {
@@ -109,7 +110,7 @@ export default class Engine extends SafeTransform {
             this.scope.getParams = () => this.params;
             this.scope.getParam = (name, defval) => {
                 if (this.params[name] !== undefined) {
-                    return Shell(this.params[name], chunk, this.environment);
+                    return this.shell.run(this.params[name], chunk);
                 }
                 return defval;
             };
