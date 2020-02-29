@@ -33,7 +33,6 @@ export default class Engine extends SafeTransform {
         this.index = 0;
         this.ttime = nanoZero();
         this.params = params || {};
-        this.scope = {};
         this.ezs = ezs;
         this.environment = environment || {};
         this.nullWasSent = false;
@@ -44,6 +43,21 @@ export default class Engine extends SafeTransform {
             this.parentStream = src;
         });
         this.shell = new Shell(ezs, this.environment);
+        this.chunk = {};
+        this.scope = {};
+        this.scope.getEnv = (name) => (name === undefined ? this.environment : this.environment[name]);
+        this.scope.ezs = this.ezs;
+        this.scope.emit = (d, c) => this.emit(d, c);
+        this.scope.getParams = () => this.params;
+        this.scope.isFirst = () => (this.index === 1);
+        this.scope.getIndex = () => this.index;
+        this.scope.isLast = () => (this.chunk === null);
+        this.scope.getParam = (name, defval) => {
+            if (this.params[name] !== undefined) {
+                return this.shell.run(this.params[name], this.chunk);
+            }
+            return defval;
+        };
     }
 
     _transform(chunk, encoding, done) {
@@ -101,19 +115,7 @@ export default class Engine extends SafeTransform {
         };
         const feed = new Feed(push, done, warn);
         try {
-            this.scope.isFirst = () => (currentIndex === 1);
-            this.scope.getIndex = () => currentIndex;
-            this.scope.isLast = () => (chunk === null);
-            this.scope.getEnv = (name) => (name === undefined ? this.environment : this.environment[name]);
-            this.scope.ezs = this.ezs;
-            this.scope.emit = (d, c) => this.emit(d, c);
-            this.scope.getParams = () => this.params;
-            this.scope.getParam = (name, defval) => {
-                if (this.params[name] !== undefined) {
-                    return this.shell.run(this.params[name], chunk);
-                }
-                return defval;
-            };
+            this.chunk = chunk;
             return Promise.resolve(this.func.call(this.scope, chunk, feed, currentIndex)).catch((e) => {
                 debug('ezs')(`Async error thrown at item #${currentIndex}, pipeline is broken`);
                 this.emit('error', createErrorWith(e, currentIndex, this.funcName));

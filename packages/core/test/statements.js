@@ -638,7 +638,6 @@ describe('statements', () => {
                     res.push(chunk);
                 })
                 .on('end', () => {
-                    console.log({res});
                     assert.equal(res.length, 3);
                     assert.equal(res[0], 'HAHA');
                     assert.equal(res[1], 'HAHA');
