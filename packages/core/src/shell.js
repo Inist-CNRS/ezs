@@ -3,55 +3,63 @@ import autocast from 'autocast';
 import _ from 'lodash';
 import mixins from './mixins';
 
-const safeEval = (code, sandbox) => {
-    const script = new vm.Script(code);
-    const context = vm.createContext(sandbox);
-    return script.runInContext(context);
-};
-
-const parse = (chunk, environment) => (expression) => {
+const generateCode = (expressionValue) => {
     const js = [];
     js.push('_.chain(self).');
-    js.push(expression.replace(/([)]\s*->\s*)/g, ').'));
+    js.push(expressionValue.replace(/([)]\s*->\s*)/g, ').'));
     js.push('.value();');
     const code = js.join('');
-    const data = typeof chunk === 'object' ? _.omitBy(chunk, _.isFunction) : chunk;
-    _.mixin({
-        ...mixins,
-        env: (i, p, d) => (p ? _.get(environment, p, d) : environment),
-    });
-    const result = safeEval(code, {
-        _,
-        self: data,
-    });
-    return result;
+    const script = new vm.Script(code);
+    return script;
 };
 
-
-const analyse = (chunk, environment) => (expression) => {
-    if (Array.isArray(expression)) {
-        return expression.map(analyse(chunk, environment));
-    }
-    if (!expression || typeof expression !== 'string') {
-        return expression;
-    }
-    if (expression.match(/^[a-zA-Z][a-zA-Z0-9]*[(]/)) {
-        return parse(chunk, environment)(expression);
-    }
-    return autocast(expression);
-};
-
-export default function Shell(expression, chunk, environment) {
-    if (Array.isArray(expression)) {
-        return expression.map((item) => {
-            if (typeof expression !== 'function') {
-                return item;
-            }
-            return item(analyse(chunk, environment));
+export default class Shell {
+    constructor(ezs, environment) {
+        this.ezs = ezs;
+        this.environment = environment;
+        const lodash = _.runInContext();
+        lodash.mixin({
+            ...mixins,
+            env: (i, p, d) => (p ? _.get(this.environment, p, d) : this.environment),
         });
+        this.contextObject = {
+            _: lodash,
+            self: {},
+        };
+        this.context = vm.createContext(this.contextObject);
     }
-    if (!expression || !expression.through) {
-        return expression;
+
+    run(expression, chunk) {
+        if (Array.isArray(expression)) {
+            return expression.map((item) => {
+                if (typeof expression !== 'function') {
+                    return item;
+                }
+                return item(this.analyse(chunk));
+            });
+        }
+        if (!expression || !expression.through) {
+            return expression;
+        }
+        return expression.through(this.analyse(chunk));
     }
-    return expression.through(analyse(chunk, environment));
+
+    analyse(chunk) {
+        const { ezs } = this;
+        const via = (expressionValue) => {
+            if (Array.isArray(expressionValue)) {
+                return expressionValue.map(this.analyse(chunk));
+            }
+            if (!expressionValue || typeof expressionValue !== 'string') {
+                return expressionValue;
+            }
+            if (expressionValue.match(/^[a-zA-Z][a-zA-Z0-9]*[(]/)) {
+                const code = ezs.memoize(expressionValue, () => generateCode(expressionValue));
+                this.contextObject.self = chunk;
+                return code.runInContext(this.context);
+            }
+            return autocast(expressionValue);
+        };
+        return via;
+    }
 }
