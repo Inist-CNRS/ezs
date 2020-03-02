@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.6.3...@ezs/core@1.6.4) (2020-03-02)
+
+
+### Performance Improvements
+
+* ⚡️ server can delegate or dispatch statements ([3a74d47](https://github.com/Inist-CNRS/ezs/commit/3a74d478b279809444c8ceb23999dabb17a5a3ce))
+* ⚡️ x100 ([b7a98cf](https://github.com/Inist-CNRS/ezs/commit/b7a98cf0f116e7374c0fd1e03ad0fe573b01d989))
+
+
+
+
+
 ## [1.6.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.6.2...@ezs/core@1.6.3) (2020-02-28)
 
 
