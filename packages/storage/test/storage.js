@@ -208,4 +208,29 @@ describe('flow', () => {
                 done();
             });
     });
+    it('save & flow', (done) => {
+        const input = [...data];
+        const ids = [];
+        const output = [];
+        from(input)
+            .pipe(ezs('identify'))
+            .pipe(ezs('save', { domain: 'test2', reset: true, host: false }))
+            .on('data', (chunk) => {
+                ids.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(ids.length, 6);
+                assert.equal(ids[0].indexOf('uid:'), 0);
+                from(['GO'])
+                    .pipe(ezs('flow', { domain: 'test2' }))
+                    .on('data', (chunk) => {
+                        output.push(chunk);
+                    })
+                    .on('end', () => {
+                        expect(output.length).toEqual(6);
+                        expect(output.sort((x, y) => x.a - y.a).shift()).toEqual(input[0]);
+                        done();
+                    });
+            });
+    });
 });
