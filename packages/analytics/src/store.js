@@ -1,61 +1,99 @@
-import levelup from 'levelup';
-import leveldown from 'leveldown';
+import { totalmem, cpus } from 'os';
+import pathExists from 'path-exists';
 import tmpFilepath from 'tmp-filepath';
-import core from './core';
+import makeDir from 'make-dir';
+import lmdb from 'node-lmdb';
 
-const encodeKey = (k) => JSON.stringify(k).split(' ').join('~');
-const decodeKey = (k) => JSON.parse(String(k).split('~').join(' '));
-
-const encodeValue = (k) => JSON.stringify(k);
-const decodeValue = (k) => JSON.parse(String(k));
-
-
-function decode(data, feed) {
-    if (this.isLast()) {
-        feed.close(); return;
+const maxDbs = cpus().length ** 2;
+const mapSize = totalmem() / 2;
+const encodeKey = (k) => JSON.stringify(k);
+const decodeKey = (k) => JSON.parse(String(k));
+const encodeValue = (v) => JSON.stringify(v);
+const decodeValue = (v) => JSON.parse(String(v));
+let handle;
+const lmdbEnv = () => {
+    if (handle) {
+        return handle;
     }
-    const k = decodeKey(data.key);
-    const v = decodeValue(data.value);
-    feed.send(core(k, v));
-}
-
+    const path = tmpFilepath('store');
+    if (!pathExists.sync(path)) {
+        makeDir.sync(path);
+    }
+    handle = new lmdb.Env();
+    handle.open({
+        path,
+        mapSize,
+        maxDbs,
+    });
+    return handle;
+};
 
 export default class Store {
-    constructor(ezs, source) {
-        this.file = tmpFilepath(`.${source}`);
-        this.db = levelup(leveldown(this.file));
+    constructor(ezs, domain) {
         this.ezs = ezs;
+        this.dbi = lmdbEnv(this.ezs).openDbi({
+            name: domain,
+            create: true,
+        });
     }
 
     get(key) {
-        return this.db.get(encodeKey(key)).then((val) => new Promise((resolve) => resolve(decodeValue(val))));
-    }
-
-    set(key, value) {
-        return this.put(key, value);
+        return new Promise((resolve) => {
+            const txn = lmdbEnv(this.ezs).beginTxn({ readOnly: true });
+            const ekey = encodeKey(key);
+            const val = decodeValue(txn.getString(this.dbi, ekey));
+            txn.commit();
+            resolve(val);
+        });
     }
 
     put(key, value) {
-        return this.db.put(
-            encodeKey(key),
-            encodeValue(value),
-        );
+        return new Promise((resolve) => {
+            const txn = lmdbEnv(this.ezs).beginTxn();
+            const ekey = encodeKey(key);
+            txn.putString(this.dbi, ekey, encodeValue(value));
+            txn.commit();
+            resolve(true);
+        });
     }
 
     add(key, value) {
-        return this.get(key)
-            .then((val) => this.put(key, val.concat(value)))
-            .catch(() => this.put(key, [value]));
+        return new Promise((resolve) => {
+            const txn = lmdbEnv(this.ezs).beginTxn();
+            const ekey = encodeKey(key);
+            const vvalue = decodeValue(txn.getString(this.dbi, ekey));
+            if (vvalue) {
+                txn.putString(this.dbi, ekey, encodeValue(vvalue.concat(value)));
+            } else {
+                txn.putString(this.dbi, ekey, encodeValue([value]));
+            }
+            txn.commit();
+            resolve(true);
+        });
     }
 
+    cast() {
+        const flow = this.ezs.createStream(this.ezs.objectMode())
+            .on('end', () => this.close());
 
-    cast(opt) {
-        return this.db.createReadStream(opt)
-            .on('end', () => this.close())
-            .pipe(this.ezs(decode));
+        process.nextTick(() => {
+            const txn = lmdbEnv(this.ezs).beginTxn({ readOnly: true });
+            const cursor = new lmdb.Cursor(txn, this.dbi);
+            for (let found = cursor.goToFirst();
+                found !== null;
+                found = cursor.goToNext()) {
+                const id = decodeKey(found);
+                console.log('get', id);
+                const value = decodeValue(txn.getString(this.dbi, found));
+                flow.write({ id, value });
+            }
+            flow.end();
+            txn.commit();
+        });
+        return flow;
     }
 
     close() {
-        return this.db.close();
+        return this.dbi.close();
     }
 }

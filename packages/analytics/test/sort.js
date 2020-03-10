@@ -205,17 +205,17 @@ describe('sort ', () => {
             { id: 'électrifie', value: 9 },
             { id: 'collectivité', value: 10 },
         ])
-        .pipe(ezs('tune', { path: 'id', method: 'cosine' }))
-        .pipe(ezs('sort', { reverse: true }))
-        .pipe(ezs('value'))
-        .on('data', (chunk) => {
-            assert(typeof chunk === 'object');
-            res.push(chunk);
+            .pipe(ezs('tune', { path: 'id', method: 'cosine' }))
+            .pipe(ezs('sort', { reverse: true }))
+            .pipe(ezs('value'))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
             })
-        .on('end', () => {
-            assert.equal(10, res[0].value);
-            assert.equal(1, res[9].value);
-            done();
+            .on('end', () => {
+                assert.equal(10, res[0].value);
+                assert.equal(1, res[9].value);
+                done();
             });
     });
 
@@ -235,19 +235,19 @@ describe('sort ', () => {
             { id: 'électrifie', value: 9 },
             { id: 'collectivité', value: 10 },
         ])
-        .pipe(ezs('tune', { path: 'id' }))
-        .pipe(ezs('sort'))
-        .pipe(ezs('value'))
-        .on('data', (chunk) => {
-            assert(typeof chunk === 'object');
-            res.push(chunk);
+            .pipe(ezs('tune', { path: 'id' }))
+            .pipe(ezs('sort'))
+            .pipe(ezs('value'))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
             })
-        .on('end', () => {
-            assert.equal(10, res[0].value);
-            assert.equal(4, res[1].value);
-            assert.equal(8, res[2].value);
-            assert.equal(2, res[9].value);
-            done();
+            .on('end', () => {
+                assert.equal(10, res[0].value);
+                assert.equal(4, res[1].value);
+                assert.equal(8, res[2].value);
+                assert.equal(2, res[9].value);
+                done();
             });
     });
 
@@ -265,25 +265,25 @@ describe('sort ', () => {
             { id: 'électrifié', value: 40 },
             { id: 'collectivité', value: 10 },
         ])
-        .pipe(ezs('tune', { path: 'value' }))
-        .pipe(ezs('sort'))
-        .pipe(ezs('value'))
-        .on('data', (chunk) => {
-            assert(typeof chunk === 'object');
-            res.push(chunk);
+            .pipe(ezs('tune', { path: 'value' }))
+            .pipe(ezs('sort'))
+            .pipe(ezs('value'))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
             })
-        .on('end', () => {
-            assert.equal(1, res[0].value);
-            assert.equal(2, res[1].value);
-            assert.equal(4, res[2].value);
-            assert.equal(6, res[3].value);
-            assert.equal(8, res[4].value);
-            assert.equal(10, res[5].value);
-            assert.equal(20, res[6].value);
-            assert.equal(40, res[7].value);
-            assert.equal(60, res[8].value);
-            assert.equal(900, res[9].value);
-            done();
+            .on('end', () => {
+                assert.equal(1, res[0].value);
+                assert.equal(2, res[1].value);
+                assert.equal(4, res[2].value);
+                assert.equal(6, res[3].value);
+                assert.equal(8, res[4].value);
+                assert.equal(10, res[5].value);
+                assert.equal(20, res[6].value);
+                assert.equal(40, res[7].value);
+                assert.equal(60, res[8].value);
+                assert.equal(900, res[9].value);
+                done();
             });
     });
 
@@ -301,25 +301,25 @@ describe('sort ', () => {
             { id: 'électrifié', value: 40 },
             { id: 'collectivité', value: 10 },
         ])
-        .pipe(ezs('tune', { path: 'value' }))
-        .pipe(ezs('sort', { reverse: true }))
-        .pipe(ezs('value'))
-        .on('data', (chunk) => {
-            assert(typeof chunk === 'object');
-            res.push(chunk);
+            .pipe(ezs('tune', { path: 'value' }))
+            .pipe(ezs('sort', { reverse: true }))
+            .pipe(ezs('value'))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
             })
-        .on('end', () => {
-            assert.equal(1, res[9].value);
-            assert.equal(2, res[8].value);
-            assert.equal(4, res[7].value);
-            assert.equal(6, res[6].value);
-            assert.equal(8, res[5].value);
-            assert.equal(10, res[4].value);
-            assert.equal(20, res[3].value);
-            assert.equal(40, res[2].value);
-            assert.equal(60, res[1].value);
-            assert.equal(900, res[0].value);
-            done();
+            .on('end', () => {
+                assert.equal(1, res[9].value);
+                assert.equal(2, res[8].value);
+                assert.equal(4, res[7].value);
+                assert.equal(6, res[6].value);
+                assert.equal(8, res[5].value);
+                assert.equal(10, res[4].value);
+                assert.equal(20, res[3].value);
+                assert.equal(40, res[2].value);
+                assert.equal(60, res[1].value);
+                assert.equal(900, res[0].value);
+                done();
             });
     });
 });
