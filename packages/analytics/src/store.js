@@ -83,7 +83,6 @@ export default class Store {
                 found !== null;
                 found = cursor.goToNext()) {
                 const id = decodeKey(found);
-                console.log('get', id);
                 const value = decodeValue(txn.getString(this.dbi, found));
                 flow.write({ id, value });
             }
