@@ -11,7 +11,6 @@ const hashCoerce = hasher({
     coerce: true,
 });
 
-        debug.enable('ezs');
 const computeHash = (commands, environment, chunk) => {
     const commandsHash = hashCoerce.hash(commands);
     const environmentHash = hashCoerce.hash(environment);
@@ -78,7 +77,7 @@ export default function boost(data, feed) {
         txn.commit();
 
         if (hitThe(cache, cleanupDelay)) {
-            debug('ezs')('Using cache with hash', uniqHash);
+            debug('ezs')('Boost using cache with hash', uniqHash);
             this.emit('cache:connected', uniqHash);
             const cacheGetInput = ezs.createStream(ezs.objectMode());
 
@@ -94,7 +93,7 @@ export default function boost(data, feed) {
             cacheGetInput.end('GO');
             return true;
         }
-        debug('ezs')('Creating cache with hash', uniqHash);
+        debug('ezs')('Boost creating cache with hash', uniqHash);
         this.emit('cache:created', uniqHash);
         this.cacheSetInput = ezs.createStream(ezs.objectMode());
         const cacheSetOutput = ezs.createPipeline(this.cacheSetInput, streams)
@@ -116,7 +115,7 @@ export default function boost(data, feed) {
             });
         });
         debug('ezs')(
-            `Booster first chunk #${this.getIndex()} containing ${Object.keys(data).length || 0} keys`,
+            `Boost first chunk #${this.getIndex()} containing ${Object.keys(data).length || 0} keys`,
         );
         this.whenReady = new Promise((cacheCreated) => ezs.writeTo(this.cacheSetInput, data, () => {
             cacheSetOutput.resume(); // empty the pipeline because no processing reads the data it contains.
@@ -127,6 +126,7 @@ export default function boost(data, feed) {
         this.whenReady
             .then(() => {
                 if (this.isLast()) {
+                    debug('ezs')(`${this.getIndex()} chunks have been boosted`);
                     this.whenFinish
                         .then(() => {
                             this.dbi.close();
@@ -136,7 +136,6 @@ export default function boost(data, feed) {
                     this.cacheSetInput.end();
                     return true;
                 }
-                debug('ezs')(`Booster chunk #${this.getIndex()} containing ${Object.keys(data).length || 0} keys`);
                 return ezs.writeTo(this.cacheSetInput, data, () => feed.end());
             });
     }
