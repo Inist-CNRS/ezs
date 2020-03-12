@@ -39,11 +39,11 @@ export default function delegate(data, feed) {
         return ezs.writeTo(this.input, data, () => feed.end());
     }
     if (this.isLast()) {
+        debug('ezs')(`${this.getIndex()} chunks have been delegated`);
         this.whenFinish
             .then(() => feed.close())
             .catch((e) => feed.stop(e));
         return this.input.end();
     }
-    debug('ezs')(`Delegate chunk #${this.getIndex()} containing ${Object.keys(data).length || 0} keys`);
     return ezs.writeTo(this.input, data, () => feed.end());
 }

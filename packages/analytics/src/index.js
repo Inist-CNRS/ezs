@@ -28,6 +28,7 @@ import drop from './drop';
 import filter from './filter';
 import multiply from './mulitply';
 import distance from './distance';
+import aggregate from './aggregate';
 
 export default {
     count,
@@ -60,4 +61,5 @@ export default {
     filter,
     multiply,
     distance,
+    aggregate,
 };

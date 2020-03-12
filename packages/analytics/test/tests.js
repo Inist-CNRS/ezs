@@ -1087,4 +1087,25 @@ describe('test', () => {
                 done();
             });
     });
+    it('aggregate', (done) => {
+        const res = [];
+        from([
+            { a: 'x', b: 'z' },
+            { a: 't', b: 'z' },
+            { a: 't', b: 'z' },
+            { a: 'x', b: 'z' },
+            { a: 'x', b: 'z' },
+        ])
+            .pipe(ezs('aggregate', { path: 'a' }))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.length, 2);
+                assert.equal(res[0].value, 3);
+                assert.equal(res[1].value, 2);
+                done();
+            });
+    });
 });
