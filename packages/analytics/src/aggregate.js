@@ -43,15 +43,14 @@ export default function aggregate(data, feed) {
     }
     if (this.isLast()) {
         for (let key in this.store) {
-            const item = core(key, this.store[key]);
-            feed.write(item);
+            feed.write(core(JSON.parse(key), this.store[key]));
         }
         feed.close();
     } else {
         const path = this.getParam('path', 'id');
         const paths = Array.isArray(path) ? path : [path];
         paths.forEach((p) => {
-            const id = get(data, p);
+            const id = JSON.stringify(get(data, p));
             if (this.store[id]) {
                 this.store[id] += 1;
             } else {

@@ -1087,7 +1087,7 @@ describe('test', () => {
                 done();
             });
     });
-    it('aggregate', (done) => {
+    it('aggregate #1', (done) => {
         const res = [];
         from([
             { a: 'x', b: 'z' },
@@ -1108,4 +1108,26 @@ describe('test', () => {
                 done();
             });
     });
+    it('aggregate #2', (done) => {
+        const res = [];
+        from([
+            { a: ['x', 'x'], b: 'z' },
+            { a: ['t', 't'], b: 'z' },
+            { a: ['t', 't'], b: 'z' },
+            { a: ['x', 'x'], b: 'z' },
+            { a: ['x', 'x'], b: 'z' },
+        ])
+            .pipe(ezs('aggregate', { path: 'a' }))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.length, 2);
+                assert.equal(res[0].value, 3);
+                assert.equal(res[1].value, 2);
+                done();
+            });
+    });
+
 });
