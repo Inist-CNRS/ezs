@@ -93,6 +93,6 @@ export default class Store {
     }
 
     close() {
-        return this.dbi.close();
+        return this.dbi.drop();
     }
 }
