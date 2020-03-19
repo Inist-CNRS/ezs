@@ -44,5 +44,6 @@
   },
   "peerDependencies": {
     "@ezs/core": "*"
-  }
+  },
+  "devDependencies": {}
 }

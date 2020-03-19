@@ -11,6 +11,8 @@ const hashCoerce = hasher({
     coerce: true,
 });
 
+debug.enable('ezs');
+
 const computeHash = (commands, environment, chunk) => {
     const commandsHash = hashCoerce.hash(commands);
     const environmentHash = hashCoerce.hash(environment);
@@ -25,9 +27,11 @@ const hitThe = (cache, ttl) => {
         return false;
     }
     const diff = new DateDiff(Date.now(), cache.createdDate);
-    if (diff.seconds() <= ttl) {
+    const secs = diff.seconds();
+    if (secs <= ttl) {
         return true;
     }
+    debug('ezs')(`Cache has expired ${secs} secondes ago.`);
     return false;
 };
 
