@@ -9,7 +9,9 @@ ezs.use(require('./locals'));
 
 const environment = {
     launchedDate: Date.now(),
-}
+};
+
+const sleep = (s) => new Promise((resolve) => setTimeout(resolve, Number(s) * 1000));
 
 class Decade extends Readable {
     constructor() {
@@ -60,7 +62,7 @@ describe('boost', () => {
                     .pipe(ezs((input, output) => {
                         output.send(input);
                     }))
-                    .pipe(ezs('boost', { script }, environment))
+                    .pipe(ezs('boost', { script, cleanupDelay: 2 }, environment))
                     .on('cache:created', (id) => {
                         cid = id;
                     })
@@ -85,8 +87,33 @@ describe('boost', () => {
                         // to fool the cache
                         output.send(input === 2 ? 1 : input);
                     }))
-                    .pipe(ezs('boost', { script }, environment))
+                    .pipe(ezs('boost', { script, cleanupDelay: 2 }, environment))
                     .on('cache:connected', (id) => {
+                        cid = id;
+                    })
+                    .on('error', assert.ifError)
+                    .on('data', (chunk) => {
+                        res += chunk;
+                    })
+                    .on('end', () => {
+                        assert.notEqual(cid, null);
+                        assert.strictEqual(res, 45);
+                        done();
+                    });
+            });
+        });
+        describe('third call', () => {
+            it('with boost', async (done) => {
+                let res = 0;
+                let cid = null;
+                await sleep(2);
+                const ten = new Decade();
+                ten
+                    .pipe(ezs((input, output) => {
+                        output.send(input);
+                    }))
+                    .pipe(ezs('boost', { script, cleanupDelay: 2 }, environment))
+                    .on('cache:created', (id) => {
                         cid = id;
                     })
                     .on('error', assert.ifError)
