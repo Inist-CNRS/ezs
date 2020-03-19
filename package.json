@@ -41,6 +41,7 @@
     "lint": "lerna run --no-bail lint",
     "pretest": "npm run bootstrap",
     "test": "NODE_ENV=test jest --maxWorkers 4",
+    "coverage": "NODE_ENV=test jest --ci --runInBand --reporters=default --coverageReporters=text --coverage",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "config": {

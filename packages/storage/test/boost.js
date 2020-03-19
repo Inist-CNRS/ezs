@@ -1,6 +1,5 @@
 import assert from 'assert';
 import { Readable } from 'stream';
-import fs from 'fs';
 import series from 'array-series';
 import ezs from '../../core/src';
 
@@ -11,8 +10,6 @@ ezs.use(require('./locals'));
 const environment = {
     launchedDate: Date.now(),
 };
-
-const sleep = (s) => new Promise((resolve) => setTimeout(resolve, Number(s) * 1000));
 
 class Decade extends Readable {
     constructor() {

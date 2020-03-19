@@ -11,8 +11,6 @@ const hashCoerce = hasher({
     coerce: true,
 });
 
-debug.enable('ezs');
-
 const computeHash = (commands, environment, chunk) => {
     const commandsHash = hashCoerce.hash(commands);
     const environmentHash = hashCoerce.hash(environment);
