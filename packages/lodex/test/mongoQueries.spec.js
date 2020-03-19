@@ -1,5 +1,5 @@
 import from from 'from';
-import mongoUnit from 'mongo-unit';
+import { MongoClient } from 'mongodb';
 import ezs from '../../core/src';
 import ezsLodex from '../src';
 import publishedDataset from './fixture.publishedDataset.json';
@@ -9,22 +9,36 @@ import field from './fixture.field.json';
 ezs.use(ezsLodex);
 
 describe('mongo queries', () => {
-    let connectionStringURI;
+    const connectionStringURI = process.env.MONGO_URL;
+    let connection;
+    let db;
 
-    beforeAll((done) => {
-        mongoUnit
-            .start({ verbose: false })
-            .then((testMongoUrl) => {
-                connectionStringURI = testMongoUrl;
-                done();
-            })
-            .catch(done);
-    }, 150000);
-    afterAll(() => mongoUnit.stop());
+    beforeAll(async () => {
+        connection = await MongoClient.connect(process.env.MONGO_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+        db = await connection.db();
+    });
+
+    afterAll(async () => {
+        await connection.close();
+    });
+
+
+    const initDb = (url, data) => {
+        const requests = Object.keys(data).map((col) => {
+            const collection = db.collection(col);
+            return collection.insertMany(data[col]);
+        });
+        return Promise.all(requests);
+    };
+
+    const drop = () => db.dropDatabase();
 
     describe('getCharacteristics', () => {
-        beforeEach(() => mongoUnit.initDb(connectionStringURI, publishedCharacteristic));
-        afterEach(() => mongoUnit.drop());
+        beforeEach(() => initDb(connectionStringURI, publishedCharacteristic));
+        afterEach(() => drop());
 
         it('should return characteristics', (done) => {
             let res = [];
@@ -47,10 +61,10 @@ describe('mongo queries', () => {
                             _id: '5b2cc39cc767d60017eb131f',
                             V99c: 'Jeu de données sur les types de contenu',
                             AtQO: 'Ce jeu correspond au choix de documenter des données ISTEX et plus particulièrement'
-                                + " les types de contenu utilisés dans ISTEX.\r\n \r\nIls ont fait l'objet d'une"
-                                + " homogénéisation opérée par l'équipe ISTEX-DATA et d'un alignement avec le jeu de"
-                                + ' données types de publication. \r\n\r\nCes types permettent de retranscrire la'
-                                + " structuration initiale de l'ouvrage.",
+                            + " les types de contenu utilisés dans ISTEX.\r\n \r\nIls ont fait l'objet d'une"
+                            + " homogénéisation opérée par l'équipe ISTEX-DATA et d'un alignement avec le jeu de"
+                            + ' données types de publication. \r\n\r\nCes types permettent de retranscrire la'
+                            + " structuration initiale de l'ouvrage.",
                             gLBB: '/api/run/syndication',
                             G0Ux: 'https://docs.google.com/drawings/d/1rtQ5_GT9QIHKzEjXU5vzSiAnmcu-hdNuyuEArOwUEU4/pub?w=960&h=720',
                             etxw: '2017-10-02',
@@ -66,8 +80,8 @@ describe('mongo queries', () => {
     });
 
     describe('getFields', () => {
-        beforeEach(() => mongoUnit.initDb(connectionStringURI, field));
-        afterEach(() => mongoUnit.drop());
+        beforeEach(() => initDb(connectionStringURI, field));
+        afterEach(() => drop());
 
         it('should return the fields', (done) => {
             let res = [];
@@ -104,8 +118,8 @@ describe('mongo queries', () => {
     });
 
     describe('runQuery', () => {
-        beforeEach(() => mongoUnit.initDb(connectionStringURI, publishedDataset));
-        afterEach(() => mongoUnit.drop());
+        beforeEach(() => initDb(connectionStringURI, publishedDataset));
+        afterEach(() => drop());
 
         it('should return results', (done) => {
             let res = [];
@@ -113,7 +127,7 @@ describe('mongo queries', () => {
                 connectionStringURI,
             }])
                 .pipe(ezs('LodexRunQuery'))
-                // .pipe(ezs('debug'))
+            // .pipe(ezs('debug'))
                 .on('data', (data) => {
                     res = [...res, data];
                 })
@@ -132,7 +146,7 @@ describe('mongo queries', () => {
                 },
             ])
                 .pipe(ezs('LodexRunQuery'))
-                // .pipe(ezs('debug'))
+            // .pipe(ezs('debug'))
                 .on('data', (data) => {
                     res = [...res, data];
                 })
@@ -151,7 +165,7 @@ describe('mongo queries', () => {
                 },
             ])
                 .pipe(ezs('LodexRunQuery'))
-                // .pipe(ezs('debug'))
+            // .pipe(ezs('debug'))
                 .on('data', (data) => {
                     res = [...res, data];
                 })
@@ -171,7 +185,7 @@ describe('mongo queries', () => {
                 },
             ])
                 .pipe(ezs('LodexRunQuery'))
-                // .pipe(ezs('debug'))
+            // .pipe(ezs('debug'))
                 .on('data', (data) => {
                     res = [...res, data];
                 })
@@ -191,7 +205,7 @@ describe('mongo queries', () => {
                 },
             ])
                 .pipe(ezs('LodexRunQuery'))
-                // .pipe(ezs('debug'))
+            // .pipe(ezs('debug'))
                 .on('data', (data) => {
                     res = [...res, data];
                 })
@@ -212,7 +226,7 @@ describe('mongo queries', () => {
                 },
             ])
                 .pipe(ezs('LodexRunQuery'))
-                // .pipe(ezs('debug'))
+            // .pipe(ezs('debug'))
                 .on('data', (data) => {
                     res = [...res, data];
                 })
@@ -271,8 +285,8 @@ describe('mongo queries', () => {
     });
 
     describe('reduceQuery', () => {
-        beforeEach(() => mongoUnit.initDb(connectionStringURI, publishedDataset));
-        afterEach(() => mongoUnit.drop());
+        beforeEach(() => initDb(connectionStringURI, publishedDataset));
+        afterEach(() => drop());
 
         it('should throw when no reducer is given', (done) => {
             from([{
@@ -438,10 +452,10 @@ describe('mongo queries', () => {
 
     describe('injectSyndicationFrom', () => {
         beforeEach(() => Promise.all([
-            mongoUnit.initDb(connectionStringURI, publishedDataset),
-            mongoUnit.initDb(connectionStringURI, field),
+            initDb(connectionStringURI, publishedDataset),
+            initDb(connectionStringURI, field),
         ]));
-        afterEach(() => mongoUnit.drop());
+        afterEach(() => drop());
 
         it('should inject title & summary in each item', (done) => {
             const res = [];
@@ -482,8 +496,8 @@ describe('mongo queries', () => {
     });
 
     describe('injectDatasetFields', () => {
-        beforeEach(() => mongoUnit.initDb(connectionStringURI, publishedCharacteristic));
-        afterEach(() => mongoUnit.drop());
+        beforeEach(() => initDb(connectionStringURI, publishedCharacteristic));
+        afterEach(() => drop());
 
         it('should inject dataset fiels in each item', (done) => {
             const res = [];
@@ -518,8 +532,8 @@ describe('mongo queries', () => {
     });
 
     describe('labelizeFieldID', () => {
-        beforeEach(() => mongoUnit.initDb(connectionStringURI, field));
-        afterEach(() => mongoUnit.drop());
+        beforeEach(() => initDb(connectionStringURI, field));
+        afterEach(() => drop());
 
         const input = [
             {

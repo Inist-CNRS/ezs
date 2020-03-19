@@ -11,4 +11,5 @@ module.exports = {
     collectCoverage: true,
     coveragePathIgnorePatterns: ['/node_modules/', '/test/', '/lib/', '/lodex/src/reducers/'],
     coverageReporters: ['lcov', 'text-summary'],
+    preset: '@shelf/jest-mongodb',
 };
