@@ -4,7 +4,6 @@ branches:
     only:
         - master
 install:
-    - npm ci
     - npm run bootstrap
 after_script: npm run coveralls
 language: node_js
