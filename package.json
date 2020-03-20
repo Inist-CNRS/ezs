@@ -17,7 +17,7 @@
     "array-series": "~0.1.5",
     "babel-eslint": "~10.1.0",
     "babel-jest": "~25.1.0",
-    "coveralls": "~3.0.9",
+    "coveralls": "~3.0.11",
     "documentation": "~12.1.4",
     "eslint": "~6.8.0",
     "eslint-config-airbnb-base": "~14.1.0",
@@ -41,7 +41,7 @@
     "lint": "lerna run --no-bail lint",
     "pretest": "npm run bootstrap",
     "test": "NODE_ENV=test jest --maxWorkers 4",
-    "coverage": "NODE_ENV=test jest --ci --runInBand --reporters=default --coverageReporters=text --coverage",
+    "coverage": "NODE_ENV=test jest --ci --runInBand --reporters=default --collectCoverage --coverageReporters=text --coverage",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "config": {

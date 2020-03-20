@@ -28,13 +28,14 @@ class Decade extends Readable {
 }
 
 describe('boost', () => {
-    describe('Boost script #1', () => {
+    describe('with a pipeline & a computed key', () => {
         const script = `
         [transit]
 
         [transit]
     `;
-        it('run a pipeline without boost', (done) => {
+        const cleanupDelay = 2;
+        it('through delegate statement', (done) => {
             let res = 0;
             const ten = new Decade();
             ten
@@ -51,7 +52,10 @@ describe('boost', () => {
                     done();
                 });
         });
-        it('run a pipeline with boost', (alldone) => series(
+        const s1 = ezs('boost', { script, cleanupDelay }, environment);
+        const s2 = ezs('boost', { script, cleanupDelay }, environment);
+        const s3 = ezs('boost', { script, cleanupDelay }, environment);
+        it('through boost statement', (alldone) => series(
             [
                 (done) => {
                     // FIRST CALL (no cache)
@@ -62,7 +66,7 @@ describe('boost', () => {
                         .pipe(ezs((input, output) => {
                             output.send(input);
                         }))
-                        .pipe(ezs('boost', { script, cleanupDelay: 2 }, environment))
+                        .pipe(s1)
                         .on('cache:created', (id) => {
                             cid = id;
                         })
@@ -86,7 +90,7 @@ describe('boost', () => {
                             // to fool the cache
                             output.send(input === 2 ? 1 : input);
                         }))
-                        .pipe(ezs('boost', { script, cleanupDelay: 2 }, environment))
+                        .pipe(s2)
                         .on('cache:connected', (id) => {
                             cid = id;
                         })
@@ -102,7 +106,7 @@ describe('boost', () => {
                 },
                 (done) => {
                     // WAIT, cache will exipre
-                    setTimeout(done, 2 * 1000);
+                    setTimeout(done, cleanupDelay * 1000);
                 },
                 (done) => {
                     let res = 0;
@@ -112,7 +116,7 @@ describe('boost', () => {
                         .pipe(ezs((input, output) => {
                             output.send(input);
                         }))
-                        .pipe(ezs('boost', { script, cleanupDelay: 2 }, environment))
+                        .pipe(s3)
                         .on('cache:created', (id) => {
                             cid = id;
                         })
@@ -131,8 +135,119 @@ describe('boost', () => {
             this,
             alldone,
         ));
-        /**/
     });
+    describe('with a pipeline & a fixed key', () => {
+        const script = `
+        [transit]
+
+        [transit]
+    `;
+        const cleanupDelay = 3;
+        const key = Date.now();
+        it('run a pipeline without boost', (done) => {
+            let res = 0;
+            const ten = new Decade();
+            ten
+                .pipe(ezs((input, output) => {
+                    output.send(input);
+                }))
+                .pipe(ezs('delegate', { script }))
+                .on('error', assert.ifError)
+                .on('data', (chunk) => {
+                    res += chunk;
+                })
+                .on('end', () => {
+                    assert.strictEqual(res, 45);
+                    done();
+                });
+        });
+        // WARNING : the lines below allow jest / istanbul to correctly cover all the lines
+        // the 3 variables being in a stable scope (instead a dynamic scope)
+        const s1 = ezs('boost', { script, cleanupDelay, key }, environment);
+        const s2 = ezs('boost', { script, cleanupDelay, key }, environment);
+        const s3 = ezs('boost', { script, cleanupDelay, key }, environment);
+        it('run a pipeline with boost', (alldone) => series(
+            [
+                (done) => {
+                    // FIRST CALL (no cache)
+                    let res = 0;
+                    let cid = null;
+                    const ten = new Decade();
+                    ten
+                        .pipe(ezs((input, output) => {
+                            output.send(input);
+                        }))
+                        .pipe(s1)
+                        .on('cache:created', (id) => {
+                            cid = id;
+                        })
+                        .on('error', assert.ifError)
+                        .on('data', (chunk) => {
+                            res += chunk;
+                        })
+                        .on('end', () => {
+                            assert.notEqual(cid, null);
+                            assert.strictEqual(res, 45);
+                            done();
+                        });
+                },
+                (done) => {
+                    // SECOND CALL (hit the cache)
+                    let res = 0;
+                    let cid = null;
+                    const ten = new Decade();
+                    ten
+                        .pipe(ezs((input, output) => {
+                            // to fool the cache
+                            output.send(input === 2 ? 1 : input);
+                        }))
+                        .pipe(s2)
+                        .on('cache:connected', (id) => {
+                            cid = id;
+                        })
+                        .on('error', assert.ifError)
+                        .on('data', (chunk) => {
+                            res += chunk;
+                        })
+                        .on('end', () => {
+                            assert.notEqual(cid, null);
+                            assert.strictEqual(res, 45);
+                            done();
+                        });
+                },
+                (done) => {
+                    // WAIT, cache will exipre
+                    setTimeout(done, cleanupDelay * 1000);
+                },
+                (done) => {
+                    let res = 0;
+                    let cid = null;
+                    const ten = new Decade();
+                    ten
+                        .pipe(ezs((input, output) => {
+                            output.send(input);
+                        }))
+                        .pipe(s3)
+                        .on('cache:created', (id) => {
+                            cid = id;
+                        })
+                        .on('error', assert.ifError)
+                        .on('data', (chunk) => {
+                            res += chunk;
+                        })
+                        .on('end', () => {
+                            assert.notEqual(cid, null);
+                            assert.strictEqual(res, 45);
+                            done();
+                        });
+                },
+                /**/
+            ],
+            this,
+            alldone,
+        ));
+    });
+
     describe('Boost script #2', () => {
         const script = `
         [increment]
@@ -158,6 +273,7 @@ describe('boost', () => {
                     done();
                 });
         });
+        const s1 = ezs('boost', { script }, environment);
         it('with boost', (done) => {
             let res = 0;
             const ten = new Decade();
@@ -165,7 +281,7 @@ describe('boost', () => {
                 .pipe(ezs((input, output) => {
                     output.send(input);
                 }))
-                .pipe(ezs('boost', { script }, environment))
+                .pipe(s1)
                 .on('error', assert.ifError)
                 .on('data', (chunk) => {
                     res += chunk;
@@ -186,6 +302,10 @@ describe('boost', () => {
         [transit]
     `;
         let cid = null;
+        // WARNING : the lines below allow jest / istanbul to correctly cover all the lines
+        // the 2 variables being in a stable scope (instead a dynamic scope)
+        const s1 = ezs('boost', { script }, environment);
+        const s2 = ezs('boost', { script }, environment);
         it('series', (alldone) => series(
             [
                 (done) => {
@@ -201,7 +321,7 @@ describe('boost', () => {
                                 output.send(input);
                             }
                         }))
-                        .pipe(ezs('boost', { script }, environment))
+                        .pipe(s1)
                         .on('cache:created', (id) => {
                             cid = id;
                         })
@@ -223,7 +343,7 @@ describe('boost', () => {
                             // to fool the cache
                             output.send(input === 2 ? 1 : input);
                         }))
-                        .pipe(ezs('boost', { script }, environment))
+                        .pipe(s2)
                         .pipe(ezs('transit'))
                         .pipe(ezs.catch((e) => e))
                         .on('error', assert.ifError)
@@ -235,11 +355,10 @@ describe('boost', () => {
                             assert.notEqual(cid, null);
                             done();
                         });
-                }
+                },
             ],
             this,
             alldone,
-        )
-        );
+        ));
     });
 });

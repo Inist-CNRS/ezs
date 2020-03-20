@@ -5,7 +5,6 @@ import {
     decodeValue, encodeKey, encodeValue, lmdbEnv,
 } from './store';
 
-
 const hashCoerce = hasher({
     sort: false,
     coerce: true,
@@ -20,7 +19,7 @@ const computeHash = (commands, environment, chunk) => {
     return hashCoerce.hash(hashs);
 };
 
-const hitThe = (cache, ttl) => {
+function hitThe(cache, ttl) {
     if (!cache) {
         return false;
     }
@@ -31,7 +30,7 @@ const hitThe = (cache, ttl) => {
     }
     debug('ezs')(`Cache has expired ${secs} secondes ago.`);
     return false;
-};
+}
 
 /**
  * Takes an `Object` delegate processing to an external pipeline and cache the result
@@ -51,7 +50,6 @@ export default function boost(data, feed) {
         const script = this.getParam('script', fileContent);
         const cmds = ezs.compileScript(script);
         const commands = this.getParam('commands', cmds.get());
-        const key = this.getParam('key');
         const cleanupDelay = Number(this.getParam('cleanupDelay', 10 * 60));
         const environment = this.getEnv();
         if (!this.dbi) {
@@ -66,7 +64,7 @@ export default function boost(data, feed) {
         }
 
         const streams = ezs.compileCommands(commands, environment);
-        const uniqHash = key || computeHash(commands, environment, data);
+        const uniqHash = String(this.getParam('key') || computeHash(commands, environment, data));
         const resetCacheOnError = (error, action) => {
             debug('ezs')(`Error while ${action} cache with hash`, uniqHash, error);
             const txn3 = lmdbEnv().beginTxn();
