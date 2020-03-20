@@ -361,4 +361,20 @@ describe('boost', () => {
             alldone,
         ));
     });
+    describe('With invalid parameter', () => {
+        const se = ezs('boost');
+        it('will throw error', (done) => {
+            const ten = new Decade();
+            ten
+                .pipe(se)
+                .on('error', (e) => {
+                    expect(e instanceof Error).toBe(true);
+                    expect(e.message).toEqual(expect.stringContaining('Invalid'));
+                    done();
+                })
+                .on('data', () => {
+                    throw new Error('No chunk');
+                });
+        });
+    });
 });

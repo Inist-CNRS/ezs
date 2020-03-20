@@ -42,6 +42,7 @@
     "pretest": "npm run bootstrap",
     "test": "NODE_ENV=test jest --maxWorkers 4",
     "coverage": "NODE_ENV=test jest --ci --runInBand --reporters=default --collectCoverage --coverageReporters=text --coverage",
+    "coverage:html": "NODE_ENV=test jest --ci --runInBand --reporters=default --collectCoverage --coverageReporters=html --coverage",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "config": {
