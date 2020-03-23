@@ -20,6 +20,7 @@ npm install @ezs/storage
 -   [flow](#flow)
 -   [save](#save)
 -   [identify](#identify)
+-   [boost](#boost)
 
 ### load
 
@@ -73,3 +74,19 @@ Take `Object`, and compute & add a identifier
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path containing the object Identifier (optional, default `uri`)
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+### boost
+
+Takes an `Object` delegate processing to an external pipeline and cache the result
+
+#### Parameters
+
+-   `data`  
+-   `feed`  
+-   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is descrbied in a file
+-   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is descrbied in a sting of characters
+-   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is descrbied in object
+-   `key` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the cache key form the stream, in not provided, it's computed with the first chunk
+-   `cleanupDelay` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Frequency (seconds) to cleanup the cache (10 min) (optional, default `600`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
