@@ -25,16 +25,6 @@ export default function cli(errlog) {
                 describe: 'Launch daemon on a directory containing commands script',
                 type: 'string',
             },
-            slave: {
-                alias: 'l',
-                describe: 'Launch slave daemon to execute remote commands',
-                type: 'boolean',
-            },
-            server: {
-                alias: 's',
-                describe: 'Server to dispach commands',
-                type: 'string',
-            },
             env: {
                 alias: 'e',
                 default: false,
@@ -47,7 +37,11 @@ export default function cli(errlog) {
                 describe: 'Execute commands with a file as input',
                 type: 'string',
             },
-
+            param: {
+                alias: 'p',
+                describe: 'Environement parameters',
+                type: 'string',
+            },
         })
         .epilogue('for more information, find our manual at https://github.com/Inist-CNRS/ezs');
 
@@ -68,11 +62,6 @@ export default function cli(errlog) {
         debug('ezs')(`Serving ${serverPath} with ${settings.nShards} shards`);
         return ezs.createCluster(settings.port, serverPath);
     }
-    if (argv.slave) {
-        debug('ezs')(`Waiting for remote commands with ${settings.nShards} shards`);
-        return ezs.createCluster(settings.port, false);
-    }
-
     if (argv._.length === 0) {
         yargs.showHelp();
         return process.exit(1);
@@ -98,38 +87,14 @@ export default function cli(errlog) {
         input = process.stdin;
         input.resume();
     }
-    const server = Array.isArray(argv.server) ? argv.server : [argv.server];
-    const environement = { server };
+    const params = Array.isArray(argv.param) ? argv.param : [argv.param];
+    const environement = params
+        .filter(Boolean)
+        .map((p) => p.split('='))
+        .reduce((obj, item) => ({ ...obj, [item[0]]: item[1] }), {});
 
-    const selectFunc = (func, cmds) => {
-        if (func === 'pipeline') {
-            return ezs('delegate', {
-                commands: cmds,
-            },
-            environement);
-        }
-        return ezs('dispatch', {
-            commands: cmds,
-            server,
-            environement,
-        });
-    };
-    const pipeCommand = (stream, command, environment) => stream.pipe(ezs.createCommand(command, environment));
-    const runScriptRemote = (strm, cmds) => {
-        debug('ezs')('Connecting to server...');
-        const runplan = cmds.analyse();
-        const usecmds = cmds.getUseCommands();
-        const stream0 = usecmds.reduce(pipeCommand, strm);
-        return runplan.reduce((stream, section) => stream.pipe(selectFunc(section.func, section.cmds)), stream0);
-    };
     const runScriptLocal = (strm, cmds) => strm
         .pipe(ezs('delegate', { commands: cmds.get() }, environement));
-    const runScript = (serverMode) => {
-        if (serverMode) {
-            return runScriptRemote;
-        }
-        return runScriptLocal;
-    };
     const output = argv._
         .map((arg) => {
             const script = File(ezs, arg);
@@ -140,7 +105,7 @@ export default function cli(errlog) {
             return script;
         })
         .map((script) => new Commands(ezs.parseString(script)))
-        .reduce(runScript(argv.server), input)
+        .reduce(runScriptLocal, input)
         .pipe(ezs.catch((e) => e))
         .on('error', (e) => {
             errlog(e.message.split('\n').shift());

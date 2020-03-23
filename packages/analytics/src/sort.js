@@ -1,6 +1,15 @@
 import get from 'lodash.get';
+import fastsort from 'fast-sort';
 import Store from './store';
+import { normalize } from './tune';
 
+
+const sorting = (arr, reverse = false) => {
+    if (!reverse) {
+        return fastsort(arr).asc();
+    }
+    return fastsort(arr).desc();
+};
 /**
  * Take all `Object` and sort them with dedicated key
  *
@@ -30,28 +39,31 @@ import Store from './store';
  * @param {String} [path=id] path to use for id
  * @returns {Object}
  */
-export default function sort(data, feed) {
+export default async function sort(data, feed) {
     if (!this.store) {
-        this.store = new Store(this.ezs, 'sort');
+        this.store = new Store(this.ezs, `sort_${Date.now()}`);
+        this.table = [];
     }
     if (this.isLast()) {
         const reverse = this.getParam('reverse', false);
-        this.store.cast({ reverse })
-            .on('data', (item) => feed.write(item.value))
-            .on('end', () => feed.close());
+        const sorted = sorting(this.table, reverse);
+        await sorted.reduce(async (prev, cur) => {
+            const val = await this.store.get(cur);
+            feed.write(val);
+            return prev;
+        }, Promise.resolve(true));
+        this.store.close();
+        feed.close();
     } else {
         const path = this.getParam('path', 'id');
         const fields = Array.isArray(path) ? path : [path];
-        const values = fields
+        const keys = fields
             .filter((k) => typeof k === 'string')
-            .map((key) => get(data, key))
-            .map((val) => (typeof val === 'number'
-                ? val.toFixed(20).toString().padStart(40, '0')
-                : String(val).slice(0, 40).padEnd(40, '~')));
-
-        const key = fields.length > 1 ? values.join(',') : values[0];
+            .map((key) => get(data, key));
+        const key = keys.length > 1 ? keys.join(',') : keys[0];
         const idx = this.getIndex().toString().padStart(20, '0');
-        const hash = key.concat('~').concat(idx);
+        const hash = normalize(key).concat('~').concat(idx).replace(/\s/g, '~');
+        this.table.push(hash);
         this.store.put(hash, data).then(() => feed.end());
     }
 }

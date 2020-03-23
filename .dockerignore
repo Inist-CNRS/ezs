@@ -6,5 +6,6 @@
 !package.json
 !packages/
 !jest.config.js
+!jest-mongodb-config.js
 !lerna.json
 !babel.config.js

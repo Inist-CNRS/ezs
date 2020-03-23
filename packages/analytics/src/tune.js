@@ -16,7 +16,7 @@ import clone from 'lodash.clone';
 import core from './core';
 
 
-const normalize = (s) => {
+export const normalize = (s) => {
     if (typeof s === 'string') {
         return String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').padEnd(40, '~');
     }
@@ -25,7 +25,6 @@ const normalize = (s) => {
     }
     return String(s);
 };
-
 const vector = (input, size) => {
     const v = Array(size).fill(0);
     input.split('').map((x) => x.charCodeAt(0)).forEach((x, i) => { v[i] = x; });
