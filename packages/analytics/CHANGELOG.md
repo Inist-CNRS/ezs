@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.2.7...@ezs/analytics@1.3.0) (2020-03-23)
+
+
+### Bug Fixes
+
+* 🐛 fix tests ([aa53986](https://github.com/Inist-CNRS/ezs/commit/aa53986809f8b6088495e733e374d382dd0d8e32))
+
+
+### Features
+
+* 🎸 add statement [aggregate] ([399224d](https://github.com/Inist-CNRS/ezs/commit/399224d50550c67da0ac249cc5df88f759744329))
+
+
+### Performance Improvements
+
+* ⚡️ new statement [boost] ([65fe917](https://github.com/Inist-CNRS/ezs/commit/65fe917049f6804a4f26fa3c51c72c2a3d7ee6e6))
+* ⚡️ new strategy to sort stream ([867be41](https://github.com/Inist-CNRS/ezs/commit/867be415c1300ff8ea52f5618e816c4347977c2a))
+
+
+
+
+
 ## [1.2.7](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.2.6...@ezs/analytics@1.2.7) (2020-02-27)
 
 **Note:** Version bump only for package @ezs/analytics

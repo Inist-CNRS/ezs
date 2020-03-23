@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.6.4...@ezs/core@1.7.0) (2020-03-23)
+
+
+### Features
+
+* 🎸 add statement [aggregate] ([399224d](https://github.com/Inist-CNRS/ezs/commit/399224d50550c67da0ac249cc5df88f759744329))
+
+
+
+
+
 ## [1.6.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.6.3...@ezs/core@1.6.4) (2020-03-02)
 
 
