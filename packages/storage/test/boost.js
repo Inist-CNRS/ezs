@@ -1,6 +1,8 @@
 import assert from 'assert';
 import { Readable } from 'stream';
 import series from 'array-series';
+import parallel from 'array-parallel';
+import from from 'from';
 import ezs from '../../core/src';
 
 ezs.use(require('../src'));
@@ -43,7 +45,7 @@ describe('boost', () => {
                     output.send(input);
                 }))
                 .pipe(ezs('delegate', { script }))
-                .on('error', assert.ifError)
+                .on('error', (e) => expect(e).toBetoBeUndefined())
                 .on('data', (chunk) => {
                     res += chunk;
                 })
@@ -70,7 +72,7 @@ describe('boost', () => {
                         .on('cache:created', (id) => {
                             cid = id;
                         })
-                        .on('error', assert.ifError)
+                        .on('error', (e) => expect(e).toBetoBeUndefined())
                         .on('data', (chunk) => {
                             res += chunk;
                         })
@@ -94,7 +96,7 @@ describe('boost', () => {
                         .on('cache:connected', (id) => {
                             cid = id;
                         })
-                        .on('error', assert.ifError)
+                        .on('error', (e) => expect(e).toBetoBeUndefined())
                         .on('data', (chunk) => {
                             res += chunk;
                         })
@@ -120,7 +122,7 @@ describe('boost', () => {
                         .on('cache:created', (id) => {
                             cid = id;
                         })
-                        .on('error', assert.ifError)
+                        .on('error', (e) => expect(e).toBetoBeUndefined())
                         .on('data', (chunk) => {
                             res += chunk;
                         })
@@ -152,7 +154,7 @@ describe('boost', () => {
                     output.send(input);
                 }))
                 .pipe(ezs('delegate', { script }))
-                .on('error', assert.ifError)
+                .on('error', (e) => expect(e).toBetoBeUndefined())
                 .on('data', (chunk) => {
                     res += chunk;
                 })
@@ -181,7 +183,7 @@ describe('boost', () => {
                         .on('cache:created', (id) => {
                             cid = id;
                         })
-                        .on('error', assert.ifError)
+                        .on('error', (e) => expect(e).toBetoBeUndefined())
                         .on('data', (chunk) => {
                             res += chunk;
                         })
@@ -205,7 +207,7 @@ describe('boost', () => {
                         .on('cache:connected', (id) => {
                             cid = id;
                         })
-                        .on('error', assert.ifError)
+                        .on('error', (e) => expect(e).toBetoBeUndefined())
                         .on('data', (chunk) => {
                             res += chunk;
                         })
@@ -231,7 +233,7 @@ describe('boost', () => {
                         .on('cache:created', (id) => {
                             cid = id;
                         })
-                        .on('error', assert.ifError)
+                        .on('error', (e) => expect(e).toBetoBeUndefined())
                         .on('data', (chunk) => {
                             res += chunk;
                         })
@@ -264,7 +266,7 @@ describe('boost', () => {
                     output.send(input);
                 }))
                 .pipe(ezs('delegate', { script }))
-                .on('error', assert.ifError)
+                .on('error', (e) => expect(e).toBetoBeUndefined())
                 .on('data', (chunk) => {
                     res += chunk;
                 })
@@ -282,7 +284,7 @@ describe('boost', () => {
                     output.send(input);
                 }))
                 .pipe(s1)
-                .on('error', assert.ifError)
+                .on('error', (e) => expect(e).toBetoBeUndefined())
                 .on('data', (chunk) => {
                     res += chunk;
                 })
@@ -346,7 +348,7 @@ describe('boost', () => {
                         .pipe(s2)
                         .pipe(ezs('transit'))
                         .pipe(ezs.catch((e) => e))
-                        .on('error', assert.ifError)
+                        .on('error', (e) => expect(e).toBetoBeUndefined())
                         .on('data', (chunk) => {
                             res += chunk;
                         })
@@ -376,5 +378,222 @@ describe('boost', () => {
                     throw new Error('No chunk');
                 });
         });
+    });
+
+    describe('with a pipeline no data', () => {
+        const script = `
+        [transit]
+
+        [transit]
+    `;
+        const cleanupDelay = 2;
+        it('through delegate statement', (done) => {
+            let res = 0;
+
+            from([])
+                .pipe(ezs('delegate', { script }))
+                .on('error', (e) => expect(e).toBetoBeUndefined())
+                .on('data', () => {
+                    res += 1;
+                })
+                .on('end', () => {
+                    assert.strictEqual(res, 0);
+                    done();
+                });
+        });
+        const s1 = ezs('boost', { script, cleanupDelay }, environment);
+        it('through boost statement', (done) => {
+            // FIRST CALL (no cache)
+            let res = 0;
+            let cid = null;
+            from([])
+                .pipe(s1)
+                .on('cache:created', (id) => {
+                    cid = id;
+                })
+                .on('error', (e) => expect(e).toBetoBeUndefined())
+                .on('data', () => {
+                    res += 1;
+                })
+                .on('end', () => {
+                    expect(cid).toBeNull();
+                    assert.strictEqual(res, 0);
+                    done();
+                });
+        });
+    });
+
+    describe('with a pipeline containing error', () => {
+        const script = `
+        [transit]
+
+        [plof]
+
+        [transit]
+    `;
+        const cleanupDelay = 2;
+        it('through delegate statement', (done) => {
+            let res = 0;
+
+            from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+                .pipe(ezs('delegate', { script }))
+                .pipe(ezs.catch())
+                .on('error', (e) => {
+                    expect(e).not.toBeUndefined();
+                    expect(res).toEqual(21);
+                    done();
+                })
+                .on('data', (chunk) => {
+                    res += chunk;
+                })
+                .on('end', () => {
+                    expect(true).toBeFalsy();
+                });
+        });
+        const s1 = ezs('boost', { script, cleanupDelay }, environment);
+        const s2 = ezs('boost', { script, cleanupDelay }, environment);
+        it('through boost statement', (alldone) => series(
+            [
+                (done) => {
+                    // FIRST CALL (no cache)
+                    let res = 0;
+                    let cid = null;
+                    from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+                        .pipe(s1)
+                        .on('cache:created', (id) => {
+                            cid = id;
+                        })
+                        .pipe(ezs.catch())
+                        .on('error', (e) => {
+                            expect(cid).not.toBeNull();
+                            expect(e).not.toBeUndefined();
+                            expect(res).toEqual(21);
+                            done();
+                        })
+                        .on('data', (chunk) => {
+                            res += chunk;
+                        })
+                        .on('end', () => {
+                            expect(true).toBeFalsy();
+                        });
+                },
+                (done) => {
+                    // SECOND CALL (the cach shouldn't exist)
+                    let res = 0;
+                    let cid = null;
+                    from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+                        .pipe(ezs((input, output) => {
+                            // to fool the cache
+                            output.send(input === 2 ? 1 : input);
+                        }))
+                        .pipe(s2)
+                        .on('cache:connected', (id) => {
+                            cid = id;
+                        })
+                        .pipe(ezs.catch())
+                        .on('error', (e) => {
+                            expect(cid).toBeNull();
+                            expect(e).not.toBeUndefined();
+                            expect(res).toEqual(20);
+                            done();
+                        })
+                        .on('data', (chunk) => {
+                            res += chunk;
+                        })
+                        .on('end', () => {
+                            expect(true).toBeFalsy();
+                        });
+                },
+                /**/
+            ],
+            this,
+            alldone,
+        ));
+    });
+
+
+    describe('with a pipeline & a fixed key in parallel', () => {
+        const script = `
+        [transit]
+
+        [transit]
+    `;
+        const cleanupDelay = 2;
+        const key = Date.now();
+        // WARNING : the lines below allow jest / istanbul to correctly cover all the lines
+        // the 3 variables being in a stable scope (instead a dynamic scope)
+        const s1 = ezs('boost', { script, cleanupDelay, key }, environment);
+        const s2 = ezs('boost', { script, cleanupDelay, key }, environment);
+        const s3 = ezs('boost', { script, cleanupDelay, key }, environment);
+        it('run a pipeline with boost', (alldone) => parallel(
+            [
+                (done) => {
+                    let res = 0;
+                    let cid = null;
+                    const ten = new Decade();
+                    ten
+                        .pipe(ezs((input, output) => {
+                            output.send(input);
+                        }))
+                        .pipe(s1)
+                        .on('cache:created', (id) => {
+                            cid = id;
+                        })
+                        .on('error', (e) => expect(e).toBetoBeUndefined())
+                        .on('data', (chunk) => {
+                            res += chunk;
+                        })
+                        .on('end', () => {
+                            assert.notEqual(cid, null);
+                            assert.strictEqual(res, 45);
+                            done();
+                        });
+                },
+                (done) => {
+                    let res = 0;
+                    let cid = null;
+                    const ten = new Decade();
+                    ten
+                        .pipe(s2)
+                        .on('cache:created', (id) => {
+                            cid = id;
+                        })
+                        .on('error', (e) => expect(e).toBetoBeUndefined())
+                        .on('data', (chunk) => {
+                            res += chunk;
+                        })
+                        .on('end', () => {
+                            assert.notEqual(cid, null);
+                            assert.strictEqual(res, 45);
+                            done();
+                        });
+                },
+                (done) => {
+                    let res = 0;
+                    let cid = null;
+                    const ten = new Decade();
+                    ten
+                        .pipe(ezs((input, output) => {
+                            output.send(input);
+                        }))
+                        .pipe(s3)
+                        .on('cache:created', (id) => {
+                            cid = id;
+                        })
+                        .on('error', (e) => expect(e).toBetoBeUndefined())
+                        .on('data', (chunk) => {
+                            res += chunk;
+                        })
+                        .on('end', () => {
+                            assert.notEqual(cid, null);
+                            assert.strictEqual(res, 45);
+                            done();
+                        });
+                },
+                /**/
+            ],
+            this,
+            alldone,
+        ));
     });
 });
