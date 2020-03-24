@@ -30,7 +30,9 @@ export default async function save(data, feed) {
         });
     }
     if (this.isLast()) {
-        this.dbi.close();
+        if (this.dbi) {
+            this.dbi.close();
+        }
         return feed.close();
     }
     if (!validKey(uri)) {

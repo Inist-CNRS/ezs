@@ -19,7 +19,9 @@ export default async function flow(data, feed) {
         });
     }
     if (this.isLast()) {
-        this.dbi.close();
+        if (this.dbi) {
+            this.dbi.close();
+        }
         return feed.close();
     }
     const txn = lmdbEnv(this.ezs).beginTxn({ readOnly: true });
