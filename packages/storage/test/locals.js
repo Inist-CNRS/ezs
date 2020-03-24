@@ -134,6 +134,18 @@ function plaf(data, feed) {
     }, 1);
 }
 
+function plof(data, feed) {
+    if (this.isLast()) {
+        return feed.close();
+    }
+    if (data === 7) {
+        feed.send(new Error('Plof!'));
+    } else {
+        feed.send(data);
+    }
+}
+
+
 function splish(data, feed) {
     if (this.isLast()) {
         return feed.close();
@@ -174,6 +186,7 @@ module.exports = {
     bang,
     plouf,
     plaf,
+    plof,
     splish,
     splash,
 };
