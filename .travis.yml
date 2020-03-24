@@ -1,9 +1,10 @@
-before_install:
-    - npm i -g npm@latest
 branches:
     only:
         - master
+before_install:
+    - npm i -g npm@latest
 install:
+    - npm install
     - npm run bootstrap
 after_script: npm run coveralls
 language: node_js
@@ -12,8 +13,6 @@ node_js:
     - lts/*  # Most recent LTS version,
     - 10     # Explicitly include an active LTS version
 sudo: false
-node_js:
-    - '12'
 env:
     global:
         - NODE_ENV=test
