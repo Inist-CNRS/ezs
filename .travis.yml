@@ -7,6 +7,10 @@ install:
     - npm run bootstrap
 after_script: npm run coveralls
 language: node_js
+node_js:
+    - node   # Current stable
+    - lts/*  # Most recent LTS version,
+    - 10     # Explicitly include an active LTS version
 sudo: false
 node_js:
     - '12'
