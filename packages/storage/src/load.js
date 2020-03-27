@@ -1,6 +1,4 @@
-import {
-    validKey, encodeKey, decodeValue, lmdbEnv,
-} from './store';
+import Store, { validKey } from './store';
 
 /**
  * With a `String`, containing a URI throw all the documents that match
@@ -10,23 +8,17 @@ import {
  */
 export default async function load(data, feed) {
     const domain = this.getParam('domain', 'ezs');
-    if (this.isFirst()) {
-        this.dbi = lmdbEnv(this.ezs).openDbi({
-            name: domain,
-            create: true,
-        });
+    if (!this.store) {
+        this.store = new Store(this.ezs, domain);
     }
     if (this.isLast()) {
-        if (this.dbi) {
-            this.dbi.close();
-        }
+        this.store.close();
         return feed.close();
     }
     if (!validKey(data)) {
         return feed.end();
     }
-    const txn = lmdbEnv(this.ezs).beginTxn({ readOnly: true });
-    const value = feed.send(decodeValue(txn.getString(this.dbi, encodeKey(data))));
-    txn.commit();
+
+    const value = await this.store.get(data);
     return feed.send(value);
 }

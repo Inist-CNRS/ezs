@@ -60,7 +60,7 @@ export default function distribute(data, feed) {
             j += 1;
         }
         let x = 0;
-        this.store.cast()
+        this.store.empty()
             .on('data', (item) => {
                 const key = parseInt(item.id, 10);
                 const idx = ruler.indexOf(key);

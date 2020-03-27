@@ -512,7 +512,7 @@ describe('boost', () => {
     });
 
 
-    describe('with a pipeline & a fixed key in parallel', () => {
+    describe.only('with a pipeline & a fixed key in parallel', () => {
         const script = `
         [transit]
 
@@ -558,7 +558,7 @@ describe('boost', () => {
                         .on('cache:created', (id) => {
                             cid = id;
                         })
-                        .on('error', (e) => expect(e).toBetoBeUndefined())
+                        .on('error', (e) => expect(e).toBeUndefined())
                         .on('data', (chunk) => {
                             res += chunk;
                         })
