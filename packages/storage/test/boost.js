@@ -45,7 +45,7 @@ describe('boost', () => {
                     output.send(input);
                 }))
                 .pipe(ezs('delegate', { script }))
-                .on('error', (e) => expect(e).toBetoBeUndefined())
+                .on('error', (e) => expect(e).toBeUndefined())
                 .on('data', (chunk) => {
                     res += chunk;
                 })
@@ -72,7 +72,7 @@ describe('boost', () => {
                         .on('cache:created', (id) => {
                             cid = id;
                         })
-                        .on('error', (e) => expect(e).toBetoBeUndefined())
+                        .on('error', (e) => expect(e).toBeUndefined())
                         .on('data', (chunk) => {
                             res += chunk;
                         })
@@ -96,7 +96,7 @@ describe('boost', () => {
                         .on('cache:connected', (id) => {
                             cid = id;
                         })
-                        .on('error', (e) => expect(e).toBetoBeUndefined())
+                        .on('error', (e) => expect(e).toBeUndefined())
                         .on('data', (chunk) => {
                             res += chunk;
                         })
@@ -122,7 +122,7 @@ describe('boost', () => {
                         .on('cache:created', (id) => {
                             cid = id;
                         })
-                        .on('error', (e) => expect(e).toBetoBeUndefined())
+                        .on('error', (e) => expect(e).toBeUndefined())
                         .on('data', (chunk) => {
                             res += chunk;
                         })
@@ -154,7 +154,7 @@ describe('boost', () => {
                     output.send(input);
                 }))
                 .pipe(ezs('delegate', { script }))
-                .on('error', (e) => expect(e).toBetoBeUndefined())
+                .on('error', (e) => expect(e).toBeUndefined())
                 .on('data', (chunk) => {
                     res += chunk;
                 })
@@ -183,7 +183,7 @@ describe('boost', () => {
                         .on('cache:created', (id) => {
                             cid = id;
                         })
-                        .on('error', (e) => expect(e).toBetoBeUndefined())
+                        .on('error', (e) => expect(e).toBeUndefined())
                         .on('data', (chunk) => {
                             res += chunk;
                         })
@@ -207,7 +207,7 @@ describe('boost', () => {
                         .on('cache:connected', (id) => {
                             cid = id;
                         })
-                        .on('error', (e) => expect(e).toBetoBeUndefined())
+                        .on('error', (e) => expect(e).toBeUndefined())
                         .on('data', (chunk) => {
                             res += chunk;
                         })
@@ -233,7 +233,7 @@ describe('boost', () => {
                         .on('cache:created', (id) => {
                             cid = id;
                         })
-                        .on('error', (e) => expect(e).toBetoBeUndefined())
+                        .on('error', (e) => expect(e).toBeUndefined())
                         .on('data', (chunk) => {
                             res += chunk;
                         })
@@ -266,7 +266,7 @@ describe('boost', () => {
                     output.send(input);
                 }))
                 .pipe(ezs('delegate', { script }))
-                .on('error', (e) => expect(e).toBetoBeUndefined())
+                .on('error', (e) => expect(e).toBeUndefined())
                 .on('data', (chunk) => {
                     res += chunk;
                 })
@@ -284,7 +284,7 @@ describe('boost', () => {
                     output.send(input);
                 }))
                 .pipe(s1)
-                .on('error', (e) => expect(e).toBetoBeUndefined())
+                .on('error', (e) => expect(e).toBeUndefined())
                 .on('data', (chunk) => {
                     res += chunk;
                 })
@@ -348,7 +348,7 @@ describe('boost', () => {
                         .pipe(s2)
                         .pipe(ezs('transit'))
                         .pipe(ezs.catch((e) => e))
-                        .on('error', (e) => expect(e).toBetoBeUndefined())
+                        .on('error', (e) => expect(e).toBeUndefined())
                         .on('data', (chunk) => {
                             res += chunk;
                         })
@@ -392,7 +392,7 @@ describe('boost', () => {
 
             from([])
                 .pipe(ezs('delegate', { script }))
-                .on('error', (e) => expect(e).toBetoBeUndefined())
+                .on('error', (e) => expect(e).toBeUndefined())
                 .on('data', () => {
                     res += 1;
                 })
@@ -411,7 +411,7 @@ describe('boost', () => {
                 .on('cache:created', (id) => {
                     cid = id;
                 })
-                .on('error', (e) => expect(e).toBetoBeUndefined())
+                .on('error', (e) => expect(e).toBeUndefined())
                 .on('data', () => {
                     res += 1;
                 })
@@ -512,7 +512,7 @@ describe('boost', () => {
     });
 
 
-    describe.only('with a pipeline & a fixed key in parallel', () => {
+    describe('with a pipeline & a fixed key in parallel', () => {
         const script = `
         [transit]
 
@@ -539,7 +539,7 @@ describe('boost', () => {
                         .on('cache:created', (id) => {
                             cid = id;
                         })
-                        .on('error', (e) => expect(e).toBetoBeUndefined())
+                        .on('error', (e) => expect(e).toBeUndefined())
                         .on('data', (chunk) => {
                             res += chunk;
                         })
@@ -580,7 +580,7 @@ describe('boost', () => {
                         .on('cache:created', (id) => {
                             cid = id;
                         })
-                        .on('error', (e) => expect(e).toBetoBeUndefined())
+                        .on('error', (e) => expect(e).toBeUndefined())
                         .on('data', (chunk) => {
                             res += chunk;
                         })
@@ -591,6 +591,84 @@ describe('boost', () => {
                         });
                 },
                 /**/
+            ],
+            this,
+            alldone,
+        ));
+    });
+
+
+    describe('with a pipeline & a strange values', () => {
+        const script = `
+        [transit]
+
+        [transit]
+    `;
+        const cleanupDelay = 3;
+        const key = 'XXXXX';
+        const input = [true, false, '', undefined, 1];
+        it('run a pipeline without boost', (done) => {
+            let res = 0;
+            from(input)
+                .pipe(ezs('delegate', { script }))
+                .on('error', (e) => expect(e).toBeUndefined())
+                .on('data', () => {
+                    res += 1;
+                })
+                .on('end', () => {
+                    assert.strictEqual(res, 4);
+                    done();
+                });
+        });
+        // WARNING : the lines below allow jest / istanbul to correctly cover all the lines
+        // the 3 variables being in a stable scope (instead a dynamic scope)
+        const s1 = ezs('boost', { script, cleanupDelay, key }, environment);
+        const s2 = ezs('boost', { script, cleanupDelay, key }, environment);
+        it('run a pipeline with boost', (alldone) => series(
+            [
+                (done) => {
+                    // FIRST CALL (no cache)
+                    let res = 0;
+                    let cid = null;
+                    from(input)
+                        .pipe(s1)
+                        .on('cache:created', (id) => {
+                            cid = id;
+                        })
+                        .on('error', (e) => expect(e).toBeUndefined())
+                        .on('data', () => {
+                            res += 1;
+                        })
+                        .on('end', () => {
+                            assert.notEqual(cid, null);
+                            assert.strictEqual(res, 4);
+                            done();
+                        });
+                },
+                (done) => {
+                    // SECOND CALL (hit the cache)
+                    let res = 0;
+                    let cid = null;
+                    const ten = new Decade();
+                    ten
+                        .pipe(ezs((input, output) => {
+                            // to fool the cache
+                            output.send(input === 2 ? 1 : input);
+                        }))
+                        .pipe(s2)
+                        .on('cache:connected', (id) => {
+                            cid = id;
+                        })
+                        .on('error', (e) => expect(e).toBeUndefined())
+                        .on('data', () => {
+                            res += 1;
+                        })
+                        .on('end', () => {
+                            assert.notEqual(cid, null);
+                            assert.strictEqual(res, 4);
+                            done();
+                        });
+                },
             ],
             this,
             alldone,

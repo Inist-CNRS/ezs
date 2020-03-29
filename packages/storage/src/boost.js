@@ -1,7 +1,8 @@
 import hasher from 'node-object-hash';
 import DateDiff from 'date-diff';
 import debug from 'debug';
-import Store  from './store';
+import Store from './store';
+
 
 const hashCoerce = hasher({
     sort: false,
@@ -99,7 +100,7 @@ export default async function boost(data, feed) {
             .pipe(ezs(createURI))
             .pipe(ezs('storage:save', { domain: uniqHash, reset: true }))
             .pipe(ezs.catch());
-        this.whenFinish = new Promise((cacheSaved) => {
+        this.whenFinish = new Promise((cacheSaved, cacheCrashed) => {
             cacheSetOutput.on('error', (error) => {
                 debug('ezs')('Error catched, no cache created with hash', uniqHash, error);
                 cacheSaved();
@@ -109,8 +110,7 @@ export default async function boost(data, feed) {
                 try {
                     await this.store.put(uniqHash, { createdDate: Date.now() });
                 } catch (error) {
-                    debug('ezs')('Error catched, no cache created with hash', uniqHash, error);
-                    cacheSaved();
+                    cacheCrashed(error);
                 }
                 cacheSaved();
             });
@@ -130,7 +130,6 @@ export default async function boost(data, feed) {
                     debug('ezs')(`${this.getIndex()} chunks have been boosted`);
                     this.whenFinish
                         .then(() => {
-                            this.store.close();
                             feed.close();
                         })
                         .catch((e) => feed.stop(e));
@@ -138,7 +137,8 @@ export default async function boost(data, feed) {
                     return true;
                 }
                 return ezs.writeTo(this.cacheSetInput, data, () => feed.end());
-            });
+            })
+            .catch((e) => feed.stop(e));
     }
     return true;
 }
