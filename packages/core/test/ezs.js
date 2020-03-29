@@ -9,6 +9,8 @@ import Expression from '../src/expression';
 
 ezs.use(require('./locals'));
 
+debug.enable('ezs');
+
 class Decade extends Readable {
     constructor() {
         super({ objectMode: true });
