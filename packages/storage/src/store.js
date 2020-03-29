@@ -4,7 +4,7 @@ import tmpFilepath from 'tmp-filepath';
 import makeDir from 'make-dir';
 import lmdb from 'node-lmdb';
 
-const maxDbs = cpus().length ** 2;
+const maxDbs = cpus().length * 10;
 const mapSize = totalmem() / 2;
 const encodeKey = (k) => JSON.stringify(k);
 const decodeKey = (k) => JSON.parse(String(k));
