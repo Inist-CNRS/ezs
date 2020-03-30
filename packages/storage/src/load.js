@@ -1,4 +1,5 @@
-import Store, { validKey } from './store';
+import Store from './store';
+import { validKey } from './identify';
 
 /**
  * With a `String`, containing a URI throw all the documents that match

@@ -1,6 +1,7 @@
 import { hostname } from 'os';
 import get from 'lodash.get';
-import Store, { validKey } from './store';
+import Store from './store';
+import { validKey } from './identify';
 
 /**
  * Take `Object`, to save it into a store and throw an URL

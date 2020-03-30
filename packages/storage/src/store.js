@@ -28,7 +28,6 @@ const lmdbEnv = () => {
     return handle;
 };
 
-export const validKey = (input) => (Boolean(input) && typeof input === 'string' && input.search(/\w+:(\/?\/?)[^\s]+/g) >= 0);
 
 export default class Store {
     constructor(ezs, domain) {

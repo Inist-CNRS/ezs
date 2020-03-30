@@ -2,8 +2,8 @@ import get from 'lodash.get';
 import set from 'lodash.set';
 import generate from 'nanoid/async/generate';
 import nolookalikes from 'nanoid-dictionary/nolookalikes';
-import { validKey } from './store';
 
+export const validKey = (input) => (Boolean(input) && typeof input === 'string' && input.search(/\w+:(\/?\/?)[^\s]+/g) >= 0);
 
 //
 // JS implentation of NCDA
