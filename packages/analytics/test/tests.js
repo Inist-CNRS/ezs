@@ -441,6 +441,20 @@ describe('test', () => {
             });
     });
 
+    it('slice #3', (done) => {
+        const res = [];
+        from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+            .pipe(ezs('slice'))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(10, res.length);
+                assert.equal(1, res[0]);
+                assert.equal(10, res[9]);
+                done();
+            });
+    });
 
     it('distribute #1', (done) => {
         const res = [];
