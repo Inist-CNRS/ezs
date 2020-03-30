@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.6](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@0.1.5...@ezs/storage@0.1.6) (2020-03-30)
+
+
+### Bug Fixes
+
+* 🐛 'Invalid Argument' error ([debbb07](https://github.com/Inist-CNRS/ezs/commit/debbb07f6b074cff01c5385206e92c797e2d69c6))
+* 🐛 bug fixes ([277de15](https://github.com/Inist-CNRS/ezs/commit/277de15c1df537113cd5dfbe0f8a74470291770c))
+* 🐛 ncu ([a05dcee](https://github.com/Inist-CNRS/ezs/commit/a05dcee3a8832a677706b8d0b30370f075785639))
+
+
+
+
+
 ## [0.1.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@0.1.4...@ezs/storage@0.1.5) (2020-03-24)
 
 **Note:** Version bump only for package @ezs/storage

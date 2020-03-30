@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.2.1...@ezs/basics@1.2.2) (2020-03-30)
+
+
+### Bug Fixes
+
+* 🐛 ncu ([a05dcee](https://github.com/Inist-CNRS/ezs/commit/a05dcee3a8832a677706b8d0b30370f075785639))
+
+
+
+
+
 ## [1.2.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.2.0...@ezs/basics@1.2.1) (2020-02-28)
 
 **Note:** Version bump only for package @ezs/basics

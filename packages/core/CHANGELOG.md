@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.7.0...@ezs/core@1.7.1) (2020-03-30)
+
+
+### Bug Fixes
+
+* 🐛 'Invalid Argument' error ([debbb07](https://github.com/Inist-CNRS/ezs/commit/debbb07f6b074cff01c5385206e92c797e2d69c6))
+* 🐛 ncu ([a05dcee](https://github.com/Inist-CNRS/ezs/commit/a05dcee3a8832a677706b8d0b30370f075785639))
+
+
+
+
+
 # [1.7.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.6.4...@ezs/core@1.7.0) (2020-03-23)
 
 

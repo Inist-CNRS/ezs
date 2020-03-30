@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.13](https://github.com/Inist-CNRS/ezs/compare/@ezs/booster@1.1.12...@ezs/booster@1.1.13) (2020-03-30)
+
+
+### Bug Fixes
+
+* 🐛 ncu ([a05dcee](https://github.com/Inist-CNRS/ezs/commit/a05dcee3a8832a677706b8d0b30370f075785639))
+
+
+
+
+
 ## [1.1.12](https://github.com/Inist-CNRS/ezs/compare/@ezs/booster@1.1.11...@ezs/booster@1.1.12) (2020-02-27)
 
 **Note:** Version bump only for package @ezs/booster
