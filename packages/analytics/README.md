@@ -16,9 +16,9 @@ npm install @ezs/analytics
 
 #### Table of Contents
 
--   [output](#output)
 -   [keys](#keys)
 -   [count](#count)
+-   [output](#output)
 -   [slice](#slice)
 -   [value](#value)
 -   [drop](#drop)
@@ -47,16 +47,6 @@ npm install @ezs/analytics
 -   [distance](#distance)
 -   [segment](#segment)
 -   [tune](#tune)
-
-### output
-
-TO BE DESCRIBED
-
-#### Parameters
-
--   `keyName` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `indent` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
--   `extract` **any** 
 
 ### keys
 
@@ -119,6 +109,52 @@ Output:
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### output
+
+Format the output with data a meta
+
+#### Parameters
+
+-   `indent` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** indent or not (optional, default `false`)
+-   `meta` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>?** fields to be considered as metadata
+                                      object
+
+#### Examples
+
+Input
+
+
+```javascript
+[
+     { _id: 1, value: 2, total: 2 },
+     { _id: 2, value: 4, total: 2 }
+]
+```
+
+Script
+
+
+```javascript
+.pipe(ezs('output', { meta: 'total' }))
+```
+
+Output
+
+
+```javascript
+{
+    data: [
+        { _id: 1, value: 2 },
+        { _id: 2, value: 4 }
+    ],
+    meta: {
+        total: 2
+    }
+}
+```
+
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ### slice
 
