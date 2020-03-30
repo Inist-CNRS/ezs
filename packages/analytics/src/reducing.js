@@ -42,7 +42,7 @@ export default function reducing(data, feed) {
         this.store = new Store(this.ezs, 'reducing');
     }
     if (this.isLast()) {
-        this.store.cast()
+        this.store.empty()
             .on('data', (item) => feed.write(item))
             .on('end', () => feed.close());
     } else {

@@ -1,5 +1,4 @@
-import lmdb from 'node-lmdb';
-import { encodeKey, decodeValue, lmdbEnv } from './store';
+import Store from './store';
 
 /**
  * Take an `Object` and replace it with all the objects of the same domain contained in the store.
@@ -11,29 +10,21 @@ import { encodeKey, decodeValue, lmdbEnv } from './store';
  */
 export default async function flow(data, feed) {
     const length = Number(this.getParam('length', -1));
+    const statement = length === -1 ? 'transit' : 'truncate';
     const domainName = this.getParam('domain', 'ezs');
     const domain = Array.isArray(domainName) ? domainName.shift() : domainName;
-    if (this.isFirst()) {
-        this.dbi = lmdbEnv(this.ezs).openDbi({
-            name: domain,
-        });
+    if (!this.store) {
+        this.store = new Store(this.ezs, domain);
     }
     if (this.isLast()) {
-        if (this.dbi) {
-            this.dbi.close();
-        }
+        this.store.close();
         return feed.close();
     }
-    const txn = lmdbEnv(this.ezs).beginTxn({ readOnly: true });
-    const cursor = new lmdb.Cursor(txn, this.dbi);
-    let counter = 0;
-    for (let found = cursor.goToFirst();
-        (found !== null && (counter < length || length < 0));
-        found = cursor.goToNext()) {
-        counter += 1;
-        const value = txn.getString(this.dbi, encodeKey(found));
-        feed.write(decodeValue(value));
-    }
-    txn.commit();
-    return feed.end();
+
+    return this.store.stream()
+        .pipe(this.ezs('extract', { path: 'value' }))
+        .pipe(this.ezs(statement, { length }))
+        .on('data', (item) => feed.write(item))
+        .on('error', (e) => feed.stop(e))
+        .on('end', () => feed.end());
 }

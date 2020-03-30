@@ -31,68 +31,113 @@ const lmdbEnv = () => {
 export default class Store {
     constructor(ezs, domain) {
         this.ezs = ezs;
-        this.dbi = lmdbEnv(this.ezs).openDbi({
-            name: domain,
+        this.domain = domain;
+        this.open();
+    }
+
+    open() {
+        this.handle = lmdbEnv().openDbi({
+            name: this.domain,
             create: true,
         });
     }
 
+    dbi() {
+        return this.handle;
+    }
+
     get(key) {
-        return new Promise((resolve) => {
-            const txn = lmdbEnv(this.ezs).beginTxn({ readOnly: true });
+        return new Promise((resolve, reject) => {
+            const txn = lmdbEnv().beginTxn({ readOnly: true });
             const ekey = encodeKey(key);
-            const val = decodeValue(txn.getString(this.dbi, ekey));
-            txn.commit();
-            resolve(val);
+            try {
+                const val = decodeValue(txn.getString(this.dbi(), ekey));
+                txn.abort();
+                resolve(val);
+            } catch (e) {
+                txn.abort();
+                reject(e);
+            }
         });
     }
 
     put(key, value) {
-        return new Promise((resolve) => {
-            const txn = lmdbEnv(this.ezs).beginTxn();
+        return new Promise((resolve, reject) => {
+            const txn = lmdbEnv().beginTxn();
             const ekey = encodeKey(key);
-            txn.putString(this.dbi, ekey, encodeValue(value));
+            try {
+                txn.putString(this.dbi(), ekey, encodeValue(value));
+            } catch (e) {
+                txn.abort();
+                reject(e);
+            }
             txn.commit();
             resolve(true);
         });
     }
 
     add(key, value) {
-        return new Promise((resolve) => {
-            const txn = lmdbEnv(this.ezs).beginTxn();
+        return new Promise((resolve, reject) => {
+            const txn = lmdbEnv().beginTxn();
             const ekey = encodeKey(key);
-            const vvalue = decodeValue(txn.getString(this.dbi, ekey));
-            if (vvalue) {
-                txn.putString(this.dbi, ekey, encodeValue(vvalue.concat(value)));
-            } else {
-                txn.putString(this.dbi, ekey, encodeValue([value]));
+            const vvalue = decodeValue(txn.getString(this.dbi(), ekey));
+            try {
+                if (vvalue) {
+                    txn.putString(this.dbi(), ekey, encodeValue(vvalue.concat(value)));
+                } else {
+                    txn.putString(this.dbi(), ekey, encodeValue([value]));
+                }
+            } catch (e) {
+                txn.abort();
+                reject(e);
             }
             txn.commit();
             resolve(true);
         });
     }
 
+    stream() {
+        return this.cast();
+    }
+
+    empty() {
+        return this.cast().on('end', () => this.reset());
+    }
+
     cast() {
-        const flow = this.ezs.createStream(this.ezs.objectMode())
-            .on('end', () => this.close());
+        const flow = this.ezs.createStream(this.ezs.objectMode());
 
         process.nextTick(() => {
             const txn = lmdbEnv(this.ezs).beginTxn({ readOnly: true });
-            const cursor = new lmdb.Cursor(txn, this.dbi);
-            for (let found = cursor.goToFirst();
-                found !== null;
-                found = cursor.goToNext()) {
-                const id = decodeKey(found);
-                const value = decodeValue(txn.getString(this.dbi, found));
-                flow.write({ id, value });
-            }
-            flow.end();
-            txn.commit();
+            const cursor = new lmdb.Cursor(txn, this.dbi());
+            const walker = (found, done) => {
+                if (found) {
+                    const id = decodeKey(found);
+                    const value = decodeValue(txn.getString(this.dbi(), found));
+                    this.ezs.writeTo(flow, { id, value }, (err, writable) => {
+                        if (err || writable === false) {
+                            return done();
+                        }
+                        return walker(cursor.goToNext(), done);
+                    });
+                } else {
+                    done();
+                }
+            };
+            walker(cursor.goToFirst(), () => {
+                flow.end();
+                txn.abort();
+            });
         });
         return flow;
     }
 
+    reset() {
+        this.dbi().drop();
+        this.open();
+    }
+
     close() {
-        return this.dbi.drop();
+        this.dbi().close();
     }
 }

@@ -20,7 +20,7 @@
   "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/booster#readme",
   "dependencies": {
     "cacache": "~11.3.2",
-    "node-object-hash": "~1.4.2"
+    "node-object-hash": "~2.0.0"
   },
   "main": "./lib/index.js",
   "scripts": {

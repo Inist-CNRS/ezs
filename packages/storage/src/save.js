@@ -1,8 +1,7 @@
 import { hostname } from 'os';
 import get from 'lodash.get';
-import {
-    validKey, encodeKey, encodeValue, lmdbEnv,
-} from './store';
+import Store from './store';
+import { validKey } from './identify';
 
 /**
  * Take `Object`, to save it into a store and throw an URL
@@ -22,32 +21,20 @@ export default async function save(data, feed) {
     const uri = get(data, path);
     const domainName = this.getParam('domain', 'ezs');
     const domain = Array.isArray(domainName) ? domainName.shift() : domainName;
-
-    if (this.isFirst()) {
-        this.dbi = lmdbEnv(this.ezs).openDbi({
-            name: domain,
-            create: true,
-        });
+    if (!this.store) {
+        this.store = new Store(this.ezs, domain);
+    }
+    if (this.isFirst() && reset === true) {
+        this.store.reset();
     }
     if (this.isLast()) {
-        if (this.dbi) {
-            this.dbi.close();
-        }
+        this.store.close();
         return feed.close();
     }
     if (!validKey(uri)) {
         return feed.end();
     }
-    if (this.isFirst() && reset === true) {
-        this.dbi.drop();
-        this.dbi = lmdbEnv(this.ezs).openDbi({
-            name: domain,
-            create: true,
-        });
-    }
-    const txn = lmdbEnv(this.ezs).beginTxn();
-    txn.putString(this.dbi, encodeKey(uri), encodeValue(data));
-    txn.commit();
+    await this.store.put(uri, data);
 
     if (protocol && host) {
         return feed.send(`${protocol}//${host}/${uri}`);

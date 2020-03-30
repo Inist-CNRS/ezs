@@ -48,8 +48,8 @@ function formatOutput(data, feed) {
             let check = false;
             keys.forEach((k, index) => {
                 if (values[index]) {
+                    feed.write(!check ? ' ' : ',');
                     check = true;
-                    feed.write(index === 0 ? ' ' : ',');
                     feed.write(json(k));
                     feed.write(':');
                     feed.write(json(values[index]));

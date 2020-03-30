@@ -49,8 +49,8 @@ export default function extract(data, feed) {
         keys = [keys];
     }
 
-    keys = keys.filter((k) => typeof k === 'string');
-    const values = keys.map((key) => _.get(data, key)).filter((val) => val);
+    keys = keys.filter(Boolean).filter((k) => typeof k === 'string');
+    const values = keys.map((key) => _.get(data, key)).filter((v) => v !== null && v !== undefined);
 
     if (values.length === 0) {
         return feed.send(new Error('Nonexistent path.'));

@@ -1,7 +1,6 @@
 import ezs from '../../core/src';
 import statements from '../src';
-import { validKey } from '../src/store';
-import { ncda } from '../src/identify';
+import { ncda, validKey } from '../src/identify';
 
 ezs.use(statements);
 

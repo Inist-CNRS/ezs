@@ -1,17 +1,24 @@
 import hasher from 'node-object-hash';
 import DateDiff from 'date-diff';
 import debug from 'debug';
-import {
-    decodeValue, encodeKey, encodeValue, lmdbEnv,
-} from './store';
+import Store from './store';
 
-
-let dbi;
 
 const hashCoerce = hasher({
     sort: false,
     coerce: true,
 });
+
+function createURI(data, feed) {
+    if (this.isLast()) {
+        return feed.close();
+    }
+    const uri = 'uid:'.concat(this.getIndex().toString().padStart(10, '0'));
+    return feed.send({
+        value: [data],
+        uri,
+    });
+}
 
 const computeHash = (commands, environment, chunk) => {
     const commandsHash = hashCoerce.hash(commands);
@@ -45,7 +52,7 @@ function hitThe(cache, ttl) {
  * @param {Number} [cleanupDelay=600] Frequency (seconds) to cleanup the cache (10 min)
  * @returns {Object}
  */
-export default function boost(data, feed) {
+export default async function boost(data, feed) {
     const { ezs } = this;
     if (this.isFirst()) {
         const file = this.getParam('file');
@@ -55,22 +62,16 @@ export default function boost(data, feed) {
         const commands = this.getParam('commands', cmds.get());
         const cleanupDelay = Number(this.getParam('cleanupDelay', 10 * 60));
         const environment = this.getEnv();
-        if (!dbi) {
-            dbi = lmdbEnv(this.ezs).openDbi({
-                name: 'cache_index',
-                create: true,
-            });
+        if (!this.store) {
+            this.store = new Store(this.ezs, 'cache_index');
         }
-
         if (!commands || commands.length === 0) {
             return feed.stop(new Error('Invalid parameter for booster'));
         }
 
         const streams = ezs.compileCommands(commands, environment);
         const uniqHash = String(this.getParam('key') || computeHash(commands, environment, data));
-        const txn = lmdbEnv().beginTxn({ readOnly: true });
-        const cache = decodeValue(txn.getString(dbi, uniqHash));
-        txn.commit();
+        const cache = await this.store.get(uniqHash);
 
         if (hitThe(cache, cleanupDelay)) {
             debug('ezs')('Boost using cache with hash', uniqHash);
@@ -96,20 +97,21 @@ export default function boost(data, feed) {
             .pipe(ezs.catch())
             .on('error', (e) => feed.write(e))
             .on('data', (d) => feed.write(d))
-            .pipe(ezs((da, fe) => (da === null ? fe.close() : fe.send({ value: [da] }))))
-            .pipe(ezs('storage:identify'))
+            .pipe(ezs(createURI))
             .pipe(ezs('storage:save', { domain: uniqHash, reset: true }))
             .pipe(ezs.catch());
-        this.whenFinish = new Promise((cacheSaved) => {
+        this.whenFinish = new Promise((cacheSaved, cacheCrashed) => {
             cacheSetOutput.on('error', (error) => {
                 debug('ezs')('Error catched, no cache created with hash', uniqHash, error);
                 cacheSaved();
             });
-            cacheSetOutput.on('end', () => {
+            cacheSetOutput.on('end', async () => {
                 debug('ezs')('Registering cache with hash', uniqHash);
-                const txn2 = lmdbEnv().beginTxn();
-                txn2.putString(dbi, encodeKey(uniqHash), encodeValue({ createdDate: Date.now() }));
-                txn2.commit();
+                try {
+                    await this.store.put(uniqHash, { createdDate: Date.now() });
+                } catch (error) {
+                    cacheCrashed(error);
+                }
                 cacheSaved();
             });
         });
@@ -135,7 +137,8 @@ export default function boost(data, feed) {
                     return true;
                 }
                 return ezs.writeTo(this.cacheSetInput, data, () => feed.end());
-            });
+            })
+            .catch((e) => feed.stop(e));
     }
     return true;
 }
