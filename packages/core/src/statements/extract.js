@@ -2,6 +2,7 @@ import _ from 'lodash';
 
 /**
  * Take `Object` and throw each value of fields
+ * Note: extract cannot throw undefined or null values
  *
  * ```json
  * [{
@@ -50,7 +51,9 @@ export default function extract(data, feed) {
     }
 
     keys = keys.filter(Boolean).filter((k) => typeof k === 'string');
-    const values = keys.map((key) => _.get(data, key)).filter((v) => v !== null && v !== undefined);
+    const values = keys
+        .map((key) => _.get(data, key))
+        .filter((v) => v !== null && v !== undefined);
 
     if (values.length === 0) {
         return feed.send(new Error('Nonexistent path.'));

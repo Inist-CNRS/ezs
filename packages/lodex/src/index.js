@@ -26,6 +26,7 @@ import getCharacteristics from './getCharacteristics';
 import injectDatasetFields from './injectDatasetFields';
 import injectSyndicationFrom from './injectSyndicationFrom';
 import labelizeFieldID from './labelizeFieldID';
+import buildContext from './buildContext';
 
 export default {
     flattenPatch,
@@ -54,6 +55,7 @@ export default {
     reduceQuery,
     formatOutput,
     parseNQuads,
+    buildContext,
     writeTurtle,
     // aliases
     fixFlatten: flattenPatch.flattenPatch,
@@ -67,4 +69,5 @@ export default {
     LodexRunQuery: runQuery.runQuery,
     LodexReduceQuery: reduceQuery.reduceQuery,
     LodexOutput: formatOutput.formatOutput,
+    LodexBuildContext: buildContext.buildContext,
 };

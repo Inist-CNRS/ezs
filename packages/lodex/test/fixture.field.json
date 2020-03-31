@@ -29,6 +29,7 @@
                 },
                 "name": "title"
             },
+            "isFacet": true,
             "name": "tfFF"
         },
         {
@@ -53,6 +54,7 @@
             "position": 5,
             "scheme": "http://www.w3.org/2004/02/skos/core#definition",
             "language": "en",
+            "isFacet": true,
             "name": "BoJb"
         },
         {

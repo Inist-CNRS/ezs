@@ -602,4 +602,58 @@ describe('mongo queries', () => {
                 });
         });
     });
+    describe('buildContext', () => {
+        beforeEach(() => initDb(connectionStringURI, field));
+        afterEach(() => drop());
+
+        it('with a standard query', (done) => {
+            const res = [];
+            const query = { maxSize: '200', orderBy: '_id/asc' };
+            from([query])
+                .pipe(ezs('buildContext', {
+                    connectionStringURI,
+                }))
+                .on('data', (data) => {
+                    res.push(data);
+                })
+                .on('end', () => {
+                    expect(res.length).toEqual(1);
+                    expect(res[0].maxSize).toEqual(query.maxSize);
+                    expect(res[0].orderBy).toEqual(query.orderBy);
+                    expect(res[0].fields.length).toEqual(20);
+                    expect(res[0].filter).toEqual({
+                        removedAt: {
+                            $exists: false,
+                        },
+                    });
+                    done();
+                });
+        });
+        it('with a query with field id', (done) => {
+            const res = [];
+            const query = { maxSize: '200', orderBy: '_id/asc', tfFF: ['The Lancet'] };
+            from([query])
+                .pipe(ezs('buildContext', {
+                    connectionStringURI,
+                }))
+                .on('data', (data) => {
+                    res.push(data);
+                })
+                .on('end', () => {
+                    expect(res.length).toEqual(1);
+                    expect(res[0].maxSize).toEqual(query.maxSize);
+                    expect(res[0].orderBy).toEqual(query.orderBy);
+                    expect(res[0].fields.length).toEqual(20);
+                    expect(res[0].filter).toEqual({
+                        removedAt: {
+                            $exists: false,
+                        },
+                        $and: [{
+                            'versions.tfFF': 'The Lancet',
+                        }],
+                    });
+                    done();
+                });
+        });
+    });
 });
