@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.7.1...@ezs/core@1.7.2) (2020-03-31)
+
+
+### Bug Fixes
+
+* 🐛 extract cannot throw undefined or null values ([4bdfb94](https://github.com/Inist-CNRS/ezs/commit/4bdfb9404b5c73bba1f0012104f0f71bec1dcc3a))
+
+
+
+
+
 ## [1.7.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.7.0...@ezs/core@1.7.1) (2020-03-30)
 
 

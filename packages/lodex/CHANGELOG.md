@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.3.12...@ezs/lodex@1.4.0) (2020-03-31)
+
+
+### Features
+
+* 🎸 now ezs can build mongo queries with URL parameters ([fc90b30](https://github.com/Inist-CNRS/ezs/commit/fc90b30064207d93c30829fd9b229870a3097272))
+
+
+
+
+
 ## [1.3.12](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.3.11...@ezs/lodex@1.3.12) (2020-03-30)
 
 
