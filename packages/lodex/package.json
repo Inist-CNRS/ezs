@@ -20,6 +20,7 @@
     "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/lodex#readme",
     "dependencies": {
         "jsonld": "~1.7.0",
+        "lodash.compose": "2.4.1",
         "lodash.find": "4.6.0",
         "lodash.get": "~4.4.2",
         "lodash.mapkeys": "4.6.0",

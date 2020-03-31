@@ -1,3 +1,28 @@
+import mongoDatabase from './mongoDatabase';
+import getPublishedDatasetFilter from './getPublishedDatasetFilter';
+
+const findAll = async (collection) => collection
+    .find({})
+    .sort({ position: 1, cover: 1 })
+    .toArray();
+
+const findSearchableNames = async (collection) => {
+    const searchableFields = await collection
+        .find({ searchable: true })
+        .toArray();
+
+    return searchableFields.map(({ name }) => name);
+};
+
+const findFacetNames = async (collection) => {
+    const searchableFields = await collection
+        .find({ isFacet: true })
+        .toArray();
+
+    return searchableFields.map(({ name }) => name);
+};
+
+
 /**
  * Take `Object` containing a URL query and throw a Context Object
  * compatible with runQuery or reduceQuery
@@ -13,7 +38,10 @@ export const createFunction = () => async function LodexBuildContext(data, feed)
     }
 
     const connectionStringURI = this.getParam('connectionStringURI', 'mongodb://ezmaster_db:27017');
-    const host = this.getParams('host');
+    const db = await mongoDatabase(connectionStringURI);
+    const collection = db.collection('field');
+
+    const host = this.getParam('host');
     const {
         uri,
         maxSize,
@@ -27,11 +55,9 @@ export const createFunction = () => async function LodexBuildContext(data, feed)
         field,
         ...facets
     } = data;
-    const handleDb = await mongoClient();
-    const fieldHandle = await getFields(handleDb);
-    const searchableFieldNames = await fieldHandle.findSearchableNames();
-    const facetFieldNames = await fieldHandle.findFacetNames();
-    const fields = await fieldHandle.findAll();
+    const searchableFieldNames = await findSearchableNames(collection);
+    const facetFieldNames = await findFacetNames(collection);
+    const fields = await findAll(collection);
     const filter = getPublishedDatasetFilter({
         uri,
         match,
