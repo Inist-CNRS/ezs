@@ -28,6 +28,7 @@ npm install @ezs/core
 -   [LodexGetCharacteristics](#lodexgetcharacteristics)
 -   [injectDatasetFields](#injectdatasetfields)
 -   [keyMapping](#keymapping)
+-   [LodexBuildContext](#lodexbuildcontext)
 -   [flattenPatch](#flattenpatch)
 -   [labelizeFieldID](#labelizefieldid)
 -   [getParam](#getparam)
@@ -330,6 +331,18 @@ Output
 ```
 
 Returns **any** Same object with modified keys
+
+### LodexBuildContext
+
+Take `Object` containing a URL query and throw a Context Object
+compatible with runQuery or reduceQuery
+
+#### Parameters
+
+-   `connectionStringURI` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to connect to MongoDB (optional, default `"mongodb://ezmaster_db:27017"`)
+-   `host` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** to set host (usefull to build some links)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### flattenPatch
 

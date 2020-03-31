@@ -385,6 +385,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 ### extract
 
 Take `Object` and throw each value of fields
+Note: extract cannot throw undefined or null values
 
 ```json
 [{
