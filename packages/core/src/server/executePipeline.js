@@ -59,8 +59,8 @@ function executePipeline(ezs, files, headers, query, triggerError, read, respons
             return false;
         }
         const inputBis = createInput(firstChunk);
-        const { server } = settings;
-        const execMode = server ? 'dispatch' : 'delegate';
+        const { server, delegate } = settings;
+        const execMode = server ? 'dispatch' : delegate;
         const statements = files.map((file) => ezs(execMode, { file, server }, query));
         if (prepend2Pipeline) {
             statements.unshift(ezs.createCommand(prepend2Pipeline, query));
