@@ -17,6 +17,7 @@ const settings = {
     cache: {
         max: 1666666,
     },
+    delegate: String(process.env.EZS_DELEGATE || 'delegate'),
 };
 
 export default settings;
