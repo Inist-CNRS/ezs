@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.7.2...@ezs/core@1.8.0) (2020-04-02)
+
+
+### Features
+
+* 🎸 choose delegate mode with env vars ([526bb42](https://github.com/Inist-CNRS/ezs/commit/526bb42e237f1ac62dc74821cc737320a89e9056))
+
+
+
+
+
 ## [1.7.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.7.1...@ezs/core@1.7.2) (2020-03-31)
 
 
