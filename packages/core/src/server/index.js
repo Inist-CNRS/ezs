@@ -22,7 +22,7 @@ const isIdentifier = (filename) => {
 };
 
 function createMidddleware(ezs, serverPath, method, pathname) {
-    if (serverPath === false && method === 'POST' && pathname === '/') {
+    if (method === 'POST' && pathname === '/') {
         debug('ezs')(`Create middleware 'unknownPipeline' for ${method} ${pathname}`);
         return unknownPipeline(ezs);
     }
