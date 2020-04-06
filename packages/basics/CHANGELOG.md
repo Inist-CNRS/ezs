@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.2.3...@ezs/basics@1.2.4) (2020-04-06)
+
+
+### Bug Fixes
+
+* 🐛 security auditx ([92d7eec](https://github.com/Inist-CNRS/ezs/commit/92d7eecaad2ebd5b4ec600a33aa871c6bcf93112))
+
+
+
+
+
 ## [1.2.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.2.2...@ezs/basics@1.2.3) (2020-04-02)
 
 **Note:** Version bump only for package @ezs/basics

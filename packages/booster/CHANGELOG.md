@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.14](https://github.com/Inist-CNRS/ezs/compare/@ezs/booster@1.1.13...@ezs/booster@1.1.14) (2020-04-06)
+
+
+### Bug Fixes
+
+* 🐛 security patch bis ([0d7fa53](https://github.com/Inist-CNRS/ezs/commit/0d7fa5303ab68ea12be77b77fd21fbb4c4fbc943))
+
+
+
+
+
 ## [1.1.13](https://github.com/Inist-CNRS/ezs/compare/@ezs/booster@1.1.12...@ezs/booster@1.1.13) (2020-03-30)
 
 

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.8.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.8.0...@ezs/core@1.8.1) (2020-04-06)
+
+
+### Bug Fixes
+
+* 🐛 allow 2 modesx ([d604b20](https://github.com/Inist-CNRS/ezs/commit/d604b209e6c10338eb49adc6767a4b4b88737476))
+* 🐛 security patch bis ([0d7fa53](https://github.com/Inist-CNRS/ezs/commit/0d7fa5303ab68ea12be77b77fd21fbb4c4fbc943))
+
+
+
+
+
 # [1.8.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.7.2...@ezs/core@1.8.0) (2020-04-02)
 
 
