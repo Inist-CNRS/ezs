@@ -9,12 +9,13 @@ import Store from './store';
  * @returns {Object}
  */
 export default async function flow(data, feed) {
+    const location = this.getParam('location');
     const length = Number(this.getParam('length', -1));
     const statement = length === -1 ? 'transit' : 'truncate';
     const domainName = this.getParam('domain', 'ezs');
     const domain = Array.isArray(domainName) ? domainName.shift() : domainName;
     if (!this.store) {
-        this.store = new Store(this.ezs, domain);
+        this.store = new Store(this.ezs, domain, location);
     }
     if (this.isLast()) {
         this.store.close();

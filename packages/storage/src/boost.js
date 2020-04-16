@@ -3,7 +3,6 @@ import DateDiff from 'date-diff';
 import debug from 'debug';
 import Store from './store';
 
-
 const hashCoerce = hasher({
     sort: false,
     coerce: true,
@@ -56,6 +55,7 @@ export default async function boost(data, feed) {
     const { ezs } = this;
     if (this.isFirst()) {
         const file = this.getParam('file');
+        const location = this.getParam('location');
         const fileContent = ezs.loadScript(file);
         const script = this.getParam('script', fileContent);
         const cmds = ezs.compileScript(script);
@@ -63,7 +63,7 @@ export default async function boost(data, feed) {
         const cleanupDelay = Number(this.getParam('cleanupDelay', 10 * 60));
         const environment = this.getEnv();
         if (!this.store) {
-            this.store = new Store(this.ezs, 'cache_index');
+            this.store = new Store(this.ezs, 'cache_index', location);
         }
         if (!commands || commands.length === 0) {
             return feed.stop(new Error('Invalid parameter for booster'));
