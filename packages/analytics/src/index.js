@@ -29,7 +29,7 @@ import filter from './filter';
 import multiply from './mulitply';
 import distance from './distance';
 import aggregate from './aggregate';
-import stats from './stats';
+import statistics from './statistics';
 
 export default {
     count,
@@ -63,5 +63,5 @@ export default {
     multiply,
     distance,
     aggregate,
-    stats,
+    statistics,
 };
