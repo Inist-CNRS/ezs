@@ -634,7 +634,7 @@ describe('dispatch through server(s)', () => {
             .pipe(ezs('replace', { path: 'a', value: '2' }))
             .pipe(ezs('dispatch', { server, commands })) // ~ 9 seconds
             .on('data', (chunk) => {
-                res += chunk.a;
+                res += Number(chunk.a);
             })
             .on('end', () => {
                 assert.strictEqual(res, 500000);
