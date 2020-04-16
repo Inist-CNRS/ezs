@@ -51,7 +51,7 @@ describe('With one store', () => {
     });
 
     it('put duplicate keys', async (done) => {
-        const store = new Store(ezs, 'test_store2');
+        const store = new Store(ezs, 'test_store2bis');
         await store.put(1, 'A');
         await store.put(2, 'B');
         await store.put(2, 'X');

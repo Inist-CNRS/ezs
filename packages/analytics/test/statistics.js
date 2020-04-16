@@ -16,8 +16,8 @@ describe('statistics', () => {
             .on('data', (chunk) => {
                 expect(chunk.statistics.a.count).toEqual(5);
                 expect(chunk.statistics.a.sum).toEqual(5);
-                expect(chunk.statistics.a.distinctValues).toEqual(1);
-                expect(chunk.statistics.a.similarValues).toEqual(5);
+                expect(chunk.statistics.a.csize).toEqual(1);
+                expect(chunk.statistics.a.size).toEqual(5);
             })
             .on('end', () => {
                 done();
@@ -41,7 +41,7 @@ describe('statistics', () => {
                 expect(chunk.statistics.a.midrange).toEqual(1);
                 expect(chunk.statistics.a.variance).toEqual(0.4);
                 expect(chunk.statistics.a.deviation).toEqual(0.6324555320336759);
-                expect(chunk.statistics.a.distinctValues).toEqual(3);
+                expect(chunk.statistics.a.csize).toEqual(3);
             })
             .on('end', () => {
                 done();
@@ -62,12 +62,12 @@ describe('statistics', () => {
             .on('data', (chunk) => {
                 expect(chunk.statistics.a.count).toEqual(5);
                 expect(chunk.statistics.a.sum).toEqual(5);
-                expect(chunk.statistics.a.distinctValues).toEqual(1);
-                expect(chunk.statistics.a.similarValues).toEqual(5);
+                expect(chunk.statistics.a.csize).toEqual(1);
+                expect(chunk.statistics.a.size).toEqual(5);
                 expect(chunk.statistics.b.sum).toEqual(10);
-                expect(chunk.statistics.b.distinctValues).toEqual(1);
+                expect(chunk.statistics.b.csize).toEqual(1);
                 expect(chunk.statistics.b.count).toEqual(5);
-                expect(chunk.statistics.b.similarValues).toEqual(5);
+                expect(chunk.statistics.b.size).toEqual(5);
             })
             .on('end', () => {
                 done();
@@ -86,12 +86,12 @@ describe('statistics', () => {
             .on('data', (chunk) => {
                 expect(chunk.statistics.a.count).toEqual(5);
                 expect(chunk.statistics.a.sum).toEqual(5);
-                expect(chunk.statistics.a.distinctValues).toEqual(1);
-                expect(chunk.statistics.a.similarValues).toEqual(5);
+                expect(chunk.statistics.a.csize).toEqual(1);
+                expect(chunk.statistics.a.size).toEqual(5);
                 if (chunk.b) {
-                    expect(chunk.statistics.b.similarValues).toEqual(4);
+                    expect(chunk.statistics.b.size).toEqual(4);
                     expect(chunk.statistics.b.sum).toEqual(8);
-                    expect(chunk.statistics.b.distinctValues).toEqual(1);
+                    expect(chunk.statistics.b.csize).toEqual(1);
                     expect(chunk.statistics.b.count).toEqual(4);
                 } else {
                     expect(chunk.statistics.b).toBeUndefined();
@@ -115,8 +115,8 @@ describe('statistics', () => {
             .on('data', (chunk) => {
                 expect(chunk.statistics.a.count).toEqual(5);
                 expect(chunk.statistics.a.sum).toEqual(0);
-                expect(chunk.statistics.a.similarValues).toEqual(5);
-                expect(chunk.statistics.a.distinctValues).toEqual(1);
+                expect(chunk.statistics.a.size).toEqual(5);
+                expect(chunk.statistics.a.csize).toEqual(1);
             })
             .on('end', () => {
                 done();
@@ -134,11 +134,11 @@ describe('statistics', () => {
             .pipe(ezs('statistics', { path: 'a', target: 'statistics'  }))
             .on('data', (chunk) => {
                 expect(chunk.statistics.a.sum).toEqual(0);
-                expect(chunk.statistics.a.distinctValues).toEqual(2);
+                expect(chunk.statistics.a.csize).toEqual(2);
                 if (chunk.a === 'z') {
-                    expect(chunk.statistics.a.similarValues).toEqual(2);
+                    expect(chunk.statistics.a.size).toEqual(2);
                 } else {
-                    expect(chunk.statistics.a.similarValues).toEqual(3);
+                    expect(chunk.statistics.a.size).toEqual(3);
                 }
             })
             .on('end', () => {
