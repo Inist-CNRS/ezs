@@ -81,14 +81,14 @@ export default function statistics(data, feed) {
         this.stack = {};
     }
     if (this.isLast()) {
-        const values = keys.reduce((obj, key) => {
+        const values = keys.filter((key) => this.stack[key]).reduce((obj, key) => {
             const value = calculating(this.stack[key].stat);
             value.mean = value.sum / value.count;
             value.range = value.max - value.min;
             value.midrange = value.range / 2;
             value.variance = value.diff / value.count;
             value.deviation = Math.sqrt(value.variance);
-            value.csize = Object.keys(this.stack[key].hash).length;
+            value.population = Object.keys(this.stack[key].hash).length;
             delete value.diff;
             obj[key] = value;
             return obj;
@@ -96,10 +96,10 @@ export default function statistics(data, feed) {
         this.store.empty()
             .on('data', ({ value }) => {
                 const localValues = value.hashValues.reduce((obj, item) => {
-                    const size = this.stack[item.key].hash[item.hashValue];
-                    const frequency = size / values[item.key].csize;
+                    const sample = this.stack[item.key].hash[item.hashValue];
+                    const frequency = sample / values[item.key].population;
                     obj[item.key] = {
-                        size,
+                        sample,
                         frequency,
                         ...values[item.key],
                     };

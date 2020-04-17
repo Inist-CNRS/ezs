@@ -4,6 +4,32 @@ const ezs = require('../../core/src');
 ezs.use(require('../src'));
 
 describe('statistics', () => {
+    it('of 1 value', (done) => {
+        from([{ a: 1 }])
+            .pipe(ezs('statistics', { path: 'a', target: 'statistics' }))
+            .pipe(ezs.catch((e) => done(e)))
+            .on('data', (chunk) => {
+                expect(chunk.statistics.a.count).toEqual(1);
+                expect(chunk.statistics.a.sum).toEqual(1);
+                expect(chunk.statistics.a.population).toEqual(1);
+                expect(chunk.statistics.a.sample).toEqual(1);
+            })
+            .on('end', () => {
+                done();
+            });
+    });
+    it('of 1 unknown value', (done) => {
+        from([{ total: 0 }])
+            .pipe(ezs('statistics', { path: 'a', target: 'statistics' }))
+            .pipe(ezs.catch((e) => done(e)))
+            .on('data', (chunk) => {
+                expect(chunk.statistics.a).toBeUndefined();
+            })
+            .on('end', () => {
+                done();
+            });
+    });
+
     it('of 1 number fields', (done) => {
         from([
             { a: 1 },
@@ -13,11 +39,12 @@ describe('statistics', () => {
             { a: 1 },
         ])
             .pipe(ezs('statistics', { path: 'a', target: 'statistics' }))
+            .pipe(ezs.catch((e) => done(e)))
             .on('data', (chunk) => {
                 expect(chunk.statistics.a.count).toEqual(5);
                 expect(chunk.statistics.a.sum).toEqual(5);
-                expect(chunk.statistics.a.csize).toEqual(1);
-                expect(chunk.statistics.a.size).toEqual(5);
+                expect(chunk.statistics.a.population).toEqual(1);
+                expect(chunk.statistics.a.sample).toEqual(5);
             })
             .on('end', () => {
                 done();
@@ -33,6 +60,7 @@ describe('statistics', () => {
             { a: 3 },
         ])
             .pipe(ezs('statistics', { path: 'a', target: 'statistics' }))
+            .pipe(ezs.catch((e) => done(e)))
             .on('data', (chunk) => {
                 expect(chunk.statistics.a.count).toEqual(5);
                 expect(chunk.statistics.a.sum).toEqual(10);
@@ -41,14 +69,12 @@ describe('statistics', () => {
                 expect(chunk.statistics.a.midrange).toEqual(1);
                 expect(chunk.statistics.a.variance).toEqual(0.4);
                 expect(chunk.statistics.a.deviation).toEqual(0.6324555320336759);
-                expect(chunk.statistics.a.csize).toEqual(3);
+                expect(chunk.statistics.a.population).toEqual(3);
             })
             .on('end', () => {
                 done();
             });
     });
-
-
 
     it('of 2 numbers fields', (done) => {
         from([
@@ -59,15 +85,16 @@ describe('statistics', () => {
             { a: 1, b: 2 },
         ])
             .pipe(ezs('statistics', { path: ['a', 'b'], target: 'statistics' }))
+            .pipe(ezs.catch((e) => done(e)))
             .on('data', (chunk) => {
                 expect(chunk.statistics.a.count).toEqual(5);
                 expect(chunk.statistics.a.sum).toEqual(5);
-                expect(chunk.statistics.a.csize).toEqual(1);
-                expect(chunk.statistics.a.size).toEqual(5);
+                expect(chunk.statistics.a.population).toEqual(1);
+                expect(chunk.statistics.a.sample).toEqual(5);
                 expect(chunk.statistics.b.sum).toEqual(10);
-                expect(chunk.statistics.b.csize).toEqual(1);
+                expect(chunk.statistics.b.population).toEqual(1);
                 expect(chunk.statistics.b.count).toEqual(5);
-                expect(chunk.statistics.b.size).toEqual(5);
+                expect(chunk.statistics.b.sample).toEqual(5);
             })
             .on('end', () => {
                 done();
@@ -83,15 +110,16 @@ describe('statistics', () => {
             { a: 1, b: 2 },
         ])
             .pipe(ezs('statistics', { path: ['a', 'b'], target: 'statistics' }))
+            .pipe(ezs.catch((e) => done(e)))
             .on('data', (chunk) => {
                 expect(chunk.statistics.a.count).toEqual(5);
                 expect(chunk.statistics.a.sum).toEqual(5);
-                expect(chunk.statistics.a.csize).toEqual(1);
-                expect(chunk.statistics.a.size).toEqual(5);
+                expect(chunk.statistics.a.population).toEqual(1);
+                expect(chunk.statistics.a.sample).toEqual(5);
                 if (chunk.b) {
-                    expect(chunk.statistics.b.size).toEqual(4);
+                    expect(chunk.statistics.b.sample).toEqual(4);
                     expect(chunk.statistics.b.sum).toEqual(8);
-                    expect(chunk.statistics.b.csize).toEqual(1);
+                    expect(chunk.statistics.b.population).toEqual(1);
                     expect(chunk.statistics.b.count).toEqual(4);
                 } else {
                     expect(chunk.statistics.b).toBeUndefined();
@@ -102,7 +130,6 @@ describe('statistics', () => {
             });
     });
 
-
     it('of 1 string fields', (done) => {
         from([
             { a: 'z' },
@@ -112,11 +139,12 @@ describe('statistics', () => {
             { a: 'z' },
         ])
             .pipe(ezs('statistics', { path: 'a', target: 'statistics' }))
+            .pipe(ezs.catch((e) => done(e)))
             .on('data', (chunk) => {
                 expect(chunk.statistics.a.count).toEqual(5);
                 expect(chunk.statistics.a.sum).toEqual(0);
-                expect(chunk.statistics.a.size).toEqual(5);
-                expect(chunk.statistics.a.csize).toEqual(1);
+                expect(chunk.statistics.a.sample).toEqual(5);
+                expect(chunk.statistics.a.population).toEqual(1);
             })
             .on('end', () => {
                 done();
@@ -131,14 +159,15 @@ describe('statistics', () => {
             { a: 'y' },
             { a: 'y' },
         ])
-            .pipe(ezs('statistics', { path: 'a', target: 'statistics'  }))
+            .pipe(ezs('statistics', { path: 'a', target: 'statistics' }))
+            .pipe(ezs.catch((e) => done(e)))
             .on('data', (chunk) => {
                 expect(chunk.statistics.a.sum).toEqual(0);
-                expect(chunk.statistics.a.csize).toEqual(2);
+                expect(chunk.statistics.a.population).toEqual(2);
                 if (chunk.a === 'z') {
-                    expect(chunk.statistics.a.size).toEqual(2);
+                    expect(chunk.statistics.a.sample).toEqual(2);
                 } else {
-                    expect(chunk.statistics.a.size).toEqual(3);
+                    expect(chunk.statistics.a.sample).toEqual(3);
                 }
             })
             .on('end', () => {
