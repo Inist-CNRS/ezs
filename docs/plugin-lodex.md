@@ -34,6 +34,7 @@ npm install @ezs/core
 -   [getParam](#getparam)
 -   [convertToExtendedJsonLd](#converttoextendedjsonld)
 -   [getLastCharacteristic](#getlastcharacteristic)
+-   [LodexInjectCountFrom](#lodexinjectcountfrom)
 -   [writeTurtle](#writeturtle)
 
 ### objects2columns
@@ -451,6 +452,55 @@ Output:
 ```
 
 Returns **any** 
+
+### LodexInjectCountFrom
+
+Inject in each item the last characteristics (the dataset covering fields) of a LODEX.
+
+#### Parameters
+
+-   `connectionStringURI` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** MongoDB connection string
+-   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to get value to find
+-   `field` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** name contains the value to find (generaly equals to path) (optional, default `auto`)
+
+#### Examples
+
+Input:
+
+
+````javascript
+```json
+[
+          { id: 0, value:2000  },
+          { id: 1, value:2001  },
+          { id: 2, value:2003  },
+          { id: 3, value:2005  },
+          { id: 4, value:2007  },
+          { id: 2, value:2003  },
+          { id: 6, value:2011  },
+          { id: 7, value:2013  },
+]
+```
+
+<caption>Script:</caption>
+```ini
+[injectCountFrom]
+path = value
+field = publicationDate
+
+```
+
+[
+          { id: 0, value:2003, value_count:3  },
+          { id: 1, value:2001, value_count:1  },
+          { id: 2, value:2003, value_count:3  },
+          { id: 3, value:2005, value_count:1  },
+          { id: 4, value:2007, value_count:1  },
+          { id: 2, value:2003, value_count:3  },
+          { id: 6, value:2011, value_count:2  },
+          { id: 7, value:2011, value_count:2  },
+]
+````
 
 ### writeTurtle
 
