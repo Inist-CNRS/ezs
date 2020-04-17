@@ -1,21 +1,22 @@
-import { totalmem, cpus } from 'os';
+import { tmpdir, totalmem, cpus } from 'os';
 import pathExists from 'path-exists';
-import tmpFilepath from 'tmp-filepath';
 import makeDir from 'make-dir';
 import lmdb from 'node-lmdb';
+import debug from 'debug';
 
-const maxDbs = cpus().length ** 2;
+const maxDbs = cpus().length * 10;
 const mapSize = totalmem() / 2;
 const encodeKey = (k) => JSON.stringify(k);
 const decodeKey = (k) => JSON.parse(String(k));
 const encodeValue = (v) => JSON.stringify(v);
 const decodeValue = (v) => JSON.parse(String(v));
 let handle;
-const lmdbEnv = () => {
+const lmdbEnv = (location) => {
     if (handle) {
         return handle;
     }
-    const path = tmpFilepath('store');
+    const path = location || tmpdir();
+    debug('ezs')('Open lmdb in ', path);
     if (!pathExists.sync(path)) {
         makeDir.sync(path);
     }
@@ -29,14 +30,19 @@ const lmdbEnv = () => {
 };
 
 export default class Store {
-    constructor(ezs, domain) {
+    constructor(ezs, domain, location) {
         this.ezs = ezs;
         this.domain = domain;
+        this.location = location;
         this.open();
     }
 
+    env() {
+        return lmdbEnv(this.location);
+    }
+
     open() {
-        this.handle = lmdbEnv().openDbi({
+        this.handle = this.env().openDbi({
             name: this.domain,
             create: true,
         });
@@ -48,7 +54,7 @@ export default class Store {
 
     get(key) {
         return new Promise((resolve, reject) => {
-            const txn = lmdbEnv().beginTxn({ readOnly: true });
+            const txn = this.env().beginTxn({ readOnly: true });
             const ekey = encodeKey(key);
             try {
                 const val = decodeValue(txn.getString(this.dbi(), ekey));
@@ -63,7 +69,7 @@ export default class Store {
 
     put(key, value) {
         return new Promise((resolve, reject) => {
-            const txn = lmdbEnv().beginTxn();
+            const txn = this.env().beginTxn();
             const ekey = encodeKey(key);
             try {
                 txn.putString(this.dbi(), ekey, encodeValue(value));
@@ -78,7 +84,7 @@ export default class Store {
 
     add(key, value) {
         return new Promise((resolve, reject) => {
-            const txn = lmdbEnv().beginTxn();
+            const txn = this.env().beginTxn();
             const ekey = encodeKey(key);
             const vvalue = decodeValue(txn.getString(this.dbi(), ekey));
             try {
@@ -108,7 +114,7 @@ export default class Store {
         const flow = this.ezs.createStream(this.ezs.objectMode());
 
         process.nextTick(() => {
-            const txn = lmdbEnv(this.ezs).beginTxn({ readOnly: true });
+            const txn = this.env().beginTxn({ readOnly: true });
             const cursor = new lmdb.Cursor(txn, this.dbi());
             const walker = (found, done) => {
                 if (found) {

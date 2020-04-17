@@ -40,6 +40,7 @@ npm install @ezs/analytics
 -   [reducing](#reducing)
 -   [sort](#sort)
 -   [distinct](#distinct)
+-   [hashCoerce](#hashcoerce)
 -   [merging](#merging)
 -   [filter](#filter)
 -   [greater](#greater)
@@ -860,6 +861,47 @@ Output:
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path (optional, default `"id"`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### hashCoerce
+
+Take `Object` object and getting the value field
+
+```json
+[{
+  a: 1,
+},
+{
+  a: 2,
+},
+{
+  a: 3,
+}]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[statistics]
+path = a
+```
+
+Output:
+
+```json
+[{
+
+}]
+```
+
+Compute some statistics from  fields
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the value field (optional, default `value`)
+-   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of statistics in output object-   @returns {Object} (optional, default `_statistics`)
 
 ### merging
 

@@ -41,7 +41,7 @@ const sorting = (arr, reverse = false) => {
  */
 export default async function sort(data, feed) {
     if (!this.store) {
-        this.store = new Store(this.ezs, `sort_${Date.now()}`);
+        this.store = new Store(this.ezs, `sort_${Math.random()}`);
         this.table = [];
     }
     if (this.isLast()) {
