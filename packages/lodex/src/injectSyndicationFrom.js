@@ -57,8 +57,8 @@ export async function LodexInjectSyndicationFrom(data, feed) {
         this.lru.set(uri, [title, summary]);
     }
 
-    data[`${key}-title`] = title;
-    data[`${key}-summary`] = summary;
+    data[`${key}_title`] = title;
+    data[`${key}_summary`] = summary;
     feed.send(data);
 }
 

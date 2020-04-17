@@ -666,7 +666,7 @@ describe('dispatch through server(s)', () => {
                 assert.strictEqual(res, 10000);
                 done();
             });
-    }, 50000);
+    }, 500000);
 
 
     it('with a same commands', (done) => {
