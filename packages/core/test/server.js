@@ -631,10 +631,10 @@ describe('dispatch through server(s)', () => {
         let res = 0;
         const ten = new Upto(500001);
         ten
-            .pipe(ezs('replace', { path: 'a', value: '2' }))
+            .pipe(ezs('replace', { path: 'a', value: 'à remplacer' }))
             .pipe(ezs('dispatch', { server, commands })) // ~ 9 seconds
             .on('data', (chunk) => {
-                res += Number(chunk.a);
+                res += chunk.a;
             })
             .on('end', () => {
                 assert.strictEqual(res, 500000);
