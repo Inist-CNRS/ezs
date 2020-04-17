@@ -629,7 +629,7 @@ describe('dispatch through server(s)', () => {
             '127.0.0.1:30003',
         ];
         let res = 0;
-        const ten = new Upto(50001);
+        const ten = new Upto(500001);
         ten
             .pipe(ezs('replace', { path: 'a', value: 'à remplacer' }))
             .pipe(ezs('dispatch', { server, commands })) // ~ 9 seconds
@@ -637,7 +637,7 @@ describe('dispatch through server(s)', () => {
                 res += chunk.a;
             })
             .on('end', () => {
-                assert.strictEqual(res, 50000);
+                assert.strictEqual(res, 500000);
                 done();
             });
     }, 200000);
