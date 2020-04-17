@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.3.4...@ezs/analytics@1.4.0) (2020-04-17)
+
+
+### Features
+
+* 🎸 add [statistics] statement ([85cbd9c](https://github.com/Inist-CNRS/ezs/commit/85cbd9c774d1ae5edd6224f73723d65639200086))
+
+
+
+
+
 ## [1.3.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.3.3...@ezs/analytics@1.3.4) (2020-04-06)
 
 
