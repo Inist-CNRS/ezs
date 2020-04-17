@@ -2,13 +2,26 @@ import assert from 'assert';
 import from from 'from';
 import fs from 'fs';
 import path from 'path';
+import nock from 'nock';
+
 import ezs from '../../core/src';
 import ISTEXFacet from '../src/facet';
 import ISTEXFilesContent from '../src/files-content';
 import ISTEXFiles from '../src/files';
+import ISTEXFetchData from './data/ISTEXFetch.json';
+import ISTEXScrollData from './data/ISTEXScroll.json';
+import ISTEXResultData from './data/ISTEXResult.json';
+import ISTEXTriplifyData from './data/ISTEXTriplify.json';
+import ISTEXData from './data/ISTEX.json';
+import ISTEXParseDotCorpusData from './data/ISTEXParseDotCorpus.json';
+import ISTEXFacetData from './data/ISTEXFacet.json';
 
 const sid = 'test';
 const token = process.env.ISTEX_TOKEN;
+const nockScope = nock('https://api.istex.fr')
+    // .log(console.log)
+    .persist();
+
 ezs.use(require('../src'));
 ezs.use(require('../../basics/src'));
 
@@ -19,6 +32,14 @@ if (token) {
 describe('ISTEXSave', () => {
     it('should get the right PDFs', (done) => {
         const result = [];
+        nockScope
+            .get('/document/87699D0C20258C18259DED2A5E63B9A50F3B3363?sid=test')
+            .reply(200, ISTEXFetchData)
+            .get('/ark:/67375/QHD-T00H6VNF-0/record.json?sid=test')
+            .reply(200, ISTEXFetchData)
+            .get('/ark:/67375/QHD-T00H6VNF-0/fulltext.pdf?sid=test')
+            .reply(200, '/app/QHD-T00H6VNF-0-fulltext.pdf');
+
         from([
             {
                 id: '87699D0C20258C18259DED2A5E63B9A50F3B3363',
@@ -38,6 +59,7 @@ describe('ISTEXSave', () => {
                 token,
             }))
             .pipe(ezs.catch(() => done()))
+            // .pipe(ezs('debug'))
             .on('data', (chunk) => {
                 result.push(chunk);
             })
@@ -53,6 +75,12 @@ describe('ISTEXSave', () => {
 describe('ISTEXFetch', () => {
     it('should get the right metadata', (done) => {
         const result = [];
+        nockScope
+            .get('/document/87699D0C20258C18259DED2A5E63B9A50F3B3363?sid=test')
+            .reply(200, ISTEXFetchData)
+            .get('/ark:/67375/QHD-T00H6VNF-0/record.json?sid=test')
+            .reply(200, ISTEXFetchData);
+
         from([
             {
                 id: '87699D0C20258C18259DED2A5E63B9A50F3B3363',
@@ -81,6 +109,15 @@ describe('ISTEXFetch', () => {
 
     it('should return an error when the ID does not exist', (done) => {
         const result = [];
+        nockScope
+            .get('/document/87699D0C20258C18259DED2A5E63B9A50F3B3363?sid=test')
+            .reply(200, ISTEXFetchData)
+            .get('/ark:/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/record.json?sid=test')
+            .replyWithError({
+                message: 'L\'identifiant ARK saisi n\'a pas le format requis.',
+                code: '400',
+            });
+
         from([
             {
                 id: '87699D0C20258C18259DED2A5E63B9A50F3B3363',
@@ -111,6 +148,14 @@ describe('ISTEXFetch', () => {
 describe('ISTEXResult', () => {
     it('should concatenate results', (done) => {
         const result = [];
+        nockScope
+            .get('/document/?q=this%20is%20an%20test&scroll=5m&output=arkIstex%2Cdoi&size=2000&sid=test')
+            .reply(200, ISTEXResultData[0])
+            .get(ISTEXResultData[0].nextScrollURI.slice(20))
+            .reply(200, ISTEXResultData[1])
+            .get(ISTEXResultData[1].nextScrollURI.slice(20))
+            .reply(200, ISTEXResultData[2]);
+
         from([{ query: 'this is an test' }])
             .pipe(ezs('ISTEXScroll', {
                 maxPage: 2,
@@ -131,6 +176,12 @@ describe('ISTEXResult', () => {
 
     it('should inject lodex.uri field in every hit', (done) => {
         const result = [];
+        nockScope
+            .get('/document/?q=this%20is%20an%20test&scroll=5m&output=arkIstex%2Cdoi&size=2000&sid=test')
+            .reply(200, ISTEXResultData[0])
+            .get(ISTEXResultData[0].nextScrollURI.slice(20))
+            .reply(200, ISTEXResultData[1]);
+
         from([{ query: 'this is an test', lodex: { uri: 'https://uri' } }])
             .pipe(ezs('ISTEXScroll', {
                 maxPage: 1,
@@ -154,6 +205,12 @@ describe('ISTEXResult', () => {
 describe('ISTEXTriplify', () => {
     it('should return triples, rdfs:type and identifier', (done) => {
         const result = [];
+        nockScope
+            .get('/document/?q=ezs&scroll=5m&output=arkIstex%2Cdoi&size=2000&sid=test')
+            .reply(200, ISTEXScrollData[8])
+            .get(ISTEXScrollData[8].nextScrollURI.slice(20))
+            .reply(200, ISTEXScrollData[9]);
+
         from([{ query: 'ezs' }])
             .pipe(ezs('ISTEXScroll', {
                 maxPage: 1,
@@ -183,6 +240,12 @@ describe('ISTEXTriplify', () => {
 
     it('should not return triples containing undefined', (done) => {
         const result = [];
+        nockScope
+            .get('/document/?q=ezs&scroll=5m&output=arkIstex%2Cauthor&size=2000&sid=test')
+            .reply(200, ISTEXTriplifyData[0])
+            .get(ISTEXTriplifyData[0].nextScrollURI.slice(20))
+            .reply(200, ISTEXTriplifyData[1]);
+
         from([{ query: 'ezs' }])
             .pipe(ezs('ISTEXScroll', {
                 maxPage: 1,
@@ -214,6 +277,10 @@ describe('ISTEXTriplify', () => {
 
     it('should return URLs in angle brackets', (done) => {
         const result = [];
+        nockScope
+            .get('/document/?q=language.raw%3Arum&scroll=5m&output=arkIstex%2Cfulltext&size=2000&sid=test')
+            .reply(200, ISTEXTriplifyData[2]);
+
         from([{ query: 'language.raw:rum' }])
             .pipe(ezs('ISTEXScroll', {
                 maxPage: 1,
@@ -247,6 +314,10 @@ describe('ISTEXTriplify', () => {
 
     it('should begin each subject with <https://api.istex.fr/ark:/', (done) => {
         const result = [];
+        nockScope
+            .get('/document/?q=language.raw%3Arum&scroll=5m&output=arkIstex%2Cfulltext&size=2000&sid=test')
+            .reply(200, ISTEXTriplifyData[2]);
+
         from([{ query: 'language.raw:rum' }])
             .pipe(ezs('ISTEXScroll', {
                 maxPage: 1,
@@ -409,6 +480,12 @@ describe('ISTEXTriplify', () => {
 describe('ISTEX', () => {
     it('should apply query once per input', (done) => {
         const result = [];
+        nockScope
+            .get('/document/?q=this%20is%20an%20test&scroll=5m&output=arkIstex%2Cdoi&size=3&sid=test')
+            .reply(200, ISTEXData[0])
+            .get(ISTEXData[0].nextScrollURI.slice(20))
+            .reply(200, ISTEXData[1]);
+
         from([1, 2])
             .pipe(ezs('ISTEX', {
                 query: 'this is an test',
@@ -429,6 +506,10 @@ describe('ISTEX', () => {
 
     it('should get identified docs once per input', (done) => {
         const result = [];
+        nockScope
+            .get('/document/87699D0C20258C18259DED2A5E63B9A50F3B3363?sid=test')
+            .reply(200, ISTEXFetchData);
+
         from([1, 2])
             .pipe(ezs('ISTEX', {
                 id: '87699D0C20258C18259DED2A5E63B9A50F3B3363',
@@ -447,8 +528,16 @@ describe('ISTEX', () => {
             });
     }, 10000);
 
-    it.only('should apply query & id once per input', (done) => {
+    it('should apply query & id once per input', (done) => {
         const result = [];
+        nockScope
+            .get('/document/?q=this%20is%20an%20test&scroll=5m&output=arkIstex%2Cdoi&size=3&sid=test')
+            .reply(200, ISTEXData[0])
+            .get(ISTEXData[0].nextScrollURI.slice(20))
+            .reply(200, ISTEXData[1])
+            .get('/document/87699D0C20258C18259DED2A5E63B9A50F3B3363?sid=test')
+            .reply(200, ISTEXFetchData);
+
         from([1, 2])
             .pipe(ezs('ISTEX', {
                 query: 'this is an test',
@@ -487,28 +576,27 @@ describe('ISTEXUniq', () => {
             });
     });
 
-    it('should remove identical lines even if not following one another',
-        (done) => {
-            let result = [];
-            from([
-                '<subject> <verb> <complement> .',
-                '<subject> <verb2> <complement2> .',
-                '<subject> <verb> <complement> .',
-            ])
-                .pipe(ezs('ISTEXUniq'))
-                // .pipe(ezs('debug'))
-                .on('data', (chunk) => {
-                    result = result.concat(chunk);
-                })
-                .on('end', () => {
-                    assert.equal(result.length, 2);
-                    assert.equal(result[0],
-                        '<subject> <verb> <complement> .\n');
-                    assert.equal(result[1],
-                        '<subject> <verb2> <complement2> .\n');
-                    done();
-                });
-        });
+    it('should remove identical lines even if not following one another', (done) => {
+        let result = [];
+        from([
+            '<subject> <verb> <complement> .',
+            '<subject> <verb2> <complement2> .',
+            '<subject> <verb> <complement> .',
+        ])
+            .pipe(ezs('ISTEXUniq'))
+            // .pipe(ezs('debug'))
+            .on('data', (chunk) => {
+                result = result.concat(chunk);
+            })
+            .on('end', () => {
+                assert.equal(result.length, 2);
+                assert.equal(result[0],
+                    '<subject> <verb> <complement> .\n');
+                assert.equal(result[1],
+                    '<subject> <verb2> <complement2> .\n');
+                done();
+            });
+    });
 
     it('should remove identical lines in two different subjects', (done) => {
         let result = [];
@@ -535,38 +623,34 @@ describe('ISTEXUniq', () => {
             });
     });
 
-    it(
-        'should remove identical lines in two different subjects '
-        + 'when verbs are different',
-        (done) => {
-            let result = [];
-            from([
-                '<subject1> <verb> <complement> .',
-                '<subject1> <verb2> <complement2> .',
-                '<subject1> <verb> <complement> .',
-                '<subject2> <verb2> <complement> .',
-                '<subject2> <verb> <complement2> .',
-                '<subject2> <verb2> <complement> .',
-            ])
-                .pipe(ezs('ISTEXUniq'))
-                // .pipe(ezs('debug'))
-                .on('data', (chunk) => {
-                    result = result.concat(chunk);
-                })
-                .on('end', () => {
-                    assert.equal(result.length, 4);
-                    assert.equal(result[0],
-                        '<subject1> <verb> <complement> .\n');
-                    assert.equal(result[1],
-                        '<subject1> <verb2> <complement2> .\n');
-                    assert.equal(result[2],
-                        '<subject2> <verb2> <complement> .\n');
-                    assert.equal(result[3],
-                        '<subject2> <verb> <complement2> .\n');
-                    done();
-                });
-        },
-    );
+    it('should remove identical lines in two different subjects when verbs are different', (done) => {
+        let result = [];
+        from([
+            '<subject1> <verb> <complement> .',
+            '<subject1> <verb2> <complement2> .',
+            '<subject1> <verb> <complement> .',
+            '<subject2> <verb2> <complement> .',
+            '<subject2> <verb> <complement2> .',
+            '<subject2> <verb2> <complement> .',
+        ])
+            .pipe(ezs('ISTEXUniq'))
+            // .pipe(ezs('debug'))
+            .on('data', (chunk) => {
+                result = result.concat(chunk);
+            })
+            .on('end', () => {
+                assert.equal(result.length, 4);
+                assert.equal(result[0],
+                    '<subject1> <verb> <complement> .\n');
+                assert.equal(result[1],
+                    '<subject1> <verb2> <complement2> .\n');
+                assert.equal(result[2],
+                    '<subject2> <verb2> <complement> .\n');
+                assert.equal(result[3],
+                    '<subject2> <verb> <complement2> .\n');
+                done();
+            });
+    });
 
     it('should not mess up > character in literal', (done) => {
         let result = [];
@@ -610,6 +694,10 @@ describe('ISTEXParseDotCorpus', () => {
         const result = [];
         const corpus = fs.readFileSync(path.resolve(__dirname,
             './1notice.corpus'));
+        nockScope
+            .get('/document/2FF3F5B1477986B9C617BB75CA3333DBEE99EB05?sid=ezs-istex')
+            .reply(200, ISTEXParseDotCorpusData[0]);
+
         from([
             corpus.toString(),
         ])
@@ -632,6 +720,11 @@ describe('ISTEXParseDotCorpus', () => {
         const result = [];
         const corpus = fs.readFileSync(path.resolve(__dirname,
             './1query.corpus'));
+        nockScope
+            .get('/document/?q=language.raw%3Arum&scroll=5m&output=arkIstex%2Cdoi%2Cauthor%2Ctitle'
+                + '%2Clanguage%2CpublicationDate%2Ckeywords%2Chost%2Cfulltext&size=2000&sid=ezs-istex')
+            .reply(200, ISTEXParseDotCorpusData[1]);
+
         from([
             corpus.toString(),
         ])
@@ -653,6 +746,14 @@ describe('ISTEXParseDotCorpus', () => {
 describe('ISTEXScroll', () => {
     it('should respect maxPage', (done) => {
         const result = [];
+        nockScope
+            .get('/document/?q=this%20is%20a%20test&scroll=5m&output=arkIstex%2Cdoi&size=1&sid=test')
+            .reply(200, ISTEXScrollData[0])
+            .get(ISTEXScrollData[0].nextScrollURI.slice(20))
+            .reply(200, ISTEXScrollData[1])
+            .get(ISTEXScrollData[1].nextScrollURI.slice(20))
+            .reply(200, ISTEXScrollData[2]);
+
         from([{ query: 'this is a test' }])
             .pipe(ezs('ISTEXScroll', {
                 maxPage: 2,
@@ -673,6 +774,16 @@ describe('ISTEXScroll', () => {
 
     it('should execute queries from input', (done) => {
         const result = [];
+        nockScope
+            .get('/document/?q=ezs&scroll=5m&output=arkIstex%2Cdoi&size=1&sid=test')
+            .reply(200, ISTEXScrollData[3])
+            .get(ISTEXScrollData[3].nextScrollURI.slice(20))
+            .reply(200, ISTEXScrollData[4])
+            .get('/document/?q=test&scroll=5m&output=arkIstex%2Cdoi&size=1&sid=test')
+            .reply(200, ISTEXScrollData[5])
+            .get(ISTEXScrollData[5].nextScrollURI.slice(20))
+            .reply(200, ISTEXScrollData[6]);
+
         from([{ query: 'ezs' }, { query: 'test' }])
             .pipe(ezs('ISTEXScroll', {
                 maxPage: 1,
@@ -693,6 +804,10 @@ describe('ISTEXScroll', () => {
 
     it('should reply even only one result', (done) => {
         const result = [];
+        nockScope
+            .get('/document/?q=language.raw%3Arum&scroll=5m&output=arkIstex%2Cdoi&size=2000&sid=test')
+            .reply(200, ISTEXScrollData[7]);
+
         from([{ query: 'language.raw:rum' }])
             .pipe(ezs('ISTEXScroll', {
                 sid,
@@ -709,7 +824,14 @@ describe('ISTEXScroll', () => {
 
     it('should go through the right number of pages', (done) => {
         const result = [];
+        nockScope
+            .get('/document/?q=ezs&scroll=5m&output=arkIstex%2Cdoi&size=2000&sid=test')
+            .reply(200, ISTEXScrollData[8])
+            .get(ISTEXScrollData[8].nextScrollURI.slice(20))
+            .reply(200, ISTEXScrollData[9]);
+
         // ezs returns 2471 results (2018/11/16)
+        // ezs returns 2691 results (2020/04/16)
         from([{ query: 'ezs' }])
             .pipe(ezs('ISTEXScroll', {
                 sid,
@@ -726,6 +848,10 @@ describe('ISTEXScroll', () => {
 
     it('should merge initial object and response in first object', (done) => {
         const result = [];
+        nockScope
+            .get('/document/?q=language.raw%3Arum&scroll=5m&output=arkIstex%2Cdoi&size=2000&sid=test')
+            .reply(200, ISTEXScrollData[10]);
+
         from([{
             lodex: {
                 uri: 'https://api.istex.fr/ark',
@@ -750,6 +876,12 @@ describe('ISTEXScroll', () => {
 
     it('should merge initial object and response in second object', (done) => {
         const result = [];
+        nockScope
+            .get('/document/?q=ezs&scroll=5m&output=arkIstex%2Cdoi&size=2000&sid=test')
+            .reply(200, ISTEXScrollData[8])
+            .get(ISTEXScrollData[8].nextScrollURI.slice(20))
+            .reply(200, ISTEXScrollData[9]);
+
         from([{
             lodex: {
                 uri: 'https://api.istex.fr/ark',
@@ -900,6 +1032,10 @@ describe('ISTEXUnzip', () => {
 describe('ISTEXFacet', () => {
     it('should return aggregations', (done) => {
         const result = [];
+        nockScope
+            .get('/document/?q=ezs&facet=publicationDate%5BperYear%5D&size=0&sid=test')
+            .reply(200, ISTEXFacetData[0]);
+
         from([{ query: 'ezs', facet: 'publicationDate[perYear]' }])
             .pipe(ezs(ISTEXFacet, {
                 sid,
@@ -929,6 +1065,18 @@ describe('ISTEXFiles', () => {
 
     it('should return files & content', (done) => {
         const result = [];
+        nockScope
+            .get('/document/87699D0C20258C18259DED2A5E63B9A50F3B3363?sid=test')
+            .reply(200, ISTEXFetchData)
+            .get('/ark:/67375/QHD-T00H6VNF-0/record.json?sid=test')
+            .reply(200, ISTEXFetchData)
+            .get('/ark:/67375/QHD-T00H6VNF-0/record.json?sid=ezs-istex')
+            .reply(200, ISTEXFetchData)
+            .get('/ark:/67375/QHD-T00H6VNF-0/fulltext.tei?sid=ezs-istex')
+            .replyWithFile(200, `${__dirname}/data/ISTEXFiles.xml`, {
+                'Content-Type': 'application/xml',
+            });
+
         from([
             {
                 id: '87699D0C20258C18259DED2A5E63B9A50F3B3363',
