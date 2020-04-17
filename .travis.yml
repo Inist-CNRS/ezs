@@ -11,7 +11,8 @@ language: node_js
 node_js:
     - node   # Current stable
     - lts/*  # Most recent LTS version,
-    - 13.12  # What's wrong wih v13.13
+    - 13.13  # KO with v13.13
+    - 13.12  # OK with v13.12
     - 10     # Explicitly include an active LTS version
 sudo: false
 env:
