@@ -64,10 +64,8 @@ const calculating = (values) => {
         a.min = Math.min(a.min, b.min);
         a.max = Math.max(a.max, b.max);
     }
-
     return a;
 };
-
 
 export default function statistics(data, feed) {
     const path = this.getParam('path', 'value');
@@ -82,25 +80,34 @@ export default function statistics(data, feed) {
     }
     if (this.isLast()) {
         const values = keys.filter((key) => this.stack[key]).reduce((obj, key) => {
-            const value = calculating(this.stack[key].stat);
-            value.mean = value.sum / value.count;
-            value.range = value.max - value.min;
-            value.midrange = value.range / 2;
-            value.variance = value.diff / value.count;
-            value.deviation = Math.sqrt(value.variance);
-            value.population = Object.keys(this.stack[key].hash).length;
-            delete value.diff;
-            obj[key] = value;
+            const result = calculating(this.stack[key].stat);
+            const range = result.max - result.min;
+            const midrange = range / 2;
+            const variance = result.diff / result.count;
+            obj[key] = {
+                sum: result.sum,
+                count: result.count,
+                min: result.min,
+                max: result.max,
+                mean: result.sum / result.count,
+                range,
+                midrange,
+                variance,
+                deviation: Math.sqrt(variance),
+                population: Object.keys(this.stack[key].hash).length,
+            };
             return obj;
         }, {});
         this.store.empty()
             .on('data', ({ value }) => {
                 const localValues = value.hashValues.reduce((obj, item) => {
                     const sample = this.stack[item.key].hash[item.hashValue];
+                    const percentage = (100 * this.stack[item.key].vals[item.hashValue]) / values[item.key].sum;
                     const frequency = sample / values[item.key].population;
                     obj[item.key] = {
                         sample,
                         frequency,
+                        percentage,
                         ...values[item.key],
                     };
                     return obj;
@@ -117,7 +124,7 @@ export default function statistics(data, feed) {
         const rawValue = get(data, key);
         if (!rawValue) return;
         if (!this.stack[key]) {
-            this.stack[key] = { stat: [], hash: {} };
+            this.stack[key] = { stat: [], hash: {}, vals: {} };
         }
         const numValue = Number(rawValue);
         this.stack[key].stat.push({
@@ -133,6 +140,7 @@ export default function statistics(data, feed) {
         } else {
             this.stack[key].hash[hashValue] = 1;
         }
+        this.stack[key].vals[hashValue] = numValue;
         return { key, hashValue };
     }).filter(Boolean);
     const uri = 'uid:'.concat(this.getIndex().toString().padStart(10, '0'));
