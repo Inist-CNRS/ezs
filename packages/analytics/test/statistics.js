@@ -174,4 +174,23 @@ describe('statistics', () => {
                 done();
             });
     });
+
+    it('for percentage', (done) => {
+        let res = 0;
+        from([
+            { a: 2 },
+            { a: 3 },
+            { a: 1 },
+            { a: 4 },
+        ])
+            .pipe(ezs('statistics', { path: 'a', target: 'statistics' }))
+            .pipe(ezs.catch((e) => done(e)))
+            .on('data', (chunk) => {
+                res += chunk.statistics.a.percentage;
+            })
+            .on('end', () => {
+                expect(res).toEqual(100);
+                done();
+            });
+    });
 });
