@@ -7,15 +7,14 @@ import Store from './store';
  * Take `Object` object and getting the value field
  *
  * ```json
- * [{
- *   a: 1,
- * },
- * {
- *   a: 2,
- * },
- * {
- *   a: 3,
- * }]
+ * [
+ *  { a: 1, },
+ *  { a: 1, },
+ *  { a: 2, },
+ *  { a: 3, },
+ *  { a: 3, },
+ *  { a: 3, },
+ * ]
  * ```
  *
  * Script:
@@ -33,14 +32,71 @@ import Store from './store';
  *
  * ```json
  * [{
- *
+ *     "a": 1,
+ *     "stats": {
+ *         "a": {
+ *             "sample": 2,
+ *             "frequency": 1,
+ *             "percentage": 25,
+ *             "sum": 4,
+ *             "count": 3,
+ *             "min": 1,
+ *             "max": 2,
+ *             "mean": 1.3333333333333333,
+ *             "range": 1,
+ *             "midrange": 0.5,
+ *             "variance": 0.2222222222222222,
+ *             "deviation": 0.4714045207910317,
+ *             "population": 2
+ *         }
+ *     }
+ * },
+ * {
+ *     "a": 1,
+ *     "stats": {
+ *         "a": {
+ *             "sample": 2,
+ *             "frequency": 1,
+ *             "percentage": 25,
+ *             "sum": 4,
+ *             "count": 3,
+ *             "min": 1,
+ *             "max": 2,
+ *             "mean": 1.3333333333333333,
+ *             "range": 1,
+ *             "midrange": 0.5,
+ *             "variance": 0.2222222222222222,
+ *             "deviation": 0.4714045207910317,
+ *             "population": 2
+ *         }
+ *      }
+ * },
+ * {
+ *     "a": 2,
+ *     "stats": {
+ *         "a": {
+ *             "sample": 1,
+ *             "frequency": 0.5,
+ *             "percentage": 50,
+ *             "sum": 4,
+ *             "count": 3,
+ *             "min": 1,
+ *             "max": 2,
+ *             "mean": 1.3333333333333333,
+ *             "range": 1,
+ *             "midrange": 0.5,
+ *             "variance": 0.2222222222222222,
+ *             "deviation": 0.4714045207910317,
+ *             "population": 2
+ *      }
+ *    }
  * }]
  * ```
- * Compute some statistics from  fields
+ * Compute some statistics from one or more fields
  *
  * @param {String} [path=value] path of the value field
  * @param {String} [target=_statistics] path of statistics in output object
- * * @returns {Object}
+ * @returns {Object}
  */
 const hashCoerce = hasher({
     sort: false,

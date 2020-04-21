@@ -40,13 +40,13 @@ npm install @ezs/analytics
 -   [reducing](#reducing)
 -   [sort](#sort)
 -   [distinct](#distinct)
--   [hashCoerce](#hashcoerce)
 -   [merging](#merging)
 -   [filter](#filter)
 -   [greater](#greater)
 -   [multiply](#multiply)
 -   [distance](#distance)
 -   [segment](#segment)
+-   [hashCoerce](#hashcoerce)
 -   [tune](#tune)
 
 ### keys
@@ -862,47 +862,6 @@ Output:
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### hashCoerce
-
-Take `Object` object and getting the value field
-
-```json
-[{
-  a: 1,
-},
-{
-  a: 2,
-},
-{
-  a: 3,
-}]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[statistics]
-path = a
-```
-
-Output:
-
-```json
-[{
-
-}]
-```
-
-Compute some statistics from  fields
-
-#### Parameters
-
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the value field (optional, default `value`)
--   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of statistics in output object-   @returns {Object} (optional, default `_statistics`)
-
 ### merging
 
 Take special `Object` like `{id, value}` and replace `value` with the merge of `value`s
@@ -1236,6 +1195,105 @@ Output:
 
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path (optional, default `value`)
 -   `aggregate` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** aggregate all values for all paths (or not) (optional, default `true`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### hashCoerce
+
+Take `Object` object and getting the value field
+
+```json
+[
+ { a: 1, },
+ { a: 1, },
+ { a: 2, },
+ { a: 3, },
+ { a: 3, },
+ { a: 3, },
+]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[statistics]
+path = a
+```
+
+Output:
+
+```json
+[{
+    "a": 1,
+    "stats": {
+        "a": {
+            "sample": 2,
+            "frequency": 1,
+            "percentage": 25,
+            "sum": 4,
+            "count": 3,
+            "min": 1,
+            "max": 2,
+            "mean": 1.3333333333333333,
+            "range": 1,
+            "midrange": 0.5,
+            "variance": 0.2222222222222222,
+            "deviation": 0.4714045207910317,
+            "population": 2
+        }
+    }
+},
+{
+    "a": 1,
+    "stats": {
+        "a": {
+            "sample": 2,
+            "frequency": 1,
+            "percentage": 25,
+            "sum": 4,
+            "count": 3,
+            "min": 1,
+            "max": 2,
+            "mean": 1.3333333333333333,
+            "range": 1,
+            "midrange": 0.5,
+            "variance": 0.2222222222222222,
+            "deviation": 0.4714045207910317,
+            "population": 2
+        }
+     }
+},
+{
+    "a": 2,
+    "stats": {
+        "a": {
+            "sample": 1,
+            "frequency": 0.5,
+            "percentage": 50,
+            "sum": 4,
+            "count": 3,
+            "min": 1,
+            "max": 2,
+            "mean": 1.3333333333333333,
+            "range": 1,
+            "midrange": 0.5,
+            "variance": 0.2222222222222222,
+            "deviation": 0.4714045207910317,
+            "population": 2
+     }
+   }
+}]
+```
+
+Compute some statistics from one or more fields
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the value field (optional, default `value`)
+-   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of statistics in output object (optional, default `_statistics`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
