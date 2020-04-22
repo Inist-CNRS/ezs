@@ -1,0 +1,1390 @@
+{
+  "corpusName": "rsc-journals",
+  "keywords": {
+    "teeft": [
+      "uorescence",
+      "dye",
+      "chem",
+      "uorescent",
+      "cyanine",
+      "dimeric",
+      "intercalating",
+      "photoswitching",
+      "photobleaching",
+      "uorophores",
+      "imaging",
+      "uorescence recovery",
+      "monomeric",
+      "photoinduced",
+      "photobiol",
+      "photochem",
+      "royal society",
+      "owner societies",
+      "dark states",
+      "spatial resolution",
+      "uorescence imaging",
+      "uorescent proteins",
+      "uorescence microscopy",
+      "cyanine dyes",
+      "biological applications",
+      "superresolution microscopy",
+      "photoinduced electron transfer",
+      "reconstructed images",
+      "triplet state",
+      "photoinduced electron transfer reactions",
+      "chroma technology",
+      "photophysical properties",
+      "uorescence background",
+      "lower brightness",
+      "nanoscale organisation",
+      "imaging buffer",
+      "spincoating step",
+      "microscopy",
+      "dimeric dyes",
+      "intercalating dyes",
+      "intercalating cyanine dyes",
+      "organic dyes",
+      "lower binding",
+      "reconstruction microscopy",
+      "fluorescence bursts",
+      "monomeric intercalating dyes",
+      "previous results",
+      "guanosine bases",
+      "little progress",
+      "other hand",
+      "sample preparation method",
+      "blinking events",
+      "imaging scheme",
+      "resolution imaging",
+      "other dyes",
+      "dimeric cyanine dyes",
+      "nucleic acids"
+    ]
+  },
+  "author": [
+    {
+      "name": "Cristina Flors",
+      "affiliations": [
+        "School of Chemistry and Collaborative Optical Spectroscopy Micromanipulation & Imaging Centre (COSMIC), University of Edinburgh, EH9 3JJ, Joseph Black Building, The King's Buildings, West Mains Rd., Edinburgh, United Kingdom",
+        "E-mail: cristina.flors@ed.ac.uk"
+      ]
+    }
+  ],
+  "arkIstex": "ark:/67375/QHD-T00H6VNF-0",
+  "language": ["eng"],
+  "originalGenre": ["N/A"],
+  "abstract": "A growing trend in far-field super resolution fluorescence microscopy based on single molecule photoswitching involves the replacement of photoactivatable fluorophores by common organic dyes in which photoswitching reactions or blinking can be induced. This alternative strategy can greatly simplify the sample preparation and imaging scheme in some cases, and enables its application to a wider range of biological systems. This methodology has been applied successfully to unveil the nanoscale organisation of proteins, but little progress has been seen to date in DNA super-resolution imaging. Previous results have shown that blinking can be induced in the DNA-intercalating dimeric dye YOYO-1 in combination with a reducing buffer, and in turn super-resolution images of DNA can be reconstructed. However, monomeric intercalating dyes like YO-PRO-1 are more advantageous for biological applications. This paper shows that both YO-PRO-1 and YOYO-1 can be used in super-resolution imaging, and different sample preparation strategies are compared in terms of spatial resolution and homogeneity of the reconstructed super-resolution images. Moreover, ensemble and single-molecule experiments provide insight into the switching mechanism. The dyes YOYO-1 and YO-PRO-1 hold great potential for their use in nanoscale imaging of DNA topology in biology and nanoscience.",
+  "qualityIndicators": {
+    "score": 8.85,
+    "pdfWordCount": 4546,
+    "pdfCharCount": 27644,
+    "pdfVersion": 1.2,
+    "pdfPageCount": 6,
+    "pdfPageSize": "595 x 779.6 pts",
+    "refBibsNative": true,
+    "abstractWordCount": 192,
+    "abstractCharCount": 1368,
+    "keywordCount": 0
+  },
+  "title": "Photoswitching of monomeric and dimeric DNA-intercalating cyanine dyes for super-resolution microscopy applications",
+  "pmid": ["20442922"],
+  "refBibs": [
+    {
+      "title": "Far-field optical nanoscopy",
+      "author": [
+        {
+          "name": "S. W. Hell"
+        }
+      ],
+      "host": {
+        "title": "Science",
+        "author": [],
+        "volume": "316",
+        "pages": {
+          "first": "1153"
+        }
+      }
+    },
+    {
+      "title": "Photoswitches: Key molecules for subdiffraction-resolution fluorescence imaging and molecular quantification",
+      "author": [
+        {
+          "name": "M. Heilemann"
+        },
+        {
+          "name": "P. Dedecker"
+        },
+        {
+          "name": "J. Hofkens"
+        },
+        {
+          "name": "M. Sauer"
+        }
+      ],
+      "host": {
+        "title": "Laser Photonics Rev.",
+        "author": [],
+        "volume": "3",
+        "pages": {
+          "first": "180"
+        }
+      }
+    },
+    {
+      "title": "Super-resolution fluorescence microscopy",
+      "author": [
+        {
+          "name": "B. Huang"
+        },
+        {
+          "name": "M. Bates"
+        },
+        {
+          "name": "X. Zhuang"
+        }
+      ],
+      "host": {
+        "title": "Annu. Rev. Biochem.",
+        "author": [],
+        "volume": "78",
+        "pages": {
+          "first": "993"
+        }
+      }
+    },
+    {
+      "title": "Putting super-resolution fluorescence microscopy to work",
+      "author": [
+        {
+          "name": "J. Lippincott-Schwartz"
+        },
+        {
+          "name": "S. Manley"
+        }
+      ],
+      "host": {
+        "title": "Nat. Methods",
+        "author": [],
+        "volume": "6",
+        "pages": {
+          "first": "21"
+        }
+      }
+    },
+    {
+      "title": "Imaging intracellular fluorescent proteins at nanometer resolution",
+      "author": [
+        {
+          "name": "E. Betzig"
+        },
+        {
+          "name": "G. H. Patterson"
+        },
+        {
+          "name": "R. Sougrat"
+        },
+        {
+          "name": "O. W. Lindwasser"
+        },
+        {
+          "name": "S. Olenych"
+        },
+        {
+          "name": "J. S. Bonifacino"
+        },
+        {
+          "name": "M. W. Davidson"
+        },
+        {
+          "name": "J. Lippincott-Schwartz"
+        },
+        {
+          "name": "H. F. Hess"
+        }
+      ],
+      "host": {
+        "title": "Science",
+        "author": [],
+        "volume": "313",
+        "pages": {
+          "first": "1642"
+        }
+      }
+    },
+    {
+      "title": "Ultra-high resolution imaging by fluorescence photoactivation localization microscopy",
+      "author": [
+        {
+          "name": "S. T. Hess"
+        },
+        {
+          "name": "T. P. K. Girirajan"
+        },
+        {
+          "name": "M. D. Mason"
+        }
+      ],
+      "host": {
+        "title": "Biophys. J.",
+        "author": [],
+        "volume": "91",
+        "pages": {
+          "first": "4258"
+        }
+      }
+    },
+    {
+      "title": "Sub-diffraction-limit imaging by stochastic optical reconstruction microscopy (STORM)",
+      "author": [
+        {
+          "name": "M. J. Rust"
+        },
+        {
+          "name": "M. Bates"
+        },
+        {
+          "name": "X. W. Zhuang"
+        }
+      ],
+      "host": {
+        "title": "Nat. Methods",
+        "author": [],
+        "volume": "3",
+        "pages": {
+          "first": "793"
+        }
+      }
+    },
+    {
+      "title": "Subdiffraction-resolution fluorescence imaging with conventional fluorescent probes",
+      "author": [
+        {
+          "name": "M. Heilemann"
+        },
+        {
+          "name": "S. van de Linde"
+        },
+        {
+          "name": "M. Schttpelz"
+        },
+        {
+          "name": "R. Kasper"
+        },
+        {
+          "name": "B. Seefeldt"
+        },
+        {
+          "name": "A. Mukherjee"
+        },
+        {
+          "name": "P. Tinnefeld"
+        },
+        {
+          "name": "M. Sauer"
+        }
+      ],
+      "host": {
+        "title": "Angew. Chem., Int. Ed.",
+        "author": [],
+        "volume": "47",
+        "pages": {
+          "first": "6172"
+        }
+      }
+    },
+    {
+      "title": "Resolution of l/10 in fluorescence microscopy using fast single molecule photo-switching",
+      "author": [
+        {
+          "name": "C. Geisler"
+        },
+        {
+          "name": "A. Schnle"
+        },
+        {
+          "name": "C. von Middendorff"
+        },
+        {
+          "name": "H. Bock"
+        },
+        {
+          "name": "C. Eggeling"
+        },
+        {
+          "name": "A. Egner"
+        },
+        {
+          "name": "S. W. Hell"
+        }
+      ],
+      "host": {
+        "title": "Appl. Phys. A: Mater. Sci. Process.",
+        "author": [],
+        "volume": "88",
+        "pages": {
+          "first": "223"
+        }
+      }
+    },
+    {
+      "title": "Super-resolution imaging in live Caulobacter crescentus cells using photoswitchable EYFP",
+      "author": [
+        {
+          "name": "J. S. Biteen"
+        },
+        {
+          "name": "M. A. Thompson"
+        },
+        {
+          "name": "N. K. Tselentis"
+        },
+        {
+          "name": "G. R. Bowman"
+        },
+        {
+          "name": "L. Shapiro"
+        },
+        {
+          "name": "W. E. Moerner"
+        }
+      ],
+      "host": {
+        "title": "Nat. Methods",
+        "author": [],
+        "volume": "5",
+        "pages": {
+          "first": "947"
+        }
+      }
+    },
+    {
+      "title": "A Stroboscopic Approach for Fast Photoactivation-Localization Microscopy with Dronpa Mutants",
+      "author": [
+        {
+          "name": "C. Flors"
+        },
+        {
+          "name": "J. I. Hotta"
+        },
+        {
+          "name": "H. Uji-i"
+        },
+        {
+          "name": "P. Dedecker"
+        },
+        {
+          "name": "R. Ando"
+        },
+        {
+          "name": "H. Mizuno"
+        },
+        {
+          "name": "A. Miyawaki"
+        },
+        {
+          "name": "J. Hofkens"
+        }
+      ],
+      "host": {
+        "title": "J. Am. Chem. Soc.",
+        "author": [],
+        "volume": "129",
+        "pages": {
+          "first": "13970"
+        }
+      }
+    },
+    {
+      "title": "Multicolor photoswitching microscopy for subdiffraction-resolution fluorescence imaging",
+      "author": [
+        {
+          "name": "S. van de Linde"
+        },
+        {
+          "name": "U. Endesfelder"
+        },
+        {
+          "name": "A. Mukherjee"
+        },
+        {
+          "name": "M. Schttpelz"
+        },
+        {
+          "name": "G. Wiebusch"
+        },
+        {
+          "name": "S. Wolter"
+        },
+        {
+          "name": "M. Heilemann"
+        },
+        {
+          "name": "M. Sauer"
+        }
+      ],
+      "host": {
+        "title": "Photochem. Photobiol. Sci.",
+        "author": [],
+        "volume": "8",
+        "pages": {
+          "first": "465"
+        }
+      }
+    },
+    {
+      "title": "Photoswitching microscopy with standard fluorophores",
+      "author": [
+        {
+          "name": "S. van de Linde"
+        },
+        {
+          "name": "R. Kasper"
+        },
+        {
+          "name": "M. Heilemann"
+        },
+        {
+          "name": "M. Sauer"
+        }
+      ],
+      "host": {
+        "title": "Appl. Phys. B: Lasers Opt.",
+        "author": [],
+        "volume": "93",
+        "pages": {
+          "first": "725"
+        }
+      }
+    },
+    {
+      "title": "Superresolution Microscopy on the Basis of Engineered Dark States",
+      "author": [
+        {
+          "name": "C. Steinhauer"
+        },
+        {
+          "name": "C. Forthmann"
+        },
+        {
+          "name": "J. Vogelsang"
+        },
+        {
+          "name": "P. Tinnefeld"
+        }
+      ],
+      "host": {
+        "title": "J. Am. Chem. Soc.",
+        "author": [],
+        "volume": "130",
+        "pages": {
+          "first": "16840"
+        }
+      }
+    },
+    {
+      "title": "Light-induced dark states of organic fluochromes enable 30 nm resolution imaging in standard media",
+      "author": [
+        {
+          "name": "D. Baddeley"
+        },
+        {
+          "name": "I. D. Jayasinghe"
+        },
+        {
+          "name": "C. Cremer"
+        },
+        {
+          "name": "M. B. Cannell"
+        },
+        {
+          "name": "C. Soeller"
+        }
+      ],
+      "host": {
+        "title": "Biophys. J.",
+        "author": [],
+        "volume": "96",
+        "pages": {
+          "first": "22"
+        }
+      }
+    },
+    {
+      "title": "Fluorescence nanoscopy by ground-state depletion and single-molecule return",
+      "author": [
+        {
+          "name": "J. Folling"
+        },
+        {
+          "name": "M. Bossi"
+        },
+        {
+          "name": "H. Bock"
+        },
+        {
+          "name": "R. Medda"
+        },
+        {
+          "name": "C. A. Wurm"
+        },
+        {
+          "name": "B. Hein"
+        },
+        {
+          "name": "S. Jakobs"
+        },
+        {
+          "name": "C. Eggeling"
+        },
+        {
+          "name": "S. W. Hell"
+        }
+      ],
+      "host": {
+        "title": "Nat. Methods",
+        "author": [],
+        "volume": "5",
+        "pages": {
+          "first": "943"
+        }
+      }
+    },
+    {
+      "title": "Using conventional fluorescent markers for far-field fluorescence localization nanoscopy allows resolution in the 10-nm range",
+      "author": [
+        {
+          "name": "P. Lemmer"
+        },
+        {
+          "name": "M. Gunkel"
+        },
+        {
+          "name": "Y. Weiland"
+        },
+        {
+          "name": "P. Muller"
+        },
+        {
+          "name": "D. Baddeley"
+        },
+        {
+          "name": "R. Kaufmann"
+        },
+        {
+          "name": "A. Urich"
+        },
+        {
+          "name": "H. Eipel"
+        },
+        {
+          "name": "R. Amberger"
+        },
+        {
+          "name": "M. Hausmann"
+        },
+        {
+          "name": "C. Cremer"
+        }
+      ],
+      "host": {
+        "title": "J. Microsc.",
+        "author": [],
+        "volume": "235",
+        "pages": {
+          "first": "163"
+        }
+      }
+    },
+    {
+      "title": "Controlling the fluorescence of ordinary oxazine dyes for single-molecule switching and superresolution microscopy",
+      "author": [
+        {
+          "name": "J. Vogelsang"
+        },
+        {
+          "name": "T. Cordes"
+        },
+        {
+          "name": "C. Forthmann"
+        },
+        {
+          "name": "C. Steinhauer"
+        },
+        {
+          "name": "P. Tinnefeld"
+        }
+      ],
+      "host": {
+        "title": "Proc. Natl. Acad. Sci. U. S. A.",
+        "author": [],
+        "volume": "106",
+        "pages": {
+          "first": "8107"
+        }
+      }
+    },
+    {
+      "title": "Super-resolution imaging with small organic fluorophores",
+      "author": [
+        {
+          "name": "M. Heilemann"
+        },
+        {
+          "name": "S. van de Linde"
+        },
+        {
+          "name": "A. Mukherjee"
+        },
+        {
+          "name": "M. Sauer"
+        }
+      ],
+      "host": {
+        "title": "Angew. Chem., Int. Ed.",
+        "author": [],
+        "volume": "48",
+        "pages": {
+          "first": "6903"
+        }
+      }
+    },
+    {
+      "title": "Dual color localization microscopy of cellular nanostructures",
+      "author": [
+        {
+          "name": "M. Gunkel"
+        },
+        {
+          "name": "F. Erdel"
+        },
+        {
+          "name": "K. Rippe"
+        },
+        {
+          "name": "P. Lemmer"
+        },
+        {
+          "name": "R. Kaufmann"
+        },
+        {
+          "name": "C. Hormann"
+        },
+        {
+          "name": "R. Amberger"
+        },
+        {
+          "name": "C. Cremer"
+        }
+      ],
+      "host": {
+        "title": "Biotechnol. J.",
+        "author": [],
+        "volume": "4",
+        "pages": {
+          "first": "927"
+        }
+      }
+    },
+    {
+      "title": "Subdiffraction-resolution fluorescence imaging of proteins in the mithocondrial inner membrane with photoswitchable fluorophores",
+      "author": [
+        {
+          "name": "S. van de Linde"
+        },
+        {
+          "name": "M. Sauer"
+        },
+        {
+          "name": "M. Heilemann"
+        }
+      ],
+      "host": {
+        "title": "J. Struct. Biol.",
+        "author": [],
+        "volume": "164",
+        "pages": {
+          "first": "250"
+        }
+      }
+    },
+    {
+      "title": "Photoswitching Mechanism of Cyanine Dyes",
+      "author": [
+        {
+          "name": "G. T. Dempsey"
+        },
+        {
+          "name": "M. Bates"
+        },
+        {
+          "name": "W. E. Kowtoniuk"
+        },
+        {
+          "name": "D. R. Liu"
+        },
+        {
+          "name": "R. Y. Tsien"
+        },
+        {
+          "name": "X. Zhuang"
+        }
+      ],
+      "host": {
+        "title": "J. Am. Chem. Soc.",
+        "author": [],
+        "volume": "131",
+        "pages": {
+          "first": "18192"
+        }
+      }
+    },
+    {
+      "title": "Structure, Dynamics and Optical Properties of Fluorescent Proteins: Perspectives for Marker Development",
+      "author": [
+        {
+          "name": "G. U. Nienhaus"
+        },
+        {
+          "name": "J. Wiedenmann"
+        }
+      ],
+      "host": {
+        "title": "ChemPhysChem",
+        "author": [],
+        "volume": "10",
+        "pages": {
+          "first": "1369"
+        }
+      }
+    },
+    {
+      "title": "The photochemistry of fluorescent proteins: implications for their biological applications",
+      "author": [
+        {
+          "name": "H. E. Seward"
+        },
+        {
+          "name": "C. R. Bagshaw"
+        }
+      ],
+      "host": {
+        "title": "Chem. Soc. Rev.",
+        "author": [],
+        "volume": "38",
+        "pages": {
+          "first": "2842"
+        }
+      }
+    },
+    {
+      "title": "DNA origami as a nanoscopic ruler for super-resolution microscopy",
+      "author": [
+        {
+          "name": "C. Steinhauer"
+        },
+        {
+          "name": "R. Jungmann"
+        },
+        {
+          "name": "T. L. Sobey"
+        },
+        {
+          "name": "F. C. Simmel"
+        },
+        {
+          "name": "P. Tinnefeld"
+        }
+      ],
+      "host": {
+        "title": "Angew. Chem., Int. Ed.",
+        "author": [],
+        "volume": "48",
+        "pages": {
+          "first": "8870"
+        }
+      }
+    },
+    {
+      "title": "Super-resolution imaging of DNA labelled with intercalating dyes",
+      "author": [
+        {
+          "name": "C. Flors"
+        },
+        {
+          "name": "C. N. J. Ravarani"
+        },
+        {
+          "name": "D. T. F. Dryden"
+        }
+      ],
+      "host": {
+        "title": "ChemPhysChem",
+        "author": [],
+        "volume": "10",
+        "pages": {
+          "first": "2201"
+        }
+      }
+    },
+    {
+      "title": "Cyanine dye-DNA interactions: Intercalation, groove binding, and aggregation",
+      "author": [
+        {
+          "name": "B. A. Armitage"
+        }
+      ],
+      "host": {
+        "title": "DNA Binders and Related Subjects",
+        "author": [],
+        "volume": "253",
+        "pages": {
+          "first": "55"
+        }
+      }
+    },
+    {
+      "title": "The HandbookA Guide to Fluorescent Probes and Labeling Technologies",
+      "author": [
+        {
+          "name": "R. P. Haugland"
+        },
+        {
+          "name": "M. T. Z. Spence"
+        },
+        {
+          "name": "I. D. Johnson"
+        },
+        {
+          "name": "A. Basey"
+        }
+      ],
+      "host": {
+        "title": "Molecular Probes",
+        "author": [],
+        "pages": {
+          "first": "269",
+          "last": "273"
+        }
+      }
+    },
+    {
+      "title": "Inhibition of restriction endonuclease activity by DNA binding fluorochromes",
+      "author": [
+        {
+          "name": "X. Meng"
+        },
+        {
+          "name": "W. W. Cai"
+        },
+        {
+          "name": "D. C. Schwartz"
+        }
+      ],
+      "host": {
+        "title": "J. Biomol. Struct. Dyn.",
+        "author": [],
+        "volume": "13",
+        "pages": {
+          "first": "945"
+        }
+      }
+    },
+    {
+      "title": "Real-time observation of a single DNA digestion by lambda exonuclease under a fluorescence microscope field",
+      "author": [
+        {
+          "name": "S. Matsuura"
+        },
+        {
+          "name": "J. Komatsu"
+        },
+        {
+          "name": "K. Hirano"
+        },
+        {
+          "name": "H. Yasuda"
+        },
+        {
+          "name": "K. Takashima"
+        },
+        {
+          "name": "S. Katsura"
+        },
+        {
+          "name": "A. Mizuno"
+        }
+      ],
+      "host": {
+        "title": "Nucleic Acids Res.",
+        "author": [],
+        "volume": "29",
+        "pages": {
+          "first": "79"
+        }
+      }
+    },
+    {
+      "title": "Novel, monomeric cyanine dyes as reporters for DNA helicase activity",
+      "author": [
+        {
+          "name": "C. Xu"
+        },
+        {
+          "name": "M. Y. Losytskyy"
+        },
+        {
+          "name": "V. B. Kovalska"
+        },
+        {
+          "name": "D. V. Kryvorotenko"
+        },
+        {
+          "name": "S. M. Yarmoluk"
+        },
+        {
+          "name": "S. McClelland"
+        },
+        {
+          "name": "P. R. Bianco"
+        }
+      ],
+      "host": {
+        "title": "J. Fluoresc.",
+        "author": [],
+        "volume": "17",
+        "pages": {
+          "first": "671"
+        }
+      }
+    },
+    {
+      "title": "Ultrafast excited-state dynamics of oxazole yellow DNA intercalators",
+      "author": [
+        {
+          "name": "A. Furstenberg"
+        },
+        {
+          "name": "E. Vauthey"
+        }
+      ],
+      "host": {
+        "title": "J. Phys. Chem. B",
+        "author": [],
+        "volume": "111",
+        "pages": {
+          "first": "12610"
+        }
+      }
+    },
+    {
+      "title": "Binding of intercalating and groove-binding cyanine dyes to bacteriophage T5",
+      "author": [
+        {
+          "name": "M. Eriksson"
+        },
+        {
+          "name": "M. Hardelin"
+        },
+        {
+          "name": "A. Larsson"
+        },
+        {
+          "name": "J. Bergenholtz"
+        },
+        {
+          "name": "B. Akerman"
+        }
+      ],
+      "host": {
+        "title": "J. Phys. Chem. B",
+        "author": [],
+        "volume": "111",
+        "pages": {
+          "first": "1139"
+        }
+      }
+    },
+    {
+      "title": "Influence of Viable Cells on the Resuscitation of Dormant Cells in Micrococcus luteus Cultures Held in an Extended Stationary Phase: the Population Effect",
+      "author": [
+        {
+          "name": "T. V. Votyakova"
+        },
+        {
+          "name": "A. S. Kaprelyants"
+        },
+        {
+          "name": "D. B. Kell"
+        }
+      ],
+      "host": {
+        "title": "Appl. Environ. Microbiol.",
+        "author": [],
+        "volume": "60",
+        "pages": {
+          "first": "3284"
+        }
+      }
+    },
+    {
+      "title": "YOPRO-1 permits cytofluorometric analysis of programmed cell death (apoptosis) without interfering with cell viability",
+      "author": [
+        {
+          "name": "T. Idziorek"
+        },
+        {
+          "name": "J. Estaquier"
+        },
+        {
+          "name": "F. De Bels"
+        },
+        {
+          "name": "J. C. Ameisen"
+        }
+      ],
+      "host": {
+        "title": "J. Immunol. Methods",
+        "author": [],
+        "volume": "185",
+        "pages": {
+          "first": "249"
+        }
+      }
+    },
+    {
+      "title": "Antagonist effects on human P2X(7) receptor-mediated cellular accumulation of YO-PRO-1",
+      "author": [
+        {
+          "name": "A. D. Michel"
+        },
+        {
+          "name": "R. Kaur"
+        },
+        {
+          "name": "I. P. Chessell"
+        },
+        {
+          "name": "P. P. Humphrey"
+        }
+      ],
+      "host": {
+        "title": "Br. J. Pharmacol.",
+        "author": [],
+        "volume": "130",
+        "pages": {
+          "first": "513"
+        }
+      }
+    },
+    {
+      "title": "Atomic force microscopy of supercoiled DNA structure on mica",
+      "author": [
+        {
+          "name": "M. Tanigawa"
+        },
+        {
+          "name": "T. Okada"
+        }
+      ],
+      "host": {
+        "title": "Anal. Chim. Acta",
+        "author": [],
+        "volume": "365",
+        "pages": {
+          "first": "19"
+        }
+      }
+    },
+    {
+      "title": "Photobleaching of asymmetric cyanines used for fluorescence imaging of single DNA molecules",
+      "author": [
+        {
+          "name": "C. Kanony"
+        },
+        {
+          "name": "B. Akerman"
+        },
+        {
+          "name": "E. Tuite"
+        }
+      ],
+      "host": {
+        "title": "J. Am. Chem. Soc.",
+        "author": [],
+        "volume": "123",
+        "pages": {
+          "first": "7985"
+        }
+      }
+    },
+    {
+      "title": "Base-Content Dependence of Emission Enhancements, Quantum Yields, and Lifetimes for Cyanine Dyes Bound to Double-Strand DNA: Photophysical Properties of Monomeric and Bichromomphoric DNA Stains",
+      "author": [
+        {
+          "name": "T. L. Netzel"
+        },
+        {
+          "name": "K. Nafisi"
+        },
+        {
+          "name": "M. Zhao"
+        },
+        {
+          "name": "J. R. Lenhard"
+        },
+        {
+          "name": "I. Johnson"
+        }
+      ],
+      "host": {
+        "title": "J. Phys. Chem.",
+        "author": [],
+        "volume": "99",
+        "pages": {
+          "first": "17936"
+        }
+      }
+    },
+    {
+      "title": "The oxidizing power of the glutathione thiyl radical as measured by its electrode potential at physiological pH",
+      "author": [
+        {
+          "name": "E. Madej"
+        },
+        {
+          "name": "P. Wardman"
+        }
+      ],
+      "host": {
+        "title": "Arch. Biochem. Biophys.",
+        "author": [],
+        "volume": "462",
+        "pages": {
+          "first": "94"
+        }
+      }
+    },
+    {
+      "title": "Triplet fraction buildup effect of the DNA-YOYO complex studied with fluorescence correlation spectroscopy",
+      "author": [
+        {
+          "name": "M. Shimizu"
+        },
+        {
+          "name": "S. Sasaki"
+        },
+        {
+          "name": "M. Kinjo"
+        }
+      ],
+      "host": {
+        "title": "Anal. Biochem.",
+        "author": [],
+        "volume": "366",
+        "pages": {
+          "first": "87"
+        }
+      }
+    },
+    {
+      "title": "Site selective bis-intercalation of a homodimeric thiazole orange dye in DNA oligonucleotides",
+      "author": [
+        {
+          "name": "J. P. Jacobsen"
+        },
+        {
+          "name": "J. B. Pedersen"
+        },
+        {
+          "name": "L. F. Hansen"
+        },
+        {
+          "name": "D. E. Wemmer"
+        }
+      ],
+      "host": {
+        "title": "Nucleic Acids Res.",
+        "author": [],
+        "volume": "23",
+        "pages": {
+          "first": "753"
+        }
+      }
+    },
+    {
+      "host": {
+        "title": "The background levels are different between panel (a) and (c) due to slightly different EM gain settings and also due to the different sample preparation conditions. In the case of panel (b), it is not possible to draw a comparison with the others as the wavelength range is different",
+        "author": []
+      }
+    },
+    {
+      "title": "Thermodynamic characterization of the association of cyanine dyes with DNA",
+      "author": [
+        {
+          "name": "J. T. Petty"
+        },
+        {
+          "name": "J. A. Bordelon"
+        },
+        {
+          "name": "M. E. Robertson"
+        }
+      ],
+      "host": {
+        "title": "J. Phys. Chem. B",
+        "author": [],
+        "volume": "104",
+        "pages": {
+          "first": "7221"
+        }
+      }
+    }
+  ],
+  "genre": ["other"],
+  "host": {
+    "title": "Photochemical & Photobiological Sciences",
+    "language": ["unknown"],
+    "publicationDate": "2010",
+    "issn": ["1474-905X"],
+    "eissn": ["1474-9092"],
+    "volume": "9",
+    "issue": "5",
+    "pages": {
+      "first": "643",
+      "last": "648",
+      "total": "6"
+    },
+    "genre": ["journal"]
+  },
+  "namedEntities": {
+    "unitex": {
+      "date": [],
+      "geogName": [],
+      "orgName": [],
+      "orgName_funder": [],
+      "orgName_provider": [],
+      "persName": [],
+      "placeName": [],
+      "ref_url": [],
+      "ref_bibl": [],
+      "bibl": []
+    }
+  },
+  "ark": ["ark:/67375/QHD-T00H6VNF-0"],
+  "categories": {
+    "wos": [
+      "1 - science",
+      "2 - chemistry, physical",
+      "2 - biophysics",
+      "2 - biochemistry & molecular biology"
+    ],
+    "scienceMetrix": [
+      "1 - natural sciences",
+      "2 - chemistry",
+      "3 - organic chemistry"
+    ],
+    "scopus": [
+      "1 - Physical Sciences",
+      "2 - Chemistry",
+      "3 - Physical and Theoretical Chemistry"
+    ],
+    "inist": [
+      "1 - sciences appliquees, technologies et medecines",
+      "2 - sciences biologiques et medicales",
+      "3 - sciences biologiques fondamentales et appliquees. psychologie",
+      "4 - psychologie. psychophysiologie"
+    ]
+  },
+  "publicationDate": "2010",
+  "copyrightDate": "2010",
+  "enrichments": {
+    "multicat": [
+      {
+        "original": false,
+        "mimetype": "application/tei+xml",
+        "extension": "tei",
+        "uri": "https://api.istex.fr/document/87699D0C20258C18259DED2A5E63B9A50F3B3363/enrichments/multicat"
+      }
+    ],
+    "nb": [
+      {
+        "original": false,
+        "mimetype": "application/tei+xml",
+        "extension": "tei",
+        "uri": "https://api.istex.fr/document/87699D0C20258C18259DED2A5E63B9A50F3B3363/enrichments/nb"
+      }
+    ],
+    "refBibs": [
+      {
+        "original": false,
+        "mimetype": "application/tei+xml",
+        "extension": "tei",
+        "uri": "https://api.istex.fr/document/87699D0C20258C18259DED2A5E63B9A50F3B3363/enrichments/refBibs"
+      }
+    ],
+    "teeft": [
+      {
+        "original": false,
+        "mimetype": "application/tei+xml",
+        "extension": "tei",
+        "uri": "https://api.istex.fr/document/87699D0C20258C18259DED2A5E63B9A50F3B3363/enrichments/teeft"
+      }
+    ],
+    "unitex": [
+      {
+        "original": false,
+        "mimetype": "application/tei+xml",
+        "extension": "tei",
+        "uri": "https://api.istex.fr/document/87699D0C20258C18259DED2A5E63B9A50F3B3363/enrichments/unitex"
+      }
+    ]
+  },
+  "doi": ["10.1039/b9pp00119k"],
+  "id": "87699D0C20258C18259DED2A5E63B9A50F3B3363",
+  "fulltext": [
+    {
+      "original": true,
+      "mimetype": "application/pdf",
+      "extension": "pdf",
+      "uri": "https://api.istex.fr/document/87699D0C20258C18259DED2A5E63B9A50F3B3363/fulltext/pdf"
+    },
+    {
+      "original": false,
+      "mimetype": "application/zip",
+      "extension": "zip",
+      "uri": "https://api.istex.fr/document/87699D0C20258C18259DED2A5E63B9A50F3B3363/fulltext/zip"
+    },
+    {
+      "original": false,
+      "mimetype": "application/tei+xml",
+      "extension": "tei",
+      "uri": "https://api.istex.fr/document/87699D0C20258C18259DED2A5E63B9A50F3B3363/fulltext/tei"
+    },
+    {
+      "original": false,
+      "mimetype": "text/plain",
+      "extension": "txt",
+      "uri": "https://api.istex.fr/document/87699D0C20258C18259DED2A5E63B9A50F3B3363/fulltext/txt"
+    }
+  ],
+  "metadata": [
+    {
+      "original": true,
+      "mimetype": "application/xml",
+      "extension": "xml",
+      "uri": "https://api.istex.fr/document/87699D0C20258C18259DED2A5E63B9A50F3B3363/metadata/xml"
+    },
+    {
+      "original": false,
+      "mimetype": "application/mods+xml",
+      "extension": "mods",
+      "uri": "https://api.istex.fr/document/87699D0C20258C18259DED2A5E63B9A50F3B3363/metadata/mods"
+    },
+    {
+      "original": false,
+      "mimetype": "application/json",
+      "extension": "json",
+      "uri": "https://api.istex.fr/document/87699D0C20258C18259DED2A5E63B9A50F3B3363/metadata/json"
+    }
+  ]
+}

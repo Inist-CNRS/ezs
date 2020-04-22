@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Version 1.2 générée le 11-12-2018-->
+<TEI xmlns:tei="http://www.tei-c.org/ns/1.0" xml:lang="en" type="other">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title level="a">title</title>
+      </titleStmt>
+      <publicationStmt>
+        <authority>ISTEX</authority>
+        <publisher scheme="https://scientific-publisher.data.istex.fr">publisher</publisher>
+        <availability>
+          <licence>
+            <p>Owner licence</p>
+          </licence>
+          <p scheme="https://loaded-corpus.data.istex.fr/ark:/67375/XBH-Z6ZBG4DQ-N">availability</p>
+        </availability>
+        <date>2010</date>
+      </publicationStmt>
+      <notesStmt>
+        <note type="other" scheme="https://content-type.data.istex.fr/ark:/67375/XTP-7474895G-0">other</note>
+        <note type="journal" scheme="https://publication-type.data.istex.fr/ark:/67375/JMC-0GLKJH51-B">journal</note>
+        <note>note</note>
+        <note>note.</note>
+      </notesStmt>
+      <sourceDesc>
+        <biblStruct type="inbook">
+          <analytic>
+            <title level="a">title</title>
+            <author xml:id="author-0000">
+              <persName>
+                <forename type="first">forename</forename>
+                <surname>surname</surname>
+              </persName>
+              <email>email</email>
+              <affiliation>affiliation</affiliation>
+            </author>
+            <idno type="istex">87699D0C20258C18259DED2A5E63B9A50F3B3363</idno>
+            <idno type="ark">ark:/67375/QHD-T00H6VNF-0</idno>
+            <idno type="DOI">10.1039/b9pp00119k</idno>
+            <idno type="ms-id">b9pp00119k</idno>
+          </analytic>
+          <monogr>
+            <title level="j">title</title>
+            <title level="j" type="abbrev">title</title>
+            <idno type="pISSN">1474-905X</idno>
+            <idno type="eISSN">1474-9092</idno>
+            <idno type="coden">PPSHCB</idno>
+            <idno type="RSC-sercode">PP</idno>
+            <imprint>
+              <publisher>Publisher.</publisher>
+              <date type="published" when="2010"/>
+              <biblScope unit="volume">9</biblScope>
+              <biblScope unit="issue">5</biblScope>
+              <biblScope unit="page" from="643">643</biblScope>
+              <biblScope unit="page" to="648">648</biblScope>
+            </imprint>
+          </monogr>
+        </biblStruct>
+      </sourceDesc>
+    </fileDesc>
+    <profileDesc>
+      <creation>
+        <date>2010</date>
+      </creation>
+      <langUsage>
+        <language ident="en">en</language>
+      </langUsage>
+      <abstract>
+        <p>abstract</p>
+      </abstract>
+    </profileDesc>
+    <revisionDesc>
+      <change when="2010">Published</change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <div>
+        <p>Body text</p>
+      </div>
+    </body>
+    <back>
+      <div>
+        <listBibl type="references">
+          <biblStruct xml:id="cit1" type="article">
+            <analytic>
+              <title level="a">title</title>
+              <author>
+                <persName>
+                  <forename type="first">forename</forename>
+                  <surname>surname</surname>
+                </persName>
+              </author>
+            </analytic>
+            <monogr>
+              <title level="j">Science</title>
+              <imprint>
+                <date type="published">2007</date>
+                <biblScope unit="volume">316</biblScope>
+                <biblScope unit="page" from="1153">1153</biblScope>
+              </imprint>
+            </monogr>
+          </biblStruct>
+          <biblStruct xml:id="cit2" type="article">
+            <analytic>
+              <title level="a">title</title>
+              <author>
+                <persName>
+                  <forename type="first">forename</forename>
+                  <surname>surname</surname>
+                </persName>
+              </author>
+              <author>
+                <persName>
+                  <forename type="first">forename</forename>
+                  <surname>surname</surname>
+                </persName>
+              </author>
+              <author>
+                <persName>
+                  <forename type="first">forename</forename>
+                  <surname>surname</surname>
+                </persName>
+              </author>
+              <author>
+                <persName>
+                  <forename type="first">forename</forename>
+                  <surname>surname</surname>
+                </persName>
+              </author>
+            </analytic>
+            <monogr>
+              <title level="j">title</title>
+              <imprint>
+                <date type="published">2009</date>
+                <biblScope unit="volume">3</biblScope>
+                <biblScope unit="page" from="180">180</biblScope>
+              </imprint>
+            </monogr>
+          </biblStruct>
+          <biblStruct xml:id="cit3" type="article">
+            <analytic>
+              <title level="a">title</title>
+              <author>
+                <persName>
+                  <forename type="first">forename</forename>
+                  <surname>surname</surname>
+                </persName>
+              </author>
+              <author>
+                <persName>
+                  <forename type="first">forename</forename>
+                  <surname>surname</surname>
+                </persName>
+              </author>
+              <author>
+                <persName>
+                  <forename type="first">forename</forename>
+                  <surname>surname</surname>
+                </persName>
+              </author>
+            </analytic>
+            <monogr>
+              <title level="j">title</title>
+              <imprint>
+                <date type="published">2009</date>
+                <biblScope unit="volume">78</biblScope>
+                <biblScope unit="page" from="993">993</biblScope>
+              </imprint>
+            </monogr>
+          </biblStruct>
+        </listBibl>
+      </div>
+    </back>
+  </text>
+</TEI>

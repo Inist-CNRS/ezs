@@ -1,0 +1,1657 @@
+[
+  {
+    "corpusName": "degruyter-journals",
+    "keywords": {
+      "teeft": [
+        "phonological",
+        "counterbleeding",
+        "counterfeeding",
+        "deletion",
+        "density index",
+        "chamicuro",
+        "transparency index",
+        "nawuri",
+        "total number",
+        "haida",
+        "postlexical",
+        "phonological rule interactions",
+        "transparency",
+        "shwa",
+        "palatalization",
+        "konjo",
+        "awara",
+        "sonorant",
+        "relationship types",
+        "truncation",
+        "crucial orderings",
+        "kiparsky",
+        "stratum",
+        "lexical phonology",
+        "diphthongization",
+        "phonological processes",
+        "tone assignment",
+        "opacity",
+        "halle",
+        "markedness",
+        "ablaut",
+        "casali",
+        "kisseberth",
+        "kenstowicz",
+        "crucial orders",
+        "statistical results",
+        "steve parker",
+        "elision",
+        "postlexical stratum",
+        "coronal",
+        "crucial interactions",
+        "stress assignment",
+        "posit",
+        "relative order",
+        "vowel shift",
+        "nasalization",
+        "epenthesis",
+        "segmental",
+        "lexical",
+        "degemination",
+        "metathesis",
+        "bakovi",
+        "exhaustive list",
+        "dorsal",
+        "lexical stratum",
+        "vowel",
+        "karok",
+        "niksup",
+        "density indices",
+        "rule interactions",
+        "naturalness index",
+        "spirantization",
+        "other words",
+        "different types",
+        "high tone",
+        "other hand",
+        "generative",
+        "insertion",
+        "friberg",
+        "kenstowicz kisseberth",
+        "optimality theory",
+        "mohanan",
+        "posited",
+        "general sonorant spread",
+        "devoicing",
+        "counterbleeding counterfeeding",
+        "sonorant deletion",
+        "lexical strata",
+        "crucial rule",
+        "noncyclic",
+        "counterbleeding interactions",
+        "postlexical rules",
+        "vowel reduction",
+        "vowel spread",
+        "phonological rules",
+        "labial",
+        "gutman",
+        "counterfeeding interactions",
+        "same time",
+        "apocope",
+        "halle mohanan",
+        "regressive",
+        "steve",
+        "constraint",
+        "lexical rules",
+        "vowel epenthesis",
+        "other languages",
+        "tonal rules",
+        "same language",
+        "mode transparency index",
+        "transparency indices",
+        "stress rules",
+        "phonology",
+        "tensing",
+        "general sonorant deletion",
+        "relative frequencies",
+        "resonant gemination",
+        "statistical analysis",
+        "rule orderings",
+        "generalized density level",
+        "unmarked",
+        "exhaustive",
+        "modal relationship type",
+        "academic press",
+        "different ways",
+        "input form",
+        "high vowel",
+        "application number",
+        "vowel tensing",
+        "cambridge university press",
+        "summary list",
+        "critical order",
+        "crucial rule orderings",
+        "transparent interactions",
+        "counterfeeding relationships",
+        "coronal deletion",
+        "postlexical stratum processes",
+        "interaction",
+        "naturalness",
+        "statistical calculations",
+        "total rules",
+        "relative percentages",
+        "maximal density index",
+        "phonological rule",
+        "ceteris paribus",
+        "entire sample",
+        "masset haida",
+        "corresponding percentage values",
+        "chamicuro exhibits",
+        "individual languages",
+        "general discussion",
+        "statistical measures",
+        "phonetic representation",
+        "friberg friberg",
+        "consonant deletion",
+        "same order",
+        "assimilation degemination",
+        "subsequent strata",
+        "crucial order",
+        "steve parker table",
+        "chamicuro phonology",
+        "postlexical stratum stratum",
+        "relationship type",
+        "opaque relationships",
+        "phonological analysis",
+        "tone rules",
+        "coastal konjo",
+        "oxford university press",
+        "tonal rule",
+        "tone docking",
+        "segmental rule",
+        "corresponding subsections",
+        "vowel reduction vowel tensing",
+        "other processes",
+        "critical orders",
+        "counterbleeding relationships",
+        "same form",
+        "assimilation",
+        "default",
+        "rule",
+        "density"
+      ]
+    },
+    "author": [
+      {
+        "name": "Steve Parker",
+        "affiliations": [
+          "1Graduate Institute of Applied Linguistics",
+          "Graduate Institute of Applied Linguistics",
+          "E-mail: steve-monica_parker@sil.org"
+        ]
+      }
+    ],
+    "subject": [
+      {
+        "lang": ["eng"],
+        "value": "markedness"
+      },
+      {
+        "lang": ["eng"],
+        "value": "phonology"
+      },
+      {
+        "lang": ["eng"],
+        "value": "rule interaction"
+      },
+      {
+        "lang": ["eng"],
+        "value": "rule ordering"
+      },
+      {
+        "lang": ["eng"],
+        "value": "transparency–opacity"
+      }
+    ],
+    "articleId": ["LITY.13.2.197"],
+    "arkIstex": "ark:/67375/QT4-D0J6VN6K-K",
+    "language": ["eng"],
+    "originalGenre": ["research-article"],
+    "abstract": "This article introduces two new mathematical formulas designed to describe, compare, and contrast languages in terms of the overall markedness and complexity of their phonological rule components. The Transparency Index evaluates the four classical types of ordering relationships which obtain between individual pairs of rules, building on Kiparsky's (Linguistic universals and linguistic change, Holt, Rinehart & Winston, 1968, Historical linguistics, University of Maryland Linguistics Program, 1971) classification of these as either feeding, bleeding, counterfeeding, or counterbleeding. Among these, feeding and bleeding orders are transparent in that they result in surface-true generalizations and are therefore natural and preferred, whereas counterbleeding and counterfeeding relationships lead to opaque (non-transparent) phonetic outcomes since the final surface representation appears to be a counterexample to one of the rules. For each language that we wish to analyze, the Transparency Index calculates the attested frequency of both types of transparent interactions grouped together (feeding and bleeding), and divides this sum by the total number of tokens of all four rule ordering types combined. The Density Index, on the other hand, computes the total number of crucial rule orderings (regardless of which kind) among each exhaustive, language-specific inventory of processes. These two statistical proposals are applied to a sample of seven genetically and areally diverse languages to illustrate their usefulness and rank each language along a continuum of relative typological markedness and simplicity. This study constitutes the first rigorous attempt to quantify the occurrence of different types of phonological rule relationships – including their degree of interaction and inherent rate of opacity – both within and across languages. It thus represents a step forward in extending an old line of inquiry into a topic which has recently spawned a renewed wave of interest, partly due to the problems it raises for standard Optimality Theory.",
+    "qualityIndicators": {
+      "score": 8,
+      "pdfVersion": 1.3,
+      "pdfPageSize": "595 x 842 pts (A4)",
+      "refBibsNative": false,
+      "keywordCount": 5,
+      "abstractCharCount": 2072,
+      "pdfWordCount": 23356,
+      "pdfWordsPerPage": 338,
+      "pdfCharCount": 141700,
+      "pdfPageCount": 69,
+      "abstractWordCount": 296,
+      "pdfText": true
+    },
+    "title": "The transparency and density of phonological rule interactions",
+    "refBibs": [
+      {
+        "host": {
+          "author": [
+            {
+              "name": "Stephen,R Anderson"
+            }
+          ],
+          "title": "West Scandinavian vowel systems and the ordering of phonological rules",
+          "publicationDate": "1971"
+        }
+      },
+      {
+        "host": {
+          "author": [],
+          "title": "With world opening up, languages are losers. The New York Times 16 May",
+          "publicationDate": "1999"
+        }
+      },
+      {
+        "author": [
+          {
+            "name": "Eric Bakovi´bakovi´c"
+          }
+        ],
+        "host": {
+          "volume": "24",
+          "pages": {
+            "last": "259",
+            "first": "217"
+          },
+          "author": [],
+          "title": "Phonology",
+          "publicationDate": "2007"
+        },
+        "title": "A revised typology of opaque generalisations",
+        "publicationDate": "2007"
+      },
+      {
+        "host": {
+          "author": [
+            {
+              "name": " Bermúdez-Otero"
+            }
+          ],
+          "title": "Ricardo (forthcoming) Stratal Optimality Theory"
+        }
+      },
+      {
+        "host": {
+          "author": [
+            {
+              "name": "William Bright"
+            }
+          ],
+          "title": "The Karok language (University of California Publications in Linguistics 13)",
+          "publicationDate": "1957"
+        }
+      },
+      {
+        "host": {
+          "author": [
+            {
+              "name": "Roderic,F Casali"
+            }
+          ],
+          "title": "Some phonological processes in Nawuri. Arlington, TX: University of Texas at Arlington master's thesis",
+          "publicationDate": "1988"
+        }
+      },
+      {
+        "author": [
+          {
+            "name": "Roderic,F Casali"
+          }
+        ],
+        "host": {
+          "volume": "24",
+          "pages": {
+            "last": "64",
+            "first": "45"
+          },
+          "issue": "2",
+          "author": [],
+          "title": "Journal of West African Languages",
+          "publicationDate": "1994"
+        },
+        "title": "Nominal tone in Nawuri",
+        "publicationDate": "1994"
+      },
+      {
+        "host": {
+          "author": [
+            {
+              "name": "Roderic Casali"
+            }
+          ],
+          "title": "Nawuri phonology (Language Monographs 3)",
+          "publicationDate": "1995"
+        }
+      },
+      {
+        "author": [
+          {
+            "name": "Noam,& Chomsky"
+          },
+          {
+            "name": "Morris Halle"
+          }
+        ],
+        "host": {
+          "author": [],
+          "title": "The sound pattern of English",
+          "publicationDate": "1968"
+        },
+        "publicationDate": "1968"
+      },
+      {
+        "author": [
+          {
+            "name": "G,N Clements"
+          }
+        ],
+        "host": {
+          "volume": "2",
+          "pages": {
+            "last": "252",
+            "first": "225"
+          },
+          "author": [],
+          "title": "Phonology Yearbook",
+          "publicationDate": "1985"
+        },
+        "title": "The geometry of phonological features",
+        "publicationDate": "1985"
+      },
+      {
+        "author": [
+          {
+            "name": "G,N Clements"
+          }
+        ],
+        "host": {
+          "pages": {
+            "last": "333",
+            "first": "283"
+          },
+          "author": [],
+          "title": "Between the grammar and physics of speech",
+          "publicationDate": "1990"
+        },
+        "title": "The role of the sonority cycle in core syllabification",
+        "publicationDate": "1990"
+      },
+      {
+        "author": [
+          {
+            "name": "John,M Clifton"
+          }
+        ],
+        "host": {
+          "volume": "10",
+          "pages": {
+            "last": "94",
+            "first": "81"
+          },
+          "issue": "2",
+          "author": [],
+          "title": "Chicago Linguistic Society",
+          "publicationDate": "1974"
+        },
+        "title": "Another look at rule reordering",
+        "publicationDate": "1974"
+      },
+      {
+        "author": [
+          {
+            "name": "Peter Cole"
+          }
+        ],
+        "host": {
+          "pages": {
+            "last": "71",
+            "first": "42"
+          },
+          "author": [],
+          "title": "Kisseberth",
+          "publicationDate": "1973"
+        },
+        "title": "Mutual bleeding and the ordering of phonological rules",
+        "publicationDate": "1973"
+      },
+      {
+        "host": {
+          "author": [
+            {
+              "name": "John Enrico"
+            }
+          ],
+          "title": "The lexical phonology of Masset Haida (Alaska Native Language Center Research Papers 8)",
+          "publicationDate": "1991"
+        }
+      },
+      {
+        "author": [
+          {
+            "name": "Timothy,& Friberg"
+          },
+          {
+            "name": "Barbara Friberg"
+          }
+        ],
+        "host": {
+          "pages": {
+            "last": "115",
+            "first": "71"
+          },
+          "author": [],
+          "title": "Studies in Sulawesi linguistics, part II (NUSA: Linguistic Studies of Indonesian and Other Languages in Indonesia 33)",
+          "publicationDate": "1991"
+        },
+        "title": "Notes on Konjo phonology",
+        "publicationDate": "1991"
+      },
+      {
+        "host": {
+          "author": [
+            {
+              "name": "Heinz,J Giegerich"
+            }
+          ],
+          "title": "Lexical strata in English: Morphological causes, phonological effects",
+          "publicationDate": "1999"
+        }
+      },
+      {
+        "host": {
+          "author": [
+            {
+              "name": "Raymond,G Gordon"
+            },
+            {
+              "name": " Jr"
+            }
+          ],
+          "title": "Ethnologue: Languages of the world",
+          "publicationDate": "2005"
+        }
+      },
+      {
+        "author": [
+          {
+            "name": "Prahlad,& Gupta"
+          },
+          {
+            "name": "David,S Touretzky"
+          }
+        ],
+        "host": {
+          "volume": "18",
+          "pages": {
+            "last": "50",
+            "first": "1"
+          },
+          "author": [],
+          "title": "Cognitive Science",
+          "publicationDate": "1994"
+        },
+        "title": "Connectionist models and linguistic theory: Investigations of stress systems in language",
+        "publicationDate": "1994"
+      },
+      {
+        "host": {
+          "author": [
+            {
+              "name": "Daniel Gutman"
+            }
+          ],
+          "title": "The morphophonemics of Biblical Hebrew (and a brief comparison with Israeli Hebrew)",
+          "publicationDate": "1970"
+        }
+      },
+      {
+        "author": [
+          {
+            "name": "Morris Halle"
+          },
+          {
+            "name": "&,K P Mohanan"
+          }
+        ],
+        "host": {
+          "volume": "16",
+          "pages": {
+            "last": "116",
+            "first": "57"
+          },
+          "author": [],
+          "title": "Linguistic Inquiry",
+          "publicationDate": "1985"
+        },
+        "title": "Segmental phonology of modern English",
+        "publicationDate": "1985"
+      },
+      {
+        "host": {
+          "author": [
+            {
+              "name": "Michael Hammond"
+            }
+          ],
+          "title": "The phonology of English: A prosodic Optimality-Theoretic approach",
+          "publicationDate": "1999"
+        }
+      },
+      {
+        "author": [
+          {
+            "name": "Bruce & Zsuzsa Cziráky Hayes"
+          },
+          {
+            "name": " Londe"
+          }
+        ],
+        "host": {
+          "volume": "23",
+          "pages": {
+            "last": "104",
+            "first": "59"
+          },
+          "author": [],
+          "title": "Phonology",
+          "publicationDate": "2006"
+        },
+        "title": "Stochastic phonological knowledge: The case of Hungarian vowel harmony",
+        "publicationDate": "2006"
+      },
+      {
+        "host": {
+          "author": [
+            {
+              "name": "Joan,B Hooper"
+            }
+          ],
+          "title": "An introduction to natural generative phonology",
+          "publicationDate": "1976"
+        }
+      },
+      {
+        "host": {
+          "pages": {
+            "first": "195"
+          },
+          "author": [
+            {
+              "name": "Larry,M Hyman"
+            }
+          ],
+          "title": "Problems in rule ordering in phonology: Two Bantu test cases The last phonological rule: Reflections on constraints and derivations",
+          "publicationDate": "1993"
+        }
+      },
+      {
+        "author": [],
+        "host": {
+          "author": [],
+          "title": "Chicago"
+        }
+      },
+      {
+        "author": [
+          {
+            "name": "Larry,M Hyman"
+          },
+          {
+            "name": "Kenneth Vanbik"
+          }
+        ],
+        "host": {
+          "volume": "5",
+          "pages": {
+            "last": "861",
+            "first": "821"
+          },
+          "author": [],
+          "title": "Language and Linguistics",
+          "publicationDate": "2004"
+        },
+        "title": "Directional rule application and output problems in Hakha Lai tone",
+        "publicationDate": "2004"
+      },
+      {
+        "host": {
+          "author": [
+            {
+              "name": "Ellen,M Kaisse"
+            }
+          ],
+          "title": "Connected speech: The interaction of syntax and phonology",
+          "publicationDate": "1985"
+        }
+      },
+      {
+        "author": [
+          {
+            "name": "Ellen,M Kaisse"
+          }
+        ],
+        "host": {
+          "pages": {
+            "last": "19",
+            "first": "1"
+          },
+          "author": [],
+          "title": "Studies in Lexical Phonology",
+          "publicationDate": "1993"
+        },
+        "title": "Introduction",
+        "publicationDate": "1993"
+      },
+      {
+        "author": [
+          {
+            "name": "Jonathan Kaye"
+          },
+          {
+            "name": " Derek"
+          }
+        ],
+        "host": {
+          "volume": "19",
+          "pages": {
+            "last": "149",
+            "first": "134"
+          },
+          "author": [],
+          "title": "Canadian Journal of Linguistics",
+          "publicationDate": "1974"
+        },
+        "title": "Opacity and recoverability in phonology",
+        "publicationDate": "1974"
+      },
+      {
+        "author": [
+          {
+            "name": "Michael,J Kenstowicz"
+          }
+        ],
+        "host": {
+          "pages": {
+            "first": "Blackwell"
+          },
+          "author": [],
+          "title": "Phonology in generative grammar",
+          "publicationDate": "1994"
+        },
+        "publicationDate": "1994"
+      },
+      {
+        "author": [
+          {
+            "name": "Michael,J Kenstowicz"
+          },
+          {
+            "name": "W Charles"
+          },
+          {
+            "name": " Kisseberth"
+          }
+        ],
+        "host": {
+          "volume": "6",
+          "pages": {
+            "last": "519",
+            "first": "504"
+          },
+          "author": [],
+          "title": "Chicago Linguistic Society",
+          "publicationDate": "1970"
+        },
+        "title": "Rule ordering and the asymmetry hypothesis",
+        "publicationDate": "1970"
+      },
+      {
+        "host": {
+          "pages": {
+            "last": "12",
+            "first": "1"
+          },
+          "author": [
+            {
+              "name": "Michael,J Kenstowicz"
+            },
+            {
+              "name": "W Charles"
+            },
+            {
+              "name": " Kisseberth"
+            }
+          ],
+          "title": "Unmarked bleeding orders",
+          "publicationDate": "1973"
+        }
+      },
+      {
+        "author": [
+          {
+            "name": "Michael,J Kenstowicz"
+          },
+          {
+            "name": "W Charles"
+          },
+          {
+            "name": " Kisseberth"
+          }
+        ],
+        "host": {
+          "author": [],
+          "title": "Topics in phonological theory",
+          "publicationDate": "1977"
+        },
+        "publicationDate": "1977"
+      },
+      {
+        "author": [
+          {
+            "name": "Paul Kiparsky"
+          }
+        ],
+        "host": {
+          "pages": {
+            "last": "202",
+            "first": "170"
+          },
+          "author": [],
+          "title": "Universals in linguistic theory",
+          "publicationDate": "1968"
+        },
+        "title": "Linguistic universals and linguistic change",
+        "publicationDate": "1968"
+      },
+      {
+        "host": {
+          "author": [
+            {
+              "name": "Paul Kiparsky"
+            }
+          ],
+          "title": "Historical linguistics A survey of linguistic science, 576–649",
+          "publicationDate": "1971"
+        }
+      },
+      {
+        "author": [
+          {
+            "name": "Paul Kiparsky"
+          }
+        ],
+        "host": {
+          "pages": {
+            "last": "80",
+            "first": "57"
+          },
+          "author": [],
+          "title": "Paul Kiparsky, Explanation in phonology",
+          "publicationDate": "1982"
+        },
+        "title": "Historical linguistics",
+        "publicationDate": "1982"
+      },
+      {
+        "host": {
+          "author": [
+            {
+              "name": "Paul Kiparsky"
+            }
+          ],
+          "title": "Paradigms and opacity Studies in generative phonology (Papers in Linguistics Monograph Series 3)",
+          "publicationDate": "1973"
+        }
+      },
+      {
+        "author": [
+          {
+            "name": "Andreas Koutsoudas"
+          },
+          {
+            "name": "Gerald,& Sanders"
+          },
+          {
+            "name": "Craig Noll"
+          }
+        ],
+        "host": {
+          "volume": "50",
+          "pages": {
+            "last": "28",
+            "first": "1"
+          },
+          "author": [],
+          "title": "Language",
+          "publicationDate": "1974"
+        },
+        "title": "The application of phonological rules",
+        "publicationDate": "1974"
+      },
+      {
+        "host": {
+          "author": [
+            {
+              "name": "Ron,& Larson"
+            },
+            {
+              "name": "Betsy Farber"
+            }
+          ],
+          "title": "Elementary statistics: Picturing the world",
+          "publicationDate": "2006"
+        }
+      },
+      {
+        "author": [
+          {
+            "name": "Johan,& Liljencrants"
+          },
+          {
+            "name": "Björn Lindblom"
+          }
+        ],
+        "host": {
+          "volume": "48",
+          "pages": {
+            "last": "862",
+            "first": "839"
+          },
+          "author": [],
+          "title": "Language",
+          "publicationDate": "1972"
+        },
+        "title": "Numerical simulation of vowel quality systems: The role of perceptual contrast",
+        "publicationDate": "1972"
+      },
+      {
+        "host": {
+          "author": [
+            {
+              "name": "Ian Maddieson"
+            }
+          ],
+          "title": "Patterns of sounds",
+          "publicationDate": "1984"
+        }
+      },
+      {
+        "author": [
+          {
+            "name": "Ian Maddieson"
+          }
+        ],
+        "host": {
+          "pages": {
+            "last": "103",
+            "first": "93"
+          },
+          "author": [],
+          "title": "Experimental approaches to phonology",
+          "publicationDate": "2007"
+        },
+        "title": "Issues of phonological complexity: statistical analysis of the relationship between syllable structures, segment inventories, and tone contrasts",
+        "publicationDate": "2007"
+      },
+      {
+        "author": [
+          {
+            "name": "John,J Mccarthy"
+          }
+        ],
+        "host": {
+          "volume": "16",
+          "pages": {
+            "last": "399",
+            "first": "331"
+          },
+          "author": [],
+          "title": "Phonology",
+          "publicationDate": "1999"
+        },
+        "title": "Sympathy and phonological opacity",
+        "publicationDate": "1999"
+      },
+      {
+        "host": {
+          "pages": {
+            "last": "117",
+            "first": "99"
+          },
+          "author": [
+            {
+              "name": "John,J Mccarthy"
+            }
+          ],
+          "title": "Derivations and levels of representation The Cambridge handbook of phonology",
+          "publicationDate": "2007"
+        }
+      },
+      {
+        "host": {
+          "pages": {
+            "first": "Equinox"
+          },
+          "author": [
+            {
+              "name": "John,J Mccarthy"
+            }
+          ],
+          "title": "Hidden generalizations: Phonological opacity in Optimality Theory",
+          "publicationDate": "2007"
+        }
+      },
+      {
+        "host": {
+          "author": [
+            {
+              "name": "Russell Norton"
+            },
+            {
+              "name": " James"
+            }
+          ],
+          "title": "Derivational phonology and optimality phonology: Formal comparison and synthesis",
+          "publicationDate": "2003"
+        }
+      },
+      {
+        "host": {
+          "author": [
+            {
+              "name": "Stephen Parker"
+            }
+          ],
+          "title": "Kana acha'taka ijnachale kana chamekolo (Vocabulario y textos chamicuro) (Comunidades y Culturas Peruanas 21)",
+          "publicationDate": "1987"
+        }
+      },
+      {
+        "host": {
+          "author": [
+            {
+              "name": "Stephen Parker"
+            },
+            {
+              "name": " George"
+            }
+          ],
+          "title": "Some universal aspects of coalescence processes confirmed by Chamicuro phonology and morphology",
+          "publicationDate": "1988"
+        }
+      },
+      {
+        "author": [
+          {
+            "name": "Steve Parker"
+          }
+        ],
+        "host": {
+          "volume": "19",
+          "pages": {
+            "last": "58",
+            "first": "3"
+          },
+          "author": [],
+          "title": "Linguistic Analysis",
+          "publicationDate": "1989"
+        },
+        "title": "The sonority grid in Chamicuro phonology",
+        "publicationDate": "1989"
+      },
+      {
+        "host": {
+          "pages": {
+            "last": "74",
+            "first": "59"
+          },
+          "author": [
+            {
+              "name": "Steve Parker"
+            }
+          ],
+          "title": "Laminal sibilants in Chamicuro",
+          "publicationDate": "1990"
+        }
+      },
+      {
+        "host": {
+          "author": [
+            {
+              "name": "Stephen,G Parker"
+            }
+          ],
+          "title": "Estudios sobre la fonología del chamicuro (Serie Lingüística Peruana 30)",
+          "publicationDate": "1991"
+        }
+      },
+      {
+        "author": [
+          {
+            "name": "Steve Parker"
+          }
+        ],
+        "host": {
+          "volume": "22",
+          "pages": {
+            "last": "250",
+            "first": "246"
+          },
+          "author": [],
+          "title": "Linguistic Analysis",
+          "publicationDate": "1992"
+        },
+        "title": "Geminate alterability: Another OCP violation",
+        "publicationDate": "1992"
+      },
+      {
+        "host": {
+          "author": [
+            {
+              "name": "Steve Parker"
+            }
+          ],
+          "title": "Datos adicionales del idioma chamicuro (Documento de Trabajo 25)",
+          "publicationDate": "1994"
+        }
+      },
+      {
+        "author": [
+          {
+            "name": "Steve Parker"
+          }
+        ],
+        "host": {
+          "volume": "60",
+          "pages": {
+            "last": "271",
+            "first": "261"
+          },
+          "author": [],
+          "title": "International Journal of American Linguistics",
+          "publicationDate": "1994"
+        },
+        "title": "Laryngeal codas in Chamicuro",
+        "publicationDate": "1994"
+      },
+      {
+        "author": [
+          {
+            "name": "Steve Parker"
+          }
+        ],
+        "host": {
+          "volume": "97",
+          "pages": {
+            "last": "210",
+            "first": "195"
+          },
+          "author": [],
+          "title": "Lingua",
+          "publicationDate": "1995"
+        },
+        "title": "Chamicuro laterals: A case for Radical Underspecification",
+        "publicationDate": "1995"
+      },
+      {
+        "author": [
+          {
+            "name": "Steve Parker"
+          }
+        ],
+        "host": {
+          "volume": "75",
+          "pages": {
+            "last": "562",
+            "first": "552"
+          },
+          "author": [],
+          "title": "Language",
+          "publicationDate": "1999"
+        },
+        "title": "On the behavior of definite articles in Chamicuro",
+        "publicationDate": "1999"
+      },
+      {
+        "author": [
+          {
+            "name": "Steve Parker"
+          }
+        ],
+        "host": {
+          "volume": "18",
+          "pages": {
+            "last": "386",
+            "first": "361"
+          },
+          "author": [],
+          "title": "Phonology",
+          "publicationDate": "2001"
+        },
+        "title": "Non-optimal onsets in Chamicuro: An inventory maximised in coda position",
+        "publicationDate": "2001"
+      },
+      {
+        "host": {
+          "author": [
+            {
+              "name": "Joe Pater"
+            }
+          ],
+          "title": "Weighted constraints in generative linguistics. Manuscript, University of Massachusetts at Amherst. ROA-982, Rutgers Optimality Archive Words and rules: The ingredients of language",
+          "publicationDate": "1999"
+        }
+      },
+      {
+        "host": {
+          "author": [
+            {
+              "name": "Alan,& Prince"
+            },
+            {
+              "name": "Paul Smolensky"
+            }
+          ],
+          "title": "Optimality theory: Constraint interaction in generative grammar (Technical Report CU-CS-696-93",
+          "publicationDate": "1993"
+        }
+      },
+      {
+        "host": {
+          "author": [
+            {
+              "name": "Edward,C Quigley"
+            }
+          ],
+          "title": "Awara phonology. Grand Forks, ND: University of North Dakota master's thesis",
+          "publicationDate": "2003"
+        }
+      },
+      {
+        "host": {
+          "author": [
+            {
+              "name": "Elizabeth Sagey"
+            },
+            {
+              "name": " Caroline"
+            }
+          ],
+          "title": "The representation of features and relations in non-linear phonology",
+          "publicationDate": "1986"
+        }
+      },
+      {
+        "host": {
+          "author": [
+            {
+              "name": "Sanford,A Schane"
+            },
+            {
+              "name": " Birgitte Bendixen"
+            }
+          ],
+          "title": "Workbook in generative phonology",
+          "publicationDate": "1978"
+        }
+      },
+      {
+        "author": [
+          {
+            "name": "R Sirkin"
+          },
+          {
+            "name": " Mark"
+          }
+        ],
+        "host": {
+          "author": [],
+          "title": "CA: Sage. Zuraw, Kie Ross",
+          "publicationDate": "1999"
+        },
+        "title": "Statistics for the social sciences Patterned exceptions in phonology",
+        "publicationDate": "1999"
+      }
+    ],
+    "genre": ["research-article"],
+    "host": {
+      "title": "Linguistic Typology",
+      "language": ["unknown"],
+      "publicationDate": "2009",
+      "copyrightDate": "2009",
+      "issn": ["1430-0532"],
+      "eissn": ["1613-415X"],
+      "publisherId": ["LITY"],
+      "volume": "13",
+      "issue": "2",
+      "pages": {
+        "first": "197",
+        "last": "265"
+      },
+      "genre": ["journal"]
+    },
+    "namedEntities": {
+      "unitex": {
+        "date": ["2000", "1999", "2009-05-29", "the sixth century", "1985"],
+        "geogName": [
+          "Lake Volta",
+          "Oti River",
+          "region of Indonesia",
+          "Finisterre Mountain"
+        ],
+        "orgName": [
+          "SIL International",
+          "Summer Institute of Linguistics",
+          "Ancient Hebrew Afro-Asiatic Peru Indonesia Papua New Guinea Canada Ghana United Kingdom, United States Israel Gutman",
+          "Graduate Institute of Applied Linguistics Correspondence"
+        ],
+        "orgName_funder": [],
+        "orgName_provider": [],
+        "persName": [
+          "Enrico",
+          "A. Table",
+          "Frans Plank",
+          "Ken Olson",
+          "Parker Stratum",
+          "Palatalization",
+          "The",
+          "Charlotte Islands",
+          "Parker Acknowledgements",
+          "Echo Vowel",
+          "Steve Walter",
+          "Parker Truncation",
+          "Parker Elision",
+          "Steve Parker",
+          "Walter de Gruyter",
+          "Parker Table"
+        ],
+        "placeName": [
+          "TX",
+          "Ghana",
+          "Columbia",
+          "Peru",
+          "Halle",
+          "Papua New Guinea",
+          "Dallas",
+          "Australia",
+          "Canada",
+          "Niger",
+          "American",
+          "Sulawesi",
+          "Israel",
+          "York"
+        ],
+        "ref_url": [],
+        "ref_bibl": [
+          "1994, 1995",
+          "Hyman 1993",
+          "Kiparsky 1982: 75",
+          "Koutsoudas et al. (1974)",
+          "Kiparsky (1971)",
+          "Parker 1988",
+          "Hooper 1976",
+          "Kiparsky 1968, 1971",
+          "Casali 1995",
+          "Associated Press 1999",
+          "Hyman & VanBik 2004",
+          "Gutman 1970",
+          "Kenstowicz & Kisseberth 1977",
+          "Kiparsky 1968: 197",
+          "Kiparsky (1968: 200)",
+          "Casali 1994",
+          "Quigley 2003: 164",
+          "Casali 1988",
+          "Kiparsky 1968: 200",
+          "1999, 2007a, b",
+          "Clements (1990)",
+          "Kiparsky 1971",
+          "Kiparsky 1971: 623",
+          "1968, 1971",
+          "Koutsoudas et al. 1974",
+          "McCarthy 2007b",
+          "Chomsky & Halle 1968",
+          "Anderson 1971; Kenstowicz & Kisseberth 1973, 1977",
+          "Kisseberth (1977)"
+        ],
+        "bibl": []
+      }
+    },
+    "ark": ["ark:/67375/QT4-D0J6VN6K-K"],
+    "categories": {
+      "wos": ["1 - social science", "2 - linguistics"],
+      "scienceMetrix": [
+        "1 - arts & humanities",
+        "2 - communication & textual studies",
+        "3 - languages & linguistics"
+      ],
+      "scopus": [
+        "1 - Social Sciences",
+        "2 - Social Sciences",
+        "3 - Linguistics and Language",
+        "1 - Social Sciences",
+        "2 - Arts and Humanities",
+        "3 - Language and Linguistics"
+      ],
+      "inist": ["1 - sciences humaines et sociales"]
+    },
+    "publicationDate": "2009",
+    "copyrightDate": "2009",
+    "enrichments": {
+      "multicat": [
+        {
+          "original": false,
+          "mimetype": "application/tei+xml",
+          "extension": "tei",
+          "uri": "https://api.istex.fr/document/2FF3F5B1477986B9C617BB75CA3333DBEE99EB05/enrichments/multicat"
+        }
+      ],
+      "nb": [
+        {
+          "original": false,
+          "mimetype": "application/tei+xml",
+          "extension": "tei",
+          "uri": "https://api.istex.fr/document/2FF3F5B1477986B9C617BB75CA3333DBEE99EB05/enrichments/nb"
+        }
+      ],
+      "refBibs": [
+        {
+          "original": false,
+          "mimetype": "application/tei+xml",
+          "extension": "tei",
+          "uri": "https://api.istex.fr/document/2FF3F5B1477986B9C617BB75CA3333DBEE99EB05/enrichments/refBibs"
+        }
+      ],
+      "teeft": [
+        {
+          "original": false,
+          "mimetype": "application/tei+xml",
+          "extension": "tei",
+          "uri": "https://api.istex.fr/document/2FF3F5B1477986B9C617BB75CA3333DBEE99EB05/enrichments/teeft"
+        }
+      ],
+      "unitex": [
+        {
+          "original": false,
+          "mimetype": "application/tei+xml",
+          "extension": "tei",
+          "uri": "https://api.istex.fr/document/2FF3F5B1477986B9C617BB75CA3333DBEE99EB05/enrichments/unitex"
+        }
+      ]
+    },
+    "doi": ["10.1515/LITY.2009.012"],
+    "id": "2FF3F5B1477986B9C617BB75CA3333DBEE99EB05",
+    "fulltext": [
+      {
+        "original": true,
+        "mimetype": "application/pdf",
+        "extension": "pdf",
+        "uri": "https://api.istex.fr/document/2FF3F5B1477986B9C617BB75CA3333DBEE99EB05/fulltext/pdf"
+      },
+      {
+        "original": false,
+        "mimetype": "application/zip",
+        "extension": "zip",
+        "uri": "https://api.istex.fr/document/2FF3F5B1477986B9C617BB75CA3333DBEE99EB05/fulltext/zip"
+      },
+      {
+        "original": false,
+        "mimetype": "text/plain",
+        "extension": "txt",
+        "uri": "https://api.istex.fr/document/2FF3F5B1477986B9C617BB75CA3333DBEE99EB05/fulltext/txt"
+      },
+      {
+        "original": false,
+        "mimetype": "application/tei+xml",
+        "extension": "tei",
+        "uri": "https://api.istex.fr/document/2FF3F5B1477986B9C617BB75CA3333DBEE99EB05/fulltext/tei"
+      }
+    ],
+    "metadata": [
+      {
+        "original": true,
+        "mimetype": "application/xml",
+        "extension": "xml",
+        "uri": "https://api.istex.fr/document/2FF3F5B1477986B9C617BB75CA3333DBEE99EB05/metadata/xml"
+      },
+      {
+        "original": false,
+        "mimetype": "application/mods+xml",
+        "extension": "mods",
+        "uri": "https://api.istex.fr/document/2FF3F5B1477986B9C617BB75CA3333DBEE99EB05/metadata/mods"
+      },
+      {
+        "original": false,
+        "mimetype": "application/json",
+        "extension": "json",
+        "uri": "https://api.istex.fr/document/2FF3F5B1477986B9C617BB75CA3333DBEE99EB05/metadata/json"
+      }
+    ]
+  },
+  {
+    "total": 2,
+    "scroll": "5m",
+    "scrollId": "DnF1ZXJ5VGhlbkZldGNolgEAAAAASam8HBZVRTR6Y2NvSlFES19VMGpFc05VOUhBAAAAAEmo2ZMWcEJSNXNYaXlTR2VGN0dvM1QzQkdwdwAAAABJs-13Fm1YY1dSejBRUmptOTJsT2E5SDc1dncAAAAASajZohZwQlI1c1hpeVNHZUY3R28zVDNCR3B3AAAAAEmlZKsWb2N4NmF0b0FUemlEcnJ6YXh1SDA5QQAAAABJs-12Fm1YY1dSejBRUmptOTJsT2E5SDc1dncAAAAASa0kJhZNdkhTVHBIN1JCNmlPY2dZS2hxYmJRAAAAAEmo2ZIWcEJSNXNYaXlTR2VGN0dvM1QzQkdwdwAAAABJpWSsFm9jeDZhdG9BVHppRHJyemF4dUgwOUEAAAAASa0kJxZNdkhTVHBIN1JCNmlPY2dZS2hxYmJRAAAAAEmlZK0Wb2N4NmF0b0FUemlEcnJ6YXh1SDA5QQAAAABJqNmUFnBCUjVzWGl5U0dlRjdHbzNUM0JHcHcAAAAASaVkrhZvY3g2YXRvQVR6aURycnpheHVIMDlBAAAAAEmz7XkWbVhjV1J6MFFSam05MmxPYTlINzV2dwAAAABJpWSvFm9jeDZhdG9BVHppRHJyemF4dUgwOUEAAAAASam8HRZVRTR6Y2NvSlFES19VMGpFc05VOUhBAAAAAEmo2ZUWcEJSNXNYaXlTR2VGN0dvM1QzQkdwdwAAAABJqbweFlVFNHpjY29KUURLX1UwakVzTlU5SEEAAAAASbPteBZtWGNXUnowUVJqbTkybE9hOUg3NXZ3AAAAAEmlZLAWb2N4NmF0b0FUemlEcnJ6YXh1SDA5QQAAAABJrSQoFk12SFNUcEg3UkI2aU9jZ1lLaHFiYlEAAAAASaVkshZvY3g2YXRvQVR6aURycnpheHVIMDlBAAAAAEmpvCEWVUU0emNjb0pRREtfVTBqRXNOVTlIQQAAAABJpWSxFm9jeDZhdG9BVHppRHJyemF4dUgwOUEAAAAASajZlhZwQlI1c1hpeVNHZUY3R28zVDNCR3B3AAAAAEmlZLMWb2N4NmF0b0FUemlEcnJ6YXh1SDA5QQAAAABJrSQpFk12SFNUcEg3UkI2aU9jZ1lLaHFiYlEAAAAASam8HxZVRTR6Y2NvSlFES19VMGpFc05VOUhBAAAAAEmz7XoWbVhjV1J6MFFSam05MmxPYTlINzV2dwAAAABJqbwiFlVFNHpjY29KUURLX1UwakVzTlU5SEEAAAAASa0kKhZNdkhTVHBIN1JCNmlPY2dZS2hxYmJRAAAAAEmpvCAWVUU0emNjb0pRREtfVTBqRXNOVTlIQQAAAABJqNmXFnBCUjVzWGl5U0dlRjdHbzNUM0JHcHcAAAAASajZmhZwQlI1c1hpeVNHZUY3R28zVDNCR3B3AAAAAEmlZLQWb2N4NmF0b0FUemlEcnJ6YXh1SDA5QQAAAABJqNmYFnBCUjVzWGl5U0dlRjdHbzNUM0JHcHcAAAAASa0kKxZNdkhTVHBIN1JCNmlPY2dZS2hxYmJRAAAAAEmpvCQWVUU0emNjb0pRREtfVTBqRXNOVTlIQQAAAABJrSQtFk12SFNUcEg3UkI2aU9jZ1lLaHFiYlEAAAAASajZnRZwQlI1c1hpeVNHZUY3R28zVDNCR3B3AAAAAEmo2ZwWcEJSNXNYaXlTR2VGN0dvM1QzQkdwdwAAAABJqNmbFnBCUjVzWGl5U0dlRjdHbzNUM0JHcHcAAAAASa0kLBZNdkhTVHBIN1JCNmlPY2dZS2hxYmJRAAAAAEmo2aQWcEJSNXNYaXlTR2VGN0dvM1QzQkdwdwAAAABJrSQvFk12SFNUcEg3UkI2aU9jZ1lLaHFiYlEAAAAASajZnxZwQlI1c1hpeVNHZUY3R28zVDNCR3B3AAAAAEmo2Z4WcEJSNXNYaXlTR2VGN0dvM1QzQkdwdwAAAABJs-17Fm1YY1dSejBRUmptOTJsT2E5SDc1dncAAAAASa0kLhZNdkhTVHBIN1JCNmlPY2dZS2hxYmJRAAAAAEmo2aAWcEJSNXNYaXlTR2VGN0dvM1QzQkdwdwAAAABJqbwsFlVFNHpjY29KUURLX1UwakVzTlU5SEEAAAAASam8NRZVRTR6Y2NvSlFES19VMGpFc05VOUhBAAAAAEmpvDYWVUU0emNjb0pRREtfVTBqRXNOVTlIQQAAAABJqbwnFlVFNHpjY29KUURLX1UwakVzTlU5SEEAAAAASa0kMRZNdkhTVHBIN1JCNmlPY2dZS2hxYmJRAAAAAEmo2akWcEJSNXNYaXlTR2VGN0dvM1QzQkdwdwAAAABJqbwpFlVFNHpjY29KUURLX1UwakVzTlU5SEEAAAAASam8KhZVRTR6Y2NvSlFES19VMGpFc05VOUhBAAAAAEmtJDIWTXZIU1RwSDdSQjZpT2NnWUtocWJiUQAAAABJqNmlFnBCUjVzWGl5U0dlRjdHbzNUM0JHcHcAAAAASam8LRZVRTR6Y2NvSlFES19VMGpFc05VOUhBAAAAAEmz7X0WbVhjV1J6MFFSam05MmxPYTlINzV2dwAAAABJqbwoFlVFNHpjY29KUURLX1UwakVzTlU5SEEAAAAASa0kNBZNdkhTVHBIN1JCNmlPY2dZS2hxYmJRAAAAAEmo2aMWcEJSNXNYaXlTR2VGN0dvM1QzQkdwdwAAAABJs-2AFm1YY1dSejBRUmptOTJsT2E5SDc1dncAAAAASam8LxZVRTR6Y2NvSlFES19VMGpFc05VOUhBAAAAAEmtJDYWTXZIU1RwSDdSQjZpT2NnWUtocWJiUQAAAABJqNmmFnBCUjVzWGl5U0dlRjdHbzNUM0JHcHcAAAAASam8LhZVRTR6Y2NvSlFES19VMGpFc05VOUhBAAAAAEmlZLUWb2N4NmF0b0FUemlEcnJ6YXh1SDA5QQAAAABJqNmnFnBCUjVzWGl5U0dlRjdHbzNUM0JHcHcAAAAASaVkthZvY3g2YXRvQVR6aURycnpheHVIMDlBAAAAAEmpvDAWVUU0emNjb0pRREtfVTBqRXNOVTlIQQAAAABJqbw3FlVFNHpjY29KUURLX1UwakVzTlU5SEEAAAAASbPtgRZtWGNXUnowUVJqbTkybE9hOUg3NXZ3AAAAAEmz7YkWbVhjV1J6MFFSam05MmxPYTlINzV2dwAAAABJpWS3Fm9jeDZhdG9BVHppRHJyemF4dUgwOUEAAAAASa0kOBZNdkhTVHBIN1JCNmlPY2dZS2hxYmJRAAAAAEmpvDkWVUU0emNjb0pRREtfVTBqRXNOVTlIQQAAAABJrSQ5Fk12SFNUcEg3UkI2aU9jZ1lLaHFiYlEAAAAASbPthxZtWGNXUnowUVJqbTkybE9hOUg3NXZ3AAAAAEmlZLgWb2N4NmF0b0FUemlEcnJ6YXh1SDA5QQAAAABJs-2FFm1YY1dSejBRUmptOTJsT2E5SDc1dncAAAAASaVkuxZvY3g2YXRvQVR6aURycnpheHVIMDlBAAAAAEmo2asWcEJSNXNYaXlTR2VGN0dvM1QzQkdwdwAAAABJqbw8FlVFNHpjY29KUURLX1UwakVzTlU5SEEAAAAASaVkvBZvY3g2YXRvQVR6aURycnpheHVIMDlBAAAAAEmpvDIWVUU0emNjb0pRREtfVTBqRXNOVTlIQQAAAABJs-2IFm1YY1dSejBRUmptOTJsT2E5SDc1dncAAAAASajZrBZwQlI1c1hpeVNHZUY3R28zVDNCR3B3AAAAAEmpvDQWVUU0emNjb0pRREtfVTBqRXNOVTlIQQAAAABJpWS-Fm9jeDZhdG9BVHppRHJyemF4dUgwOUEAAAAASam8PRZVRTR6Y2NvSlFES19VMGpFc05VOUhBAAAAAEmtJDoWTXZIU1RwSDdSQjZpT2NnWUtocWJiUQAAAABJpWTBFm9jeDZhdG9BVHppRHJyemF4dUgwOUEAAAAASa0kOxZNdkhTVHBIN1JCNmlPY2dZS2hxYmJRAAAAAEmz7ZEWbVhjV1J6MFFSam05MmxPYTlINzV2dwAAAABJqbxBFlVFNHpjY29KUURLX1UwakVzTlU5SEEAAAAASaVkwBZvY3g2YXRvQVR6aURycnpheHVIMDlBAAAAAEmtJDwWTXZIU1RwSDdSQjZpT2NnWUtocWJiUQAAAABJqbxAFlVFNHpjY29KUURLX1UwakVzTlU5SEEAAAAASajZrRZwQlI1c1hpeVNHZUY3R28zVDNCR3B3AAAAAEmtJEMWTXZIU1RwSDdSQjZpT2NnWUtocWJiUQAAAABJqbw6FlVFNHpjY29KUURLX1UwakVzTlU5SEEAAAAASa0kPRZNdkhTVHBIN1JCNmlPY2dZS2hxYmJRAAAAAEmz7Y0WbVhjV1J6MFFSam05MmxPYTlINzV2dwAAAABJrSQ_Fk12SFNUcEg3UkI2aU9jZ1lLaHFiYlEAAAAASaVkwhZvY3g2YXRvQVR6aURycnpheHVIMDlBAAAAAEmz7Y8WbVhjV1J6MFFSam05MmxPYTlINzV2dwAAAABJqNmxFnBCUjVzWGl5U0dlRjdHbzNUM0JHcHcAAAAASam8PhZVRTR6Y2NvSlFES19VMGpFc05VOUhBAAAAAEmtJD4WTXZIU1RwSDdSQjZpT2NnWUtocWJiUQAAAABJqNm2FnBCUjVzWGl5U0dlRjdHbzNUM0JHcHcAAAAASbPtjhZtWGNXUnowUVJqbTkybE9hOUg3NXZ3AAAAAEmpvEgWVUU0emNjb0pRREtfVTBqRXNOVTlIQQAAAABJqNmyFnBCUjVzWGl5U0dlRjdHbzNUM0JHcHcAAAAASbPtkhZtWGNXUnowUVJqbTkybE9hOUg3NXZ3AAAAAEmpvEcWVUU0emNjb0pRREtfVTBqRXNOVTlIQQAAAABJpWTDFm9jeDZhdG9BVHppRHJyemF4dUgwOUEAAAAASam8RRZVRTR6Y2NvSlFES19VMGpFc05VOUhBAAAAAEmpvEMWVUU0emNjb0pRREtfVTBqRXNOVTlIQQAAAABJqNm8FnBCUjVzWGl5U0dlRjdHbzNUM0JHcHcAAAAASaVkzBZvY3g2YXRvQVR6aURycnpheHVIMDlBAAAAAEmz7ZUWbVhjV1J6MFFSam05MmxPYTlINzV2dwAAAABJrSRBFk12SFNUcEg3UkI2aU9jZ1lLaHFiYlEAAAAASa0kQhZNdkhTVHBIN1JCNmlPY2dZS2hxYmJRAAAAAEmlZMUWb2N4NmF0b0FUemlEcnJ6YXh1SDA5QQAAAABJs-2YFm1YY1dSejBRUmptOTJsT2E5SDc1dncAAAAASaVkyBZvY3g2YXRvQVR6aURycnpheHVIMDlBAAAAAEmlZNIWb2N4NmF0b0FUemlEcnJ6YXh1SDA5QQAAAABJqNm1FnBCUjVzWGl5U0dlRjdHbzNUM0JHcHcAAAAASbPtmRZtWGNXUnowUVJqbTkybE9hOUg3NXZ3AAAAAEmo2bQWcEJSNXNYaXlTR2VGN0dvM1QzQkdwdwAAAABJqbxOFlVFNHpjY29KUURLX1UwakVzTlU5SEEAAAAASam8UBZVRTR6Y2NvSlFES19VMGpFc05VOUhBAAAAAEmtJEUWTXZIU1RwSDdSQjZpT2NnWUtocWJiUQAAAABJqNm5FnBCUjVzWGl5U0dlRjdHbzNUM0JHcHcAAAAASam8ShZVRTR6Y2NvSlFES19VMGpFc05VOUhBAAAAAEmlZM0Wb2N4NmF0b0FUemlEcnJ6YXh1SDA5QQAAAABJrSRGFk12SFNUcEg3UkI2aU9jZ1lLaHFiYlEAAAAASa0kRBZNdkhTVHBIN1JCNmlPY2dZS2hxYmJRAAAAAEmlZMoWb2N4NmF0b0FUemlEcnJ6YXh1SDA5QQAAAABJrSRJFk12SFNUcEg3UkI2aU9jZ1lLaHFiYlEAAAAASaVkyxZvY3g2YXRvQVR6aURycnpheHVIMDlBAAAAAEmlZMkWb2N4NmF0b0FUemlEcnJ6YXh1SDA5QQAAAABJpWTOFm9jeDZhdG9BVHppRHJyemF4dUgwOUEAAAAASbPtnhZtWGNXUnowUVJqbTkybE9hOUg3NXZ3AAAAAEmo2boWcEJSNXNYaXlTR2VGN0dvM1QzQkdwdwAAAABJs-2cFm1YY1dSejBRUmptOTJsT2E5SDc1dnc=",
+    "noMoreScrollResults": true,
+    "hits": [
+      {
+        "keywords": {
+          "teeft": [
+            "anice",
+            "este",
+            "cuvinte",
+            "fost",
+            "limbii",
+            "latina",
+            "limbile",
+            "limba",
+            "dintre",
+            "alte",
+            "anic",
+            "limbus",
+            "asupra",
+            "fenom",
+            "aceasta",
+            "exista",
+            "stru",
+            "cele",
+            "vezi",
+            "aceste",
+            "ulte",
+            "vocabularul",
+            "cuvintele",
+            "doua",
+            "avut",
+            "bucuresti",
+            "celelalte",
+            "elem",
+            "vechi",
+            "origine",
+            "reprezentativ",
+            "enii",
+            "greaca",
+            "prim",
+            "bilor",
+            "istoria",
+            "unei",
+            "romanica",
+            "fischer",
+            "unele",
+            "fapt",
+            "romance philology",
+            "vocabularul reprezentativ",
+            "linguistique",
+            "franceza",
+            "acest",
+            "toate",
+            "daca",
+            "secolul",
+            "deci",
+            "latine",
+            "occidentale",
+            "secolele",
+            "lexicului",
+            "cuvintelor",
+            "astfel",
+            "anice occidentale",
+            "serie",
+            "schim",
+            "slava",
+            "latinei",
+            "ritescu",
+            "aniei",
+            "acestor",
+            "rtan",
+            "cazul",
+            "dupa",
+            "erau",
+            "periului",
+            "celor",
+            "poate",
+            "cadem",
+            "aticale",
+            "fiind",
+            "ului",
+            "sala",
+            "ntre",
+            "fonetice",
+            "eroase",
+            "intre",
+            "alte limbus",
+            "spre",
+            "istoria limbii",
+            "epoca",
+            "nesc",
+            "slavona",
+            "baza",
+            "faptul",
+            "istorice",
+            "casa",
+            "ale",
+            "limba limb",
+            "term enii",
+            "celelalte limbus",
+            "revue roumaine",
+            "aproxim ativ",
+            "spre deosebire",
+            "limbii latine",
+            "fenom enul",
+            "toate limbile",
+            "emprunts latin",
+            "langues romanes",
+            "limba bucuresti",
+            "alte cazuri",
+            "univers enciclopedic",
+            "philology"
+          ]
+        },
+        "author": [
+          {
+            "name": "Marius Sala"
+          }
+        ],
+        "host": {
+          "volume": "63",
+          "publisherId": ["rph"],
+          "pages": {
+            "last": "23",
+            "first": "1"
+          },
+          "issn": ["0035-8002"],
+          "issue": "2",
+          "genre": ["journal"],
+          "language": ["unknown"],
+          "eissn": ["2295-9017"],
+          "title": "Romance Philology"
+        },
+        "arkIstex": "ark:/67375/NDQ-W42TSQDR-H",
+        "language": ["rum"],
+        "title": "Limba română, limbă romanică",
+        "publicationDate": "2009",
+        "doi": ["10.1484/J.RPH.3.16"],
+        "id": "4D9A25029826EA22B35CAC2A11C9C6547BAB52D3",
+        "score": 8.213598,
+        "fulltext": [
+          {
+            "extension": "pdf",
+            "original": true,
+            "mimetype": "application/pdf",
+            "uri": "https://api.istex.fr/ark:/67375/NDQ-W42TSQDR-H/fulltext.pdf"
+          },
+          {
+            "extension": "zip",
+            "original": false,
+            "mimetype": "application/zip",
+            "uri": "https://api.istex.fr/ark:/67375/NDQ-W42TSQDR-H/bundle.zip"
+          },
+          {
+            "extension": "txt",
+            "original": false,
+            "mimetype": "text/plain",
+            "uri": "https://api.istex.fr/ark:/67375/NDQ-W42TSQDR-H/fulltext.txt"
+          },
+          {
+            "extension": "tei",
+            "original": false,
+            "mimetype": "application/tei+xml",
+            "uri": "https://api.istex.fr/ark:/67375/NDQ-W42TSQDR-H/fulltext.tei"
+          }
+        ]
+      },
+      {
+        "host": {
+          "volume": "30",
+          "publisherId": ["rstl"],
+          "pages": {
+            "last": "1114",
+            "first": "1109"
+          },
+          "issn": ["0260-7085"],
+          "issue": "363",
+          "genre": ["journal"],
+          "language": ["unknown"],
+          "eissn": ["2053-9215"],
+          "title": "Philosophical Transactions"
+        },
+        "arkIstex": "ark:/67375/V84-23MC4096-8",
+        "language": ["rum"],
+        "title": "VIII. Nuper & Observationes Astronomicæ cum Regia Societate communicatæ.",
+        "publicationDate": "1719",
+        "doi": ["10.1098/rstl.1717.0076"],
+        "id": "76ED9FE6F9BFC79F9D03603A0467DE5938FA5510",
+        "score": 9.207937,
+        "fulltext": [
+          {
+            "extension": "pdf",
+            "original": true,
+            "mimetype": "application/pdf",
+            "uri": "https://api.istex.fr/ark:/67375/V84-23MC4096-8/fulltext.pdf"
+          },
+          {
+            "extension": "zip",
+            "original": false,
+            "mimetype": "application/zip",
+            "uri": "https://api.istex.fr/ark:/67375/V84-23MC4096-8/bundle.zip"
+          },
+          {
+            "extension": "txt",
+            "original": false,
+            "mimetype": "text/plain",
+            "uri": "https://api.istex.fr/ark:/67375/V84-23MC4096-8/fulltext.txt"
+          },
+          {
+            "extension": "tei",
+            "original": false,
+            "mimetype": "application/tei+xml",
+            "uri": "https://api.istex.fr/ark:/67375/V84-23MC4096-8/fulltext.tei"
+          }
+        ]
+      }
+    ]
+  }
+]
