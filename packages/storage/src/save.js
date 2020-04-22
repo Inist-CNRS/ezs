@@ -13,6 +13,7 @@ import { validKey } from './identify';
  */
 export default async function save(data, feed) {
     const { ezs } = this;
+    const location = this.getParam('location');
     const protocol = this.getParam('protocol', 'http:');
     const host = this.getParam('host', `${hostname()}:${ezs.settings.port}`);
     const reset = Boolean(this.getParam('reset', false));
@@ -22,7 +23,7 @@ export default async function save(data, feed) {
     const domainName = this.getParam('domain', 'ezs');
     const domain = Array.isArray(domainName) ? domainName.shift() : domainName;
     if (!this.store) {
-        this.store = new Store(this.ezs, domain);
+        this.store = new Store(this.ezs, domain, location);
     }
     if (this.isFirst() && reset === true) {
         this.store.reset();

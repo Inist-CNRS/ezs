@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.4.0...@ezs/lodex@1.5.0) (2020-04-17)
+
+
+### Features
+
+* 🎸 add injectCountFrom statement ([ea4331f](https://github.com/Inist-CNRS/ezs/commit/ea4331f0dbf75b1165c7e1d0ece5bc95f01b5a3f))
+
+
+
+
+
 # [1.4.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.3.12...@ezs/lodex@1.4.0) (2020-03-31)
 
 

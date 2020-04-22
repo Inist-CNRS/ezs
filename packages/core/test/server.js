@@ -629,15 +629,15 @@ describe('dispatch through server(s)', () => {
             '127.0.0.1:30003',
         ];
         let res = 0;
-        const ten = new Upto(500001);
+        const ten = new Upto(50001);
         ten
-            .pipe(ezs('replace', { path: 'a', value: '2' }))
+            .pipe(ezs('replace', { path: 'a', value: 'à remplacer' }))
             .pipe(ezs('dispatch', { server, commands })) // ~ 9 seconds
             .on('data', (chunk) => {
                 res += chunk.a;
             })
             .on('end', () => {
-                assert.strictEqual(res, 500000);
+                assert.strictEqual(res, 50000);
                 done();
             });
     }, 200000);
@@ -666,7 +666,7 @@ describe('dispatch through server(s)', () => {
                 assert.strictEqual(res, 10000);
                 done();
             });
-    }, 50000);
+    }, 500000);
 
 
     it('with a same commands', (done) => {

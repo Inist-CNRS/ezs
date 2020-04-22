@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.4.1...@ezs/analytics@1.4.2) (2020-04-20)
+
+
+### Bug Fixes
+
+* 🐛 enable percentage ([0590713](https://github.com/Inist-CNRS/ezs/commit/0590713576a229ebcc1637709ed5a4b65b4da088))
+
+
+
+
+
+## [1.4.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.4.0...@ezs/analytics@1.4.1) (2020-04-17)
+
+
+### Bug Fixes
+
+* 🐛 not existing keys ([7f9b5e7](https://github.com/Inist-CNRS/ezs/commit/7f9b5e7b21fe0d6f452b0dd2e6b2ecd51b5664fd))
+
+
+
+
+
+# [1.4.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.3.4...@ezs/analytics@1.4.0) (2020-04-17)
+
+
+### Features
+
+* 🎸 add [statistics] statement ([85cbd9c](https://github.com/Inist-CNRS/ezs/commit/85cbd9c774d1ae5edd6224f73723d65639200086))
+
+
+
+
+
 ## [1.3.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.3.3...@ezs/analytics@1.3.4) (2020-04-06)
 
 

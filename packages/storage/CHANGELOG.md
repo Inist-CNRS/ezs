@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.9](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@0.1.8...@ezs/storage@1.1.9) (2020-04-17)
+
+
+### Bug Fixes
+
+* 🐛 storage is stablex ([33133cb](https://github.com/Inist-CNRS/ezs/commit/33133cbcd5b492874c379eb5d8d27e6bfca45097))
+
+
+
+
+
+## [0.1.8](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@0.1.7...@ezs/storage@0.1.8) (2020-04-17)
+
+
+### Bug Fixes
+
+* **storage:** wrong storage path ([01b86bc](https://github.com/Inist-CNRS/ezs/commit/01b86bc07028d084ee37d0b29d153430dbf0a5fe))
+
+
+
+
+
 ## [0.1.7](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@0.1.6...@ezs/storage@0.1.7) (2020-04-06)
 
 

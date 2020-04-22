@@ -249,7 +249,7 @@ describe('mongo queries', () => {
                 },
             ])
                 .pipe(ezs('LodexRunQuery'))
-                .pipe(ezs('debug'))
+                // .pipe(ezs('debug'))
                 .on('data', (data) => {
                     res = [...res, data];
                 })
@@ -481,14 +481,14 @@ describe('mongo queries', () => {
                 .on('end', () => {
                     expect(res).toHaveLength(3);
                     expect(res[0].source).toEqual('ark:/67375/XTP-1JC4F85T-7');
-                    expect(res[0]['source-title']).toEqual('research-article');
-                    expect(res[0]['source-summary']).toContain('Il s’agit d’une source primaire. ');
+                    expect(res[0].source_title).toEqual('research-article');
+                    expect(res[0].source_summary).toContain('Il s’agit d’une source primaire. ');
                     expect(res[1].source).toEqual('ark:/67375/XTP-HPN7T1Q2-R');
-                    expect(res[1]['source-title']).toEqual('abstract');
-                    expect(res[1]['source-summary']).toContain('Résumé d’un papier ou ');
+                    expect(res[1].source_title).toEqual('abstract');
+                    expect(res[1].source_summary).toContain('Résumé d’un papier ou ');
                     expect(res[2].source).toEqual('ark:/67375/XTP-HPN7T1Q2-R');
-                    expect(res[2]['source-title']).toEqual('abstract');
-                    expect(res[2]['source-summary']).toEqual('Résumé d’un papier ou d’une présentation qui a été '
+                    expect(res[2].source_title).toEqual('abstract');
+                    expect(res[2].source_summary).toEqual('Résumé d’un papier ou d’une présentation qui a été '
                         + 'présentée ou publiée séparément.');
                     done();
                 });
@@ -652,6 +652,33 @@ describe('mongo queries', () => {
                             'versions.tfFF': 'The Lancet',
                         }],
                     });
+                    done();
+                });
+        });
+    });
+
+    describe('countField', () => {
+        beforeEach(() => initDb(connectionStringURI, publishedDataset));
+        afterEach(() => drop());
+
+        it('should return results', (done) => {
+            let res = [];
+            from([{
+                connectionStringURI,
+            }])
+                .pipe(ezs('LodexRunQuery'))
+                .pipe(ezs('filterVersions'))
+                .pipe(ezs('injectCountFrom', {
+                    connectionStringURI,
+                    path: '6gfz',
+                    field: '6gfz',
+                }))
+                .on('data', (data) => {
+                    expect(data['6gfz_count']).toBeGreaterThanOrEqual(1);
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    expect(res).toHaveLength(10);
                     done();
                 });
         });

@@ -9,8 +9,9 @@ import { validKey } from './identify';
  */
 export default async function load(data, feed) {
     const domain = this.getParam('domain', 'ezs');
+    const location = this.getParam('location');
     if (!this.store) {
-        this.store = new Store(this.ezs, domain);
+        this.store = new Store(this.ezs, domain, location);
     }
     if (this.isLast()) {
         this.store.close();

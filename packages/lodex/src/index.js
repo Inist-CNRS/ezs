@@ -25,6 +25,7 @@ import getFields from './getFields';
 import getCharacteristics from './getCharacteristics';
 import injectDatasetFields from './injectDatasetFields';
 import injectSyndicationFrom from './injectSyndicationFrom';
+import injectCountFrom from './injectCountFrom';
 import labelizeFieldID from './labelizeFieldID';
 import buildContext from './buildContext';
 
@@ -50,6 +51,7 @@ export default {
     getCharacteristics,
     injectDatasetFields,
     injectSyndicationFrom,
+    injectCountFrom,
     labelizeFieldID,
     runQuery,
     reduceQuery,
@@ -70,4 +72,6 @@ export default {
     LodexReduceQuery: reduceQuery.reduceQuery,
     LodexOutput: formatOutput.formatOutput,
     LodexBuildContext: buildContext.buildContext,
+    LodexInjectSyndicationFrom: injectSyndicationFrom.injectSyndicationFrom,
+    LodexInjectCountFrom: injectCountFrom.injectCountFrom,
 };
