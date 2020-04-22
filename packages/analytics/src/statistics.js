@@ -3,9 +3,35 @@ import get from 'lodash.get';
 import set from 'lodash.set';
 import Store from './store';
 
+const hashCoerce = hasher({
+    sort: false,
+    coerce: true,
+});
+
+// https://gist.github.com/RedBeard0531/1886960
+const calculating = (values) => {
+    const a = values[0]; // will reduce into here
+    for (let i = 1/*!*/; i < values.length; i += 1) {
+        const b = values[i]; // will merge 'b' into 'a'
+
+        // temp helpers
+        const delta = a.sum / a.count - b.sum / b.count; // a.mean - b.mean
+        const weight = (a.count * b.count) / (a.count + b.count);
+
+        // do the reducing
+        a.diff += b.diff + delta * delta * weight;
+        a.sum += b.sum;
+        a.count += b.count;
+        a.min = Math.min(a.min, b.min);
+        a.max = Math.max(a.max, b.max);
+    }
+    return a;
+};
+
 /**
- * Take `Object` object and getting the value field
+ * Compute some statistics from one or more fields
  *
+ * @example <caption>Input</caption>
  * ```json
  * [
  *  { a: 1, },
@@ -17,8 +43,7 @@ import Store from './store';
  * ]
  * ```
  *
- * Script:
- *
+ * @example <caption>Script</caption>
  * ```ini
  * [use]
  * plugin = analytics
@@ -28,8 +53,7 @@ import Store from './store';
  *
  * ```
  *
- * Output:
- *
+ * @example <caption>Output</caption>
  * ```json
  * [{
  *     "a": 1,
@@ -92,37 +116,13 @@ import Store from './store';
  *    }
  * }]
  * ```
- * Compute some statistics from one or more fields
  *
+ * @export
+ * @name statistics
  * @param {String} [path=value] path of the value field
  * @param {String} [target=_statistics] path of statistics in output object
  * @returns {Object}
  */
-const hashCoerce = hasher({
-    sort: false,
-    coerce: true,
-});
-
-// https://gist.github.com/RedBeard0531/1886960
-const calculating = (values) => {
-    const a = values[0]; // will reduce into here
-    for (let i = 1/*!*/; i < values.length; i += 1) {
-        const b = values[i]; // will merge 'b' into 'a'
-
-        // temp helpers
-        const delta = a.sum / a.count - b.sum / b.count; // a.mean - b.mean
-        const weight = (a.count * b.count) / (a.count + b.count);
-
-        // do the reducing
-        a.diff += b.diff + delta * delta * weight;
-        a.sum += b.sum;
-        a.count += b.count;
-        a.min = Math.min(a.min, b.min);
-        a.max = Math.max(a.max, b.max);
-    }
-    return a;
-};
-
 export default function statistics(data, feed) {
     const path = this.getParam('path', 'value');
     const target = this.getParam('target', '_statistics');

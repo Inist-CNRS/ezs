@@ -46,8 +46,8 @@ npm install @ezs/analytics
 -   [multiply](#multiply)
 -   [distance](#distance)
 -   [segment](#segment)
--   [hashCoerce](#hashcoerce)
 -   [tune](#tune)
+-   [statistics](#statistics)
 
 ### keys
 
@@ -1198,10 +1198,52 @@ Output:
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### hashCoerce
+### tune
 
-Take `Object` object and getting the value field
+Take all `Object` and sort them with selected field
 
+```json
+[{
+}]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[tune]
+```
+
+Output:
+
+```json
+[
+]
+```
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for the sort key (optional, default `id`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### statistics
+
+Compute some statistics from one or more fields
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the value field (optional, default `value`)
+-   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of statistics in output object (optional, default `_statistics`)
+
+#### Examples
+
+Input
+
+
+````javascript
 ```json
 [
  { a: 1, },
@@ -1212,19 +1254,26 @@ Take `Object` object and getting the value field
  { a: 3, },
 ]
 ```
+````
 
-Script:
+Script
 
+
+````javascript
 ```ini
 [use]
 plugin = analytics
 
 [statistics]
 path = a
+
 ```
+````
 
-Output:
+Output
 
+
+````javascript
 ```json
 [{
     "a": 1,
@@ -1287,43 +1336,6 @@ Output:
    }
 }]
 ```
-
-Compute some statistics from one or more fields
-
-#### Parameters
-
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the value field (optional, default `value`)
--   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of statistics in output object (optional, default `_statistics`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### tune
-
-Take all `Object` and sort them with selected field
-
-```json
-[{
-}]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[tune]
-```
-
-Output:
-
-```json
-[
-]
-```
-
-#### Parameters
-
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for the sort key (optional, default `id`)
+````
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
