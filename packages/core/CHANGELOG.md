@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.8.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.8.2...@ezs/core@1.8.3) (2020-04-27)
+
+
+### Bug Fixes
+
+* 🐛 avoid confusion with ezs_concurrency ([0b60acd](https://github.com/Inist-CNRS/ezs/commit/0b60acd12343d5bd51e74e9548adfbfd202cba63))
+
+
+
+
+
 ## [1.8.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.8.1...@ezs/core@1.8.2) (2020-04-17)
 
 **Note:** Version bump only for package @ezs/core
