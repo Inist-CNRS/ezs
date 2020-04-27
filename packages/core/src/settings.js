@@ -1,7 +1,6 @@
 import os from 'os';
 
 const cpus = os.cpus().length;
-
 const settings = {
     highWaterMark: {
         object: Number(process.env.EZS_HIGHWATERMARK_OBJECT || 16),

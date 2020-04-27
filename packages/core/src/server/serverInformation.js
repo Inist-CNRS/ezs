@@ -6,7 +6,9 @@ import {
 
 const getInformations = (dirPath) => new Promise((resolve) => {
     const infos = {
-        concurrency: settings.nShards,
+        concurrency: settings.queue.concurrency,
+        nShards: settings.nShards,
+        encoding: settings.encoding,
         uptime: Date.now() - STARTED_AT,
         timestamp: Date.now(),
         version: VERSION,
@@ -19,8 +21,8 @@ const getInformations = (dirPath) => new Promise((resolve) => {
     return dir.files(dirPath, (err, files) => {
         const filenames = err ? [] : files;
         const scripts = filenames
-            .filter(f => (f.search(/\.(ini|ezs)$/) > 0))
-            .map(f => f.replace(dirPath, ''));
+            .filter((f) => (f.search(/\.(ini|ezs)$/) > 0))
+            .map((f) => f.replace(dirPath, ''));
         return resolve({
             ...infos,
             scripts,
