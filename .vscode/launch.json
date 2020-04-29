@@ -10,7 +10,7 @@
       "request": "launch",
       "args": [
         // "--runInBand",
-        "/packages/istex/test/tests.js",
+        "/packages/istex/test/${fileBasename}",
         "--maxWorkers",
         "4"
       ],

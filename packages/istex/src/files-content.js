@@ -40,7 +40,9 @@ function ISTEXFilesContent(data, feed) {
     }).then((content) => feed.send({
         ...data,
         content,
-    })).catch(() => feed.end());
+    })).catch((e) => {
+        feed.stop(e);
+    });
 }
 
 export default {

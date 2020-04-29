@@ -1,0 +1,49 @@
+{
+  "_comment": "Objet documentaire identifié par l'indentifiant ARK ark:/67375/QHD-T00H6VNF-0. Liste des typologies et formats disponibles correspondant",
+  "idIstex": "87699D0C20258C18259DED2A5E63B9A50F3B3363",
+  "arkIstex": "ark:/67375/QHD-T00H6VNF-0",
+  "title": "Photoswitching of monomeric and dimeric DNA-intercalating cyanine dyes for super-resolution microscopy applications",
+  "typologies": {
+    "bundle": [
+      {
+        "format": "zip",
+        "mimetype": "application/zip",
+        "uri": "https://api.istex.fr/ark:/67375/QHD-T00H6VNF-0/bundle.zip"
+      }
+    ],
+    "fulltext": [
+      {
+        "format": "pdf",
+        "mimetype": "application/pdf",
+        "uri": "https://api.istex.fr/ark:/67375/QHD-T00H6VNF-0/fulltext.pdf"
+      },
+      {
+        "format": "tei",
+        "mimetype": "application/tei+xml",
+        "uri": "https://api.istex.fr/ark:/67375/QHD-T00H6VNF-0/fulltext.tei"
+      },
+      {
+        "format": "txt",
+        "mimetype": "text/plain",
+        "uri": "https://api.istex.fr/ark:/67375/QHD-T00H6VNF-0/fulltext.txt"
+      }
+    ],
+    "record": [
+      {
+        "format": "json",
+        "mimetype": "application/json",
+        "uri": "https://api.istex.fr/ark:/67375/QHD-T00H6VNF-0/record.json"
+      },
+      {
+        "format": "mods",
+        "mimetype": "application/mods+xml",
+        "uri": "https://api.istex.fr/ark:/67375/QHD-T00H6VNF-0/record.mods"
+      },
+      {
+        "format": "xml",
+        "mimetype": "application/xml",
+        "uri": "https://api.istex.fr/ark:/67375/QHD-T00H6VNF-0/record.xml"
+      }
+    ]
+  }
+}
