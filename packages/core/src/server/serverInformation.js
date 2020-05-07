@@ -6,8 +6,7 @@ import {
 
 const getInformations = (dirPath) => new Promise((resolve) => {
     const infos = {
-        concurrency: settings.queue.concurrency,
-        nShards: settings.nShards,
+        concurrency: settings.concurrency,
         encoding: settings.encoding,
         uptime: Date.now() - STARTED_AT,
         timestamp: Date.now(),

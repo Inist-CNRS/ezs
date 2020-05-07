@@ -307,7 +307,7 @@ describe('delegate through file(s)', () => {
             },
         ];
         let res = 0;
-        const ten = new Upto(500001);
+        const ten = new Upto(50001);
         ten
             .pipe(ezs('replace', { path: 'a', value: '2' }))
             .pipe(ezs('delegate', { commands })) // ~ 9 seconds
@@ -315,10 +315,10 @@ describe('delegate through file(s)', () => {
                 res += chunk.a;
             })
             .on('end', () => {
-                assert.strictEqual(res, 500000);
+                assert.strictEqual(res, 50000);
                 done();
             });
-    }, 100000);
+    }, 1000000);
 
     it('with stuck/unstuck simple pipeline', (done) => {
         const script = `

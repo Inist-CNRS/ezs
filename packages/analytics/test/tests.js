@@ -1110,7 +1110,8 @@ describe('test', () => {
             { a: 'x', b: 'z' },
             { a: 'x', b: 'z' },
         ])
-            .pipe(ezs('aggregate', { path: 'a' }))
+            .pipe(ezs('aggregate', { id: 'a' }))
+            .pipe(ezs('summing'))
             .on('data', (chunk) => {
                 assert(typeof chunk === 'object');
                 res.push(chunk);
@@ -1131,7 +1132,8 @@ describe('test', () => {
             { a: ['x', 'x'], b: 'z' },
             { a: ['x', 'x'], b: 'z' },
         ])
-            .pipe(ezs('aggregate', { path: 'a' }))
+            .pipe(ezs('aggregate', { id: 'a' }))
+            .pipe(ezs('summing'))
             .on('data', (chunk) => {
                 assert(typeof chunk === 'object');
                 res.push(chunk);
@@ -1143,5 +1145,50 @@ describe('test', () => {
                 done();
             });
     });
+    it('aggregate #3', (done) => {
+        const res = [];
+        from([
+            { a: 'x', b: 3 },
+            { a: 't', b: 2 },
+            { a: 't', b: 3 },
+            { a: 'x', b: 1 },
+            { a: 'x', b: 4 },
+        ])
+            .pipe(ezs('aggregate', { id: ['a', 'x'], value: 'b' }))
+            .pipe(ezs('summing'))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.length, 2);
+                assert.equal(res[0].value, 8);
+                assert.equal(res[1].value, 5);
+                done();
+            });
+    });
+
+    it('aggregate #4', (done) => {
+        const res = [];
+        from([
+            { a: 'x', b: 3 },
+            { a: 't', b: 2 },
+            { a: 't', b: 3 },
+            { a: 'x', b: 1 },
+            { a: 'x', b: 4 },
+        ])
+            .pipe(ezs('aggregate', { id: 'unknow' }))
+            .pipe(ezs('summing'))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.length, 0);
+                done();
+            });
+    });
+
+
 
 });

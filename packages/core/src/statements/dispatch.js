@@ -6,10 +6,10 @@ import { inspectServers, connectServer } from '../client';
  * Takes an `Object` dispatch processing to an external pipeline on one or more servers
  *
  * @name dispatch
- * @param {String} [server] servers to dispatch data
- * @param {String} [file] the external pipeline is descrbied in a file
- * @param {String} [script] the external pipeline is descrbied in a sting of characters
- * @param {String} [commands] the external pipeline is descrbied in object
+ * @param {String} [file] the external pipeline is described in a file
+ * @param {String} [script] the external pipeline is described in a string of characters
+ * @param {String} [commands] the external pipeline is described in a object
+ * @param {String} [command] the external pipeline is described in a URL-like command
  * @returns {Object}
  */
 export default function dispatch(data, feed) {
@@ -19,8 +19,10 @@ export default function dispatch(data, feed) {
         const file = this.getParam('file');
         const fileContent = ezs.loadScript(file);
         const script = this.getParam('script', fileContent);
-        const cmds = ezs.compileScript(script);
-        const commands = this.getParam('commands', cmds.get());
+        const cmd1 = ezs.compileScript(script).get();
+        const command = this.getParam('command');
+        const cmd2 = [].concat(command).map(ezs.parseCommand).filter(Boolean);
+        const commands = this.getParam('commands', cmd1.concat(cmd2));
         const environment = this.getEnv();
         const servers = inspectServers(
             this.getParam('server', []),
@@ -34,8 +36,9 @@ export default function dispatch(data, feed) {
             || !commands
             || commands.length === 0
         ) {
-            return feed.stop(new Error('Invalid parmeter for dispatch'));
+            return feed.stop(new Error('Invalid parmeter for [dispatch]'));
         }
+        debug('ezs')(`[dispatch] connect to #${servers.length} servers.`);
         const handles = servers.map(connectServer(ezs));
         this.ins = handles.map((h) => h[0]);
         this.outs = handles.map((h) => h[1]);
@@ -56,12 +59,6 @@ export default function dispatch(data, feed) {
         if (this.lastIndex >= this.ins.length) {
             this.lastIndex = 0;
         }
-        debug('ezs')(
-            `Write chunk #${this.getIndex()} containing ${Object.keys(data)
-                .length || 0} keys into handle #${this.lastIndex + 1}/${
-                this.ins.length
-            }`,
-        );
         const check = ezs.writeTo(this.ins[this.lastIndex], data, () => feed.end());
         if (!check) {
             this.lastIndex += 1;
