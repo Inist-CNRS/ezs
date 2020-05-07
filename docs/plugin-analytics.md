@@ -34,10 +34,10 @@ npm install @ezs/analytics
 -   [groupingByEquality](#groupingbyequality)
 -   [distribute](#distribute)
 -   [groupingByHamming](#groupingbyhamming)
--   [aggregate](#aggregate)
 -   [groupingByLevenshtein](#groupingbylevenshtein)
 -   [groupingByModulo](#groupingbymodulo)
 -   [reducing](#reducing)
+-   [aggregate](#aggregate)
 -   [sort](#sort)
 -   [distinct](#distinct)
 -   [merging](#merging)
@@ -646,44 +646,6 @@ Output:
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### aggregate
-
-Aggregate by id and count
-
-```json
-[{
-         { id: 'x', value: 2 },
-         { id: 't', value: 2 },
-         { id: 'x', value: 3 },
-         { id: 'x', value: 5 },
-}]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[aggregate]
-path = id
-```
-
-Output:
-
-```json
-[
-         { id: 'x', value: 3 },
-         { id: 't', value: 1  },
-]
-```
-
-#### Parameters
-
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
 ### groupingByLevenshtein
 
 Take `Object` like `{ id, value }` and reduce all `value`s with
@@ -786,6 +748,45 @@ Output:
 
 -   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### aggregate
+
+Aggregate by id and count
+
+```json
+[{
+         { id: 'x', value: 2 },
+         { id: 't', value: 2 },
+         { id: 'x', value: 3 },
+         { id: 'x', value: 5 },
+}]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[aggregate]
+path = id
+```
+
+Output:
+
+```json
+[
+         { id: 'x', value: [ 2, 3, 5] },
+         { id: 't', value: [ 2 ]  },
+]
+```
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (if not found 1 is the default value) (optional, default `value`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 

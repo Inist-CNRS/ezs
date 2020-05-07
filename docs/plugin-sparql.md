@@ -20,7 +20,8 @@ npm install @ezs/sparql
 
 ### SPARQLDecodeQuery
 
--   **See: SPARQLQuery**
+-   **See: SPARQLQuery
+    **
 
 Take a query share link from a YASGUI editor and convert it into an object
 which contains the query and the endpoint. Then, it could be used by `SPARQLQuery` instruction.
@@ -97,7 +98,8 @@ Ouput:
 
 ### SPARQLToDistinct
 
--   **See: SPARQLQuery**
+-   **See: SPARQLQuery
+    **
 
 Format SPARQLQuery result as a LODEX routine.
 

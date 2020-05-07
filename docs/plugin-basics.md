@@ -112,7 +112,8 @@ Returns **any** <Object>
 
 ### OBJFlatten
 
--   **See: <https://www.npmjs.com/package/flat>**
+-   **See: <https://www.npmjs.com/package/flat>
+    **
 
 Take `Object` and flat it with delimited character.
 
@@ -142,7 +143,8 @@ Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### CSVParse
 
--   **See: <https://github.com/Inist-CNRS/node-csv-string>**
+-   **See: <https://github.com/Inist-CNRS/node-csv-string>
+    **
 
 Take `String` and parse CSV  to generate object
 
@@ -155,7 +157,8 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### JSONParse
 
--   **See: <https://github.com/dominictarr/JSONStream>**
+-   **See: <https://github.com/dominictarr/JSONStream>
+    **
 
 Take `String` and parse JSON and generate objects
 
@@ -184,7 +187,8 @@ Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### XMLParse
 
--   **See: <https://www.npmjs.com/package/xml-splitter>**
+-   **See: <https://www.npmjs.com/package/xml-splitter>
+    **
 
 Take `String` as XML input, parse it and split it in multi document at each path found
 
