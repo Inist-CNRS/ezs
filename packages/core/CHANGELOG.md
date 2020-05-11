@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.8.3...@ezs/core@1.9.0) (2020-05-11)
+
+
+### Bug Fixes
+
+* 🐛 missing files ([049270b](https://github.com/Inist-CNRS/ezs/commit/049270b6073dee315a078f2e863e61d7000faa5b))
+* avoid useless loop ([502f7a5](https://github.com/Inist-CNRS/ezs/commit/502f7a5fa28d767b858a969b890bbd63e77c48c0))
+
+
+### Features
+
+* 🎸 improve : mode / cache / cli ([8ee1993](https://github.com/Inist-CNRS/ezs/commit/8ee1993724d71b0c0fe1fae9b3929a7dcb1693c5))
+
+
+
+
+
 ## [1.8.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.8.2...@ezs/core@1.8.3) (2020-04-27)
 
 

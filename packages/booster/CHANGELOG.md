@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/booster@1.1.15...@ezs/booster@1.2.0) (2020-05-11)
+
+
+### Features
+
+* 🎸 improve : mode / cache / cli ([8ee1993](https://github.com/Inist-CNRS/ezs/commit/8ee1993724d71b0c0fe1fae9b3929a7dcb1693c5))
+
+
+
+
+
 ## [1.1.15](https://github.com/Inist-CNRS/ezs/compare/@ezs/booster@1.1.14...@ezs/booster@1.1.15) (2020-04-27)
 
 **Note:** Version bump only for package @ezs/booster
