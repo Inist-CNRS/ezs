@@ -132,7 +132,7 @@ describe('ISTEXUnzip', () => {
                 assert.equal(result[999].qualityIndicators.score, 2.699);
                 done();
             });
-    });
+    }, 10000);
 
     it('should return error when unzipping file', (done) => {
         fs.createReadStream('./packages/istex/test/data/istexUnzip.zip')
