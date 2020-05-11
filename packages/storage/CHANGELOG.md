@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@1.1.10...@ezs/storage@1.2.0) (2020-05-11)
+
+
+### Features
+
+* 🎸 improve : mode / cache / cli ([8ee1993](https://github.com/Inist-CNRS/ezs/commit/8ee1993724d71b0c0fe1fae9b3929a7dcb1693c5))
+
+
+
+
+
+## [1.1.10](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@1.1.9...@ezs/storage@1.1.10) (2020-04-27)
+
+**Note:** Version bump only for package @ezs/storage
+
+
+
+
+
 ## [1.1.9](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@0.1.8...@ezs/storage@1.1.9) (2020-04-17)
 
 

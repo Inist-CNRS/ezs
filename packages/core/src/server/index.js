@@ -71,7 +71,7 @@ function createServer(ezs, serverPort, serverPath) {
 function createCluster(ezs, serverPort, serverPath) {
     let term = false;
     if (cluster.isMaster) {
-        for (let i = 0; i < settings.nShards; i += 1) {
+        for (let i = 0; i < settings.concurrency; i += 1) {
             cluster.fork();
         }
         cluster.on('exit', () => {

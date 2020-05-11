@@ -28,13 +28,14 @@ import core from './core';
  *
  * ```json
  * [
- *          { id: 'x', value: 3 },
- *          { id: 't', value: 1  },
+ *          { id: 'x', value: [ 2, 3, 5] },
+ *          { id: 't', value: [ 2 ]  },
  * ]
  * ```
  *
  * @name aggregate
  * @param {String} [path=id] path to use for id
+ * @param {String} [value=value] path to use for value (if not found 1 is the default value)
  * @returns {Object}
  */
 export default function aggregate(data, feed) {
@@ -47,14 +48,18 @@ export default function aggregate(data, feed) {
         }
         feed.close();
     } else {
-        const path = this.getParam('path', 'id');
+        const path = this.getParam('id', 'id');
         const paths = Array.isArray(path) ? path : [path];
         paths.forEach((p) => {
-            const id = JSON.stringify(get(data, p));
-            if (this.store[id]) {
-                this.store[id] += 1;
-            } else {
-                this.store[id] = 1;
+            const key = get(data, p);
+            if (key) {
+                const id = JSON.stringify(key);
+                const value = get(data, this.getParam('value', 'value'), 1);
+                if (this.store[id]) {
+                    this.store[id].push(value);
+                } else {
+                    this.store[id] = [value];
+                }
             }
         });
         feed.end();

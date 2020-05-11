@@ -22,9 +22,10 @@ const computeHash = (commands, environment, chunk) => {
 /**
  * Takes an `Object` delegate processing to an external pipeline and cache the result
  *
- * @param {String} [file] the external pipeline is descrbied in a file
- * @param {String} [script] the external pipeline is descrbied in a sting of characters
- * @param {String} [commands] the external pipeline is descrbied in object
+ * @param {String} [file] the external pipeline is described in a file
+ * @param {String} [script] the external pipeline is described in a string of characters
+ * @param {String} [commands] the external pipeline is described in a object
+ * @param {String} [command] the external pipeline is described in a URL-like command
  * @param {String} [key] the cache key form the stream, in not provided, it's computed with the first chunk
  * @param {Number} [hitsByCheck=1000] Number of hits to verify the cache
  * @param {Number} [maxFiles=100] Number of hits to verify the cache
@@ -38,8 +39,11 @@ export default function booster(data, feed) {
         const file = this.getParam('file');
         const fileContent = ezs.loadScript(file);
         const script = this.getParam('script', fileContent);
-        const cmds = ezs.compileScript(script);
-        const commands = this.getParam('commands', cmds.get());
+        const cmd1 = ezs.compileScript(script).get();
+        const command = this.getParam('command');
+        const cmd2 = [].concat(command).map(ezs.parseCommand).filter(Boolean);
+        const commands = this.getParam('commands', cmd1.concat(cmd2));
+        const environment = this.getEnv();
         const key = this.getParam('key');
         const hitsByCheck = Number(this.getParam('hitsByCheck', 1000));
         const maxTotalSize = Number(this.getParam('maxTotalSize'));
@@ -47,7 +51,6 @@ export default function booster(data, feed) {
         const cleanupDelay = Number(this.getParam('cleanupDelay', 10 * 60 * 1000));
         const rootPath = this.getParam('rootPath');
         const directoryPath = this.getParam('directoryPath');
-        const environment = this.getEnv();
 
         if (!cacheHandle) {
             cacheHandle = new Cache({

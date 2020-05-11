@@ -545,14 +545,12 @@ describe('dispatch through server(s)', () => {
         const commands = [
             {
                 name: 'increment',
-                mode: 'detachable',
                 args: {
                     step: 3,
                 },
             },
             {
                 name: 'decrement',
-                mode: 'detachable',
                 args: {
                     step: 2,
                 },
@@ -579,14 +577,12 @@ describe('dispatch through server(s)', () => {
         const commands = [
             {
                 name: 'increment',
-                mode: 'detachable',
                 args: {
                     step: 3,
                 },
             },
             {
                 name: 'decrement',
-                mode: 'detachable',
                 args: {
                     step: 2,
                 },
@@ -616,7 +612,6 @@ describe('dispatch through server(s)', () => {
         const commands = [
             {
                 name: 'replace',
-                mode: 'detachable',
                 args: {
                     path: 'a',
                     value: 1,
@@ -629,7 +624,7 @@ describe('dispatch through server(s)', () => {
             '127.0.0.1:30003',
         ];
         let res = 0;
-        const ten = new Upto(50001);
+        const ten = new Upto(5001);
         ten
             .pipe(ezs('replace', { path: 'a', value: 'à remplacer' }))
             .pipe(ezs('dispatch', { server, commands })) // ~ 9 seconds
@@ -637,7 +632,7 @@ describe('dispatch through server(s)', () => {
                 res += chunk.a;
             })
             .on('end', () => {
-                assert.strictEqual(res, 50000);
+                assert.strictEqual(res, 5000);
                 done();
             });
     }, 200000);
@@ -647,7 +642,7 @@ describe('dispatch through server(s)', () => {
             [use]
             plugin = packages/core/test/locals
 
-            [beat?detachable]
+            [beat]
 
         `;
         const server = [
@@ -656,17 +651,17 @@ describe('dispatch through server(s)', () => {
             '127.0.0.1:30003',
         ];
         let res = 0;
-        const ten = new Upto(10001);
+        const ten = new Upto(5001);
         ten
             .pipe(ezs('dispatch', { script, server }))
             .on('data', (chunk) => {
                 res += chunk.beat;
             })
             .on('end', () => {
-                assert.strictEqual(res, 10000);
+                assert.strictEqual(res, 5000);
                 done();
             });
-    }, 500000);
+    }, 100000);
 
 
     it('with a same commands', (done) => {

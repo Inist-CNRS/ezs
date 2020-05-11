@@ -1,13 +1,13 @@
-import { parse } from 'querystring';
+import { parse, unescape } from 'querystring';
+import autocast from 'autocast';
 import Expression from './expression';
-import { M_NORMAL, M_ALL } from './constants';
 
 const regex = {
     section: /^\s*\[\s*([^\]]*)\s*\]\s*$/,
     param: /^\s*([\w.\-_]+)\s*[=: ]\s*(.*?)\s*$/,
     comment: /^\s*[;#].*$/,
 };
-
+const decodeURIComponent = (s) => autocast(unescape(s));
 const parseOpts = (obj) => {
     const res = {};
     Object.keys(obj).forEach((key) => {
@@ -18,22 +18,24 @@ const parseOpts = (obj) => {
 };
 
 export const parseCommand = (cmdline) => {
-    if (!cmdline) {
-        return cmdline;
+    if (!cmdline || typeof cmdline !== 'string') {
+        return false;
     }
     const matches1 = cmdline.match(/([:\w]+)\?(.*)/);
     let args = {};
-    let mode = M_NORMAL;
+    let mode = null;
     let name = 'debug';
     let use = '';
     const test = '';
     if (Array.isArray(matches1)) {
         let qstr;
         [, name, qstr] = matches1;
-        args = { ...parse(qstr) };
-        mode = M_ALL.reduce((prev, cur) => ((args[cur] !== undefined) ? cur : prev), M_NORMAL);
+        args = {
+            ...parse(qstr, null, null, { decodeURIComponent }),
+        };
+        mode = qstr;
     } else {
-        mode = M_NORMAL;
+        mode = null;
         name = cmdline;
     }
     if (name.indexOf(':') !== -1) {

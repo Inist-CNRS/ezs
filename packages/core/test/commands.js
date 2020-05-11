@@ -11,10 +11,13 @@ describe('analsye commands', () => {
             [increment]
             step = 1
 
-            [increment?unique]
+            [increment?parallel]
             step = 2
 
-            [increment?detachable]
+            [increment?parallel]
+            step = 2
+
+            [increment]
             step = 3
 
             [increment]
@@ -25,8 +28,9 @@ describe('analsye commands', () => {
         const cmdp = new Commands(commandsParsed);
         const commandsAnalysed = cmdp.analyse();
         assert.equal(commandsAnalysed.length, 3);
-        assert.equal(commandsAnalysed[0].cmds.length, 3);
+        assert.equal(commandsAnalysed[0].cmds.length, 2);
         assert.equal(commandsAnalysed[1].cmds.length, 2);
+        assert.equal(commandsAnalysed[2].cmds.length, 2);
         done();
     });
     it('with simple pipeline', (done) => {
