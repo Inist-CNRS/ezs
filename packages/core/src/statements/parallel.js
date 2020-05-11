@@ -1,18 +1,25 @@
 import merge from 'merge2';
 import debug from 'debug';
-import { inspectServers, connectServer } from '../client';
+import settings from '../settings';
 
+export const duplexer = (ezs, commands, environment) => () => {
+    const input = ezs.createStream(ezs.objectMode());
+    const streams = ezs.compileCommands(commands, environment);
+    const output = ezs.createPipeline(input, streams);
+    const duplex = [input, output];
+    return duplex;
+};
 /**
- * Takes an `Object` dispatch processing to an external pipeline on one or more servers
+ * Takes an `Object` delegate processing to X internal pipelines
  *
- * @name dispatch
+ * @name parallel
  * @param {String} [file] the external pipeline is described in a file
  * @param {String} [script] the external pipeline is described in a string of characters
  * @param {String} [commands] the external pipeline is described in a object
  * @param {String} [command] the external pipeline is described in a URL-like command
  * @returns {Object}
  */
-export default function dispatch(data, feed) {
+export default function parallel(data, feed) {
     const { ezs } = this;
     if (this.isFirst()) {
         this.lastIndex = 0;
@@ -23,23 +30,13 @@ export default function dispatch(data, feed) {
         const command = this.getParam('command');
         const cmd2 = [].concat(command).map(ezs.parseCommand).filter(Boolean);
         const commands = this.getParam('commands', cmd1.concat(cmd2));
+        const concurrency = Number(this.getParam('concurrency', settings.concurrency));
         const environment = this.getEnv();
-        const servers = inspectServers(
-            this.getParam('server', []),
-            commands,
-            environment,
-        );
-
-        if (
-            !servers
-            || servers.length === 0
-            || !commands
-            || commands.length === 0
-        ) {
-            return feed.stop(new Error('Invalid parmeter for [dispatch]'));
+        if (!commands || commands.length === 0) {
+            return feed.stop(new Error('Invalid parmeter for [parallel]'));
         }
-        debug('ezs')(`[dispatch] connect to #${servers.length} servers.`);
-        const handles = servers.map(connectServer(ezs));
+        debug('ezs')(`[parallel] start with #${concurrency} workers.`);
+        const handles = Array(concurrency).fill(true).map(duplexer(ezs, commands, environment));
         this.ins = handles.map((h) => h[0]);
         this.outs = handles.map((h) => h[1]);
         const funnel = merge(this.outs, ezs.objectMode())

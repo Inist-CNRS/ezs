@@ -52,7 +52,7 @@ export const inspectServers = (servers, commands, environment, ns) => ensureArra
     .filter(Boolean)
     .filter((elem, pos, arr) => arr.indexOf(elem) === pos)
     .map(parseAddress(commands, environment))
-    .map((s) => Array(ns || settings.nShards).fill(s)) // multiple each line
+    .map((s) => Array(ns || settings.concurrency).fill(s)) // multiple each line
     .reduce((a, b) => a.concat(b), []); // flatten all
 
 export const connectServer = (ezs) => (serverOptions, index) => {

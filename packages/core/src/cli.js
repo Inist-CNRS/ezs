@@ -1,9 +1,9 @@
+import _ from 'lodash';
 import { realpathSync, createReadStream } from 'fs';
 import { PassThrough } from 'stream';
 import yargs from 'yargs';
 import debug from 'debug';
 import ezs from '.';
-import Commands from './commands';
 import File from './file';
 import { version } from '../package.json';
 import settings from './settings';
@@ -59,7 +59,7 @@ export default function cli(errlog) {
             errlog(`Error: ${argv.daemon} doesn't exists.`);
             process.exit(1);
         }
-        debug('ezs')(`Serving ${serverPath} with ${settings.nShards} shards`);
+        debug('ezs')(`Serving ${serverPath} with ${settings.concurrency} shards`);
         return ezs.createCluster(settings.port, serverPath);
     }
     if (argv._.length === 0) {
@@ -87,15 +87,13 @@ export default function cli(errlog) {
         input = process.stdin;
         input.resume();
     }
+    const onlyOne = (item) => (Array.isArray(item) ? item.shift() : item);
     const params = Array.isArray(argv.param) ? argv.param : [argv.param];
     const environement = params
         .filter(Boolean)
         .map((p) => p.split('='))
         .reduce((obj, item) => ({ ...obj, [item[0]]: item[1] }), {});
-
-    const runScriptLocal = (strm, cmds) => strm
-        .pipe(ezs('delegate', { commands: cmds.get() }, environement));
-    const output = argv._
+    const scripts = argv._
         .map((arg) => {
             const script = File(ezs, arg);
             if (!script) {
@@ -103,9 +101,21 @@ export default function cli(errlog) {
                 process.exit(1);
             }
             return script;
-        })
-        .map((script) => new Commands(ezs.parseString(script)))
-        .reduce(runScriptLocal, input)
+        });
+    const meta = scripts.map((script) => ezs.metaString(script)).reduce((prev, cur) => _.merge(cur, prev), {});
+    const { prepend, append } = meta;
+    const prepend2Pipeline = ezs.parseCommand(onlyOne(prepend));
+    const append2Pipeline = ezs.parseCommand(onlyOne(append));
+    const { server, delegate } = settings;
+    const execMode = server ? 'dispatch' : delegate;
+    const statements = scripts.map((script) => ezs(execMode, { script, server }, environement));
+    if (prepend2Pipeline) {
+        statements.unshift(ezs.createCommand(prepend2Pipeline, environement));
+    }
+    if (append2Pipeline) {
+        statements.push(ezs.createCommand(append2Pipeline, environement));
+    }
+    const output = ezs.createPipeline(input, statements)
         .pipe(ezs.catch((e) => e))
         .on('error', (e) => {
             errlog(e.message.split('\n').shift());

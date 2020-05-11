@@ -13,6 +13,7 @@ import env from './env';
 import group from './group';
 import ungroup from './ungroup';
 import dispatch from './dispatch';
+import parallel from './parallel';
 import delegate from './delegate';
 import singleton from './singleton';
 import tracer from './tracer';
@@ -39,6 +40,7 @@ export default {
     group,
     ungroup,
     dispatch,
+    parallel,
     tracer,
     delegate,
     singleton,

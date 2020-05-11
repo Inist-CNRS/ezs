@@ -30,7 +30,8 @@ npm install @ezs/istex
 
 ### ISTEXFiles
 
--   **See: ISTEXScroll**
+-   **See: ISTEXScroll
+    **
 
 Take an Object with ISTEX `id` and generate an object for each file
 
@@ -54,7 +55,8 @@ Returns **any** Array<Object>
 
 ### ISTEXFilesContent
 
--   **See: ISTEXFiles**
+-   **See: ISTEXFiles
+    **
 
 Take an Object with ISTEX `source` and check the document's file.
 Warning: to access fulltext, you have to give a `token` parameter.
@@ -69,7 +71,8 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### ISTEXResult
 
--   **See: ISTEXScroll**
+-   **See: ISTEXScroll
+    **
 
 Take `Object` containing results of ISTEX API, and returns `hits` value
 (documents).
@@ -105,7 +108,8 @@ Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Gl
 
 ### ISTEXFilesWrap
 
--   **See: ISTEXFiles**
+-   **See: ISTEXFiles
+    **
 
 Take and Object with ISTEX `stream` and wrap into a single zip
 
@@ -206,7 +210,8 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### ISTEXSave
 
--   **See: ISTEXFetch**
+-   **See: ISTEXFetch
+    **
 
 Take and Object with ISTEX `id` and save the document's file.
 Warning: to access fulltext, you have to give a `token` parameter.
@@ -224,8 +229,10 @@ Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Gl
 
 ### ISTEXTriplify
 
--   **See: ISTEXResult**
--   **See: OBJFlatten (from ezs-basics)**
+-   **See: ISTEXResult
+    **
+-   **See: OBJFlatten (from ezs-basics)
+    **
 
 Take `Object` containing flatten hits from ISTEXResult.
 

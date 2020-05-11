@@ -15,17 +15,13 @@ import Meta from './meta';
 import Server from './server';
 import settings from './settings';
 import { compressStream, uncompressStream } from './compactor';
-import {
-    M_SINGLE, M_DISPATCH, M_NORMAL,
-} from './constants';
-
 
 const ezs = (name, options, environment) => new Engine(ezs, Statement.get(ezs, name, options), options, environment);
 const ezsPath = [resolve(__dirname, '../..'), process.cwd(), globalModules];
 const ezsCache = new LRU(settings.cache);
 
 ezs.memoize = (key, func) => {
-    if (!key) {
+    if (!key || !settings.cacheEnable) {
         return func();
     }
     const cached = ezsCache.get(key);
@@ -63,20 +59,16 @@ ezs.loadScript = (file) => ezs.memoize(`ezs.loadScript>${file}`, () => File(ezs,
 ezs.compileScript = (script) => new Commands(ezs.parseString(script));
 ezs.parseCommand = (command) => ezs.memoize(`ezs.parseCommand>${command}`, () => parseCommand(command));
 ezs.createCommand = (command, environment) => {
-    const mode = command.mode || M_NORMAL;
     if (!command.name) {
         throw new Error(`Bad command : ${command.name}`);
     }
     if (command.use) {
         Statement.load(ezs, command.use);
     }
-    if (mode === M_NORMAL || mode === M_DISPATCH) {
-        return ezs(command.name, command.args, environment);
+    if (Statement.exists(ezs, command.mode)) {
+        return ezs(command.mode, { commands: [{ name: command.name, args: command.args }] }, environment);
     }
-    if (mode === M_SINGLE || mode === 'single' /* Backward compatibility */) {
-        return ezs('singleton', { ...command.args, statement: command.name }, environment);
-    }
-    throw new Error(`Bad mode: ${mode}`);
+    return ezs(command.name, command.args, environment);
 };
 ezs.compileCommands = (commands, environment) => {
     if (!Array.isArray(commands)) {
@@ -84,7 +76,7 @@ ezs.compileCommands = (commands, environment) => {
     }
     const cmds = [...commands];
     cmds.push({
-        mode: M_NORMAL,
+        mode: null,
         name: 'transit',
         args: { },
     });

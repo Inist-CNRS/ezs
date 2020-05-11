@@ -44,9 +44,10 @@ function hitThe(cache, ttl) {
 /**
  * Takes an `Object` delegate processing to an external pipeline and cache the result
  *
- * @param {String} [file] the external pipeline is descrbied in a file
- * @param {String} [script] the external pipeline is descrbied in a sting of characters
- * @param {String} [commands] the external pipeline is descrbied in object
+ * @param {String} [file] the external pipeline is described in a file
+ * @param {String} [script] the external pipeline is described in a string of characters
+ * @param {String} [commands] the external pipeline is described in a object
+ * @param {String} [command] the external pipeline is described in a URL-like command
  * @param {String} [key] the cache key form the stream, in not provided, it's computed with the first chunk
  * @param {Number} [cleanupDelay=600] Frequency (seconds) to cleanup the cache (10 min)
  * @returns {Object}
@@ -55,13 +56,15 @@ export default async function boost(data, feed) {
     const { ezs } = this;
     if (this.isFirst()) {
         const file = this.getParam('file');
-        const location = this.getParam('location');
         const fileContent = ezs.loadScript(file);
         const script = this.getParam('script', fileContent);
-        const cmds = ezs.compileScript(script);
-        const commands = this.getParam('commands', cmds.get());
-        const cleanupDelay = Number(this.getParam('cleanupDelay', 10 * 60));
+        const cmd1 = ezs.compileScript(script).get();
+        const command = this.getParam('command');
+        const cmd2 = [].concat(command).map(ezs.parseCommand).filter(Boolean);
+        const commands = this.getParam('commands', cmd1.concat(cmd2));
         const environment = this.getEnv();
+        const location = this.getParam('location');
+        const cleanupDelay = Number(this.getParam('cleanupDelay', 10 * 60));
         if (!this.store) {
             this.store = new Store(this.ezs, 'cache_index', location);
         }

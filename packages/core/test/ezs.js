@@ -651,9 +651,7 @@ describe('Build a pipeline', () => {
                 value: new Expression('self()'),
             }))
             .pipe(ezs('singleton', {
-                statement: 'replace',
-                path: 'b',
-                value: 1000,
+                command: 'replace?path=b&value=1000',
             }))
             .pipe(ezs('assign', {
                 path: 'c',
@@ -679,9 +677,7 @@ describe('Build a pipeline', () => {
                 value: expr1,
             }))
             .pipe(ezs('singleton', {
-                statement: 'replace',
-                path: 'b',
-                value: 1000,
+                command: 'replace?path=b&value=1000',
             }))
             .pipe(ezs('assign', {
                 path: 'c',
@@ -703,9 +699,7 @@ describe('Build a pipeline', () => {
             2,
         ])
             .pipe(ezs('singleton', {
-                statement: 'replace',
-                path: 'a',
-                value: 1000,
+                command: 'replace?path=b&value=1000',
             }))
             .on('data', (chunk) => {
                 res += chunk;
@@ -725,7 +719,7 @@ describe('Build a pipeline', () => {
             path = a
             value = self()
 
-            [replace?single]
+            [replace?singleton]
             path = b
             value = fix(1000)
 

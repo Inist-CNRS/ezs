@@ -17,10 +17,11 @@ npm install @ezs/core
 -   [pack](#pack)
 -   [unpack](#unpack)
 -   [tracer](#tracer)
--   [env](#env)
 -   [debug](#debug)
+-   [env](#env)
 -   [delegate](#delegate)
 -   [dispatch](#dispatch)
+-   [parallel](#parallel)
 -   [time](#time)
 -   [transit](#transit)
 -   [concat](#concat)
@@ -63,18 +64,6 @@ Useful to see the progress in the stream.
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### env
-
-Take `Object` and send the same object but in the meantime, it is possible to
-add new environment field
-
-#### Parameters
-
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of the new field
--   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value of the new field
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
 ### debug
 
 Take `Object` , print it and throw the same object
@@ -87,6 +76,19 @@ Take `Object` , print it and throw the same object
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
+### env
+
+Take `Object` and send the same object but in the meantime,
+it is possible to  add new environment field with the first
+Object of the feed
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of the new field
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value of the new field
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
 ### delegate
 
 Takes an `Object` delegate processing to an external pipeline
@@ -95,7 +97,8 @@ Takes an `Object` delegate processing to an external pipeline
 
 -   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
 -   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
--   `commands` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** the external pipeline is described in an object
+-   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
+-   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -105,10 +108,23 @@ Takes an `Object` dispatch processing to an external pipeline on one or more ser
 
 #### Parameters
 
--   `server` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** servers to dispatch data
--   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is descrbied in a file
--   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is descrbied in a sting of characters
--   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is descrbied in object
+-   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
+-   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
+-   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
+-   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### parallel
+
+Takes an `Object` delegate processing to X internal pipelines
+
+#### Parameters
+
+-   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
+-   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
+-   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
+-   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -224,7 +240,8 @@ Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### ungroup
 
--   **See: group**
+-   **See: group
+    **
 
 Take all `chunk`s, and throw one item for every chunk
 
@@ -659,8 +676,10 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### validate
 
--   **See: laravel validator rules**
--   **See: <https://github.com/skaterdav85/validatorjs#readme>**
+-   **See: laravel validator rules
+    **
+-   **See: <https://github.com/skaterdav85/validatorjs#readme>
+    **
 
 From a `Object`, throw the same object if all rules pass
 
