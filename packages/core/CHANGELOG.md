@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.9.1...@ezs/core@1.9.2) (2020-05-12)
+
+
+### Bug Fixes
+
+* 🐛 useless condition ([04441f8](https://github.com/Inist-CNRS/ezs/commit/04441f88efc6e81e994d78527ee2e7e9ec1453aa))
+
+
+
+
+
 ## [1.9.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.9.0...@ezs/core@1.9.1) (2020-05-12)
 
 
