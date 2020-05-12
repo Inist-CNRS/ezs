@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.5.0...@ezs/analytics@1.5.1) (2020-05-12)
+
+
+### Bug Fixes
+
+* 🐛 unable to disable cache from vars env ([1949927](https://github.com/Inist-CNRS/ezs/commit/1949927e65dd30a5ebf74139ceeb6138be4cdbcb))
+
+
+
+
+
 # [1.5.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.4.3...@ezs/analytics@1.5.0) (2020-05-11)
 
 
