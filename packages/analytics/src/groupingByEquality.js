@@ -8,8 +8,16 @@ const equalTo = (id) => (item) => item.id.some((key) => key === id);
  * in a single object
  *
  * ```json
- * [{
- * }]
+ * [
+ *    { "id": "lorem", "value": 1 },
+ *    { "id": "Lorem", "value": 1 },
+ *    { "id": "loren", "value": 1 },
+ *    { "id": "korem", "value": 1 },
+ *    { "id": "olrem", "value": 1 },
+ *    { "id": "toto", "value": 1 },
+ *    { "id": "titi", "value": 1 },
+ *    { "id": "lorem", "value": 1 }
+ * ]
  * ```
  *
  * Script:
@@ -20,12 +28,21 @@ const equalTo = (id) => (item) => item.id.some((key) => key === id);
  *
  * [groupingByEquality]
  *
+ * [summing]
+ *
  * ```
  *
  * Output:
  *
  * ```json
  * [
+ *   { "id": [ "lorem" ], "value": 2 },
+ *   { "id": [ "Lorem" ], "value": 1 },
+ *   { "id": [ "loren" ], "value": 1 },
+ *   { "id": [ "korem" ], "value": 1 },
+ *   { "id": [ "olrem" ], "value": 1 },
+ *   { "id": [ "toto" ], "value": 1 },
+ *   { "id": [ "titi" ], "value": 1 }
  * ]
  * ```
  *

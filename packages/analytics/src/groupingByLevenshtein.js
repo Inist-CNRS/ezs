@@ -9,9 +9,17 @@ const equalTo = (id, distance) => (item) => item.id.some((key) => levenshteinDis
  * Take `Object` like `{ id, value }` and reduce all `value`s with
  * `id` which have the same Levenshtein distance in a single object
  *
- * * ```json
- * [{
- * }]
+ * ```json
+ * [
+ *    { "id": "lorem", "value": 1 },
+ *    { "id": "Lorem", "value": 1 },
+ *    { "id": "loren", "value": 1 },
+ *    { "id": "korem", "value": 1 },
+ *    { "id": "olrem", "value": 1 },
+ *    { "id": "toto", "value": 1 },
+ *    { "id": "titi", "value": 1 },
+ *    { "id": "lorem", "value": 1 }
+ * ]
  * ```
  *
  * Script:
@@ -21,6 +29,9 @@ const equalTo = (id, distance) => (item) => item.id.some((key) => levenshteinDis
  * plugin = analytics
  *
  * [groupingByLevenshtein]
+ * distance = 2
+ *
+ * [summing]
  *
  * ```
  *
@@ -28,6 +39,8 @@ const equalTo = (id, distance) => (item) => item.id.some((key) => levenshteinDis
  *
  * ```json
  * [
+ *    { "id": [ "lorem", "Lorem", "loren", "korem", "olrem" ], "value": 6 },
+ *    { "id": [ "toto", "titi" ], "value": 2 }
  * ]
  * ```
  *

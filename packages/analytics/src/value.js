@@ -4,8 +4,16 @@ import get from 'lodash.get';
  * Take `Object` object and getting the value field
  *
  * ```json
- * [{
- * }]
+ * [
+ *  { id: 2000, value: 1 },
+ *  { id: 2001, value: 2 },
+ *  { id: 2003, value: 3 },
+ *  { id: 2005, value: 4 },
+ *  { id: 2007, value: 5 },
+ *  { id: 2009, value: 6 },
+ *  { id: 2011, value: 7 },
+ *  { id: 2013, value: 8 },
+ * ]
  * ```
  *
  * Script:
@@ -15,6 +23,7 @@ import get from 'lodash.get';
  * plugin = analytics
  *
  * [value]
+ * path = id
  *
  * ```
  *
@@ -22,6 +31,14 @@ import get from 'lodash.get';
  *
  * ```json
  * [
+ * 2000,
+ * 2001,
+ * 2003,
+ * 2005,
+ * 2007,
+ * 2009,
+ * 2011,
+ * 2013
  * ]
  * ```
  *

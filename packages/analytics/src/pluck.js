@@ -5,8 +5,16 @@ import core from './core';
  * object for each value
  *
  * ```json
- * [{
- * }]
+ * [
+ *  { city: 'tokyo', year: 2000, count: 1 },
+ *  { city: 'paris', year: 2001, count: 2 },
+ *  { city: 'london', year: 2003, count: 3 },
+ *  { city: 'nancy', year: 2005, count: 4 },
+ *  { city: 'berlin', year: 2007, count: 5 },
+ *  { city: 'madrid', year: 2009, count: 6 },
+ *  { city: 'stockholm', year: 2011, count: 7 },
+ *  { city: 'bruxelles', year: 2013, count: 8 },
+ * ]
  * ```
  *
  * Script:
@@ -16,6 +24,7 @@ import core from './core';
  * plugin = analytics
  *
  * [pluck]
+ * path = year
  *
  * ```
  *
@@ -23,6 +32,14 @@ import core from './core';
  *
  * ```json
  * [
+ * { "id": "year", "value": 2000 },
+ * { "id": "year", "value": 2001 },
+ * { "id": "year", "value": 2003 },
+ * { "id": "year", "value": 2005 },
+ * { "id": "year", "value": 2007 },
+ * { "id": "year", "value": 2009 },
+ * { "id": "year", "value": 2011 },
+ * { "id": "year", "value": 2013 }
  * ]
  * ```
  *

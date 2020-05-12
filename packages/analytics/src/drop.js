@@ -4,8 +4,20 @@ import get from 'lodash.get';
  * Take `Object` and throw the same object only if there the value of the select field is not equals than a value
  *
  * ```json
- * [{
- * }]
+ * [
+ *   {
+ *    "departure": "nancy",
+ *    "arrival": "paris",
+ *  },
+ *  {
+ *    "departure": "nancy",
+ *    "arrival": "toul",
+ *  },
+ *  {
+ *    "departure": "paris",
+ *    "arrival": "londre",
+ *  }
+ * ]
  * ```
  *
  * Script:
@@ -21,8 +33,14 @@ import get from 'lodash.get';
  * Output:
  *
  * ```json
- * [
- * ]
+ * [{
+ *   "departure": "nancy",
+ *   "arrival": "paris"
+ * },
+ * {
+ *    "departure": "nancy",
+ *   "arrival": "toul"
+ * }]
  * ```
  *
  * @name drop

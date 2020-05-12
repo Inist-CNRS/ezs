@@ -9,9 +9,17 @@ const equalTo = (id, distance) => (item) => item.id.some((key) => hammingDistanc
  * Take `Object` like `{ id, value }` and reduce all `value` with `id` which
  * have the same Hamming distance in a single object
  *
- * ```json
- * [{
- * }]
+ *  * ```json
+ * [
+ *    { "id": "lorem", "value": 1 },
+ *    { "id": "Lorem", "value": 1 },
+ *    { "id": "loren", "value": 1 },
+ *    { "id": "korem", "value": 1 },
+ *    { "id": "olrem", "value": 1 },
+ *    { "id": "toto", "value": 1 },
+ *    { "id": "titi", "value": 1 },
+ *    { "id": "lorem", "value": 1 }
+ * ]
  * ```
  *
  * Script:
@@ -21,6 +29,9 @@ const equalTo = (id, distance) => (item) => item.id.some((key) => hammingDistanc
  * plugin = analytics
  *
  * [groupingByHamming]
+ * distance = 1
+ *
+ * [summing]
  *
  * ```
  *
@@ -28,6 +39,9 @@ const equalTo = (id, distance) => (item) => item.id.some((key) => hammingDistanc
  *
  * ```json
  * [
+ *    { "id": [ "lorem", "Lorem", "loren", "korem" ], "value": 5 },
+ *    { "id": [ "olrem" ], "value": 1 },
+ *    { "id": [ "toto", "titi" ], "value": 2 }
  * ]
  * ```
  *

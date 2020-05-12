@@ -16,100 +16,38 @@ npm install @ezs/analytics
 
 #### Table of Contents
 
--   [keys](#keys)
--   [count](#count)
 -   [output](#output)
--   [slice](#slice)
--   [value](#value)
--   [drop](#drop)
--   [graph](#graph)
--   [maximizing](#maximizing)
--   [pair](#pair)
--   [pluck](#pluck)
 -   [topics](#topics)
--   [exploding](#exploding)
--   [summing](#summing)
--   [less](#less)
 -   [minimizing](#minimizing)
--   [groupingByEquality](#groupingbyequality)
--   [distribute](#distribute)
--   [groupingByHamming](#groupingbyhamming)
--   [groupingByLevenshtein](#groupingbylevenshtein)
+-   [maximizing](#maximizing)
 -   [groupingByModulo](#groupingbymodulo)
 -   [reducing](#reducing)
 -   [aggregate](#aggregate)
--   [sort](#sort)
+-   [slice](#slice)
 -   [distinct](#distinct)
+-   [exploding](#exploding)
+-   [graph](#graph)
+-   [pair](#pair)
 -   [merging](#merging)
+-   [summing](#summing)
 -   [filter](#filter)
+-   [value](#value)
 -   [greater](#greater)
+-   [pluck](#pluck)
+-   [drop](#drop)
+-   [groupingByHamming](#groupingbyhamming)
+-   [groupingByLevenshtein](#groupingbylevenshtein)
+-   [keys](#keys)
+-   [groupingByEquality](#groupingbyequality)
 -   [multiply](#multiply)
+-   [less](#less)
+-   [count](#count)
+-   [distribute](#distribute)
+-   [sort](#sort)
 -   [distance](#distance)
 -   [segment](#segment)
 -   [tune](#tune)
 -   [statistics](#statistics)
-
-### keys
-
-Take `Object` and throws all its keys
-
-```json
-[{
-}]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[keys]
-```
-
-Output:
-
-```json
-[
-]
-```
-
-#### Parameters
-
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### count
-
-Take `Object` object getting some fields with json path, and do ...
-
-```json
-[{
-}]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[count]
-```
-
-Output:
-
-```json
-[
-]
-```
-
-#### Parameters
-
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### output
 
@@ -157,228 +95,6 @@ Output
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
-### slice
-
-Take `Object` and throw the same object only if it is in the section of the
-stream between start and start + size. stream is numbered from 1
-
-```json
-[{
-}]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[drop]
-```
-
-Output:
-
-```json
-[
-]
-```
-
-#### Parameters
-
--   `start` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** start of the slice (optional, default `0`)
--   `size` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** size of the slice (optional, default `10`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### value
-
-Take `Object` object and getting the value field
-
-```json
-[{
-}]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[value]
-```
-
-Output:
-
-```json
-[
-]
-```
-
-#### Parameters
-
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the pah of the value field (optional, default `value`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### drop
-
-Take `Object` and throw the same object only if there the value of the select field is not equals than a value
-
-```json
-[{
-}]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[drop]
-```
-
-Output:
-
-```json
-[
-]
-```
-
-#### Parameters
-
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to compare (optional, default `"value"`)
--   `if` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** value to compare (optional, default `""`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### graph
-
-Take `Object` object getting some fields with json path, and do ...
-
-```json
-[{
-}]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[graph]
-```
-
-Output:
-
-```json
-[
-]
-```
-
-#### Parameters
-
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### maximizing
-
-Take special `Object` like `{id, value}` and replace `value` with the max of `value`s
-
-```json
-[{
-}]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[maximizing]
-```
-
-Output:
-
-```json
-[
-]
-```
-
-#### Parameters
-
--   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
--   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### pair
-
-Take `Object` object getting some fields with json path, and do ...
-
-```json
-[{
-}]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[pair]
-```
-
-Output:
-
-```json
-[
-]
-```
-
-#### Parameters
-
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### pluck
-
-Take `Object` object getting value of fields (with json `path`) and throws an
-object for each value
-
-```json
-[{
-}]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[pluck]
-```
-
-Output:
-
-```json
-[
-]
-```
-
-#### Parameters
-
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use form group by (optional, default `id`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
 ### topics
 
 Take `Object` and take values with [value] path (must be an array)
@@ -408,106 +124,6 @@ Output:
 
 -   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### exploding
-
-Take `Object` and take values with [value] path (must be an array)
-and throw object of each value. The new object is build with [id] and eac value.
-
-```json
-[{
-}]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[exploding]
-```
-
-Output:
-
-```json
-[
-]
-```
-
-#### Parameters
-
--   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `"id"`)
--   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `"value"`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### summing
-
-Take special `Object` like `{id, value}` and replace `value` with the sum of
-`value`s
-
-```json
-[{
-}]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[summing]
-```
-
-Output:
-
-```json
-[
-]
-```
-
-#### Parameters
-
--   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
--   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### less
-
-Take `Object` and throw the same object only if the value of the selected
-field is less (or equal) than a value
-
-```json
-[{
-}]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[less]
-```
-
-Output:
-
-```json
-[
-]
-```
-
-#### Parameters
-
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to compare (optional, default `value`)
--   `than` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** value to compare (optional, default `0`)
--   `strict` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** less than but not equal (optional, default `false`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -544,14 +160,16 @@ Output:
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### groupingByEquality
+### maximizing
 
-Take `Object` like `{ id, value }` and reduce all values with the same `id`
-in a single object
+Take special `Object` like `{id, value}` and replace `value` with the max of `value`s
 
 ```json
-[{
-}]
+[
+  { id: 'toul', value: [1, 2, 3] },
+  { id: 'nancy', value: [2, 3, 4] },
+  { id: 'neufchateau', value: [3, 4, 5] },
+]
 ```
 
 Script:
@@ -560,13 +178,16 @@ Script:
 [use]
 plugin = analytics
 
-[groupingByEquality]
+[maximizing]
 ```
 
 Output:
 
 ```json
 [
+   { "id": "toul", "value": 3 },
+   { "id": "nancy", "value": 4 },
+   { "id": "neufchateau", "value": 5 }
 ]
 ```
 
@@ -574,109 +195,6 @@ Output:
 
 -   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### distribute
-
-Take `Object` like { id, value } and throw a serie of number value
-
-```json
-[{
-}]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[distribute]
-```
-
-Output:
-
-```json
-[
-]
-```
-
-#### Parameters
-
--   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `"id"`)
--   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `"value"`)
--   `step` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** step between each valut (optional, default `1`)
--   `start` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** first value to throw (optional, default `minvalueinthestream`)
--   `size` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** size of the distribution (optional, default `(maxvalue-minvalue)inthestream`)
--   `default` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** default value for missing object (optional, default `0`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### groupingByHamming
-
-Take `Object` like `{ id, value }` and reduce all `value` with `id` which
-have the same Hamming distance in a single object
-
-```json
-[{
-}]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[groupingByHamming]
-```
-
-Output:
-
-```json
-[
-]
-```
-
-#### Parameters
-
--   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `"id"`)
--   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `"value"`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### groupingByLevenshtein
-
-Take `Object` like `{ id, value }` and reduce all `value`s with
-`id` which have the same Levenshtein distance in a single object
-
--   ```json
-    [{
-    }]
-    ```
-
-
-    Script:
-
-    ```ini
-    [use]
-    plugin = analytics
-
-    [groupingByLevenshtein]
-
-Output:
-
-```json
-[
-]
-```
-
-#### Parameters
-
--   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
--   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
--   `distance` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** minimal levenshtein distance to have a same id (optional, default `1`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -790,12 +308,21 @@ Output:
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### sort
+### slice
 
-Take all `Object` and sort them with dedicated key
+Take `Object` and throw the same object only if it is in the section of the
+stream between start and start + size. stream is numbered from 1
 
 ```json
 [{
+ { id: 2000, value: 1 },
+ { id: 2001, value: 2 },
+ { id: 2003, value: 3 },
+ { id: 2005, value: 4 },
+ { id: 2007, value: 5 },
+ { id: 2009, value: 6 },
+ { id: 2011, value: 7 },
+ { id: 2013, value: 8 },
 }]
 ```
 
@@ -805,19 +332,22 @@ Script:
 [use]
 plugin = analytics
 
-[sort]
+[drop]
 ```
 
 Output:
 
 ```json
 [
+{ "id": 2001, "value": 2 },
+{ "id": 2003, "value": 3 },
 ]
 ```
 
 #### Parameters
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
+-   `start` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** start of the slice (optional, default `0`)
+-   `size` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** size of the slice (optional, default `10`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -863,6 +393,132 @@ Output:
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
+### exploding
+
+Take `Object` and take values with [value] path (must be an array)
+and throw object of each value. The new object is build with [id] and eac value.
+
+```json
+[
+ { departure: ['tokyo', 'nancy'], arrival: 'toul' },
+ { departure: ['paris', 'nancy'], arrival: 'toul' },
+ { departure: ['london', 'berlin'], arrival: 'toul' },
+}]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[exploding]
+```
+
+Output:
+
+```json
+[
+   { "id": "toul", "value": "tokyo" },
+   { "id": "toul", "value": "nancy" },
+   { "id": "toul", "value": "paris" },
+   { "id": "toul", "value": "nancy" },
+   { "id": "toul", "value": "london" },
+   { "id": "toul", "value": "berlin" }
+]
+```
+
+#### Parameters
+
+-   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `"id"`)
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `"value"`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### graph
+
+Take `Object` and throw a new special object (id, value) for each combination of values
+
+```json
+[
+ { cities: ['berlin', 'nancy', 'toul'] },
+ { cities: ['paris', 'nancy', 'toul']},
+ { cities: ['paris', 'berlin', 'toul'] },
+}]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[graph]
+path = cities
+```
+
+Output:
+
+```json
+[
+  { "id": [ "berlin", "nancy" ], "value": 1 },
+  { "id": [ "berlin", "toul" ], "value": 2 },
+  { "id": [ "nancy", "toul" ], "value": 2 },
+  { "id": [ "nancy", "paris" ], "value": 1 },
+  { "id": [ "paris", "toul" ], "value": 2 },
+  { "id": [ "berlin", "paris" ], "value": 1 }
+]
+```
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### pair
+
+Take `Object` object getting some fields with json path, and
+throw all pair of value from two fields
+
+```json
+[
+ { departure: ['tokyo', 'nancy'], arrival: 'toul' },
+ { departure: ['paris', 'nancy'], arrival: 'toul' },
+ { departure: ['london', 'berlin'], arrival: 'toul' },
+]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[pair]
+path = departure
+path = arrival
+```
+
+Output:
+
+```json
+[
+ { "id": [ "tokyo", "toul" ], "value": 1 },
+{ "id": [ "nancy", "toul" ], "value": 1 },
+{ "id": [ "paris", "toul" ], "value": 1 },
+ { "id": [ "nancy", "toul" ], "value": 1 },
+ { "id": [ "london", "toul" ], "value": 1 },
+ { "id": [ "berlin", "toul" ], "value": 1 }
+]
+```
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
 ### merging
 
 Take special `Object` like `{id, value}` and replace `value` with the merge of `value`s
@@ -886,6 +542,51 @@ Output:
 ```json
 [
 ]
+```
+
+#### Parameters
+
+-   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### summing
+
+Take special `Object` like `{id, value}` and replace `value` with the sum of
+`value`s
+
+```json
+[
+ { "id": "A", "value": [1, 1, 1] },
+ { "id": "B", "value": [1] },
+ { "id": "C", "value": [1, 1, 1, 1] },
+]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[summing]
+```
+
+Output:
+
+```json
+[{
+  "id": "A", "value": 3
+},
+{
+   "id": "B",
+   "value": 1
+},
+{
+   "id": "C",
+  "value": 4
+}]
 ```
 
 #### Parameters
@@ -941,13 +642,61 @@ Output:
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
+### value
+
+Take `Object` object and getting the value field
+
+```json
+[
+ { id: 2000, value: 1 },
+ { id: 2001, value: 2 },
+ { id: 2003, value: 3 },
+ { id: 2005, value: 4 },
+ { id: 2007, value: 5 },
+ { id: 2009, value: 6 },
+ { id: 2011, value: 7 },
+ { id: 2013, value: 8 },
+]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[value]
+path = id
+```
+
+Output:
+
+```json
+[
+2000,
+2001,
+2003,
+2005,
+2007,
+2009,
+2011,
+2013
+]
+```
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the pah of the value field (optional, default `value`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
 ### greater
 
 Take `Object` and throw the same object only if the value of the selected
 field is greater (or equal) than a value
 
 ```json
-[{
+[
           { id: 2000, value: 1 },
           { id: 2001, value: 2 },
           { id: 2003, value: 3 },
@@ -956,7 +705,7 @@ field is greater (or equal) than a value
           { id: 2009, value: 6 },
           { id: 2011, value: 7 },
           { id: 2013, value: 8 },
-}]
+]
 ```
 
 Script:
@@ -987,6 +736,302 @@ Output:
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to compare (optional, default `"value"`)
 -   `than` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** value to compare (optional, default `0`)
 -   `strict` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** greater than but not equal (optional, default `false`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### pluck
+
+Take `Object` object getting value of fields (with json `path`) and throws an
+object for each value
+
+```json
+[
+ { city: 'tokyo', year: 2000, count: 1 },
+ { city: 'paris', year: 2001, count: 2 },
+ { city: 'london', year: 2003, count: 3 },
+ { city: 'nancy', year: 2005, count: 4 },
+ { city: 'berlin', year: 2007, count: 5 },
+ { city: 'madrid', year: 2009, count: 6 },
+ { city: 'stockholm', year: 2011, count: 7 },
+ { city: 'bruxelles', year: 2013, count: 8 },
+]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[pluck]
+path = year
+```
+
+Output:
+
+```json
+[
+{ "id": "year", "value": 2000 },
+{ "id": "year", "value": 2001 },
+{ "id": "year", "value": 2003 },
+{ "id": "year", "value": 2005 },
+{ "id": "year", "value": 2007 },
+{ "id": "year", "value": 2009 },
+{ "id": "year", "value": 2011 },
+{ "id": "year", "value": 2013 }
+]
+```
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use form group by (optional, default `id`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### drop
+
+Take `Object` and throw the same object only if there the value of the select field is not equals than a value
+
+```json
+[
+  {
+   "departure": "nancy",
+   "arrival": "paris",
+ },
+ {
+   "departure": "nancy",
+   "arrival": "toul",
+ },
+ {
+   "departure": "paris",
+   "arrival": "londre",
+ }
+]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[drop]
+```
+
+Output:
+
+```json
+[{
+  "departure": "nancy",
+  "arrival": "paris"
+},
+{
+   "departure": "nancy",
+  "arrival": "toul"
+}]
+```
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to compare (optional, default `"value"`)
+-   `if` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** value to compare (optional, default `""`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### groupingByHamming
+
+Take `Object` like `{ id, value }` and reduce all `value` with `id` which
+have the same Hamming distance in a single object
+
+-   ```json
+    [
+       { "id": "lorem", "value": 1 },
+       { "id": "Lorem", "value": 1 },
+       { "id": "loren", "value": 1 },
+       { "id": "korem", "value": 1 },
+       { "id": "olrem", "value": 1 },
+       { "id": "toto", "value": 1 },
+       { "id": "titi", "value": 1 },
+       { "id": "lorem", "value": 1 }
+    ]
+    ```
+
+
+    Script:
+
+    ```ini
+    [use]
+    plugin = analytics
+
+    [groupingByHamming]
+    distance = 1
+
+    [summing]
+
+Output:
+
+```json
+[
+   { "id": [ "lorem", "Lorem", "loren", "korem" ], "value": 5 },
+   { "id": [ "olrem" ], "value": 1 },
+   { "id": [ "toto", "titi" ], "value": 2 }
+]
+```
+
+#### Parameters
+
+-   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `"id"`)
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `"value"`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### groupingByLevenshtein
+
+Take `Object` like `{ id, value }` and reduce all `value`s with
+`id` which have the same Levenshtein distance in a single object
+
+```json
+[
+   { "id": "lorem", "value": 1 },
+   { "id": "Lorem", "value": 1 },
+   { "id": "loren", "value": 1 },
+   { "id": "korem", "value": 1 },
+   { "id": "olrem", "value": 1 },
+   { "id": "toto", "value": 1 },
+   { "id": "titi", "value": 1 },
+   { "id": "lorem", "value": 1 }
+]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[groupingByLevenshtein]
+distance = 2
+
+[summing]
+```
+
+Output:
+
+```json
+[
+   { "id": [ "lorem", "Lorem", "loren", "korem", "olrem" ], "value": 6 },
+   { "id": [ "toto", "titi" ], "value": 2 }
+]
+```
+
+#### Parameters
+
+-   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
+-   `distance` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** minimal levenshtein distance to have a same id (optional, default `1`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### keys
+
+Take `Object` and throws all its keys
+
+```json
+[
+ { city: 'tokyo', year: 2000, count: 1 },
+ { city: 'paris', year: 2001, count: 2 },
+ { city: 'london', year: 2003, count: 3 },
+ { city: 'nancy', year: 2005, count: 4 },
+ { city: 'berlin', year: 2007, count: 5 },
+ { city: 'madrid', year: 2009, count: 6 },
+ { city: 'stockholm', year: 2011, count: 7 },
+ { city: 'bruxelles', year: 2013, count: 8 },
+]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[keys]
+[aggregate]
+[summing]
+```
+
+Output:
+
+```json
+[
+{
+   "id": "city",
+   "value": 8
+},
+{
+  "id": "year",
+  "value": 8
+},
+{
+   "id": "count",
+   "value": 8
+}⏎
+]
+```
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### groupingByEquality
+
+Take `Object` like `{ id, value }` and reduce all values with the same `id`
+in a single object
+
+```json
+[
+   { "id": "lorem", "value": 1 },
+   { "id": "Lorem", "value": 1 },
+   { "id": "loren", "value": 1 },
+   { "id": "korem", "value": 1 },
+   { "id": "olrem", "value": 1 },
+   { "id": "toto", "value": 1 },
+   { "id": "titi", "value": 1 },
+   { "id": "lorem", "value": 1 }
+]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[groupingByEquality]
+
+[summing]
+```
+
+Output:
+
+```json
+[
+  { "id": [ "lorem" ], "value": 2 },
+  { "id": [ "Lorem" ], "value": 1 },
+  { "id": [ "loren" ], "value": 1 },
+  { "id": [ "korem" ], "value": 1 },
+  { "id": [ "olrem" ], "value": 1 },
+  { "id": [ "toto" ], "value": 1 },
+  { "id": [ "titi" ], "value": 1 }
+]
+```
+
+#### Parameters
+
+-   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -1040,6 +1085,232 @@ Output:
 
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to add (optional, default `"factor"`)
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** value(s) to set factor field (optional, default `""`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### less
+
+Take `Object` and throw the same object only if the value of the selected
+field is less (or equal) than a value
+
+```json
+[{
+          { id: 2000, value: 1 },
+          { id: 2001, value: 2 },
+          { id: 2003, value: 3 },
+          { id: 2005, value: 4 },
+          { id: 2007, value: 5 },
+          { id: 2009, value: 6 },
+          { id: 2011, value: 7 },
+          { id: 2013, value: 8 },
+}]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[less]
+path = value
+than = 4
+```
+
+Output:
+
+```json
+[{
+   "id": 2000,
+   "value": 1
+},
+{
+   "id": 2001,
+  "value": 2
+},
+{
+   "id": 2003,
+   "value": 3
+},
+{
+   "id": 2005,
+   "value": 4
+}]
+```
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to compare (optional, default `value`)
+-   `than` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** value to compare (optional, default `0`)
+-   `strict` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** less than but not equal (optional, default `false`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### count
+
+Take `Object` and throw special `Object` like `{id, value}` if key(s) was found
+id is the key, value is equal to 1 (if found)
+
+```json
+[
+ {
+      "a": "nancy",
+      "b": "lucy",
+      "c": "geny",
+  },
+  {
+      "a": "lorem",
+      "b": "loret",
+  },
+  {
+      "a": "fred",
+  }
+]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[count]
+path = a
+path = b
+path = c
+
+[aggregate]
+[summing]
+```
+
+Output:
+
+```json
+[{
+   "id": "a",
+   "value": 3
+},
+{
+   "id": "b",
+   "value": 2
+},
+{
+   "id": "c",
+   "value": 1
+}]
+```
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### distribute
+
+Take `Object` like { id, value } and throw a serie of number value
+
+```json
+[
+          { id: 2000, value: 1 },
+          { id: 2001, value: 2 },
+          { id: 2003, value: 3 },
+          { id: 2005, value: 4 },
+          { id: 2007, value: 5 },
+          { id: 2009, value: 6 },
+          { id: 2011, value: 7 },
+          { id: 2013, value: 8 },
+]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[distribute]
+```
+
+Output:
+
+```json
+[
+      { "id": 2000, "value": 1 },
+     { "id": 2001, "value": 2 },
+     { "id": 2002, "value": 0 },
+     { "id": 2003, "value": 3 },
+     { "id": 2004, "value": 0 },
+     { "id": 2005, "value": 4 },
+     { "id": 2006, "value": 0 },
+     { "id": 2007, "value": 5 },
+     { "id": 2008, "value": 0 },
+     { "id": 2009, "value": 6 },
+     { "id": 2010, "value": 0 },
+     { "id": 2011, "value": 7 },
+     { "id": 2012, "value": 0 },
+     { "id": 2013, "value": 8 }
+]
+```
+
+#### Parameters
+
+-   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `"id"`)
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `"value"`)
+-   `step` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** step between each value (optional, default `1`)
+-   `start` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** first value to throw (optional, default `minvalueinthestream`)
+-   `size` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** size of the distribution (optional, default `(maxvalue-minvalue)inthestream`)
+-   `default` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** default value for missing object (optional, default `0`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### sort
+
+Take all `Object` and sort them with dedicated key
+
+```json
+[{
+ { id: 2000, value: 1 },
+ { id: 2001, value: 2 },
+ { id: 2003, value: 3 },
+ { id: 2005, value: 4 },
+ { id: 2007, value: 5 },
+ { id: 2009, value: 6 },
+ { id: 2011, value: 7 },
+ { id: 2013, value: 8 },
+}]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[sort]
+path = value
+reverse = true
+```
+
+Output:
+
+```json
+[
+{ "id": 2013, "value": 8 },
+{ "id": 2011, "value": 7 },
+{ "id": 2009, "value": 6 },
+{ "id": 2007, "value": 5 },
+{ "id": 2005, "value": 4 },
+{ "id": 2003, "value": 3 },
+{ "id": 2001, "value": 2 },
+{ "id": 2000, "value": 1 }
+]
+```
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
+-   `reverse` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** reverser order (optional, default `false`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 

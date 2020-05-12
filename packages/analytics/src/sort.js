@@ -15,6 +15,14 @@ const sorting = (arr, reverse = false) => {
  *
  * ```json
  * [{
+ *  { id: 2000, value: 1 },
+ *  { id: 2001, value: 2 },
+ *  { id: 2003, value: 3 },
+ *  { id: 2005, value: 4 },
+ *  { id: 2007, value: 5 },
+ *  { id: 2009, value: 6 },
+ *  { id: 2011, value: 7 },
+ *  { id: 2013, value: 8 },
  * }]
  * ```
  *
@@ -25,6 +33,8 @@ const sorting = (arr, reverse = false) => {
  * plugin = analytics
  *
  * [sort]
+ * path = value
+ * reverse = true
  *
  * ```
  *
@@ -32,11 +42,20 @@ const sorting = (arr, reverse = false) => {
  *
  * ```json
  * [
+ * { "id": 2013, "value": 8 },
+ * { "id": 2011, "value": 7 },
+ * { "id": 2009, "value": 6 },
+ * { "id": 2007, "value": 5 },
+ * { "id": 2005, "value": 4 },
+ * { "id": 2003, "value": 3 },
+ * { "id": 2001, "value": 2 },
+ * { "id": 2000, "value": 1 }
  * ]
  * ```
  *
  * @name sort
  * @param {String} [path=id] path to use for id
+ * @param {boolean} [reverse=false] reverser order
  * @returns {Object}
  */
 export default async function sort(data, feed) {

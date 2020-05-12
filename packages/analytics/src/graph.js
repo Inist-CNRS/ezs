@@ -2,10 +2,13 @@ import get from 'lodash.get';
 import core from './core';
 
 /**
- * Take `Object` object getting some fields with json path, and do ...
+ * Take `Object` and throw a new special object (id, value) for each combination of values
  *
  * ```json
- * [{
+ * [
+ *  { cities: ['berlin', 'nancy', 'toul'] },
+ *  { cities: ['paris', 'nancy', 'toul']},
+ *  { cities: ['paris', 'berlin', 'toul'] },
  * }]
  * ```
  *
@@ -16,6 +19,7 @@ import core from './core';
  * plugin = analytics
  *
  * [graph]
+ * path = cities
  *
  * ```
  *
@@ -23,6 +27,12 @@ import core from './core';
  *
  * ```json
  * [
+ *   { "id": [ "berlin", "nancy" ], "value": 1 },
+ *   { "id": [ "berlin", "toul" ], "value": 2 },
+ *   { "id": [ "nancy", "toul" ], "value": 2 },
+ *   { "id": [ "nancy", "paris" ], "value": 1 },
+ *   { "id": [ "paris", "toul" ], "value": 2 },
+ *   { "id": [ "berlin", "paris" ], "value": 1 }
  * ]
  * ```
  *

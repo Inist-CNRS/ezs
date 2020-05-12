@@ -6,8 +6,16 @@ import Store from './store';
  * Take `Object` like { id, value } and throw a serie of number value
  *
  * ```json
- * [{
- * }]
+ * [
+ *           { id: 2000, value: 1 },
+ *           { id: 2001, value: 2 },
+ *           { id: 2003, value: 3 },
+ *           { id: 2005, value: 4 },
+ *           { id: 2007, value: 5 },
+ *           { id: 2009, value: 6 },
+ *           { id: 2011, value: 7 },
+ *           { id: 2013, value: 8 },
+ * ]
  * ```
  *
  * Script:
@@ -24,13 +32,27 @@ import Store from './store';
  *
  * ```json
  * [
+ *       { "id": 2000, "value": 1 },
+ *      { "id": 2001, "value": 2 },
+ *      { "id": 2002, "value": 0 },
+ *      { "id": 2003, "value": 3 },
+ *      { "id": 2004, "value": 0 },
+ *      { "id": 2005, "value": 4 },
+ *      { "id": 2006, "value": 0 },
+ *      { "id": 2007, "value": 5 },
+ *      { "id": 2008, "value": 0 },
+ *      { "id": 2009, "value": 6 },
+ *      { "id": 2010, "value": 0 },
+ *      { "id": 2011, "value": 7 },
+ *      { "id": 2012, "value": 0 },
+ *      { "id": 2013, "value": 8 }
  * ]
  * ```
  *
  * @name distribute
  * @param {String} [id="id"] path to use for id
  * @param {String} [value="value"] path to use for value
- * @param {String} [step=1] step between each valut
+ * @param {String} [step=1] step between each value
  * @param {Number} [start=min value in the stream] first value to throw
  * @param {Number} [size=(max value - min value) in the stream] size of the distribution
  * @param {Number} [default=0] default value for missing object

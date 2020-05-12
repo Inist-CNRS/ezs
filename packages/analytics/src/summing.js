@@ -5,8 +5,11 @@ import core from './core';
  * `value`s
  *
  * ```json
- * [{
- * }]
+ * [
+ *  { "id": "A", "value": [1, 1, 1] },
+ *  { "id": "B", "value": [1] },
+ *  { "id": "C", "value": [1, 1, 1, 1] },
+ * ]
  * ```
  *
  * Script:
@@ -22,8 +25,17 @@ import core from './core';
  * Output:
  *
  * ```json
- * [
- * ]
+ * [{
+ *   "id": "A", "value": 3
+ * },
+ * {
+ *    "id": "B",
+ *    "value": 1
+ * },
+ * {
+ *    "id": "C",
+ *   "value": 4
+ * }]
  * ```
  *
  * @name summing

@@ -5,7 +5,7 @@ import get from 'lodash.get';
  * field is greater (or equal) than a value
  *
  * ```json
- * [{
+ * [
  *           { id: 2000, value: 1 },
  *           { id: 2001, value: 2 },
  *           { id: 2003, value: 3 },
@@ -14,7 +14,7 @@ import get from 'lodash.get';
  *           { id: 2009, value: 6 },
  *           { id: 2011, value: 7 },
  *           { id: 2013, value: 8 },
- * }]
+ * ]
  * ```
  *
  * Script:

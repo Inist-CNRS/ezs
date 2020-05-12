@@ -2,11 +2,15 @@ import get from 'lodash.get';
 import core from './core';
 
 /**
- * Take `Object` object getting some fields with json path, and do ...
+ * Take `Object` object getting some fields with json path, and
+ * throw all pair of value from two fields
  *
  * ```json
- * [{
- * }]
+ * [
+ *  { departure: ['tokyo', 'nancy'], arrival: 'toul' },
+ *  { departure: ['paris', 'nancy'], arrival: 'toul' },
+ *  { departure: ['london', 'berlin'], arrival: 'toul' },
+ * ]
  * ```
  *
  * Script:
@@ -16,6 +20,8 @@ import core from './core';
  * plugin = analytics
  *
  * [pair]
+ * path = departure
+ * path = arrival
  *
  * ```
  *
@@ -23,6 +29,12 @@ import core from './core';
  *
  * ```json
  * [
+ *  { "id": [ "tokyo", "toul" ], "value": 1 },
+ * { "id": [ "nancy", "toul" ], "value": 1 },
+ * { "id": [ "paris", "toul" ], "value": 1 },
+ *  { "id": [ "nancy", "toul" ], "value": 1 },
+ *  { "id": [ "london", "toul" ], "value": 1 },
+ *  { "id": [ "berlin", "toul" ], "value": 1 }
  * ]
  * ```
  *

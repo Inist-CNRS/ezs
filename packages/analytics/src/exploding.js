@@ -5,7 +5,10 @@ import core from './core';
  * and throw object of each value. The new object is build with [id] and eac value.
  *
  * ```json
- * [{
+  * [
+ *  { departure: ['tokyo', 'nancy'], arrival: 'toul' },
+ *  { departure: ['paris', 'nancy'], arrival: 'toul' },
+ *  { departure: ['london', 'berlin'], arrival: 'toul' },
  * }]
  * ```
  *
@@ -23,6 +26,12 @@ import core from './core';
  *
  * ```json
  * [
+ *    { "id": "toul", "value": "tokyo" },
+ *    { "id": "toul", "value": "nancy" },
+ *    { "id": "toul", "value": "paris" },
+ *    { "id": "toul", "value": "nancy" },
+ *    { "id": "toul", "value": "london" },
+ *    { "id": "toul", "value": "berlin" }
  * ]
  * ```
  *

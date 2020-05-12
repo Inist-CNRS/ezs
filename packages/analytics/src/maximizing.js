@@ -4,8 +4,11 @@ import core from './core';
  * Take special `Object` like `{id, value}` and replace `value` with the max of `value`s
  *
  * ```json
- * [{
- * }]
+ * [
+ *   { id: 'toul', value: [1, 2, 3] },
+ *   { id: 'nancy', value: [2, 3, 4] },
+ *   { id: 'neufchateau', value: [3, 4, 5] },
+ * ]
  * ```
  *
  * Script:
@@ -22,6 +25,9 @@ import core from './core';
  *
  * ```json
  * [
+ *    { "id": "toul", "value": 3 },
+ *    { "id": "nancy", "value": 4 },
+ *    { "id": "neufchateau", "value": 5 }
  * ]
  * ```
  *

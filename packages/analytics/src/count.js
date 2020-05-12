@@ -1,11 +1,24 @@
 import get from 'lodash.get';
 import core from './core';
 /**
- * Take `Object` object getting some fields with json path, and do ...
+ * Take `Object` and throw special `Object` like `{id, value}` if key(s) was found
+ * id is the key, value is equal to 1 (if found)
  *
  * ```json
- * [{
- * }]
+ * [
+ *  {
+ *       "a": "nancy",
+ *       "b": "lucy",
+ *       "c": "geny",
+ *   },
+ *   {
+ *       "a": "lorem",
+ *       "b": "loret",
+ *   },
+ *   {
+ *       "a": "fred",
+ *   }
+ * ]
  * ```
  *
  * Script:
@@ -15,14 +28,30 @@ import core from './core';
  * plugin = analytics
  *
  * [count]
+ * path = a
+ * path = b
+ * path = c
+ *
+ * [aggregate]
+ * [summing]
  *
  * ```
  *
  * Output:
  *
  * ```json
- * [
- * ]
+ * [{
+ *    "id": "a",
+ *    "value": 3
+ * },
+ * {
+ *    "id": "b",
+ *    "value": 2
+ * },
+ * {
+ *    "id": "c",
+ *    "value": 1
+ * }]
  * ```
  *
  * @name count
