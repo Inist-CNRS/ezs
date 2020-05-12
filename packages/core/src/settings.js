@@ -5,7 +5,7 @@ const cpus = os.cpus().length;
 const concurrency = Number(process.env.EZS_CONCURRENCY || cpus);
 const encoding = String(process.env.EZS_ENCODING || 'gzip');
 const port = Number(process.env.EZS_PORT || 31976);
-const cacheEnable = Boolean(autocast(process.env.EZS_CACHE) || true);
+const cacheEnable = Boolean(autocast(process.env.EZS_CACHE));
 const nShards = Number(process.env.EZS_NSHARDS || 16);
 const settings = {
     highWaterMark: {
