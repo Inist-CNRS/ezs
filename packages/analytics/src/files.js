@@ -40,10 +40,10 @@ export default function files(data, feed) {
         return;
     }
     const cwd = process.cwd();
-    const location = [].concat(this.getParam('location', cwd));
+    const location = this.ezs.getPath().concat(this.getParam('location'));
     const file = location
         .filter(Boolean)
-        .map((dir) => resolve(dir, data))
+        .map((dir) => resolve(dir, String(data).trim()))
         .filter((fil) => (fil.indexOf(cwd) === 0 && existsSync(fil)))
         .shift();
     if (!file) {

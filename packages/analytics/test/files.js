@@ -51,7 +51,7 @@ describe('files', () => {
     });
 
     test('with not authorized file', (done) => {
-        fs.chmodSync('./forbidden', 0o333);
+        fs.writeFileSync(`${__dirname}/forbidden`, 'secret', { mode: 0o333});
         const input = [
             'forbidden',
         ];
