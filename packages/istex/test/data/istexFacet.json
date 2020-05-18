@@ -1,0 +1,1145 @@
+{
+  "total": 2691,
+  "hits": [],
+  "aggregations": {
+    "publicationDate": {
+      "buckets": [
+        {
+          "keyAsString": "1828",
+          "key": -4481136000000,
+          "docCount": 1,
+          "rangeAsString": "[1828-1829["
+        },
+        {
+          "keyAsString": "1829",
+          "key": -4449513600000,
+          "docCount": 0,
+          "rangeAsString": "[1829-1830["
+        },
+        {
+          "keyAsString": "1830",
+          "key": -4417977600000,
+          "docCount": 0,
+          "rangeAsString": "[1830-1831["
+        },
+        {
+          "keyAsString": "1831",
+          "key": -4386441600000,
+          "docCount": 0,
+          "rangeAsString": "[1831-1832["
+        },
+        {
+          "keyAsString": "1832",
+          "key": -4354905600000,
+          "docCount": 0,
+          "rangeAsString": "[1832-1833["
+        },
+        {
+          "keyAsString": "1833",
+          "key": -4323283200000,
+          "docCount": 1,
+          "rangeAsString": "[1833-1834["
+        },
+        {
+          "keyAsString": "1834",
+          "key": -4291747200000,
+          "docCount": 0,
+          "rangeAsString": "[1834-1835["
+        },
+        {
+          "keyAsString": "1835",
+          "key": -4260211200000,
+          "docCount": 0,
+          "rangeAsString": "[1835-1836["
+        },
+        {
+          "keyAsString": "1836",
+          "key": -4228675200000,
+          "docCount": 2,
+          "rangeAsString": "[1836-1837["
+        },
+        {
+          "keyAsString": "1837",
+          "key": -4197052800000,
+          "docCount": 0,
+          "rangeAsString": "[1837-1838["
+        },
+        {
+          "keyAsString": "1838",
+          "key": -4165516800000,
+          "docCount": 0,
+          "rangeAsString": "[1838-1839["
+        },
+        {
+          "keyAsString": "1839",
+          "key": -4133980800000,
+          "docCount": 0,
+          "rangeAsString": "[1839-1840["
+        },
+        {
+          "keyAsString": "1840",
+          "key": -4102444800000,
+          "docCount": 0,
+          "rangeAsString": "[1840-1841["
+        },
+        {
+          "keyAsString": "1841",
+          "key": -4070822400000,
+          "docCount": 0,
+          "rangeAsString": "[1841-1842["
+        },
+        {
+          "keyAsString": "1842",
+          "key": -4039286400000,
+          "docCount": 0,
+          "rangeAsString": "[1842-1843["
+        },
+        {
+          "keyAsString": "1843",
+          "key": -4007750400000,
+          "docCount": 0,
+          "rangeAsString": "[1843-1844["
+        },
+        {
+          "keyAsString": "1844",
+          "key": -3976214400000,
+          "docCount": 0,
+          "rangeAsString": "[1844-1845["
+        },
+        {
+          "keyAsString": "1845",
+          "key": -3944592000000,
+          "docCount": 0,
+          "rangeAsString": "[1845-1846["
+        },
+        {
+          "keyAsString": "1846",
+          "key": -3913056000000,
+          "docCount": 0,
+          "rangeAsString": "[1846-1847["
+        },
+        {
+          "keyAsString": "1847",
+          "key": -3881520000000,
+          "docCount": 0,
+          "rangeAsString": "[1847-1848["
+        },
+        {
+          "keyAsString": "1848",
+          "key": -3849984000000,
+          "docCount": 0,
+          "rangeAsString": "[1848-1849["
+        },
+        {
+          "keyAsString": "1849",
+          "key": -3818361600000,
+          "docCount": 0,
+          "rangeAsString": "[1849-1850["
+        },
+        {
+          "keyAsString": "1850",
+          "key": -3786825600000,
+          "docCount": 1,
+          "rangeAsString": "[1850-1851["
+        },
+        {
+          "keyAsString": "1851",
+          "key": -3755289600000,
+          "docCount": 0,
+          "rangeAsString": "[1851-1852["
+        },
+        {
+          "keyAsString": "1852",
+          "key": -3723753600000,
+          "docCount": 0,
+          "rangeAsString": "[1852-1853["
+        },
+        {
+          "keyAsString": "1853",
+          "key": -3692131200000,
+          "docCount": 7,
+          "rangeAsString": "[1853-1854["
+        },
+        {
+          "keyAsString": "1854",
+          "key": -3660595200000,
+          "docCount": 1,
+          "rangeAsString": "[1854-1855["
+        },
+        {
+          "keyAsString": "1855",
+          "key": -3629059200000,
+          "docCount": 0,
+          "rangeAsString": "[1855-1856["
+        },
+        {
+          "keyAsString": "1856",
+          "key": -3597523200000,
+          "docCount": 0,
+          "rangeAsString": "[1856-1857["
+        },
+        {
+          "keyAsString": "1857",
+          "key": -3565900800000,
+          "docCount": 0,
+          "rangeAsString": "[1857-1858["
+        },
+        {
+          "keyAsString": "1858",
+          "key": -3534364800000,
+          "docCount": 0,
+          "rangeAsString": "[1858-1859["
+        },
+        {
+          "keyAsString": "1859",
+          "key": -3502828800000,
+          "docCount": 0,
+          "rangeAsString": "[1859-1860["
+        },
+        {
+          "keyAsString": "1860",
+          "key": -3471292800000,
+          "docCount": 0,
+          "rangeAsString": "[1860-1861["
+        },
+        {
+          "keyAsString": "1861",
+          "key": -3439670400000,
+          "docCount": 0,
+          "rangeAsString": "[1861-1862["
+        },
+        {
+          "keyAsString": "1862",
+          "key": -3408134400000,
+          "docCount": 0,
+          "rangeAsString": "[1862-1863["
+        },
+        {
+          "keyAsString": "1863",
+          "key": -3376598400000,
+          "docCount": 0,
+          "rangeAsString": "[1863-1864["
+        },
+        {
+          "keyAsString": "1864",
+          "key": -3345062400000,
+          "docCount": 1,
+          "rangeAsString": "[1864-1865["
+        },
+        {
+          "keyAsString": "1865",
+          "key": -3313440000000,
+          "docCount": 1,
+          "rangeAsString": "[1865-1866["
+        },
+        {
+          "keyAsString": "1866",
+          "key": -3281904000000,
+          "docCount": 0,
+          "rangeAsString": "[1866-1867["
+        },
+        {
+          "keyAsString": "1867",
+          "key": -3250368000000,
+          "docCount": 0,
+          "rangeAsString": "[1867-1868["
+        },
+        {
+          "keyAsString": "1868",
+          "key": -3218832000000,
+          "docCount": 0,
+          "rangeAsString": "[1868-1869["
+        },
+        {
+          "keyAsString": "1869",
+          "key": -3187209600000,
+          "docCount": 1,
+          "rangeAsString": "[1869-1870["
+        },
+        {
+          "keyAsString": "1870",
+          "key": -3155673600000,
+          "docCount": 1,
+          "rangeAsString": "[1870-1871["
+        },
+        {
+          "keyAsString": "1871",
+          "key": -3124137600000,
+          "docCount": 0,
+          "rangeAsString": "[1871-1872["
+        },
+        {
+          "keyAsString": "1872",
+          "key": -3092601600000,
+          "docCount": 0,
+          "rangeAsString": "[1872-1873["
+        },
+        {
+          "keyAsString": "1873",
+          "key": -3060979200000,
+          "docCount": 0,
+          "rangeAsString": "[1873-1874["
+        },
+        {
+          "keyAsString": "1874",
+          "key": -3029443200000,
+          "docCount": 1,
+          "rangeAsString": "[1874-1875["
+        },
+        {
+          "keyAsString": "1875",
+          "key": -2997907200000,
+          "docCount": 0,
+          "rangeAsString": "[1875-1876["
+        },
+        {
+          "keyAsString": "1876",
+          "key": -2966371200000,
+          "docCount": 2,
+          "rangeAsString": "[1876-1877["
+        },
+        {
+          "keyAsString": "1877",
+          "key": -2934748800000,
+          "docCount": 1,
+          "rangeAsString": "[1877-1878["
+        },
+        {
+          "keyAsString": "1878",
+          "key": -2903212800000,
+          "docCount": 2,
+          "rangeAsString": "[1878-1879["
+        },
+        {
+          "keyAsString": "1879",
+          "key": -2871676800000,
+          "docCount": 0,
+          "rangeAsString": "[1879-1880["
+        },
+        {
+          "keyAsString": "1880",
+          "key": -2840140800000,
+          "docCount": 0,
+          "rangeAsString": "[1880-1881["
+        },
+        {
+          "keyAsString": "1881",
+          "key": -2808518400000,
+          "docCount": 0,
+          "rangeAsString": "[1881-1882["
+        },
+        {
+          "keyAsString": "1882",
+          "key": -2776982400000,
+          "docCount": 1,
+          "rangeAsString": "[1882-1883["
+        },
+        {
+          "keyAsString": "1883",
+          "key": -2745446400000,
+          "docCount": 1,
+          "rangeAsString": "[1883-1884["
+        },
+        {
+          "keyAsString": "1884",
+          "key": -2713910400000,
+          "docCount": 2,
+          "rangeAsString": "[1884-1885["
+        },
+        {
+          "keyAsString": "1885",
+          "key": -2682288000000,
+          "docCount": 0,
+          "rangeAsString": "[1885-1886["
+        },
+        {
+          "keyAsString": "1886",
+          "key": -2650752000000,
+          "docCount": 0,
+          "rangeAsString": "[1886-1887["
+        },
+        {
+          "keyAsString": "1887",
+          "key": -2619216000000,
+          "docCount": 1,
+          "rangeAsString": "[1887-1888["
+        },
+        {
+          "keyAsString": "1888",
+          "key": -2587680000000,
+          "docCount": 2,
+          "rangeAsString": "[1888-1889["
+        },
+        {
+          "keyAsString": "1889",
+          "key": -2556057600000,
+          "docCount": 3,
+          "rangeAsString": "[1889-1890["
+        },
+        {
+          "keyAsString": "1890",
+          "key": -2524521600000,
+          "docCount": 1,
+          "rangeAsString": "[1890-1891["
+        },
+        {
+          "keyAsString": "1891",
+          "key": -2492985600000,
+          "docCount": 8,
+          "rangeAsString": "[1891-1892["
+        },
+        {
+          "keyAsString": "1892",
+          "key": -2461449600000,
+          "docCount": 2,
+          "rangeAsString": "[1892-1893["
+        },
+        {
+          "keyAsString": "1893",
+          "key": -2429827200000,
+          "docCount": 1,
+          "rangeAsString": "[1893-1894["
+        },
+        {
+          "keyAsString": "1894",
+          "key": -2398291200000,
+          "docCount": 3,
+          "rangeAsString": "[1894-1895["
+        },
+        {
+          "keyAsString": "1895",
+          "key": -2366755200000,
+          "docCount": 4,
+          "rangeAsString": "[1895-1896["
+        },
+        {
+          "keyAsString": "1896",
+          "key": -2335219200000,
+          "docCount": 0,
+          "rangeAsString": "[1896-1897["
+        },
+        {
+          "keyAsString": "1897",
+          "key": -2303596800000,
+          "docCount": 0,
+          "rangeAsString": "[1897-1898["
+        },
+        {
+          "keyAsString": "1898",
+          "key": -2272060800000,
+          "docCount": 2,
+          "rangeAsString": "[1898-1899["
+        },
+        {
+          "keyAsString": "1899",
+          "key": -2240524800000,
+          "docCount": 1,
+          "rangeAsString": "[1899-1900["
+        },
+        {
+          "keyAsString": "1900",
+          "key": -2208988800000,
+          "docCount": 0,
+          "rangeAsString": "[1900-1901["
+        },
+        {
+          "keyAsString": "1901",
+          "key": -2177452800000,
+          "docCount": 0,
+          "rangeAsString": "[1901-1902["
+        },
+        {
+          "keyAsString": "1902",
+          "key": -2145916800000,
+          "docCount": 0,
+          "rangeAsString": "[1902-1903["
+        },
+        {
+          "keyAsString": "1903",
+          "key": -2114380800000,
+          "docCount": 0,
+          "rangeAsString": "[1903-1904["
+        },
+        {
+          "keyAsString": "1904",
+          "key": -2082844800000,
+          "docCount": 0,
+          "rangeAsString": "[1904-1905["
+        },
+        {
+          "keyAsString": "1905",
+          "key": -2051222400000,
+          "docCount": 0,
+          "rangeAsString": "[1905-1906["
+        },
+        {
+          "keyAsString": "1906",
+          "key": -2019686400000,
+          "docCount": 1,
+          "rangeAsString": "[1906-1907["
+        },
+        {
+          "keyAsString": "1907",
+          "key": -1988150400000,
+          "docCount": 0,
+          "rangeAsString": "[1907-1908["
+        },
+        {
+          "keyAsString": "1908",
+          "key": -1956614400000,
+          "docCount": 2,
+          "rangeAsString": "[1908-1909["
+        },
+        {
+          "keyAsString": "1909",
+          "key": -1924992000000,
+          "docCount": 0,
+          "rangeAsString": "[1909-1910["
+        },
+        {
+          "keyAsString": "1910",
+          "key": -1893456000000,
+          "docCount": 3,
+          "rangeAsString": "[1910-1911["
+        },
+        {
+          "keyAsString": "1911",
+          "key": -1861920000000,
+          "docCount": 2,
+          "rangeAsString": "[1911-1912["
+        },
+        {
+          "keyAsString": "1912",
+          "key": -1830384000000,
+          "docCount": 2,
+          "rangeAsString": "[1912-1913["
+        },
+        {
+          "keyAsString": "1913",
+          "key": -1798761600000,
+          "docCount": 1,
+          "rangeAsString": "[1913-1914["
+        },
+        {
+          "keyAsString": "1914",
+          "key": -1767225600000,
+          "docCount": 1,
+          "rangeAsString": "[1914-1915["
+        },
+        {
+          "keyAsString": "1915",
+          "key": -1735689600000,
+          "docCount": 1,
+          "rangeAsString": "[1915-1916["
+        },
+        {
+          "keyAsString": "1916",
+          "key": -1704153600000,
+          "docCount": 0,
+          "rangeAsString": "[1916-1917["
+        },
+        {
+          "keyAsString": "1917",
+          "key": -1672531200000,
+          "docCount": 2,
+          "rangeAsString": "[1917-1918["
+        },
+        {
+          "keyAsString": "1918",
+          "key": -1640995200000,
+          "docCount": 0,
+          "rangeAsString": "[1918-1919["
+        },
+        {
+          "keyAsString": "1919",
+          "key": -1609459200000,
+          "docCount": 1,
+          "rangeAsString": "[1919-1920["
+        },
+        {
+          "keyAsString": "1920",
+          "key": -1577923200000,
+          "docCount": 7,
+          "rangeAsString": "[1920-1921["
+        },
+        {
+          "keyAsString": "1921",
+          "key": -1546300800000,
+          "docCount": 1,
+          "rangeAsString": "[1921-1922["
+        },
+        {
+          "keyAsString": "1922",
+          "key": -1514764800000,
+          "docCount": 0,
+          "rangeAsString": "[1922-1923["
+        },
+        {
+          "keyAsString": "1923",
+          "key": -1483228800000,
+          "docCount": 2,
+          "rangeAsString": "[1923-1924["
+        },
+        {
+          "keyAsString": "1924",
+          "key": -1451692800000,
+          "docCount": 3,
+          "rangeAsString": "[1924-1925["
+        },
+        {
+          "keyAsString": "1925",
+          "key": -1420070400000,
+          "docCount": 1,
+          "rangeAsString": "[1925-1926["
+        },
+        {
+          "keyAsString": "1926",
+          "key": -1388534400000,
+          "docCount": 5,
+          "rangeAsString": "[1926-1927["
+        },
+        {
+          "keyAsString": "1927",
+          "key": -1356998400000,
+          "docCount": 3,
+          "rangeAsString": "[1927-1928["
+        },
+        {
+          "keyAsString": "1928",
+          "key": -1325462400000,
+          "docCount": 3,
+          "rangeAsString": "[1928-1929["
+        },
+        {
+          "keyAsString": "1929",
+          "key": -1293840000000,
+          "docCount": 2,
+          "rangeAsString": "[1929-1930["
+        },
+        {
+          "keyAsString": "1930",
+          "key": -1262304000000,
+          "docCount": 3,
+          "rangeAsString": "[1930-1931["
+        },
+        {
+          "keyAsString": "1931",
+          "key": -1230768000000,
+          "docCount": 3,
+          "rangeAsString": "[1931-1932["
+        },
+        {
+          "keyAsString": "1932",
+          "key": -1199232000000,
+          "docCount": 6,
+          "rangeAsString": "[1932-1933["
+        },
+        {
+          "keyAsString": "1933",
+          "key": -1167609600000,
+          "docCount": 4,
+          "rangeAsString": "[1933-1934["
+        },
+        {
+          "keyAsString": "1934",
+          "key": -1136073600000,
+          "docCount": 6,
+          "rangeAsString": "[1934-1935["
+        },
+        {
+          "keyAsString": "1935",
+          "key": -1104537600000,
+          "docCount": 6,
+          "rangeAsString": "[1935-1936["
+        },
+        {
+          "keyAsString": "1936",
+          "key": -1073001600000,
+          "docCount": 6,
+          "rangeAsString": "[1936-1937["
+        },
+        {
+          "keyAsString": "1937",
+          "key": -1041379200000,
+          "docCount": 6,
+          "rangeAsString": "[1937-1938["
+        },
+        {
+          "keyAsString": "1938",
+          "key": -1009843200000,
+          "docCount": 8,
+          "rangeAsString": "[1938-1939["
+        },
+        {
+          "keyAsString": "1939",
+          "key": -978307200000,
+          "docCount": 5,
+          "rangeAsString": "[1939-1940["
+        },
+        {
+          "keyAsString": "1940",
+          "key": -946771200000,
+          "docCount": 4,
+          "rangeAsString": "[1940-1941["
+        },
+        {
+          "keyAsString": "1941",
+          "key": -915148800000,
+          "docCount": 4,
+          "rangeAsString": "[1941-1942["
+        },
+        {
+          "keyAsString": "1942",
+          "key": -883612800000,
+          "docCount": 2,
+          "rangeAsString": "[1942-1943["
+        },
+        {
+          "keyAsString": "1943",
+          "key": -852076800000,
+          "docCount": 5,
+          "rangeAsString": "[1943-1944["
+        },
+        {
+          "keyAsString": "1944",
+          "key": -820540800000,
+          "docCount": 4,
+          "rangeAsString": "[1944-1945["
+        },
+        {
+          "keyAsString": "1945",
+          "key": -788918400000,
+          "docCount": 2,
+          "rangeAsString": "[1945-1946["
+        },
+        {
+          "keyAsString": "1946",
+          "key": -757382400000,
+          "docCount": 3,
+          "rangeAsString": "[1946-1947["
+        },
+        {
+          "keyAsString": "1947",
+          "key": -725846400000,
+          "docCount": 4,
+          "rangeAsString": "[1947-1948["
+        },
+        {
+          "keyAsString": "1948",
+          "key": -694310400000,
+          "docCount": 4,
+          "rangeAsString": "[1948-1949["
+        },
+        {
+          "keyAsString": "1949",
+          "key": -662688000000,
+          "docCount": 5,
+          "rangeAsString": "[1949-1950["
+        },
+        {
+          "keyAsString": "1950",
+          "key": -631152000000,
+          "docCount": 6,
+          "rangeAsString": "[1950-1951["
+        },
+        {
+          "keyAsString": "1951",
+          "key": -599616000000,
+          "docCount": 5,
+          "rangeAsString": "[1951-1952["
+        },
+        {
+          "keyAsString": "1952",
+          "key": -568080000000,
+          "docCount": 14,
+          "rangeAsString": "[1952-1953["
+        },
+        {
+          "keyAsString": "1953",
+          "key": -536457600000,
+          "docCount": 7,
+          "rangeAsString": "[1953-1954["
+        },
+        {
+          "keyAsString": "1954",
+          "key": -504921600000,
+          "docCount": 8,
+          "rangeAsString": "[1954-1955["
+        },
+        {
+          "keyAsString": "1955",
+          "key": -473385600000,
+          "docCount": 18,
+          "rangeAsString": "[1955-1956["
+        },
+        {
+          "keyAsString": "1956",
+          "key": -441849600000,
+          "docCount": 13,
+          "rangeAsString": "[1956-1957["
+        },
+        {
+          "keyAsString": "1957",
+          "key": -410227200000,
+          "docCount": 17,
+          "rangeAsString": "[1957-1958["
+        },
+        {
+          "keyAsString": "1958",
+          "key": -378691200000,
+          "docCount": 14,
+          "rangeAsString": "[1958-1959["
+        },
+        {
+          "keyAsString": "1959",
+          "key": -347155200000,
+          "docCount": 15,
+          "rangeAsString": "[1959-1960["
+        },
+        {
+          "keyAsString": "1960",
+          "key": -315619200000,
+          "docCount": 17,
+          "rangeAsString": "[1960-1961["
+        },
+        {
+          "keyAsString": "1961",
+          "key": -283996800000,
+          "docCount": 20,
+          "rangeAsString": "[1961-1962["
+        },
+        {
+          "keyAsString": "1962",
+          "key": -252460800000,
+          "docCount": 25,
+          "rangeAsString": "[1962-1963["
+        },
+        {
+          "keyAsString": "1963",
+          "key": -220924800000,
+          "docCount": 15,
+          "rangeAsString": "[1963-1964["
+        },
+        {
+          "keyAsString": "1964",
+          "key": -189388800000,
+          "docCount": 16,
+          "rangeAsString": "[1964-1965["
+        },
+        {
+          "keyAsString": "1965",
+          "key": -157766400000,
+          "docCount": 13,
+          "rangeAsString": "[1965-1966["
+        },
+        {
+          "keyAsString": "1966",
+          "key": -126230400000,
+          "docCount": 30,
+          "rangeAsString": "[1966-1967["
+        },
+        {
+          "keyAsString": "1967",
+          "key": -94694400000,
+          "docCount": 27,
+          "rangeAsString": "[1967-1968["
+        },
+        {
+          "keyAsString": "1968",
+          "key": -63158400000,
+          "docCount": 27,
+          "rangeAsString": "[1968-1969["
+        },
+        {
+          "keyAsString": "1969",
+          "key": -31536000000,
+          "docCount": 29,
+          "rangeAsString": "[1969-1970["
+        },
+        {
+          "keyAsString": "1970",
+          "key": 0,
+          "docCount": 40,
+          "rangeAsString": "[1970-1971["
+        },
+        {
+          "keyAsString": "1971",
+          "key": 31536000000,
+          "docCount": 45,
+          "rangeAsString": "[1971-1972["
+        },
+        {
+          "keyAsString": "1972",
+          "key": 63072000000,
+          "docCount": 40,
+          "rangeAsString": "[1972-1973["
+        },
+        {
+          "keyAsString": "1973",
+          "key": 94694400000,
+          "docCount": 47,
+          "rangeAsString": "[1973-1974["
+        },
+        {
+          "keyAsString": "1974",
+          "key": 126230400000,
+          "docCount": 46,
+          "rangeAsString": "[1974-1975["
+        },
+        {
+          "keyAsString": "1975",
+          "key": 157766400000,
+          "docCount": 46,
+          "rangeAsString": "[1975-1976["
+        },
+        {
+          "keyAsString": "1976",
+          "key": 189302400000,
+          "docCount": 45,
+          "rangeAsString": "[1976-1977["
+        },
+        {
+          "keyAsString": "1977",
+          "key": 220924800000,
+          "docCount": 52,
+          "rangeAsString": "[1977-1978["
+        },
+        {
+          "keyAsString": "1978",
+          "key": 252460800000,
+          "docCount": 56,
+          "rangeAsString": "[1978-1979["
+        },
+        {
+          "keyAsString": "1979",
+          "key": 283996800000,
+          "docCount": 51,
+          "rangeAsString": "[1979-1980["
+        },
+        {
+          "keyAsString": "1980",
+          "key": 315532800000,
+          "docCount": 61,
+          "rangeAsString": "[1980-1981["
+        },
+        {
+          "keyAsString": "1981",
+          "key": 347155200000,
+          "docCount": 52,
+          "rangeAsString": "[1981-1982["
+        },
+        {
+          "keyAsString": "1982",
+          "key": 378691200000,
+          "docCount": 58,
+          "rangeAsString": "[1982-1983["
+        },
+        {
+          "keyAsString": "1983",
+          "key": 410227200000,
+          "docCount": 65,
+          "rangeAsString": "[1983-1984["
+        },
+        {
+          "keyAsString": "1984",
+          "key": 441763200000,
+          "docCount": 54,
+          "rangeAsString": "[1984-1985["
+        },
+        {
+          "keyAsString": "1985",
+          "key": 473385600000,
+          "docCount": 60,
+          "rangeAsString": "[1985-1986["
+        },
+        {
+          "keyAsString": "1986",
+          "key": 504921600000,
+          "docCount": 47,
+          "rangeAsString": "[1986-1987["
+        },
+        {
+          "keyAsString": "1987",
+          "key": 536457600000,
+          "docCount": 61,
+          "rangeAsString": "[1987-1988["
+        },
+        {
+          "keyAsString": "1988",
+          "key": 567993600000,
+          "docCount": 57,
+          "rangeAsString": "[1988-1989["
+        },
+        {
+          "keyAsString": "1989",
+          "key": 599616000000,
+          "docCount": 74,
+          "rangeAsString": "[1989-1990["
+        },
+        {
+          "keyAsString": "1990",
+          "key": 631152000000,
+          "docCount": 63,
+          "rangeAsString": "[1990-1991["
+        },
+        {
+          "keyAsString": "1991",
+          "key": 662688000000,
+          "docCount": 63,
+          "rangeAsString": "[1991-1992["
+        },
+        {
+          "keyAsString": "1992",
+          "key": 694224000000,
+          "docCount": 69,
+          "rangeAsString": "[1992-1993["
+        },
+        {
+          "keyAsString": "1993",
+          "key": 725846400000,
+          "docCount": 75,
+          "rangeAsString": "[1993-1994["
+        },
+        {
+          "keyAsString": "1994",
+          "key": 757382400000,
+          "docCount": 73,
+          "rangeAsString": "[1994-1995["
+        },
+        {
+          "keyAsString": "1995",
+          "key": 788918400000,
+          "docCount": 108,
+          "rangeAsString": "[1995-1996["
+        },
+        {
+          "keyAsString": "1996",
+          "key": 820454400000,
+          "docCount": 63,
+          "rangeAsString": "[1996-1997["
+        },
+        {
+          "keyAsString": "1997",
+          "key": 852076800000,
+          "docCount": 72,
+          "rangeAsString": "[1997-1998["
+        },
+        {
+          "keyAsString": "1998",
+          "key": 883612800000,
+          "docCount": 38,
+          "rangeAsString": "[1998-1999["
+        },
+        {
+          "keyAsString": "1999",
+          "key": 915148800000,
+          "docCount": 54,
+          "rangeAsString": "[1999-2000["
+        },
+        {
+          "keyAsString": "2000",
+          "key": 946684800000,
+          "docCount": 38,
+          "rangeAsString": "[2000-2001["
+        },
+        {
+          "keyAsString": "2001",
+          "key": 978307200000,
+          "docCount": 36,
+          "rangeAsString": "[2001-2002["
+        },
+        {
+          "keyAsString": "2002",
+          "key": 1009843200000,
+          "docCount": 27,
+          "rangeAsString": "[2002-2003["
+        },
+        {
+          "keyAsString": "2003",
+          "key": 1041379200000,
+          "docCount": 21,
+          "rangeAsString": "[2003-2004["
+        },
+        {
+          "keyAsString": "2004",
+          "key": 1072915200000,
+          "docCount": 43,
+          "rangeAsString": "[2004-2005["
+        },
+        {
+          "keyAsString": "2005",
+          "key": 1104537600000,
+          "docCount": 38,
+          "rangeAsString": "[2005-2006["
+        },
+        {
+          "keyAsString": "2006",
+          "key": 1136073600000,
+          "docCount": 29,
+          "rangeAsString": "[2006-2007["
+        },
+        {
+          "keyAsString": "2007",
+          "key": 1167609600000,
+          "docCount": 38,
+          "rangeAsString": "[2007-2008["
+        },
+        {
+          "keyAsString": "2008",
+          "key": 1199145600000,
+          "docCount": 23,
+          "rangeAsString": "[2008-2009["
+        },
+        {
+          "keyAsString": "2009",
+          "key": 1230768000000,
+          "docCount": 34,
+          "rangeAsString": "[2009-2010["
+        },
+        {
+          "keyAsString": "2010",
+          "key": 1262304000000,
+          "docCount": 19,
+          "rangeAsString": "[2010-2011["
+        },
+        {
+          "keyAsString": "2011",
+          "key": 1293840000000,
+          "docCount": 24,
+          "rangeAsString": "[2011-2012["
+        },
+        {
+          "keyAsString": "2012",
+          "key": 1325376000000,
+          "docCount": 26,
+          "rangeAsString": "[2012-2013["
+        },
+        {
+          "keyAsString": "2013",
+          "key": 1356998400000,
+          "docCount": 22,
+          "rangeAsString": "[2013-2014["
+        },
+        {
+          "keyAsString": "2014",
+          "key": 1388534400000,
+          "docCount": 6,
+          "rangeAsString": "[2014-2015["
+        },
+        {
+          "keyAsString": "2015",
+          "key": 1420070400000,
+          "docCount": 3,
+          "rangeAsString": "[2015-2016["
+        },
+        {
+          "keyAsString": "2016",
+          "key": 1451606400000,
+          "docCount": 5,
+          "rangeAsString": "[2016-2017]"
+        }
+      ],
+      "keyCount": 189
+    }
+  }
+}

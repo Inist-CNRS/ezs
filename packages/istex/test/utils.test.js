@@ -1,6 +1,7 @@
-const assert = require('assert');
+import { PassThrough } from 'stream';
 
-const { getSubject } = require('../src/utils');
+const assert = require('assert');
+const { getSubject, writeTo, newValue } = require('../src/utils');
 
 describe('utils', () => {
     describe('getSubject', () => {
@@ -51,6 +52,37 @@ describe('utils', () => {
                 '<subject> <verb> "comp > lement" .',
             );
             assert.equal(subject, '<subject>');
+        });
+    });
+
+    describe('writeTo', () => {
+        it('should write data to stream', () => {
+            const input = new PassThrough({ objectMode: true });
+            const data = {
+                title: 'Corpus',
+                author: 'François',
+                publisher: 'CNRS',
+                licence: 'CC-By',
+                versionInfo: '1',
+            };
+
+            writeTo(input, data, () => {
+                input.on('data', (chunk) => {
+                    assert.deepEqual(chunk, data);
+                });
+            });
+        });
+    });
+
+    describe('newValue', () => {
+        it('should set the path value to Object', () => {
+            const object = { foo: { bar: 'a' } };
+
+            let newObj = newValue('b', 'foo.bar', object);
+            assert.deepEqual(newObj, { foo: { bar: 'b' } });
+
+            newObj = newValue('b', 'foo.bar');
+            assert.deepEqual(newObj, { foo: { bar: 'b' } });
         });
     });
 });
