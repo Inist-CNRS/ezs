@@ -19,9 +19,12 @@ npm install @ezs/analytics
 -   [output](#output)
 -   [topics](#topics)
 -   [minimizing](#minimizing)
+-   [files](#files)
 -   [maximizing](#maximizing)
+-   [unstash](#unstash)
 -   [groupingByModulo](#groupingbymodulo)
 -   [reducing](#reducing)
+-   [stash](#stash)
 -   [aggregate](#aggregate)
 -   [slice](#slice)
 -   [distinct](#distinct)
@@ -31,6 +34,7 @@ npm install @ezs/analytics
 -   [merging](#merging)
 -   [summing](#summing)
 -   [filter](#filter)
+-   [combine](#combine)
 -   [value](#value)
 -   [greater](#greater)
 -   [pluck](#pluck)
@@ -160,6 +164,41 @@ Output:
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
+### files
+
+Take `Object` containing filename et throw content by chunk
+
+Note : files must be under the working directory of the Node.js process.
+
+```json
+[ fi1e1.csv, file2.csv ]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+plugin = basics
+
+[files]
+[CSVParse]
+```
+
+Output:
+
+```json
+[
+(...)
+]
+```
+
+#### Parameters
+
+-   `location` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path location to find files (optional, default `.`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
 ### maximizing
 
 Take special `Object` like `{id, value}` and replace `value` with the max of `value`s
@@ -195,6 +234,44 @@ Output:
 
 -   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### unstash
+
+Takes all `Objects` from a store
+
+```json
+[
+          { a: 1 },
+          { a: 2 },
+          { a: 3 },
+]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[unstash]
+from = store/13455666/ddd
+```
+
+Output:
+
+```json
+ [
+          { year: 2000, dept: 54, storeID: 'AEERRFFF' },
+          { year: 2001, dept: 55, storeID: 'AEERRFFF' },
+          { year: 2003, dept: 54, storeID: 'AEERRFFF' },
+ ]
+```
+
+#### Parameters
+
+-   `from` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the store id
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -266,6 +343,44 @@ Output:
 
 -   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### stash
+
+Takes all `Objects` and stash them in a store
+
+```json
+[
+          { year: 2000, dept: 54 },
+          { year: 2001, dept: 55 },
+          { year: 2003, dept: 54 },
+]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[stash]
+path = storeID
+```
+
+Output:
+
+```json
+ [
+          { year: 2000, dept: 54, storeID: 'AEERRFFF' },
+          { year: 2001, dept: 55, storeID: 'AEERRFFF' },
+          { year: 2003, dept: 54, storeID: 'AEERRFFF' },
+ ]
+```
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the path to insert the storeID (optional, default `storeID`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -639,6 +754,51 @@ Output:
 
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to compare (optional, default `"value"`)
 -   `if` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** value to compare (optional, default `""`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### combine
+
+Takes an `Object` and substitute a field with the corresponding value found in a external pipeline
+the internal pipeline must produce a stream of special object (id, value)
+
+```json
+[
+          { year: 2000, dept: 54 },
+          { year: 2001, dept: 55 },
+          { year: 2003, dept: 54 },
+]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[combine]
+path = dept
+file = ./departement.ini
+```
+
+Output:
+
+```json
+ [
+          { year: 2000, dept: { id: 54, value: 'Meurthe et moselle' } },
+          { year: 2001, dept: { id: 55, value: 'Meuse' } },
+          { year: 2003, dept: { id: 54, value: 'Meurthe et moselle' } },
+ ]
+```
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the path to substitute
+-   `primer` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Data to send to the external pipeline (optional, default `auto`)
+-   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
+-   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
+-   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
+-   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 

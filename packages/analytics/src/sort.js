@@ -1,6 +1,6 @@
 import get from 'lodash.get';
 import fastsort from 'fast-sort';
-import Store from './store';
+import { createStore } from './store';
 import { normalize } from './tune';
 
 
@@ -60,17 +60,20 @@ const sorting = (arr, reverse = false) => {
  */
 export default async function sort(data, feed) {
     if (!this.store) {
-        this.store = new Store(this.ezs, `sort_${Math.random()}`);
+        const location = this.getParam('location');
+        this.store = createStore(this.ezs, 'sort', location);
         this.table = [];
     }
     if (this.isLast()) {
         const reverse = this.getParam('reverse', false);
         const sorted = sorting(this.table, reverse);
-        await sorted.reduce(async (prev, cur) => {
-            const val = await this.store.get(cur);
-            feed.write(val);
-            return prev;
-        }, Promise.resolve(true));
+        await sorted.reduce(
+            async (previousPromise, cur) => {
+                await previousPromise;
+                return this.store.get(cur).then((val) => feed.write(val));
+            },
+            Promise.resolve(),
+        );
         this.store.close();
         feed.close();
     } else {

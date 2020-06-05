@@ -1,7 +1,7 @@
 import get from 'lodash.get';
 import set from 'lodash.set';
 import debug from 'debug';
-import Store from './store';
+import { createStore } from './store';
 
 /**
  * Takes an `Object` and substitute a field with the corresponding value found in a external pipeline
@@ -62,11 +62,10 @@ export default function combine(data, feed) {
             return feed.stop(new Error('Invalid parmeter for [combine]'));
         }
         debug('ezs')('[combine] with sub pipeline.');
-        const domain = `combine_${Math.random()}`;
-        const primer = this.getParam('primer', domain);
         const location = this.getParam('location');
-        this.store = new Store(ezs, domain, location);
+        this.store = createStore(ezs, 'combine', location);
         this.store.reset();
+        const primer = this.getParam('primer', this.store.id());
         const streams = ezs.compileCommands(commands, environment);
         const input = ezs.createStream(ezs.objectMode());
         const output = ezs.createPipeline(input, streams)

@@ -1,6 +1,6 @@
 import get from 'lodash.get';
 import core from './core';
-import Store from './store';
+import { createStore } from './store';
 
 /**
  * Take `Object` like { id, value } and throw a serie of number value
@@ -63,7 +63,8 @@ export default function distribute(data, feed) {
     const value = get(data, this.getParam('value', 'value'));
 
     if (!this.store) {
-        this.store = new Store(this.ezs, 'sort');
+        const location = this.getParam('location');
+        this.store = createStore(this.ezs, 'sort', location);
         this.max = null;
         this.min = null;
     }
