@@ -20,11 +20,11 @@ npm install @ezs/analytics
 -   [topics](#topics)
 -   [minimizing](#minimizing)
 -   [files](#files)
+-   [buffers](#buffers)
 -   [maximizing](#maximizing)
--   [unstash](#unstash)
+-   [bufferize](#bufferize)
 -   [groupingByModulo](#groupingbymodulo)
 -   [reducing](#reducing)
--   [stash](#stash)
 -   [aggregate](#aggregate)
 -   [slice](#slice)
 -   [distinct](#distinct)
@@ -199,6 +199,43 @@ Output:
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
+### buffers
+
+Takes all `Objects` from a store
+
+```json
+[
+     'AEERRFFF',
+     'DFERGGGV',
+]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[buffers]
+from = store/13455666/ddd
+```
+
+Output:
+
+```json
+ [
+          { year: 2000, dept: 54, bufferID: 'AEERRFFF' },
+          { year: 2001, dept: 55, bufferID: 'AEERRFFF' },
+          { annee: 2003, bufferID: 'DFERGGGV' },
+ ]
+```
+
+#### Parameters
+
+-   `from` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the store id
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
 ### maximizing
 
 Take special `Object` like `{id, value}` and replace `value` with the max of `value`s
@@ -237,15 +274,15 @@ Output:
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### unstash
+### bufferize
 
-Takes all `Objects` from a store
+Takes all `Objects` and bufferize them in a store
 
 ```json
 [
-          { a: 1 },
-          { a: 2 },
-          { a: 3 },
+          { year: 2000, dept: 54 },
+          { year: 2001, dept: 55 },
+          { year: 2003, dept: 54 },
 ]
 ```
 
@@ -255,23 +292,23 @@ Script:
 [use]
 plugin = analytics
 
-[unstash]
-from = store/13455666/ddd
+[bufferize]
+path = bufferID
 ```
 
 Output:
 
 ```json
  [
-          { year: 2000, dept: 54, storeID: 'AEERRFFF' },
-          { year: 2001, dept: 55, storeID: 'AEERRFFF' },
-          { year: 2003, dept: 54, storeID: 'AEERRFFF' },
+          { year: 2000, dept: 54, bufferID: 'AEERRFFF' },
+          { year: 2001, dept: 55, bufferID: 'AEERRFFF' },
+          { year: 2003, dept: 54, bufferID: 'AEERRFFF' },
  ]
 ```
 
 #### Parameters
 
--   `from` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the store id
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the path to insert the bufferID (optional, default `bufferID`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -343,44 +380,6 @@ Output:
 
 -   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### stash
-
-Takes all `Objects` and stash them in a store
-
-```json
-[
-          { year: 2000, dept: 54 },
-          { year: 2001, dept: 55 },
-          { year: 2003, dept: 54 },
-]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[stash]
-path = storeID
-```
-
-Output:
-
-```json
- [
-          { year: 2000, dept: 54, storeID: 'AEERRFFF' },
-          { year: 2001, dept: 55, storeID: 'AEERRFFF' },
-          { year: 2003, dept: 54, storeID: 'AEERRFFF' },
- ]
-```
-
-#### Parameters
-
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the path to insert the storeID (optional, default `storeID`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
