@@ -9,7 +9,7 @@ ezs.use(statements);
 const handle = [];
 let sid;
 describe('first', () => {
-    test('stash', (done) => {
+    test('bufferize', (done) => {
         const input = [
             { a: 1, b: 'a' },
             { a: 2, b: 'b' },
@@ -19,7 +19,7 @@ describe('first', () => {
             { a: 6, b: 'f' },
         ];
         from(input)
-            .pipe(ezs('stash', { path: 'c' }))
+            .pipe(ezs('bufferize', { path: 'c' }))
             .pipe(ezs.catch())
             .on('error', done)
             .on('data', (chunk) => {
@@ -44,18 +44,11 @@ describe('first', () => {
     });
 });
 describe('second', () => {
-    test('unstash', (done) => {
-        const input = [
-            { a: 11, b: 'aa' },
-            { a: 22, b: 'bb' },
-            { a: 33, b: 'cc' },
-            { a: 44, b: 'dd' },
-            { a: 55, b: 'ee' },
-            { a: 66, b: 'ff' },
-        ];
+    test('buffers', (done) => {
+        const input = [sid];
         const output = [];
         from(input)
-            .pipe(ezs('unstash', { from: sid }))
+            .pipe(ezs('buffers'))
             .pipe(ezs.catch())
             .on('error', done)
             .on('data', (chunk) => {
@@ -73,7 +66,7 @@ describe('second', () => {
             });
     });
 });
-describe('stash/unstash', () => {
+describe('bufferize/buffers', () => {
     test('with script', (done) => {
         const input = [
             { a: 1, b: 'a' },
@@ -87,17 +80,15 @@ describe('stash/unstash', () => {
             [use]
             plugin = analytics
 
-            [stash]
+            [bufferize]
             path = c
 
-            [replace]
-            path = is
-            value = empty
-
-            path = c
+            [exchange]
             value = get('c')
-            [unstash]
-            from = get('c')
+
+            [shift]
+
+            [buffers]
         `;
         const output = [];
         from(input)

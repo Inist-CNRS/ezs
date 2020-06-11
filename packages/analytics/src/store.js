@@ -48,6 +48,9 @@ class Store {
         return new Promise((resolve, reject) => {
             this.db.get(encodeKey(key), (err, value) => {
                 if (err) {
+                    if (err.notFound) {
+                        return resolve(null);
+                    }
                     return reject(err);
                 }
                 return resolve(decodeValue(value));

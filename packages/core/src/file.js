@@ -26,11 +26,9 @@ export function useFile(ezs, name) {
     const plugName1 = names.map((n) => check(n)).filter(Boolean).shift();
     const plugName2 = names.map((n) => findFileIn(ezs.getPath(), n)).filter(Boolean).shift();
     if (plugName1) {
-        debug('ezs')(`Using '${name}' from ${plugName1}`);
         return plugName1;
     }
     if (plugName2) {
-        debug('ezs')(`Using '${name}' from ${plugName2}`);
         return plugName2;
     }
     debug('ezs')(`Unable to find '${name}' from ${plugName1}`);

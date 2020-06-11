@@ -1,4 +1,5 @@
 import assert from 'assert';
+import fs from 'fs';
 import from from 'from';
 import ezs from '../../core/src';
 import statements from '../src';
@@ -135,6 +136,7 @@ describe('no combine', () => {
             [files]
             location = ${__dirname}
         `;
+        fs.chmodSync(`${__dirname}/forbidden`, 0o333, done);
         from(input)
             .pipe(ezs('combine', { script, primer: 'forbidden' }))
             .pipe(ezs.catch())

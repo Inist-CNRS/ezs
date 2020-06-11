@@ -181,7 +181,7 @@ describe('Catch error in a pipeline', () => {
     it('with singleton and error (send)', (done) => {
         const ten = new Decade();
         ten
-            .pipe(ezs('singleton', { statement: 'boum' }))
+            .pipe(ezs('singleton', { command: 'boum' }))
             .on('error', (err) => {
                 assert.ok(err instanceof Error);
                 done();
@@ -191,7 +191,7 @@ describe('Catch error in a pipeline', () => {
     it('with singleton and error (throw)', (done) => {
         const ten = new Decade();
         ten
-            .pipe(ezs('singleton', { statement: 'bang' }))
+            .pipe(ezs('singleton', { command: 'bang' }))
             .on('error', (err) => {
                 assert.ok(err instanceof Error);
                 done();

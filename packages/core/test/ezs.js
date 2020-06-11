@@ -130,6 +130,7 @@ describe('Build a pipeline', () => {
             }))
             .pipe(ezs('delegate', { script: '' }))
             .pipe(ezs('transit'))
+            .pipe(ezs.catch())
             .on('error', (error) => {
                 assert(error instanceof Error);
                 done();

@@ -32,8 +32,8 @@ import aggregate from './aggregate';
 import statistics from './statistics';
 import combine from './combine';
 import files from './files';
-import stash from './stash';
-import unstash from './unstash';
+import bufferize from './bufferize';
+import buffers from './buffers';
 
 export default {
     count,
@@ -70,6 +70,6 @@ export default {
     statistics,
     combine,
     files,
-    stash,
-    unstash,
+    bufferize,
+    buffers,
 };

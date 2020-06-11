@@ -2,7 +2,7 @@ import set from 'lodash.set';
 import { createStore } from './store';
 
 /**
- * Takes all `Objects` and stash them in a store
+ * Takes all `Objects` and bufferize them in a store
  *
  * ```json
  * [
@@ -18,8 +18,8 @@ import { createStore } from './store';
  * [use]
  * plugin = analytics
  *
- * [stash]
- * path = storeID
+ * [bufferize]
+ * path = bufferID
  *
  * ```
  *
@@ -27,21 +27,21 @@ import { createStore } from './store';
  *
  * ```json
  *  [
- *           { year: 2000, dept: 54, storeID: 'AEERRFFF' },
- *           { year: 2001, dept: 55, storeID: 'AEERRFFF' },
- *           { year: 2003, dept: 54, storeID: 'AEERRFFF' },
+ *           { year: 2000, dept: 54, bufferID: 'AEERRFFF' },
+ *           { year: 2001, dept: 55, bufferID: 'AEERRFFF' },
+ *           { year: 2003, dept: 54, bufferID: 'AEERRFFF' },
  *  ]
  * ```
  *
- * @name stash
- * @param {String} [path=storeID] the path to insert the storeID
+ * @name bufferize
+ * @param {String} [path=bufferID] the path to insert the bufferID
  * @returns {Object}
  */
-export default async function stash(data, feed) {
+export default async function bufferize(data, feed) {
     const { ezs } = this;
     if (this.isFirst()) {
         const location = this.getParam('location');
-        this.store = createStore(ezs, 'stash', location);
+        this.store = createStore(ezs, 'bufferize', location);
         this.store.reset();
     }
     if (this.isLast()) {
@@ -54,7 +54,7 @@ export default async function stash(data, feed) {
                 this.store.close();
             });
     }
-    const path = this.getParam('path', 'storeID');
+    const path = this.getParam('path', 'bufferID');
     const key = this.getIndex().toString().padStart(20, '0');
     set(data, path, this.store.id());
     await this.store.put(key, data);

@@ -50,25 +50,21 @@ export default function combine(data, feed) {
     const { ezs } = this;
     let whenReady = Promise.resolve(true);
     if (this.isFirst()) {
-        const file = this.getParam('file');
-        const fileContent = ezs.loadScript(file);
-        const script = this.getParam('script', fileContent);
-        const cmd1 = ezs.compileScript(script).get();
-        const command = this.getParam('command');
-        const cmd2 = [].concat(command).map(ezs.parseCommand).filter(Boolean);
-        const commands = this.getParam('commands', cmd1.concat(cmd2));
-        const environment = this.getEnv();
-        if (!commands || commands.length === 0) {
-            return feed.stop(new Error('Invalid parmeter for [combine]'));
-        }
         debug('ezs')('[combine] with sub pipeline.');
         const location = this.getParam('location');
         this.store = createStore(ezs, 'combine', location);
         this.store.reset();
         const primer = this.getParam('primer', this.store.id());
-        const streams = ezs.compileCommands(commands, environment);
         const input = ezs.createStream(ezs.objectMode());
-        const output = ezs.createPipeline(input, streams)
+        const statements = ezs.createCommands({
+            file: this.getParam('file'),
+            script: this.getParam('script'),
+            command: this.getParam('command'),
+            commands: this.getParam('commands'),
+            prepend: this.getParam('prepend'),
+            append: this.getParam('append'),
+        }, this.getEnv());
+        const output = ezs.createPipeline(input, statements)
             .pipe(ezs.catch())
             .on('data', async (item) => {
                 const key = get(item, 'id');
@@ -98,6 +94,8 @@ export default function combine(data, feed) {
             const value = await this.store.get(key);
             if (value) {
                 set(data, path, value);
+            } else {
+                set(data, path, { id: key });
             }
             return feed.send(data);
         })
