@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.6.0...@ezs/analytics@1.6.1) (2020-06-12)
+
+
+### Bug Fixes
+
+* 🐛 remainder of merge problem ([2020fb1](https://github.com/Inist-CNRS/ezs/commit/2020fb15d35141d5e2c0a2e9cf81568bc43b2382))
+
+
+
+
+
 # [1.6.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.5.1...@ezs/analytics@1.6.0) (2020-06-12)
 
 
