@@ -1,9 +1,9 @@
 import ezs from '../../core/src';
-import Store from '../src/store';
+import { createStore }  from '../src/store';
 
 describe('Store', () => {
     it('add distinct values', async (done) => {
-        const store = new Store(ezs, 'test_store1');
+        const store = createStore(ezs, 'test_store1');
         await Promise.all([
             store.add(1, 'A'),
             store.add(2, 'B'),
@@ -19,12 +19,13 @@ describe('Store', () => {
                 expect(output.length).toEqual(3);
                 expect(output[0].id).toEqual(1);
                 expect(output[0].value[0]).toEqual('A');
+                store.close();
                 done();
             });
     });
 
     it('add duplicate keys', async (done) => {
-        const store = new Store(ezs, 'test_store2');
+        const store = createStore(ezs, 'test_store2');
         await store.add(1, 'A');
         await store.add(2, 'B');
         await store.add(2, 'X');
@@ -45,12 +46,13 @@ describe('Store', () => {
                 expect(output[0].value.length).toEqual(4);
                 expect(output[1].value.length).toEqual(3);
                 expect(output[2].value.length).toEqual(1);
+                store.close();
                 done();
             });
     });
 
     it('put duplicate keys', async (done) => {
-        const store = new Store(ezs, 'test_store2');
+        const store = createStore(ezs, 'test_store2');
         await store.put(1, 'A');
         await store.put(2, 'B');
         await store.put(2, 'X');
@@ -73,6 +75,7 @@ describe('Store', () => {
                 expect(output[1].value).toEqual('D');
                 expect(output[2].value.length).toEqual(1);
                 expect(output[2].value).toEqual('C');
+                store.close();
                 done();
             });
     });

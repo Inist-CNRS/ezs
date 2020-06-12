@@ -30,6 +30,10 @@ import multiply from './mulitply';
 import distance from './distance';
 import aggregate from './aggregate';
 import statistics from './statistics';
+import combine from './combine';
+import files from './files';
+import bufferize from './bufferize';
+import buffers from './buffers';
 
 export default {
     count,
@@ -64,4 +68,8 @@ export default {
     distance,
     aggregate,
     statistics,
+    combine,
+    files,
+    bufferize,
+    buffers,
 };

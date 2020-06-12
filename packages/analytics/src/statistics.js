@@ -1,7 +1,7 @@
 import hasher from 'node-object-hash';
 import get from 'lodash.get';
 import set from 'lodash.set';
-import Store from './store';
+import { createStore } from './store';
 
 const hashCoerce = hasher({
     sort: false,
@@ -130,7 +130,8 @@ export default function statistics(data, feed) {
     const keys = fields.filter((k) => typeof k === 'string');
 
     if (this.isFirst()) {
-        this.store = new Store(this.ezs, 'statistics'.concat(Date.now()));
+        const location = this.getParam('location');
+        this.store = createStore(this.ezs, 'statistics', location);
         this.store.reset();
         this.stack = {};
     }

@@ -91,7 +91,7 @@ describe('compile command', () => {
         assert.throws(() => (ezs.compileCommands(null, environment)));
     });
     it('with empty commands', (done) => {
-        const strm = ezs.compileCommands([], environment);
+        const strm = ezs.compileCommands([], environment).shift();
         strm.on('data', (chunk) => {
             assert.strictEqual(chunk, 'OK');
         });

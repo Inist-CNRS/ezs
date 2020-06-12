@@ -69,3 +69,6 @@ typings/
 
 # result TSV files
 res*.tsv
+
+
+packages/analytics/test/forbidden

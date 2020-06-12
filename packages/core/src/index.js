@@ -16,6 +16,8 @@ import Server from './server';
 import settings from './settings';
 import { compressStream, uncompressStream } from './compactor';
 
+const onlyOne = (item) => (Array.isArray(item) ? item.shift() : item);
+
 const ezs = (name, options, environment) => new Engine(ezs, Statement.get(ezs, name, options), options, environment);
 const ezsPath = [resolve(__dirname, '../..'), process.cwd(), globalModules];
 const ezsCache = new LRU(settings.cache);
@@ -75,19 +77,36 @@ ezs.compileCommands = (commands, environment) => {
         throw new Error('Pipeline works with an array of commands.');
     }
     const cmds = [...commands];
-    cmds.push({
-        mode: null,
-        name: 'transit',
-        args: { },
-    });
     const streams = cmds.map((command) => ezs.createCommand(command, environment));
-    if (streams.length === 1) {
-        return new PassThrough(ezs.objectMode());
+    if (streams.length === 0) {
+        return [new PassThrough(ezs.objectMode())];
     }
     return streams;
 };
+ezs.createCommands = (params, environment) => {
+    const { file } = params;
+    const fileContent = ezs.loadScript(file);
+    const { script = fileContent } = params;
+    const cmd1 = ezs.compileScript(script).get();
+    const { command } = params;
+    const cmd2 = [].concat(command).map(ezs.parseCommand).filter(Boolean);
+    const { commands = cmd1.concat(cmd2) } = params;
+    const { prepend, append } = params;
+    const prepend2Pipeline = ezs.parseCommand(onlyOne(prepend));
+    const append2Pipeline = ezs.parseCommand(onlyOne(append));
+    if (prepend2Pipeline) {
+        commands.unshift(prepend2Pipeline);
+    }
+    if (append2Pipeline) {
+        commands.push(append2Pipeline);
+    }
+    if (!commands || commands.length === 0) {
+        throw new Error('Invalid parmeter for createCommands');
+    }
+    return ezs.compileCommands(commands, environment);
+};
 ezs.writeTo = writeTo;
-ezs.createPipeline = (input, streams) => streams.reduce((amont, aval) => amont.pipe(aval), input);
+ezs.createPipeline = (input, commands) => commands.reduce((amont, aval) => amont.pipe(aval), input);
 ezs.compress = (options) => compressStream(ezs, options);
 ezs.uncompress = (options) => uncompressStream(ezs, options);
 ezs.createStream = (options) => new PassThrough(options);
