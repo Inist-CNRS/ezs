@@ -136,14 +136,18 @@ describe('no combine', () => {
             [files]
             location = ${__dirname}
         `;
-        fs.chmodSync(`${__dirname}/forbidden`, 0o333, done);
+        const filename = `${__dirname}/forbidden`;
+        fs.writeFileSync(filename, 'secret', 'utf8');
+        fs.chmodSync(filename, 0o333, done);
         from(input)
             .pipe(ezs('combine', { script, primer: 'forbidden' }))
             .pipe(ezs.catch())
             .on('error', () => {
+                fs.unlinkSync(filename);
                 done();
             })
             .on('end', () => {
+                fs.unlinkSync(filename);
                 done(new Error('Error is the right behavior'));
             });
     });
