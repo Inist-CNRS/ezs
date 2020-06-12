@@ -7,23 +7,13 @@ import jsonld from 'jsonld';
  * @param none.
  * @returns {String}
  */
-export default function convertJsonLdToNQuads(data, feed) {
+export default async function convertJsonLdToNQuads(data, feed) {
     if (this.isLast()) {
         feed.close();
-    } else {
-        jsonld.toRDF(
-            data,
-            {
-                format: 'application/n-quads',
-            },
-            (err, nquads) => {
-                if (err) {
-                    // eslint-disable-next-line no-console
-                    console.error('convertJsonLdToNQuads: ', err);
-                    feed.stop(new Error(err));
-                }
-                feed.send(nquads);
-            },
-        );
+        return;
     }
+    const nquads = await jsonld.toRDF(data, {
+        format: 'application/n-quads',
+    });
+    feed.send(nquads);
 }

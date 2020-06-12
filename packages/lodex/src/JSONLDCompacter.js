@@ -1,16 +1,9 @@
-import { promises as jsonld } from 'jsonld';
+import jsonld from 'jsonld';
 
-export default function JSONLDCompacter(data, feed) {
+export default async function JSONLDCompacter(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
-
-    jsonld.compact(data, {}).then(
-        (out) => {
-            feed.send(out);
-        },
-        (err) => {
-            throw err;
-        },
-    );
+    const out = await jsonld.compact(data, {});
+    feed.send(out);
 }
