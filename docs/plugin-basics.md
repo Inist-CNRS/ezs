@@ -23,8 +23,8 @@ npm install @ezs/basics
 -   [ZIPExtract](#zipextract)
 -   [OBJFlatten](#objflatten)
 -   [INIString](#inistring)
--   [XMLString](#xmlstring)
 -   [CSVParse](#csvparse)
+-   [XMLString](#xmlstring)
 -   [JSONParse](#jsonparse)
 -   [TXTZip](#txtzip)
 -   [JSONString](#jsonstring)
@@ -130,17 +130,6 @@ Take `Object` and generate INI
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
-### XMLString
-
-Take `Object` and transform it into a XML string
-
-#### Parameters
-
--   `rootElement` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Root element name for the tag which start and close the feed (optional, default `items`)
--   `contentElement` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Content element name for the tag which start and close each item (optional, default `item`)
-
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
 ### CSVParse
 
 -   **See: <https://github.com/Inist-CNRS/node-csv-string>
@@ -154,6 +143,18 @@ Take `String` and parse CSV  to generate object
 -   `quote` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to indicate the CSV quote. (optional, default `auto`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### XMLString
+
+Take `Object` and transform it into a XML string
+
+#### Parameters
+
+-   `rootElement` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Root element name for the tag which start and close the feed (optional, default `items`)
+-   `contentElement` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Content element name for the tag which start and close each item (optional, default `item`)
+-   `rootNamespace` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Namespace for the root tag (xmlns=)
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ### JSONParse
 
