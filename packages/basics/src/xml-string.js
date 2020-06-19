@@ -3,7 +3,9 @@ import XML from 'xml-mapping';
 function XMLString(data, feed) {
     const rootElement = this.getParam('rootElement', 'items');
     const contentElement = this.getParam('contentElement', 'item');
-    const beginTag = rootElement ? `<${rootElement}>` : '';
+    const rootNamespace = encodeURI(this.getParam('rootNamespace'), '');
+    const attrNS = !rootNamespace.length ? ` xmlns=${rootNamespace}` : '';
+    const beginTag = rootElement ? `<${rootElement}${attrNS}>` : '';
     const endTag = rootElement ? `</${rootElement}>` : '';
 
     if (this.isLast()) {
