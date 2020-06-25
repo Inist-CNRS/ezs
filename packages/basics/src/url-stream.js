@@ -29,7 +29,7 @@ function URLStream(data, feed) {
         .then((stream) => {
             stream.on('data', (chunk) => feed.write(chunk));
             stream.on('error', (error) => feed.stop(error));
-            stream.on('end', () => feed.close());
+            stream.on('end', () => feed.end());
             return stream;
         })
         .catch((error) => feed.stop(error));
