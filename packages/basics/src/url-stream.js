@@ -29,7 +29,7 @@ function URLStream(data, feed) {
         .then((stream) => {
             stream.on('data', (chunk) => feed.write(chunk));
             stream.on('error', (error) => feed.stop(error));
-            stream.on('end', () => feed.close());
+            stream.on('end', () => feed.end());
             return stream;
         })
         .catch((error) => feed.stop(error));
@@ -40,8 +40,7 @@ function URLStream(data, feed) {
  *
  * @name URLStream
  * @param {String} [url] URL to fecth
- * @param {String} [target] choose the key to set
- * @param {String} [json=false] Pasre as JSON the content of URL
+ * @param {String} [path=*] choose the path to split JSON result
  * @returns {Object}
  */
 export default {

@@ -17,6 +17,7 @@ import URLFetch from './url-fetch';
 import URLParse from './url-parse';
 import URLString from './url-string';
 import URLStream from './url-stream';
+import URLConnect from './url-connect';
 import TXTZip from './txt-zip';
 import ZIPExtract from './zip-extract';
 import INIString from './ini-string';
@@ -41,6 +42,7 @@ export default {
     URLParse,
     URLString,
     URLStream,
+    URLConnect,
     TXTZip,
     ZIPExtract,
     INIString,
