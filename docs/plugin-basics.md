@@ -34,6 +34,7 @@ npm install @ezs/basics
 -   [CSVString](#csvstring)
 -   [CSVObject](#csvobject)
 -   [URLStream](#urlstream)
+-   [URLConnect](#urlconnect)
 -   [SKOSObject](#skosobject)
 -   [OBJStandardize](#objstandardize)
 
@@ -195,8 +196,6 @@ Take `String` as XML input, parse it and split it in multi document at each path
 
 #### Parameters
 
--   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fecth
--   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** choose the key to set
 -   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose a character for flatten keys (optional, default `/`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
@@ -256,7 +255,18 @@ Take `Object` as parameters of URL, throw each chunk from the result
 #### Parameters
 
 -   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fecth
--   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** choose the key to set
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose the path to split JSON result (optional, default `*`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### URLConnect
+
+Take `Object` and send it to an URL
+the output will be the content of URL
+
+#### Parameters
+
+-   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fecth
 -   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Pasre as JSON the content of URL (optional, default `false`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
