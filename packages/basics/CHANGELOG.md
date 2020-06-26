@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.3.1...@ezs/basics@1.4.0) (2020-06-26)
+
+
+### Features
+
+* 🎸 add [URLConnect] ([dfe3496](https://github.com/Inist-CNRS/ezs/commit/dfe3496e20dd20ea8fba0b810ca896b31e47b19a))
+
+
+
+
+
 ## [1.3.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.3.0...@ezs/basics@1.3.1) (2020-06-19)
 
 **Note:** Version bump only for package @ezs/basics
