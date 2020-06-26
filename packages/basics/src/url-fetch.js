@@ -1,4 +1,5 @@
 import fetch from 'fetch-with-proxy';
+import set from 'lodash.set';
 
 function URLFetch(data, feed) {
     const url = this.getParam('url');
@@ -20,8 +21,9 @@ function URLFetch(data, feed) {
         })
         .then((body) => {
             if (target && typeof target === 'string' && typeof data === 'object') {
-                data[target] = body;
-                return feed.send(data);
+                const result = { ...data };
+                set(result, target, body);
+                return feed.send(result);
             }
             return feed.send(body);
         })
