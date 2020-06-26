@@ -10,7 +10,6 @@ import XMLString from './xml-string';
 import CSVParse from './csv-parse';
 import CSVObject from './csv-object';
 import CSVString from './csv-string';
-import SKOSObject from './skos-object';
 import JSONParse from './json-parse';
 import JSONString from './json-string';
 import URLFetch from './url-fetch';
@@ -35,7 +34,6 @@ export default {
     CSVParse,
     CSVObject,
     CSVString,
-    SKOSObject,
     JSONParse,
     JSONString,
     URLFetch,
