@@ -1189,6 +1189,24 @@ describe('test', () => {
             });
     });
 
+    it('round', (done) =>{
+        const res = [];
+        from([
+            { id: 'x', value: 2.2 },
+            { id: 'y', value: 2.5 },
+            { id: 'z', value: 2.8 },
+        ])
+
+            .pipe(ezs('round', {path : 'b'}))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.value, 2);
+                assert.equal(res[0].value, 3);
+                assert.equal(res[1].value, 3);
+            })
+    })
 
 
 });
