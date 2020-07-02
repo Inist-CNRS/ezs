@@ -24,7 +24,7 @@ export default function ISTEXExchange (data, feed) {
 // helpers
 function buildExchangerStream (params) {
   const exchangeParams = _.pick(params,
-                                ['reviewUrl', 'parallel', 'doProfile', 'doWarn', 'doLogError', 'doLogEndInfo']
+                                ['apiUrl', 'reviewUrl', 'parallel', 'doProfile', 'doWarn', 'doLogError', 'doLogEndInfo']
   );
 
   const exchanger = exchange(exchangeParams),
@@ -61,7 +61,7 @@ function close (cb) {
 }
 
 function feeder (feed) {
-  if (this.processError) {return feed.stop(this.processError)};
+  if (this.processError) {return feed.stop(this.processError)}
   while (this.results.length) {
     feed.write(this.results.shift());
   }
