@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.6.1...@ezs/analytics@1.6.2) (2020-07-02)
+
+
+### Bug Fixes
+
+* 🐛 display status & message error ([2f67590](https://github.com/Inist-CNRS/ezs/commit/2f675904461e860eb2875513609a336209c46574))
+
+
+
+
+
 ## [1.6.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.6.0...@ezs/analytics@1.6.1) (2020-06-12)
 
 
