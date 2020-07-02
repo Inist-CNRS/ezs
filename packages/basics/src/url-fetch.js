@@ -12,9 +12,7 @@ function URLFetch(data, feed) {
     fetch(url)
         .then((response) => {
             if (response.status !== 200) {
-                const msg = `Received status code ${response.statusCode} (${
-                    response.statusMessage
-                })'`;
+                const msg = `Received status code ${response.status} (${response.statusText})'`;
                 throw new Error(msg);
             }
             return json ? response.json() : response.text();

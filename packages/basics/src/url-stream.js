@@ -15,7 +15,7 @@ function URLStream(data, feed) {
     fetch(cURL.href)
         .then((response) => {
             if (response.status !== 200) {
-                const msg = `Received status code ${response.statusCode} (${response.statusMessage})'`;
+                const msg = `Received status code ${response.status} (${response.statusText})'`;
                 throw new Error(msg);
             }
             return response.body;

@@ -28,4 +28,20 @@ describe('URLStream', () => {
                 done();
             });
     });
+    test('#2', (done) => {
+        const input = [1, 2, 3, 4, 5];
+        from(input)
+            .pipe(ezs('URLStream', {
+                url: 'https://httpbin.org/status/400',
+            }))
+            .pipe(ezs.catch())
+            .on('error', (e) => {
+                expect(e.message).toEqual(expect.stringContaining('400'));
+                done();
+            })
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+            });
+    });
+
 });

@@ -66,14 +66,13 @@ export default function combine(data, feed) {
             append: this.getParam('append'),
         });
         const cache = this.getParam('cache');
-        let pipeline;
+        let statements;
         if (cache) {
-            pipeline = ezs(cache, { commands });
+            statements = [ezs(cache, { commands }, this.getEnv())];
         } else {
-            const statements = ezs.compileCommands(commands, this.getEnv());
-            pipeline = ezs.createPipeline(input, statements);
+            statements = ezs.compileCommands(commands, this.getEnv());
         }
-        const output = pipeline
+        const output = ezs.createPipeline(input, statements)
             .pipe(ezs.catch())
             .on('data', async (item) => {
                 const key = get(item, 'id');
