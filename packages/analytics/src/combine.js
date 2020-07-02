@@ -44,6 +44,7 @@ import { createStore } from './store';
  * @param {String} [script] the external pipeline is described in a string of characters
  * @param {String} [commands] the external pipeline is described in a object
  * @param {String} [command] the external pipeline is described in a URL-like command
+ * @param {String} [cache] Use a specific ezs statement to run commands (advanced)
  * @returns {Object}
  */
 export default function combine(data, feed) {
@@ -56,15 +57,23 @@ export default function combine(data, feed) {
         this.store.reset();
         const primer = this.getParam('primer', this.store.id());
         const input = ezs.createStream(ezs.objectMode());
-        const statements = ezs.createCommands({
+        const commands = ezs.createCommands({
             file: this.getParam('file'),
             script: this.getParam('script'),
             command: this.getParam('command'),
             commands: this.getParam('commands'),
             prepend: this.getParam('prepend'),
             append: this.getParam('append'),
-        }, this.getEnv());
-        const output = ezs.createPipeline(input, statements)
+        });
+        const cache = this.getParam('cache');
+        let pipeline;
+        if (cache) {
+            pipeline = ezs(cache, { commands });
+        } else {
+            const statements = ezs.compileCommands(commands, this.getEnv());
+            pipeline = ezs.createPipeline(input, statements);
+        }
+        const output = pipeline
             .pipe(ezs.catch())
             .on('data', async (item) => {
                 const key = get(item, 'id');

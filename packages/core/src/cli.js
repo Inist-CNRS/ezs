@@ -113,7 +113,8 @@ export default function cli(errlog) {
         .reduce((prev, cur) => _.merge(cur, prev), {});
     const { prepend, append } = meta;
     const script = scripts.reduce((prev, cur) => prev.concat(cur), '');
-    const statements = ezs.createCommands({ script, append, prepend }, environement);
+    const commands = ezs.createCommands({ script, append, prepend });
+    const statements = ezs.compileCommands(commands, environement);
     const output = ezs.createPipeline(input, statements)
         .pipe(ezs.catch((e) => e))
         .on('error', (e) => {

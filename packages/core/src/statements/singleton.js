@@ -18,8 +18,9 @@ export default function singleton(data, feed) {
             commands: this.getParam('commands'),
             prepend: this.getParam('prepend'),
             append: this.getParam('append'),
-        }, this.getEnv());
-        ezs.createPipeline(input, commands)
+        });
+        const statements = ezs.compileCommands(commands, this.getEnv());
+        ezs.createPipeline(input, statements)
             .pipe(ezs.catch())
             .on('error', (e) => feed.stop(e))
             .on('data', (chunk) => {
