@@ -34,8 +34,8 @@ npm install @ezs/analytics
 -   [merging](#merging)
 -   [summing](#summing)
 -   [filter](#filter)
--   [combine](#combine)
 -   [value](#value)
+-   [combine](#combine)
 -   [greater](#greater)
 -   [pluck](#pluck)
 -   [drop](#drop)
@@ -756,51 +756,6 @@ Output:
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### combine
-
-Takes an `Object` and substitute a field with the corresponding value found in a external pipeline
-the internal pipeline must produce a stream of special object (id, value)
-
-```json
-[
-          { year: 2000, dept: 54 },
-          { year: 2001, dept: 55 },
-          { year: 2003, dept: 54 },
-]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[combine]
-path = dept
-file = ./departement.ini
-```
-
-Output:
-
-```json
- [
-          { year: 2000, dept: { id: 54, value: 'Meurthe et moselle' } },
-          { year: 2001, dept: { id: 55, value: 'Meuse' } },
-          { year: 2003, dept: { id: 54, value: 'Meurthe et moselle' } },
- ]
-```
-
-#### Parameters
-
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the path to substitute
--   `primer` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Data to send to the external pipeline (optional, default `auto`)
--   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
--   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
--   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
--   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
 ### value
 
 Take `Object` object and getting the value field
@@ -846,6 +801,52 @@ Output:
 #### Parameters
 
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the pah of the value field (optional, default `value`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### combine
+
+Takes an `Object` and substitute a field with the corresponding value found in a external pipeline
+the internal pipeline must produce a stream of special object (id, value)
+
+```json
+[
+          { year: 2000, dept: 54 },
+          { year: 2001, dept: 55 },
+          { year: 2003, dept: 54 },
+]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[combine]
+path = dept
+file = ./departement.ini
+```
+
+Output:
+
+```json
+ [
+          { year: 2000, dept: { id: 54, value: 'Meurthe et moselle' } },
+          { year: 2001, dept: { id: 55, value: 'Meuse' } },
+          { year: 2003, dept: { id: 54, value: 'Meurthe et moselle' } },
+ ]
+```
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the path to substitute
+-   `primer` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Data to send to the external pipeline (optional, default `auto`)
+-   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
+-   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
+-   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
+-   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
+-   `cache` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Use a specific ezs statement to run commands (advanced)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
