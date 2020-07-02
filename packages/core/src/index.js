@@ -83,7 +83,7 @@ ezs.compileCommands = (commands, environment) => {
     }
     return streams;
 };
-ezs.createCommands = (params, environment) => {
+ezs.createCommands = (params) => {
     const { file } = params;
     const fileContent = ezs.loadScript(file);
     const { script = fileContent } = params;
@@ -103,7 +103,7 @@ ezs.createCommands = (params, environment) => {
     if (!commands || commands.length === 0) {
         throw new Error('Invalid parmeter for createCommands');
     }
-    return ezs.compileCommands(commands, environment);
+    return commands;
 };
 ezs.writeTo = writeTo;
 ezs.createPipeline = (input, commands) => commands.reduce((amont, aval) => amont.pipe(aval), input);

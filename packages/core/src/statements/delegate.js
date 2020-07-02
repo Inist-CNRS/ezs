@@ -21,8 +21,9 @@ export default function delegate(data, feed) {
             commands: this.getParam('commands'),
             prepend: this.getParam('prepend'),
             append: this.getParam('append'),
-        }, this.getEnv());
-        const output = ezs.createPipeline(this.input, commands)
+        });
+        const statements = ezs.compileCommands(commands, this.getEnv());
+        const output = ezs.createPipeline(this.input, statements)
             .pipe(ezs.catch((e) => feed.write(e)))
             .on('error', (e) => feed.write(e))
             .on('data', (d) => feed.write(d));
