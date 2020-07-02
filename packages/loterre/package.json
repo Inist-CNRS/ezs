@@ -1,0 +1,41 @@
+{
+    "name": "@ezs/loterre",
+    "version": "1.0.0",
+    "description": "Loterre statements for EZS",
+    "directories": {
+        "test": "test"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Inist-CNRS/ezs.git"
+    },
+    "keywords": [
+        "ezs"
+    ],
+    "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Inist-CNRS/ezs/issues"
+    },
+    "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/loterre#readme",
+    "dependencies": {
+    },
+    "main": "./lib/index.js",
+    "scripts": {
+        "doc": "documentation readme src/* --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-loterre.md --section=usage && cp ../../docs/plugin-loterre.md ./README.md",
+        "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
+        "build": "babel --root-mode upward src --out-dir lib",
+        "prepublish": "npm run build",
+        "pretest": "npm run build",
+        "preversion": "npm run doc"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "peerDependencies": {
+        "@ezs/core": "*"
+    },
+    "devDependencies": {
+        "@ezs/core": "1.10.0"
+    }
+}
