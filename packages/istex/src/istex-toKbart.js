@@ -7,6 +7,7 @@ export default function ISTEXToKbart (data, feed) {
   if (this.isLast()) {
       return feed.close();
   }
+
   hl([data])
     .through(toKbart({header:this.isFirst()}))
     .stopOnError((err)=>{feed.stop(err)})
