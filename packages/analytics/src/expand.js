@@ -6,8 +6,8 @@ import { createStore } from './store';
 
 /**
  * Takes an `Object` and substitute a field with the corresponding value found in a external pipeline
- * the internal pipeline receive a special object { id, value } id is the item identifier value is the item path value
- * The internal pipeline can expand value with another 
+ * the internal pipeline receive a special object { id, value } id is the item identifier & value is the item path value
+ * The internal pipeline can expand value with another
  *
  * ```json
  * [
