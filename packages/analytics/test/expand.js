@@ -231,4 +231,35 @@ describe('no expand', () => {
                 done(new Error('Error is the right behavior'));
             });
     });
+    test('with a script that break the identifier', (done) => {
+        const input = [
+            { a: 1, b: 'a' },
+            { a: 2, b: 'b' },
+            { a: 3, b: 'c' },
+            { a: 4, b: 'd' },
+            { a: 5, b: 'e' },
+            { a: 6, b: 'f' },
+        ];
+        const script = `
+            [use]
+            plugin = analytics
+
+            [replace]
+            path = id
+            value = fix('unknow')
+
+            path = value
+            value = get('value').toUpper()
+        `;
+
+        from(input)
+            .pipe(ezs('expand', { path: 'b', script }))
+            .pipe(ezs.catch())
+            .on('error', () => {
+                done();
+            })
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+            });
+    });
 });

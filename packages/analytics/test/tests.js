@@ -118,7 +118,7 @@ describe('test', () => {
                 done();
             });
     });
-    it('pluck', (done) => {
+    it('pluck #1', (done) => {
         const res = [];
         from([
             { a: ['m', 'n', 'o'] },
@@ -137,6 +137,26 @@ describe('test', () => {
             .on('end', () => {
                 assert.equal(2, res.length);
                 assert.equal(9, res[0].value.length);
+                done();
+            });
+    });
+    it('pluck #2', (done) => {
+        const res = [];
+        from([
+            { a: 'x', b: 'z' },
+            { a: 't', b: 'z' },
+            { a: 't', b: 'z' },
+            { c: 'x', b: 'z' },
+            { a: 'x', b: 'z' },
+        ])
+            .pipe(ezs('pluck', { path: 'b' }))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                assert.equal('z', chunk.value);
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(5, res.length);
                 done();
             });
     });
