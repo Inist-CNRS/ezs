@@ -34,6 +34,7 @@ import combine from './combine';
 import files from './files';
 import bufferize from './bufferize';
 import buffers from './buffers';
+import round from './round';
 
 export default {
     count,
@@ -72,4 +73,5 @@ export default {
     files,
     bufferize,
     buffers,
+    round,
 };
