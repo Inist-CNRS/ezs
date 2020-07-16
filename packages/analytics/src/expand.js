@@ -71,6 +71,9 @@ export default async function expand(data, feed) {
             .on('data', async ({ id, value }) => {
                 try {
                     const obj = await this.store.get(id);
+                    if (obj === null) {
+                        feed.stop(new Error('id was corrupted'));
+                    }
                     set(obj, path, value);
                     feed.write(obj);
                 } catch (e) {
