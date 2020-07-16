@@ -69,10 +69,12 @@ export default async function expand(data, feed) {
         const output = ezs.createPipeline(this.input, statements)
             .pipe(ezs.catch())
             .on('data', async ({ id, value }) => {
-                const obj = await this.store.get(id);
-                if (obj) {
+                try {
+                    const obj = await this.store.get(id);
                     set(obj, path, value);
                     feed.write(obj);
+                } catch (e) {
+                    feed.stop(e);
                 }
             })
             .on('error', (e) => feed.stop(e));
@@ -80,7 +82,7 @@ export default async function expand(data, feed) {
     }
     if (this.isLast()) {
         return whenFinish
-            .then(async () => {
+            .then(() => {
                 this.store.close();
                 return feed.close();
             })
