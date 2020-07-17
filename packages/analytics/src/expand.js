@@ -50,7 +50,7 @@ import { createStore } from './store';
 export default async function expand(data, feed) {
     const { ezs } = this;
     const path = this.getParam('path');
-    let whenFinish = Promise.resolve(true);
+    let whenFinish = () => Promise.resolve(true);
     if (this.isFirst()) {
         debug('ezs')('[expand] with sub pipeline.');
         const location = this.getParam('location');
@@ -72,24 +72,23 @@ export default async function expand(data, feed) {
                 try {
                     const obj = await this.store.get(id);
                     if (obj === null) {
-                        feed.stop(new Error('id was corrupted'));
+                        feed.write(new Error('id was corrupted'));
                     }
                     set(obj, path, value);
                     feed.write(obj);
                 } catch (e) {
-                    feed.stop(e);
+                    feed.write(e);
                 }
             })
-            .on('error', (e) => feed.stop(e));
-        whenFinish = new Promise((resolve) => output.on('end', resolve));
+            .on('error', (e) => {
+                feed.stop(e);
+            });
+        whenFinish = () => new Promise((resolve) => output.on('end', resolve));
     }
     if (this.isLast()) {
-        return whenFinish
-            .then(() => {
-                this.store.close();
-                return feed.close();
-            })
-            .catch((e) => feed.stop(e));
+        await whenFinish();
+        this.store.close();
+        return feed.close();
     }
     const value = get(data, path);
     const validValue = Boolean(value);
