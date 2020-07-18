@@ -50,7 +50,6 @@ import { createStore } from './store';
 export default async function expand(data, feed) {
     const { ezs } = this;
     const path = this.getParam('path');
-    let whenFinish = () => Promise.resolve(true);
     if (this.isFirst()) {
         debug('ezs')('[expand] with sub pipeline.');
         const location = this.getParam('location');
@@ -68,6 +67,7 @@ export default async function expand(data, feed) {
         this.input = ezs.createStream(ezs.objectMode());
         const output = ezs.createPipeline(this.input, statements)
             .pipe(ezs.catch())
+            .on('error', (e) => feed.stop(e))
             .on('data', async ({ id, value }) => {
                 try {
                     const obj = await this.store.get(id);
@@ -79,23 +79,17 @@ export default async function expand(data, feed) {
                 } catch (e) {
                     feed.write(e);
                 }
-            })
-            .on('error', (e) => {
-                feed.stop(e);
             });
-        whenFinish = () => new Promise((resolve) => output.on('end', resolve));
+        this.whenFinish = new Promise((resolve) => output.on('end', resolve));
     }
     if (this.isLast()) {
-        await whenFinish();
-        this.store.close();
-        return feed.close();
-    }
-    const value = get(data, path);
-    const validValue = Boolean(value);
-    if (!validValue) {
-        return feed.send(data);
+        this.whenFinish
+            .then(() => feed.close())
+            .catch((e) => feed.stop(e));
+        return this.input.end();
     }
     const id = this.getIndex().toString().padStart(20, '0');
     await this.store.put(id, data);
-    return this.input.write(core(id, value), () => feed.end());
+    const value = get(data, path);
+    return ezs.writeTo(this.input, core(id, value), () => feed.end());
 }

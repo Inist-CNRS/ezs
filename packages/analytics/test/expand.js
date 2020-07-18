@@ -72,43 +72,6 @@ test('with file', (done) => {
             done();
         });
 });
-test('with script', (done) => {
-    const input = [
-        { a: 1, b: 'a' },
-        { a: 2, b: 'b' },
-        { a: 3, b: 'c' },
-        { a: 4, b: 'd' },
-        { a: 5, b: 'e' },
-        { a: 6, b: 'f' },
-    ];
-    const output = [];
-    const script = `
-            [use]
-            plugin = analytics
-
-            [assign]
-            path = value
-            value = get('value').toUpper()
-        `;
-
-    from(input)
-        .pipe(ezs('expand', { path: 'no exiting path', script }))
-        .pipe(ezs.catch())
-        .on('error', done)
-        .on('data', (chunk) => {
-            output.push(chunk);
-        })
-        .on('end', () => {
-            expect(output.length).toEqual(6);
-            expect(output[0].b).toEqual('a');
-            expect(output[1].b).toEqual('b');
-            expect(output[2].b).toEqual('c');
-            expect(output[3].b).toEqual('d');
-            expect(output[4].b).toEqual('e');
-            expect(output[5].b).toEqual('f');
-            done();
-        });
-});
 test('with error script', (done) => {
     const input = [
         { a: 1, b: 'a' },
