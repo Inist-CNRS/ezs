@@ -96,7 +96,7 @@ describe('test', () => {
                 done();
             });
     });
-    it('count', (done) => {
+    it('count #1', (done) => {
         const res = [];
         from([
             { a: 'x', b: 'z' },
@@ -115,6 +115,29 @@ describe('test', () => {
             .on('end', () => {
                 assert.equal(1, res.length);
                 assert.equal(4, res[0].value);
+                done();
+            });
+    });
+    it('count #2', (done) => {
+        const res = [];
+        from([
+            { a: 'x', b: 'z' },
+            { a: 't', b: 'z' },
+            { a: 't', b: 'z' },
+            { c: 'x', b: 'z' },
+            { a: 'x', b: 'z' },
+        ])
+            .pipe(ezs('count', { path: ['a', 'b'] }))
+            .pipe(ezs('reducing'))
+            .pipe(ezs('summing'))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(2, res.length);
+                assert.equal(4, res[0].value);
+                assert.equal(5, res[1].value);
                 done();
             });
     });

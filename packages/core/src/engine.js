@@ -20,6 +20,7 @@ function createErrorWith(error = {}, index = 0, funcName = null) {
     const fn = funcName ? ` in [${funcName}]` : '';
     const msg = `(item #${index}${fn} failed with ${erm})\n\t${stk.slice(0, 10).join('\n\t')}`;
     const err = Error(msg);
+    err.sourceError = error;
     Error.captureStackTrace(err, createErrorWith);
     debug('ezs')('Caught an', err);
     return err;

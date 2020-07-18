@@ -232,7 +232,6 @@ test('with a script that break the identifier', (done) => {
             path = value
             value = get('value').toUpper()
         `;
-
     from(input)
         .pipe(ezs('expand', { path: 'b', script }))
         .pipe(ezs.catch())
@@ -241,7 +240,9 @@ test('with a script that break the identifier', (done) => {
         })
         .on('error', (e) => {
             expect(output.length).toEqual(1);
-            expect(e).toEqual(expect.not.stringContaining('id was corrupted'));
+            expect(() => {
+                throw e.sourceError;
+            }).toThrow(new Error('id was corrupted'));
             done();
         })
         .on('end', () => {
