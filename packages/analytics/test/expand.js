@@ -4,9 +4,9 @@ import ezs from '../../core/src';
 import statements from '../src';
 
 ezs.addPath(__dirname);
-ezs.use(statements);
 
 test('with script', (done) => {
+    ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
         { a: 2, b: 'b' },
@@ -43,6 +43,7 @@ test('with script', (done) => {
         });
 });
 test('with file', (done) => {
+    ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
         { a: 2, b: 'b' },
@@ -73,6 +74,7 @@ test('with file', (done) => {
         });
 });
 test('with error script', (done) => {
+    ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
         { a: 2, b: 'b' },
@@ -107,6 +109,7 @@ test('with error script', (done) => {
         });
 });
 test('with no script', (done) => {
+    ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
         { a: 2, b: 'b' },
@@ -127,6 +130,7 @@ test('with no script', (done) => {
         });
 });
 test('with no path', (done) => {
+    ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
         { a: 2, b: 'b' },
@@ -158,6 +162,7 @@ test('with no path', (done) => {
         });
 });
 test('with bad path', (done) => {
+    ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
         { a: 2, b: 'b' },
@@ -183,6 +188,7 @@ test('with bad path', (done) => {
         });
 });
 test('with a script that loses the identifier', (done) => {
+    ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
         { a: 2, b: 'b' },
@@ -212,6 +218,7 @@ test('with a script that loses the identifier', (done) => {
         });
 });
 test('with a script that break the identifier', (done) => {
+    ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
         { a: 2, b: 'b' },
@@ -250,6 +257,7 @@ test('with a script that break the identifier', (done) => {
         });
 });
 test('with a buggy script', (done) => {
+    ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
         { a: 2, b: 'b' },

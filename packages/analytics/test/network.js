@@ -1,11 +1,13 @@
-const assert = require('assert');
-const from = require('from');
-const ezs = require('../../core/src');
+import assert from 'assert';
+import from from 'from';
+import ezs from '../../core/src';
+import statements from '../src';
 
-ezs.use(require('../src'));
+ezs.addPath(__dirname);
 
 describe('network', () => {
     it('graph', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { a: ['x', 'b', 'z'] },
@@ -29,6 +31,7 @@ describe('network', () => {
     });
 
     it('segment #1', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             {
@@ -83,6 +86,7 @@ describe('network', () => {
     });
 
     it('segment #2', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             {
@@ -126,6 +130,7 @@ describe('network', () => {
     });
 
     it('pair', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { a: ['x', 'r', 'z'], b: ['a', 'b', 'c'] },
@@ -134,7 +139,7 @@ describe('network', () => {
             { a: ['y', 'w', 'z'], b: ['o', 'c', 'd'] },
             { a: ['x', 's', 'z'], b: ['u', 'e', 'd'] },
         ])
-            .pipe(ezs('pair', { path: ['a'] }))
+            .pipe(ezs('pair', { path: 'a' }))
             .pipe(ezs('reducing'))
             .pipe(ezs('summing'))
             .on('data', (chunk) => {
@@ -148,6 +153,7 @@ describe('network', () => {
     });
 
     it('pair', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { a: ['x', 'r', 'z'], b: ['a', 'b', 'c'] },

@@ -5,10 +5,10 @@ import ezs from '../../core/src';
 import statements from '../src';
 
 ezs.addPath(__dirname);
-ezs.use(statements);
 
 describe('combine', () => {
     test('with script', (done) => {
+        ezs.use(statements);
         const input = [
             { a: 1, b: 'a' },
             { a: 2, b: 'b' },
@@ -49,6 +49,7 @@ describe('combine', () => {
             });
     });
     test('with file', (done) => {
+        ezs.use(statements);
         const input = [
             { a: 1, b: 'a' },
             { a: 2, b: 'b' },
@@ -81,6 +82,7 @@ describe('combine', () => {
 });
 describe('no combine', () => {
     test('with script', (done) => {
+        ezs.use(statements);
         const input = [
             { a: 1, b: 'a' },
             { a: 2, b: 'b' },
@@ -121,6 +123,7 @@ describe('no combine', () => {
             });
     });
     test('with error script', (done) => {
+        ezs.use(statements);
         const input = [
             { a: 1, b: 'a' },
             { a: 2, b: 'b' },
@@ -152,6 +155,7 @@ describe('no combine', () => {
             });
     });
     test('with no in script', (done) => {
+        ezs.use(statements);
         const input = [
             { a: 1, b: 'a' },
             { a: 2, b: 'b' },

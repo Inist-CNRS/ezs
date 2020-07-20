@@ -4,12 +4,12 @@ import ezs from '../../core/src';
 import statements from '../src';
 
 ezs.addPath(__dirname);
-ezs.use(statements);
 
 const handle = [];
 let sid;
 describe('first', () => {
     test('bufferize', (done) => {
+        ezs.use(statements);
         const input = [
             { a: 1, b: 'a' },
             { a: 2, b: 'b' },
@@ -45,6 +45,7 @@ describe('first', () => {
 });
 describe('second', () => {
     test('buffers', (done) => {
+        ezs.use(statements);
         const input = [sid];
         const output = [];
         from(input)
@@ -68,6 +69,7 @@ describe('second', () => {
 });
 describe('bufferize/buffers', () => {
     test('with script', (done) => {
+        ezs.use(statements);
         const input = [
             { a: 1, b: 'a' },
             { a: 2, b: 'b' },

@@ -1,13 +1,15 @@
-const assert = require('assert');
-const from = require('from');
-const ezs = require('../../core/src');
+import assert from 'assert';
+import from from 'from';
+import ezs from '../../core/src';
+import statements from '../src';
+
+ezs.addPath(__dirname);
 
 const data01 = require('./data01.json');
 
-ezs.use(require('../src'));
-
 describe('test', () => {
     it('distinct', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { a: 'x', b: 'z' },
@@ -31,6 +33,7 @@ describe('test', () => {
             });
     });
     it('reducing', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { a: 'x', b: 'z' },
@@ -53,6 +56,7 @@ describe('test', () => {
             });
     });
     it('summing', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { a: 'x', b: 'z' },
@@ -76,6 +80,7 @@ describe('test', () => {
             });
     });
     it('combining', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { id: 'x', value: 2 },
@@ -97,6 +102,7 @@ describe('test', () => {
             });
     });
     it('count #1', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { a: 'x', b: 'z' },
@@ -119,6 +125,7 @@ describe('test', () => {
             });
     });
     it('count #2', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { a: 'x', b: 'z' },
@@ -142,6 +149,7 @@ describe('test', () => {
             });
     });
     it('pluck #1', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { a: ['m', 'n', 'o'] },
@@ -164,6 +172,7 @@ describe('test', () => {
             });
     });
     it('pluck #2', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { a: 'x', b: 'z' },
@@ -184,6 +193,7 @@ describe('test', () => {
             });
     });
     it('keys', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { a: 1, b: 2 },
@@ -208,6 +218,7 @@ describe('test', () => {
     });
 
     it('maximizing', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { id: 1, value: [2, 3, 4, 5, 1] },
@@ -230,6 +241,7 @@ describe('test', () => {
     });
 
     it('minimizing', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { id: 1, value: [2, 3, 4, 5, 1] },
@@ -252,6 +264,7 @@ describe('test', () => {
     });
 
     it('merging #1', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { id: 1, value: { a: 1 } },
@@ -280,6 +293,7 @@ describe('test', () => {
     });
 
     it('merging #2', (done) => {
+        ezs.use(statements);
         const script = `
             [replace]
             path = id
@@ -335,6 +349,7 @@ describe('test', () => {
 
 
     it('totalize', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { a: '1', b: '4' },
@@ -359,6 +374,7 @@ describe('test', () => {
     });
 
     it.skip('exploding', (done) => {
+        ezs.use(statements);
         const script = `
             [exploding]
             id = id
@@ -411,6 +427,7 @@ describe('test', () => {
     });
 
     it('split & count', (done) => {
+        ezs.use(statements);
         const script = `
             [replace]
             path = id
@@ -455,6 +472,7 @@ describe('test', () => {
     });
 
     it('slice #1', (done) => {
+        ezs.use(statements);
         const res = [];
         from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22])
             .pipe(ezs('slice'))
@@ -470,6 +488,7 @@ describe('test', () => {
     });
 
     it('slice #2', (done) => {
+        ezs.use(statements);
         const res = [];
         from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22])
             .pipe(ezs('slice', { start: 2, size: 2 }))
@@ -485,6 +504,7 @@ describe('test', () => {
     });
 
     it('slice #3', (done) => {
+        ezs.use(statements);
         const res = [];
         from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
             .pipe(ezs('slice'))
@@ -500,6 +520,7 @@ describe('test', () => {
     });
 
     it('distribute #1', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { a: 1, b: 'a' },
@@ -535,6 +556,7 @@ describe('test', () => {
     });
 
     it('distribute #2', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { a: 1, b: 'a' },
@@ -569,6 +591,7 @@ describe('test', () => {
     });
 
     it('distribute #3', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { id: '2013', value: 8 },
@@ -597,6 +620,7 @@ describe('test', () => {
     });
 
     it('distribute #4', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { id: '2013', value: 8 },
@@ -624,6 +648,7 @@ describe('test', () => {
     });
 
     it('distribute #5', (done) => {
+        ezs.use(statements);
         const res = [];
         from(data01)
             .pipe(ezs('groupingByModulo', { modulo: 1 }))
@@ -639,6 +664,7 @@ describe('test', () => {
     });
 
     it('greater #1', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { id: 2000, value: 1 },
@@ -663,6 +689,7 @@ describe('test', () => {
     });
 
     it('greater #2', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { id: 2000, value: 1 },
@@ -687,6 +714,7 @@ describe('test', () => {
     });
 
     it('greater #3', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { id: 2000, value: 1 },
@@ -711,6 +739,7 @@ describe('test', () => {
     });
 
     it('less #1', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { id: 2000, value: 1 },
@@ -735,6 +764,7 @@ describe('test', () => {
     });
 
     it('less #2', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { id: 2000, value: 1 },
@@ -760,6 +790,7 @@ describe('test', () => {
 
 
     it('less #3', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { id: 2000, value: 1 },
@@ -784,6 +815,7 @@ describe('test', () => {
     });
 
     it('drop #1', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { id: 2000, value: 1 },
@@ -806,6 +838,7 @@ describe('test', () => {
     });
 
     it('drop #2', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { id: 2000, value: 1 },
@@ -828,6 +861,7 @@ describe('test', () => {
     });
 
     it('drop #3', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { id: 2000, value: 1 },
@@ -850,6 +884,7 @@ describe('test', () => {
     });
 
     it('drop #4', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { id: 2000, value: 1 },
@@ -873,6 +908,7 @@ describe('test', () => {
 
 
     it('drop #5', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { id: 2000, value: 1 },
@@ -895,6 +931,7 @@ describe('test', () => {
     });
 
     it('drop #6', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { id: 2000, value: 1 },
@@ -917,6 +954,7 @@ describe('test', () => {
     });
 
     it('filter #1', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { id: 2000, value: 1 },
@@ -940,6 +978,7 @@ describe('test', () => {
     });
 
     it('filter #2', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { id: 2000, value: 1 },
@@ -963,6 +1002,7 @@ describe('test', () => {
     });
 
     it('filter #3', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { id: 2000, value: 1 },
@@ -985,6 +1025,7 @@ describe('test', () => {
     });
 
     it('filter #4', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { id: 2000, value: 1 },
@@ -1007,6 +1048,7 @@ describe('test', () => {
     });
 
     it('filter #5', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { id: 2000, value: 1 },
@@ -1033,6 +1075,7 @@ describe('test', () => {
     });
 
     it('multiply #1', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { a: 2000, b: 1 },
@@ -1062,6 +1105,7 @@ describe('test', () => {
     });
 
     it('multiply #2', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { a: 2000, b: 1 },
@@ -1083,6 +1127,7 @@ describe('test', () => {
     });
 
     it('multiply #3', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { a: 2000, b: 1 },
@@ -1104,6 +1149,7 @@ describe('test', () => {
     });
 
     it('multiply #4', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { a: 2000, b: 1 },
@@ -1125,6 +1171,7 @@ describe('test', () => {
     });
 
     it('multiply #5', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { a: 2000, b: 1 },
@@ -1145,6 +1192,7 @@ describe('test', () => {
             });
     });
     it('aggregate #1', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { a: 'x', b: 'z' },
@@ -1167,6 +1215,7 @@ describe('test', () => {
             });
     });
     it('aggregate #2', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { a: ['x', 'x'], b: 'z' },
@@ -1189,6 +1238,7 @@ describe('test', () => {
             });
     });
     it('aggregate #3', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { a: 'x', b: 3 },
@@ -1212,6 +1262,7 @@ describe('test', () => {
     });
 
     it('aggregate #4', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { a: 'x', b: 3 },
@@ -1231,7 +1282,4 @@ describe('test', () => {
                 done();
             });
     });
-
-
-
 });
