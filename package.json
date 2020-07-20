@@ -30,7 +30,7 @@
     "lerna": "3.22.1",
     "nock": "~13.0.2",
     "node-fetch": "~2.6.0",
-    "sleepjs": "4.0.1"
+    "sleepjs": "3.0.1"
   },
   "scripts": {
     "release:version": "lerna version --exact --conventional-commits",
