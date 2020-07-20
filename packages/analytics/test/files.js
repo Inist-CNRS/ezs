@@ -6,11 +6,11 @@ import statements from '../src';
 import basics from '../../basics/src';
 
 ezs.addPath(__dirname);
-ezs.use(statements);
-ezs.use(basics);
 
 describe('files', () => {
     test('with existing file', (done) => {
+        ezs.use(statements);
+        ezs.use(basics);
         const input = [
             'data01.json',
         ];
@@ -32,6 +32,8 @@ describe('files', () => {
     });
 
     test('with not existing file', (done) => {
+        ezs.use(statements);
+        ezs.use(basics);
         const input = [
             'XXXXX.json',
         ];
@@ -51,7 +53,9 @@ describe('files', () => {
     });
 
     test('with not authorized file', (done) => {
-        fs.writeFileSync(`${__dirname}/forbidden`, 'secret', { mode: 0o333});
+        ezs.use(statements);
+        ezs.use(basics);
+        fs.writeFileSync(`${__dirname}/forbidden`, 'secret', { mode: 0o333 });
         const input = [
             'forbidden',
         ];
