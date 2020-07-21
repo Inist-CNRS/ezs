@@ -6,45 +6,48 @@ import _ from 'lodash';
 
 export default function ISTEXExchange (data, feed) {
   if (this.isFirst()) {
-    this.__exchanger = buildExchangerStream(this.getParams());
+    this._exchanger = buildExchangerStream(this);
+
+    this._exchanger.outStream
+        .on('data', (exchangeData) => {feed.write(exchangeData);})
+        .on('error', (err) => {feed.stop(err);})
+    ;
   }
 
   if (this.isLast()) {
-    return this.__exchanger.close(() => {
-      this.__exchanger.feeder(feed);
+    return this._exchanger.close(() => {
       feed.close();
     })
   }
 
-  this.__exchanger.feeder(feed);
-  this.__exchanger.write(data, () => {feed.end()});
+  this._exchanger.write(data, () => {feed.end()});
 }
 
 
 // helpers
-function buildExchangerStream (params) {
-  const exchangeParams = _.pick(params,
-                                ['apiUrl', 'reviewUrl', 'parallel', 'doProfile', 'doWarn', 'doLogError', 'doLogEndInfo']
-  );
+function buildExchangerStream (that) {
+  const exchangeParams = _(['apiUrl', 'reviewUrl', 'parallel', 'doProfile', 'doWarn', 'doLogError', 'doLogEndInfo'])
+    .transform(
+      (accu, value) => accu[value] = that.getParam(value),
+      {}
+    )
+    .omitBy(_.isNil)
+    .value()
+  ;
 
   const exchanger = exchange(exchangeParams),
         inStream  = hl(),
         outStream = inStream.through(exchanger);
 
-  const __exchanger = {
+  const _exchanger = {
     inStream,
     outStream,
-    results     : [],
-    processError: null,
-    feeder,
     write,
     close
   };
 
-  outStream.on('data', (data) => {__exchanger.results.push(data);});
-  outStream.on('error', (err) => {__exchanger.processError = err;});
 
-  return __exchanger;
+  return _exchanger;
 }
 
 function write (data, cb) {
@@ -58,12 +61,5 @@ function write (data, cb) {
 function close (cb) {
   this.outStream.once('end', cb);
   this.inStream.write(hl.nil);
-}
-
-function feeder (feed) {
-  if (this.processError) {return feed.stop(this.processError)}
-  while (this.results.length) {
-    feed.write(this.results.shift());
-  }
 }
 

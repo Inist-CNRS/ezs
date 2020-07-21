@@ -7,6 +7,7 @@ module.exports = {
         '**/__tests__/**/*.[jt]s?(x)',
         '**/?(*.)+(spec|test).[tj]s?(x)',
     ],
+    testEnvironment: "node",
     testPathIgnorePatterns: ['/node_modules/', 'locals.js', 'testOne.js', 'testAll.js', '/data/'],
     collectCoverage: true,
     coveragePathIgnorePatterns: ['/node_modules/', '/test/', '/lib/', '/lodex/src/reducers/'],
