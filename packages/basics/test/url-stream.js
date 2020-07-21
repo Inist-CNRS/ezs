@@ -1,11 +1,26 @@
 import from from 'from';
+import http from 'http';
 import ezs from '../../core/src';
-import ezsBasics from '../src';
-
-ezs.use(ezsBasics);
+import statements from '../src';
 
 describe('URLStream', () => {
+    let server;
+    beforeAll((ready) => {
+        let count = 0;
+        server = http.createServer((req, res) => {
+            count += 1;
+            res.writeHead(200);
+            res.end(`${count}...\n`);
+        });
+        server.listen(55544, ready);
+    });
+
+    afterAll(() => {
+        server.close();
+    });
+
     test('#1', (done) => {
+        ezs.use(statements);
         const input = [
             { a: 'a' },
             { a: 'b' },
@@ -28,7 +43,33 @@ describe('URLStream', () => {
                 done();
             });
     });
+    test('#1bis', (done) => {
+        ezs.use(statements);
+        const input = [
+            { a: 'a' },
+            { a: 'b' },
+            { a: 'c' },
+        ];
+        const output = [];
+        from(input)
+            .pipe(ezs('URLStream', {
+                url: 'http://127.0.0.1:55544',
+                path: null,
+            }))
+            .pipe(ezs('TXTParse'))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                output.push(parseInt(chunk, 10));
+            })
+            .on('end', () => {
+                expect(output).toStrictEqual([1, 2, 3]);
+                expect(output.length).toBe(3);
+                done();
+            });
+    });
     test('#2', (done) => {
+        ezs.use(statements);
         const input = [1, 2, 3, 4, 5];
         from(input)
             .pipe(ezs('URLStream', {
@@ -36,12 +77,55 @@ describe('URLStream', () => {
             }))
             .pipe(ezs.catch())
             .on('error', (e) => {
-                expect(e.message).toEqual(expect.stringContaining('400'));
+                expect(() => {
+                    throw e.sourceError;
+                }).toThrow('Received status code 400 (BAD REQUEST)');
                 done();
             })
             .on('end', () => {
                 done(new Error('Error is the right behavior'));
             });
     });
-
+    test('#3', (done) => {
+        ezs.use(statements);
+        const input = [
+            { a: 'a' },
+            { a: 'b' },
+            { a: 'c' },
+        ];
+        from(input)
+            .pipe(ezs('URLStream', { url: 'http://unknow' }))
+            .pipe(ezs.catch())
+            .on('error', (e) => {
+                expect(() => {
+                    throw e.sourceError;
+                }).toThrow('request to http://unknow/?a=a failed, reason: getaddrinfo EAI_AGAIN unknow');
+                done();
+            })
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+            });
+    });
+    test('#4', (done) => {
+        ezs.use(statements);
+        const input = [
+            { a: 'a' },
+            { a: 'b' },
+            { a: 'c' },
+        ];
+        from(input)
+            .pipe(ezs('URLStream', {
+                url: 'http://127.0.0.1:55544',
+            }))
+            .pipe(ezs.catch())
+            .on('error', (e) => {
+                expect(() => {
+                    throw e.sourceError;
+                }).toThrow('Invalid JSON (Unexpected "\\n" at position 4 in state STOP)');
+                done();
+            })
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+            });
+    });
 });

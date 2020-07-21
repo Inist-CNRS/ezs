@@ -1,32 +1,6 @@
 import fetch from 'fetch-with-proxy';
+import timeoutSignal from 'timeout-signal';
 import set from 'lodash.set';
-
-function URLFetch(data, feed) {
-    const url = this.getParam('url');
-    const target = this.getParam('target');
-    const json = this.getParam('json', false);
-
-    if (this.isLast() || !url) {
-        return feed.send(data);
-    }
-    fetch(url)
-        .then((response) => {
-            if (response.status !== 200) {
-                const msg = `Received status code ${response.status} (${response.statusText})'`;
-                throw new Error(msg);
-            }
-            return json ? response.json() : response.text();
-        })
-        .then((body) => {
-            if (target && typeof target === 'string' && typeof data === 'object') {
-                const result = { ...data };
-                set(result, target, body);
-                return feed.send(result);
-            }
-            return feed.send(body);
-        })
-        .catch((error) => feed.send(error));
-}
 
 /**
  * Take `Object` and create a new field with the content of URL.
@@ -36,8 +10,36 @@ function URLFetch(data, feed) {
  * @param {String} [url] URL to fecth
  * @param {String} [target] choose the key to set
  * @param {String} [json=false] Pasre as JSON the content of URL
+ * @param {String} [timeout=1000] Timeout for each request (milliseconds)
  * @returns {Object}
  */
-export default {
-    URLFetch,
-};
+export default async function URLFetch(data, feed) {
+    const url = this.getParam('url');
+    const target = this.getParam('target');
+    const json = this.getParam('json', false);
+    const timeout = this.getParam('timeout', 1000);
+    if (this.isLast()) {
+        return feed.close();
+    }
+    try {
+        const response = await fetch(url, { signal: timeoutSignal(timeout) });
+        if (response.status !== 200) {
+            const msg = `Received status code ${response.status} (${response.statusText})'`;
+            return feed.send(new Error(msg));
+        }
+        let body;
+        if (json) {
+            body = await response.json();
+        } else {
+            body = await response.text();
+        }
+        if (target && typeof target === 'string' && typeof data === 'object') {
+            const result = { ...data };
+            set(result, target, body);
+            return feed.send(result);
+        }
+        return feed.send(body);
+    } catch (e) {
+        return feed.send(e);
+    }
+}

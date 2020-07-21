@@ -85,8 +85,7 @@ export default async function expand(data, feed) {
     if (this.isLast()) {
         this.whenFinish
             .then(() => feed.close())
-            /* istanbul ignore next */
-            .catch((e) => feed.stop(e));
+            .catch(/* istanbul ignore next */(e) => feed.stop(e));
         return this.input.end();
     }
     const id = this.getIndex().toString().padStart(20, '0');

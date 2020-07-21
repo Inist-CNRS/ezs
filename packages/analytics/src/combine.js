@@ -107,5 +107,5 @@ export default function combine(data, feed) {
             }
             return feed.send(data);
         })
-        .catch((e) => feed.stop(e));
+        .catch(/* istanbul ignore next */(e) => feed.stop(e));
 }
