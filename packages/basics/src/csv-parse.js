@@ -1,15 +1,15 @@
 import CSV from 'csv-string';
-import { writeTo } from './utils';
 
 function CSVParse(data, feed) {
     const separator = this.getParam('separator');
     const quote = this.getParam('quote');
+    const { ezs } = this;
     if (!this.handle) {
         this.handle = CSV.createStream({ separator, quote });
         this.handle.on('data', (obj) => feed.write(obj));
     }
     if (!this.isLast()) {
-        writeTo(this.handle,
+        ezs.writeTo(this.handle,
             data,
             () => feed.end());
     } else {

@@ -1,7 +1,6 @@
 import { PassThrough } from 'stream';
 import unzipper from 'unzipper';
 import micromatch from 'micromatch';
-import { writeTo } from './utils';
 
 /**
  * Take the content of a zip file, extract some files, and yield JSON.
@@ -23,6 +22,7 @@ import { writeTo } from './utils';
 export default function ZIPExtract(data, feed) {
     const parseJSON = this.getParam('json', true);
     const filesPatern = this.getParam('path', '**/*.json');
+    const { ezs } = this;
     if (this.isFirst()) {
         this.input = new PassThrough();
 
@@ -65,6 +65,6 @@ export default function ZIPExtract(data, feed) {
             .catch((e) => feed.stop(e));
         this.input.end();
     } else {
-        writeTo(this.input, data, () => feed.end());
+        ezs.writeTo(this.input, data, () => feed.end());
     }
 }
