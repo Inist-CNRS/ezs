@@ -1,5 +1,5 @@
 import get from 'lodash.get';
-import Store from './store';
+import { createStore } from './store';
 
 /**
  * Take `Object` group value of `{ id, value }` objectpath
@@ -39,7 +39,8 @@ import Store from './store';
  */
 export default function reducing(data, feed) {
     if (!this.store) {
-        this.store = new Store(this.ezs, 'reducing');
+        const location = this.getParam('location');
+        this.store = createStore(this.ezs, 'reducing', location);
     }
     if (this.isLast()) {
         this.store.empty()

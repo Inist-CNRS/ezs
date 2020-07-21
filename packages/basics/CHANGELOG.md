@@ -3,6 +3,47 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.4.0...@ezs/basics@1.4.1) (2020-07-02)
+
+
+### Bug Fixes
+
+* 🐛 display status & message error ([2f67590](https://github.com/Inist-CNRS/ezs/commit/2f675904461e860eb2875513609a336209c46574))
+
+
+
+
+
+# [1.4.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.3.1...@ezs/basics@1.4.0) (2020-06-26)
+
+
+### Features
+
+* 🎸 add [URLConnect] ([dfe3496](https://github.com/Inist-CNRS/ezs/commit/dfe3496e20dd20ea8fba0b810ca896b31e47b19a))
+
+
+
+
+
+## [1.3.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.3.0...@ezs/basics@1.3.1) (2020-06-19)
+
+**Note:** Version bump only for package @ezs/basics
+
+
+
+
+
+# [1.3.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.2.6...@ezs/basics@1.3.0) (2020-06-19)
+
+
+### Features
+
+* 🎸 support root namespace ([ce7ff9f](https://github.com/Inist-CNRS/ezs/commit/ce7ff9fa93fa93de7a15664b8f1fe57894c7c50c))
+
+
+
+
+
 ## [1.2.6](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.2.5...@ezs/basics@1.2.6) (2020-05-11)
 
 **Note:** Version bump only for package @ezs/basics

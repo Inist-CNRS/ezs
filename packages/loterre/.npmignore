@@ -1,0 +1,8 @@
+coverage/
+bench/
+examples/
+test/
+*.sw?
+logs
+*.log
+.~lock*

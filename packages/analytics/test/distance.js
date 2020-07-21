@@ -1,11 +1,13 @@
-const assert = require('assert');
-const from = require('from');
-const ezs = require('../../core/src');
+import assert from 'assert';
+import from from 'from';
+import ezs from '../../core/src';
+import statements from '../src';
 
-ezs.use(require('../src'));
+ezs.addPath(__dirname);
 
 describe('distance', () => {
     it('of 2 array', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             {
@@ -37,6 +39,7 @@ describe('distance', () => {
             });
     });
     it('of 2 string', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             {
@@ -67,6 +70,7 @@ describe('distance', () => {
             });
     });
     it('of 2 number', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             {

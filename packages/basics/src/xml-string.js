@@ -3,9 +3,10 @@ import XML from 'xml-mapping';
 function XMLString(data, feed) {
     const rootElement = this.getParam('rootElement', 'items');
     const contentElement = this.getParam('contentElement', 'item');
-    const beginTag = rootElement ? `<${rootElement}>` : '';
-    const endTag = rootElement ? `</${rootElement}>` : '';
-
+    const rootNamespace = this.getParam('rootNamespace', '');
+    const attrNS = rootNamespace.length > 0 ? ` xmlns="${encodeURI(rootNamespace)}"` : '';
+    const beginTag = rootElement.length > 0 ? `<${rootElement}${attrNS}>` : '';
+    const endTag = rootElement.length > 0 ? `</${rootElement}>` : '';
     if (this.isLast()) {
         if (endTag) feed.write(endTag);
         return feed.close();
@@ -22,6 +23,7 @@ function XMLString(data, feed) {
  * @name XMLString
  * @param {String} [rootElement=items] Root element name for the tag which start and close the feed
  * @param {String} [contentElement=item] Content element name for the tag which start and close each item
+ * @param {String} [rootNamespace] Namespace for the root tag (xmlns=)
  * @returns {String}
  */
 export default {

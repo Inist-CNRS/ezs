@@ -3,6 +3,45 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.6.1...@ezs/analytics@1.6.2) (2020-07-02)
+
+
+### Bug Fixes
+
+* 🐛 display status & message error ([2f67590](https://github.com/Inist-CNRS/ezs/commit/2f675904461e860eb2875513609a336209c46574))
+
+
+
+
+
+## [1.6.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.6.0...@ezs/analytics@1.6.1) (2020-06-12)
+
+
+### Bug Fixes
+
+* 🐛 remainder of merge problem ([2020fb1](https://github.com/Inist-CNRS/ezs/commit/2020fb15d35141d5e2c0a2e9cf81568bc43b2382))
+
+
+
+
+
+# [1.6.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.5.1...@ezs/analytics@1.6.0) (2020-06-12)
+
+
+### Bug Fixes
+
+* 🐛 remove useless chars ([ba5091a](https://github.com/Inist-CNRS/ezs/commit/ba5091ae8c1f488d438a294c9171142387311bb9))
+
+
+### Features
+
+* 🎸 add [combine] & [files] ([b4ee1e0](https://github.com/Inist-CNRS/ezs/commit/b4ee1e01e44385dba5520885e84aafaaa205b8b1))
+* 🎸 new statement stash/unstash ([50ea3ad](https://github.com/Inist-CNRS/ezs/commit/50ea3ad198d0ef80c29715d9e0bdd28c1ab225a9))
+
+
+
+
+
 ## [1.5.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.5.0...@ezs/analytics@1.5.1) (2020-05-12)
 
 

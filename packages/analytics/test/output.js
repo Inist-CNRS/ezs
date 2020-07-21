@@ -2,10 +2,11 @@ import from from 'from';
 import ezs from '../../core/src';
 import statements from '../src';
 
-ezs.use(statements);
+ezs.addPath(__dirname);
 
 describe('output', () => {
     it('should work without param', (done) => {
+        ezs.use(statements);
         let res = '';
         from([{ a: 1, b: 2 }, { a: 3, b: 4 }])
             .pipe(ezs('output'))
@@ -18,6 +19,7 @@ describe('output', () => {
     });
 
     it('should indent output when asked', (done) => {
+        ezs.use(statements);
         let res = '';
         from([{ a: 1, b: 2 }, { a: 3, b: 4 }])
             .pipe(ezs('output', { indent: true }))
@@ -30,6 +32,7 @@ describe('output', () => {
     });
 
     it('should extract a property from objects', (done) => {
+        ezs.use(statements);
         let res = '';
         from([
             { a: 1, b: 2, t: 3 },
@@ -52,6 +55,7 @@ describe('output', () => {
             });
     });
     it('should extract many properies from objects', (done) => {
+        ezs.use(statements);
         let res = '';
         from([
             {
@@ -81,6 +85,7 @@ describe('output', () => {
     });
 
     it('should extract many properies from objects (but some does not exist', (done) => {
+        ezs.use(statements);
         let res = '';
         from([
             {
@@ -110,6 +115,7 @@ describe('output', () => {
 
 
     it('should extract many properies from objects (but some does not exist', (done) => {
+        ezs.use(statements);
         let res = '';
         from([
             {
@@ -136,6 +142,7 @@ describe('output', () => {
     });
 
     it('should extract no property from objects', (done) => {
+        ezs.use(statements);
         let res = '';
         from([
             { a: 1, b: 2 },
@@ -157,9 +164,10 @@ describe('output', () => {
     });
 
     it('should return 1 object', (done) => {
+        ezs.use(statements);
         let res = '';
         from([
-            [ 1 ],
+            [1],
         ])
             .pipe(ezs('output'))
             .on('data', (data) => { res += data; })
@@ -167,7 +175,7 @@ describe('output', () => {
                 const json = JSON.parse(res);
                 expect(json).toEqual({
                     data: [
-                        [ 1 ],
+                        [1],
                     ],
                     meta: {},
                 });
@@ -177,6 +185,7 @@ describe('output', () => {
 
 
     it('should return empty array', (done) => {
+        ezs.use(statements);
         let res = '';
         from([
         ])

@@ -47,7 +47,6 @@ export default function cli(errlog) {
 
     const { argv } = args;
 
-
     if (argv.verbose) {
         debug.enable('ezs');
     }
@@ -87,12 +86,19 @@ export default function cli(errlog) {
         input = process.stdin;
         input.resume();
     }
-    const onlyOne = (item) => (Array.isArray(item) ? item.shift() : item);
     const params = Array.isArray(argv.param) ? argv.param : [argv.param];
     const environement = params
         .filter(Boolean)
         .map((p) => p.split('='))
-        .reduce((obj, item) => ({ ...obj, [item[0]]: item[1] }), {});
+        .reduce((obj, item) => {
+            const [n, v] = item;
+            if (obj[n]) {
+                obj[n] = [obj[n], v];
+            } else {
+                obj[n] = v;
+            }
+            return obj;
+        }, {});
     const scripts = argv._
         .map((arg) => {
             const script = File(ezs, arg);
@@ -102,19 +108,13 @@ export default function cli(errlog) {
             }
             return script;
         });
-    const meta = scripts.map((script) => ezs.metaString(script)).reduce((prev, cur) => _.merge(cur, prev), {});
+    const meta = scripts
+        .map((script) => ezs.metaString(script))
+        .reduce((prev, cur) => _.merge(cur, prev), {});
     const { prepend, append } = meta;
-    const prepend2Pipeline = ezs.parseCommand(onlyOne(prepend));
-    const append2Pipeline = ezs.parseCommand(onlyOne(append));
-    const { server, delegate } = settings;
-    const execMode = server ? 'dispatch' : delegate;
-    const statements = scripts.map((script) => ezs(execMode, { script, server }, environement));
-    if (prepend2Pipeline) {
-        statements.unshift(ezs.createCommand(prepend2Pipeline, environement));
-    }
-    if (append2Pipeline) {
-        statements.push(ezs.createCommand(append2Pipeline, environement));
-    }
+    const script = scripts.reduce((prev, cur) => prev.concat(cur), '');
+    const commands = ezs.createCommands({ script, append, prepend });
+    const statements = ezs.compileCommands(commands, environement);
     const output = ezs.createPipeline(input, statements)
         .pipe(ezs.catch((e) => e))
         .on('error', (e) => {

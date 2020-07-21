@@ -10,13 +10,13 @@ import XMLString from './xml-string';
 import CSVParse from './csv-parse';
 import CSVObject from './csv-object';
 import CSVString from './csv-string';
-import SKOSObject from './skos-object';
 import JSONParse from './json-parse';
 import JSONString from './json-string';
 import URLFetch from './url-fetch';
 import URLParse from './url-parse';
 import URLString from './url-string';
 import URLStream from './url-stream';
+import URLConnect from './url-connect';
 import TXTZip from './txt-zip';
 import ZIPExtract from './zip-extract';
 import INIString from './ini-string';
@@ -34,13 +34,13 @@ export default {
     CSVParse,
     CSVObject,
     CSVString,
-    SKOSObject,
     JSONParse,
     JSONString,
     URLFetch,
     URLParse,
     URLString,
     URLStream,
+    URLConnect,
     TXTZip,
     ZIPExtract,
     INIString,

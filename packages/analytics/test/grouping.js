@@ -1,11 +1,13 @@
-const assert = require('assert');
-const from = require('from');
-const ezs = require('../../core/src');
+import assert from 'assert';
+import from from 'from';
+import ezs from '../../core/src';
+import statements from '../src';
 
-ezs.use(require('../src'));
+ezs.addPath(__dirname);
 
 describe('grouping', () => {
     it('by Equality', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { a: 'lorem' },
@@ -33,6 +35,7 @@ describe('grouping', () => {
     });
 
     it('by Levenshtein', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { a: 'lorem' },
@@ -62,6 +65,7 @@ describe('grouping', () => {
     });
 
     it('by Hamming', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { a: 'lorem' },
@@ -92,6 +96,7 @@ describe('grouping', () => {
 
 
     it('by modulo #1', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { a: 1934 },
@@ -121,6 +126,7 @@ describe('grouping', () => {
     });
 
     it('by modulo #2', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { a: '1934' },

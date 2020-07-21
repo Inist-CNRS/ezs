@@ -54,7 +54,7 @@ export default function Script(commands) {
     if (!commands) {
         return [];
     }
-    const lines = commands.split(/\r\n|\r|\n/);
+    const lines = commands.split('\\\n').join('').split(/\r\n|\r|\n/);
     const result = [];
     lines.forEach((line) => {
         if (!regex.comment.test(line)) {

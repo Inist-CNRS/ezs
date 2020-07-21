@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.10.0...@ezs/core@1.10.1) (2020-07-02)
+
+**Note:** Version bump only for package @ezs/core
+
+
+
+
+
+# [1.10.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.9.3...@ezs/core@1.10.0) (2020-06-26)
+
+
+### Features
+
+* 🎸 long lines can be cut with \ ([8fbfa0d](https://github.com/Inist-CNRS/ezs/commit/8fbfa0d25bc2a7bfd7a1dc1276af03740933dcbd))
+
+
+
+
+
+## [1.9.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.9.2...@ezs/core@1.9.3) (2020-06-12)
+
+**Note:** Version bump only for package @ezs/core
+
+
+
+
+
 ## [1.9.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.9.1...@ezs/core@1.9.2) (2020-05-12)
 
 

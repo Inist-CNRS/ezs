@@ -1,16 +1,9 @@
-import { promises as jsonld } from 'jsonld';
+import jsonld from 'jsonld';
 
-export default function JSONLDString(data, feed) {
+export default async function JSONLDString(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
-
-    jsonld.toRDF(data, { format: 'application/n-quads' }).then(
-        (out) => {
-            feed.send(out);
-        },
-        (err) => {
-            throw err;
-        },
-    );
+    const out = await jsonld.toRDF(data, { format: 'application/n-quads' });
+    feed.send(out);
 }

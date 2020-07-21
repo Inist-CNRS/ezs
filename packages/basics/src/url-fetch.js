@@ -1,4 +1,5 @@
 import fetch from 'fetch-with-proxy';
+import set from 'lodash.set';
 
 function URLFetch(data, feed) {
     const url = this.getParam('url');
@@ -11,17 +12,16 @@ function URLFetch(data, feed) {
     fetch(url)
         .then((response) => {
             if (response.status !== 200) {
-                const msg = `Received status code ${response.statusCode} (${
-                    response.statusMessage
-                })'`;
+                const msg = `Received status code ${response.status} (${response.statusText})'`;
                 throw new Error(msg);
             }
             return json ? response.json() : response.text();
         })
         .then((body) => {
             if (target && typeof target === 'string' && typeof data === 'object') {
-                data[target] = body;
-                return feed.send(data);
+                const result = { ...data };
+                set(result, target, body);
+                return feed.send(result);
             }
             return feed.send(body);
         })

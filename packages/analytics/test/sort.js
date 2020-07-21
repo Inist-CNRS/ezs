@@ -1,11 +1,13 @@
-const assert = require('assert');
-const from = require('from');
-const ezs = require('../../core/src');
+import assert from 'assert';
+import from from 'from';
+import ezs from '../../core/src';
+import statements from '../src';
 
-ezs.use(require('../src'));
+ezs.addPath(__dirname);
 
 describe('sort ', () => {
     it('tune & sort by jaro', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { id: 'lorem', value: 8 },
@@ -33,6 +35,7 @@ describe('sort ', () => {
     });
 
     it('tune & sort by euclidean', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { id: 'electrically', value: 1 },
@@ -63,6 +66,7 @@ describe('sort ', () => {
     });
 
     it('tune & sort by numercial', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { id: 'un', value: 8 },
@@ -94,6 +98,7 @@ describe('sort ', () => {
 
 
     it('sort by id #2', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             { id: 'electrically', value: 1 },
