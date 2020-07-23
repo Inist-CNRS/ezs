@@ -1,3 +1,79 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable prefer-const */
+/* eslint-disable no-await-in-loop */
+/* eslint-disable no-multi-spaces */
+/* eslint-disable max-len */
+/* eslint-disable no-console */
+import ezs from '../../core/src';
+import { createStore } from '../../analytics/src/store';
+
+function checkProperty(obj, property) {
+    return Object.prototype.hasOwnProperty.call(obj, property);
+}
+
+async function getBroaderOrNarrowerLst(broaderOrNarrower, concept, store, lang) {
+    const result = [];
+    for (let i = 0; i < concept[broaderOrNarrower].length; i += 1) {
+        const key   = concept[broaderOrNarrower][i];
+        const response  =  await store.get(key);
+        const obj       = {};
+        obj.key         = key;
+        obj.label       = response[0][`prefLabel@${lang}`];
+        if (obj.label === undefined) {
+            // search prefLabel property :
+            const conceptKeys = (Object.keys(response[0]));
+            const regex = /^prefLabel@/;
+            for (let objKey of conceptKeys) {
+                if (objKey.match(regex)) {
+                    let llang   = objKey.replace('prefLabel@', '');
+                    obj.label   = `${response[0][objKey]} (${llang})`;
+                    // privilege english lang
+                    if (llang === 'en') {
+                        break;
+                    }
+                }
+            }
+        }
+        result.push(obj);
+    }
+    return (result);
+}
+
+const transformConcept = (feed, store, lang = 'en', resolveFlag = false) => new Promise(
+    (resolve, reject) => store.cast()
+        .on('data', async (chunk) => {
+            resolveFlag     = false;
+            const concept   = chunk.value[0];
+            // check if has broader and narrower
+            if (checkProperty(concept, 'narrower') && checkProperty(concept, 'broader')) {
+                concept.broader     = await getBroaderOrNarrowerLst('broader', concept, store, lang);
+                concept.narrower    = await getBroaderOrNarrowerLst('narrower', concept, store, lang);
+                feed.write(concept);
+            } else if (checkProperty(concept, 'narrower') && !checkProperty(concept, 'broader')) { // the top element in the hierarchy
+                concept.narrower    = await getBroaderOrNarrowerLst('narrower', concept, store, lang);
+                feed.write(concept);
+            } else if (!checkProperty(concept, 'narrower') && checkProperty(concept, 'broader')) { // the last element in the hierarchy
+                concept.broader     = await getBroaderOrNarrowerLst('broader', concept, store, lang);
+                feed.write(concept);
+            }// if orphan concept
+            resolveFlag = true;
+        }).on('end', () => {
+            function checkFlag() {
+                if (resolveFlag === false) {
+                    console.log('teeeest');
+                    window.setTimeout(checkFlag, 1000);
+                } else {
+                    resolve();
+                }
+            }
+            window.setTimeout(checkFlag, 5000);
+        }).on('error', (e) => {
+            reject(e);
+        }),
+);
+
 /**
  * Takes an `Object` and ....
  *
@@ -59,14 +135,26 @@
  * @param {String} [language=en] Choose langauge of prefLabel
  * @returns {Object}
  */
-export default function SKOSPathEnum(data, feed) {
+async function SKOSPathEnum(data, feed) {
     const lang = this.getParam('language', 'en');
     if (this.isFirst()) {
-        // ...
+        this.store = createStore(ezs, 'skos_pathenum_store');
     }
     if (this.isLast()) {
-        // ...
+        await transformConcept(feed, this.store, lang);
+        this.store.empty();
         return feed.close();
     }
-    return feed.send(data);
+    if (data) {
+        // check if concept contains borader or narrower (orphan) otherwise write concept
+        if (!checkProperty(data, 'broader') && !checkProperty(data, 'narrower')) {
+            feed.write(data);
+        }
+        await this.store.add(data.rdf$about, data);
+    }
+    feed.end();
 }
+
+export default {
+    SKOSPathEnum,
+};
