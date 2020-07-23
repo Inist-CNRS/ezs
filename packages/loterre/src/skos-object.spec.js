@@ -4,7 +4,6 @@ import from from 'from';
 import ezs from '../../core/src';
 import ezsBasics from '../../basics/src';
 import ezsLocal from '.';
-import csvParse from '../../basics/src/csv-parse';
 
 ezs.use(ezsBasics);
 ezs.use(ezsLocal);
