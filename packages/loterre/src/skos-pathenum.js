@@ -8,16 +8,20 @@
 /* eslint-disable no-console */
 import ezs from '../../core/src';
 import { createStore } from '../../analytics/src/store';
+import Store from '../../storage/src/store';
+
 
 function checkProperty(obj, property) {
     return Object.prototype.hasOwnProperty.call(obj, property);
 }
+
 
 async function getBroaderOrNarrowerLst(broaderOrNarrower, concept, store, lang) {
     const result = [];
     for (let i = 0; i < concept[broaderOrNarrower].length; i += 1) {
         const key   = concept[broaderOrNarrower][i];
         const response  =  await store.get(key);
+
         const obj       = {};
         obj.key         = key;
         obj.label       = response[0][`prefLabel@${lang}`];
@@ -36,43 +40,31 @@ async function getBroaderOrNarrowerLst(broaderOrNarrower, concept, store, lang) 
                 }
             }
         }
+
         result.push(obj);
     }
     return (result);
 }
 
-const transformConcept = (feed, store, lang = 'en', resolveFlag = false) => new Promise(
-    (resolve, reject) => store.cast()
-        .on('data', async (chunk) => {
-            resolveFlag     = false;
-            const concept   = chunk.value[0];
-            // check if has broader and narrower
-            if (checkProperty(concept, 'narrower') && checkProperty(concept, 'broader')) {
-                concept.broader     = await getBroaderOrNarrowerLst('broader', concept, store, lang);
-                concept.narrower    = await getBroaderOrNarrowerLst('narrower', concept, store, lang);
-                feed.write(concept);
-            } else if (checkProperty(concept, 'narrower') && !checkProperty(concept, 'broader')) { // the top element in the hierarchy
-                concept.narrower    = await getBroaderOrNarrowerLst('narrower', concept, store, lang);
-                feed.write(concept);
-            } else if (!checkProperty(concept, 'narrower') && checkProperty(concept, 'broader')) { // the last element in the hierarchy
-                concept.broader     = await getBroaderOrNarrowerLst('broader', concept, store, lang);
-                feed.write(concept);
-            }// if orphan concept
-            resolveFlag = true;
-        }).on('end', () => {
-            function checkFlag() {
-                if (resolveFlag === false) {
-                    console.log('teeeest');
-                    window.setTimeout(checkFlag, 1000);
-                } else {
-                    resolve();
-                }
-            }
-            window.setTimeout(checkFlag, 5000);
-        }).on('error', (e) => {
-            reject(e);
-        }),
-);
+async function testFunc(data, feed) {
+    let store = this.getEnv();
+    const lang = this.getParam('language', 'en');
+    if (data) {
+        const concept = data.value[0];
+        if (checkProperty(concept, 'narrower') && checkProperty(concept, 'broader')) {
+            concept.broader     = await getBroaderOrNarrowerLst('broader', concept, store, lang);
+            concept.narrower    = await getBroaderOrNarrowerLst('narrower', concept, store, lang);
+        } else if (checkProperty(concept, 'narrower') && !checkProperty(concept, 'broader')) { // the top element in the hierarchy
+            concept.narrower    = await getBroaderOrNarrowerLst('narrower', concept, store, lang);
+        } else if (!checkProperty(concept, 'narrower') && checkProperty(concept, 'broader')) { // the last element in the hierarchy
+            concept.broader     = await getBroaderOrNarrowerLst('broader', concept, store, lang);
+        }
+        return feed.send(concept);
+    }
+    if (this.isLast()) {
+        return feed.close();
+    }
+}
 
 /**
  * Takes an `Object` and ....
@@ -135,26 +127,20 @@ const transformConcept = (feed, store, lang = 'en', resolveFlag = false) => new 
  * @param {String} [language=en] Choose langauge of prefLabel
  * @returns {Object}
  */
+
 async function SKOSPathEnum(data, feed) {
-    const lang = this.getParam('language', 'en');
-    if (this.isFirst()) {
-        this.store = createStore(ezs, 'skos_pathenum_store');
+    if (!this.store) {
+        this.store = createStore(this.ezs, 'skos_pathenum_store');
     }
     if (this.isLast()) {
-        await transformConcept(feed, this.store, lang);
-        this.store.empty();
-        return feed.close();
-    }
-    if (data) {
-        // check if concept contains borader or narrower (orphan) otherwise write concept
-        if (!checkProperty(data, 'broader') && !checkProperty(data, 'narrower')) {
-            feed.write(data);
-        }
+        this.store.cast().pipe(this.ezs(testFunc, { language: this.getParam('language', 'en') }, this.store)).on('data', (chunk) => {
+            feed.write(chunk);
+        }).on('end', () => feed.close());
+    } else {
         await this.store.add(data.rdf$about, data);
+        feed.end();
     }
-    feed.end();
 }
-
 export default {
     SKOSPathEnum,
 };
