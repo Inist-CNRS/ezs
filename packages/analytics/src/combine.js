@@ -1,6 +1,7 @@
 import get from 'lodash.get';
 import set from 'lodash.set';
 import debug from 'debug';
+import assert from 'assert';
 import { createStore } from './store';
 
 async function saveIn(data, feed) {
@@ -88,9 +89,9 @@ export default function combine(data, feed) {
         const output = ezs.createPipeline(input, statements)
             .pipe(ezs(saveIn, null, this.store))
             .pipe(ezs.catch())
-            .on('data', (d) => d)
+            .on('data', (d) => assert(d)) // WARNING: The data must be consumed, otherwise the "end" event has not been triggered
             .on('error', (e) => feed.stop(e));
-        whenReady = new Promise((resolve) => output.on('end', () => resolve));
+        whenReady = new Promise((resolve) => output.on('end', resolve));
         input.write(primer);
         input.end();
     }
