@@ -3,6 +3,19 @@ import set from 'lodash.set';
 import debug from 'debug';
 import { createStore } from './store';
 
+async function saveIn(data, feed) {
+    if (this.isLast()) {
+        return feed.close();
+    }
+    const store = this.getEnv();
+    const key = get(data, 'id');
+    const isKey = Boolean(key);
+    if (isKey) {
+        await store.put(key, data);
+    }
+    return feed.send(key);
+}
+
 /**
  * Takes an `Object` and substitute a field with the corresponding value found in a external pipeline
  * the internal pipeline must produce a stream of special object (id, value)
@@ -73,17 +86,11 @@ export default function combine(data, feed) {
             statements = ezs.compileCommands(commands, this.getEnv());
         }
         const output = ezs.createPipeline(input, statements)
+            .pipe(ezs(saveIn, null, this.store))
             .pipe(ezs.catch())
-            .on('data', async (item) => {
-                const key = get(item, 'id');
-                const isKey = Boolean(key);
-
-                if (isKey) {
-                    await this.store.put(key, item);
-                }
-            })
+            .on('data', (d) => d)
             .on('error', (e) => feed.stop(e));
-        whenReady = new Promise((resolve) => output.on('end', resolve));
+        whenReady = new Promise((resolve) => output.on('end', () => resolve));
         input.write(primer);
         input.end();
     }
@@ -107,5 +114,5 @@ export default function combine(data, feed) {
             }
             return feed.send(data);
         })
-        .catch(/* istanbul ignore next */(e) => feed.stop(e));
+        .catch((e) => feed.stop(e));
 }

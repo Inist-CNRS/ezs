@@ -63,6 +63,7 @@ describe('combine', () => {
 
         from(input)
             .pipe(ezs('combine', { path: 'b', file }))
+            .pipe(ezs('debug', { text: 'after' }))
             .pipe(ezs.catch())
             .on('error', done)
             .on('data', (chunk) => {
