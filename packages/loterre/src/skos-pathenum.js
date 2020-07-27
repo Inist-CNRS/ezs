@@ -1,5 +1,5 @@
+import { createStore } from '@ezs/store';
 import ezs from '../../core/src';
-import { createStore } from '../../analytics/src/store';
 
 function checkProperty(obj, property) {
     return Object.prototype.hasOwnProperty.call(obj, property);

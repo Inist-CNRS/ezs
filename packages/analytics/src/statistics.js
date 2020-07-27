@@ -1,7 +1,7 @@
 import hasher from 'node-object-hash';
 import get from 'lodash.get';
 import set from 'lodash.set';
-import { createStore } from './store';
+import { createStore } from '@ezs/store';
 
 const hashCoerce = hasher({
     sort: false,

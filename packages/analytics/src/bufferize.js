@@ -1,5 +1,5 @@
 import set from 'lodash.set';
-import { createStore } from './store';
+import { createStore } from '@ezs/store';
 
 /**
  * Takes all `Objects` and bufferize them in a store

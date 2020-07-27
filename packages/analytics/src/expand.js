@@ -2,7 +2,7 @@ import get from 'lodash.get';
 import set from 'lodash.set';
 import debug from 'debug';
 import core from './core';
-import { createStore } from './store';
+import { createStore } from '@ezs/store';
 
 async function mergeWith(data, feed) {
     if (this.isLast()) {
