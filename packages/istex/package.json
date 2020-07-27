@@ -1,6 +1,6 @@
 {
     "name": "@ezs/istex",
-    "version": "1.0.19",
+    "version": "1.0.20",
     "description": "ISTEX statements for EZS",
     "main": "./lib/index.js",
     "directories": {
