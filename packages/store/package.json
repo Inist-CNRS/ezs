@@ -1,6 +1,6 @@
 {
     "name": "@ezs/store",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "Internal store for EZS",
     "directories": {
         "test": "test"
@@ -31,7 +31,10 @@
     "peerDependencies": {
         "@ezs/core": "*"
     },
-    "devDependencies": {},
+    "devDependencies": {
+        "del": "^5.1.0",
+        "mkdirp": "^1.0.4"
+    },
     "dependencies": {
         "debug": "^4.1.1",
         "leveldown": "^5.6.0",

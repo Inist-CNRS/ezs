@@ -1,6 +1,6 @@
 {
     "name": "@ezs/loterre",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "Loterre statements for EZS",
     "directories": {
         "test": "test"
