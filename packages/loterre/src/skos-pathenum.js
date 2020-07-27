@@ -1,15 +1,5 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable prefer-const */
-/* eslint-disable no-await-in-loop */
-/* eslint-disable no-multi-spaces */
-/* eslint-disable max-len */
-/* eslint-disable no-console */
 import ezs from '../../core/src';
 import { createStore } from '../../analytics/src/store';
-import Store from '../../storage/src/store';
-
 
 function checkProperty(obj, property) {
     return Object.prototype.hasOwnProperty.call(obj, property);
@@ -46,7 +36,7 @@ async function getBroaderOrNarrowerLst(broaderOrNarrower, concept, store, lang) 
     return (result);
 }
 
-async function testFunc(data, feed) {
+async function BroaderAndNarrower(data, feed) {
     let store = this.getEnv();
     const lang = this.getParam('language', 'en');
     if (data) {
@@ -133,7 +123,7 @@ async function SKOSPathEnum(data, feed) {
         this.store = createStore(this.ezs, 'skos_pathenum_store');
     }
     if (this.isLast()) {
-        this.store.cast().pipe(this.ezs(testFunc, { language: this.getParam('language', 'en') }, this.store)).on('data', (chunk) => {
+        this.store.cast().pipe(this.ezs(BroaderAndNarrower, { language: this.getParam('language', 'en') }, this.store)).on('data', (chunk) => {
             feed.write(chunk);
         }).on('end', () => feed.close());
     } else {
