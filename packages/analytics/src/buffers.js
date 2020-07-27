@@ -1,4 +1,4 @@
-import { createStoreWithID } from './store';
+import { createStoreWithID } from '@ezs/store';
 
 /**
  * Takes all `Objects` from a store

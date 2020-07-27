@@ -1,6 +1,6 @@
 import get from 'lodash.get';
 import core from './core';
-import { createStore } from './store';
+import { createStore } from '@ezs/store';
 
 /**
  * Take `Object` like { id, value } and throw a serie of number value

@@ -1,6 +1,6 @@
 import get from 'lodash.get';
 import fastsort from 'fast-sort';
-import { createStore } from './store';
+import { createStore } from '@ezs/store';
 import { normalize } from './tune';
 
 
