@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.6.2...@ezs/analytics@1.7.0) (2020-07-27)
+
+
+### Bug Fixes
+
+* **analytics:** 🐛 attemps to fix combine too ([ad42c98](https://github.com/Inist-CNRS/ezs/commit/ad42c98e5a6a5cbf0c95b37b896fff920a3ee723))
+* 🐛 fix push after end ([66750ed](https://github.com/Inist-CNRS/ezs/commit/66750edef28a6c6eebc8305da2bc16be16bcfd83))
+* too many promises pending ([e9e708c](https://github.com/Inist-CNRS/ezs/commit/e9e708c3989550eb052d582b3414ecb98e88ebef))
+
+
+### Features
+
+* 🎸 add [expand] statement ([cc6a470](https://github.com/Inist-CNRS/ezs/commit/cc6a4707e445872c7cafd75dd55c920386ce9238))
+* 🎸 attempts to fix travis bug ([6f31157](https://github.com/Inist-CNRS/ezs/commit/6f3115709fa0f9f59875103d45dcc8f65f102372))
+
+
+
+
+
 ## [1.6.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.6.1...@ezs/analytics@1.6.2) (2020-07-02)
 
 

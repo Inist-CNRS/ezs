@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.4.1...@ezs/basics@1.4.2) (2020-07-27)
+
+
+### Bug Fixes
+
+* 🐛 npm audit fix ([8c7a939](https://github.com/Inist-CNRS/ezs/commit/8c7a939d8a23783d470f89c6cf7ff0efc9749dea))
+
+
+
+
+
 ## [1.4.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.4.0...@ezs/basics@1.4.1) (2020-07-02)
 
 
