@@ -3,5 +3,5 @@
 *
 
 # White list only the required files
-!lib/*
+!lib/**/*
 !bin/*
