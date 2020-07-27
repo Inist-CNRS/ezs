@@ -14,7 +14,10 @@ npm install @ezs/basics
 
 #### Table of Contents
 
+-   [URLConnect](#urlconnect)
+-   [URLStream](#urlstream)
 -   [OBJCount](#objcount)
+-   [URLFetch](#urlfetch)
 -   [URLParse](#urlparse)
 -   [URLString](#urlstring)
 -   [BUFObject](#bufobject)
@@ -30,12 +33,33 @@ npm install @ezs/basics
 -   [JSONString](#jsonstring)
 -   [XMLParse](#xmlparse)
 -   [TXTParse](#txtparse)
--   [URLFetch](#urlfetch)
 -   [CSVString](#csvstring)
 -   [CSVObject](#csvobject)
--   [URLStream](#urlstream)
--   [URLConnect](#urlconnect)
 -   [OBJStandardize](#objstandardize)
+
+### URLConnect
+
+Take `Object` and send it to an URL
+the output will be the content of URL
+
+#### Parameters
+
+-   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fecth
+-   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Pasre as JSON the content of URL (optional, default `false`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### URLStream
+
+Take `Object` as parameters of URL, throw each chunk from the result
+
+#### Parameters
+
+-   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fecth
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose the path to split JSON result (optional, default `*`)
+-   `timeout` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Timeout for each request (milliseconds) (optional, default `1000`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### OBJCount
 
@@ -46,6 +70,20 @@ Take `Object` and count how many objects are received and sent the total
 -   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
 
 Returns **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+
+### URLFetch
+
+Take `Object` and create a new field with the content of URL.
+Or if no target will be specified, the output will be the content of URL
+
+#### Parameters
+
+-   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fecth
+-   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** choose the key to set
+-   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Pasre as JSON the content of URL (optional, default `false`)
+-   `timeout` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Timeout for each request (milliseconds) (optional, default `1000`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### URLParse
 
@@ -209,19 +247,6 @@ Take `String` and split at each separator found
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
-### URLFetch
-
-Take `Object` and create a new field with the content of URL.
-Or if no target will be specified, the output will be the content of URL
-
-#### Parameters
-
--   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fecth
--   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** choose the key to set
--   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Pasre as JSON the content of URL (optional, default `false`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
 ### CSVString
 
 Take `Object` and transform row  into string
@@ -244,29 +269,6 @@ into a object where keys are the value of the first row
 #### Parameters
 
 -   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### URLStream
-
-Take `Object` as parameters of URL, throw each chunk from the result
-
-#### Parameters
-
--   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fecth
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose the path to split JSON result (optional, default `*`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### URLConnect
-
-Take `Object` and send it to an URL
-the output will be the content of URL
-
-#### Parameters
-
--   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fecth
--   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Pasre as JSON the content of URL (optional, default `false`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
