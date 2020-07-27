@@ -1,7 +1,37 @@
+import { tmpdir } from 'os';
+import del from 'del';
+import mkdirp from 'mkdirp';
 import ezs from '../../core/src';
 import { createStore, createStoreWithID } from '../src/store';
 
 describe('Store', () => {
+    it('add distinct values #0', async (done) => {
+        const location = `${tmpdir()}/toto`;
+        mkdirp.sync(`${location}/store`);
+        const store = createStore(ezs, 'test_store0', location);
+        expect(store.id()).toEqual(expect.stringContaining('test_store0'));
+        await Promise.all([
+            store.add(1, 'A'),
+            store.add(2, 'B'),
+            store.add(3, 'C'),
+        ]);
+        const output = [];
+        store
+            .cast()
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                expect(output.length).toEqual(3);
+                expect(output[0].id).toEqual(1);
+                expect(output[0].value[0]).toEqual('A');
+                store.close();
+                del.sync([location], { force: true });
+                done();
+            });
+    });
+
+
     it('add distinct values #1', async (done) => {
         const store = createStore(ezs, 'test_store1');
         expect(store.id()).toEqual(expect.stringContaining('test_store1'));
