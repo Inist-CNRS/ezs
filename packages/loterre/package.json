@@ -1,6 +1,6 @@
 {
     "name": "@ezs/loterre",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "Loterre statements for EZS",
     "directories": {
         "test": "test"
@@ -37,6 +37,7 @@
         "@ezs/core": "1.10.3"
     },
     "dependencies": {
+        "@ezs/store": "~1.1.0",
         "fast-sort": "^2.1.1",
         "lda": "~0.2.0",
         "lodash.clone": "~4.5.0",
@@ -46,7 +47,6 @@
         "lodash.set": "~4.3.2",
         "lodash.uniq": "~4.5.0",
         "lodash.unset": "~4.5.2",
-        "@ezs/store": "~1.1.0",
         "talisman": "~0.21.0"
     }
 }
