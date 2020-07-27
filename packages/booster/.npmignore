@@ -1,3 +1,7 @@
-bench/
-examples/
-test/
+# Ignore all files by default
+.*
+*
+
+# White list only the required files
+!lib/*
+!bin/*

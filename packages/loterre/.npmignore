@@ -1,8 +1,8 @@
-coverage/
-bench/
-examples/
-test/
-*.sw?
-logs
-*.log
-.~lock*
+# Ignore all files by default
+.*
+*
+
+# White list only the required files
+!lib/*
+lib/*.spec.js
+!bin/*

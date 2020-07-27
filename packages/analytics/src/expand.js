@@ -4,6 +4,26 @@ import debug from 'debug';
 import core from './core';
 import { createStore } from './store';
 
+async function mergeWith(data, feed) {
+    if (this.isLast()) {
+        return feed.close();
+    }
+    const store = this.getEnv();
+    const { id, value } = data;
+    const path = this.getParam('path');
+    try {
+        const obj = await store.get(id);
+        if (obj === null) {
+            return feed.send(new Error('id was corrupted'));
+        }
+        set(obj, path, value);
+        feed.send(obj);
+    } catch (e) {
+        feed.send(e);
+    }
+    return;
+}
+
 /**
  * Takes an `Object` and substitute a field with the corresponding value found in a external pipeline
  * the internal pipeline receive a special object { id, value } id is the item identifier & value is the item path value
@@ -66,20 +86,10 @@ export default async function expand(data, feed) {
         const statements = ezs.compileCommands(commands, this.getEnv());
         this.input = ezs.createStream(ezs.objectMode());
         const output = ezs.createPipeline(this.input, statements)
+            .pipe(ezs(mergeWith, { path }, this.store))
             .pipe(ezs.catch())
             .on('error', (e) => feed.stop(e))
-            .on('data', async ({ id, value }) => {
-                try {
-                    const obj = await this.store.get(id);
-                    if (obj === null) {
-                        feed.write(new Error('id was corrupted'));
-                    }
-                    set(obj, path, value);
-                    feed.write(obj);
-                } catch (e) {
-                    feed.write(e);
-                }
-            });
+            .on('data', (d) => feed.write(d));
         this.whenFinish = new Promise((resolve) => output.on('end', resolve));
     }
     if (this.isLast()) {
