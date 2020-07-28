@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.10.3...@ezs/core@1.10.4) (2020-07-28)
+
+
+### Bug Fixes
+
+* 🐛 remove unused packages ([513d426](https://github.com/Inist-CNRS/ezs/commit/513d4267d362361dfd5ee439c185da4834aa0c5a))
+
+
+
+
+
 ## [1.10.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.10.2...@ezs/core@1.10.3) (2020-07-27)
 
 **Note:** Version bump only for package @ezs/core
