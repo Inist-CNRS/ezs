@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.7.2...@ezs/analytics@1.8.0) (2020-07-29)
+
+
+### Features
+
+* add array support to [combine] ([3cc2555](https://github.com/Inist-CNRS/ezs/commit/3cc2555c830e35a8101606d9cd29165ac0fe2189))
+
+
+
+
+
 ## [1.7.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.7.1...@ezs/analytics@1.7.2) (2020-07-27)
 
 **Note:** Version bump only for package @ezs/analytics

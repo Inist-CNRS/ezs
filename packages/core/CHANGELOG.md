@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.11.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.10.4...@ezs/core@1.11.0) (2020-07-29)
+
+
+### Features
+
+* 🎸 server sent 100 Continue to keep clients connected ([f79d9f3](https://github.com/Inist-CNRS/ezs/commit/f79d9f37a47120ea1160fcf33b70677ca70f4446))
+
+
+
+
+
 ## [1.10.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.10.3...@ezs/core@1.10.4) (2020-07-28)
 
 
