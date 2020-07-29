@@ -102,16 +102,21 @@ export default function combine(data, feed) {
     return whenReady
         .then(async () => {
             const path = this.getParam('path');
-            const key = get(data, path);
-            const validKey = Boolean(key);
-            if (!validKey) {
+            const pathVal = get(data, path);
+            const keys = [].concat(pathVal).filter(Boolean);
+            if (keys.length === 0) {
                 return feed.send(data);
             }
-            const value = await this.store.get(key);
-            if (value) {
-                set(data, path, value);
+            const values = await Promise.all(keys.map((key) => this.store.get(key)));
+            if (values.length && Array.isArray(pathVal)) {
+                set(data, path, values);
+            }
+            else if (values.length && !Array.isArray(pathVal)) {
+                set(data, path, values.shift());
+            } else if (Array.isArray(pathVal)) {
+                set(data, path, pathVal.map((id) => ({ id })));
             } else {
-                set(data, path, { id: key });
+                set(data, path, { id: pathVal });
             }
             return feed.send(data);
         })
