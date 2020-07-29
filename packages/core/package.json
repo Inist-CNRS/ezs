@@ -49,6 +49,7 @@
         "merge2": "~1.4.1",
         "node-dir": "~0.1.17",
         "object-sizeof": "^1.6.1",
+        "once": "^1.4.0",
         "stream-iterate": "~1.2.0",
         "stream-write": "~1.0.1",
         "validatorjs": "~3.18.1",
