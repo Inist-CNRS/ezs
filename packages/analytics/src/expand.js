@@ -1,8 +1,8 @@
 import get from 'lodash.get';
 import set from 'lodash.set';
 import debug from 'debug';
-import core from './core';
 import { createStore } from '@ezs/store';
+import core from './core';
 
 async function mergeWith(data, feed) {
     if (this.isLast()) {
@@ -17,11 +17,10 @@ async function mergeWith(data, feed) {
             return feed.send(new Error('id was corrupted'));
         }
         set(obj, path, value);
-        feed.send(obj);
+        return feed.send(obj);
     } catch (e) {
-        feed.send(e);
+        return feed.send(e);
     }
-    return;
 }
 
 /**
