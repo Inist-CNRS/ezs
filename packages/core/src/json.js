@@ -9,11 +9,9 @@ function parse(data) {
     });
 }
 
-
 function stringify(data) {
     return JSON.stringify(data);
 }
-
 
 export default {
     parse,

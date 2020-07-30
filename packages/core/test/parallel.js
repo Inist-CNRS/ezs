@@ -48,7 +48,6 @@ describe('parallel through worker(s)', () => {
         });
     });
 
-
     describe('with one worker', () => {
         const script = `
             [use]
@@ -143,7 +142,6 @@ describe('parallel through worker(s)', () => {
                 });
         });
 
-
         it('with script', (done) => {
             let res = 0;
             const ten = new Upto(10);
@@ -200,7 +198,6 @@ describe('parallel through worker(s)', () => {
                 done();
             });
     });
-
 
     it('with buggy statements', (done) => {
         const commands = [
@@ -314,7 +311,6 @@ describe('parallel through worker(s)', () => {
                 done();
             });
     });
-
 
     it('with a lot of commands in distributed pipeline', (done) => {
         const commands = [
