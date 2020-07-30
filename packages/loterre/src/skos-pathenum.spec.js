@@ -13,7 +13,7 @@ ezs.use(ezsLocal);
 
 describe('SKOSPathEnum', () => {
     beforeEach(() => {
-        jest.setTimeout(500000);
+        jest.setTimeout(10000);
     });
 
     test('from file : data-sample.skos', (done) => {
@@ -31,6 +31,13 @@ describe('SKOSPathEnum', () => {
                 expect(output.length).toBe(3);
                 expect(output[0].broader).toEqual(expect.arrayContaining([{ key: 'http://example.com/dishes#potatoBased', label: 'Plats à base de pomme de terre' }]));
                 expect(output[1].broader).toEqual(expect.arrayContaining([{ key: 'http://example.com/dishes#potatoBased', label: 'Plats à base de pomme de terre' }]));
+                expect(output[2].narrower).toEqual(expect.arrayContaining([
+                    { key: 'http://example.com/dishes#fries', label: 'Frites' },
+                    {
+                        key: 'http://example.com/dishes#mashed',
+                        label: 'Purée de pomme de terre'
+                    }
+                ]));
                 done();
             });
     });
@@ -76,6 +83,7 @@ describe('SKOSPathEnum', () => {
                 done();
             });
     });
+
     /*
     test('from file : CHEBI.skos', (done) => {
         const output = [];
