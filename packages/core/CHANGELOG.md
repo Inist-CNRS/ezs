@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.11.0...@ezs/core@1.12.0) (2020-07-30)
+
+
+### Bug Fixes
+
+* in very rare cases, chunk doesn't exists ([ecd1f9e](https://github.com/Inist-CNRS/ezs/commit/ecd1f9eea573dee97743dd229bed36e6656cdbef))
+
+
+### Features
+
+* 🎸 server information switch to openapi ([e80b957](https://github.com/Inist-CNRS/ezs/commit/e80b95774b9ab3dcb371db70b777d03b82537bb8))
+
+
+
+
+
 # [1.11.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.10.4...@ezs/core@1.11.0) (2020-07-29)
 
 
