@@ -48,8 +48,8 @@ describe('dispatch through server(s)', () => {
         fetch('http://127.0.0.1:33333/')
             .then((res) => res.json())
             .then((json) => {
-                assert(json.uptime);
-                assert.equal(os.cpus().length, json.concurrency);
+                assert(json.info['x-uptime'].value);
+                assert.equal(os.cpus().length, json.info['x-concurrency'].value);
                 done();
             });
     });
