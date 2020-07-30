@@ -9,7 +9,6 @@ import ezs from '../../core/src';
 import ezsBasics from '../../basics/src';
 import ezsLocal from '.';
 
-
 ezs.use(ezsBasics);
 ezs.use(ezsLocal);
 

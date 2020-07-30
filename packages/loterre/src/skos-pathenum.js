@@ -1,7 +1,5 @@
 import { createStore } from '@ezs/store';
 
-
-
 /**
  * @name checkIfPropertyExist
  * @param {string} property
@@ -23,26 +21,25 @@ async function getBroaderOrNarrowerLst(broaderOrNarrower, concept, store, lang) 
     const result = [];
     if (concept[broaderOrNarrower] !== undefined) {
         for (let i = 0; i < concept[broaderOrNarrower].length; i += 1) {
-            const key       = concept[broaderOrNarrower][i];
-            const response  =  await store.get(key);
+            const key = concept[broaderOrNarrower][i];
+            const response = await store.get(key);
             if (response !== 'undefined' && Array.isArray(response)) {
-                const obj       = {};
-                obj.key         = key;
-                obj.label       = response[0][`prefLabel@${lang}`];
+                const obj = {};
+                obj.key = key;
+                obj.label = response[0][`prefLabel@${lang}`];
                 if (obj.label === undefined) {
                 // search prefLabel property :
-                    const conceptKeys   = (Object.keys(response[0]));
-                    const regex         = /^prefLabel@/;
-                    for (let objKey of conceptKeys) {
+                    const conceptKeys = (Object.keys(response[0]));
+                    const regex = /^prefLabel@/;
+                    for (const objKey of conceptKeys) {
                         if (objKey.match(regex)) {
-                            let llang   = objKey.replace('prefLabel@', '');
-                            obj.label   = `${response[0][objKey]} (${llang})`;
+                            const llang = objKey.replace('prefLabel@', '');
+                            obj.label = `${response[0][objKey]} (${llang})`;
                             // privilege english lang
                             if (llang === 'en') {
                                 break;
                             }
                         }
-
                     }
                 }
                 result.push(obj);
@@ -59,17 +56,23 @@ async function getBroaderOrNarrowerLst(broaderOrNarrower, concept, store, lang) 
  * @returns {Promise} Returns object
  */
 async function getBroaderAndNarrower(data, feed) {
-    let store   = this.getEnv();
-    const lang  = this.getParam('language', 'en');
+    const store = this.getEnv();
+    const lang = this.getParam('language', 'en');
     if (data) {
         const concept = data.value[0];
         if (checkIfPropertyExist(concept, 'narrower') && checkIfPropertyExist(concept, 'broader')) {
-            concept.broader     = await getBroaderOrNarrowerLst('broader', concept, store, lang);
-            concept.narrower    = await getBroaderOrNarrowerLst('narrower', concept, store, lang);
-        } else if (checkIfPropertyExist(concept, 'narrower') && !checkIfPropertyExist(concept, 'broader')) { // the top element in the hierarchy
-            concept.narrower    = await getBroaderOrNarrowerLst('narrower', concept, store, lang);
-        } else if (!checkIfPropertyExist(concept, 'narrower') && checkIfPropertyExist(concept, 'broader')) { // the last element in the hierarchy
-            concept.broader     = await getBroaderOrNarrowerLst('broader', concept, store, lang);
+            concept.broader = await getBroaderOrNarrowerLst('broader', concept, store, lang);
+            concept.narrower = await getBroaderOrNarrowerLst('narrower', concept, store, lang);
+        } else if (
+            checkIfPropertyExist(concept, 'narrower')
+            && !checkIfPropertyExist(concept, 'broader')
+        ) { // the top element in the hierarchy
+            concept.narrower = await getBroaderOrNarrowerLst('narrower', concept, store, lang);
+        } else if (
+            !checkIfPropertyExist(concept, 'narrower')
+            && checkIfPropertyExist(concept, 'broader')
+        ) { // the last element in the hierarchy
+            concept.broader = await getBroaderOrNarrowerLst('broader', concept, store, lang);
         }
         return feed.send(concept);
     }
@@ -89,12 +92,14 @@ async function SKOSPathEnum(data, feed) {
         this.store = createStore(this.ezs, 'skos_pathenum_store');
     }
     if (this.isLast()) {
-        this.store.cast().pipe(this.ezs(getBroaderAndNarrower, { language: this.getParam('language', 'en') }, this.store)).on('data', (chunk) => {
-            feed.write(chunk);
-        }).on('end', () => {
-            this.store.close();
-            feed.close();
-        });
+        this.store.cast()
+            .pipe(this.ezs(getBroaderAndNarrower, { language: this.getParam('language', 'en') }, this.store))
+            .on('data', (chunk) => {
+                feed.write(chunk);
+            }).on('end', () => {
+                this.store.close();
+                feed.close();
+            });
     } else {
         await this.store.add(data.rdf$about, data);
         feed.end();
@@ -102,7 +107,8 @@ async function SKOSPathEnum(data, feed) {
 }
 
 /**
- * Takes an `Object` and transform "broader","narrower" and "related" properties to an 'Object' containing the prefLabel and rdf$about
+ * Takes an `Object` and transform "broader","narrower" and "related"
+ * properties to an 'Object' containing the prefLabel and rdf$about
  *
  * ```
  * <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:skos="http://www.w3.org/2004/02/skos/core#">

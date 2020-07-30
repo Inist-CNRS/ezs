@@ -21,10 +21,10 @@
     "main": "./lib/index.js",
     "jest": {
         "testPathIgnorePatterns": [
-          "/node_modules/",
-          "locals.js", 
-          "testOne.js", 
-          "testAll.js"
+            "/node_modules/",
+            "locals.js",
+            "testOne.js",
+            "testAll.js"
         ]
     },
     "scripts": {
@@ -36,7 +36,6 @@
         "preversion": "npm run doc",
         "test": "NODE_ENV=test jest --maxWorkers 4 --config jest.config.js"
     },
-
     "publishConfig": {
         "access": "public"
     },
@@ -44,12 +43,10 @@
         "@ezs/core": "*"
     },
     "devDependencies": {
-        "@ezs/core": "1.12.0"
+        "@ezs/core": "1.12.0",
+        "jsontoxml": "~1.0.1"
     },
     "dependencies": {
-      "@ezs/store": "~1.1.0",        
-      "jsontoxml": "~1.0.1",
-       "xmlsplit": "~1.2.8"
-      }   
+        "@ezs/store": "~1.1.0"
     }
 }

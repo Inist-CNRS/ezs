@@ -1,13 +1,4 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable prefer-const */
-/* eslint-disable no-await-in-loop */
-/* eslint-disable no-multi-spaces */
-/* eslint-disable max-len */
-/* eslint-disable no-console */
-import { createStore } from '../../analytics/src/store';
-
+import { createStore } from '@ezs/store';
 
 /**
  * @param {string} property
@@ -28,13 +19,13 @@ function checkIfPropertyExist(property, obj) {
  */
 async function writeHierarchy(data, feed, property, store, lang, weight) {
     for (let i = 0; i < data[property].length; i += 1) {
-        let obj         = {};
-        obj.source      = data[`prefLabel@${lang}`];
-        obj.target      = data[property][i].label;
-        obj.weight      = weight;
-        let key         = `${data.rdf$about}#${data[property][i].key}`;
+        const obj = {};
+        obj.source = data[`prefLabel@${lang}`];
+        obj.target = data[property][i].label;
+        obj.weight = weight;
+        const key = `${data.rdf$about}#${data[property][i].key}`;
         // check if key exist else write and add to db.
-        const checkIfWrited  =  await store.get(key);
+        const checkIfWrited = await store.get(key);
         if (!checkIfWrited) {
             feed.write(obj);
             await store.add(key, '');
@@ -72,7 +63,7 @@ async function SKOSHierarchy(data, feed) {
     if (this.isLast()) {
         this.store.close();
         if (addNodes) {
-            let nodes = [];
+            const nodes = [];
             this.storeNode.cast().on('data', (chunk) => {
                 nodes.push({ id: chunk.value[0].id, label: chunk.value[0].id });
             }).on('end', () => {
@@ -109,9 +100,9 @@ async function SKOSHierarchy(data, feed) {
         }
 
         if (addNodes) {
-            let obj     = {};
-            obj.id      = data[`prefLabel@${lang}`];
-            obj.label   = data[`prefLabel@${lang}`];
+            const obj = {};
+            obj.id = data[`prefLabel@${lang}`];
+            obj.label = data[`prefLabel@${lang}`];
             await this.storeNode.add(obj.id, obj);
         }
 

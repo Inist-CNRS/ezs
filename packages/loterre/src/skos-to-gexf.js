@@ -1,12 +1,4 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable prefer-const */
-/* eslint-disable no-await-in-loop */
-/* eslint-disable no-multi-spaces */
-/* eslint-disable max-len */
-/* eslint-disable no-console */
-import { createStore } from '../../analytics/src/store';
+import { createStore } from '@ezs/store';
 
 /**
  * @param {string} property
@@ -26,18 +18,17 @@ function checkIfPropertyExist(property, obj) {
  * @param {number} weight
  */
 
-
 async function writeEdge(data, feed, property, store, lang, weight) {
     for (let i = 0; i < data[property].length; i += 1) {
-        let key         = `${data.rdf$about}#${data[property][i].key}`;
-        let attrs = {
+        const key = `${data.rdf$about}#${data[property][i].key}`;
+        const attrs = {
             label: data[`prefLabel@${lang}`],
             source: data.rdf$about,
             target: data[property][i].label,
             weight: `${weight}.0`,
         };
-        let edge = { name: 'edge', attrs };
-        const checkIfWrited  =  await store.get(key);
+        const edge = { name: 'edge', attrs };
+        const checkIfWrited = await store.get(key);
         if (!checkIfWrited) {
             feed.write(edge);
             await store.add(key, '');
@@ -71,13 +62,13 @@ async function SKOSToGexf(data, feed) {
     }
     if (this.isLast()) {
         this.store.close();
-        let nodes = { nodes: [] };
+        const nodes = { nodes: [] };
         this.storeNode.cast().on('data', (chunk) => {
-            let attrs = {
+            const attrs = {
                 label: chunk.value[0].label,
                 id: chunk.value[0].id,
             };
-            let node = { name: 'node', attrs };
+            const node = { name: 'node', attrs };
             nodes.nodes.push(node);
         }).on('end', () => {
             feed.write(nodes);
@@ -109,9 +100,9 @@ async function SKOSToGexf(data, feed) {
             await writeEdge(data, feed, 'related', this.store, lang, weight);
         }
 
-        let obj     = {};
-        obj.id      = data.rdf$about;
-        obj.label   = data[`prefLabel@${lang}`];
+        const obj = {};
+        obj.id = data.rdf$about;
+        obj.label = data[`prefLabel@${lang}`];
         await this.storeNode.add(obj.id, obj);
 
         feed.end();
