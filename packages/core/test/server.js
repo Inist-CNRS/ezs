@@ -162,7 +162,6 @@ describe('dispatch through server(s)', () => {
                 .catch(done);
         });
 
-
         it('part1-3.ini with paramaters', (done) => {
             const stream = from([
                 '{"a":1}\n{"a":2}\n{"a":3}\n',
@@ -196,7 +195,6 @@ describe('dispatch through server(s)', () => {
             .catch(done);
     });
 
-
     it('get no found url ', (done) => {
         fetch('http://127.0.0.1:33333/script.xxx', { method: 'HEAD' })
             .then((res) => {
@@ -214,7 +212,6 @@ describe('dispatch through server(s)', () => {
             })
             .catch(done);
     });
-
 
     describe('simple statements, one server', () => {
         const script = `
@@ -292,7 +289,6 @@ describe('dispatch through server(s)', () => {
                 });
         });
 
-
         it('with script', (done) => {
             let res = 0;
             const ten = new Upto(10);
@@ -369,7 +365,6 @@ describe('dispatch through server(s)', () => {
             });
     });
 
-
     it('simple statements, one server but with different parameter', (done) => {
         let res = 0;
         const commands = [
@@ -429,7 +424,6 @@ describe('dispatch through server(s)', () => {
             });
     });
 
-
     it('with commands using global parameter', (done) => {
         let res = 0;
         const commands = [
@@ -454,7 +448,6 @@ describe('dispatch through server(s)', () => {
                 done();
             });
     });
-
 
     it('with buggy statements', (done) => {
         const commands = [
@@ -607,7 +600,6 @@ describe('dispatch through server(s)', () => {
             });
     });
 
-
     it('with a lot of commands in distributed pipeline', (done) => {
         const commands = [
             {
@@ -663,7 +655,6 @@ describe('dispatch through server(s)', () => {
             });
     }, 100000);
 
-
     it('with a same commands', (done) => {
         const script = `
             [use]
@@ -681,7 +672,6 @@ describe('dispatch through server(s)', () => {
         assert.strictEqual(commandsSTR1, commandsSTR2);
         done();
     });
-
 
     it('with stuck/unstuck simple pipeline', (done) => {
         const script = `
@@ -787,7 +777,6 @@ describe('dispatch through server(s)', () => {
             });
     });
 
-
     /**/
 });
 
@@ -796,5 +785,4 @@ describe('parseAddress', () => {
         assert.equal(parseAddress({}, {})({}), null);
         done();
     });
-})
-
+});
