@@ -3,6 +3,60 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.11.0...@ezs/core@1.12.0) (2020-07-30)
+
+
+### Bug Fixes
+
+* in very rare cases, chunk doesn't exists ([ecd1f9e](https://github.com/Inist-CNRS/ezs/commit/ecd1f9eea573dee97743dd229bed36e6656cdbef))
+
+
+### Features
+
+* 🎸 server information switch to openapi ([e80b957](https://github.com/Inist-CNRS/ezs/commit/e80b95774b9ab3dcb371db70b777d03b82537bb8))
+
+
+
+
+
+# [1.11.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.10.4...@ezs/core@1.11.0) (2020-07-29)
+
+
+### Features
+
+* 🎸 server sent 100 Continue to keep clients connected ([f79d9f3](https://github.com/Inist-CNRS/ezs/commit/f79d9f37a47120ea1160fcf33b70677ca70f4446))
+
+
+
+
+
+## [1.10.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.10.3...@ezs/core@1.10.4) (2020-07-28)
+
+
+### Bug Fixes
+
+* 🐛 remove unused packages ([513d426](https://github.com/Inist-CNRS/ezs/commit/513d4267d362361dfd5ee439c185da4834aa0c5a))
+
+
+
+
+
+## [1.10.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.10.2...@ezs/core@1.10.3) (2020-07-27)
+
+**Note:** Version bump only for package @ezs/core
+
+
+
+
+
+## [1.10.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.10.1...@ezs/core@1.10.2) (2020-07-27)
+
+**Note:** Version bump only for package @ezs/core
+
+
+
+
+
 ## [1.10.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.10.0...@ezs/core@1.10.1) (2020-07-02)
 
 **Note:** Version bump only for package @ezs/core

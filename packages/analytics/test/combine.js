@@ -5,10 +5,10 @@ import ezs from '../../core/src';
 import statements from '../src';
 
 ezs.addPath(__dirname);
-ezs.use(statements);
 
 describe('combine', () => {
-    test('with script', (done) => {
+    test('with script #1', (done) => {
+        ezs.use(statements);
         const input = [
             { a: 1, b: 'a' },
             { a: 2, b: 'b' },
@@ -48,7 +48,49 @@ describe('combine', () => {
                 done();
             });
     });
+    test('with script #2', (done) => {
+        ezs.use(statements);
+        const input = [
+            { a: 1, b: ['a'] },
+            { a: 2, b: ['b', 'a'] },
+            { a: 3, b: ['c', 'd'] },
+            { a: 4, b: ['d', 'b', 'c'] },
+            { a: 5, b: ['e'] },
+            { a: 6, b: ['f'] },
+        ];
+        const output = [];
+        const script = `
+            [use]
+            plugin = analytics
+
+            [replace]
+            path = value
+            value = fix({id:'a', value:'aa'},{id:'b', value:'bb'},{id:'c', value:'cc'},{id:'d', value:'dd'},{id:'e', value:'ee'},{id:'f', value:'ff'})
+
+            [exploding]
+            [value]
+        `;
+
+        from(input)
+            .pipe(ezs('combine', { path: 'b', script }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(output.length, 6);
+                assert.equal(output[0].b[0].value, 'aa');
+                assert.equal(output[1].b[0].value, 'bb');
+                assert.equal(output[2].b[0].value, 'cc');
+                assert.equal(output[3].b[0].value, 'dd');
+                assert.equal(output[4].b[0].value, 'ee');
+                assert.equal(output[5].b[0].value, 'ff');
+                done();
+            });
+    });
     test('with file', (done) => {
+        ezs.use(statements);
         const input = [
             { a: 1, b: 'a' },
             { a: 2, b: 'b' },
@@ -81,6 +123,7 @@ describe('combine', () => {
 });
 describe('no combine', () => {
     test('with script', (done) => {
+        ezs.use(statements);
         const input = [
             { a: 1, b: 'a' },
             { a: 2, b: 'b' },
@@ -121,6 +164,7 @@ describe('no combine', () => {
             });
     });
     test('with error script', (done) => {
+        ezs.use(statements);
         const input = [
             { a: 1, b: 'a' },
             { a: 2, b: 'b' },
@@ -152,6 +196,7 @@ describe('no combine', () => {
             });
     });
     test('with no in script', (done) => {
+        ezs.use(statements);
         const input = [
             { a: 1, b: 'a' },
             { a: 2, b: 'b' },

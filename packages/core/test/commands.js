@@ -108,4 +108,4 @@ describe('memoize', () => {
         expect(ezs.memoize(null, () => true)).toBeTruthy();
         expect(ezs.memoize(null, () => true)).toBeTruthy();
     });
-})
+});

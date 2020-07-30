@@ -1,10 +1,12 @@
-const from = require('from');
-const ezs = require('../../core/src');
+import from from 'from';
+import ezs from '../../core/src';
+import statements from '../src';
 
-ezs.use(require('../src'));
+ezs.addPath(__dirname);
 
 describe('statistics', () => {
     it('of 1 value', (done) => {
+        ezs.use(statements);
         from([{ a: 1 }])
             .pipe(ezs('statistics', { path: 'a', target: 'statistics' }))
             .pipe(ezs.catch((e) => done(e)))
@@ -19,6 +21,7 @@ describe('statistics', () => {
             });
     });
     it('of 1 unknown value', (done) => {
+        ezs.use(statements);
         from([{ total: 0 }])
             .pipe(ezs('statistics', { path: 'a', target: 'statistics' }))
             .pipe(ezs.catch((e) => done(e)))
@@ -31,6 +34,7 @@ describe('statistics', () => {
     });
 
     it('of 1 number fields', (done) => {
+        ezs.use(statements);
         from([
             { a: 1 },
             { a: 1 },
@@ -52,6 +56,7 @@ describe('statistics', () => {
     });
 
     it('of 1 number fields (bis)', (done) => {
+        ezs.use(statements);
         from([
             { a: 1 },
             { a: 2 },
@@ -77,6 +82,7 @@ describe('statistics', () => {
     });
 
     it('of 2 numbers fields', (done) => {
+        ezs.use(statements);
         from([
             { a: 1, b: 2 },
             { a: 1, b: 2 },
@@ -102,6 +108,7 @@ describe('statistics', () => {
     });
 
     it('of 2 numbers fields', (done) => {
+        ezs.use(statements);
         from([
             { a: 1, b: 2 },
             { a: 1, b: 2 },
@@ -131,6 +138,7 @@ describe('statistics', () => {
     });
 
     it('of 1 string fields', (done) => {
+        ezs.use(statements);
         from([
             { a: 'z' },
             { a: 'z' },
@@ -152,6 +160,7 @@ describe('statistics', () => {
     });
 
     it('of 1 string fields (bis)', (done) => {
+        ezs.use(statements);
         from([
             { a: 'z' },
             { a: 'y' },
@@ -176,6 +185,7 @@ describe('statistics', () => {
     });
 
     it('for percentage', (done) => {
+        ezs.use(statements);
         let res = 0;
         from([
             { a: 2 },

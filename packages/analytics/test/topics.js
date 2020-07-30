@@ -1,11 +1,13 @@
-const assert = require('assert');
-const from = require('from');
-const ezs = require('../../core/src');
+import assert from 'assert';
+import from from 'from';
+import ezs from '../../core/src';
+import statements from '../src';
 
-ezs.use(require('../src'));
+ezs.addPath(__dirname);
 
 describe('topics', () => {
     it('should return when topics', (done) => {
+        ezs.use(statements);
         const res = [];
         from([
             {

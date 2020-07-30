@@ -1,12 +1,5 @@
-/* eslint-disable no-await-in-loop */
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable prefer-const */
-/* eslint-disable no-multi-spaces */
-/* eslint-disable max-len */
-/* eslint-disable no-console */
-import { createStore } from '../../analytics/src/store';
+import { createStore } from '@ezs/store';
+
 
 
 /**
@@ -49,6 +42,7 @@ async function getBroaderOrNarrowerLst(broaderOrNarrower, concept, store, lang) 
                                 break;
                             }
                         }
+
                     }
                 }
                 result.push(obj);

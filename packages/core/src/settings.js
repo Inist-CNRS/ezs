@@ -12,6 +12,9 @@ const settings = {
         object: nShards,
         bytes: (nShards * 1024),
     },
+    response: {
+        checkInterval: 5000,
+    },
     concurrency,
     encoding,
     port,

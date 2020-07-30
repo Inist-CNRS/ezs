@@ -1,7 +1,21 @@
 import get from 'lodash.get';
 import set from 'lodash.set';
 import debug from 'debug';
-import { createStore } from './store';
+import assert from 'assert';
+import { createStore } from '@ezs/store';
+
+async function saveIn(data, feed) {
+    if (this.isLast()) {
+        return feed.close();
+    }
+    const store = this.getEnv();
+    const key = get(data, 'id');
+    const isKey = Boolean(key);
+    if (isKey) {
+        await store.put(key, data);
+    }
+    return feed.send(key);
+}
 
 /**
  * Takes an `Object` and substitute a field with the corresponding value found in a external pipeline
@@ -73,15 +87,9 @@ export default function combine(data, feed) {
             statements = ezs.compileCommands(commands, this.getEnv());
         }
         const output = ezs.createPipeline(input, statements)
+            .pipe(ezs(saveIn, null, this.store))
             .pipe(ezs.catch())
-            .on('data', async (item) => {
-                const key = get(item, 'id');
-                const isKey = Boolean(key);
-
-                if (isKey) {
-                    await this.store.put(key, item);
-                }
-            })
+            .on('data', (d) => assert(d)) // WARNING: The data must be consumed, otherwise the "end" event has not been triggered
             .on('error', (e) => feed.stop(e));
         whenReady = new Promise((resolve) => output.on('end', resolve));
         input.write(primer);
@@ -94,16 +102,21 @@ export default function combine(data, feed) {
     return whenReady
         .then(async () => {
             const path = this.getParam('path');
-            const key = get(data, path);
-            const validKey = Boolean(key);
-            if (!validKey) {
+            const pathVal = get(data, path);
+            const keys = [].concat(pathVal).filter(Boolean);
+            if (keys.length === 0) {
                 return feed.send(data);
             }
-            const value = await this.store.get(key);
-            if (value) {
-                set(data, path, value);
+            const values = await Promise.all(keys.map((key) => this.store.get(key)));
+            if (values.length && Array.isArray(pathVal)) {
+                set(data, path, values);
+            }
+            else if (values.length && !Array.isArray(pathVal)) {
+                set(data, path, values.shift());
+            } else if (Array.isArray(pathVal)) {
+                set(data, path, pathVal.map((id) => ({ id })));
             } else {
-                set(data, path, { id: key });
+                set(data, path, { id: pathVal });
             }
             return feed.send(data);
         })

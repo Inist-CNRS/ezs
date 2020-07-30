@@ -1,5 +1,5 @@
 import get from 'lodash.get';
-import { createStore } from './store';
+import { createStore } from '@ezs/store';
 
 /**
  * Take `Object` group value of `{ id, value }` objectpath

@@ -1,4 +1,3 @@
-
 import assert from 'assert';
 import from from 'from';
 import ezs from '../src';
