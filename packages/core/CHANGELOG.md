@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.12.0...@ezs/core@1.12.1) (2020-07-31)
+
+
+### Bug Fixes
+
+* 🐛 allow complex paths for openapi ([f94a4ad](https://github.com/Inist-CNRS/ezs/commit/f94a4adc4bc2bd004cc6c9fff11fa6a481dfb816))
+
+
+
+
+
 # [1.12.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.11.0...@ezs/core@1.12.0) (2020-07-30)
 
 

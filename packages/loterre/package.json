@@ -1,6 +1,6 @@
 {
     "name": "@ezs/loterre",
-    "version": "1.0.9",
+    "version": "1.0.10",
     "description": "Loterre statements for EZS",
     "directories": {
         "test": "test"
@@ -43,7 +43,7 @@
         "@ezs/core": "*"
     },
     "devDependencies": {
-        "@ezs/core": "1.12.0"
+        "@ezs/core": "1.12.1"
     },
     "dependencies": {
         "@ezs/store": "~1.1.0"
