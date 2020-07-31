@@ -1,4 +1,5 @@
 import dir from 'node-dir';
+import autocast from 'autocast';
 import { dirname } from 'path';
 import _ from 'lodash';
 import settings from '../settings';
@@ -128,10 +129,10 @@ const getInformations = (ezs, dirPath, hostName) => new Promise((resolve) => {
                     ezs.metaFile(f),
                     (object, value, key) => _.set(
                         _.pick(
-                            _.set(object, key, value),
+                            _.set(object, key, autocast(value)),
                             keyOfPathItemObject,
                         ),
-                        'post.x-filename',
+                        'post.x-config-filename',
                         f.replace(dirname(dirPath), ''),
                     ),
                     {},
