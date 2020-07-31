@@ -6,7 +6,7 @@ import path from 'path';
 // debug.enable('ezs');
 import ezs from '../../core/src';
 import ezsBasics from '../../basics/src';
-import ezsLocal from '.';
+import ezsLocal from '../src';
 
 ezs.use(ezsBasics);
 ezs.use(ezsLocal);
@@ -18,7 +18,7 @@ describe('SKOSPathEnum', () => {
 
     test('from file : data-sample.skos', (done) => {
         const output = [];
-        const input = path.resolve('./packages/loterre/src/data/data-sample.skos');
+        const input = path.resolve('./packages/loterre/test/data/data-sample.skos');
         createReadStream(input)
             .pipe(ezs('concat'))
             .pipe(ezs('XMLParse', { separator: ' /rdf:RDF/skos:Concept' }))
@@ -44,7 +44,7 @@ describe('SKOSPathEnum', () => {
 
     test('from file : Tableau périodique des éléments.skos', (done) => {
         const output = [];
-        const input = path.resolve('./packages/loterre/src/data/Tableau périodique des éléments.skos');
+        const input = path.resolve('./packages/loterre/test/data/Tableau périodique des éléments.skos');
         createReadStream(input)
             .pipe(ezs('concat'))
             .pipe(ezs('XMLParse', { separator: ' /rdf:RDF/skos:Concept' }))
@@ -87,7 +87,7 @@ describe('SKOSPathEnum', () => {
     /*
     test('from file : CHEBI.skos', (done) => {
         const output = [];
-        const input = path.resolve('./packages/loterre/src/data/CHEBI.skos');
+        const input = path.resolve('./packages/loterre/test/data/CHEBI.skos');
         createReadStream(input)
             .pipe(ezs('concat'))
             .pipe(ezs('XMLParse', { separator: ' /rdf:RDF/skos:Concept' }))
