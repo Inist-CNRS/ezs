@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.4.3...@ezs/basics@1.4.4) (2020-07-31)
+
+
+### Bug Fixes
+
+* missing package for [OBJStandarize] ([dcf2861](https://github.com/Inist-CNRS/ezs/commit/dcf28619e9e8187a98f380a645d2013cd69c9dcf))
+
+
+
+
+
 ## [1.4.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.4.2...@ezs/basics@1.4.3) (2020-07-27)
 
 **Note:** Version bump only for package @ezs/basics
