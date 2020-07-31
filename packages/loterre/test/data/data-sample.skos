@@ -16,6 +16,8 @@
         <skos:prefLabel xml:lang="de">Kartoffelgerichte</skos:prefLabel>
         <skos:inScheme rdf:resource="http://example.com/dishes"/>
         <skos:topConceptOf rdf:resource="http://example.com/dishes"/>
+        <skos:narrower rdf:resource="http://example.com/dishes#fries"/>
+        <skos:narrower rdf:resource="http://example.com/dishes#mashed"/>
     </skos:Concept>
 
     <skos:Concept rdf:about="http://example.com/dishes#fries">

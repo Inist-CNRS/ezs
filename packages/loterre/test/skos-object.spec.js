@@ -3,7 +3,7 @@ import from from 'from';
 // debug.enable('ezs');
 import ezs from '../../core/src';
 import ezsBasics from '../../basics/src';
-import ezsLocal from '.';
+import ezsLocal from '../src';
 
 ezs.use(ezsBasics);
 ezs.use(ezsLocal);

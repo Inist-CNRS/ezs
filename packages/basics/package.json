@@ -26,7 +26,7 @@
     "lodash.set": "4.3.2",
     "micromatch": "4.0.2",
     "timeout-signal": "1.0.0",
-    "tmp-filepath": "~2.0.0",
+    "tmp-filepath": "2.0.0",
     "unzipper": "0.10.11",
     "xml-mapping": "~1.7.1",
     "xml-splitter": "~1.2.1"

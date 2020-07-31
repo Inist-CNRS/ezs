@@ -3,27 +3,17 @@ function Concept(data, feed) {
     const obj = {};
     Object.keys(data).forEach((key) => {
         const newkey = key.replace('skos$', '');
-        if (newkey === 'narrower') {
-            if (!Object.prototype.hasOwnProperty.call(obj, 'narrower')) {
-                obj.narrower = [];
+
+        if (newkey === 'narrower' || newkey === 'broader' || newkey === 'related') {
+            if (!Object.prototype.hasOwnProperty.call(obj, newkey)) {
+                obj[newkey] = [];
             }
             if (data[key] instanceof Array) {
                 data[key].forEach((elem) => {
-                    obj.narrower.push(elem.rdf$resource);
+                    obj[newkey].push(elem.rdf$resource);
                 });
             } else {
-                obj.narrower.push(data[key].rdf$resource);
-            }
-        } else if (newkey === 'broader') {
-            if (!Object.prototype.hasOwnProperty.call(obj, 'broader')) {
-                obj.broader = [];
-            }
-            if (data[key] instanceof Array) {
-                data[key].forEach((elem) => {
-                    obj.broader.push(elem.rdf$resource);
-                });
-            } else {
-                obj.broader.push(data[key].rdf$resource);
+                obj[newkey].push(data[key].rdf$resource);
             }
         } else {
             if (Array.isArray(data[key])) {

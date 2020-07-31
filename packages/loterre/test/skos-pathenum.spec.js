@@ -6,19 +6,19 @@ import path from 'path';
 // debug.enable('ezs');
 import ezs from '../../core/src';
 import ezsBasics from '../../basics/src';
-import ezsLocal from '.';
+import ezsLocal from '../src';
 
 ezs.use(ezsBasics);
 ezs.use(ezsLocal);
 
 describe('SKOSPathEnum', () => {
     beforeEach(() => {
-        jest.setTimeout(500000);
+        jest.setTimeout(10000);
     });
 
     test('from file : data-sample.skos', (done) => {
         const output = [];
-        const input = path.resolve('./packages/loterre/src/data/data-sample.skos');
+        const input = path.resolve('./packages/loterre/test/data/data-sample.skos');
         createReadStream(input)
             .pipe(ezs('concat'))
             .pipe(ezs('XMLParse', { separator: ' /rdf:RDF/skos:Concept' }))
@@ -31,13 +31,20 @@ describe('SKOSPathEnum', () => {
                 expect(output.length).toBe(3);
                 expect(output[0].broader).toEqual(expect.arrayContaining([{ key: 'http://example.com/dishes#potatoBased', label: 'Plats à base de pomme de terre' }]));
                 expect(output[1].broader).toEqual(expect.arrayContaining([{ key: 'http://example.com/dishes#potatoBased', label: 'Plats à base de pomme de terre' }]));
+                expect(output[2].narrower).toEqual(expect.arrayContaining([
+                    { key: 'http://example.com/dishes#fries', label: 'Frites' },
+                    {
+                        key: 'http://example.com/dishes#mashed',
+                        label: 'Purée de pomme de terre'
+                    }
+                ]));
                 done();
             });
     });
 
     test('from file : Tableau périodique des éléments.skos', (done) => {
         const output = [];
-        const input = path.resolve('./packages/loterre/src/data/Tableau périodique des éléments.skos');
+        const input = path.resolve('./packages/loterre/test/data/Tableau périodique des éléments.skos');
         createReadStream(input)
             .pipe(ezs('concat'))
             .pipe(ezs('XMLParse', { separator: ' /rdf:RDF/skos:Concept' }))
@@ -76,10 +83,11 @@ describe('SKOSPathEnum', () => {
                 done();
             });
     });
+
     /*
     test('from file : CHEBI.skos', (done) => {
         const output = [];
-        const input = path.resolve('./packages/loterre/src/data/CHEBI.skos');
+        const input = path.resolve('./packages/loterre/test/data/CHEBI.skos');
         createReadStream(input)
             .pipe(ezs('concat'))
             .pipe(ezs('XMLParse', { separator: ' /rdf:RDF/skos:Concept' }))
