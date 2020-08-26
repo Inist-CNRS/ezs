@@ -3,14 +3,8 @@ import fs from 'fs';
 
 import ezs from '../../core/src';
 
-const token = process.env.ISTEX_TOKEN;
-
 ezs.use(require('../src'));
 ezs.use(require('../../basics/src'));
-
-if (token) {
-    console.warn('Using ISTEX_TOKEN', token);
-}
 
 describe('ISTEXUnzip', () => {
     it('should get 10 elements', (done) => {
