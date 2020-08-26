@@ -26,7 +26,12 @@ export default function ISTEXExchange (data, feed) {
 
 // helpers
 function buildExchangerStream (that) {
-  const exchangeParams = _(['apiUrl', 'reviewUrl', 'parallel', 'doProfile', 'doWarn', 'doLogError', 'doLogEndInfo'])
+  const exchangeParams = _(['apiUrl',
+                            'reviewUrl',
+                            'parallel',
+                            'doFrameByPublicationDate',
+                            'doWarn',
+                            'doLogError'])
     .transform(
       (accu, value) => accu[value] = that.getParam(value),
       {}

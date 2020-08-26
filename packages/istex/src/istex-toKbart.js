@@ -1,7 +1,6 @@
 'use strict';
 import {toKbart} from 'istex-exchange';
 import hl from 'highland';
-import _ from 'lodash';
 
 export default function ISTEXToKbart (data, feed) {
   if (this.isLast()) {
