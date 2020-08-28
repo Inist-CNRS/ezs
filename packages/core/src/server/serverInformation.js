@@ -155,6 +155,7 @@ const serverInformation = (ezs, serverPath) => (request, response) => {
         .then((informations) => {
             const responseBody = JSON.stringify(informations);
             const responseHeaders = {
+                'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json',
                 'Content-Length': Buffer.byteLength(responseBody),
             };

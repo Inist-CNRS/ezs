@@ -17,6 +17,7 @@ function executePipeline(ezs, files, headers, query, triggerError, read, respons
     const { prepend, append } = meta;
     const prepend2Pipeline = ezs.parseCommand(onlyOne(prepend));
     const append2Pipeline = ezs.parseCommand(onlyOne(append));
+    response.setHeader('Access-Control-Allow-Origin', '*');
     response.setHeader('Content-Encoding', contentEncoding);
     response.setHeader('Content-Disposition', contentDisposition);
     response.setHeader('Content-Type', contentType);
