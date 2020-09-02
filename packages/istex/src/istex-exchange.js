@@ -1,16 +1,18 @@
-'use strict';
-import {exchange} from 'istex-exchange';
-import hl from 'highland';
-import _ from 'lodash';
+"use strict";
+import {exchange} from "istex-exchange";
+import hl from "highland";
+import _ from "lodash";
 
+const TRIGGER_HEADER ={};
 
-export default function ISTEXExchange (data, feed) {
+function ISTEXExchange (data, feed) {
   if (this.isFirst()) {
+    feed.write(TRIGGER_HEADER); // Make sure that the kbart header is build even there is an error or no results
     this._exchanger = buildExchangerStream(this);
 
     this._exchanger.outStream
-        .on('data', (exchangeData) => {feed.write(exchangeData);})
-        .on('error', (err) => {feed.stop(err);})
+        .on("data", (exchangeData) => {feed.write(exchangeData);})
+        .on("error", (err) => {feed.stop(err);})
     ;
   }
 
@@ -26,12 +28,12 @@ export default function ISTEXExchange (data, feed) {
 
 // helpers
 function buildExchangerStream (that) {
-  const exchangeParams = _(['apiUrl',
-                            'reviewUrl',
-                            'parallel',
-                            'doFrameByPublicationDate',
-                            'doWarn',
-                            'doLogError'])
+  const exchangeParams = _(["apiUrl",
+                            "reviewUrl",
+                            "parallel",
+                            "doFrameByPublicationDate",
+                            "doWarn",
+                            "doLogError"])
     .transform(
       (accu, value) => accu[value] = that.getParam(value),
       {}
@@ -57,14 +59,18 @@ function buildExchangerStream (that) {
 
 function write (data, cb) {
   if (!this.inStream.write(data)) {
-    this.inStream.once('drain', cb);
+    this.inStream.once("drain", cb);
   } else {
     process.nextTick(cb);
   }
 }
 
 function close (cb) {
-  this.outStream.once('end', cb);
+  this.outStream.once("end", cb);
   this.inStream.write(hl.nil);
 }
 
+export default {
+  ISTEXExchange,
+  TRIGGER_HEADER,
+};
