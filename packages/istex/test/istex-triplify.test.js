@@ -8,7 +8,6 @@ import istexTriplifyData from './data/istexTriplify.json';
 
 
 const sid = 'test';
-const token = process.env.ISTEX_TOKEN;
 const istexApiUrl = 'https://api.istex.fr';
 const nockScope = nock(istexApiUrl)
     // .log(console.log)
@@ -16,10 +15,6 @@ const nockScope = nock(istexApiUrl)
 
 ezs.use(require('../src'));
 ezs.use(require('../../basics/src'));
-
-if (token) {
-    console.warn('Using ISTEX_TOKEN', token);
-}
 
 describe('ISTEXTriplify', () => {
     it('should return triples, rdfs:type and identifier', (done) => {

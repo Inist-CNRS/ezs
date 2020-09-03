@@ -7,7 +7,6 @@ import nock from 'nock';
 import ezs from '../../core/src';
 import istexParseDotCorpusData from './data/istexParseDotCorpus.json';
 
-const token = process.env.ISTEX_TOKEN;
 const istexApiUrl = 'https://api.istex.fr';
 const nockScope = nock(istexApiUrl)
     // .log(console.log)
@@ -15,10 +14,6 @@ const nockScope = nock(istexApiUrl)
 
 ezs.use(require('../src'));
 ezs.use(require('../../basics/src'));
-
-if (token) {
-    console.warn('Using ISTEX_TOKEN', token);
-}
 
 describe('ISTEXParseDotCorpus', () => {
     it('should parse identifiers', (done) => {
@@ -33,7 +28,8 @@ describe('ISTEXParseDotCorpus', () => {
             corpus.toString(),
         ])
             .pipe(ezs('ISTEXParseDotCorpus'))
-        // .pipe(ezs('debug'))
+            // .pipe(ezs('debug'))
+            .pipe(ezs.catch(e => e)) // catch errors in chunks and throw a error, which breaking the pipeline
             .on('data', (chunk) => {
                 result.push(chunk);
             })
@@ -44,7 +40,8 @@ describe('ISTEXParseDotCorpus', () => {
                 assert.equal(result[0].id,
                     '2FF3F5B1477986B9C617BB75CA3333DBEE99EB05');
                 done();
-            });
+            })
+            .on('error', console.error);
     });
 
     it('should parse query', (done) => {
@@ -61,6 +58,7 @@ describe('ISTEXParseDotCorpus', () => {
         ])
             .pipe(ezs('ISTEXParseDotCorpus'))
             // .pipe(ezs('debug'))
+            .pipe(ezs.catch(e => e)) // catch errors in chunks and throw a error, which breaking the pipeline
             .on('data', (chunk) => {
                 result.push(chunk);
             })
@@ -69,7 +67,8 @@ describe('ISTEXParseDotCorpus', () => {
                 assert(result[0]);
                 assert.equal(result[0].publisher, 'CNRS');
                 done();
-            });
+            })
+            .on('error', console.error);
     });
 
     it('should return error on parse empty corpus', (done) => {
@@ -78,7 +77,7 @@ describe('ISTEXParseDotCorpus', () => {
         ])
             .pipe(ezs('ISTEXParseDotCorpus'))
             // .pipe(ezs('debug'))
-            .pipe(ezs.catch())
+            .pipe(ezs.catch(e => e))
             .on('error', (e) => {
                 assert(e instanceof Error);
                 assert(e.message.includes('Invalid parmeter for delegate'));

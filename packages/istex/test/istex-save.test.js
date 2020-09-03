@@ -19,9 +19,7 @@ const nockScope = nock(istexApiUrl)
 ezs.use(require('../src'));
 ezs.use(require('../../basics/src'));
 
-if (token) {
-    console.warn('Using ISTEX_TOKEN', token);
-}
+afterAll(() => nockScope.persist(false));
 
 describe('ISTEXSave', () => {
     afterAll((done) => {

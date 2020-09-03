@@ -3,14 +3,8 @@ import from from 'from';
 
 import ezs from '../../core/src';
 
-const token = process.env.ISTEX_TOKEN;
-
 ezs.use(require('../src'));
 ezs.use(require('../../basics/src'));
-
-if (token) {
-    console.warn('Using ISTEX_TOKEN', token);
-}
 
 describe('ISTEXUniq', () => {
     it('should remove identical lines one after another', (done) => {
