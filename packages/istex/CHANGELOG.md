@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/istex@1.0.20...@ezs/istex@1.1.0) (2020-09-03)
+
+
+### Bug Fixes
+
+* Change istex-exchange dep. from local to github ([5ec6f2a](https://github.com/Inist-CNRS/ezs/commit/5ec6f2a9e30cfa771bbee6ac1b1de2f5d361dd4b))
+* Change jest test environment to node, refactor(istex): give listener direct access to feed, remove getParams for getParam ([48d5f01](https://github.com/Inist-CNRS/ezs/commit/48d5f0144b2887fbe093c1dbae8694c82771c5e6))
+* exclude /data/ from jest test so that we can use .js files in data mockup, test(istex): change istex-exchange to target more specificly ISTEXExchange and ISTEXToKbart, fix(istex): fix exchanger params picking ([9dbe7a1](https://github.com/Inist-CNRS/ezs/commit/9dbe7a14983b3b993ee19b9493e6e35813403504))
+
+
+### Features
+
+* **istex:** Add ISTEXExchange and ISTEXTokbart ([9ddadc2](https://github.com/Inist-CNRS/ezs/commit/9ddadc246fb7ab2ca39ec1471453f3ae8fbc6c11))
+
+
+
+
+
 ## [1.0.20](https://github.com/Inist-CNRS/ezs/compare/@ezs/istex@1.0.19...@ezs/istex@1.0.20) (2020-07-27)
 
 **Note:** Version bump only for package @ezs/istex
