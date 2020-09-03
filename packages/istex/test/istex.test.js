@@ -7,7 +7,6 @@ import istexFetchData from './data/istexFetch.json';
 import istexData from './data/istex.json';
 
 const sid = 'test';
-const token = process.env.ISTEX_TOKEN;
 const istexApiUrl = 'https://api.istex.fr';
 const nockScope = nock(istexApiUrl)
     // .log(console.log)
@@ -16,9 +15,7 @@ const nockScope = nock(istexApiUrl)
 ezs.use(require('../src'));
 ezs.use(require('../../basics/src'));
 
-if (token) {
-    console.warn('Using ISTEX_TOKEN', token);
-}
+afterAll(() => nockScope.persist(false));
 
 describe('ISTEX', () => {
     it('should apply query once per input', (done) => {
