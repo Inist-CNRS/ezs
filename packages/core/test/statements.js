@@ -242,7 +242,6 @@ describe('statements', () => {
             });
     });
 
-
     it('shift#1', (done) => {
         const data = [
             'aa',
@@ -365,7 +364,7 @@ describe('statements', () => {
             .on('data', (chunk) => {
                 res.push(chunk);
             })
-        .on('end', () => {
+            .on('end', () => {
                 assert.equal(res.length, 3);
                 assert.equal(res[0], 'cc');
                 done();

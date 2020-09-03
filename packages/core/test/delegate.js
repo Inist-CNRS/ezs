@@ -99,7 +99,6 @@ describe('delegate through file(s)', () => {
                 });
         });
 
-
         it('with script', (done) => {
             let res = 0;
             const ten = new Upto(10);
@@ -132,7 +131,6 @@ describe('delegate through file(s)', () => {
                 });
         });
     });
-
 
     it('simple statements, but with different parameter', (done) => {
         let res = 0;
@@ -187,7 +185,6 @@ describe('delegate through file(s)', () => {
             });
     });
 
-
     it('with commands using global parameter', (done) => {
         let res = 0;
         const commands = [
@@ -209,7 +206,6 @@ describe('delegate through file(s)', () => {
                 done();
             });
     });
-
 
     it('with buggy statements', (done) => {
         const commands = [
@@ -416,7 +412,6 @@ describe('delegate through file(s)', () => {
                 done();
             });
     });
-
 
     /**/
 });

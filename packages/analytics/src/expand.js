@@ -1,8 +1,27 @@
 import get from 'lodash.get';
 import set from 'lodash.set';
 import debug from 'debug';
+import { createStore } from '@ezs/store';
 import core from './core';
-import { createStore } from './store';
+
+async function mergeWith(data, feed) {
+    if (this.isLast()) {
+        return feed.close();
+    }
+    const store = this.getEnv();
+    const { id, value } = data;
+    const path = this.getParam('path');
+    try {
+        const obj = await store.get(id);
+        if (obj === null) {
+            return feed.send(new Error('id was corrupted'));
+        }
+        set(obj, path, value);
+        return feed.send(obj);
+    } catch (e) {
+        return feed.send(e);
+    }
+}
 
 /**
  * Takes an `Object` and substitute a field with the corresponding value found in a external pipeline
@@ -66,27 +85,16 @@ export default async function expand(data, feed) {
         const statements = ezs.compileCommands(commands, this.getEnv());
         this.input = ezs.createStream(ezs.objectMode());
         const output = ezs.createPipeline(this.input, statements)
+            .pipe(ezs(mergeWith, { path }, this.store))
             .pipe(ezs.catch())
             .on('error', (e) => feed.stop(e))
-            .on('data', async ({ id, value }) => {
-                try {
-                    const obj = await this.store.get(id);
-                    if (obj === null) {
-                        feed.write(new Error('id was corrupted'));
-                    }
-                    set(obj, path, value);
-                    feed.write(obj);
-                } catch (e) {
-                    feed.write(e);
-                }
-            });
+            .on('data', (d) => feed.write(d));
         this.whenFinish = new Promise((resolve) => output.on('end', resolve));
     }
     if (this.isLast()) {
         this.whenFinish
             .then(() => feed.close())
-            /* istanbul ignore next */
-            .catch((e) => feed.stop(e));
+            .catch(/* istanbul ignore next */(e) => feed.stop(e));
         return this.input.end();
     }
     const id = this.getIndex().toString().padStart(20, '0');

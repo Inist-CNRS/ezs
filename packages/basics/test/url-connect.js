@@ -1,18 +1,21 @@
 import from from 'from';
 import ezs from '../../core/src';
-import ezsBasics from '../src';
-
-ezs.use(ezsBasics);
+import statements from '../src';
 
 ezs.addPath(__dirname);
 ezs.settings.servePath = __dirname;
 
+let serverHandle;
 describe('URLConnect', () => {
-    const server5 = ezs.createServer(33331, __dirname);
+    beforeAll((ready) => {
+        serverHandle = ezs.createServer(33331, __dirname);
+        serverHandle.on('listening', () => ready());
+    });
     afterAll(() => {
-        server5.close();
+        serverHandle.close();
     });
     test('#1', (done) => {
+        ezs.use(statements);
         const input = [1, 2, 3, 4, 5];
         const output = [];
         from(input)
@@ -31,6 +34,7 @@ describe('URLConnect', () => {
             });
     });
     test('#2', (done) => {
+        ezs.use(statements);
         const input = [1, 2, 3, 4, 5];
         const output = [];
         from(input)
@@ -51,13 +55,55 @@ describe('URLConnect', () => {
             });
     });
     test('#3', (done) => {
+        ezs.use(statements);
         const input = [1, 2, 3, 4, 5];
         from(input)
             .pipe(ezs('URLConnect', {
                 url: 'http://127.0.0.1:33331/nofound.ini',
             }))
             .pipe(ezs.catch())
-            .on('error', () => {
+            .on('error', (e) => {
+                expect(() => {
+                    throw e.sourceError;
+                }).toThrow('Received status code 404 (Not Found)');
+                done();
+            })
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+            });
+    });
+    test('#4', (done) => {
+        ezs.use(statements);
+        const input = ['1a', '2a', '3a', '4a', '5a'];
+        from(input)
+            .pipe(ezs('URLConnect', {
+                url: 'http://127.0.0.1:33331/tocsv.ini',
+                json: true,
+            }))
+            .pipe(ezs.catch())
+            .on('error', (e) => {
+                expect(() => {
+                    throw e.sourceError;
+                }).toThrow("Invalid JSON (Unexpected \"\\r\" at position 3 in state STOP)");
+                done();
+            })
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+            });
+    });
+    test('#5', (done) => {
+        ezs.use(statements);
+        const input = ['1a', '2a', '3a', '4a', '5a'];
+        from(input)
+            .pipe(ezs('URLConnect', {
+                url: 'http://127.0.0.1:11111/',
+                json: true,
+            }))
+            .pipe(ezs.catch())
+            .on('error', (e) => {
+                expect(() => {
+                    throw e.sourceError;
+                }).toThrow('request to http://127.0.0.1:11111/ failed, reason: connect ECONNREFUSED 127.0.0.1:11111');
                 done();
             })
             .on('end', () => {

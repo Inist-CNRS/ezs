@@ -711,7 +711,6 @@ describe('Build a pipeline', () => {
             });
     });
 
-
     it('with single statement in the script', (done) => {
         let res = 0;
         const commands = `
@@ -1309,7 +1308,6 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
-
 
     it('stuck/unstuck #2', (done) => {
         const commands = `

@@ -2,7 +2,6 @@ import { readFileSync, statSync } from 'fs';
 import { dirname, resolve } from 'path';
 import debug from 'debug';
 
-
 function check(name) {
     try {
         return require.resolve(name);

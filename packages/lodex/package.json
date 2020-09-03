@@ -1,6 +1,6 @@
 {
     "name": "@ezs/lodex",
-    "version": "1.5.2",
+    "version": "1.5.6",
     "description": "ezs dedicated statements for Lodex",
     "directories": {
         "test": "test"

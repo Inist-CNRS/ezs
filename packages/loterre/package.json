@@ -1,6 +1,6 @@
 {
     "name": "@ezs/loterre",
-    "version": "1.0.1",
+    "version": "1.0.11",
     "description": "Loterre statements for EZS",
     "directories": {
         "test": "test"
@@ -19,13 +19,22 @@
     },
     "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/loterre#readme",
     "main": "./lib/index.js",
+    "jest": {
+        "testPathIgnorePatterns": [
+            "/node_modules/",
+            "locals.js",
+            "testOne.js",
+            "testAll.js"
+        ]
+    },
     "scripts": {
         "doc": "documentation readme src/* --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-loterre.md --section=usage && cp ../../docs/plugin-loterre.md ./README.md",
         "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
         "build": "babel --root-mode upward src --out-dir lib",
         "prepublish": "npm run build",
         "pretest": "npm run build",
-        "preversion": "npm run doc"
+        "preversion": "npm run doc",
+        "test": "NODE_ENV=test jest --maxWorkers 4 --config jest.config.js"
     },
     "publishConfig": {
         "access": "public"
@@ -34,6 +43,9 @@
         "@ezs/core": "*"
     },
     "devDependencies": {
-        "@ezs/core": "1.10.1"
+        "@ezs/core": "1.12.2"
+    },
+    "dependencies": {
+        "@ezs/store": "~1.1.0"
     }
 }

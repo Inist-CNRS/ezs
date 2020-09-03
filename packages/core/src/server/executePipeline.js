@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { PassThrough } from 'stream';
+import once from 'once';
 import settings from '../settings';
 
 const dispositionFrom = ({ extension }) => (extension ? `dump.${extension}` : 'inline');
@@ -16,6 +17,7 @@ function executePipeline(ezs, files, headers, query, triggerError, read, respons
     const { prepend, append } = meta;
     const prepend2Pipeline = ezs.parseCommand(onlyOne(prepend));
     const append2Pipeline = ezs.parseCommand(onlyOne(append));
+    response.setHeader('Access-Control-Allow-Origin', '*');
     response.setHeader('Content-Encoding', contentEncoding);
     response.setHeader('Content-Disposition', contentDisposition);
     response.setHeader('Content-Type', contentType);
@@ -58,6 +60,8 @@ function executePipeline(ezs, files, headers, query, triggerError, read, respons
             triggerError(firstError);
             return false;
         }
+        const responseToBeContinued = setInterval(() => response.writeContinue(), settings.response.checkInterval);
+        const responseStarted = once(() => clearInterval(responseToBeContinued));
         const inputBis = createInput(firstChunk);
         const { server, delegate } = settings;
         const execMode = server ? 'dispatch' : delegate;
@@ -70,16 +74,21 @@ function executePipeline(ezs, files, headers, query, triggerError, read, respons
         }
         ezs.createPipeline(inputBis, statements)
             .pipe(ezs.catch((e) => e))
-            .on('error', triggerError)
+            .on('error', (e) => {
+                responseStarted();
+                return triggerError(e);
+            })
             .pipe(ezs((data, feed) => {
                 if (!response.headersSent) {
                     response.writeHead(200);
                 }
+                responseStarted();
                 return feed.send(data);
             }))
             .pipe(ezs.toBuffer())
             .pipe(ezs.compress(headers))
-            .pipe(response);
+            .pipe(response)
+            .on('error', () => responseStarted());
         firstCalled();
         if (firstChunk) {
             return loop(input);

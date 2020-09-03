@@ -159,7 +159,6 @@ function splash(data, feed) {
         .catch(() => feed.end());
 }
 
-
 module.exports = {
     plus1,
     boum,

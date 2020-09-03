@@ -107,7 +107,14 @@ class Store {
     }
 
     reset() {
-        this.db.clear();
+        return new Promise((resolve, reject) => {
+            this.db.clear(null, (err) => {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve(true);
+            });
+        });
     }
 
     close() {

@@ -247,9 +247,7 @@ test('with a script that break the identifier', (done) => {
         })
         .on('error', (e) => {
             expect(output.length).toEqual(1);
-            expect(() => {
-                throw e.sourceError;
-            }).toThrow(new Error('id was corrupted'));
+            expect(e).toEqual(expect.not.stringContaining('id was corrupted'));
             done();
         })
         .on('end', () => {
