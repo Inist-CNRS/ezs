@@ -23,6 +23,7 @@ export default async function URLConnect(data, feed) {
             .then(({ body, status, statusText }) => {
                 if (status !== 200) {
                     const msg = `Received status code ${status} (${statusText})`;
+                    this.whenFinish = Promise.resolve(true);
                     return feed.stop(new Error(msg));
                 }
                 const output = json ? body.pipe(JSONStream.parse('*')) : body;
@@ -34,11 +35,11 @@ export default async function URLConnect(data, feed) {
             .catch((e) => feed.stop(e));
     }
     if (this.isLast()) {
+        this.input.end();
         return this.whenReady.then(() => {
             this.whenFinish
                 .then(() => feed.close())
                 .catch(/* istanbul ignore next */(e) => feed.stop(e));
-            return this.input.end();
         });
     }
     ezs.writeTo(this.input,
