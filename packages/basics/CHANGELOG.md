@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.6](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.4.5...@ezs/basics@1.4.6) (2020-09-08)
+
+
+### Bug Fixes
+
+* close input to avoid dead lock ([702f498](https://github.com/Inist-CNRS/ezs/commit/702f498c675ee76085a4765acdf0ad900715932d))
+
+
+
+
+
 ## [1.4.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.4.4...@ezs/basics@1.4.5) (2020-09-03)
 
 **Note:** Version bump only for package @ezs/basics
