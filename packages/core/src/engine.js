@@ -33,6 +33,7 @@ export default class Engine extends SafeTransform {
         this.funcName = String(func.name);
         this.index = 0;
         this.ttime = nanoZero();
+        this.stime = hrtime.bigint();
         this.params = params || {};
         this.ezs = ezs;
         this.environment = environment || {};
@@ -84,14 +85,20 @@ export default class Engine extends SafeTransform {
     }
 
     _flush(done) {
-        if (debug.enabled('ezs')) {
-            debug('ezs')(`${nano2sec(this.ttime)}s elapsed for [${this.funcName || 'unamed'}] `);
-        }
         if (this.nullWasSent) {
             return done();
         }
         this.index += 1;
-        return this.queue(null, done);
+        return this.queue(null, () => {
+            const stop = hrtime.bigint();
+            if (debug.enabled('ezs')) {
+                const cumulative = nano2sec(stop - this.stime);
+                const elapsed = nano2sec(this.ttime);
+                const funcName = this.funcName || 'unamed';
+                debug('ezs')(`${cumulative}s cumulative ${elapsed}s elapsed for [${funcName}]`);
+            }
+            done();
+        });
     }
 
     execWith(chunk, done) {
