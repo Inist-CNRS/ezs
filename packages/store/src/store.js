@@ -29,15 +29,21 @@ class Store {
     constructor(ezs, identifier, location) {
         this.ezs = ezs;
         this.identifier = identifier;
+        this.created = false;
         const directory = path.resolve(location || tmpdir(), 'store', identifier);
-        debug('ezs')('Open db in ', directory);
         if (!pathExists.sync(directory)) {
+            this.created = true;
             makeDir.sync(directory);
         }
+        debug('ezs')(`DB from ${directory}`, (this.created ? 'was created' : 'already exists'));
         if (!handle[directory]) {
             handle[directory] = levelup(leveldown(directory));
         }
         this.db = handle[directory];
+    }
+
+    isCreated() {
+        return this.created;
     }
 
     id() {
@@ -125,7 +131,9 @@ class Store {
 export function createStore(ezs, domain, location) {
     return new Store(ezs, `${domain}/${uuid()}/${process.pid}`, location);
 }
-
+export function createPersistentStore(ezs, domain, location) {
+    return new Store(ezs, `persistent/${domain}/${process.pid}`, location);
+}
 export function createStoreWithID(ezs, identifier, location) {
     return new Store(ezs, identifier, location);
 }
