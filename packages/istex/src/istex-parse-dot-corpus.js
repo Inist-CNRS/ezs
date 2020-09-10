@@ -36,14 +36,15 @@ function ISTEXParseDotCorpus(data, feed) {
     const input = new PassThrough({ objectMode: true });
     const output = input
         .pipe(ezs('delegate', { script: data }))
+        .pipe(ezs.catch((e) => feed.write(e)))
         .on('data', (chunk) => {
             feed.write({ ...metadata, ...chunk });
         })
         .on('error', (e) => {
-            feed.write(e);
+            feed.stop(e);
         });
     const handle = new Promise(
-        (resolve, reject) => output.on('error', reject).on('end', resolve),
+        (resolve) => output.on('end', resolve),
     );
     writeTo(input, metadata, () => {
         input.end(() => {
@@ -53,8 +54,6 @@ function ISTEXParseDotCorpus(data, feed) {
         });
     });
 }
-
-
 export default {
     ISTEXParseDotCorpus,
 };

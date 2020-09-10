@@ -24,8 +24,8 @@ export default function delegate(data, feed) {
         });
         const statements = ezs.compileCommands(commands, this.getEnv());
         const output = ezs.createPipeline(this.input, statements)
-            .pipe(ezs.catch((e) => feed.write(e)))
-            .on('error', (e) => feed.write(e))
+            .pipe(ezs.catch((e) => feed.write(e))) // avoid to break pipeline at each error
+            .on('error', (e) => feed.stop(e))
             .on('data', (d) => feed.write(d));
         this.whenFinish = new Promise((resolve) => {
             output.on('end', resolve);
