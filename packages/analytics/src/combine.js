@@ -2,7 +2,8 @@ import get from 'lodash.get';
 import set from 'lodash.set';
 import debug from 'debug';
 import assert from 'assert';
-import { createStore } from '@ezs/store';
+import crypto from 'crypto';
+import { createStore, createPersistentStore } from '@ezs/store';
 
 async function saveIn(data, feed) {
     if (this.isLast()) {
@@ -15,6 +16,10 @@ async function saveIn(data, feed) {
         await store.put(key, data);
     }
     return feed.send(key);
+}
+
+function sha1(input, salt) {
+    return crypto.createHash('sha1').update(JSON.stringify(input) + String(salt)).digest('hex');
 }
 
 /**
@@ -58,6 +63,7 @@ async function saveIn(data, feed) {
  * @param {String} [script] the external pipeline is described in a string of characters
  * @param {String} [commands] the external pipeline is described in a object
  * @param {String} [command] the external pipeline is described in a URL-like command
+ * @param {String} [persistent=false] The internal database will be reused until it is deleted
  * @param {String} [cache] Use a specific ezs statement to run commands (advanced)
  * @returns {Object}
  */
@@ -67,9 +73,8 @@ export default function combine(data, feed) {
     if (this.isFirst()) {
         debug('ezs')('[combine] with sub pipeline.');
         const location = this.getParam('location');
-        this.store = createStore(ezs, 'combine', location);
-        this.store.reset();
-        const primer = this.getParam('primer', this.store.id());
+        const persistent = Boolean(this.getParam('persistent', false));
+        const primer = this.getParam('primer');
         const input = ezs.createStream(ezs.objectMode());
         const commands = ezs.createCommands({
             file: this.getParam('file'),
@@ -79,21 +84,30 @@ export default function combine(data, feed) {
             prepend: this.getParam('prepend'),
             append: this.getParam('append'),
         });
-        const cache = this.getParam('cache');
-        let statements;
-        if (cache) {
-            statements = [ezs(cache, { commands }, this.getEnv())];
+        if (persistent) {
+            this.store = createPersistentStore(ezs, sha1(commands, primer), location);
         } else {
-            statements = ezs.compileCommands(commands, this.getEnv());
+            this.store = createStore(ezs, 'combine', location);
         }
-        const output = ezs.createPipeline(input, statements)
-            .pipe(ezs(saveIn, null, this.store))
-            .pipe(ezs.catch())
-            .on('data', (d) => assert(d)) // WARNING: The data must be consumed, otherwise the "end" event has not been triggered
-            .on('error', (e) => feed.stop(e));
-        whenReady = new Promise((resolve) => output.on('end', resolve));
-        input.write(primer);
-        input.end();
+        if (persistent && !this.store.isCreated()) {
+            whenReady = Promise.resolve(true);
+        } else {
+            const cache = this.getParam('cache');
+            let statements;
+            if (cache) {
+                statements = [ezs(cache, { commands }, this.getEnv())];
+            } else {
+                statements = ezs.compileCommands(commands, this.getEnv());
+            }
+            const output = ezs.createPipeline(input, statements)
+                .pipe(ezs(saveIn, null, this.store))
+                .pipe(ezs.catch())
+                .on('data', (d) => assert(d)) // WARNING: The data must be consumed, otherwise the "end" event has not been triggered
+                .on('error', (e) => feed.stop(e));
+            whenReady = new Promise((resolve) => output.on('end', resolve));
+            input.write(primer || this.store.id());
+            input.end();
+        }
     }
     if (this.isLast()) {
         this.store.close();
@@ -110,8 +124,7 @@ export default function combine(data, feed) {
             const values = await Promise.all(keys.map((key) => this.store.get(key)));
             if (values.length && Array.isArray(pathVal)) {
                 set(data, path, values);
-            }
-            else if (values.length && !Array.isArray(pathVal)) {
+            } else if (values.length && !Array.isArray(pathVal)) {
                 set(data, path, values.shift());
             } else if (Array.isArray(pathVal)) {
                 set(data, path, pathVal.map((id) => ({ id })));
