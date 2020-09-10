@@ -97,8 +97,12 @@ export default async function expand(data, feed) {
             .catch(/* istanbul ignore next */(e) => feed.stop(e));
         return this.input.end();
     }
-    const id = this.getIndex().toString().padStart(20, '0');
-    await this.store.put(id, data);
-    const value = get(data, path);
-    return ezs.writeTo(this.input, core(id, value), () => feed.end());
+    try {
+        const id = this.getIndex().toString().padStart(20, '0');
+        await this.store.put(id, data);
+        const value = get(data, path);
+        return ezs.writeTo(this.input, core(id, value), () => feed.end());
+    } catch (e) {
+        return feed.stop(e);
+    }
 }
