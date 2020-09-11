@@ -10,7 +10,7 @@ import JSONStream from 'JSONStream';
  * @param {String} [json=false] Pasre as JSON the content of URL
  * @returns {Object}
  */
-export default async function URLConnect(data, feed) {
+export default function URLConnect(data, feed) {
     const url = this.getParam('url');
     const json = this.getParam('json', true);
     const { ezs } = this;
@@ -28,7 +28,7 @@ export default async function URLConnect(data, feed) {
                 }
                 const output = json ? body.pipe(JSONStream.parse('*')) : body;
                 output.on('data', (chunk) => feed.write(chunk));
-                output.on('error', (e) => feed.write(e));
+                output.on('error', (e) => feed.stop(e));
                 this.whenFinish = new Promise((resolve) => output.on('end', resolve));
                 return output;
             })
