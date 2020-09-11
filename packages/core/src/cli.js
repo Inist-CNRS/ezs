@@ -116,7 +116,7 @@ export default function cli(errlog) {
     const commands = ezs.createCommands({ script, append, prepend });
     const statements = ezs.compileCommands(commands, environement);
     const output = ezs.createPipeline(input, statements)
-        .pipe(ezs.catch((e) => e))
+        .pipe(ezs.catch())
         .on('error', (e) => {
             errlog(e.message.split('\n').shift());
             process.exit(2);
