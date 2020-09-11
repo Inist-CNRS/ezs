@@ -84,7 +84,7 @@ describe('ISTEXFilesContent', () => {
             .pipe(ezs.catch())
             .on('error', (e) => {
                 assert(e instanceof Error);
-                assert(e.message.includes('[ISTEXFilesContent] failed with FetchError'));
+                assert(e.message.includes('[ISTEXFilesContent] <FetchError'));
                 done();
             });
     });

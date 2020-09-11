@@ -1,6 +1,33 @@
 import from from 'from';
+import nock from 'nock';
 import ezs from '../../core/src';
 import statements from '../src';
+
+const httpbin = nock('https://httpbin.org').persist(true);
+httpbin
+    .get('/get?a=a')
+    .reply(200, {
+        args: {
+            a: 'a',
+        },
+    });
+httpbin
+    .get('/get?a=b')
+    .reply(200, {
+        args: {
+            a: 'b',
+        },
+    });
+httpbin
+    .get('/get?a=c')
+    .reply(200, {
+        args: {
+            a: 'c',
+        },
+    });
+httpbin
+    .get('/status/400')
+    .reply(400);
 
 describe('URLFetch', () => {
     test('#1', (done) => {
@@ -109,9 +136,7 @@ describe('URLFetch', () => {
             .pipe(ezs('delegate', { script }))
             .pipe(ezs.catch())
             .on('error', (e) => {
-                expect(() => {
-                    throw e.sourceError;
-                }).toThrow('(item #1 in [URLFetch] failed with Error: Received status code 400 (BAD REQUEST)');
+                expect(e.message).toMatch('Bad Request');
                 done();
             })
             .on('end', () => {

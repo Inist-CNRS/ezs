@@ -135,7 +135,7 @@ describe('ISTEXUnzip', () => {
             .pipe(ezs.catch())
             .on('error', (e) => {
                 assert(e instanceof Error);
-                assert(e.message.includes('failed with Error: FILE_ENDED'));
+                assert(e.message.includes('Error: FILE_ENDED'));
                 done();
             });
     });

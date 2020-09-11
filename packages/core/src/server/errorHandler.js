@@ -9,7 +9,7 @@ const errorHandler = (request, response) => (error, code = 400) => {
         response.writeHead(code, { 'X-Error': Parameter.encode(error.toString()) });
         response.write(error.toString().split('\n', 1)[0]);
     }
-    response.end();
+        response.end();
 };
 
 export default errorHandler;
