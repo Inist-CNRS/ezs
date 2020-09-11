@@ -16,9 +16,10 @@ const nano2sec = (ns) => {
 
 function createErrorWith(error = {}, index = 0, funcName = null) {
     const stk = String(error.stack).split('\n');
-    const erm = stk.shift();
-    const fn = funcName ? ` in [${funcName}]` : '';
-    const msg = `(item #${index}${fn} failed with ${erm})\n\t${stk.slice(0, 10).join('\n\t')}`;
+    const prefix = `item #${index} `;
+    const erm = stk.shift().replace(prefix, '');
+    const fn = funcName ? `[${funcName}]` : '';
+    const msg = `${prefix}${fn} <${erm}>\n\t${stk.slice(0, 10).join('\n\t')}`;
     const err = Error(msg);
     err.sourceError = error;
     Error.captureStackTrace(err, createErrorWith);
@@ -37,6 +38,7 @@ export default class Engine extends SafeTransform {
         this.params = params || {};
         this.ezs = ezs;
         this.environment = environment || {};
+        this.errorWasSent = false;
         this.nullWasSent = false;
         this.queue = queue().limit(ezs.settings.queue).process((task, cb) => {
             this.execWith(task, cb);
@@ -109,7 +111,10 @@ export default class Engine extends SafeTransform {
             return done();
         }
         const warn = (error) => {
-            this.emit('error', createErrorWith(error, currentIndex, this.funcName));
+            if (!this.errorWasSent) {
+                this.errorWasSent = true;
+                this.emit('error', createErrorWith(error, currentIndex, this.funcName));
+            }
         };
         const push = (data) => {
             if (data instanceof Error) {
