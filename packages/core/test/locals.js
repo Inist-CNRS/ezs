@@ -117,6 +117,9 @@ function plouf(_data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
+    setTimeout(() => {
+        feed.stop(new Error(`Plouf #${this.getIndex()}`));
+    }, 2);
     return setTimeout(() => {
         feed.stop(new Error(`Plouf #${this.getIndex()}`));
     }, 1);

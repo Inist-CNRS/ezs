@@ -1,7 +1,35 @@
 import from from 'from';
+import nock from 'nock';
 import http from 'http';
 import ezs from '../../core/src';
 import statements from '../src';
+
+const httpbin = nock('https://httpbin.org').persist(true);
+httpbin
+    .get('/get?a=a')
+    .reply(200, {
+        args: {
+            a: 'a',
+        },
+    });
+httpbin
+    .get('/get?a=b')
+    .reply(200, {
+        args: {
+            a: 'b',
+        },
+    });
+httpbin
+    .get('/get?a=c')
+    .reply(200, {
+        args: {
+            a: 'c',
+        },
+    });
+httpbin
+    .get('/status/400')
+    .reply(400);
+
 
 describe('URLStream', () => {
     let server;

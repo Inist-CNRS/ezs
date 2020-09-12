@@ -14,12 +14,11 @@ const nano2sec = (ns) => {
     return Number(time).toFixed(4);
 };
 
-function createErrorWith(error = {}, index = 0, funcName = null) {
+function createErrorWith(error, index, funcName) {
     const stk = String(error.stack).split('\n');
     const prefix = `item #${index} `;
     const erm = stk.shift().replace(prefix, '');
-    const fn = funcName ? `[${funcName}]` : '';
-    const msg = `${prefix}${fn} <${erm}>\n\t${stk.slice(0, 10).join('\n\t')}`;
+    const msg = `${prefix}[${funcName}] <${erm}>\n\t${stk.slice(0, 10).join('\n\t')}`;
     const err = Error(msg);
     err.sourceError = error;
     Error.captureStackTrace(err, createErrorWith);
@@ -31,7 +30,7 @@ export default class Engine extends SafeTransform {
     constructor(ezs, func, params, environment) {
         super(ezs.objectMode());
         this.func = func;
-        this.funcName = String(func.name);
+        this.funcName = String(func.name || 'unamed');
         this.index = 0;
         this.ttime = nanoZero();
         this.stime = hrtime.bigint();
@@ -96,8 +95,7 @@ export default class Engine extends SafeTransform {
             if (debug.enabled('ezs')) {
                 const cumulative = nano2sec(stop - this.stime);
                 const elapsed = nano2sec(this.ttime);
-                const funcName = this.funcName || 'unamed';
-                debug('ezs')(`${cumulative}s cumulative ${elapsed}s elapsed for [${funcName}]`);
+                debug('ezs')(`${cumulative}s cumulative ${elapsed}s elapsed for [${this.funcName}]`);
             }
             done();
         });

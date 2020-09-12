@@ -77,6 +77,23 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
+    it.only('with environment', (done) => {
+        let res = 0;
+        const env = { a: 1 };
+        const ten = new Decade();
+        function truc(input, output) {
+            output.send(input + this.getEnv('a'));
+        }
+        ten
+            .pipe(ezs(truc, {}, env))
+            .on('data', (chunk) => {
+                res += chunk;
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 55);
+                done();
+            });
+    });
     it('with definied transformation', (done) => {
         let res = 0;
         const ten = new Decade();
