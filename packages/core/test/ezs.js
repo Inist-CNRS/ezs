@@ -77,7 +77,7 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
-    it.only('with environment', (done) => {
+    it('with environment', (done) => {
         let res = 0;
         const env = { a: 1 };
         const ten = new Decade();
