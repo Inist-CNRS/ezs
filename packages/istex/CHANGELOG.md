@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/istex@1.1.1...@ezs/istex@1.1.2) (2020-09-14)
+
+
+### Bug Fixes
+
+* 🐛 avoid UnhandledPromiseRejectionWarning ([d1c3a58](https://github.com/Inist-CNRS/ezs/commit/d1c3a58f006290b980378d026eee0f091ec7fa07))
+
+
+
+
+
 ## [1.1.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/istex@1.1.0...@ezs/istex@1.1.1) (2020-09-08)
 
 **Note:** Version bump only for package @ezs/istex

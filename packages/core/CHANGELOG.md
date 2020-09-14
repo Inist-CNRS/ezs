@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.13.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.12.3...@ezs/core@1.13.0) (2020-09-14)
+
+
+### Bug Fixes
+
+* 🐛 avoid UnhandledPromiseRejectionWarning ([d1c3a58](https://github.com/Inist-CNRS/ezs/commit/d1c3a58f006290b980378d026eee0f091ec7fa07))
+* error handler always close the response ([649e41b](https://github.com/Inist-CNRS/ezs/commit/649e41bf629df2f6465ade0c90a3c11d971ef2a2))
+* prevent multiple errors emission ([745c639](https://github.com/Inist-CNRS/ezs/commit/745c639e3d7b1ef40b864ebee613a31b453d381a))
+
+
+### Features
+
+* add cumulative time for each statement ([0a79f61](https://github.com/Inist-CNRS/ezs/commit/0a79f61a2c65847f78e52c8a3a6ff32d8791e347))
+
+
+
+
+
 ## [1.12.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.12.2...@ezs/core@1.12.3) (2020-09-03)
 
 **Note:** Version bump only for package @ezs/core

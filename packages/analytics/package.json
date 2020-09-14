@@ -1,6 +1,6 @@
 {
   "name": "@ezs/analytics",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "description": "Analytics statements for EZS",
   "directories": {
     "test": "test"
@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/analytics#readme",
   "dependencies": {
-    "@ezs/store": "~1.1.0",
+    "@ezs/store": "1.2.0",
     "fast-sort": "^2.1.1",
     "lda": "~0.2.0",
     "lodash.clone": "~4.5.0",

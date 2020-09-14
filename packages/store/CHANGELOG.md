@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/store@1.1.0...@ezs/store@1.2.0) (2020-09-14)
+
+
+### Features
+
+* enable persistent DB ([210f40c](https://github.com/Inist-CNRS/ezs/commit/210f40c71fd8a43351ba1fa28298f37dc512d9fa))
+
+
+
+
+
 # 1.1.0 (2020-07-27)
 
 
