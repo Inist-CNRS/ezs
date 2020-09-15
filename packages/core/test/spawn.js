@@ -67,6 +67,20 @@ describe('spawn through file(s)', () => {
                 });
         });
 
+        it('with object (bis)', (done) => {
+            let res = 0;
+            const ten = new Upto(10);
+            ten
+                .pipe(ezs('spawn', { commands, cache: 'delegate' }))
+                .on('data', (chunk) => {
+                    res += chunk;
+                })
+                .on('end', () => {
+                    assert.strictEqual(res, 54);
+                    done();
+                });
+        });
+
         it('with script', (done) => {
             let res = 0;
             const ten = new Upto(10);
@@ -207,7 +221,7 @@ describe('spawn through file(s)', () => {
             });
     });
 
-    it('with buggy statements', (done) => {
+    it('with buggy statements #1', (done) => {
         const commands = [
             {
                 name: 'increment',
@@ -231,6 +245,32 @@ describe('spawn through file(s)', () => {
                 done();
             });
     });
+
+    it('with buggy statements #2', (done) => {
+        const commands = [
+            {
+                name: 'increment',
+                args: {
+                    step: 2,
+                },
+            },
+            {
+                name: 'plaf',
+                args: {
+                    step: 2,
+                },
+            },
+        ];
+        const ten = new Upto(10);
+        ten
+            .pipe(ezs('spawn', { commands }))
+            .pipe(ezs.catch())
+            .on('error', (error) => {
+                assert.ok(error instanceof Error);
+                done();
+            });
+    });
+
 
     it('with an unknowed statement', (done) => {
         const commands = [
