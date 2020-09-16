@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.13.0...@ezs/core@1.14.0) (2020-09-16)
+
+
+### Features
+
+* 🎸 new statement [spawn] ([628a0bc](https://github.com/Inist-CNRS/ezs/commit/628a0bcf3a3b4ffcaea9862fc80e4c8e9171adab))
+
+
+
+
+
 # [1.13.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.12.3...@ezs/core@1.13.0) (2020-09-14)
 
 
