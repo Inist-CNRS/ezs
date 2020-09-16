@@ -14,6 +14,7 @@ import group from './group';
 import ungroup from './ungroup';
 import dispatch from './dispatch';
 import parallel from './parallel';
+import spawn from './spawn';
 import delegate from './delegate';
 import singleton from './singleton';
 import tracer from './tracer';
@@ -42,6 +43,7 @@ export default {
     dispatch,
     parallel,
     tracer,
+    spawn,
     delegate,
     singleton,
     truncate,
