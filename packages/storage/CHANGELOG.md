@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@1.2.5...@ezs/storage@1.3.0) (2020-09-17)
+
+
+### Features
+
+* 🎸 set cache delay with env var ([3d935d0](https://github.com/Inist-CNRS/ezs/commit/3d935d0d22fec73098457c16f5261b950d4c5732))
+
+
+
+
+
 ## [1.2.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@1.2.4...@ezs/storage@1.2.5) (2020-09-14)
 
 **Note:** Version bump only for package @ezs/storage
