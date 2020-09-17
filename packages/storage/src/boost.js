@@ -49,7 +49,7 @@ function hitThe(cache, ttl) {
  * @param {String} [commands] the external pipeline is described in a object
  * @param {String} [command] the external pipeline is described in a URL-like command
  * @param {String} [key] the cache key form the stream, in not provided, it's computed with the first chunk
- * @param {Number} [cleanupDelay=600] Frequency (seconds) to cleanup the cache (10 min)
+ * @param {Number} [cleanupDelay=3600] Frequency (seconds) to cleanup the cache (EZS_DELAY)
  * @returns {Object}
  */
 export default async function boost(data, feed) {
@@ -64,7 +64,8 @@ export default async function boost(data, feed) {
         const commands = this.getParam('commands', cmd1.concat(cmd2));
         const environment = this.getEnv();
         const location = this.getParam('location');
-        const cleanupDelay = Number(this.getParam('cleanupDelay', 10 * 60));
+        const cleanupDelayDefault = ezs.settings.cacheDelay || 10 * 60;
+        const cleanupDelay = Number(this.getParam('cleanupDelay', cleanupDelayDefault));
         if (!this.store) {
             this.store = new Store(this.ezs, 'cache_index', location);
         }
