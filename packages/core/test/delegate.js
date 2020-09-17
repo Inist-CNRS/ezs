@@ -9,6 +9,13 @@ ezs.addPath(__dirname);
 
 ezs.settings.servePath = __dirname;
 
+beforeAll(() => {
+    ezs.settings.cacheEnable = true;
+});
+afterAll(() => {
+    ezs.settings.cacheEnable = false;
+});
+
 class Upto extends Readable {
     constructor(m) {
         super({ objectMode: true });
