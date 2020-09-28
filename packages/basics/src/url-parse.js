@@ -5,8 +5,19 @@ function URLParse(data, feed) {
         return feed.close();
     }
     const u = new URL(data);
-    delete u.searchParams; // avoid inject in the pipelin the internal class <URLSearchParams>
-    return feed.send(u);
+    return feed.send({
+        href: u.href,
+        origin: u.origin,
+        protocol: u.protocol,
+        username: u.username,
+        password: u.password,
+        host: u.host,
+        hostname: u.hostname,
+        port: u.port,
+        pathname: u.pathname,
+        search: u.search,
+        hash: u.hash,
+    });
 }
 
 /**
