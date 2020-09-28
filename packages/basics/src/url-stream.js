@@ -13,15 +13,14 @@ import JSONStream from 'JSONStream';
  * @returns {Object}
  */
 export default async function URLStream(data, feed) {
+    if (this.isLast()) {
+        return feed.close();
+    }
     const url = this.getParam('url');
     const path = this.getParam('path', '*');
     const timeout = this.getParam('timeout', 1000);
     const cURL = new URL(url);
     cURL.search = new URLSearchParams(data);
-
-    if (this.isLast()) {
-        return feed.close();
-    }
     try {
         const response = await fetch(cURL.href, { signal: timeoutSignal(timeout) });
         if (response.status !== 200) {

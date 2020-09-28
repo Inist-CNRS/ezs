@@ -72,3 +72,4 @@ res*.tsv
 
 
 packages/analytics/test/forbidden
+globalConfig.json

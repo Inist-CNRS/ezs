@@ -4,7 +4,9 @@ function URLParse(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
-    return feed.send(new URL(data));
+    const u = new URL(data);
+    delete u.searchParams; // avoid inject in the pipelin the internal class <URLSearchParams>
+    return feed.send(u);
 }
 
 /**
