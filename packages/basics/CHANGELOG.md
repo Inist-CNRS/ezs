@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.11](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.4.10...@ezs/basics@1.4.11) (2020-09-28)
+
+
+### Bug Fixes
+
+* 🐛 create anonymous object to avoid to inject internal OBJ ([ac313d8](https://github.com/Inist-CNRS/ezs/commit/ac313d85464eb372f97326508838cd932e9fa69c))
+
+
+
+
+
 ## [1.4.10](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.4.9...@ezs/basics@1.4.10) (2020-09-28)
 
 

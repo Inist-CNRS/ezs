@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.17](https://github.com/Inist-CNRS/ezs/compare/@ezs/loterre@1.0.16...@ezs/loterre@1.0.17) (2020-09-28)
+
+
+### Bug Fixes
+
+* 🐛 create anonymous object to avoid to inject internal OBJ ([ac313d8](https://github.com/Inist-CNRS/ezs/commit/ac313d85464eb372f97326508838cd932e9fa69c))
+
+
+
+
+
 ## [1.0.16](https://github.com/Inist-CNRS/ezs/compare/@ezs/loterre@1.0.15...@ezs/loterre@1.0.16) (2020-09-28)
 
 
