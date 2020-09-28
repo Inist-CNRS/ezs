@@ -4,6 +4,7 @@ import Expression from './expression';
 
 const regex = {
     section: /^\s*\[\s*([^\]]*)\s*\]\s*$/,
+    nested: /(^[\w.*?~]+)\/([\w.*?~].*)/,
     param: /^\s*([\w.\-_]+)\s*[=: ]\s*(.*?)\s*$/,
     comment: /^\s*[;#].*$/,
 };
@@ -49,6 +50,26 @@ export const parseCommand = (cmdline) => {
         use,
     };
 };
+function flat(cmd) {
+    const gcmd = cmd.reduce((prev, cur) => {
+        if (regex.nested.test(cur.name)) {
+            const match = cur.name.match(regex.nested);
+            const ncur = { ...cur, name: match[2] };
+            const last = prev.pop();
+            if (last.args.commands) {
+                last.args.commands.push(ncur);
+            } else {
+                last.args.commands = [ncur];
+            }
+            return ([...prev, last]);
+        }
+        return ([...prev, cur]);
+    }, []);
+    if (cmd.length === gcmd.length) {
+        return gcmd;
+    }
+    return flat(gcmd);
+}
 
 export default function Script(commands) {
     if (!commands) {
@@ -79,5 +100,11 @@ export default function Script(commands) {
         ...command,
         args: parseOpts(command.args),
     }));
-    return cmd;
+
+    return flat(cmd).map((item) => {
+        if (item.args.commands) {
+            item.args.commands = flat(item.args.commands);
+        }
+        return item;
+    });
 }

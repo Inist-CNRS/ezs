@@ -56,6 +56,106 @@ describe('analsye commands', () => {
         assert.equal(commandsParsed[3].use, '');
         done();
     });
+    it('with nested pipeline', (done) => {
+        const commands = `
+
+[aaa]
+prop = 1
+
+[aaa/bbb]
+prop = 2
+
+[ccc]
+prop = 3
+
+[ccc/ddd]
+prop = 3
+
+[ccc/eee]
+prop = 4
+
+[fff]
+prop = 5
+[fff/ggg]
+prop = 6
+[fff/ggg/hhh]
+prop = 7
+[fff/ggg/iii]
+prop = 8
+[jjj]
+prop = 9
+
+
+
+
+        `;
+        const commandsParsed = ezs.parseString(commands);
+        assert.equal(commandsParsed.length, 4);
+        assert.equal(commandsParsed[0].name, 'aaa');
+        assert.equal(commandsParsed[0].args.commands.length, 1);
+        assert.equal(commandsParsed[0].args.commands[0].name, 'bbb');
+        assert.equal(commandsParsed[1].name, 'ccc');
+        assert.equal(commandsParsed[1].args.commands.length, 2);
+        assert.equal(commandsParsed[1].args.commands[0].name, 'ddd');
+        assert.equal(commandsParsed[1].args.commands[1].name, 'eee');
+        assert.equal(commandsParsed[2].name, 'fff');
+        assert.equal(commandsParsed[2].args.commands.length, 1);
+        assert.equal(commandsParsed[2].args.commands[0].name, 'ggg');
+        assert.equal(commandsParsed[2].args.commands.length, 1);
+        assert.equal(commandsParsed[2].args.commands[0].args.commands.length, 2);
+        assert.equal(commandsParsed[2].args.commands[0].args.commands[0].name, 'hhh');
+        assert.equal(commandsParsed[2].args.commands[0].args.commands[1].name, 'iii');
+        assert.equal(commandsParsed[3].name, 'jjj');
+        done();
+    });
+    it('with nested pipeline (& relative path', (done) => {
+        const commands = `
+
+[aaa]
+prop = 1
+
+[./bbb]
+prop = 2
+
+[ccc]
+prop = 3
+
+[./ddd]
+prop = 3
+
+[./eee]
+prop = 4
+
+[fff]
+prop = 5
+[*/ggg]
+prop = 6
+[*/*/hhh]
+prop = 7
+[?/?/iii]
+prop = 8
+[jjj]
+prop = 9
+        `;
+        const commandsParsed = ezs.parseString(commands);
+        assert.equal(commandsParsed.length, 4);
+        assert.equal(commandsParsed[0].name, 'aaa');
+        assert.equal(commandsParsed[0].args.commands.length, 1);
+        assert.equal(commandsParsed[0].args.commands[0].name, 'bbb');
+        assert.equal(commandsParsed[1].name, 'ccc');
+        assert.equal(commandsParsed[1].args.commands.length, 2);
+        assert.equal(commandsParsed[1].args.commands[0].name, 'ddd');
+        assert.equal(commandsParsed[1].args.commands[1].name, 'eee');
+        assert.equal(commandsParsed[2].name, 'fff');
+        assert.equal(commandsParsed[2].args.commands.length, 1);
+        assert.equal(commandsParsed[2].args.commands[0].name, 'ggg');
+        assert.equal(commandsParsed[2].args.commands.length, 1);
+        assert.equal(commandsParsed[2].args.commands[0].args.commands.length, 2);
+        assert.equal(commandsParsed[2].args.commands[0].args.commands[0].name, 'hhh');
+        assert.equal(commandsParsed[2].args.commands[0].args.commands[1].name, 'iii');
+        assert.equal(commandsParsed[3].name, 'jjj');
+        done();
+    });
     /**/
 });
 
