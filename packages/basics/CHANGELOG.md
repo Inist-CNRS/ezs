@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.10](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.4.9...@ezs/basics@1.4.10) (2020-09-28)
+
+
+### Bug Fixes
+
+* 🐛 security patch ([06468d5](https://github.com/Inist-CNRS/ezs/commit/06468d56d76c640fb03d7fa73f72d9cc38d44675))
+* avoid to inject internal nodejs class in the pipeline ([de00884](https://github.com/Inist-CNRS/ezs/commit/de008840b01379010991fffa37193c54fecf3cef))
+* avoid to throw error with the last chunk (null value) ([243179e](https://github.com/Inist-CNRS/ezs/commit/243179e3018cb2115453636c17971486a55bef83))
+
+
+
+
+
 ## [1.4.9](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.4.8...@ezs/basics@1.4.9) (2020-09-17)
 
 **Note:** Version bump only for package @ezs/basics
