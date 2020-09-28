@@ -18,9 +18,9 @@ npm install @ezs/basics
 -   [URLStream](#urlstream)
 -   [OBJCount](#objcount)
 -   [URLFetch](#urlfetch)
--   [URLParse](#urlparse)
 -   [URLString](#urlstring)
 -   [BUFObject](#bufobject)
+-   [URLParse](#urlparse)
 -   [TXTObject](#txtobject)
 -   [TXTConcat](#txtconcat)
 -   [ZIPExtract](#zipextract)
@@ -85,12 +85,6 @@ Or if no target will be specified, the output will be the content of URL
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### URLParse
-
-Take `String` of URL, parse it and returns `Object`
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
 ### URLString
 
 Take `Object` representing a URL and stringify it
@@ -107,6 +101,12 @@ For example, it's useful to send string to browser.
 -   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
 
 Returns **[Buffer](https://nodejs.org/api/buffer.html)** 
+
+### URLParse
+
+Take `String` of URL, parse it and returns `Object`
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### TXTObject
 
