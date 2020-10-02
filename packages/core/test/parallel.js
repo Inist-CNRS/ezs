@@ -456,5 +456,50 @@ describe('parallel through worker(s)', () => {
             });
     });
 
+    it('with buggy statement', (done) => {
+        const commands = [
+            {
+                name: 'plouf',
+                args: {
+                    step: 2,
+                },
+            },
+        ];
+        from([
+            { a: 1, b: 9 },
+            { a: 2, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+        ])
+            .pipe(ezs('parallel', {
+                concurrency: 1,
+                commands,
+            }))
+            .pipe(ezs.catch())
+            .on('error', (error) => {
+                assert.ok(error instanceof Error);
+                done();
+            });
+    });
+    it('with wrong parameter', (done) => {
+        const commands = [];
+        from([
+            { a: 1, b: 9 },
+            { a: 2, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+        ])
+            .pipe(ezs('parallel', {
+                concurrency: 1,
+                commands,
+            }))
+            .pipe(ezs.catch())
+            .on('error', (error) => {
+                assert.ok(error instanceof Error);
+                done();
+            });
+    });
     /**/
 });

@@ -777,6 +777,20 @@ describe('dispatch through server(s)', () => {
             });
     });
 
+    it('with wrong parameter', (done) => {
+        const server = [
+            '127.0.0.1',
+        ];
+        const commands = [];
+        from([0, 0, 0])
+            .pipe(ezs('dispatch', { commands, server }))
+            .pipe(ezs.catch())
+            .on('error', (error) => {
+                assert.ok(error instanceof Error);
+                done();
+            });
+    });
+
     /**/
 });
 

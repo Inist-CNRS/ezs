@@ -1,17 +1,23 @@
+import _ from 'lodash';
+
 import debug from 'debug';
 
 /**
  * Takes an `Object` delegate processing to an external pipeline
+ * under specifics conditions
  * Note : works like [spawn], but each chunk share the same external pipeline
  *
- * @name delegate
+ * @name swing
+ * @param {String} [path] path of the field to test
+ * @param {String} [test=equal] condition to swing ("equal" or "not equal"
+ * @param {String} [value] value of the new field
  * @param {String} [file] the external pipeline is described in a file
  * @param {String} [script] the external pipeline is described in a string of characters
  * @param {String} [commands] the external pipeline is described in a object
  * @param {String} [command] the external pipeline is described in a URL-like command
  * @returns {Object}
  */
-export default function delegate(data, feed) {
+export default function swing(data, feed) {
     const { ezs } = this;
     if (this.isFirst()) {
         this.input = ezs.createStream(ezs.objectMode());
@@ -34,8 +40,22 @@ export default function delegate(data, feed) {
     }
     if (this.isLast()) {
         debug('ezs')(`${this.getIndex()} chunks have been delegated`);
-        this.whenFinish.then(() => feed.close()); // reject is never called
+        this.whenFinish.then(() => feed.close());  // reject is never called
         return this.input.end();
     }
-    return ezs.writeTo(this.input, data, () => feed.end());
+    const paths = [].concat(this.getParam('path')).filter(Boolean);
+    const tests = [].concat(this.getParam('test')).filter(Boolean).slice(0, paths.length).map((x) => String(x).trim());
+    const values = [].concat(this.getParam('value')).filter(Boolean).slice(0, paths.length);
+    if (paths.every((p, i) => {
+        const a = _.get(data, p);
+        const b = values[i];
+
+        if (tests[i] === 'not equal') {
+            return (a !== b);
+        }
+        return (a === b);
+    })) {
+        return ezs.writeTo(this.input, data, () => feed.end());
+    }
+    return feed.send(data);
 }
