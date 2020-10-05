@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.17.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.16.0...@ezs/core@1.17.0) (2020-10-05)
+
+
+### Features
+
+* 🎸 introduce [swing] ([a40ea5b](https://github.com/Inist-CNRS/ezs/commit/a40ea5bbfdb09319dad6f4433e677c549a865a79))
+
+
+
+
+
 # [1.16.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.15.0...@ezs/core@1.16.0) (2020-09-28)
 
 
