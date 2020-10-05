@@ -528,4 +528,31 @@ describe('delegate through file(s)', () => {
                 });
         });
     });
+    it('with buggy statement', (done) => {
+        const commands = [
+            {
+                name: 'plouf',
+                args: {
+                    step: 2,
+                },
+            },
+        ];
+        from([
+            { a: 1, b: 9 },
+            { a: 2, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+        ])
+            .pipe(ezs('delegate', {
+                path: 'b',
+                value: 9,
+                commands,
+            }))
+            .pipe(ezs.catch())
+            .on('error', (error) => {
+                assert.ok(error instanceof Error);
+                done();
+            });
+    });
 });

@@ -50,7 +50,7 @@ export default function parallel(data, feed) {
         });
     }
     if (this.isLast()) {
-        this.whenFinish.then(() => feed.close()).catch((e) => feed.stop(e));
+        this.whenFinish.then(() => feed.close()); // reject is never called
         this.ins.forEach((handle) => handle.end());
     } else {
         if (this.lastIndex >= this.ins.length) {

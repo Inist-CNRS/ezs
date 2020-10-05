@@ -20,13 +20,13 @@ npm install @ezs/basics
 -   [URLFetch](#urlfetch)
 -   [URLString](#urlstring)
 -   [BUFObject](#bufobject)
--   [URLParse](#urlparse)
 -   [TXTObject](#txtobject)
 -   [TXTConcat](#txtconcat)
 -   [ZIPExtract](#zipextract)
 -   [OBJFlatten](#objflatten)
 -   [INIString](#inistring)
 -   [CSVParse](#csvparse)
+-   [URLParse](#urlparse)
 -   [XMLString](#xmlstring)
 -   [JSONParse](#jsonparse)
 -   [TXTZip](#txtzip)
@@ -102,12 +102,6 @@ For example, it's useful to send string to browser.
 
 Returns **[Buffer](https://nodejs.org/api/buffer.html)** 
 
-### URLParse
-
-Take `String` of URL, parse it and returns `Object`
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
 ### TXTObject
 
 Take `String` and generate an object with a key and a value, where the value is the input string.
@@ -179,6 +173,12 @@ Take `String` and parse CSV  to generate object
 
 -   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to indicate the CSV separator (optional, default `auto`)
 -   `quote` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to indicate the CSV quote. (optional, default `auto`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### URLParse
+
+Take `String` of URL, parse it and returns `Object`
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 

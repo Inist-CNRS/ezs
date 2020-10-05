@@ -24,6 +24,7 @@ import dump from './dump';
 import time from './time';
 import ignore from './ignore';
 import exchange from './exchange';
+import swing from './swing';
 
 export default {
     extract,
@@ -52,4 +53,5 @@ export default {
     time,
     ignore,
     exchange,
+    swing,
 };
