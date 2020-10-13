@@ -1,5 +1,6 @@
 import debug from 'debug';
 import { useFile } from './file';
+import transit from './statements/transit';
 
 const pluginsList = {};
 
@@ -37,7 +38,7 @@ function get(ezs, plugin, opts) {
                 names.forEach((name) => load(ezs, name));
             }
         });
-        return (data, feed) => feed.send(data);
+        return transit;
     }
     if (typeof plugin === 'function') {
         return plugin;
