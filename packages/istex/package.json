@@ -52,7 +52,7 @@
         "istex-exchange": "git+https://github.com/istex/istex-exchange.git",
         "qs": "~6.8.0",
         "ramda": "~0.26.1",
-        "unzipper": "~0.10.5",
+        "unzipper": "0.10.11",
         "write": "~2.0.0"
     },
     "peerDependencies": {
