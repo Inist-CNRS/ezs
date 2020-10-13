@@ -14,8 +14,7 @@ import { writeTo } from './utils';
 export default function ISTEXUnzip(data, feed) {
     if (this.isFirst()) {
         this.input = new PassThrough();
-
-        const output = this.input
+        this.whenFinish = this.input
             .pipe(unzipper.Parse())
             .on('entry', (entry) => {
                 const fileName = entry.path;
@@ -35,13 +34,7 @@ export default function ISTEXUnzip(data, feed) {
                     entry.autodrain();
                 }
             })
-            .on('error', (e) => feed.write(e))
-            .on('data', (d) => feed.write(d));
-
-        this.whenFinish = new Promise((resolve, reject) => {
-            output.on('end', resolve);
-            output.on('error', reject);
-        });
+            .promise();
     }
     if (this.isLast()) {
         this.whenFinish
@@ -52,5 +45,3 @@ export default function ISTEXUnzip(data, feed) {
         writeTo(this.input, data, () => feed.end());
     }
 }
-
-// See https://github.com/touv/node-ezs/blob/master/src/statements/delegate.js
