@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/istex@1.1.4...@ezs/istex@1.1.5) (2020-10-13)
+
+
+### Bug Fixes
+
+* 🐛 [ISTEXUnzip] close the pipe with large streams ([137c1cb](https://github.com/Inist-CNRS/ezs/commit/137c1cb8a8edb87a3773556ab2e9cf10885fd4ad)), closes [#103](https://github.com/Inist-CNRS/ezs/issues/103)
+
+
+
+
+
 ## [1.1.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/istex@1.1.3...@ezs/istex@1.1.4) (2020-09-28)
 
 
