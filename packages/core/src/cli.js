@@ -122,9 +122,6 @@ export default function cli(errlog) {
             process.exit(2);
         })
         .pipe(ezs.toBuffer());
-    output.on('end', () => {
-        process.exit(0);
-    });
     output.pipe(process.stdout);
     return argv;
 }
