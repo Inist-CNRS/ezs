@@ -102,17 +102,17 @@ const hasIntitule = (address, structure) => address.includes(structure.intituleA
  */
 const contain = (arr, target) => {
     if (arr.length < target.length) return false;
-    let indexes = target.map(x => arr.indexOf(x)),
-        sorted = true;
+    const indexes = target.map((x) => arr.indexOf(x));
+    let sorted = true;
     if (indexes.length === 1) return indexes[0] > -1;
     for (let i = 0; i < indexes.length - 1; i++) {
-        if (arr[i] === -1 || arr[i+1] === -1 || arr[i] > arr[i+1]) {
+        if (arr[i] === -1 || arr[i + 1] === -1 || arr[i] > arr[i + 1]) {
             sorted = false;
             break;
         }
     }
     return sorted;
-}
+};
 
 /**
  * Say if the `structure` is in `address` according to the presence of sigle.
