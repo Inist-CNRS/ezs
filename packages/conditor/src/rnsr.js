@@ -70,15 +70,9 @@ const hasNumero = (address, etabAssocs) => etabAssocs[0] && etabAssocs.some(
 const followsNumeroLabel = (tokens, etabAssocs) => etabAssocs[0]
     && etabAssocs.some(
         (etabAssoc) => {
-            const { labelAppauvri: label, numero } = etabAssoc;
-            if (tokens.includes(`${label}${numero}`)) return true;
-            const labelIndex = tokens.indexOf(label.toLowerCase());
-            const numeroIndex = tokens.indexOf(String(numero));
-            if (labelIndex === -1) return false;
-            if (numeroIndex === -1) return false;
-            if (numeroIndex < labelIndex) return false;
-            if (numeroIndex - labelIndex > 1) return false;
-            return true;
+            const { labelAppauvri: label, numero } = etabAssoc,
+                result = tokens.match(new RegExp(`(${label}( [\w]+)? ${numero})`, 'gm'));
+            return Array.isArray(result) && result.length > 0;
         },
     );
 const hasPostalAddress = (address, structure) => (
@@ -98,6 +92,29 @@ const hasPostalAddress = (address, structure) => (
 const hasIntitule = (address, structure) => address.includes(structure.intituleAppauvri || '**');
 
 /**
+ * Say if `target` items are in `arr`.
+ * `target` items should be sorted
+ *
+ * @param {arr} address
+ * @param {target} structure
+ * @returns {boolean}
+ * @private
+ */
+const contain = (arr, target) => {
+    if (arr.length < target.length) return false;
+    let indexes = target.map(x => arr.indexOf(x)),
+        sorted = true;
+    if (indexes.length === 1) return indexes[0] > -1;
+    for (let i = 0; i < indexes.length - 1; i++) {
+        if (arr[i] === -1 || arr[i+1] === -1 || arr[i] > arr[i+1]) {
+            sorted = false;
+            break;
+        }
+    }
+    return sorted;
+}
+
+/**
  * Say if the `structure` is in `address` according to the presence of sigle.
  *
  * @param {string} address
@@ -105,7 +122,7 @@ const hasIntitule = (address, structure) => address.includes(structure.intituleA
  * @returns {boolean}
  * @private
  */
-const hasSigle = (address, structure) => address.split(/[ -,]/).includes(structure.sigleAppauvri || '**');
+const hasSigle = (address, structure) => contain(address.split(/[ \-,]/), structure.sigleAppauvri.split(' '));
 
 /**
  * Check that for at least one of the tutelles (`structure.etabAssoc.*.etab`):
@@ -159,7 +176,7 @@ const hasEtabAssocs = (structure) => {
 export const hasLabelAndNumero = (address, structure) => {
     if (!hasLabel(address, structure.etabAssoc)) return false;
     if (!hasNumero(address, structure.etabAssoc)) return false;
-    const tokens = address.split(/[ -,]/);
+    const tokens = address.replace(/[ \-,]+/gm, ' ');
     if (!followsNumeroLabel(tokens, structure.etabAssoc)) return false;
     return true;
 };

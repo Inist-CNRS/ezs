@@ -42,7 +42,7 @@ const existedInYears = (years) => (structure) => {
 };
 
 const addRnsrFromYearsInAffiliation = (years) => (affiliations, affiliation) => {
-    const isInAddress = isIn(depleteString(affiliation.address));
+    const isInAddress = isIn(depleteString(affiliation.address), affiliation.rnsr);
     const conditorRnsr = RNSR.structures.structure
         .filter(existedInYears(years))
         .filter(isInAddress)
