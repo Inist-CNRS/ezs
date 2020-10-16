@@ -45,26 +45,31 @@ export const createFunction = () => async function LodexRunQuery(data, feed) {
     if (total === 0) {
         return feed.send({ total: 0 });
     }
-    const stream = cursor
-        .skip(Number(skip))
-        .limit(Number(limit));
-    stream.on('data', (data1) => {
-        if (typeof data1 === 'object') {
-            if (data1) {
-                set(data1, 'total', total);
-            }
+
+    cursor
+      .skip(Number(skip))
+      .limit(Number(limit));
+
+    const readable = this.readableState;
+
+    push();
+
+    function push () {
+      cursor
+        .next((err, data) => {
+          if (err) {return feed.stop(err);}
+          if (data === null) {return feed.end();}
+          if (readable.length > readable.highWaterMark) {return process.nextTick(push);}
+          if (typeof data === 'object') {
+            set(data, 'total', total);
             if (referer) {
-                set(data1, 'referer', referer);
+              set(data, 'referer', referer);
             }
-            feed.write(data1);
-        }
-    });
-    stream.on('error', (error) => {
-        feed.write(error);
-    });
-    stream.on('end', () => {
-        feed.end();
-    });
+            feed.write(data);
+            process.nextTick(push);
+          }
+        });
+    }
 };
 
 export default {

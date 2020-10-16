@@ -9,7 +9,7 @@ export default class Feed {
         if (something === null) {
             this.close();
         } else if (something !== undefined) {
-            this.push(something);
+          return this.push(something);
         }
     }
 

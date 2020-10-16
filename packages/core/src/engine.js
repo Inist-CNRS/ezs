@@ -48,6 +48,7 @@ export default class Engine extends SafeTransform {
         this.shell = new Shell(ezs, this.environment);
         this.chunk = {};
         this.scope = {};
+        this.scope.readableState = this._readableState;
         this.scope.getEnv = (name) => (name === undefined ? this.environment : this.environment[name]);
         this.scope.ezs = this.ezs;
         this.scope.emit = (d, c) => this.emit(d, c);

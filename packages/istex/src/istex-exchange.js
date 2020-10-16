@@ -15,14 +15,13 @@ function ISTEXExchange (data, feed) {
         .on("error", (err) => {feed.stop(err);})
     ;
   }
-
   if (this.isLast()) {
     return this._exchanger.close(() => {
       feed.close();
-    })
+    });
   }
 
-  this._exchanger.write(data, () => {feed.end()});
+  this._exchanger.write(data, () => {feed.end();});
 }
 
 
