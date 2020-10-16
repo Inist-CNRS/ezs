@@ -36,6 +36,7 @@ npm install @ezs/basics
 -   [CSVString](#csvstring)
 -   [CSVObject](#csvobject)
 -   [OBJStandardize](#objstandardize)
+-   [drop](#drop)
 
 ### URLConnect
 
@@ -279,5 +280,68 @@ Take `Object` and standardize it so each object will have the sames keys
 #### Parameters
 
 -   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### drop
+
+Take `Object` and throw the same object, all keys were parsed to replace namespaces with their prefixes
+Note:  You can also parse values for specific keys (keys containing references to other keys)
+
+```json
+[
+  {
+   "http://purl.org/dc/terms/title": "Life is good",
+   "http://purl.org/ontology/places#Countryl": "France",
+ },
+ {
+   "http://purl.org/dc/terms/title": "the rising sun",
+   "http://purl.org/ontology/places#Country": "Japan",
+ },
+ {
+   "http://purl.org/dc/terms/title": "Dolce Vista",
+   "http://purl.org/ontology/places#Country": "Italy",
+ }
+]
+```
+
+Script:
+
+```ini
+[use]
+plugin = basics
+
+[OBJNamespaces]
+prefix = dc:
+namespace = http://purl.org/dc/terms/
+
+prefix = place:
+namespace = http://purl.org/ontology/places#
+```
+
+Output:
+
+```json
+[
+ {
+   "dc:title": "Life is good",
+   "place:Country": "France",
+ },
+ {
+   "dc:title": "the rising sun",
+   "place:Country": "Japan",
+ },
+ {
+   "dc:title": "Dolce Vista",
+   "place:Country": "Italy",
+ }
+]
+```
+
+#### Parameters
+
+-   `prefix` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the alias for a namespace
+-   `namespace` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the namespace to substitute by a prefix
+-   `reference` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** a regex to find key that contains a namespace to substitute (optional, default `null`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
