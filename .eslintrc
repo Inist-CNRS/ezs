@@ -1,6 +1,7 @@
 {
     "parser": "babel-eslint",
     "env": {
+        "es2020": true,
         "browser": true,
         "mocha": true,
         "node": true,

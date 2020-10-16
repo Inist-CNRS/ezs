@@ -21,6 +21,7 @@ export const createFunction = () => async function LodexRunQuery(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
+    const { ezs } = this;
     const referer = this.getParam('referer', data.referer);
     const filter = this.getParam('filter', data.filter || {});
     filter.removedAt = { $exists: false }; // Ignore removed resources
@@ -45,31 +46,17 @@ export const createFunction = () => async function LodexRunQuery(data, feed) {
     if (total === 0) {
         return feed.send({ total: 0 });
     }
-
-    cursor
-      .skip(Number(skip))
-      .limit(Number(limit));
-
-    const readable = this.readableState;
-
-    push();
-
-    function push () {
-      cursor
-        .next((err, data) => {
-          if (err) {return feed.stop(err);}
-          if (data === null) {return feed.end();}
-          if (readable.length > readable.highWaterMark) {return process.nextTick(push);}
-          if (typeof data === 'object') {
-            set(data, 'total', total);
-            if (referer) {
-              set(data, 'referer', referer);
-            }
-            feed.write(data);
-            process.nextTick(push);
-          }
-        });
+    const path = ['total'];
+    const value = [total];
+    if (referer) {
+        path.push('referer');
+        value.push(referer);
     }
+    const stream = cursor
+        .skip(Number(skip))
+        .limit(Number(limit))
+        .pipe(ezs('assign', { path, value }));
+    feed.flow(stream);
 };
 
 export default {
