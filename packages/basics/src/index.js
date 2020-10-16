@@ -1,5 +1,6 @@
 import BUFObject from './buf-object';
 import OBJCount from './obj-count';
+import OBJNamespaces from './obj-namespaces';
 import OBJStandardize from './obj-standardize';
 import OBJFlatten from './obj-flatten';
 import TXTConcat from './txt-concat';
@@ -24,6 +25,7 @@ import INIString from './ini-string';
 export default {
     BUFObject,
     OBJCount,
+    OBJNamespaces,
     OBJStandardize,
     OBJFlatten,
     TXTParse,
