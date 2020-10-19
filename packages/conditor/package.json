@@ -1,6 +1,6 @@
 {
   "name": "@ezs/conditor",
-  "version": "1.9.17",
+  "version": "1.9.18",
   "description": "ezs statements for Conditor",
   "publishConfig": {
     "access": "public"

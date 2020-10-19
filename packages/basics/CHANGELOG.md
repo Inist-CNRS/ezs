@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.4.12...@ezs/basics@1.5.0) (2020-10-19)
+
+
+### Bug Fixes
+
+* 🐛 missing files ([d6e8ae2](https://github.com/Inist-CNRS/ezs/commit/d6e8ae27592e56077729daa9872159253208665f))
+
+
+### Features
+
+* 🎸 add [OBJNamespaces] ([93469a4](https://github.com/Inist-CNRS/ezs/commit/93469a40e59697d843975244fd98fe48c2e2ea88))
+
+
+
+
+
 ## [1.4.12](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.4.11...@ezs/basics@1.4.12) (2020-10-05)
 
 **Note:** Version bump only for package @ezs/basics
