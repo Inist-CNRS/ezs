@@ -1,4 +1,3 @@
-import set from 'lodash.set';
 import zipObject from 'lodash.zipobject';
 import mongoDatabase from './mongoDatabase';
 

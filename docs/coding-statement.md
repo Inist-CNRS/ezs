@@ -28,6 +28,15 @@ suivantes :
 Permet d'envoyer un élément dans le flux de sortie.
 Cette fonction peut être exécutée plusieurs fois.
 
+### feed.flow(stream, [callback])
+
+Permet d'envoyer le contenu d'un stream à l'élément suivant.
+Chaque "chunk" est envoyé séparément. Quand le stream s'arrète ("end"), l'élement courant est fermé,
+sauf si une fonction de callback est passée en argument. Dans ce cas, il faudra fermé l'élement courant explcicitement
+via un appel à feed.end().
+Cette fonction peut être exécutée plusieurs fois.
+
+
 ### feed.end()
 
 Permet de fermer le flux pour l’élément courant.
