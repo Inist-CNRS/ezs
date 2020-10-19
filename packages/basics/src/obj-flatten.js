@@ -1,4 +1,4 @@
-import flatten from 'flat';
+import flatten, { unflatten } from 'flat';
 
 /**
  * Take `Object` and flat it with delimited character.
