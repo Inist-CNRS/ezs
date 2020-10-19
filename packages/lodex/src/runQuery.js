@@ -1,4 +1,3 @@
-import set from 'lodash.set';
 import zipObject from 'lodash.zipobject';
 import mongoDatabase from './mongoDatabase';
 
@@ -21,6 +20,7 @@ export const createFunction = () => async function LodexRunQuery(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
+    const { ezs } = this;
     const referer = this.getParam('referer', data.referer);
     const filter = this.getParam('filter', data.filter || {});
     filter.removedAt = { $exists: false }; // Ignore removed resources
@@ -45,26 +45,17 @@ export const createFunction = () => async function LodexRunQuery(data, feed) {
     if (total === 0) {
         return feed.send({ total: 0 });
     }
+    const path = ['total'];
+    const value = [total];
+    if (referer) {
+        path.push('referer');
+        value.push(referer);
+    }
     const stream = cursor
         .skip(Number(skip))
-        .limit(Number(limit));
-    stream.on('data', (data1) => {
-        if (typeof data1 === 'object') {
-            if (data1) {
-                set(data1, 'total', total);
-            }
-            if (referer) {
-                set(data1, 'referer', referer);
-            }
-            feed.write(data1);
-        }
-    });
-    stream.on('error', (error) => {
-        feed.write(error);
-    });
-    stream.on('end', () => {
-        feed.end();
-    });
+        .limit(Number(limit))
+        .pipe(ezs('assign', { path, value }));
+    feed.flow(stream);
 };
 
 export default {

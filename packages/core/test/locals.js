@@ -162,6 +162,13 @@ function splash(data, feed) {
         .catch(() => feed.end());
 }
 
+function throttle(data, feed) {
+    if (this.isLast()) {
+        return feed.close();
+    }
+    return setTimeout(() => feed.send(data), Number(this.getParam('milliseconds', 500)));
+}
+
 module.exports = {
     plus1,
     boum,
@@ -179,4 +186,5 @@ module.exports = {
     plaf,
     splish,
     splash,
+    throttle,
 };

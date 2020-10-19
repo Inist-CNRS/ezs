@@ -1,3 +1,4 @@
+/* eslint no-underscore-dangle: ["error", { "allow": ["_readableState"] }] */
 import debug from 'debug';
 import queue from 'concurrent-queue';
 import { hrtime } from 'process';
@@ -124,7 +125,10 @@ export default class Engine extends SafeTransform {
             }
             return this.push(data);
         };
-        const feed = new Feed(push, done, warn);
+        const ready = () => (!this._readableState.ended
+            && (this._readableState.length < this._readableState.highWaterMark
+                || this._readableState.length === 0));
+        const feed = new Feed(push, done, warn, ready);
         try {
             this.chunk = chunk;
             return Promise.resolve(this.func.call(this.scope, chunk, feed, currentIndex)).catch((e) => {

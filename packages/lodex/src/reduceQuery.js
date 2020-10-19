@@ -1,5 +1,4 @@
 import hasher from 'node-object-hash';
-import set from 'lodash.set';
 import mongoDatabase from './mongoDatabase';
 import reducers from './reducers';
 
@@ -28,6 +27,7 @@ export const createFunction = () => async function LodexReduceQuery(data, feed) 
         return feed.close();
     }
 
+    const { ezs } = this;
     const referer = this.getParam('referer', data.referer);
     const filter = this.getParam('filter', data.filter || {});
     filter.removedAt = { $exists: false }; // Ignore removed resources
@@ -38,7 +38,8 @@ export const createFunction = () => async function LodexReduceQuery(data, feed) 
     const minValue = this.getParam('minValue', data.minValue);
     const maxValue = this.getParam('maxValue', data.maxValue);
     const orderBy = this.getParam('orderBy', data.orderBy);
-    const maxSize = this.getParam('maxSize', data.maxSize || 1000000);
+    const limit = this.getParam('maxSize', data.maxSize || 1000000);
+    const skip = this.getParam('skip', data.skip || 0);
 
     const reducer = this.getParam('reducer');
     if (!reducer) {
@@ -100,26 +101,18 @@ export const createFunction = () => async function LodexReduceQuery(data, feed) 
     if (total === 0 || count === 0) {
         return feed.send({ total: 0 });
     }
+    const path = ['total'];
+    const value = [total];
+    if (referer) {
+        path.push('referer');
+        value.push(referer);
+    }
     const stream = cursor
         .sort(sort)
-        .limit(Number(maxSize));
-    stream.on('data', (data1) => {
-        if (typeof data1 === 'object') {
-            if (data1) {
-                set(data1, 'total', total);
-            }
-            if (referer) {
-                set(data1, 'referer', referer);
-            }
-            feed.write(data1);
-        }
-    });
-    stream.on('error', (error) => {
-        feed.write(error);
-    });
-    stream.on('end', () => {
-        feed.end();
-    });
+        .skip(Number(skip))
+        .limit(Number(limit))
+        .pipe(ezs('assign', { path, value }));
+    feed.flow(stream);
 };
 
 export default {
