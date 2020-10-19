@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.18.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.17.1...@ezs/core@1.18.0) (2020-10-19)
+
+
+### Features
+
+* 🎸 add feed.flow()x ([a714656](https://github.com/Inist-CNRS/ezs/commit/a714656e6a328c40a6953cdd31559eb0623dde28))
+
+
+
+
+
 ## [1.17.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.17.0...@ezs/core@1.17.1) (2020-10-13)
 
 **Note:** Version bump only for package @ezs/core

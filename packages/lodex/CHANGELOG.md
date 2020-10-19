@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.5.8...@ezs/lodex@1.6.0) (2020-10-19)
+
+
+### Bug Fixes
+
+* 🐛 use feed.flow() to avoid memory overhead ([de2db7a](https://github.com/Inist-CNRS/ezs/commit/de2db7abf8a4ff20e8347d3dc5a062499ee0186f))
+
+
+### Features
+
+* 🎸 add feed.flow()x ([a714656](https://github.com/Inist-CNRS/ezs/commit/a714656e6a328c40a6953cdd31559eb0623dde28))
+
+
+
+
+
 ## [1.5.8](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.5.7...@ezs/lodex@1.5.8) (2020-09-28)
 
 
