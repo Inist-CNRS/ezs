@@ -49,7 +49,6 @@ export default {
     // aliases
     bufferify: BUFObject.BUFObject,
     jsonify: JSONString.JSONString,
-    flatten: OBJFlatten.OBJFlatten,
     concat: TXTConcat.TXTConcat,
     standardize: OBJStandardize.OBJStandardize,
     split: TXTParse.TXTParse,

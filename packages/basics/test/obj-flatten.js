@@ -40,6 +40,18 @@ describe('OBJFlatten', () => {
                 done();
             });
     });
+    it('should unflatten the nested objects', (done) => {
+        from([{ a: { b: 1, c: 2 } }])
+            .pipe(ezs('OBJFlatten'))
+            .pipe(ezs('OBJFlatten', { reverse: true }))
+            .on('data', (data) => {
+                expect(data).toStrictEqual({ a: { b: 1, c: 2 } });
+            })
+            .on('end', () => {
+                done();
+            });
+    });
+
 
     it('should use the given separator', (done) => {
         from([{ a: { b: 1, c: 2 } }])
