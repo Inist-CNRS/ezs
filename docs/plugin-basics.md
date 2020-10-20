@@ -14,6 +14,7 @@ npm install @ezs/basics
 
 #### Table of Contents
 
+-   [OBJFlatten](#objflatten)
 -   [URLConnect](#urlconnect)
 -   [URLStream](#urlstream)
 -   [OBJCount](#objcount)
@@ -23,7 +24,6 @@ npm install @ezs/basics
 -   [TXTObject](#txtobject)
 -   [TXTConcat](#txtconcat)
 -   [ZIPExtract](#zipextract)
--   [OBJFlatten](#objflatten)
 -   [INIString](#inistring)
 -   [CSVParse](#csvparse)
 -   [URLParse](#urlparse)
@@ -37,6 +37,20 @@ npm install @ezs/basics
 -   [CSVObject](#csvobject)
 -   [OBJStandardize](#objstandardize)
 -   [drop](#drop)
+
+### OBJFlatten
+
+-   **See: <https://www.npmjs.com/package/flat>
+    **
+
+Take `Object` and flat it with delimited character.
+
+#### Parameters
+
+-   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose a character for  flatten keys (optional, default `/`)
+-   `safe` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** preserve arrays and their contents, (optional, default `false`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### URLConnect
 
@@ -142,20 +156,6 @@ an object for each file found like :
 -   `json` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** transforms each file into an Object (JSON) (optional, default `true`)
 
 Returns **any** <Object>
-
-### OBJFlatten
-
--   **See: <https://www.npmjs.com/package/flat>
-    **
-
-Take `Object` and flat it with delimited character.
-
-#### Parameters
-
--   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose a character for  flatten keys (optional, default `/`)
--   `safe` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** preserve arrays and their contents, (optional, default `false`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### INIString
 
