@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.5.0...@ezs/basics@1.6.0) (2020-10-20)
+
+
+### Bug Fixes
+
+* 🐛 wrong import ([131e0f6](https://github.com/Inist-CNRS/ezs/commit/131e0f6090dfe8b6a53746533ea1c5f73f346c6e))
+
+
+### Features
+
+* 🎸 add reverse option to [OBJFlatten] ([e275607](https://github.com/Inist-CNRS/ezs/commit/e275607611957f6a3dccaca09b2ba45f287c3c9a))
+
+
+
+
+
 # [1.5.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.4.12...@ezs/basics@1.5.0) (2020-10-19)
 
 
