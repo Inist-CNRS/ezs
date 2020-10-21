@@ -5,6 +5,7 @@ import shift from './shift';
 import keep from './keep';
 import debug from './debug';
 import concat from './concat';
+import remove from './remove';
 import unpack from './unpack';
 import pack from './pack';
 import transit from './transit';
@@ -34,6 +35,7 @@ export default {
     keep,
     debug,
     concat,
+    remove,
     unpack,
     pack,
     transit,
