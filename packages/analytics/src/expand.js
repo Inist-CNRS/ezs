@@ -14,7 +14,7 @@ async function mergeWith(data, feed) {
     try {
         const obj = await store.get(id);
         if (obj === null) {
-            return feed.send(new Error('id was corrupted'));
+            throw new Error('id was corrupted');
         }
         set(obj, path, value);
         return feed.send(obj);
@@ -86,22 +86,21 @@ export default async function expand(data, feed) {
         this.input = ezs.createStream(ezs.objectMode());
         const output = ezs.createPipeline(this.input, statements)
             .pipe(ezs(mergeWith, { path }, this.store))
-            .pipe(ezs.catch())
-            .on('error', (e) => feed.stop(e))
-            .on('data', (d) => feed.write(d));
-        this.whenFinish = new Promise((resolve) => output.on('end', resolve));
+            .pipe(ezs.catch());
+        this.whenFinish = feed.flow(output);
     }
     if (this.isLast()) {
-        this.whenFinish
-            .then(() => feed.close())
-            .catch(/* istanbul ignore next */(e) => feed.stop(e));
+        this.whenFinish.finally(() => feed.close());
         return this.input.end();
     }
     try {
         const id = this.getIndex().toString().padStart(20, '0');
         await this.store.put(id, data);
         const value = get(data, path);
-        return ezs.writeTo(this.input, core(id, value), () => feed.end());
+        if (value !== undefined) {
+            return ezs.writeTo(this.input, core(id, value), () => feed.end());
+        }
+        return feed.send(data);
     } catch (e) {
         return feed.stop(e);
     }

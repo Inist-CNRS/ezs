@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb';
 
-const handles = {};
+export const handles = {};
 async function mongoDatabase(connectionStringURI) {
     if (!handles[connectionStringURI]) {
         handles[connectionStringURI] = new MongoClient(

@@ -22,7 +22,6 @@ const findFacetNames = async (collection) => {
     return searchableFields.map(({ name }) => name);
 };
 
-
 /**
  * Take `Object` containing a URL query and throw a Context Object
  * compatible with runQuery or reduceQuery

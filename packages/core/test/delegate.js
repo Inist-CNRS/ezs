@@ -555,4 +555,40 @@ describe('delegate through file(s)', () => {
                 done();
             });
     });
+
+    it('with self reference in the shell', (done) => {
+        const script = `
+
+            [replace]
+            path = a
+            value = get('a')
+            path = b
+            value = get('b').map((item) => _.get(self, 'b.0').concat(':').concat(item))
+
+        `;
+        const res = [];
+        from([
+            { a: 1, b: ['a', 'b'] },
+            { a: 2, b: ['c', 'd'] },
+            { a: 3, b: ['e', 'f'] },
+            { a: 4, b: ['g', 'h'] },
+            { a: 5, b: ['i', 'j'] },
+        ])
+            .pipe(ezs('delegate', { script }))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.length, 5);
+                assert.equal(res[0].a, 1);
+                assert.equal(res[0].b[0], 'a:a');
+                assert.equal(res[0].b[1], 'a:b');
+                assert.equal(res[4].a, 5);
+                assert.equal(res[4].b[0], 'i:i');
+                assert.equal(res[4].b[1], 'i:j');
+
+                done();
+            });
+    });
 });

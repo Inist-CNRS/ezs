@@ -87,6 +87,9 @@ describe('URLConnect', () => {
                 }).toThrow("Invalid JSON (Unexpected \"\\r\" at position 3 in state STOP)");
                 done();
             })
+            .on('data', () => {
+                done(new Error('Error is the right behavior'));
+            })
             .on('end', () => {
                 done(new Error('Error is the right behavior'));
             });
