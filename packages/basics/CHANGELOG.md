@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.6.0...@ezs/basics@1.6.1) (2020-10-23)
+
+
+### Bug Fixes
+
+* 🐛 handle leaked ([c343c5c](https://github.com/Inist-CNRS/ezs/commit/c343c5c7949b3d063f65803130066934f96ce6c6))
+
+
+
+
+
 # [1.6.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.5.0...@ezs/basics@1.6.0) (2020-10-20)
 
 

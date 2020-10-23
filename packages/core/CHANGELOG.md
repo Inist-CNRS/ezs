@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.19.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.18.0...@ezs/core@1.19.0) (2020-10-23)
+
+
+### Bug Fixes
+
+* 🐛 [swing] & [remove] work the same way ([b0c759e](https://github.com/Inist-CNRS/ezs/commit/b0c759e953c196cc0461f597179421432f0f22c0))
+* 🐛 handle leaked ([c343c5c](https://github.com/Inist-CNRS/ezs/commit/c343c5c7949b3d063f65803130066934f96ce6c6))
+
+
+### Features
+
+* 🎸 add [remove] statement ([037fd44](https://github.com/Inist-CNRS/ezs/commit/037fd44cafaaf59840ddcefccc9a90ebd329b157))
+* 🎸 change title & description with env vars ([ec20fa5](https://github.com/Inist-CNRS/ezs/commit/ec20fa5a06c599865f07ba1de277b5ed556637b1))
+
+
+
+
+
 # [1.18.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.17.1...@ezs/core@1.18.0) (2020-10-19)
 
 
