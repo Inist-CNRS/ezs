@@ -48,7 +48,6 @@ export default {
     INIString,
     // aliases
     bufferify: BUFObject.BUFObject,
-    jsonify: JSONString.JSONString,
     concat: TXTConcat.TXTConcat,
     standardize: OBJStandardize.OBJStandardize,
     split: TXTParse.TXTParse,

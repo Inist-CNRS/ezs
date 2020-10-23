@@ -1,6 +1,7 @@
 import { PassThrough } from 'stream';
 import unzipper from 'unzipper';
 import micromatch from 'micromatch';
+import writeTo from 'stream-write';
 
 /**
  * Take the content of a zip file, extract some files, and yield JSON.
@@ -22,7 +23,6 @@ import micromatch from 'micromatch';
 export default function ZIPExtract(data, feed) {
     const parseJSON = this.getParam('json', true);
     const filesPatern = this.getParam('path', '**/*.json');
-    const { ezs } = this;
     if (this.isFirst()) {
         this.input = new PassThrough();
 
@@ -50,21 +50,13 @@ export default function ZIPExtract(data, feed) {
                 } else {
                     entry.autodrain();
                 }
-            })
-            .on('error', (e) => feed.write(e))
-            .on('data', (d) => feed.write(d));
-
-        this.whenFinish = new Promise((resolve, reject) => {
-            output.on('end', resolve);
-            output.on('error', reject);
-        });
+            });
+        this.whenFinish = feed.flow(output);
     }
     if (this.isLast()) {
-        this.whenFinish
-            .then(() => feed.close())
-            .catch((e) => feed.stop(e));
+        this.whenFinish.finally(() => feed.close());
         this.input.end();
     } else {
-        ezs.writeTo(this.input, data, () => feed.end());
+        writeTo(this.input, data, () => feed.end());
     }
 }

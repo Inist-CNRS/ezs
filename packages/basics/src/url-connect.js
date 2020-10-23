@@ -1,6 +1,7 @@
 import fetch from 'fetch-with-proxy';
 import AbortController from 'node-abort-controller';
 import JSONStream from 'JSONStream';
+import writeTo from 'stream-write';
 
 /**
  * Take `Object` and send it to an URL
@@ -40,7 +41,7 @@ export default function URLConnect(data, feed) {
         this.whenReady.finally(() => this.whenFinish.finally(() => feed.close()));
         return this.input.end();
     }
-    ezs.writeTo(this.input,
+    writeTo(this.input,
         data,
         () => feed.end());
 }

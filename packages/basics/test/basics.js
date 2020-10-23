@@ -25,7 +25,6 @@ describe('test', () => {
             });
     });
 
-
     it('CSVParse #1', (done) => {
         const res = [];
         from([
@@ -62,6 +61,25 @@ describe('test', () => {
             });
     });
 
+    it('CSVString#1bis', (done) => {
+        const res = [];
+        from([
+            ['a', 'b', 'c'],
+            [1, 2, 3],
+            [4, 5, 6],
+        ])
+            .pipe(ezs('CSVObject'))
+            .pipe(ezs('CSVString', { 'separator': ',' }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(3, res.length);
+                assert.equal('a,b,c\r\n', res[0]);
+                done();
+            });
+    });
+
     it('CSVString#2', (done) => {
         const res = [];
         from([
@@ -77,6 +95,20 @@ describe('test', () => {
             .on('end', () => {
                 assert.equal(3, res.length);
                 assert.equal('"a";"b";"c"\r\n', res[0]);
+                done();
+            });
+    });
+
+    it('JSONString #0a', (done) => {
+        let res = '';
+        from([])
+            .pipe(ezs('JSONString'))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'string');
+                res += chunk;
+            })
+            .on('end', () => {
+                assert.strictEqual(res, '');
                 done();
             });
     });
@@ -114,6 +146,25 @@ describe('test', () => {
             })
             .on('end', () => {
                 assert.strictEqual(res, '{"a":1},{"b":2}');
+                done();
+            });
+    });
+    it('JSONString #3', (done) => {
+        let res = '';
+        from([
+            {
+                a: 1,
+            },
+            {
+                b: 2,
+            },
+        ])
+            .pipe(ezs('JSONString', { wrap: false, indent: true }))
+            .on('data', (chunk) => {
+                res += chunk;
+            })
+            .on('end', () => {
+                assert.strictEqual(res, "{\n    \"a\": 1\n},\n{\n    \"b\": 2\n}");
                 done();
             });
     });
@@ -405,7 +456,7 @@ describe('test', () => {
         const output = [];
         from(input)
             .pipe(ezs('URLParse'))
-            // .pipe(ezs('debug'))
+        // .pipe(ezs('debug'))
             .pipe(ezs('URLString'))
             .on('data', (chunk) => {
                 output.push(chunk);

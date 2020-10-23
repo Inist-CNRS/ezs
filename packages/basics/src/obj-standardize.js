@@ -1,5 +1,6 @@
 import tmpFilepath from 'tmp-filepath';
 import fs from 'fs';
+import writeTo from 'stream-write';
 
 function OBJStandardize(data, feed) {
     const self = this;
@@ -46,7 +47,7 @@ function OBJStandardize(data, feed) {
                 self.struct.push(k);
             }
         });
-        ezs.writeTo(self.tmpInput, data, () => feed.end());
+        writeTo(self.tmpInput, data, () => feed.end());
     }
 }
 
