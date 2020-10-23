@@ -56,5 +56,8 @@
         "validatorjs": "~3.18.1",
         "yargs": "~15.4.1"
     },
+    "engines" : {
+        "node" : ">=10 <=14"
+    },
     "gitHead": "bc1be6636627b450c72d59ec404c43d87d7a42aa"
 }
