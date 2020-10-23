@@ -8,9 +8,8 @@ import debug from 'debug';
  * Note : works like [spawn], but each chunk share the same external pipeline
  *
  * @name swing
- * @param {String} [path] path of the field to test
- * @param {String} [test=equal] condition to swing ("equal" or "not equal"
- * @param {String} [value] value of the new field
+ * @param {String} [test] if test is true
+ * @param {String} [reverse=false] reverse the test
  * @param {String} [file] the external pipeline is described in a file
  * @param {String} [script] the external pipeline is described in a string of characters
  * @param {String} [commands] the external pipeline is described in a object
@@ -39,18 +38,13 @@ export default function swing(data, feed) {
         this.whenFinish.finally(() => feed.close());
         return this.input.end();
     }
-    const paths = [].concat(this.getParam('path')).filter(Boolean);
-    const tests = [].concat(this.getParam('test')).filter(Boolean).slice(0, paths.length).map((x) => String(x).trim());
-    const values = [].concat(this.getParam('value')).filter(Boolean).slice(0, paths.length);
-    if (paths.every((p, i) => {
-        const a = _.get(data, p);
-        const b = values[i];
+    const reverse = Boolean(this.getParam('reverse', false));
+    const tests = []
+        .concat(this.getParam('test', true))
+        .map((i) => Boolean(i))
+        .map((i) => (reverse ? !i : i));
 
-        if (tests[i] === 'not equal') {
-            return (a !== b);
-        }
-        return (a === b);
-    })) {
+    if (tests.every((test) => test)) {
         return ezs.writeTo(this.input, data, () => feed.end());
     }
     return feed.send(data);
