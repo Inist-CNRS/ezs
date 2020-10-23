@@ -1,4 +1,5 @@
 import fetch from 'fetch-with-proxy';
+import AbortController from 'node-abort-controller';
 import JSONStream from 'JSONStream';
 
 /**
@@ -15,10 +16,12 @@ export default function URLConnect(data, feed) {
     const json = this.getParam('json', true);
     const { ezs } = this;
     if (this.isFirst()) {
+        const controller = new AbortController();
         this.input = ezs.createStream(ezs.objectMode());
         this.whenReady = fetch(url, {
             method: 'POST',
             body: this.input.pipe(ezs('dump')).pipe(ezs.toBuffer()),
+            signal: controller.signal,
         })
             .then(({ body, status, statusText }) => {
                 if (status !== 200) {
@@ -27,20 +30,15 @@ export default function URLConnect(data, feed) {
                     return feed.stop(new Error(msg));
                 }
                 const output = json ? body.pipe(JSONStream.parse('*')) : body;
-                output.on('data', (chunk) => feed.write(chunk));
-                output.on('error', (e) => feed.stop(e));
-                this.whenFinish = new Promise((resolve) => output.on('end', resolve));
-                return output;
+                output.once('error', () => controller.abort());
+                this.whenFinish = feed.flow(output);
+                return Promise.resolve(true);
             })
             .catch((e) => feed.stop(e));
     }
     if (this.isLast()) {
-        this.input.end();
-        return this.whenReady.then(() => {
-            this.whenFinish
-                .then(() => feed.close())
-                .catch(/* istanbul ignore next */(e) => feed.stop(e));
-        });
+        this.whenReady.finally(() => this.whenFinish.finally(() => feed.close()));
+        return this.input.end();
     }
     ezs.writeTo(this.input,
         data,

@@ -31,6 +31,15 @@ describe('flow stream in stream', () => {
         return feed.flow(from(arr).pipe(this.ezs('plaf')));
     }
 
+    function flowtestwitherrorwithend(data, feed) {
+        if (this.isLast()) {
+            return feed.close();
+        }
+        const arr = Array(data).fill(true);
+        arr[3] = 7;
+        return feed.flow(from(arr).pipe(this.ezs('plaf')), (e) => feed.stop(e));
+    }
+
     it('with throttle', (done) => {
         let res = 0;
         from([
@@ -112,6 +121,30 @@ describe('flow stream in stream', () => {
                 throw new Error('Error expected');
             });
     }, 10000);
+
+  it('with error #2', (done) => {
+        let res = 0;
+        from([
+            1,
+            10,
+            100,
+            1000,
+        ])
+            .pipe(ezs(flowtestwitherrorwithend))
+            .pipe(ezs.catch())
+            .on('error', (err) => {
+                assert.ok(err instanceof Error);
+                assert.equal(res, 1);
+                done();
+            })
+            .on('data', () => {
+                res += 1;
+            })
+            .on('end', () => {
+                throw new Error('Error expected');
+            });
+    }, 10000);
+
     it('with error and throttle', (done) => {
         let res = 0;
         from([

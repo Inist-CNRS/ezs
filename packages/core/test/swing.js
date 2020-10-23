@@ -1,6 +1,6 @@
 import assert from 'assert';
 import from from 'from';
-import { Readable } from 'stream';
+import Expression from '../src/expression';
 import ezs from '../src';
 
 ezs.use(require('./locals'));
@@ -32,9 +32,8 @@ describe('swing through file(s)', () => {
             { a: 1, b: 9 },
         ])
             .pipe(ezs('swing', {
-                path: 'a',
-                test: 'not equal',
-                value: 2,
+                reverse: true,
+                test: new Expression("get('a').isEqual(2)"),
                 script,
             }))
             .pipe(ezs.catch())
@@ -60,9 +59,7 @@ describe('swing through file(s)', () => {
             { a: 1, b: 9 },
         ])
             .pipe(ezs('swing', {
-                path: 'a',
-                test: 'equal',
-                value: 2,
+                test: new Expression("get('a').isEqual(2)"),
                 script,
             }))
             .pipe(ezs.catch())
@@ -88,8 +85,6 @@ describe('swing through file(s)', () => {
             { a: 1, b: 9 },
         ])
             .pipe(ezs('swing', {
-                path: 'a',
-                value: 2,
                 script,
             }))
             .pipe(ezs.catch())
@@ -101,7 +96,7 @@ describe('swing through file(s)', () => {
                 res += chunk.a;
             })
             .on('end', () => {
-                assert.equal(103, res);
+                assert.equal(res, 495); // 5 * 99
                 done();
             });
     });
@@ -115,7 +110,7 @@ describe('swing through file(s)', () => {
             { a: 1, b: 9 },
         ])
             .pipe(ezs('swing', {
-                path: 'a',
+                test: false,
                 script,
             }))
             .pipe(ezs.catch())
@@ -127,7 +122,7 @@ describe('swing through file(s)', () => {
                 res += chunk.a;
             })
             .on('end', () => {
-                assert.equal(6, res);
+                assert.equal(res, 6);
                 done();
             });
     });
@@ -157,6 +152,16 @@ describe('swing through file(s)', () => {
             });
     });
     it('with two paths', (done) => {
+        const localScript = `
+            [swing]
+            test = get('a').isEqual(2)
+            test = get('b').isEqual(9)
+
+            [swing/assign]
+            path = a
+            value = 10
+        `;
+
         let res = 0;
         from([
             { a: 1, b: 9 },
@@ -165,10 +170,8 @@ describe('swing through file(s)', () => {
             { a: 1, b: 9 },
             { a: 1, b: 9 },
         ])
-            .pipe(ezs('swing', {
-                path: ['a', 'b'],
-                value: [2, 9],
-                script,
+            .pipe(ezs('delegate', {
+                script: localScript,
             }))
             .pipe(ezs.catch())
             .on('error', (err) => {
@@ -179,34 +182,7 @@ describe('swing through file(s)', () => {
                 res += chunk.a;
             })
             .on('end', () => {
-                assert.equal(103, res);
-                done();
-            });
-    });
-    it('with two paths but one value', (done) => {
-        let res = 0;
-        from([
-            { a: 1, b: 9 },
-            { a: 2, b: 9 },
-            { a: 1, b: 9 },
-            { a: 1, b: 9 },
-            { a: 1, b: 9 },
-        ])
-            .pipe(ezs('swing', {
-                path: ['a', 'b'],
-                value: [2],
-                script,
-            }))
-            .pipe(ezs.catch())
-            .on('error', (err) => {
-                throw err;
-            })
-            .on('data', (chunk) => {
-                assert(typeof chunk === 'object');
-                res += chunk.a;
-            })
-            .on('end', () => {
-                assert.equal(6, res);
+                assert.equal(res, 14);
                 done();
             });
     });
@@ -227,8 +203,7 @@ describe('swing through file(s)', () => {
             { a: 1, b: 9 },
         ])
             .pipe(ezs('swing', {
-                path: 'b',
-                value: 9,
+                test: new Expression("get('b').isEqual(9)"),
                 commands,
             }))
             .pipe(ezs.catch())
@@ -254,8 +229,7 @@ describe('swing through file(s)', () => {
             { a: 1, b: 9 },
         ])
             .pipe(ezs('swing', {
-                path: 'b',
-                value: 9,
+                test: new Expression("get('b').isEqual(9)"),
                 commands,
             }))
             .pipe(ezs.catch())
@@ -281,8 +255,7 @@ describe('swing through file(s)', () => {
             { a: 1, b: 9 },
         ])
             .pipe(ezs('swing', {
-                path: 'b',
-                value: 9,
+                test: new Expression("get('b').isEqual(9)"),
                 commands,
             }))
             .pipe(ezs.catch())

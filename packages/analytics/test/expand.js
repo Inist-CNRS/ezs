@@ -5,7 +5,7 @@ import statements from '../src';
 
 ezs.addPath(__dirname);
 
-test('with script', (done) => {
+test('with script (all values)', (done) => {
     ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
@@ -39,6 +39,43 @@ test('with script', (done) => {
             expect(output[3].b).toEqual('D');
             expect(output[4].b).toEqual('E');
             expect(output[5].b).toEqual('F');
+            done();
+        });
+});
+test('with script (less values)', (done) => {
+    ezs.use(statements);
+    const input = [
+        { a: 1, b: 'a' },
+        { a: 2, b: 'b' },
+        { a: 3, b: 'c' },
+        { a: 4, b: 'd' },
+        { a: 5, b: 'e' },
+        { a: 6, b: 'f' },
+    ];
+    const output = [];
+    const script = `
+            [use]
+            plugin = analytics
+
+            [assign]
+            path = value
+            value = get('value').thru(n => (n%2 === 0 ? n : null))
+        `;
+    from(input)
+        .pipe(ezs('expand', { path: 'a', script }))
+        .pipe(ezs.catch())
+        .on('error', done)
+        .on('data', (chunk) => {
+            output.push(chunk);
+        })
+        .on('end', () => {
+            expect(output.length).toEqual(6);
+            expect(output[0].a).toEqual(null);
+            expect(output[1].a).toEqual(2);
+            expect(output[2].a).toEqual(null);
+            expect(output[3].a).toEqual(4);
+            expect(output[4].a).toEqual(null);
+            expect(output[5].a).toEqual(6);
             done();
         });
 });
@@ -187,6 +224,32 @@ test('with bad path', (done) => {
             done();
         });
 });
+test('with bad path #2', (done) => {
+    ezs.use(statements);
+    const input = [
+        { a: 1, b: 'a' },
+        { a: 2, c: 'b' },
+        { a: 3, b: 'c' },
+        { a: 4, c: 'd' },
+        { a: 5, b: 'e' },
+        { a: 6, c: 'f' },
+    ];
+    const output = [];
+    const script = `
+            [transit]
+        `;
+    from(input)
+        .pipe(ezs('expand', { path: 'b', script }))
+        .pipe(ezs.catch())
+        .on('error', done)
+        .on('data', (chunk) => {
+            output.push(chunk);
+        })
+        .on('end', () => {
+            expect(output).toEqual(input);
+            done();
+        });
+});
 test('with a script that loses the identifier', (done) => {
     ezs.use(statements);
     const input = [
@@ -217,7 +280,41 @@ test('with a script that loses the identifier', (done) => {
             done(new Error('Error is the right behavior'));
         });
 });
-test('with a script that break the identifier', (done) => {
+test('with a script that break the identifier #1', (done) => {
+    ezs.use(statements);
+    const input = [
+        { a: 1, b: 'a' },
+        { a: 2, b: 'b' },
+        { a: 3, b: 'c' },
+        { a: 4, b: 'd' },
+        { a: 5, b: 'e' },
+        { a: 6, b: 'f' },
+    ];
+    const output = [];
+    const script = `
+            [use]
+            plugin = analytics
+
+            [assign]
+            path = id.toto
+            value = get('id')
+        `;
+    from(input)
+        .pipe(ezs('expand', { path: 'b', script }))
+        .pipe(ezs.catch())
+        .on('data', (chunk) => {
+            output.push(chunk);
+        })
+        .on('error', (e) => {
+            expect(output.length).toEqual(0);
+            expect(e).toEqual(expect.not.stringContaining('id was corrupted'));
+            done();
+        })
+        .on('end', () => {
+            done(new Error('Error is the right behavior'));
+        });
+});
+test('with a script that break the identifier #2', (done) => {
     ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },

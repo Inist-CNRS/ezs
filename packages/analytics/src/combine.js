@@ -125,7 +125,13 @@ export default function combine(data, feed) {
             if (values.length && Array.isArray(pathVal)) {
                 set(data, path, values);
             } else if (values.length && !Array.isArray(pathVal)) {
-                set(data, path, values.shift());
+                const val = values.shift();
+                if (val !== null) {
+                    set(data, path, val);
+                } else {
+                    const orig = get(data, path);
+                    set(data, path, { id: orig, value: orig });
+                }
             } else if (Array.isArray(pathVal)) {
                 set(data, path, pathVal.map((id) => ({ id })));
             } else {

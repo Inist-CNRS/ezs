@@ -26,9 +26,9 @@ const getInformations = (ezs, dirPath, hostName) => new Promise((resolve) => {
     const infos = {
         openapi: '3.0.0',
         info: {
-            description: 'You can consume and/or generate data from many various ways.',
+            title: settings.title,
+            description: settings.description,
             version: VERSION,
-            title: 'EZS Web Services',
             'x-encoding': {
                 value: settings.encoding,
                 description: 'Server communication through a specific encoding.',

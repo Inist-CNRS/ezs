@@ -2,6 +2,7 @@ import from from 'from';
 import { MongoClient } from 'mongodb';
 import ezs from '../../core/src';
 import ezsLodex from '../src';
+import { handles } from '../src/mongoDatabase';
 import publishedDataset from './fixture.publishedDataset.json';
 import publishedCharacteristic from './fixture.publishedCharacteristic.json';
 import field from './fixture.field.json';
@@ -22,9 +23,9 @@ describe('mongo queries', () => {
     });
 
     afterAll(async () => {
+        await Promise.all(Object.keys(handles).map((key) => handles[key].close()));
         await connection.close();
     });
-
 
     const initDb = (url, data) => {
         const requests = Object.keys(data).map((col) => {

@@ -1,16 +1,18 @@
 import pWaitFor from 'p-wait-for';
+import once from 'once';
 
 export default class Feed {
     constructor(push, done, error, isReady) {
         this.push = push;
-        this.done = done;
-        this.error = error;
+        this.done = once(done);
+        this.error = once(error);
+        this.seal = once(() => { push(null); done(); });
         this.isReady = isReady;
     }
 
     write(something) {
         if (something === null) {
-            this.close();
+            this.seal();
         } else if (something !== undefined) {
             this.push(something);
         }
@@ -24,13 +26,19 @@ export default class Feed {
                 stream.resume();
             }
         });
-        stream.on('error', (e) => this.stop(e));
+        stream.once('error', (e) => {
+            if (done instanceof Function) {
+                return done(e);
+            }
+            return this.stop(e);
+        });
         stream.on('end', () => {
             if (done instanceof Function) {
                 return done();
             }
             return this.end();
         });
+        return new Promise((resolve) => stream.on('end', resolve));
     }
 
     end() {
@@ -43,12 +51,11 @@ export default class Feed {
     }
 
     close() {
-        this.push(null);
-        this.done();
+        this.seal();
     }
 
     stop(withError) {
         this.error(withError);
-        this.close();
+        this.seal();
     }
 }

@@ -4,7 +4,7 @@ import http from 'http';
 import ezs from '../../core/src';
 import statements from '../src';
 
-const httpbin = nock('https://httpbin.org').persist(true);
+const httpbin = nock('https://httpbin.org');
 httpbin
     .get('/get?a=a')
     .reply(200, {
@@ -27,9 +27,14 @@ httpbin
         },
     });
 httpbin
-    .get('/status/400')
+    .get('/status/400?a=a')
     .reply(400);
-
+httpbin
+    .get('/status/400?a=b')
+    .reply(400);
+httpbin
+    .get('/status/400?a=c')
+    .reply(400);
 
 describe('URLStream', () => {
     let server;
@@ -98,7 +103,11 @@ describe('URLStream', () => {
     });
     test('#2', (done) => {
         ezs.use(statements);
-        const input = [1, 2, 3, 4, 5];
+        const input = [
+            { a: 'a' },
+            { a: 'b' },
+            { a: 'c' },
+        ];
         from(input)
             .pipe(ezs('URLStream', {
                 url: 'https://httpbin.org/status/400',
@@ -109,6 +118,9 @@ describe('URLStream', () => {
                     throw e.sourceError;
                 }).toThrow('Received status code 400 (BAD REQUEST)');
                 done();
+            })
+            .on('data', () => {
+                done(new Error('Error is the right behavior'));
             })
             .on('end', () => {
                 done(new Error('Error is the right behavior'));

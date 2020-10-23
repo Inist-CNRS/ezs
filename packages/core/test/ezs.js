@@ -28,7 +28,7 @@ class Decade extends Readable {
 }
 
 describe('Build a pipeline', () => {
-    it('with no transformation', (done) => {
+    it('with no transformation #1', (done) => {
         let res = 0;
         const ten = new Decade();
         ten
@@ -43,7 +43,19 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
-
+    it('with no transformation #2', (done) => {
+        let res = 0;
+        const ten = new Decade();
+        ten
+            .pipe(ezs('transit'))
+            .on('data', (chunk) => {
+                res += chunk;
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 45);
+                done();
+            });
+    });
     it('with debug transformation', (done) => {
         let res = 0;
         const ten = new Decade();

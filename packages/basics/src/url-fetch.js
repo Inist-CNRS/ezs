@@ -1,5 +1,5 @@
 import fetch from 'fetch-with-proxy';
-import timeoutSignal from 'timeout-signal';
+import AbortController from 'node-abort-controller';
 import set from 'lodash.set';
 
 /**
@@ -14,25 +14,24 @@ import set from 'lodash.set';
  * @returns {Object}
  */
 export default async function URLFetch(data, feed) {
+    if (this.isLast()) {
+        return feed.close();
+    }
     const url = this.getParam('url');
     const target = this.getParam('target');
     const json = this.getParam('json', false);
     const timeout = this.getParam('timeout', 1000);
-    if (this.isLast()) {
-        return feed.close();
-    }
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeout);
+    const stop = () => { clearTimeout(timeoutId); controller.abort(); };
     try {
-        const response = await fetch(url, { signal: timeoutSignal(timeout) });
+        const response = await fetch(url, { signal: controller.signal });
         if (response.status !== 200) {
             const msg = `Received status code ${response.status} (${response.statusText})'`;
-            return feed.send(new Error(msg));
+            throw new Error(msg);
         }
-        let body;
-        if (json) {
-            body = await response.json();
-        } else {
-            body = await response.text();
-        }
+        const func = json ? 'json' : 'text';
+        const body = await response[func]();
         if (target && typeof target === 'string' && typeof data === 'object') {
             const result = { ...data };
             set(result, target, body);
@@ -40,6 +39,7 @@ export default async function URLFetch(data, feed) {
         }
         return feed.send(body);
     } catch (e) {
+        stop();
         return feed.send(e);
     }
 }

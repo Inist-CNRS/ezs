@@ -1,6 +1,6 @@
 import { URL, URLSearchParams } from 'url';
 import fetch from 'fetch-with-proxy';
-import timeoutSignal from 'timeout-signal';
+import AbortController from 'node-abort-controller';
 import JSONStream from 'JSONStream';
 
 /**
@@ -21,17 +21,20 @@ export default async function URLStream(data, feed) {
     const timeout = this.getParam('timeout', 1000);
     const cURL = new URL(url);
     cURL.search = new URLSearchParams(data);
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeout);
+    const stop = () => { clearTimeout(timeoutId); controller.abort(); };
     try {
-        const response = await fetch(cURL.href, { signal: timeoutSignal(timeout) });
+        const response = await fetch(cURL.href, { signal: controller.signal });
         if (response.status !== 200) {
             const msg = `Received status code ${response.status} (${response.statusText})`;
-            return feed.send(new Error(msg));
+            throw new Error(msg);
         }
         const output = path ? response.body.pipe(JSONStream.parse(path)) : response.body;
-        output.on('data', (chunk) => feed.write(chunk));
-        output.on('error', (error) => feed.send(error));
-        output.on('end', () => feed.end());
+        output.once('error', stop);
+        await feed.flow(output);
     } catch (error) {
-        return feed.send(error);
+        stop();
+        feed.send(error);
     }
 }

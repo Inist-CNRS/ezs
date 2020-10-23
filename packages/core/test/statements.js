@@ -700,4 +700,104 @@ describe('statements', () => {
                 });
         });
     });
+    describe('remove', () => {
+        it('with one test', (done) => {
+            const res = [];
+            const script = `
+            [remove]
+            test = get('a').isInteger()
+            `;
+            from([
+                { a: 1, b: 'X' },
+                { a: 'Y', b: 'Y' },
+                { a: 2, b: 'Y' },
+                { a: 'Z', b: 'Z' },
+                { a: 3, b: 'Z' },
+            ])
+                .pipe(ezs('delegate', { script }))
+                .pipe(ezs.catch())
+                .on('error', done)
+                .on('data', (chunk) => {
+                    res.push(chunk);
+                })
+                .on('end', () => {
+                    assert.equal(res.length, 2);
+                    done();
+                });
+        });
+        it('with one test (reverse mode)', (done) => {
+            const res = [];
+            const script = `
+            [remove]
+            reverse = true
+            test = get('a').isInteger()
+            `;
+            from([
+                { a: 1, b: 'X' },
+                { a: 'Y', b: 'Y' },
+                { a: 2, b: 'Y' },
+                { a: 'Z', b: 'Z' },
+                { a: 3, b: 'Z' },
+            ])
+                .pipe(ezs('delegate', { script }))
+                .pipe(ezs.catch())
+                .on('error', done)
+                .on('data', (chunk) => {
+                    res.push(chunk);
+                })
+                .on('end', () => {
+                    assert.equal(res.length, 3);
+                    done();
+                });
+        });
+        it('with two tests', (done) => {
+            const res = [];
+            const script = `
+            [remove]
+            test = get('a').isInteger()
+            test = get('b').isEqual('KO')
+            `;
+            from([
+                { a: 1, b: 'KO' },
+                { a: 'Y', b: 'Y' },
+                { a: 2, b: 'Y' },
+                { a: 'Z', b: 'Z' },
+            ])
+                .pipe(ezs('delegate', { script }))
+                .pipe(ezs.catch())
+                .on('error', done)
+                .on('data', (chunk) => {
+                    res.push(chunk);
+                })
+                .on('end', () => {
+                    assert.equal(res.length, 3);
+                    done();
+                });
+        });
+        it('with two tests (reverse mode)', (done) => {
+            const res = [];
+            const script = `
+            [remove]
+            reverse = true
+            test = get('a').isInteger()
+            test = get('b').isEqual('KO')
+            `;
+            from([
+                { a: 1, b: 'KO' },
+                { a: 'Y', b: 'Y' },
+                { a: 2, b: 'Y' },
+                { a: 'Z', b: 'Z' },
+            ])
+                .pipe(ezs('delegate', { script }))
+                .pipe(ezs.catch())
+                .on('error', done)
+                .on('data', (chunk) => {
+                    res.push(chunk);
+                })
+                .on('end', () => {
+                    assert.equal(res.length, 2);
+                    done();
+                });
+        });
+    });
 });

@@ -103,6 +103,9 @@ export default class Engine extends SafeTransform {
     }
 
     execWith(chunk, done) {
+        if (this.errorWasSent || this.nullWasSent) {
+            return done();
+        }
         const currentIndex = this.index;
         if (chunk === null && currentIndex === 1) {
             this.nullWasSent = true;

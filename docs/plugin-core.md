@@ -35,6 +35,7 @@ npm install @ezs/core
 -   [keep](#keep)
 -   [dump](#dump)
 -   [ignore](#ignore)
+-   [remove](#remove)
 -   [truncate](#truncate)
 -   [shuffle](#shuffle)
 -   [validate](#validate)
@@ -141,9 +142,8 @@ Note : works like [spawn], but each chunk share the same external pipeline
 
 #### Parameters
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of the field to test
--   `test` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** condition to swing ("equal" or "not equal" (optional, default `equal`)
--   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value of the new field
+-   `test` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** if test is true
+-   `reverse` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** reverse the test (optional, default `false`)
 -   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
 -   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
 -   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
@@ -617,6 +617,56 @@ Output:
 -   `length` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Length of the feed
 
 Returns **any** 
+
+### remove
+
+Take `Object` and remove it from the feed if test is true
+Input file:
+
+```json
+[{
+   a: 'a',
+},
+{
+   a: 2,
+},
+{
+   a: 'b',
+},
+{
+   a: 4,
+},
+{
+   a: 'c',
+}]
+```
+
+Script:
+
+```ini
+[remove]
+test = get('a).isInteger()
+```
+
+Output:
+
+```json
+[
+    {
+       a: 2,
+    },
+    {
+       a: 4,
+    }
+]
+```
+
+#### Parameters
+
+-   `test` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** if test is true
+-   `reverse` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** reverse the test (optional, default `false`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### truncate
 
