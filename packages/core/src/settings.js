@@ -30,6 +30,10 @@ const settings = {
         concurrency: nShards,
     },
     delegate: String(process.env.EZS_DELEGATE || 'delegate'),
+    title: String(process.env.EZS_TITLE
+        || 'EZS Web Services (set EZS_TITLE to change this defautl value)'),
+    description: String(process.env.EZS_DESCRIPTION
+        || 'Consume or generate data from many various ways. (set EZS_DESCRIPTION to change this default value)'),
 };
 
 export default settings;
