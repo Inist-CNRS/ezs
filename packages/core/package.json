@@ -57,7 +57,7 @@
         "yargs": "~15.4.1"
     },
     "engines": {
-        "node": ">=10 <=14"
+        "node": ">=10 <=15"
     },
     "gitHead": "bc1be6636627b450c72d59ec404c43d87d7a42aa"
 }
