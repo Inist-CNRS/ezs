@@ -14,6 +14,8 @@ npm install @ezs/basics
 
 #### Table of Contents
 
+-   [JSONString](#jsonstring)
+-   [TXTZip](#txtzip)
 -   [OBJFlatten](#objflatten)
 -   [URLConnect](#urlconnect)
 -   [URLStream](#urlstream)
@@ -29,14 +31,29 @@ npm install @ezs/basics
 -   [URLParse](#urlparse)
 -   [XMLString](#xmlstring)
 -   [JSONParse](#jsonparse)
--   [TXTZip](#txtzip)
--   [JSONString](#jsonstring)
 -   [XMLParse](#xmlparse)
 -   [TXTParse](#txtparse)
 -   [CSVString](#csvstring)
 -   [CSVObject](#csvobject)
 -   [OBJStandardize](#objstandardize)
 -   [drop](#drop)
+
+### JSONString
+
+Take `Object` and generate JSON
+
+#### Parameters
+
+-   `wrap` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** every document are wrapped into an array (optional, default `true`)
+-   `indent` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** indent JSON (optional, default `false`)
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+### TXTZip
+
+Take a String and zip it
+
+Returns **[Buffer](https://nodejs.org/api/buffer.html)** 
 
 ### OBJFlatten
 
@@ -207,23 +224,6 @@ Take `String` and parse JSON and generate objects
 -   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to split at every JSONPath found (optional, default `*`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### TXTZip
-
-Take a String and zip it
-
-Returns **[Buffer](https://nodejs.org/api/buffer.html)** 
-
-### JSONString
-
-Take `Object` and generate JSON
-
-#### Parameters
-
--   `wrap` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** every document are wrapped into an array (optional, default `true`)
--   `indent` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** indent JSON (optional, default `false`)
-
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ### XMLParse
 
