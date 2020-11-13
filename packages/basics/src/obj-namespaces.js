@@ -58,7 +58,7 @@ import mapValues from 'lodash.mapvalues';
  * ]
  * ```
  *
- * @name drop
+ * @name OBJNamespaces
  * @param {String} [prefix] the alias for a namespace
  * @param {String} [namespace] the namespace to substitute by a prefix
  * @param {String} [reference=null] a regex to find key that contains a namespace to substitute

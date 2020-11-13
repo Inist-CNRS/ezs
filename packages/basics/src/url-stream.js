@@ -4,10 +4,11 @@ import AbortController from 'node-abort-controller';
 import JSONStream from 'JSONStream';
 
 /**
+ * Take `String` asURL, throw each chunk from the result or
  * Take `Object` as parameters of URL, throw each chunk from the result
  *
  * @name URLStream
- * @param {String} [url] URL to fecth
+ * @param {String} [url] URL to fetch (by default input string is taken)
  * @param {String} [path=*] choose the path to split JSON result
  * @param {String} [timeout=1000] Timeout for each request (milliseconds)
  * @returns {Object}
@@ -19,8 +20,10 @@ export default async function URLStream(data, feed) {
     const url = this.getParam('url');
     const path = this.getParam('path', '*');
     const timeout = this.getParam('timeout', 1000);
-    const cURL = new URL(url);
-    cURL.search = new URLSearchParams(data);
+    const cURL = new URL(url || data);
+    if (url) {
+        cURL.search = new URLSearchParams(data);
+    }
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), timeout);
     const stop = () => { clearTimeout(timeoutId); controller.abort(); };

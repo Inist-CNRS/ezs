@@ -4,7 +4,7 @@ import http from 'http';
 import ezs from '../../core/src';
 import statements from '../src';
 
-const httpbin = nock('https://httpbin.org');
+const httpbin = nock('https://httpbin.org').persist();
 httpbin
     .get('/get?a=a')
     .reply(200, {
@@ -49,9 +49,33 @@ describe('URLStream', () => {
     });
 
     afterAll(() => {
+        nock.cleanAll();
         server.close();
     });
 
+    test('#0', (done) => {
+        ezs.use(statements);
+        const input = [
+            'https://httpbin.org/get?a=a',
+            'https://httpbin.org/get?a=b',
+            'https://httpbin.org/get?a=c',
+        ];
+        const output = [];
+        from(input)
+            .pipe(ezs('URLStream', {
+                path: '.args',
+            }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                output.push(`https://httpbin.org/get?a=${chunk.a}`);
+            })
+            .on('end', () => {
+                expect(output).toStrictEqual(input);
+                expect(output.length).toBe(3);
+                done();
+            });
+    });
     test('#1', (done) => {
         ezs.use(statements);
         const input = [
@@ -162,6 +186,26 @@ describe('URLStream', () => {
                 expect(() => {
                     throw e.sourceError;
                 }).toThrow('Invalid JSON (Unexpected "\\n" at position 4 in state STOP)');
+                done();
+            })
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+            });
+    });
+    test('#5', (done) => {
+        ezs.use(statements);
+        const input = [
+            { a: 'a' },
+            { a: 'b' },
+            { a: 'c' },
+        ];
+        from(input)
+            .pipe(ezs('URLStream'))
+            .pipe(ezs.catch())
+            .on('error', (e) => {
+                expect(() => {
+                    throw e.sourceError;
+                }).toThrow('Invalid URL: [object Object]');
                 done();
             })
             .on('end', () => {
