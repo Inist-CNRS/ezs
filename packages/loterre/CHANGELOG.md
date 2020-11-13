@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.23](https://github.com/Inist-CNRS/ezs/compare/@ezs/loterre@1.0.22...@ezs/loterre@1.0.23) (2020-11-13)
+
+
+### Bug Fixes
+
+* 🐛 [URLStream] works without url parameter ([0b92988](https://github.com/Inist-CNRS/ezs/commit/0b92988c1f18e1875d9ac07155e4f5b5ea460de6))
+
+
+
+
+
 ## [1.0.22](https://github.com/Inist-CNRS/ezs/compare/@ezs/loterre@1.0.21...@ezs/loterre@1.0.22) (2020-10-23)
 
 **Note:** Version bump only for package @ezs/loterre

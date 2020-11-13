@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.6.3...@ezs/basics@1.6.4) (2020-11-13)
+
+
+### Bug Fixes
+
+* 🐛 [URLStream] works without url parameter ([0b92988](https://github.com/Inist-CNRS/ezs/commit/0b92988c1f18e1875d9ac07155e4f5b5ea460de6))
+
+
+
+
+
 ## [1.6.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.6.2...@ezs/basics@1.6.3) (2020-10-26)
 
 **Note:** Version bump only for package @ezs/basics
