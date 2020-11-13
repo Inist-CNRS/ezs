@@ -18,9 +18,9 @@ npm install @ezs/basics
 -   [TXTZip](#txtzip)
 -   [OBJFlatten](#objflatten)
 -   [URLConnect](#urlconnect)
--   [URLStream](#urlstream)
 -   [OBJCount](#objcount)
 -   [URLFetch](#urlfetch)
+-   [URLStream](#urlstream)
 -   [URLString](#urlstring)
 -   [BUFObject](#bufobject)
 -   [TXTObject](#txtobject)
@@ -36,7 +36,7 @@ npm install @ezs/basics
 -   [CSVString](#csvstring)
 -   [CSVObject](#csvobject)
 -   [OBJStandardize](#objstandardize)
--   [drop](#drop)
+-   [OBJNamespaces](#objnamespaces)
 
 ### JSONString
 
@@ -81,18 +81,6 @@ the output will be the content of URL
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### URLStream
-
-Take `Object` as parameters of URL, throw each chunk from the result
-
-#### Parameters
-
--   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fecth
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose the path to split JSON result (optional, default `*`)
--   `timeout` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Timeout for each request (milliseconds) (optional, default `1000`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
 ### OBJCount
 
 Take `Object` and count how many objects are received and sent the total
@@ -113,6 +101,19 @@ Or if no target will be specified, the output will be the content of URL
 -   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fecth
 -   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** choose the key to set
 -   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Pasre as JSON the content of URL (optional, default `false`)
+-   `timeout` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Timeout for each request (milliseconds) (optional, default `1000`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### URLStream
+
+Take `String` asURL, throw each chunk from the result or
+Take `Object` as parameters of URL, throw each chunk from the result
+
+#### Parameters
+
+-   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fetch (by default input string is taken)
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose the path to split JSON result (optional, default `*`)
 -   `timeout` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Timeout for each request (milliseconds) (optional, default `1000`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
@@ -283,7 +284,7 @@ Take `Object` and standardize it so each object will have the sames keys
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### drop
+### OBJNamespaces
 
 Take `Object` and throw the same object, all keys were parsed to replace namespaces with their prefixes
 Note:  You can also parse values for specific keys (keys containing references to other keys)
