@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.6.4...@ezs/basics@1.6.5) (2020-11-13)
+
+
+### Bug Fixes
+
+* 🐛 cleartimeout ([9c1aaee](https://github.com/Inist-CNRS/ezs/commit/9c1aaee1a33543744cb0a7fb056038f5c1764f7f))
+
+
+
+
+
 ## [1.6.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.6.3...@ezs/basics@1.6.4) (2020-11-13)
 
 
