@@ -37,6 +37,7 @@ export default async function URLFetch(data, feed) {
             set(result, target, body);
             return feed.send(result);
         }
+        clearTimeout(timeoutId);
         return feed.send(body);
     } catch (e) {
         stop();

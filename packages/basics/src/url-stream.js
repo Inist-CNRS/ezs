@@ -34,6 +34,7 @@ export default async function URLStream(data, feed) {
             throw new Error(msg);
         }
         const output = path ? response.body.pipe(JSONStream.parse(path)) : response.body;
+        output.on('end', () => clearTimeout(timeoutId));
         output.once('error', stop);
         await feed.flow(output);
     } catch (error) {
