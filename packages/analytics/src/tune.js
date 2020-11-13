@@ -1,20 +1,19 @@
-import damerauLevenshtein from 'talisman/metrics/distance/damerau-levenshtein';
-import dice from 'talisman/metrics/distance/dice';
-import jaccard from 'talisman/metrics/distance/jaccard';
-import jaroWinkler from 'talisman/metrics/distance/jaro-winkler';
-import jaro from 'talisman/metrics/distance/jaro';
-import levenshtein from 'talisman/metrics/distance/levenshtein';
-import _cosine from 'talisman/metrics/distance/cosine';
-import _hamming from 'talisman/metrics/distance/hamming';
-import _euclidean from 'talisman/metrics/distance/euclidean';
-import _canberra from 'talisman/metrics/distance/canberra';
-import _chebyshev from 'talisman/metrics/distance/chebyshev';
-import _manhattan from 'talisman/metrics/distance/manhattan';
+import damerauLevenshtein from 'talisman/metrics/damerau-levenshtein';
+import dice from 'talisman/metrics/dice';
+import jaccard from 'talisman/metrics/jaccard';
+import jaroWinkler from 'talisman/metrics/jaro-winkler';
+import jaro from 'talisman/metrics/jaro';
+import levenshtein from 'talisman/metrics/levenshtein';
+import _cosine from 'talisman/metrics/cosine';
+import _hamming from 'talisman/metrics/hamming';
+import _euclidean from 'talisman/metrics/euclidean';
+import _canberra from 'talisman/metrics/canberra';
+import _chebyshev from 'talisman/metrics//chebyshev';
+import _manhattan from 'talisman/metrics/manhattan';
 
 import get from 'lodash.get';
 import clone from 'lodash.clone';
 import core from './core';
-
 
 export const normalize = (s) => {
     if (typeof s === 'string') {

@@ -1,9 +1,12 @@
 import get from 'lodash.get';
 import set from 'lodash.set';
-import generate from 'nanoid/async/generate';
+import { customAlphabet } from 'nanoid/async';
 import nolookalikes from 'nanoid-dictionary/nolookalikes';
 
-export const validKey = (input) => (Boolean(input) && typeof input === 'string' && input.search(/\w+:(\/?\/?)[^\s]+/g) >= 0);
+export const validKey = (input) =>
+    (Boolean(input) && typeof input === 'string' && input.search(/\w+:(\/?\/?)[^\s]+/g) >= 0);
+
+const generate = customAlphabet(nolookalikes, 8);
 
 //
 // JS implentation of NCDA
@@ -46,7 +49,7 @@ export default async function identify(data, feed) {
         return feed.close();
     }
     if (!validKey(uri)) {
-        const identifier = await generate(nolookalikes, 8);
+        const identifier = await generate();
         const checksum = ncda(identifier, nolookalikes);
         set(data, path, `${scheme}:/${identifier}${checksum}`);
     }
