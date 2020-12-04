@@ -6,12 +6,15 @@ import writeTo from 'stream-write';
  * Take a String and zip it
  *
  * @name TXTZip
+ * @param {Boolean} [unzip=false] to Unzip input
  * @returns {Buffer}
  */
 export default function TXTZip(data, feed) {
+    const unzip = this.getParam('unzip', false);
     if (this.isFirst()) {
         this.input = new PassThrough();
-        this.whenFinish = feed.flow(this.input.pipe(zlib.createGzip()));
+        const z = unzip ? zlib.createGunzip() : zlib.createGzip();
+        this.whenFinish = feed.flow(this.input.pipe(z));
     }
 
     if (this.isLast()) {
