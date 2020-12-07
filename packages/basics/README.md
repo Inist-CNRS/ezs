@@ -15,8 +15,8 @@ npm install @ezs/basics
 #### Table of Contents
 
 -   [JSONString](#jsonstring)
--   [TXTZip](#txtzip)
 -   [OBJFlatten](#objflatten)
+-   [TXTZip](#txtzip)
 -   [URLConnect](#urlconnect)
 -   [OBJCount](#objcount)
 -   [URLFetch](#urlfetch)
@@ -49,12 +49,6 @@ Take `Object` and generate JSON
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
-### TXTZip
-
-Take a String and zip it
-
-Returns **[Buffer](https://nodejs.org/api/buffer.html)** 
-
 ### OBJFlatten
 
 -   **See: <https://www.npmjs.com/package/flat>
@@ -68,6 +62,16 @@ Take `Object` and flat it with delimited character.
 -   `safe` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** preserve arrays and their contents, (optional, default `false`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### TXTZip
+
+Take a String and zip it
+
+#### Parameters
+
+-   `unzip` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** to Unzip input (optional, default `false`)
+
+Returns **[Buffer](https://nodejs.org/api/buffer.html)** 
 
 ### URLConnect
 
