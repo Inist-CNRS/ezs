@@ -63,7 +63,7 @@ function executePipeline(ezs, files, headers, query, triggerError, read, respons
         const responseToBeContinued = setInterval(() => response.writeContinue(), settings.response.checkInterval);
         const responseStarted = once(() => clearInterval(responseToBeContinued));
         const inputBis = createInput(firstChunk);
-        const { server, delegate } = settings;
+        const { server, delegate, tracerEnable } = settings;
         const execMode = server ? 'dispatch' : delegate;
         const statements = files.map((file) => ezs(execMode, { file, server }, query));
         if (prepend2Pipeline) {
@@ -71,6 +71,10 @@ function executePipeline(ezs, files, headers, query, triggerError, read, respons
         }
         if (append2Pipeline) {
             statements.push(ezs.createCommand(append2Pipeline, query));
+        }
+        if (tracerEnable) {
+            statements.unshift(ezs('tracer', { print: 'I' }));
+            statements.push(ezs('tracer', { print: 'O' }));
         }
         ezs.createPipeline(inputBis, statements)
             .pipe(ezs.catch((e) => e))
