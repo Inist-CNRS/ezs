@@ -9,9 +9,9 @@
  * @returns {Object}
  */
 export default function tracer(data, feed) {
-    const print = this.getParam('print', '.');
-    const first = this.getParam('first', print);
-    const last = this.getParam('last', print);
+    const print = String(this.getParam('print', '.'));
+    const first = String(this.getParam('first', print));
+    const last = String(this.getParam('last', print));
     if (this.isLast()) {
         process.stderr.write(last);
         return feed.close();
