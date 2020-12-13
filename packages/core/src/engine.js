@@ -2,6 +2,7 @@
 import debug from 'debug';
 import queue from 'concurrent-queue';
 import { hrtime } from 'process';
+import pWaitFor from 'p-wait-for';
 import Feed from './feed';
 import Shell from './shell';
 
@@ -56,6 +57,7 @@ export default class Engine extends SafeTransform {
         this.scope.isFirst = () => (this.index === 1);
         this.scope.getIndex = () => this.index;
         this.scope.isLast = () => (this.chunk === null);
+        this.scope.getCumulativeTime = () => nano2sec(hrtime.bigint() - this.stime);
         this.scope.getParam = (name, defval) => {
             if (this.params[name] !== undefined) {
                 return this.shell.run(this.params[name], this.chunk);
@@ -101,6 +103,11 @@ export default class Engine extends SafeTransform {
             done();
         });
     }
+    isReady() {
+        return (!this._readableState.ended
+            && (this._readableState.length < this._readableState.highWaterMark
+                || this._readableState.length === 0));
+    }
 
     execWith(chunk, done) {
         if (this.errorWasSent || this.nullWasSent) {
@@ -128,10 +135,12 @@ export default class Engine extends SafeTransform {
             }
             return this.push(data);
         };
-        const ready = () => (!this._readableState.ended
-            && (this._readableState.length < this._readableState.highWaterMark
-                || this._readableState.length === 0));
-        const feed = new Feed(push, done, warn, ready);
+        const wait = async () => {
+            this.pause();
+            await pWaitFor(() => this.isReady(), { interval: 20 });
+            return this.resume();
+        };
+        const feed = new Feed(push, done, warn, wait);
         try {
             this.chunk = chunk;
             return Promise.resolve(this.func.call(this.scope, chunk, feed, currentIndex)).catch((e) => {
