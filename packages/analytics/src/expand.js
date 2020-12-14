@@ -92,7 +92,6 @@ export default async function expand(data, feed) {
         this.store = createStore(ezs, 'expand', location);
         this.store.reset();
     }
-
     if (!this.commands) {
         this.commands = ezs.createCommands({
             file: this.getParam('file'),
@@ -134,5 +133,5 @@ export default async function expand(data, feed) {
         .pipe(ezs(mergeWith, { path }, this.store))
         .pipe(ezs.catch());
     ezs.writeTo(stream, core(id, value), () => stream.end());
-    feed.flow(output);
+    return feed.flow(output);
 }
