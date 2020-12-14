@@ -8,7 +8,7 @@ const AgentOptions = {
     keepAlive: true,
     timeout: 1000,
     keepAliveMsecs: 500,
-    maxSockets: 20,
+    maxSockets: 200,
     maxFreeSockets: 5,
     maxCachedSessions: 500,
 };
