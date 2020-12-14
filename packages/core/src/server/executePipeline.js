@@ -4,7 +4,10 @@ import once from 'once';
 import settings from '../settings';
 
 const dispositionFrom = ({ extension }) => (extension ? `dump.${extension}` : 'inline');
-const encodingFrom = (headers) => (headers && headers['content-encoding'] ? headers['content-encoding'] : 'identity');
+const encodingFrom = (headers) => (headers
+    && headers['accept-encoding']
+    && headers['accept-encoding'].match(/\bgzip\b/) ? 'gzip' : 'identity'
+);
 const typeFrom = ({ mimeType }) => (mimeType || 'application/octet-stream');
 const onlyOne = (item) => (Array.isArray(item) ? item.shift() : item);
 
@@ -73,8 +76,8 @@ function executePipeline(ezs, files, headers, query, triggerError, read, respons
             statements.push(ezs.createCommand(append2Pipeline, query));
         }
         if (tracerEnable) {
-            statements.unshift(ezs('tracer', { print: 'I' }));
-            statements.push(ezs('tracer', { print: 'O' }));
+            statements.unshift(ezs('tracer', { print: '-', last: '>' }));
+            statements.push(ezs('tracer', { print: '.', last: '!' }));
         }
         ezs.createPipeline(inputBis, statements)
             .pipe(ezs.catch((e) => e))
@@ -90,7 +93,7 @@ function executePipeline(ezs, files, headers, query, triggerError, read, respons
                 return feed.send(data);
             }))
             .pipe(ezs.toBuffer())
-            .pipe(ezs.compress(headers))
+            .pipe(ezs.compress(response.getHeaders()))
             .pipe(response)
             .on('error', () => responseStarted());
         firstCalled();
