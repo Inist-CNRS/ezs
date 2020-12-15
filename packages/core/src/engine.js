@@ -15,6 +15,13 @@ const nano2sec = (ns) => {
     const time = Number(sec) + (Number(msec) / 10000);
     return Number(time).toFixed(4);
 };
+let counter = 0;
+function increaseCounter() {
+    counter += 1;
+}
+function decreaseCounter() {
+    counter -= 1;
+}
 
 function createErrorWith(error, index, funcName) {
     const stk = String(error.stack).split('\n');
@@ -47,6 +54,9 @@ export default class Engine extends SafeTransform {
         this.on('pipe', (src) => {
             this.parentStream = src;
         });
+        increaseCounter();
+        this.on('error', decreaseCounter);
+        this.on('end', decreaseCounter);
         this.shell = new Shell(ezs, this.environment);
         this.chunk = {};
         this.scope = {};
@@ -58,6 +68,7 @@ export default class Engine extends SafeTransform {
         this.scope.getIndex = () => this.index;
         this.scope.isLast = () => (this.chunk === null);
         this.scope.getCumulativeTime = () => nano2sec(hrtime.bigint() - this.stime);
+        this.scope.getCounter = () => counter;
         this.scope.getParam = (name, defval) => {
             if (this.params[name] !== undefined) {
                 return this.shell.run(this.params[name], this.chunk);

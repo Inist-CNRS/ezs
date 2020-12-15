@@ -49,6 +49,7 @@ export default function metrics(data, feed) {
         this.metric('ezs_statement_chunks_count', this.total);
         this.metric('ezs_statement_chunks_bytes', this.totalBytes);
         this.metric('ezs_statement_duration_seconds', this.getCumulativeTime());
+        this.metric('ezs_statement_opened_count', this.getCounter());
     }
     if (this.isLast()) {
         return feed.close();
