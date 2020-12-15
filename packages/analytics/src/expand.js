@@ -64,7 +64,6 @@ async function mergeWith(data, feed) {
  * @param {String} [script] the external pipeline is described in a string of characters
  * @param {String} [commands] the external pipeline is described in a object
  * @param {String} [command] the external pipeline is described in a URL-like command
- * @param {String} [persistent=false] The internal database will be reused until it is deleted
  * @param {String} [cache] Use a specific ezs statement to run commands (advanced)
  * @returns {Object}
  */
@@ -81,7 +80,6 @@ export default async function expand(data, feed) {
     const id = this.getIndex().toString().padStart(20, '0');
     const value = get(data, path);
     const { ezs } = this;
-    const persistent = this.getParam('persistent', false);
 
     if (value === undefined) {
         return feed.send(data);
@@ -92,37 +90,24 @@ export default async function expand(data, feed) {
         this.store = createStore(ezs, 'expand', location);
         this.store.reset();
     }
-    if (!this.commands) {
-        this.commands = ezs.createCommands({
-            file: this.getParam('file'),
-            script: this.getParam('script'),
-            command: this.getParam('command'),
-            commands: this.getParam('commands'),
-            prepend: this.getParam('prepend'),
-            append: this.getParam('append'),
-        });
-    }
+
     try {
         await this.store.put(id, data);
     } catch (e) {
         return feed.stop(e);
     }
 
-    if (persistent) {
-        if (!this.input) {
-            debug('ezs')('[expand] with sub pipeline.');
-            this.input = ezs.createStream(ezs.objectMode());
-            const statements = ezs.compileCommands(this.commands, this.getEnv());
-            const output = ezs.createPipeline(this.input, statements)
-                .pipe(ezs(mergeWith, { path }, this.store))
-                .pipe(ezs.catch());
-            this.whenFinish = feed.flow(output);
-        }
-        return ezs.writeTo(this.input, core(id, value), () => feed.end());
-    }
-    const cache = this.getParam('cache');
     let statements;
-    const { commands } = this;
+    const commands = ezs.createCommands({
+        file: this.getParam('file'),
+        script: this.getParam('script'),
+        command: this.getParam('command'),
+        commands: this.getParam('commands'),
+        prepend: this.getParam('prepend'),
+        append: this.getParam('append'),
+    });
+
+    const cache = this.getParam('cache');
     if (cache) {
         statements = [ezs(cache, { commands }, this.getEnv())];
     } else {
