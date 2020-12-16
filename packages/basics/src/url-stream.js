@@ -1,7 +1,7 @@
 import { URL, URLSearchParams } from 'url';
 import AbortController from 'node-abort-controller';
 import JSONStream from 'JSONStream';
-import fetch from './fetch';
+import fetch from 'fetch-with-proxy';
 
 /**
  * Take `String` asURL, throw each chunk from the result or

@@ -1,7 +1,7 @@
 import JSONStream from 'JSONStream';
 import writeTo from 'stream-write';
 import AbortController from 'node-abort-controller';
-import fetch from './fetch';
+import fetch from 'fetch-with-proxy';
 
 /**
  * Take `Object` and send it to an URL

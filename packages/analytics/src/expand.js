@@ -69,10 +69,6 @@ async function mergeWith(data, feed) {
  */
 export default async function expand(data, feed) {
     if (this.isLast()) {
-        if (this.input) {
-            this.whenFinish.finally(() => feed.close());
-            return this.input.end();
-        }
         return feed.close();
     }
 

@@ -1,6 +1,6 @@
 import set from 'lodash.set';
 import AbortController from 'node-abort-controller';
-import fetch from './fetch';
+import fetch from 'fetch-with-proxy';
 
 /**
  * Take `Object` and create a new field with the content of URL.
