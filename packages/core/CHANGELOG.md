@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.20.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.19.0...@ezs/core@1.20.0) (2020-12-17)
+
+
+### Bug Fixes
+
+* 🐛 http compressionx ([a4edd96](https://github.com/Inist-CNRS/ezs/commit/a4edd96ea01696f9c787b93958411caaa22d25e4))
+* print only string ([9332f94](https://github.com/Inist-CNRS/ezs/commit/9332f94ffe386d71ddf2f0d0049ed304a96b0e2e))
+
+
+### Features
+
+* 🎸 add server metrics mode ([f67efae](https://github.com/Inist-CNRS/ezs/commit/f67efae87476758f6f5415fcfa12a1de4a519ce7))
+* add new statement [metrics] ([385cdb7](https://github.com/Inist-CNRS/ezs/commit/385cdb785d831e290aab2cc448261c22d864856b))
+* add tracer mode ([3aaea2e](https://github.com/Inist-CNRS/ezs/commit/3aaea2ee0c76adee95561209189d2dadc864b0fa))
+
+
+
+
+
 # [1.19.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.18.0...@ezs/core@1.19.0) (2020-10-23)
 
 

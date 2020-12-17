@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.9.3...@ezs/analytics@1.10.0) (2020-12-17)
+
+
+### Features
+
+* [exchange] can use one pipeline per chunk (or not) ([c6fd334](https://github.com/Inist-CNRS/ezs/commit/c6fd334387753a3e6636f3ae37eb78e1bb6bde36))
+
+
+
+
+
 ## [1.9.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.9.2...@ezs/analytics@1.9.3) (2020-10-23)
 
 
