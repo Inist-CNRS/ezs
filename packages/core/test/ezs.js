@@ -63,6 +63,8 @@ describe('Build a pipeline', () => {
             .pipe(ezs((input, output) => {
                 output.send(input);
             }))
+            .pipe(ezs('tracer'))
+            .pipe(ezs('metrics'))
             .pipe(ezs('debug', {
                 text: 'Debug message ',
             }))

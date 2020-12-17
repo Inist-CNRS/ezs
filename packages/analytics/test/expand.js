@@ -156,11 +156,14 @@ test('with no script', (done) => {
         { a: 6, b: 'f' },
     ];
     from(input)
-        .pipe(ezs('expand'))
+        .pipe(ezs('expand', { path: 'b' }))
         .pipe(ezs.catch())
         .on('error', (e) => {
             expect(e).toEqual(expect.not.stringContaining('Invalid parmeter'));
             done();
+        })
+        .on('data', () => {
+            done(new Error('Error is the right behavior'));
         })
         .on('end', () => {
             done(new Error('Error is the right behavior'));

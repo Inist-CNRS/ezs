@@ -31,11 +31,8 @@ export default function spawn(data, feed) {
         statements = ezs.compileCommands(commands, this.getEnv());
     }
     const input = ezs.createStream(ezs.objectMode());
-    ezs.createPipeline(input, statements)
-        .pipe(ezs.catch((e) => feed.write(e))) // avoid to break pipeline at each error
-        .on('error', (e) => feed.stop(e))
-        .on('data', (d) => feed.write(d))
-        .on('end', () => feed.end());
-    ezs.writeTo(input, data, () => true);
-    return input.end();
+    const output = ezs.createPipeline(input, statements)
+        .pipe(ezs.catch((e) => feed.write(e))); // avoid to break pipeline at each error
+    ezs.writeTo(input, data, () => input.end());
+    return feed.flow(output);
 }

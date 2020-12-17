@@ -1,13 +1,12 @@
-import pWaitFor from 'p-wait-for';
 import once from 'once';
 
 export default class Feed {
-    constructor(push, done, error, isReady) {
+    constructor(push, done, error, wait) {
         this.push = push;
         this.done = once(done);
         this.error = once(error);
         this.seal = once(() => { push(null); done(); });
-        this.isReady = isReady;
+        this.wait = wait;
     }
 
     write(something) {
@@ -22,7 +21,7 @@ export default class Feed {
         stream.on('data', async (data) => {
             if (!this.push(data)) {
                 stream.pause();
-                await pWaitFor(() => this.isReady());
+                await this.wait();
                 stream.resume();
             }
         });

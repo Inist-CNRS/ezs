@@ -6,6 +6,8 @@ const concurrency = Number(process.env.EZS_CONCURRENCY || cpus);
 const encoding = String(process.env.EZS_ENCODING || 'gzip');
 const port = Number(process.env.EZS_PORT || 31976);
 const cacheEnable = Boolean(autocast(process.env.EZS_CACHE));
+const tracerEnable = Boolean(autocast(process.env.EZS_TRACER));
+const metricsEnable = Boolean(autocast(process.env.EZS_METRICS));
 const nShards = Number(process.env.EZS_NSHARDS || 16);
 const cacheDelay = Number(process.env.EZS_DELAY || 3600);
 const settings = {
@@ -20,6 +22,8 @@ const settings = {
     encoding,
     port,
     server: process.env.EZS_SERVER ? String(process.env.EZS_SERVER).split(',').map((h) => h.trim()) : null,
+    tracerEnable,
+    metricsEnable,
     cacheEnable,
     cacheDelay,
     cache: {

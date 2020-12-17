@@ -60,6 +60,13 @@ function createServer(ezs, serverPort, serverPath) {
         }));
     server.setTimeout(0);
     server.listen(serverPort);
+    server.addListener('connection', (socket) => {
+        const uniqId = `${Date.now()}-${Math.floor(Math.random() * 1e6)}`;
+        debug('ezs')('New connection', uniqId);
+        socket.on('close', () => {
+            debug('ezs')('Connection closed', uniqId);
+        });
+    });
     signals.forEach((signal) => process.on(signal, () => {
         debug('ezs')(`Signal received, stoping server with PID ${process.pid}`);
         server.shutdown(() => process.exit(0));

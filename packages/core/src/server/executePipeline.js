@@ -1,10 +1,14 @@
+import { basename } from 'path';
 import _ from 'lodash';
 import { PassThrough } from 'stream';
 import once from 'once';
 import settings from '../settings';
 
 const dispositionFrom = ({ extension }) => (extension ? `dump.${extension}` : 'inline');
-const encodingFrom = (headers) => (headers && headers['content-encoding'] ? headers['content-encoding'] : 'identity');
+const encodingFrom = (headers) => (headers
+    && headers['accept-encoding']
+    && headers['accept-encoding'].match(/\bgzip\b/) ? 'gzip' : 'identity'
+);
 const typeFrom = ({ mimeType }) => (mimeType || 'application/octet-stream');
 const onlyOne = (item) => (Array.isArray(item) ? item.shift() : item);
 
@@ -63,7 +67,12 @@ function executePipeline(ezs, files, headers, query, triggerError, read, respons
         const responseToBeContinued = setInterval(() => response.writeContinue(), settings.response.checkInterval);
         const responseStarted = once(() => clearInterval(responseToBeContinued));
         const inputBis = createInput(firstChunk);
-        const { server, delegate } = settings;
+        const {
+            server,
+            delegate,
+            tracerEnable,
+            metricsEnable,
+        } = settings;
         const execMode = server ? 'dispatch' : delegate;
         const statements = files.map((file) => ezs(execMode, { file, server }, query));
         if (prepend2Pipeline) {
@@ -71,6 +80,15 @@ function executePipeline(ezs, files, headers, query, triggerError, read, respons
         }
         if (append2Pipeline) {
             statements.push(ezs.createCommand(append2Pipeline, query));
+        }
+        if (tracerEnable) {
+            statements.unshift(ezs('tracer', { print: '-', last: '>' }));
+            statements.push(ezs('tracer', { print: '.', last: '!' }));
+        }
+        if (metricsEnable) {
+            const stage = files.map((f) => basename(f, '.ini')).join('-');
+            statements.unshift(ezs('metrics', { stage, bucket: 'input' }));
+            statements.push(ezs('metrics', { stage, bucket: 'output' }));
         }
         ezs.createPipeline(inputBis, statements)
             .pipe(ezs.catch((e) => e))
@@ -86,7 +104,7 @@ function executePipeline(ezs, files, headers, query, triggerError, read, respons
                 return feed.send(data);
             }))
             .pipe(ezs.toBuffer())
-            .pipe(ezs.compress(headers))
+            .pipe(ezs.compress(response.getHeaders()))
             .pipe(response)
             .on('error', () => responseStarted());
         firstCalled();

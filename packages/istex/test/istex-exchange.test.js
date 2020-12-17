@@ -2,7 +2,7 @@ import expectedResult from "./data/exchangeExpectedResult";
 import data from "./data/exchangeData";
 
 import ezs from "../../core/src";
-import {reviewManager} from "istex-exchange";
+// import {reviewManager} from "istex-exchange";
 
 import assert from "assert";
 import nock from "nock";

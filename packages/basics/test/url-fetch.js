@@ -152,15 +152,13 @@ describe('URLFetch', () => {
         ];
         from(input)
             .pipe(ezs('URLFetch', { url: 'http://unknow' }))
-            .pipe(ezs.catch())
-            .on('error', (e) => {
+            .on('data', (e) => {
                 expect(() => {
                     throw e.sourceError;
-                }).toThrow('request to http://unknow/ failed, reason: getaddrinfo EAI_AGAIN unknow');
-                done();
+                }).toThrow('http://unknow/');
             })
             .on('end', () => {
-                done(new Error('Error is the right behavior'));
+                done();
             });
-    });
+    }, 6000);
 });

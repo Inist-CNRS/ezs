@@ -169,7 +169,7 @@ describe('URLStream', () => {
             .on('end', () => {
                 done(new Error('Error is the right behavior'));
             });
-    });
+    }, 10000);
     test('#4', (done) => {
         ezs.use(statements);
         const input = [

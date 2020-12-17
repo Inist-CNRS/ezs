@@ -20,6 +20,18 @@ export default function cli(errlog) {
                 describe: 'Enable debug mode with DEBUG=ezs',
                 type: 'boolean',
             },
+            tracer: {
+                alias: 't',
+                default: false,
+                describe: 'Enable tracer mode',
+                type: 'boolean',
+            },
+            metrics: {
+                alias: 'm',
+                default: false,
+                describe: 'Enable metrics mode',
+                type: 'boolean',
+            },
             daemon: {
                 alias: 'd',
                 describe: 'Launch daemon on a directory containing commands script',
@@ -49,6 +61,12 @@ export default function cli(errlog) {
 
     if (argv.verbose) {
         debug.enable('ezs');
+    }
+    if (argv.tracer) {
+        settings.tracerEnable = true;
+    }
+    if (argv.metrics) {
+        settings.metricsEnable = true;
     }
     if (argv.daemon) {
         let serverPath;

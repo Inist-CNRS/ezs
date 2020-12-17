@@ -12,6 +12,9 @@ ezs.use(require('./locals'));
 ezs.addPath(__dirname);
 
 ezs.settings.servePath = __dirname;
+ezs.settings.cacheEnable = true;
+ezs.settings.tracerEnable = true;
+ezs.settings.metricsEnable = true;
 
 class Upto extends Readable {
     constructor(m) {
