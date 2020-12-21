@@ -2,6 +2,7 @@ import get from 'lodash.get';
 import set from 'lodash.set';
 import debug from 'debug';
 import { createStore } from '@ezs/store';
+import each from 'async-each-series';
 import core from './core';
 
 async function mergeWith(data, feed) {
@@ -60,6 +61,7 @@ async function mergeWith(data, feed) {
  *
  * @name expand
  * @param {String} [path] the path to substitute
+ * @param {Number} [size=1] How many chunk for sending to the external pipeline
  * @param {String} [file] the external pipeline is described in a file
  * @param {String} [script] the external pipeline is described in a string of characters
  * @param {String} [commands] the external pipeline is described in a object
@@ -68,24 +70,65 @@ async function mergeWith(data, feed) {
  * @returns {Object}
  */
 export default async function expand(data, feed) {
-    if (this.isLast()) {
-        return feed.close();
-    }
-
-    const path = this.getParam('path');
-    const id = this.getIndex().toString().padStart(20, '0');
-    const value = get(data, path);
     const { ezs } = this;
+    const path = this.getParam('path');
 
-    if (value === undefined) {
-        return feed.send(data);
+    // Initialization
+    if (!this.createStatements) {
+        const cache = this.getParam('cache');
+        const commands = ezs.createCommands({
+            file: this.getParam('file'),
+            script: this.getParam('script'),
+            command: this.getParam('command'),
+            commands: this.getParam('commands'),
+            prepend: this.getParam('prepend'),
+            append: this.getParam('append'),
+        });
+
+        if (cache) {
+            this.createStatements = () => [ezs(cache, { commands }, this.getEnv())];
+        } else {
+            this.createStatements = () => ezs.compileCommands(commands, this.getEnv());
+        }
     }
+    if (!this.buffer2stream) {
+        this.buffer2stream = () => {
+            const statements = this.createStatements();
+            const stream = ezs.createStream(ezs.objectMode());
+            const output = ezs.createPipeline(stream, statements)
+                .pipe(ezs(mergeWith, { path }, this.store))
+                .pipe(ezs.catch());
+            const input = Array.from(this.buffer);
+            this.buffer = [];
 
+            each(input, (cur, next) => ezs.writeTo(stream, cur, next), () => stream.end());
+            return output;
+        };
+    }
+    if (!this.buffer) {
+        this.buffer = [];
+    }
     if (!this.store) {
         const location = this.getParam('location');
         this.store = createStore(ezs, 'expand', location);
         this.store.reset();
     }
+
+    // Processing
+
+    if (this.isLast()) {
+        if (this.buffer && this.buffer.length > 0) {
+            return feed.flow(this.buffer2stream());
+        }
+        return feed.close();
+    }
+
+    const value = get(data, path);
+    if (value === undefined) {
+        return feed.send(data);
+    }
+    const id = this.getIndex().toString().padStart(20, '0');
+    const size = Number(this.getParam('size', 1));
 
     try {
         await this.store.put(id, data);
@@ -93,26 +136,9 @@ export default async function expand(data, feed) {
         return feed.stop(e);
     }
 
-    let statements;
-    const commands = ezs.createCommands({
-        file: this.getParam('file'),
-        script: this.getParam('script'),
-        command: this.getParam('command'),
-        commands: this.getParam('commands'),
-        prepend: this.getParam('prepend'),
-        append: this.getParam('append'),
-    });
-
-    const cache = this.getParam('cache');
-    if (cache) {
-        statements = [ezs(cache, { commands }, this.getEnv())];
-    } else {
-        statements = ezs.compileCommands(commands, this.getEnv());
+    this.buffer.push(core(id, value));
+    if (this.buffer.length >= size) {
+        return feed.flow(this.buffer2stream());
     }
-    const stream = ezs.createStream(ezs.objectMode());
-    const output = ezs.createPipeline(stream, statements)
-        .pipe(ezs(mergeWith, { path }, this.store))
-        .pipe(ezs.catch());
-    ezs.writeTo(stream, core(id, value), () => stream.end());
-    return feed.flow(output);
+    return feed.end();
 }

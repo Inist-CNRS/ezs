@@ -5,7 +5,7 @@ import statements from '../src';
 
 ezs.addPath(__dirname);
 
-test('with script (all values)', (done) => {
+test('with script (all values) #1', (done) => {
     ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
@@ -26,6 +26,80 @@ test('with script (all values)', (done) => {
         `;
     from(input)
         .pipe(ezs('expand', { path: 'b', script }))
+        .pipe(ezs.catch())
+        .on('error', done)
+        .on('data', (chunk) => {
+            output.push(chunk);
+        })
+        .on('end', () => {
+            expect(output.length).toEqual(6);
+            expect(output[0].b).toEqual('A');
+            expect(output[1].b).toEqual('B');
+            expect(output[2].b).toEqual('C');
+            expect(output[3].b).toEqual('D');
+            expect(output[4].b).toEqual('E');
+            expect(output[5].b).toEqual('F');
+            done();
+        });
+});
+test('with script (all values) #2', (done) => {
+    ezs.use(statements);
+    const input = [
+        { a: 1, b: 'a' },
+        { a: 2, b: 'b' },
+        { a: 3, b: 'c' },
+        { a: 4, b: 'd' },
+        { a: 5, b: 'e' },
+        { a: 6, b: 'f' },
+    ];
+    const output = [];
+    const script = `
+            [use]
+            plugin = analytics
+
+            [assign]
+            path = value
+            value = get('value').toUpper()
+        `;
+    from(input)
+        .pipe(ezs('expand', { size: 5, path: 'b', script }))
+        .pipe(ezs.catch())
+        .on('error', done)
+        .on('data', (chunk) => {
+            output.push(chunk);
+        })
+        .on('end', () => {
+            expect(output.length).toEqual(6);
+            expect(output[0].b).toEqual('A');
+            expect(output[1].b).toEqual('B');
+            expect(output[2].b).toEqual('C');
+            expect(output[3].b).toEqual('D');
+            expect(output[4].b).toEqual('E');
+            expect(output[5].b).toEqual('F');
+            done();
+        });
+});
+test('with script (all values) #2', (done) => {
+    ezs.use(statements);
+    const input = [
+        { a: 1, b: 'a' },
+        { a: 2, b: 'b' },
+        { a: 3, b: 'c' },
+        { a: 4, b: 'd' },
+        { a: 5, b: 'e' },
+        { a: 6, b: 'f' },
+    ];
+    const output = [];
+    const script = `
+            [use]
+            plugin = analytics
+
+            [assign]
+            path = value
+            value = get('value').toUpper()
+        `;
+    from(input)
+        .pipe(ezs('expand', { size: 3, path: 'b', script }))
         .pipe(ezs.catch())
         .on('error', done)
         .on('data', (chunk) => {
