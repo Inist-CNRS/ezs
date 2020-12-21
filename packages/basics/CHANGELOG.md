@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.7.1...@ezs/basics@1.7.2) (2020-12-21)
+
+
+### Bug Fixes
+
+* 🐛 upgrade package ([cf55a34](https://github.com/Inist-CNRS/ezs/commit/cf55a34b29d0c1e7dd02a224a49339967c452496))
+
+
+
+
+
 ## [1.7.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.7.0...@ezs/basics@1.7.1) (2020-12-17)
 
 
