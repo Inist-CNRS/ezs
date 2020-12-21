@@ -22,6 +22,7 @@ npm install @ezs/core
 -   [spawn](#spawn)
 -   [delegate](#delegate)
 -   [dispatch](#dispatch)
+-   [metrics](#metrics)
 -   [swing](#swing)
 -   [parallel](#parallel)
 -   [time](#time)
@@ -131,6 +132,19 @@ Takes an `Object` dispatch processing to an external pipeline on one or more ser
 -   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
 -   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
 -   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### metrics
+
+Take `Object` and throw the same `Object`
+But in print some Prometheus metrics
+
+#### Parameters
+
+-   `stage` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Stage name (optional, default `default`)
+-   `bucket` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Bucket name (script name) (optional, default `unknow`)
+-   `frequency` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** number of chunk between two metrics computation (optional, default `10`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
