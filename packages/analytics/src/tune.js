@@ -1,20 +1,7 @@
-import damerauLevenshtein from 'talisman/metrics/distance/damerau-levenshtein';
-import dice from 'talisman/metrics/distance/dice';
-import jaccard from 'talisman/metrics/distance/jaccard';
-import jaroWinkler from 'talisman/metrics/distance/jaro-winkler';
-import jaro from 'talisman/metrics/distance/jaro';
-import levenshtein from 'talisman/metrics/distance/levenshtein';
-import _cosine from 'talisman/metrics/distance/cosine';
-import _hamming from 'talisman/metrics/distance/hamming';
-import _euclidean from 'talisman/metrics/distance/euclidean';
-import _canberra from 'talisman/metrics/distance/canberra';
-import _chebyshev from 'talisman/metrics/distance/chebyshev';
-import _manhattan from 'talisman/metrics/distance/manhattan';
-
 import get from 'lodash.get';
 import clone from 'lodash.clone';
+import { levenshteinDistance } from './algorithms';
 import core from './core';
-
 
 export const normalize = (s) => {
     if (typeof s === 'string') {
@@ -25,58 +12,12 @@ export const normalize = (s) => {
     }
     return String(s);
 };
-const vector = (input, size) => {
-    const v = Array(size).fill(0);
-    input.split('').map((x) => x.charCodeAt(0)).forEach((x, i) => { v[i] = x; });
-    return v;
-};
 
-const cosine = (x, y) => {
-    const m = Math.max(x.length, y.length);
-    return _cosine(vector(normalize(x), m), vector(normalize(y), m));
-};
-
-const hamming = (x, y) => {
-    const m = Math.max(x.length, y.length);
-    return _hamming(vector(normalize(x), m), vector(normalize(y), m));
-};
-
-const euclidean = (x, y) => {
-    const m = Math.max(x.length, y.length);
-    return _euclidean(vector(normalize(x), m), vector(normalize(y), m));
-};
-
-const canberra = (x, y) => {
-    const m = Math.max(x.length, y.length);
-    return _canberra(vector(normalize(x), m), vector(normalize(y), m));
-};
-
-const chebyshev = (x, y) => {
-    const m = Math.max(x.length, y.length);
-    return _chebyshev(vector(normalize(x), m), vector(normalize(y), m));
-};
-
-const manhattan = (x, y) => {
-    const m = Math.max(x.length, y.length);
-    return _manhattan(vector(normalize(x), m), vector(normalize(y), m));
-};
-
+const levenshtein = (x, y) => levenshteinDistance(normalize(x), normalize(y));
 const numerical = (x, y) => (x + 1) / (y + 1);
 
-
 const methods = {
-    damerauLevenshtein,
-    dice,
-    jaccard,
-    jaroWinkler,
-    jaro,
     levenshtein,
-    cosine,
-    hamming,
-    euclidean,
-    canberra,
-    chebyshev,
-    manhattan,
     numerical,
 };
 const allMethods = Object.keys(methods).join(',');
@@ -127,12 +68,10 @@ export default function tune(data, feed) {
         throw new Error(`Invalid parameter 'method'. Accepted values are : ${allMethods}`);
     }
 
-
     if (method === 'natural') {
         feed.send(core(normalize(currentValue), data));
         return;
     }
-
 
     if (!this.previousValue) {
         this.previousValue = currentValue;
@@ -140,7 +79,6 @@ export default function tune(data, feed) {
         feed.send(core(1, data));
         return;
     }
-
 
     const similarity = methods[method](this.previousValue, currentValue);
     const score = similarity === 0 ? Math.max(this.previousValue.length, currentValue.length) : similarity;

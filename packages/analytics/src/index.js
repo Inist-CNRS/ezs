@@ -17,7 +17,6 @@ import groupingByHamming from './groupingByHamming';
 import tune from './tune';
 import value from './value';
 import sort from './sort';
-import topics from './topics';
 import segment from './segment';
 import output from './output';
 import slice from './slice';
@@ -56,7 +55,6 @@ export default {
     tune,
     value,
     sort,
-    topics,
     segment,
     output,
     slice,

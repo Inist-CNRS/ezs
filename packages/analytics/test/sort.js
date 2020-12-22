@@ -6,7 +6,7 @@ import statements from '../src';
 ezs.addPath(__dirname);
 
 describe('sort ', () => {
-    it('tune & sort by jaro', (done) => {
+    it('tune & sort by levenshtein', (done) => {
         ezs.use(statements);
         const res = [];
         from([
@@ -19,7 +19,7 @@ describe('sort ', () => {
             { id: 'titi', value: 2 },
             { id: 'lorem', value: 1 },
         ])
-            .pipe(ezs('tune', { path: 'id', method: 'jaro' }))
+            .pipe(ezs('tune', { path: 'id', method: 'levenshtein' }))
             .pipe(ezs('sort'))
             .pipe(ezs('value'))
             .on('data', (chunk) => {
@@ -27,14 +27,14 @@ describe('sort ', () => {
                 res.push(chunk);
             })
             .on('end', () => {
-                assert.equal(8, res[0].value);
-                assert.equal(2, res[7].value);
+                assert.equal(1, res[0].value);
+                assert.equal(7, res[7].value);
                 assert.equal(8, res.length);
                 done();
             });
     });
 
-    it('tune & sort by euclidean', (done) => {
+    it('tune & sort by levenshtein', (done) => {
         ezs.use(statements);
         const res = [];
         from([
@@ -50,7 +50,7 @@ describe('sort ', () => {
             { id: 'electrical engineer', value: 10 },
             { id: 'electric storm', value: 11 },
         ])
-            .pipe(ezs('tune', { path: 'id', method: 'euclidean' }))
+            .pipe(ezs('tune', { path: 'id', method: 'levenshtein' }))
             .pipe(ezs('sort'))
             .pipe(ezs('value'))
             .on('data', (chunk) => {
@@ -96,7 +96,6 @@ describe('sort ', () => {
             });
     });
 
-
     it('sort by id #2', (done) => {
         ezs.use(statements);
         const res = [];
@@ -125,7 +124,6 @@ describe('sort ', () => {
                 done();
             });
     });
-
 
     it('sort by id #2', (done) => {
         const res = [];
@@ -194,8 +192,7 @@ describe('sort ', () => {
             });
     });
 
-
-    it('cosine sort #1', (done) => {
+    it('levenshtein sort #1', (done) => {
         const res = [];
         from([
 
@@ -210,7 +207,7 @@ describe('sort ', () => {
             { id: 'électrifie', value: 9 },
             { id: 'collectivité', value: 10 },
         ])
-            .pipe(ezs('tune', { path: 'id', method: 'cosine' }))
+            .pipe(ezs('tune', { path: 'id', method: 'levenshtein' }))
             .pipe(ezs('sort', { reverse: true }))
             .pipe(ezs('value'))
             .on('data', (chunk) => {
@@ -218,17 +215,15 @@ describe('sort ', () => {
                 res.push(chunk);
             })
             .on('end', () => {
-                assert.equal(10, res[0].value);
-                assert.equal(1, res[9].value);
+                assert.equal(1, res[0].value);
+                assert.equal(10, res[9].value);
                 done();
             });
     });
 
-
     it('natural sort #1', (done) => {
         const res = [];
         from([
-
             { id: 'électricité', value: 1 },
             { id: 'sélectivité', value: 2 },
             { id: 'électricien', value: 3 },

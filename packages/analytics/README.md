@@ -17,7 +17,6 @@ npm install @ezs/analytics
 #### Table of Contents
 
 -   [output](#output)
--   [topics](#topics)
 -   [minimizing](#minimizing)
 -   [files](#files)
 -   [buffers](#buffers)
@@ -42,6 +41,7 @@ npm install @ezs/analytics
 -   [groupingByLevenshtein](#groupingbylevenshtein)
 -   [keys](#keys)
 -   [groupingByEquality](#groupingbyequality)
+-   [tune](#tune)
 -   [multiply](#multiply)
 -   [less](#less)
 -   [count](#count)
@@ -51,7 +51,6 @@ npm install @ezs/analytics
 -   [expand](#expand)
 -   [distance](#distance)
 -   [segment](#segment)
--   [tune](#tune)
 -   [statistics](#statistics)
 
 ### output
@@ -99,38 +98,6 @@ Output
 ```
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-### topics
-
-Take `Object` and take values with [value] path (must be an array)
-
-```json
-[{
-}]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[topics]
-```
-
-Output:
-
-```json
-[
-]
-```
-
-#### Parameters
-
--   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
--   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### minimizing
 
@@ -1150,6 +1117,37 @@ Output:
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
+### tune
+
+Take all `Object` and sort them with selected field
+
+```json
+[{
+}]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[tune]
+```
+
+Output:
+
+```json
+[
+]
+```
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for the sort key (optional, default `id`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
 ### multiply
 
 Take `Object` and throw the same object only if there the value of the select field is equals than a value
@@ -1675,37 +1673,6 @@ Output:
 
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path (optional, default `value`)
 -   `aggregate` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** aggregate all values for all paths (or not) (optional, default `true`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### tune
-
-Take all `Object` and sort them with selected field
-
-```json
-[{
-}]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[tune]
-```
-
-Output:
-
-```json
-[
-]
-```
-
-#### Parameters
-
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for the sort key (optional, default `id`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
