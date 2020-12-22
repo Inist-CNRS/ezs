@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.21.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.20.0...@ezs/core@1.21.0) (2020-12-22)
+
+
+### Features
+
+* 🎸 remove useless method & statement ([d4000fb](https://github.com/Inist-CNRS/ezs/commit/d4000fb30f3720ed1c59019ab8c0d7cd1ceb6c4c))
+
+
+
+
+
 # [1.20.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.19.0...@ezs/core@1.20.0) (2020-12-17)
 
 

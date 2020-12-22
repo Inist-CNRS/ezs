@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.11.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.10.1...@ezs/analytics@1.11.0) (2020-12-22)
+
+
+### Features
+
+* 🎸 remove useless method & statement ([d4000fb](https://github.com/Inist-CNRS/ezs/commit/d4000fb30f3720ed1c59019ab8c0d7cd1ceb6c4c))
+* 🎸 tune [expand] sizex ([6a0825d](https://github.com/Inist-CNRS/ezs/commit/6a0825da528aa5ebafb339d8646569a058b27803))
+
+
+
+
+
 ## [1.10.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.10.0...@ezs/analytics@1.10.1) (2020-12-21)
 
 **Note:** Version bump only for package @ezs/analytics
