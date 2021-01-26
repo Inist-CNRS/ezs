@@ -626,6 +626,7 @@ describe('mongo queries', () => {
                         removedAt: {
                             $exists: false,
                         },
+                        subresourceId: null,
                     });
                     done();
                 });
@@ -649,6 +650,7 @@ describe('mongo queries', () => {
                         removedAt: {
                             $exists: false,
                         },
+                        subresourceId: null,
                         $and: [{
                             'versions.tfFF': 'The Lancet',
                         }],
