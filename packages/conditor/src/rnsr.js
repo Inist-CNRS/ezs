@@ -71,8 +71,14 @@ const followsNumeroLabel = (tokens, etabAssocs) => etabAssocs[0]
     && etabAssocs.some(
         (etabAssoc) => {
             const { labelAppauvri: label, numero } = etabAssoc;
-            const result = tokens.match(new RegExp(`(${label}( \\w+)? ${numero})`, 'gm'));
-            return Array.isArray(result) && result.length > 0;
+            if (tokens.includes(`${label}${numero}`)) return true;
+            const labelIndex = tokens.indexOf(label.toLowerCase());
+            const numeroIndex = tokens.indexOf(String(numero));
+            if (labelIndex === -1) return false;
+            if (numeroIndex === -1) return false;
+            if (numeroIndex < labelIndex) return false;
+            if (numeroIndex - labelIndex > 1) return false;
+            return true;
         },
     );
 const hasPostalAddress = (address, structure) => (
@@ -175,7 +181,7 @@ const hasEtabAssocs = (structure) => {
 export const hasLabelAndNumero = (address, structure) => {
     if (!hasLabel(address, structure.etabAssoc)) return false;
     if (!hasNumero(address, structure.etabAssoc)) return false;
-    const tokens = address.replace(/[ \-,]+/gm, ' ');
+    const tokens = address.split(/[ -,]/);
     if (!followsNumeroLabel(tokens, structure.etabAssoc)) return false;
     return true;
 };
