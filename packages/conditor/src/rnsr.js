@@ -94,8 +94,8 @@ const hasIntitule = (address, structure) => address.includes(structure.intituleA
 /**
  * Say if `target` items are in `arr` (in the same order).
  *
- * @param {arr} address
- * @param {target} structure
+ * @param {[string]} arr address in which to find the `target`
+ * @param {[string]} target structure to find within `arr`
  * @returns {boolean}
  * @private
  */
