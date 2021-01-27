@@ -92,8 +92,7 @@ const hasPostalAddress = (address, structure) => (
 const hasIntitule = (address, structure) => address.includes(structure.intituleAppauvri || '**');
 
 /**
- * Say if `target` items are in `arr`.
- * `target` items should be sorted
+ * Say if `target` items are in `arr` (in the same order).
  *
  * @param {arr} address
  * @param {target} structure
