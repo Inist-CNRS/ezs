@@ -98,28 +98,6 @@ const hasPostalAddress = (address, structure) => (
 const hasIntitule = (address, structure) => address.includes(structure.intituleAppauvri || '**');
 
 /**
- * Say if `target` items are in `arr` (in the same order).
- *
- * @param {[string]} arr address in which to find the `target`
- * @param {[string]} target structure to find within `arr`
- * @returns {boolean}
- * @private
- */
-const contain = (arr, target) => {
-    if (arr.length < target.length) return false;
-    const indexes = target.map((x) => arr.indexOf(x));
-    let sorted = true;
-    if (indexes.length === 1) return indexes[0] > -1;
-    for (let i = 0; i < indexes.length - 1; i += 1) {
-        if (indexes[i] === -1 || indexes[i + 1] === -1 || indexes[i] > indexes[i + 1]) {
-            sorted = false;
-            break;
-        }
-    }
-    return sorted;
-};
-
-/**
  * Say if the `structure` is in `address` according to the presence of sigle.
  *
  * @param {string} address
@@ -127,7 +105,7 @@ const contain = (arr, target) => {
  * @returns {boolean}
  * @private
  */
-const hasSigle = (address, structure) => contain(address.split(/[ \-,]/), structure.sigleAppauvri.split(' '));
+const hasSigle = (address, structure) => address.split(/[ -,]/).includes(structure.sigleAppauvri || '**');
 
 /**
  * Check that for at least one of the tutelles (`structure.etabAssoc.*.etab`):
