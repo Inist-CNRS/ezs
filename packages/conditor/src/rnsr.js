@@ -70,8 +70,8 @@ const hasNumero = (address, etabAssocs) => etabAssocs[0] && etabAssocs.some(
 const followsNumeroLabel = (tokens, etabAssocs) => etabAssocs[0]
     && etabAssocs.some(
         (etabAssoc) => {
-            const { labelAppauvri: label, numero } = etabAssoc,
-                result = tokens.match(new RegExp(`(${label}( [\w]+)? ${numero})`, 'gm'));
+            const { labelAppauvri: label, numero } = etabAssoc;
+            const result = tokens.match(new RegExp(`(${label}( [\w]+)? ${numero})`, 'gm'));
             return Array.isArray(result) && result.length > 0;
         },
     );
@@ -105,7 +105,7 @@ const contain = (arr, target) => {
     const indexes = target.map((x) => arr.indexOf(x));
     let sorted = true;
     if (indexes.length === 1) return indexes[0] > -1;
-    for (let i = 0; i < indexes.length - 1; i++) {
+    for (let i = 0; i < indexes.length - 1; i += 1) {
         if (arr[i] === -1 || arr[i + 1] === -1 || arr[i] > arr[i + 1]) {
             sorted = false;
             break;
