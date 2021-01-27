@@ -106,7 +106,7 @@ const contain = (arr, target) => {
     let sorted = true;
     if (indexes.length === 1) return indexes[0] > -1;
     for (let i = 0; i < indexes.length - 1; i += 1) {
-        if (arr[i] === -1 || arr[i + 1] === -1 || arr[i] > arr[i + 1]) {
+        if (indexes[i] === -1 || indexes[i + 1] === -1 || indexes[i] > indexes[i + 1]) {
             sorted = false;
             break;
         }
