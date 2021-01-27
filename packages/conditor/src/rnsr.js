@@ -71,7 +71,7 @@ const followsNumeroLabel = (tokens, etabAssocs) => etabAssocs[0]
     && etabAssocs.some(
         (etabAssoc) => {
             const { labelAppauvri: label, numero } = etabAssoc;
-            const result = tokens.match(new RegExp(`(${label}( [\w]+)? ${numero})`, 'gm'));
+            const result = tokens.match(new RegExp(`(${label}( \\w+)? ${numero})`, 'gm'));
             return Array.isArray(result) && result.length > 0;
         },
     );
