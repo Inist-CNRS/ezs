@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.6.2...@ezs/lodex@1.7.0) (2021-01-29)
+
+
+### Features
+
+* 🎸 lodex v12 introduce subresources ([67d0663](https://github.com/Inist-CNRS/ezs/commit/67d066308ac23d0c1a338b7b93618681bc38e34d))
+
+
+
+
+
 ## [1.6.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.6.1...@ezs/lodex@1.6.2) (2020-10-23)
 
 
