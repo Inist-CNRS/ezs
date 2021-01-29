@@ -121,7 +121,7 @@ const getPublishedDatasetFilter = ({
         addFieldsToFilters(matchableFields),
         addSearchFilters(match, searchableFieldNames),
         addFacetToFilters(facets, facetFieldNames, invertedFacets),
-    )({ removedAt: { $exists: false } });
+    )({ removedAt: { $exists: false }, subresourceId: null });
 };
 
 export default getPublishedDatasetFilter;
