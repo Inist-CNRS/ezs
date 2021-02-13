@@ -50,8 +50,5 @@ export default function files(data, feed) {
         feed.end();
         return;
     }
-    createReadStream(file)
-        .on('data', (d) => feed.write(d))
-        .on('error', (e) => feed.stop(e))
-        .on('end', () => feed.end());
+    feed.flow(createReadStream(file));
 }
