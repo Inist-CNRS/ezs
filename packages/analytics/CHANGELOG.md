@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.11.1...@ezs/analytics@1.11.2) (2021-02-13)
+
+
+### Bug Fixes
+
+* 🐛 stream overflowx ([d32fff1](https://github.com/Inist-CNRS/ezs/commit/d32fff147dfa32686df702bf8cd7aaa8d9c32079))
+
+
+
+
+
 ## [1.11.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.11.0...@ezs/analytics@1.11.1) (2021-01-29)
 
 **Note:** Version bump only for package @ezs/analytics
