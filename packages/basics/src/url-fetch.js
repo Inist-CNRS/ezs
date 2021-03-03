@@ -9,7 +9,8 @@ import fetch from 'fetch-with-proxy';
  * @name URLFetch
  * @param {String} [url] URL to fecth
  * @param {String} [target] choose the key to set
- * @param {String} [json=false] Pasre as JSON the content of URL
+ * @param {String} [json=false] Parse as JSON the content of URL
+ * @param {Number} [timeout=1000] Timeout in seconds
  * @returns {Object}
  */
 export default async function URLFetch(data, feed) {
@@ -19,10 +20,11 @@ export default async function URLFetch(data, feed) {
     const url = this.getParam('url');
     const target = this.getParam('target');
     const json = this.getParam('json', false);
+    const timeout = Number(this.getParam('timeout')) || 1000;
     const controller = new AbortController();
     try {
         const response = await fetch(url, {
-            timeout: 1000,
+            timeout,
             signal: controller.signal,
         });
         if (response.status !== 200) {
