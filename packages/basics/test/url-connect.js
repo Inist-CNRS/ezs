@@ -21,6 +21,7 @@ describe('URLConnect', () => {
         from(input)
             .pipe(ezs('URLConnect', {
                 url: 'http://127.0.0.1:33331/transit.ini',
+                timeout: 5000,
             }))
             .pipe(ezs.catch())
             .on('error', done)
@@ -41,6 +42,7 @@ describe('URLConnect', () => {
             .pipe(ezs('URLConnect', {
                 url: 'http://127.0.0.1:33331/transit.ini',
                 json: false,
+                timeout: 'fakevalue', // for test
             }))
             .pipe(ezs('JSONParse'))
             .pipe(ezs.catch())
