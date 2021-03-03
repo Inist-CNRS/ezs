@@ -38,14 +38,14 @@
   },
   "homepage": "https://github.com/Inist-CNRS/ezs/packages/conditor#readme",
   "dependencies": {
-    "csv-string": "3.1.7",
+    "csv-string": "4.0.1",
     "dotenv": "8.2.0",
-    "fast-xml-parser": "3.14.0",
-    "fetch-with-proxy": "1.1.0",
-    "isomorphic-fetch": "2.2.1",
+    "fast-xml-parser": "3.18.0",
+    "fetch-with-proxy": "3.0.1",
+    "isomorphic-fetch": "3.0.0",
     "progress": "2.0.3",
-    "qs": "6.9.1",
-    "ramda": "0.26.1",
+    "qs": "6.9.6",
+    "ramda": "0.27.1",
     "unidecode": "0.1.8"
   },
   "peerDependencies": {
