@@ -16,6 +16,7 @@ npm install @ezs/core
 
 -   [pack](#pack)
 -   [unpack](#unpack)
+-   [exec](#exec)
 -   [tracer](#tracer)
 -   [debug](#debug)
 -   [env](#env)
@@ -54,6 +55,17 @@ Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 Take `String` and throw `Object` builded by JSON.parse on each line
 
 Returns **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### exec
+
+Take `Object` and delegate processing to an external programme
+
+#### Parameters
+
+-   `token` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Value of EZS_TOKEN (for security)
+-   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### tracer
 

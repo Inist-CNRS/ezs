@@ -17,10 +17,10 @@ npm install @ezs/basics
 -   [JSONString](#jsonstring)
 -   [OBJFlatten](#objflatten)
 -   [TXTZip](#txtzip)
+-   [OBJCount](#objcount)
 -   [URLConnect](#urlconnect)
 -   [URLFetch](#urlfetch)
 -   [URLStream](#urlstream)
--   [OBJCount](#objcount)
 -   [URLString](#urlstring)
 -   [BUFObject](#bufobject)
 -   [TXTObject](#txtobject)
@@ -73,6 +73,16 @@ Take a String and zip it
 
 Returns **[Buffer](https://nodejs.org/api/buffer.html)** 
 
+### OBJCount
+
+Take `Object` and count how many objects are received and sent the total
+
+#### Parameters
+
+-   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
+
+Returns **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+
 ### URLConnect
 
 Take `Object` and send it to an URL
@@ -82,6 +92,7 @@ the output will be the content of URL
 
 -   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fecth
 -   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Pasre as JSON the content of URL (optional, default `false`)
+-   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in seconds (optional, default `1000`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -94,7 +105,8 @@ Or if no target will be specified, the output will be the content of URL
 
 -   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fecth
 -   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** choose the key to set
--   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Pasre as JSON the content of URL (optional, default `false`)
+-   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Parse as JSON the content of URL (optional, default `false`)
+-   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in seconds (optional, default `1000`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -107,18 +119,9 @@ Take `Object` as parameters of URL, throw each chunk from the result
 
 -   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fetch (by default input string is taken)
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose the path to split JSON result (optional, default `*`)
+-   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in seconds (optional, default `1000`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### OBJCount
-
-Take `Object` and count how many objects are received and sent the total
-
-#### Parameters
-
--   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
-
-Returns **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
 
 ### URLString
 
