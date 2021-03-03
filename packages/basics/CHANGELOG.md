@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.7.4...@ezs/basics@1.8.0) (2021-03-03)
+
+
+### Features
+
+* 🎸 Add timeout option for statements using fetch ([3f0b28a](https://github.com/Inist-CNRS/ezs/commit/3f0b28a85943b081084fd19e7c78e6d554f51c0a))
+
+
+
+
+
 ## [1.7.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.7.3...@ezs/basics@1.7.4) (2021-01-29)
 
 **Note:** Version bump only for package @ezs/basics

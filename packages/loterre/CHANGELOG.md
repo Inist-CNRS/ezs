@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.27](https://github.com/Inist-CNRS/ezs/compare/@ezs/loterre@1.0.26...@ezs/loterre@1.0.27) (2021-03-03)
+
+**Note:** Version bump only for package @ezs/loterre
+
+
+
+
+
 ## [1.0.26](https://github.com/Inist-CNRS/ezs/compare/@ezs/loterre@1.0.25...@ezs/loterre@1.0.26) (2021-01-29)
 
 **Note:** Version bump only for package @ezs/loterre
