@@ -10,6 +10,7 @@ import fetch from 'fetch-with-proxy';
  * @name URLConnect
  * @param {String} [url] URL to fecth
  * @param {String} [json=false] Pasre as JSON the content of URL
+ * @param {Number} [timeout=1000] Timeout in seconds
  * @returns {Object}
  */
 export default function URLConnect(data, feed) {
@@ -17,11 +18,13 @@ export default function URLConnect(data, feed) {
     const json = this.getParam('json', true);
     const { ezs } = this;
     if (this.isFirst()) {
+        const timeout = Number(this.getParam('timeout')) || 1000;
         const controller = new AbortController();
         this.input = ezs.createStream(ezs.objectMode());
         this.whenReady = fetch(url, {
             method: 'POST',
             body: this.input.pipe(ezs('dump')).pipe(ezs.toBuffer()),
+            timeout,
             signal: controller.signal,
         })
             .then(({ body, status, statusText }) => {
