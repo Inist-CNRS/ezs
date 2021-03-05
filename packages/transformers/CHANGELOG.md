@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/transformers@1.2.4...@ezs/transformers@1.3.0) (2021-03-05)
+
+
+### Features
+
+* 🎸 add option noerror= to [URLFetch] ([2f6f768](https://github.com/Inist-CNRS/ezs/commit/2f6f768efd9bff8a75874ea399fb139f13a19a62))
+
+
+
+
+
 ## [1.2.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/transformers@1.2.3...@ezs/transformers@1.2.4) (2020-07-27)
 
 **Note:** Version bump only for package @ezs/transformers

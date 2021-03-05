@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-alpha.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/istex@1.1.7-alpha.2...@ezs/istex@1.2.0-alpha.0) (2021-03-05)
+
+
+### Features
+
+* 🎸 add option noerror= to [URLFetch] ([2f6f768](https://github.com/Inist-CNRS/ezs/commit/2f6f768efd9bff8a75874ea399fb139f13a19a62))
+
+
+
+
+
 ## [1.1.7-alpha.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/istex@1.1.7-alpha.1...@ezs/istex@1.1.7-alpha.2) (2020-12-22)
 
 **Note:** Version bump only for package @ezs/istex

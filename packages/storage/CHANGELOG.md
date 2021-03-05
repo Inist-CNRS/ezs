@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@1.3.3...@ezs/storage@1.4.0) (2021-03-05)
+
+
+### Features
+
+* 🎸 add option noerror= to [URLFetch] ([2f6f768](https://github.com/Inist-CNRS/ezs/commit/2f6f768efd9bff8a75874ea399fb139f13a19a62))
+
+
+
+
+
 ## [1.3.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@1.3.2...@ezs/storage@1.3.3) (2021-01-29)
 
 **Note:** Version bump only for package @ezs/storage

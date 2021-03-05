@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/loterre@1.0.27...@ezs/loterre@1.1.0) (2021-03-05)
+
+
+### Features
+
+* 🎸 add option noerror= to [URLFetch] ([2f6f768](https://github.com/Inist-CNRS/ezs/commit/2f6f768efd9bff8a75874ea399fb139f13a19a62))
+
+
+
+
+
 ## [1.0.27](https://github.com/Inist-CNRS/ezs/compare/@ezs/loterre@1.0.26...@ezs/loterre@1.0.27) (2021-03-03)
 
 **Note:** Version bump only for package @ezs/loterre
