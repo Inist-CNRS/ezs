@@ -150,6 +150,33 @@ describe('URLFetch', () => {
             { a: 'b' },
             { a: 'c' },
         ];
+        const output = [];
+        const script = `
+            [URLFetch]
+            url = get('a').replace(/(.*)/, 'https://httpbin.org/status/400')
+            noerror = true
+        `;
+        from(input)
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                expect(output.length).toBe(3);
+                expect(output).toStrictEqual(input);
+                done();
+            });
+
+    });
+    test('#4', (done) => {
+        ezs.use(statements);
+        const input = [
+            { a: 'a' },
+            { a: 'b' },
+            { a: 'c' },
+        ];
         from(input)
             .pipe(ezs('URLFetch', { url: 'http://unknow' }))
             .on('data', (e) => {

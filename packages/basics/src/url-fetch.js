@@ -11,6 +11,7 @@ import fetch from 'fetch-with-proxy';
  * @param {String} [target] choose the key to set
  * @param {String} [json=false] Parse as JSON the content of URL
  * @param {Number} [timeout=1000] Timeout in seconds
+ * @param {Boolean} [noerror=false] Ignore all errors, the target field will remain undefined
  * @returns {Object}
  */
 export default async function URLFetch(data, feed) {
@@ -19,7 +20,8 @@ export default async function URLFetch(data, feed) {
     }
     const url = this.getParam('url');
     const target = this.getParam('target');
-    const json = this.getParam('json', false);
+    const json = Boolean(this.getParam('json', false));
+    const noerror = Boolean(this.getParam('noerror', false));
     const timeout = Number(this.getParam('timeout')) || 1000;
     const controller = new AbortController();
     try {
@@ -41,6 +43,9 @@ export default async function URLFetch(data, feed) {
         return feed.send(body);
     } catch (e) {
         controller.abort();
+        if (noerror) {
+            return feed.send(data);
+        }
         return feed.send(e);
     }
 }
