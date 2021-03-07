@@ -12,7 +12,7 @@ node_js:
     - lts/*  # Most recent LTS version,
     - 14     # Explicitly
     - 10     # Explicitly
-#    - node   # Current stable (tests fail with node 15)
+    - node   # Current stable
 sudo: false
 env:
     global:
