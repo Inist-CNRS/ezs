@@ -25,6 +25,12 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Cache node modules
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: npm-deps-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: npm-deps-
     - run: npm ci
     - run: npm run bootstrap
     - run: npm run build --if-present
