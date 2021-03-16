@@ -33,6 +33,6 @@ jobs:
         restore-keys: npm-deps-
     - run: npm ci
     - run: npm run bootstrap
-    - run: npm run build --if-present
+    #- run: npm run build --if-present
     - run: npm test
     - run: npm run coveralls
