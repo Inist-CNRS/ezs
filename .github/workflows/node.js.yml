@@ -32,9 +32,11 @@ jobs:
         path: ~/.npm
         key: npm-deps-${{ hashFiles('**/package-lock.json') }}
         restore-keys: npm-deps-
+
     -name: npm install and test
       run: npm ci
       run: npm test
+
     - name: Coveralls
       uses: coverallsapp/github-action@master
       with:
