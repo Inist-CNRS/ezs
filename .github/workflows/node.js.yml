@@ -34,5 +34,6 @@ jobs:
         restore-keys: npm-deps-
 
     -name: npm install and test
-      run: npm ci
-      run: npm test
+      run: |
+        npm ci
+        npm test
