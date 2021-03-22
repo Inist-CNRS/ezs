@@ -2,7 +2,7 @@
 
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 [![Build Status](https://travis-ci.org/Inist-CNRS/ezs.png?branch=master)](https://travis-ci.org/Inist-CNRS/ezs)
-[![GitHub Action Status](./.github/workflows/node.js.yml)](https://github.com/Inist-CNRS/ezs/actions/workflows/node.js.yml/badge.svg)
+[![GitHub Action Status](https://github.com/Inist-CNRS/ezs/actions/workflows/node.js.yml/badge.svg)](./.github/workflows/node.js.yml)
 [![Coverage Status](https://coveralls.io/repos/github/Inist-CNRS/ezs/badge.svg?branch=master)](https://coveralls.io/github/Inist-CNRS/ezs?branch=master)
 
 Repository containing all @ezs packages (monorepo)
