@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.23.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.23.0...@ezs/core@1.23.1) (2021-04-02)
+
+
+### Bug Fixes
+
+* 🐛 chdir for cluster ([8850615](https://github.com/Inist-CNRS/ezs/commit/88506151ebe94b75ac130feadb3e59db48f644f5))
+* 🐛 restore previous behavior ([54bf0b8](https://github.com/Inist-CNRS/ezs/commit/54bf0b8d3f9795b21b64dce06178b65d3af4a3ae))
+
+
+
+
+
 # [1.23.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.22.1...@ezs/core@1.23.0) (2021-04-02)
 
 
