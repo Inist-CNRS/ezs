@@ -1,5 +1,5 @@
 "use strict";
-import {exchange} from "istex-exchange";
+import {exchange} from "@istex/istex-exchange";
 import hl from "highland";
 import _ from "lodash";
 

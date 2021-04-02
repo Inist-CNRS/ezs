@@ -11,7 +11,7 @@ import hl from 'highland';
 ezs.use(require("../src"));
 ezs.use(require("../../basics/src"));
 
-describe.skip("Istex-exchange", function() {
+describe("Istex-exchange", function() {
 
   it("Should build kbart Lines", function(done) {
     const results = [];
