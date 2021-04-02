@@ -40,7 +40,7 @@
         "access": "public"
     },
     "dependencies": {
-        "@istex/istex-exchange": "^1.2.0",
+        "@istex/istex-exchange": "^1.2.1",
         "archiver": "~3.1.1",
         "async.queue": "~0.5.2",
         "dot-prop": "~5.1.0",

@@ -1,5 +1,5 @@
 "use strict";
-import {toKbart} from "istex-exchange";
+import {toKbart} from "@istex/istex-exchange";
 import hl from "highland";
 import istexExchange from "./istex-exchange";
 

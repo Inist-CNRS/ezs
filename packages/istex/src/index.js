@@ -11,8 +11,8 @@ import ISTEXUniq from './uniq';
 import ISTEXScroll from './scroll';
 import ISTEXUnzip from './unzip';
 import ISTEXFacet from './facet';
-// import ISTEXExchange from './istex-exchange'
-// import ISTEXToKbart from './istex-toKbart'
+import ISTEXExchange from './istex-exchange'
+import ISTEXToKbart from './istex-toKbart'
 
 export default {
     ISTEX,
@@ -28,6 +28,6 @@ export default {
     ISTEXScroll,
     ISTEXUnzip,
     ISTEXFacet,
-//    ISTEXExchange,
-//    ISTEXToKbart
+    ISTEXExchange,
+    ISTEXToKbart
 };
