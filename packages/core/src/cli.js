@@ -77,7 +77,6 @@ export default function cli(errlog) {
             process.exit(1);
         }
         debug('ezs')(`Serving ${serverPath} with ${settings.concurrency} shards`);
-        process.chdir(serverPath);
         return ezs.createCluster(settings.port, serverPath);
     }
     if (argv._.length === 0) {
