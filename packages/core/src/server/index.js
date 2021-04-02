@@ -45,7 +45,6 @@ function createMidddleware(ezs, serverPath, method, pathname) {
 const signals = ['SIGINT', 'SIGTERM'];
 
 function createServer(ezs, serverPort, serverPath) {
-    process.chdir(serverPath);
     const server = controlServer(http
         .createServer((request, response) => {
             const { method } = request;
