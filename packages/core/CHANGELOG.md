@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.23.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.22.1...@ezs/core@1.23.0) (2021-04-02)
+
+
+### Features
+
+* 🎸 change current dir in daemon mode ([2646c1c](https://github.com/Inist-CNRS/ezs/commit/2646c1c6aa188672543bea319126d77f98018c65))
+
+
+
+
+
 ## [1.22.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.22.0...@ezs/core@1.22.1) (2021-04-02)
 
 
