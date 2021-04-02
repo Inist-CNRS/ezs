@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/istex@1.2.0-alpha.0...@ezs/istex@1.2.2) (2021-04-02)
+
+
+### Bug Fixes
+
+* 🐛 compile doc & packages ([c276c1e](https://github.com/Inist-CNRS/ezs/commit/c276c1e113ba7f6f5c8f8e0f2ebfec9e3296941b))
+* 🐛 remove prepatchx ([9722773](https://github.com/Inist-CNRS/ezs/commit/9722773658bab33ea76bad2a1ea74e70fc49bd51))
+* **babel): fix an issue where Babel compilation leads to misleading test with 'instanceof Error', fix(istex-exchange:** fix dynamics links and reenable istex-exchange ([648e9c1](https://github.com/Inist-CNRS/ezs/commit/648e9c1964807e55650f7ff300f322ebde06cfd1))
+
+
+
+
+
 # [1.2.0-alpha.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/istex@1.1.7-alpha.2...@ezs/istex@1.2.0-alpha.0) (2021-03-05)
 
 
