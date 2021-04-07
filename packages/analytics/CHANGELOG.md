@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.13.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.12.1...@ezs/analytics@1.13.0) (2021-04-07)
+
+
+### Features
+
+* 🎸 add option default ([dd2dee4](https://github.com/Inist-CNRS/ezs/commit/dd2dee41ca9c127bb71a7ae6341708b253155c01))
+
+
+
+
+
 ## [1.12.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.12.0...@ezs/analytics@1.12.1) (2021-04-02)
 
 

@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.9.1...@ezs/basics@1.10.0) (2021-04-07)
+
+
+### Bug Fixes
+
+* 🐛 security patch ([37b826b](https://github.com/Inist-CNRS/ezs/commit/37b826bf8481b5fa92e00c43420037df6edebba6))
+
+
+### Features
+
+* add option noerror ([59b5916](https://github.com/Inist-CNRS/ezs/commit/59b5916bce96d861adb9500c513305892fbcecb3))
+
+
+
+
+
 ## [1.9.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.9.0...@ezs/basics@1.9.1) (2021-04-02)
 
 

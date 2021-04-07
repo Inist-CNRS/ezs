@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@1.10.1...@ezs/conditor@1.10.2) (2021-04-07)
+
+
+### Bug Fixes
+
+* 🐛 security patch ([37b826b](https://github.com/Inist-CNRS/ezs/commit/37b826bf8481b5fa92e00c43420037df6edebba6))
+
+
+
+
+
 ## [1.10.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@1.10.0...@ezs/conditor@1.10.1) (2021-04-02)
 
 **Note:** Version bump only for package @ezs/conditor

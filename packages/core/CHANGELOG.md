@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.23.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.23.1...@ezs/core@1.23.2) (2021-04-07)
+
+
+### Bug Fixes
+
+* 🐛 security patch ([37b826b](https://github.com/Inist-CNRS/ezs/commit/37b826bf8481b5fa92e00c43420037df6edebba6))
+
+
+
+
+
 ## [1.23.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.23.0...@ezs/core@1.23.1) (2021-04-02)
 
 
