@@ -19,9 +19,9 @@ npm install @ezs/basics
 -   [TXTZip](#txtzip)
 -   [OBJCount](#objcount)
 -   [URLConnect](#urlconnect)
--   [URLStream](#urlstream)
 -   [URLString](#urlstring)
 -   [URLFetch](#urlfetch)
+-   [URLStream](#urlstream)
 -   [BUFObject](#bufobject)
 -   [TXTObject](#txtobject)
 -   [TXTConcat](#txtconcat)
@@ -96,19 +96,6 @@ the output will be the content of URL
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### URLStream
-
-Take `String` asURL, throw each chunk from the result or
-Take `Object` as parameters of URL, throw each chunk from the result
-
-#### Parameters
-
--   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fetch (by default input string is taken)
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose the path to split JSON result (optional, default `*`)
--   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in seconds (optional, default `1000`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
 ### URLString
 
 Take `Object` representing a URL and stringify it
@@ -125,6 +112,20 @@ Or if no target will be specified, the output will be the content of URL
 -   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fecth
 -   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** choose the key to set
 -   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Parse as JSON the content of URL (optional, default `false`)
+-   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in seconds (optional, default `1000`)
+-   `noerror` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Ignore all errors, the target field will remain undefined (optional, default `false`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### URLStream
+
+Take `String` asURL, throw each chunk from the result or
+Take `Object` as parameters of URL, throw each chunk from the result
+
+#### Parameters
+
+-   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fetch (by default input string is taken)
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose the path to split JSON result (optional, default `*`)
 -   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in seconds (optional, default `1000`)
 -   `noerror` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Ignore all errors, the target field will remain undefined (optional, default `false`)
 
