@@ -48,6 +48,90 @@ describe('combine', () => {
                 done();
             });
     });
+    test('with script #1bis', (done) => {
+        ezs.use(statements);
+        const input = [
+            { a: 1, b: 'a' },
+            { a: 2, b: 'x' },
+            { a: 3, b: 'c' },
+            { a: 4, b: 'y' },
+            { a: 5, b: 'e' },
+            { a: 6, b: 'z' },
+        ];
+        const output = [];
+        const script = `
+            [use]
+            plugin = analytics
+
+            [replace]
+            path = value
+            value = fix({id:'a', value:'aa'},{id:'b', value:'bb'},{id:'c', value:'cc'},{id:'d', value:'dd'},{id:'e', value:'ee'},{id:'f', value:'ff'})
+
+            [exploding]
+            [value]
+        `;
+
+        from(input)
+            .pipe(ezs('combine', { path: 'b', script }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(output.length, 6);
+                assert.equal(output[0].b.value, 'aa');
+                assert.equal(output[1].b.value, 'x');
+                assert.equal(output[2].b.value, 'cc');
+                assert.equal(output[3].b.value, 'y');
+                assert.equal(output[4].b.value, 'ee');
+                assert.equal(output[5].b.value, 'z');
+                done();
+            });
+    });
+
+    test('with script #1ter', (done) => {
+        ezs.use(statements);
+        const input = [
+            { a: 1, b: 'a' },
+            { a: 2, b: 'x' },
+            { a: 3, b: 'c' },
+            { a: 4, b: 'y' },
+            { a: 5, b: 'e' },
+            { a: 6, b: 'z' },
+        ];
+        const output = [];
+        const script = `
+            [use]
+            plugin = analytics
+
+            [replace]
+            path = value
+            value = fix({id:'a', value:'aa'},{id:'b', value:'bb'},{id:'c', value:'cc'},{id:'d', value:'dd'},{id:'e', value:'ee'},{id:'f', value:'ff'})
+
+            [exploding]
+            [value]
+        `;
+
+        from(input)
+                .pipe(ezs('combine', { path: 'b', script, default: 'n/a' }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(output.length, 6);
+                assert.equal(output[0].b.value, 'aa');
+                assert.equal(output[1].b.value, 'n/a');
+                assert.equal(output[2].b.value, 'cc');
+                assert.equal(output[3].b.value, 'n/a');
+                assert.equal(output[4].b.value, 'ee');
+                assert.equal(output[5].b.value, 'n/a');
+                done();
+            });
+    });
+
     test('with script #2', (done) => {
         ezs.use(statements);
         const input = [

@@ -58,6 +58,7 @@ function sha1(input, salt) {
  *
  * @name combine
  * @param {String} [path] the path to substitute
+ * @param {String} [default] value if no substitution (otherwise value stay unchanged)
  * @param {String} [primer=auto] Data to send to the external pipeline
  * @param {String} [file] the external pipeline is described in a file
  * @param {String} [script] the external pipeline is described in a string of characters
@@ -115,6 +116,7 @@ export default function combine(data, feed) {
     }
     return whenReady
         .then(async () => {
+            const defval = this.getParam('default', null);
             const path = this.getParam('path');
             const pathVal = get(data, path);
             const keys = [].concat(pathVal).filter(Boolean);
@@ -128,6 +130,9 @@ export default function combine(data, feed) {
                 const val = values.shift();
                 if (val !== null) {
                     set(data, path, val);
+                } else if (defval !== null) {
+                    const orig = get(data, path);
+                    set(data, path, { id: orig, value: defval });
                 } else {
                     const orig = get(data, path);
                     set(data, path, { id: orig, value: orig });
