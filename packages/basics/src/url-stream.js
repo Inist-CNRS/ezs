@@ -11,6 +11,7 @@ import fetch from 'fetch-with-proxy';
  * @param {String} [url] URL to fetch (by default input string is taken)
  * @param {String} [path=*] choose the path to split JSON result
  * @param {Number} [timeout=1000] Timeout in seconds
+ * @param {Boolean} [noerror=false] Ignore all errors, the target field will remain undefined
  * @returns {Object}
  */
 export default async function URLStream(data, feed) {
@@ -19,6 +20,7 @@ export default async function URLStream(data, feed) {
     }
     const url = this.getParam('url');
     const path = this.getParam('path', '*');
+    const noerror = Boolean(this.getParam('noerror', false));
     const timeout = Number(this.getParam('timeout')) || 1000;
     const cURL = new URL(url || data);
     const controller = new AbortController();
@@ -37,8 +39,11 @@ export default async function URLStream(data, feed) {
         const output = path ? response.body.pipe(JSONStream.parse(path)) : response.body;
         output.once('error', () => controller.abort());
         await feed.flow(output);
-    } catch (error) {
+    } catch (e) {
         controller.abort();
-        feed.send(error);
+        if (noerror) {
+            return feed.send(data);
+        }
+        return feed.send(e);
     }
 }

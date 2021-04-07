@@ -150,6 +150,32 @@ describe('URLStream', () => {
                 done(new Error('Error is the right behavior'));
             });
     });
+    test('#2bis', (done) => {
+        ezs.use(statements);
+        const input = [
+            { a: 'a' },
+            { a: 'b' },
+            { a: 'c' },
+        ];
+        const output = [];
+        from(input)
+            .pipe(ezs('URLStream', {
+                url: 'https://httpbin.org/status/400',
+                noerror: true,
+            }))
+            .pipe(ezs.catch())
+            .on('error', () => {
+                done(new Error('Error should be ignored'));
+            })
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                expect(output).toStrictEqual(input);
+                expect(output.length).toBe(3);
+                done();
+            });
+    });
     test('#3', (done) => {
         ezs.use(statements);
         const input = [
