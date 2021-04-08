@@ -10,7 +10,7 @@ import fetch from 'fetch-with-proxy';
  * @param {String} [url] URL to fecth
  * @param {String} [target] choose the key to set
  * @param {String} [json=false] Parse as JSON the content of URL
- * @param {Number} [timeout=1000] Timeout in seconds
+ * @param {Number} [timeout=1000] Timeout in milliseconds
  * @param {Boolean} [noerror=false] Ignore all errors, the target field will remain undefined
  * @returns {Object}
  */

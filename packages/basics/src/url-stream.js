@@ -10,7 +10,7 @@ import fetch from 'fetch-with-proxy';
  * @name URLStream
  * @param {String} [url] URL to fetch (by default input string is taken)
  * @param {String} [path=*] choose the path to split JSON result
- * @param {Number} [timeout=1000] Timeout in seconds
+ * @param {Number} [timeout=1000] Timeout in milliseconds
  * @param {Boolean} [noerror=false] Ignore all errors, the target field will remain undefined
  * @returns {Object}
  */

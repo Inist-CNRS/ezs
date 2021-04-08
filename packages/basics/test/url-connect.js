@@ -74,6 +74,27 @@ describe('URLConnect', () => {
                 done(new Error('Error is the right behavior'));
             });
     });
+    test('#3bis', (done) => {
+        ezs.use(statements);
+        const input = [1, 2, 3, 4, 5];
+        const output = [];
+        from(input)
+            .pipe(ezs('URLConnect', {
+                url: 'http://127.0.0.1:33331/nofound.ini',
+                noerror: true,
+            }))
+            .pipe(ezs.catch())
+            .on('error', () => {
+                done(new Error('Error should be ignored'));
+            })
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                expect(output.length).toBe(0);
+                done();
+            });
+    });
     test('#4', (done) => {
         ezs.use(statements);
         const input = ['1a', '2a', '3a', '4a', '5a'];

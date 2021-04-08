@@ -10,11 +10,13 @@ import fetch from 'fetch-with-proxy';
  * @name URLConnect
  * @param {String} [url] URL to fecth
  * @param {String} [json=false] Pasre as JSON the content of URL
- * @param {Number} [timeout=1000] Timeout in seconds
+ * @param {Number} [timeout=1000] Timeout in milliseconds
+ * @param {Boolean} [noerror=false] Ignore all errors
  * @returns {Object}
  */
 export default function URLConnect(data, feed) {
     const url = this.getParam('url');
+    const noerror = Boolean(this.getParam('noerror', false));
     const json = this.getParam('json', true);
     const { ezs } = this;
     if (this.isFirst()) {
@@ -30,8 +32,7 @@ export default function URLConnect(data, feed) {
             .then(({ body, status, statusText }) => {
                 if (status !== 200) {
                     const msg = `Received status code ${status} (${statusText})`;
-                    this.whenFinish = Promise.resolve(true);
-                    return Promise.reject(new Error(msg));
+                    throw new Error(msg);
                 }
                 const output = json ? body.pipe(JSONStream.parse('*')) : body;
                 output.once('error', () => controller.abort());
@@ -40,7 +41,11 @@ export default function URLConnect(data, feed) {
             })
             .catch((e) => {
                 controller.abort();
-                feed.stop(e);
+                this.whenFinish = Promise.resolve(true);
+                if (!noerror) {
+                    feed.stop(e);
+                }
+                return Promise.resolve(true);
             });
     }
     if (this.isLast()) {
