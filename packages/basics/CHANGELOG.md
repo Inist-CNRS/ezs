@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.11.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.10.0...@ezs/basics@1.11.0) (2021-04-08)
+
+
+### Features
+
+* 🎸 add noerror option in URLConnect ([a70909b](https://github.com/Inist-CNRS/ezs/commit/a70909ba70ddcbe7c3da4dea4dea579a69a3bf46))
+
+
+
+
+
 # [1.10.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.9.1...@ezs/basics@1.10.0) (2021-04-07)
 
 
