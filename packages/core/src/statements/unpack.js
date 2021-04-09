@@ -1,4 +1,5 @@
 const eol = '\n';
+
 /**
  * Take `String` and throw `Object` builded by JSON.parse on each line
  *
@@ -26,7 +27,7 @@ export default function unpack(data, feed) {
         lines.unshift(this.remainder + lines.shift());
     }
     this.remainder = lines.pop();
-    lines.forEach((line) => {
+    lines.filter(Boolean).forEach((line) => {
         feed.write(JSON.parse(line));
     });
     return feed.end();

@@ -292,6 +292,23 @@ describe('statements', () => {
                 done();
             });
     });
+    it('unpack#3', (done) => {
+        const data = ['a\na', 'b\nb'];
+        const input = data.map((x) => JSON.stringify(x)).concat('\n').join('\n');
+        const res = [];
+        from([input])
+            .pipe(ezs('unpack'))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res[0], 'a\na');
+                assert.equal(res[1], 'b\nb');
+                done();
+            });
+    });
     it('truncate#1', (done) => {
         const res = [];
         from(['aa', 'bb', 'cc', 'dd', 'ee'])
