@@ -1,3 +1,4 @@
+import debug from 'debug';
 import { URL, URLSearchParams } from 'url';
 import AbortController from 'node-abort-controller';
 import JSONStream from 'JSONStream';
@@ -44,6 +45,7 @@ export default async function URLStream(data, feed) {
         if (noerror) {
             return feed.send(data);
         }
+        debug('ezs')(`Ignore item #${this.getIndex()} [URLConnect] <${e}>`);
         return feed.send(e);
     }
 }

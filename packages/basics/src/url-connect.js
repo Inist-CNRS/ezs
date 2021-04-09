@@ -1,4 +1,5 @@
 import JSONStream from 'JSONStream';
+import debug from 'debug';
 import writeTo from 'stream-write';
 import AbortController from 'node-abort-controller';
 import fetch from 'fetch-with-proxy';
@@ -44,6 +45,8 @@ export default function URLConnect(data, feed) {
                 this.whenFinish = Promise.resolve(true);
                 if (!noerror) {
                     feed.stop(e);
+                } else {
+                    debug('ezs')(`Ignore item #${this.getIndex()} [URLConnect] <${e}>`);
                 }
                 return Promise.resolve(true);
             });

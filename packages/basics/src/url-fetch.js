@@ -1,3 +1,4 @@
+import debug from 'debug';
 import set from 'lodash.set';
 import AbortController from 'node-abort-controller';
 import fetch from 'fetch-with-proxy';
@@ -46,6 +47,7 @@ export default async function URLFetch(data, feed) {
         if (noerror) {
             return feed.send(data);
         }
+        debug('ezs')(`Ignore item #${this.getIndex()} [URLConnect] <${e}>`);
         return feed.send(e);
     }
 }
