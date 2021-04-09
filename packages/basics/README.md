@@ -19,10 +19,10 @@ npm install @ezs/basics
 -   [TXTZip](#txtzip)
 -   [OBJCount](#objcount)
 -   [URLString](#urlstring)
+-   [BUFObject](#bufobject)
 -   [URLConnect](#urlconnect)
 -   [URLFetch](#urlfetch)
 -   [URLStream](#urlstream)
--   [BUFObject](#bufobject)
 -   [TXTObject](#txtobject)
 -   [TXTConcat](#txtconcat)
 -   [ZIPExtract](#zipextract)
@@ -89,6 +89,17 @@ Take `Object` representing a URL and stringify it
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
+### BUFObject
+
+Take `Mixed` and produce Buffer.
+For example, it's useful to send string to browser.
+
+#### Parameters
+
+-   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
+
+Returns **[Buffer](https://nodejs.org/api/buffer.html)** 
+
 ### URLConnect
 
 Take `Object` and send it to an URL
@@ -131,17 +142,6 @@ Take `Object` as parameters of URL, throw each chunk from the result
 -   `noerror` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Ignore all errors, the target field will remain undefined (optional, default `false`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### BUFObject
-
-Take `Mixed` and produce Buffer.
-For example, it's useful to send string to browser.
-
-#### Parameters
-
--   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
-
-Returns **[Buffer](https://nodejs.org/api/buffer.html)** 
 
 ### TXTObject
 
