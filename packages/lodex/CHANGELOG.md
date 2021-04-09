@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.8.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.8.2...@ezs/lodex@1.8.3) (2021-04-09)
+
+
+### Bug Fixes
+
+* 🐛 unpack crash ([326c6a0](https://github.com/Inist-CNRS/ezs/commit/326c6a0d7470703f339436da2d67cf08a50fa6db))
+
+
+
+
+
 ## [1.8.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.8.1...@ezs/lodex@1.8.2) (2021-04-07)
 
 

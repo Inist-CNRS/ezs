@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@1.10.2...@ezs/conditor@1.10.3) (2021-04-09)
+
+
+### Bug Fixes
+
+* 🐛 unpack crash ([326c6a0](https://github.com/Inist-CNRS/ezs/commit/326c6a0d7470703f339436da2d67cf08a50fa6db))
+
+
+
+
+
 ## [1.10.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@1.10.1...@ezs/conditor@1.10.2) (2021-04-07)
 
 
