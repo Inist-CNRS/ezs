@@ -1,20 +1,23 @@
 import from from 'from';
 import ezs from '../../core/src';
 import statements from '../src';
+// Let's test always the same reference
+// We encountered broken tests with newer RNSR (2020), because etabAssoc disappeared
+import RNSR2019 from './RNSR-2019.json';
 
 ezs.use(statements);
 
 describe('affAlign', () => {
     it('should end', (done) => {
         from([1, 2])
-            .pipe(ezs('affAlign'))
+            .pipe(ezs('affAlign', { RNSR: RNSR2019 }))
             .on('data', () => {})
             .on('end', done);
     });
 
     it('should accept only objects', (done) => {
         from([1, 2])
-            .pipe(ezs('affAlign'))
+            .pipe(ezs('affAlign', { RNSR: RNSR2019 }))
             .on('data', (data) => {
                 expect(data).toBeInstanceOf(Error);
                 done();
@@ -29,7 +32,7 @@ describe('affAlign', () => {
                 }],
             }],
         }])
-            .pipe(ezs('affAlign'))
+            .pipe(ezs('affAlign', { RNSR: RNSR2019 }))
             .pipe(ezs.catch(done))
             .on('data', () => {})
             .on('error', done)
@@ -38,7 +41,7 @@ describe('affAlign', () => {
 
     it('should accept only objects with authors', (done) => {
         from([{}])
-            .pipe(ezs('affAlign'))
+            .pipe(ezs('affAlign', { RNSR: RNSR2019 }))
             .on('data', (data) => {
                 expect(data).toBeInstanceOf(Error);
                 done();
@@ -54,7 +57,7 @@ describe('affAlign', () => {
                 }],
             }],
         }])
-            .pipe(ezs('affAlign'))
+            .pipe(ezs('affAlign', { RNSR: RNSR2019 }))
             .on('data', (data) => { res = [...res, data]; })
             .on('end', () => {
                 expect(res).toEqual([{
@@ -79,7 +82,7 @@ describe('affAlign', () => {
                 }],
             }],
         }])
-            .pipe(ezs('affAlign'))
+            .pipe(ezs('affAlign', { RNSR: RNSR2019 }))
             .on('data', (data) => { res = [...res, data]; })
             .on('end', () => {
                 expect(res).toEqual([{
@@ -111,7 +114,7 @@ describe('affAlign', () => {
                     }],
                 }],
             }])
-                .pipe(ezs('affAlign'))
+                .pipe(ezs('affAlign', { RNSR: RNSR2019 }))
                 .on('data', (data) => {
                     res = [...res, data];
                 })
@@ -144,7 +147,7 @@ describe('affAlign', () => {
                     }],
                 }],
             }])
-                .pipe(ezs('affAlign'))
+                .pipe(ezs('affAlign', { RNSR: RNSR2019 }))
                 .on('data', (data) => {
                     res = [...res, data];
                 })
@@ -171,7 +174,7 @@ describe('affAlign', () => {
                     }],
                 }],
             }])
-                .pipe(ezs('affAlign'))
+                .pipe(ezs('affAlign', { RNSR: RNSR2019 }))
                 .on('data', (data) => {
                     res = [...res, data];
                 })
@@ -197,7 +200,7 @@ describe('affAlign', () => {
                     }],
                 }],
             }])
-                .pipe(ezs('affAlign'))
+                .pipe(ezs('affAlign', { RNSR: RNSR2019 }))
                 .on('data', (data) => {
                     res = [...res, data];
                 })
@@ -224,7 +227,7 @@ describe('affAlign', () => {
                     }],
                 }],
             }])
-                .pipe(ezs('affAlign'))
+                .pipe(ezs('affAlign', { RNSR: RNSR2019 }))
                 .on('data', (data) => {
                     res = [...res, data];
                 })
@@ -251,7 +254,7 @@ describe('affAlign', () => {
                     }],
                 }],
             }])
-                .pipe(ezs('affAlign'))
+                .pipe(ezs('affAlign', { RNSR: RNSR2019 }))
                 .on('data', (data) => {
                     res = [...res, data];
                 })
@@ -278,7 +281,7 @@ describe('affAlign', () => {
                     }],
                 }],
             }])
-                .pipe(ezs('affAlign'))
+                .pipe(ezs('affAlign', { RNSR: RNSR2019 }))
                 .on('data', (data) => {
                     res = [...res, data];
                 })
@@ -305,7 +308,7 @@ describe('affAlign', () => {
                     }],
                 }],
             }])
-                .pipe(ezs('affAlign'))
+                .pipe(ezs('affAlign', { RNSR: RNSR2019 }))
                 .on('data', (data) => {
                     res = [...res, data];
                 })
@@ -332,7 +335,7 @@ describe('affAlign', () => {
                     }],
                 }],
             }])
-                .pipe(ezs('affAlign'))
+                .pipe(ezs('affAlign', { RNSR: RNSR2019 }))
                 .on('data', (data) => {
                     res = [...res, data];
                 })
@@ -359,7 +362,7 @@ describe('affAlign', () => {
                     }],
                 }],
             }])
-                .pipe(ezs('affAlign'))
+                .pipe(ezs('affAlign', { RNSR: RNSR2019 }))
                 .on('data', (data) => {
                     res = [...res, data];
                 })
@@ -387,7 +390,7 @@ describe('affAlign', () => {
                     }],
                 }],
             }])
-                .pipe(ezs('affAlign'))
+                .pipe(ezs('affAlign', { RNSR: RNSR2019 }))
                 .on('data', (data) => {
                     res = [...res, data];
                 })
@@ -416,7 +419,7 @@ describe('affAlign', () => {
                 }],
             }],
         }])
-            .pipe(ezs('affAlign'))
+            .pipe(ezs('affAlign', { RNSR: RNSR2019 }))
             .on('data', (data) => {
                 res = [...res, data];
             })
@@ -443,7 +446,7 @@ describe('affAlign', () => {
                 }],
             }],
         }])
-            .pipe(ezs('affAlign'))
+            .pipe(ezs('affAlign', { RNSR: RNSR2019 }))
             .on('data', (data) => {
                 res = [...res, data];
             })
@@ -470,7 +473,7 @@ describe('affAlign', () => {
                 }],
             }],
         }])
-            .pipe(ezs('affAlign'))
+            .pipe(ezs('affAlign', { RNSR: RNSR2019 }))
             .on('data', (data) => {
                 res = [...res, data];
             })
@@ -497,7 +500,7 @@ describe('affAlign', () => {
                 }],
             }],
         }])
-            .pipe(ezs('affAlign'))
+            .pipe(ezs('affAlign', { RNSR: RNSR2019 }))
             .on('data', (data) => {
                 res = [...res, data];
             })
@@ -531,7 +534,7 @@ describe('affAlign', () => {
                     }],
                 }],
             }])
-                .pipe(ezs('affAlign'))
+                .pipe(ezs('affAlign', { RNSR: RNSR2019 }))
                 .on('data', (data) => {
                     res = [...res, data];
                 })
@@ -565,7 +568,7 @@ describe('affAlign', () => {
                     }],
                 }],
             }])
-                .pipe(ezs('affAlign'))
+                .pipe(ezs('affAlign', { RNSR: RNSR2019 }))
                 .on('data', (data) => {
                     res = [...res, data];
                 })
@@ -601,7 +604,7 @@ describe('affAlign', () => {
                     }],
                 }],
             }])
-                .pipe(ezs('affAlign'))
+                .pipe(ezs('affAlign', { RNSR: RNSR2019 }))
                 .on('data', (data) => {
                     res = [...res, data];
                 })
@@ -637,7 +640,7 @@ describe('affAlign', () => {
                     }],
                 }],
             }])
-                .pipe(ezs('affAlign'))
+                .pipe(ezs('affAlign', { RNSR: RNSR2019 }))
                 .on('data', (data) => {
                     res = [...res, data];
                 })
@@ -667,7 +670,7 @@ describe('affAlign', () => {
                     }],
                 }],
             }])
-                .pipe(ezs('affAlign'))
+                .pipe(ezs('affAlign', { RNSR: RNSR2019 }))
                 .on('data', (data) => {
                     res = [...res, data];
                 })
@@ -695,7 +698,7 @@ describe('affAlign', () => {
                     }],
                 }],
             }])
-                .pipe(ezs('affAlign'))
+                .pipe(ezs('affAlign', { RNSR: RNSR2019 }))
                 .on('data', (data) => {
                     res = [...res, data];
                 })
@@ -723,7 +726,7 @@ describe('affAlign', () => {
                     }],
                 }],
             }])
-                .pipe(ezs('affAlign'))
+                .pipe(ezs('affAlign', { RNSR: RNSR2019 }))
                 .on('data', (data) => {
                     res = [...res, data];
                 })

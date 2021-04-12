@@ -3,7 +3,10 @@ import { isIn } from './rnsr';
 import { depleteString } from './strings';
 
 /** @type {import('./rnsr').RepNatStrRech} RNSR */
-import RNSR from '../data/RNSR.json';
+import lastRNSR from '../data/RNSR.json';
+
+/** @type {import('./rnsr').RepNatStrRech} RNSR */
+let RNSR = lastRNSR;
 
 /**
  * @typedef {Object<string, any>} Affiliation
@@ -113,9 +116,13 @@ const getYear = pipe(slice(0, 4), Number);
  * ```
  *
  * @export
+ * @param {RNSR} [RNSR] the RNSR to use instead of the current one
  * @name affAlign
  */
 export default async function affAlign(data, feed) {
+    if (this.isFirst()) {
+        RNSR = this.getParam('RNSR', lastRNSR);
+    }
     if (this.isLast()) {
         return feed.close();
     }

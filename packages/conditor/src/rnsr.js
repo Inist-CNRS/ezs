@@ -1,6 +1,5 @@
 /**
- * @typedef {Object<string, any>} RepNatStrRech
- * @property {Structures} structures
+ * @typedef {{structures: Structures}} RepNatStrRech
  * @private
  */
 
