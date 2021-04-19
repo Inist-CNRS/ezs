@@ -18,13 +18,15 @@ export default class Shell {
         this.ezs = ezs;
         this.environment = environment;
         const lodash = _.runInContext();
+        const getEnvVar = (path, defval) => (path ? _.get(this.environment, path, defval) : this.environment);
         lodash.mixin({
             ...mixins,
-            env: (i, p, d) => (p ? _.get(this.environment, p, d) : this.environment),
+            env: (i, p, d) => getEnvVar(p, d),
         });
         this.contextObject = {
             _: lodash,
             self: {},
+            env: (p, d) => getEnvVar(p, d),
         };
         this.context = vm.createContext(this.contextObject);
     }
