@@ -46,7 +46,7 @@ import mongoDatabase from './mongoDatabase';
  * @param {string} [field=auto] name contains the value to find (generaly equals to path)
  * @name LodexInjectCountFrom
  */
-export async function injectCountFrom(data, feed) {
+export async function LodexinjectCountFrom(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
@@ -75,5 +75,5 @@ export async function injectCountFrom(data, feed) {
     return feed.send(data);
 }
 export default {
-    injectCountFrom,
+    injectCountFrom: LodexinjectCountFrom,
 };

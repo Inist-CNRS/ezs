@@ -28,6 +28,7 @@ import injectSyndicationFrom from './injectSyndicationFrom';
 import injectCountFrom from './injectCountFrom';
 import labelizeFieldID from './labelizeFieldID';
 import buildContext from './buildContext';
+import aggregateQuery from './aggregateQuery';
 
 export default {
     flattenPatch,
@@ -58,6 +59,7 @@ export default {
     formatOutput,
     parseNQuads,
     buildContext,
+    aggregateQuery,
     writeTurtle,
     // aliases
     fixFlatten: flattenPatch.flattenPatch,
@@ -74,4 +76,5 @@ export default {
     LodexBuildContext: buildContext.buildContext,
     LodexInjectSyndicationFrom: injectSyndicationFrom.injectSyndicationFrom,
     LodexInjectCountFrom: injectCountFrom.injectCountFrom,
+    LodexAggregateQuery: aggregateQuery.aggregateQuery,
 };

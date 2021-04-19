@@ -686,4 +686,110 @@ describe('mongo queries', () => {
                 });
         });
     });
+
+    describe('aggregateQuery', () => {
+        beforeEach(() => initDb(connectionStringURI, publishedDataset));
+        afterEach(() => drop());
+
+        it('should return results', (done) => {
+            let res = [];
+            from([{
+                connectionStringURI,
+            }])
+                .pipe(ezs('LodexAggregateQuery', {
+                    stage: [
+                        '$project: { value: { $arrayElemAt: [ "$versions.tfFF", -1 ] } }',
+                        '$unwind: "$value"',
+                        '$group: { _id: "$value",value: {$sum: 1} }',
+                    ],
+                }))
+                .pipe(ezs.catch())
+                .on('error', done)
+                .on('data', (data) => {
+                    expect(data.value).toBeGreaterThanOrEqual(1);
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    expect(res).toHaveLength(10);
+                    done();
+                });
+        });
+
+        it('should return results with referer', (done) => {
+            let res = [];
+            from([{
+                connectionStringURI,
+            }])
+                .pipe(ezs('LodexAggregateQuery', {
+                    stage: [
+                        '$project: { value: { $arrayElemAt: [ "$versions.tfFF", -1 ] } }',
+                        '$unwind: "$value"',
+                        '$group: { _id: "$value",value: {$sum: 1} }',
+                    ],
+                    referer: 'referer',
+                }))
+                .pipe(ezs.catch())
+                .on('error', done)
+                .on('data', (data) => {
+                    expect(data.value).toBeGreaterThanOrEqual(1);
+                    expect(data.referer).toBe('referer');
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    expect(res).toHaveLength(10);
+                    done();
+                });
+        });
+
+        it('should return no results ', (done) => {
+            let res = [];
+            from([{
+                connectionStringURI,
+                filter: { uri: 'xxxx' },
+            }])
+                .pipe(ezs('LodexAggregateQuery', {
+                    stage: [
+                        '$project: { value: { $arrayElemAt: [ "$versions.tfFF", -1 ] } }',
+                        'wrong stage',
+                        '$unwind: "$value"',
+                        '$group: { _id: "$value",value: {$sum: 1} }',
+                    ],
+                }))
+                .pipe(ezs.catch())
+                .on('error', done)
+                .on('data', (data) => {
+                    expect(data.total).toBe(0);
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    expect(res).toHaveLength(1);
+                    done();
+                });
+        });
+
+        it('should return error', (done) => {
+            from([{
+                aaa: 'bbbb',
+            }])
+                .pipe(ezs('LodexAggregateQuery', {
+                    stage: [
+                        '$project: { value: { $arrayElemAt: [ "$versions.tfFF", -1 ] } }',
+                        'wrong stage',
+                        '$unwind: "$value"',
+                        '$group: { _id: "$value",value: {$sum: 1} }',
+                    ],
+                }))
+                .pipe(ezs.catch())
+                .pipe(ezs.catch())
+                .on('error', (e) => {
+                    expect(() => {
+                        throw e.sourceError;
+                    }).toThrow('Invalid connection string');
+                    done();
+                })
+                .on('end', () => {
+                    done(new Error('Error is the right behavior'));
+                });
+        });
+    });
 });
