@@ -21,7 +21,8 @@ function createURI(data, feed) {
 
 const computeHash = (commands, environment, chunk) => {
     const commandsHash = hashCoerce.hash(commands);
-    const environmentHash = hashCoerce.hash(environment);
+    // environment can be a special object, for example req.query => [Object: null prototype] {}
+    const environmentHash = hashCoerce.hash({ ...environment });
     const firstChunkHash = hashCoerce.hash(chunk);
     const hashs = [commandsHash, environmentHash, firstChunkHash];
     debug('ezs')('Compute cache hash with', hashs.map((h) => h.slice(0, 5).concat('...')));
