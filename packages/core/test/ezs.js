@@ -1394,7 +1394,7 @@ describe('Build a pipeline', () => {
           path = a
           value = env('a')
           path = b
-          value = env('b')
+          value = fix(env('b'))
         `;
         const res = [];
         from([
