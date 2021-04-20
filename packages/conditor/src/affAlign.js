@@ -1,12 +1,32 @@
+import fs from 'fs';
+import path from 'path';
 import { any, pipe, slice } from 'ramda';
 import { isIn } from './rnsr';
 import { depleteString } from './strings';
 
-/** @type {import('./rnsr').RepNatStrRech} RNSR */
-import lastRNSR from '../data/RNSR.json';
+/** @typedef {import('./rnsr').RepNatStrRech} RNSR */
 
-/** @type {import('./rnsr').RepNatStrRech} RNSR */
-let RNSR = lastRNSR;
+/** @type {RNSR} */
+let RNSR;
+
+/**
+ * Cache the different years of RNSR
+ * @type {Object<number,RNSR>}
+ */
+const loadedRNSR = {};
+
+/**
+ * Get the RNSR of year
+ * @param {number}  year    4 digits year of RNSR to load
+ * @returns {Promise<RNSR|null>}
+ */
+const getRnsrYear = async (year) => {
+    if (loadedRNSR[year]) return loadedRNSR[year];
+    const filePath = path.resolve(__dirname, `../data/RNSR-${year}.json`);
+    const rnsr = JSON.parse(await fs.promises.readFile(filePath, { encoding: 'utf-8' }));
+    loadedRNSR[year] = rnsr;
+    return rnsr;
+};
 
 /**
  * @typedef {Object<string, any>} Affiliation
@@ -116,12 +136,13 @@ const getYear = pipe(slice(0, 4), Number);
  * ```
  *
  * @export
- * @param {RNSR} [RNSR] the RNSR to use instead of the current one
+ * @param {number} [year] Year of the RNSR to use instead of the last one
  * @name affAlign
  */
 export default async function affAlign(data, feed) {
     if (this.isFirst()) {
-        RNSR = this.getParam('RNSR', lastRNSR);
+        const rnsrYear = this.getParam('year', 2020);
+        RNSR = await getRnsrYear(rnsrYear);
     }
     if (this.isLast()) {
         return feed.close();
