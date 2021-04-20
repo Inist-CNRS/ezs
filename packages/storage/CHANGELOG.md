@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@1.4.1...@ezs/storage@1.4.2) (2021-04-20)
+
+
+### Bug Fixes
+
+* 🐛 compute id with object with A Null Prototype ([76679a1](https://github.com/Inist-CNRS/ezs/commit/76679a17a4bb4cd33068ece7092b2996138f2a0a))
+
+
+
+
+
 ## [1.4.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@1.4.0...@ezs/storage@1.4.1) (2021-04-02)
 
 
