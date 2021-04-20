@@ -102,6 +102,8 @@ npx lerna run build
 Only if you have the rights (to GitHub for the first line, to npm
 [`@ezs`](https://www.npmjs.com/org/ezs) organization for the second line).
 
+You have to be in `master` branch.
+
 ```bash
 npm run release:version
 npm run release:publish

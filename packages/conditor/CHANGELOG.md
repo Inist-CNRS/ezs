@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@1.10.3...@ezs/conditor@2.0.0) (2021-04-20)
+
+
+### Features
+
+* **conditor:** Replace RNSR param with year ([f90ec24](https://github.com/Inist-CNRS/ezs/commit/f90ec2416aa324044a458bacc330e4a07f76983f))
+
+
+### BREAKING CHANGES
+
+* **conditor:** Remove old RNSR parameter
+
+
+
+
+
 ## [1.10.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@1.10.2...@ezs/conditor@1.10.3) (2021-04-09)
 
 

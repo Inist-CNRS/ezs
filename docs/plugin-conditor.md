@@ -52,13 +52,10 @@ Sachant qu'on appauvrit (casse, accents, tiret, apostrophe) tous les champs.
 
 #### Table of Contents
 
--   [RNSR](#rnsr)
 -   [compareRnsr](#comparernsr)
 -   [conditorScroll](#conditorscroll)
 -   [affAlign](#affalign)
 -   [xPublicationYears](#xpublicationyears)
-
-### RNSR
 
 ### compareRnsr
 
@@ -143,7 +140,7 @@ Output
 ]]
 ```
 
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>**
 
 ### affAlign
 
@@ -189,4 +186,6 @@ Output:
 }]
 ```
 
-### xPublicationYears
+#### Parameters
+
+-   `year` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Year of the RNSR to use instead of the last one

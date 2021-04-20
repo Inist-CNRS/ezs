@@ -1,6 +1,6 @@
 {
     "name": "@ezs/core",
-    "version": "1.23.3",
+    "version": "1.23.4",
     "description": "A wrapper to build Stream transformers with functional style",
     "directories": {
         "test": "test"
