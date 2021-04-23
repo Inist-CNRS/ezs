@@ -4,14 +4,15 @@ import { any, pipe, slice } from 'ramda';
 import { isIn } from './rnsr';
 import { depleteString } from './strings';
 
-/** @typedef {import('./rnsr').RepNatStrRech} RNSR */
+/** @private @typedef {import('./rnsr').RepNatStrRech} RNSR */
 
-/** @type {RNSR} */
+/** @private @type {RNSR} */
 let RNSR;
 
 /**
  * Cache the different years of RNSR
  * @type {Object<number,RNSR>}
+ * @private
  */
 const loadedRNSR = {};
 
@@ -19,6 +20,7 @@ const loadedRNSR = {};
  * Get the RNSR of year
  * @param {number}  year    4 digits year of RNSR to load
  * @returns {Promise<RNSR|null>}
+ * @private
  */
 const getRnsrYear = async (year) => {
     if (loadedRNSR[year]) return loadedRNSR[year];
@@ -154,7 +156,7 @@ export default async function affAlign(data, feed) {
         return feed.send(new Error('affAlign: notice should have authors'));
     }
     const xPublicationDate = data.xPublicationDate || [];
-    /** @type number[] */
+    /** @private @type number[] */
     const xPublicationYears = xPublicationDate.map(getYear);
     const authors = data.authors.reduce(addRnsrFromYearsInAuthor(xPublicationYears), []);
     const notice = { ...data, authors };

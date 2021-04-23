@@ -52,36 +52,9 @@ Sachant qu'on appauvrit (casse, accents, tiret, apostrophe) tous les champs.
 
 #### Table of Contents
 
--   [RNSR](#rnsr)
--   [RNSR](#rnsr-1)
--   [loadedRNSR](#loadedrnsr)
--   [getRnsrYear](#getrnsryear)
 -   [compareRnsr](#comparernsr)
 -   [conditorScroll](#conditorscroll)
 -   [affAlign](#affalign)
--   [xPublicationYears](#xpublicationyears)
-
-### RNSR
-
-### RNSR
-
-Type: [RNSR](#rnsr)
-
-### loadedRNSR
-
-Cache the different years of RNSR
-
-Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number), [RNSR](#rnsr)>
-
-### getRnsrYear
-
-Get the RNSR of year
-
-#### Parameters
-
--   `year` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 4 digits year of RNSR to load
-
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;([RNSR](#rnsr) | null)>** 
 
 ### compareRnsr
 
@@ -215,5 +188,3 @@ Output:
 #### Parameters
 
 -   `year` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Year of the RNSR to use instead of the last one
-
-### xPublicationYears
