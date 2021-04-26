@@ -26,8 +26,20 @@ httpbin
         },
     });
 httpbin
-    .get('/status/400')
+    .post('/post/1')
+    .reply(200, (uri, requestBody) => requestBody);
+httpbin
+    .post('/post/2')
+    .reply(200, (uri, requestBody) => requestBody);
+
+httpbin
+    .post('/status/400')
     .reply(400);
+
+httpbin
+    .post('/status/503')
+    .reply(503);
+
 
 describe('URLFetch', () => {
     test('#1', (done) => {
@@ -153,7 +165,7 @@ describe('URLFetch', () => {
         const output = [];
         const script = `
             [URLFetch]
-            url = get('a').replace(/(.*)/, 'https://httpbin.org/status/400')
+            url = get('a').replace(/(.*)/, 'https://httpbin.org/status/503')
             noerror = true
         `;
         from(input)
@@ -168,7 +180,6 @@ describe('URLFetch', () => {
                 expect(output).toStrictEqual(input);
                 done();
             });
-
     });
     test('#4', (done) => {
         ezs.use(statements);
@@ -185,6 +196,55 @@ describe('URLFetch', () => {
                 }).toThrow('http://unknow/');
             })
             .on('end', () => {
+                done();
+            });
+    }, 6000);
+    test('#5', (done) => {
+        ezs.use(statements);
+        const input = [
+            { a: 'a' },
+            { a: 'b' },
+            { a: 'c' },
+        ];
+        const output = [];
+        from(input)
+            .pipe(ezs('URLFetch', {
+                url: 'https://httpbin.org/post/1',
+                path: 'a',
+            }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                output.push({ a: chunk });
+            })
+            .on('end', () => {
+                expect(output.length).toBe(3);
+                expect(output).toStrictEqual(input);
+                done();
+            });
+    }, 6000);
+    test('#5bis', (done) => {
+        ezs.use(statements);
+        const input = [
+            { a: Buffer.from('a') },
+            { a: Buffer.from('b') },
+            { a: Buffer.from('c') },
+        ];
+        const output = [];
+        from(input)
+            .pipe(ezs('URLFetch', {
+                url: 'https://httpbin.org/post/2',
+                path: ['a', 'b'],
+                mimetype: 'text/plain',
+            }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                output.push({ a: chunk });
+            })
+            .on('end', () => {
+                expect(output.length).toBe(3);
+                expect(output).toStrictEqual(input.map(x => ({ a: x.a.toString()})));
                 done();
             });
     }, 6000);
