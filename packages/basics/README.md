@@ -21,11 +21,11 @@ npm install @ezs/basics
 -   [URLString](#urlstring)
 -   [BUFObject](#bufobject)
 -   [URLConnect](#urlconnect)
--   [URLFetch](#urlfetch)
 -   [URLStream](#urlstream)
--   [TXTObject](#txtobject)
--   [TXTConcat](#txtconcat)
 -   [ZIPExtract](#zipextract)
+-   [TXTObject](#txtobject)
+-   [URLFetch](#urlfetch)
+-   [TXTConcat](#txtconcat)
 -   [INIString](#inistring)
 -   [CSVParse](#csvparse)
 -   [URLParse](#urlparse)
@@ -114,21 +114,6 @@ the output will be the content of URL
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### URLFetch
-
-Take `Object` and create a new field with the content of URL.
-Or if no target will be specified, the output will be the content of URL
-
-#### Parameters
-
--   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fecth
--   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** choose the key to set
--   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Parse as JSON the content of URL (optional, default `false`)
--   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (optional, default `1000`)
--   `noerror` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Ignore all errors, the target field will remain undefined (optional, default `false`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
 ### URLStream
 
 Take `String` asURL, throw each chunk from the result or
@@ -143,6 +128,23 @@ Take `Object` as parameters of URL, throw each chunk from the result
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
+### ZIPExtract
+
+Take the content of a zip file, extract some files
+The JSON object is sent to the output stream for each file.
+it returns to the output stream
+
+ {
+    id: file name,
+    value: file contents,
+ }
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Regex to select the files to extract (optional, default `"**\/*.json"`)
+
+Returns **any** <Object>
+
 ### TXTObject
 
 Take `String` and generate an object with a key and a value, where the value is the input string.
@@ -150,6 +152,23 @@ Take `String` and generate an object with a key and a value, where the value is 
 #### Parameters
 
 -   `key` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose a the key name (optional, default `value`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### URLFetch
+
+Take `Object` and create a new field with the content of URL.
+Or if no target will be specified, the output will be the content of URL
+
+#### Parameters
+
+-   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fecth
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** if present select value to send (by POST)
+-   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** choose the key to set
+-   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Parse as JSON the content of URL (optional, default `false`)
+-   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (optional, default `1000`)
+-   `mimetype` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Mimetype for value of path  (if presents) (optional, default `application/json`)
+-   `noerror` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Ignore all errors, the target field will remain undefined (optional, default `false`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -162,26 +181,6 @@ Take `String` and concat all items in just one string
 -   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-### ZIPExtract
-
-Take the content of a zip file, extract some files, and yield JSON.
-By default, files are scanned as JSON files.
-The JSON object is sent to the output stream for each file.
-If JSON option is disabled, it returns to the output stream
-an object for each file found like :
-
- {
-    id: file name,
-    value: file contents,
- }
-
-#### Parameters
-
--   `path` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Regex to select the files to extract (optional, default `"**\/*.json"`)
--   `json` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** transforms each file into an Object (JSON) (optional, default `true`)
-
-Returns **any** <Object>
 
 ### INIString
 
