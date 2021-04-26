@@ -9,11 +9,13 @@ describe('ZIPExtract', () => {
         const result = [];
         fs.createReadStream('./packages/basics/examples/data/test.zip')
             .pipe(ezs('ZIPExtract'))
-            .on('data', (chunk) => {
-                assert.equal(chunk.test, 'ok');
-                result.push(chunk);
-            })
+            .pipe(ezs.catch())
             .on('error', done)
+            .on('data', (chunk) => {
+                const obj = JSON.parse(chunk.value.toString());
+                assert.equal(obj.test, 'ok');
+                result.push(obj);
+            })
             .on('end', () => {
                 assert.equal(result.length, 10);
                 done();
@@ -23,31 +25,14 @@ describe('ZIPExtract', () => {
     it('should extract TXT content', (done) => {
         const result = [];
         fs.createReadStream('./packages/basics/examples/data/test.zip')
-            .pipe(ezs('ZIPExtract', { json: false, path: '**/*.txt' }))
+            .pipe(ezs('ZIPExtract', { path: '**/*.txt' }))
+            .pipe(ezs.catch())
             .on('data', (chunk) => {
-                assert.equal(chunk.value, 'ok\n');
-                result.push(chunk);
+                const str = chunk.value.toString();
+                assert.equal(str, 'ok\n');
+                result.push(str);
             })
             .on('error', done)
-            .on('end', () => {
-                assert.equal(result.length, 10);
-                done();
-            });
-    });
-
-    it('should failed to extract JSON from TXT content', (done) => {
-        const result = [];
-        fs.createReadStream('./packages/basics/examples/data/test.zip')
-            .pipe(ezs('ZIPExtract', { json: true, path: '**/*.txt' }))
-            .pipe(ezs.catch())
-            .on('error', (e) => {
-                assert.ok(e instanceof Error);
-                result.push(e);
-                done();
-            })
-            .on('data', () => {
-                throw new Error('should emit error');
-            })
             .on('end', () => {
                 assert.equal(result.length, 10);
                 done();

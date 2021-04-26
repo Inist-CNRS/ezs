@@ -1,4 +1,5 @@
 import debug from 'debug';
+import get from 'lodash.get';
 import set from 'lodash.set';
 import AbortController from 'node-abort-controller';
 import fetch from 'fetch-with-proxy';
@@ -9,9 +10,11 @@ import fetch from 'fetch-with-proxy';
  *
  * @name URLFetch
  * @param {String} [url] URL to fecth
+ * @param {String} [path] if present select value to send (by POST)
  * @param {String} [target] choose the key to set
  * @param {String} [json=false] Parse as JSON the content of URL
  * @param {Number} [timeout=1000] Timeout in milliseconds
+ * @param {String} [mimetype=application/json] Mimetype for value of path  (if presents)
  * @param {Boolean} [noerror=false] Ignore all errors, the target field will remain undefined
  * @returns {Object}
  */
@@ -20,28 +23,34 @@ export default async function URLFetch(data, feed) {
         return feed.close();
     }
     const url = this.getParam('url');
+    const path = this.getParam('path');
     const target = this.getParam('target');
     const json = Boolean(this.getParam('json', false));
     const noerror = Boolean(this.getParam('noerror', false));
     const timeout = Number(this.getParam('timeout')) || 1000;
+    const mimetype = String(this.getParam('mimetype', 'application/json'));
     const controller = new AbortController();
+    const key = Array.isArray(path) ? path.shift() : path;
+    const body = get(data, key);
+    const parameters = {
+        timeout,
+        signal: controller.signal,
+    };
+    if (body) {
+        set(parameters, 'method', 'POST');
+        set(parameters, 'body', Buffer.isBuffer(body) ? body : JSON.stringify(body));
+        set(parameters, 'headers.content-type', mimetype);
+    }
     try {
-        const response = await fetch(url, {
-            timeout,
-            signal: controller.signal,
-        });
-        if (response.status !== 200) {
-            const msg = `Received status code ${response.status} (${response.statusText})'`;
-            throw new Error(msg);
-        }
+        const response = await fetch(url, parameters);
         const func = json ? 'json' : 'text';
-        const body = await response[func]();
+        const value = await response[func]();
         if (target && typeof target === 'string' && typeof data === 'object') {
             const result = { ...data };
-            set(result, target, body);
+            set(result, target, value);
             return feed.send(result);
         }
-        return feed.send(body);
+        return feed.send(value);
     } catch (e) {
         controller.abort();
         if (noerror) {

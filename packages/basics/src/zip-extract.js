@@ -1,14 +1,11 @@
-import { PassThrough } from 'stream';
 import unzipper from 'unzipper';
 import micromatch from 'micromatch';
 import writeTo from 'stream-write';
 
 /**
- * Take the content of a zip file, extract some files, and yield JSON.
- * By default, files are scanned as JSON files.
+ * Take the content of a zip file, extract some files
  * The JSON object is sent to the output stream for each file.
- * If JSON option is disabled, it returns to the output stream
- * an object for each file found like :
+ * it returns to the output stream
  *
  *  {
  *     id: file name,
@@ -16,44 +13,29 @@ import writeTo from 'stream-write';
  *  }
  *
  * @name ZIPExtract
- * @param {Boolean} [path="**\/*.json"] Regex to select the files to extract
- * @param {Boolean} [json=true] transforms each file into an Object (JSON)
+ * @param {String} [path="**\/*.json"] Regex to select the files to extract
  * @returns <Object>
  */
 export default function ZIPExtract(data, feed) {
-    const parseJSON = this.getParam('json', true);
     const filesPatern = this.getParam('path', '**/*.json');
     if (this.isFirst()) {
-        this.input = new PassThrough();
-
-        const output = this.input
+        const { ezs } = this;
+        this.input = ezs.createStream(ezs.objectMode());
+        this.output = ezs.createStream(ezs.objectMode());
+        this.whenEnd = this.input
             .pipe(unzipper.Parse())
-            .on('entry', (entry) => {
+            .on('entry', async (entry) => {
                 if (micromatch.isMatch(entry.path, filesPatern)) {
-                    let str = '';
-                    entry
-                        .on('data', (buf) => {
-                            str += buf.toString();
-                        })
-                        .on('end', () => {
-                            if (parseJSON) {
-                                try {
-                                    const obj = JSON.parse(str);
-                                    feed.write(obj);
-                                } catch (e) {
-                                    feed.write(e);
-                                }
-                            } else {
-                                feed.write({ id: entry.path, value: str });
-                            }
-                        });
-                } else {
-                    entry.autodrain();
+                    const content = await entry.buffer();
+                    return writeTo(this.output, { id: entry.path, value: content }, () => entry.autodrain());
                 }
-            });
-        this.whenFinish = feed.flow(output);
+                return entry.autodrain();
+            })
+            .promise();
+        this.whenFinish = feed.flow(this.output);
     }
     if (this.isLast()) {
+        this.whenEnd.finally(() => this.output.end());
         this.whenFinish.finally(() => feed.close());
         this.input.end();
     } else {
