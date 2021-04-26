@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.9.3...@ezs/lodex@1.9.4) (2021-04-26)
+
+
+### Bug Fixes
+
+* 🐛 missing lock file ([92a3a20](https://github.com/Inist-CNRS/ezs/commit/92a3a201680026b7c2dc521808efefa7d05e57b6))
+
+
+
+
+
 ## [1.9.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.9.2...@ezs/lodex@1.9.3) (2021-04-26)
 
 
