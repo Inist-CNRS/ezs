@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.11.2...@ezs/basics@1.12.0) (2021-04-26)
+
+
+### Features
+
+* 🎸 improve [URLFetch] ([6f487a6](https://github.com/Inist-CNRS/ezs/commit/6f487a641771b4a23660a7a870c240e531aa2ff9))
+
+
+
+
+
 ## [1.11.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.11.1...@ezs/basics@1.11.2) (2021-04-20)
 
 **Note:** Version bump only for package @ezs/basics
