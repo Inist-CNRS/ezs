@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.9.2...@ezs/lodex@1.9.3) (2021-04-26)
+
+
+### Bug Fixes
+
+* 🐛 restore version to fix lodex build bug ([58b4790](https://github.com/Inist-CNRS/ezs/commit/58b47903396e02ac16b5ccfbff90537d03e3e19b))
+
+
+
+
+
 ## [1.9.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.9.1...@ezs/lodex@1.9.2) (2021-04-26)
 
 
