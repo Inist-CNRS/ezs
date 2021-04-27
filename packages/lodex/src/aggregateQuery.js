@@ -1,7 +1,6 @@
 import RJSON from 'relaxed-json';
 import mongoDatabase from './mongoDatabase';
 
-
 const stageNameTest = /^\$/;
 /**
  * Take `Object` containing a MongoDB aggregate query and throw the result
@@ -9,7 +8,7 @@ const stageNameTest = /^\$/;
  * The input object must contain a `connectionStringURI` property, containing
  * the connection string to MongoDB.
  *
- * @name LodexRunQuery
+ * @name LodexAggregateQuery
  * @param {String}  [collection="publishedDataset"]  collection to use
  * @param {Object}  [referer]      data injected into every result object
  * @param {Object}  [filter]       MongoDB filter

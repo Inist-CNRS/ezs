@@ -19,8 +19,8 @@ npm install @ezs/core
 -   [LodexGetFields](#lodexgetfields)
 -   [parseNQuads](#parsenquads)
 -   [convertToAtom](#converttoatom)
+-   [LodexAggregateQuery](#lodexaggregatequery)
 -   [LodexRunQuery](#lodexrunquery)
--   [LodexRunQuery](#lodexrunquery-1)
 -   [LodexReduceQuery](#lodexreducequery)
 -   [LodexInjectSyndicationFrom](#lodexinjectsyndicationfrom)
 -   [Field](#field)
@@ -77,6 +77,23 @@ model.
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
+### LodexAggregateQuery
+
+Take `Object` containing a MongoDB aggregate query and throw the result
+
+The input object must contain a `connectionStringURI` property, containing
+the connection string to MongoDB.
+
+#### Parameters
+
+-   `collection` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** collection to use (optional, default `"publishedDataset"`)
+-   `referer` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** data injected into every result object
+-   `filter` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** MongoDB filter
+-   `limit` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
+-   `skip` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
 ### LodexRunQuery
 
 Take `Object` containing a MongoDB query and throw the result
@@ -90,23 +107,6 @@ the connection string to MongoDB.
 -   `referer` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** data injected into every result object
 -   `filter` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** MongoDB filter
 -   `field` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** limit the result to some fields (optional, default `"uri"`)
--   `limit` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
--   `skip` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### LodexRunQuery
-
-Take `Object` containing a MongoDB aggregate query and throw the result
-
-The input object must contain a `connectionStringURI` property, containing
-the connection string to MongoDB.
-
-#### Parameters
-
--   `collection` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** collection to use (optional, default `"publishedDataset"`)
--   `referer` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** data injected into every result object
--   `filter` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** MongoDB filter
 -   `limit` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
 -   `skip` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
 
