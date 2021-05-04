@@ -24,6 +24,7 @@ npm install @ezs/analytics
 -   [bufferize](#bufferize)
 -   [groupingByModulo](#groupingbymodulo)
 -   [reducing](#reducing)
+-   [upload](#upload)
 -   [aggregate](#aggregate)
 -   [slice](#slice)
 -   [distinct](#distinct)
@@ -348,6 +349,44 @@ Output:
 
 -   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### upload
+
+save all objects in a temporary file
+For non Buffer chunks, each object is transformed into a
+string of characters in a raw way (no separator)
+
+```json
+[
+          { year: 2000, dept: 54 },
+          { year: 2001, dept: 55 },
+          { year: 2003, dept: 54 },
+]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[upload]
+cleanupDelay = 5
+```
+
+Output:
+
+```json
+ [
+          { id: '/tmp/31234qdE33334dZE', value:3 },
+ ]
+```
+
+#### Parameters
+
+-   `cleanupDelay` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** TTL in seconds, before cleanup the file (EZS_DELAY) (optional, default `3600`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 

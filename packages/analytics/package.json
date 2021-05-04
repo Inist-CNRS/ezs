@@ -28,7 +28,8 @@
     "lodash.mergewith": "~4.6.2",
     "lodash.set": "~4.3.2",
     "lodash.uniq": "~4.5.0",
-    "lodash.unset": "~4.5.2"
+    "lodash.unset": "~4.5.2",
+    "tempy": "^1.0.1"
   },
   "main": "./lib/index.js",
   "scripts": {
