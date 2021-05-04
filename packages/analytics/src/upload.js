@@ -53,6 +53,7 @@ export default async function upload(data, feed) {
             feed.close();
         }).catch(feed.stop);
         this.input.end();
+        return;
     }
-    return writeTo(this.input, data, () => feed.end());
+    writeTo(this.input, data, () => feed.end());
 }
