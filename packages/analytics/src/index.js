@@ -34,6 +34,7 @@ import expand from './expand';
 import files from './files';
 import bufferize from './bufferize';
 import buffers from './buffers';
+import upload from './upload';
 
 export default {
     count,
@@ -72,4 +73,5 @@ export default {
     files,
     bufferize,
     buffers,
+    upload,
 };
