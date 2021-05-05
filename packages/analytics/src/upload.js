@@ -34,15 +34,19 @@ import tempy from 'tempy';
  * ```
  *
  * @name upload
+ * @param {String} [extension=bin] set the file extension
+ * @param {String} [prefix=upload] set the file prefix
  * @param {Number} [cleanupDelay=3600] TTL in seconds, before cleanup the file (EZS_DELAY)
  * @returns {Object}
  */
 export default async function upload(data, feed) {
     const { ezs } = this;
     if (this.isFirst()) {
+        const extension = String(this.getParam('extension', 'bin'));
+        const prefix = String(this.getParam('prefix', 'upload'));
         this.input = ezs.createStream(ezs.objectMode());
         const stream = this.input.pipe(ezs.toBuffer());
-        this.whenWrote = tempy.write(stream);
+        this.whenWrote = tempy.write(stream, { extension, prefix });
     }
     if (this.isLast()) {
         const cleanupDelayDefault = ezs.settings.cacheDelay;
