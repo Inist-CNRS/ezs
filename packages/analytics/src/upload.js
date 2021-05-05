@@ -1,4 +1,5 @@
-import { unlinkSync } from 'fs';
+import { unlink } from 'fs';
+import debug from 'debug';
 import writeTo from 'stream-write';
 import tempy from 'tempy';
 
@@ -51,13 +52,12 @@ export default async function upload(data, feed) {
     if (this.isLast()) {
         const cleanupDelayDefault = ezs.settings.cacheDelay;
         const cleanupDelay = Number(this.getParam('cleanupDelay', cleanupDelayDefault));
-        this.whenWrote.then((tmpfile) => {
-            setTimeout(() => unlinkSync(tmpfile), cleanupDelay * 1000);
-            feed.write({ id: tmpfile, value: this.getIndex() - 1 });
-            feed.close();
-        }).catch(feed.stop);
         this.input.end();
-        return;
+        const tmpfile = await this.whenWrote;
+        feed.write({ id: tmpfile, value: this.getIndex() - 1 });
+        feed.close();
+        const cbk = () => debug('ezs')('[upload] unlink file.', tmpfile);
+        return setTimeout(() => unlink(tmpfile, cbk), cleanupDelay * 1000);
     }
-    writeTo(this.input, data, () => feed.end());
+    return writeTo(this.input, data, () => feed.end());
 }
