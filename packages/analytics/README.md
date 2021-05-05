@@ -24,9 +24,9 @@ npm install @ezs/analytics
 -   [bufferize](#bufferize)
 -   [groupingByModulo](#groupingbymodulo)
 -   [reducing](#reducing)
--   [upload](#upload)
 -   [aggregate](#aggregate)
 -   [slice](#slice)
+-   [upload](#upload)
 -   [distinct](#distinct)
 -   [exploding](#exploding)
 -   [graph](#graph)
@@ -352,44 +352,6 @@ Output:
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### upload
-
-save all objects in a temporary file
-For non Buffer chunks, each object is transformed into a
-string of characters in a raw way (no separator)
-
-```json
-[
-          { year: 2000, dept: 54 },
-          { year: 2001, dept: 55 },
-          { year: 2003, dept: 54 },
-]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[upload]
-cleanupDelay = 5
-```
-
-Output:
-
-```json
- [
-          { id: '/tmp/31234qdE33334dZE', value:3 },
- ]
-```
-
-#### Parameters
-
--   `cleanupDelay` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** TTL in seconds, before cleanup the file (EZS_DELAY) (optional, default `3600`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
 ### aggregate
 
 Aggregate by id and count
@@ -469,6 +431,46 @@ Output:
 
 -   `start` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** start of the slice (optional, default `0`)
 -   `size` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** size of the slice (optional, default `10`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### upload
+
+save all objects in a temporary file
+For non Buffer chunks, each object is transformed into a
+string of characters in a raw way (no separator)
+
+```json
+[
+          { year: 2000, dept: 54 },
+          { year: 2001, dept: 55 },
+          { year: 2003, dept: 54 },
+]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[upload]
+cleanupDelay = 5
+```
+
+Output:
+
+```json
+ [
+          { id: '/tmp/31234qdE33334dZE', value:3 },
+ ]
+```
+
+#### Parameters
+
+-   `extension` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** set the file extension (optional, default `bin`)
+-   `prefix` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** set the file prefix (optional, default `upload`)
+-   `cleanupDelay` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** TTL in seconds, before cleanup the file (EZS_DELAY) (optional, default `3600`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
