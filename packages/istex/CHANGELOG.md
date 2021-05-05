@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/istex@1.3.0...@ezs/istex@1.3.1) (2021-05-05)
+
+
+### Bug Fixes
+
+* 🐛 remove sync code ([0a63cef](https://github.com/Inist-CNRS/ezs/commit/0a63cef73bd0ce854a8e3f0e2d2306f3ecf0b158))
+
+
+
+
+
 # [1.3.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/istex@1.2.4...@ezs/istex@1.3.0) (2021-04-20)
 
 

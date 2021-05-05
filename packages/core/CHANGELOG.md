@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.23.7](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.23.6...@ezs/core@1.23.7) (2021-05-05)
+
+
+### Bug Fixes
+
+* 🐛 remove sync code ([0a63cef](https://github.com/Inist-CNRS/ezs/commit/0a63cef73bd0ce854a8e3f0e2d2306f3ecf0b158))
+
+
+
+
+
 ## [1.23.6](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.23.5...@ezs/core@1.23.6) (2021-04-26)
 
 **Note:** Version bump only for package @ezs/core
