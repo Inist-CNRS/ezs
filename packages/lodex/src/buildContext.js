@@ -50,7 +50,7 @@ export const createFunction = () => async function LodexBuildContext(data, feed)
         match,
         orderBy = '_id/asc',
         invertedFacets = [],
-        $query,
+        query,
         field,
         ...facets
     } = data;
@@ -62,7 +62,6 @@ export const createFunction = () => async function LodexBuildContext(data, feed)
         match,
         invertedFacets,
         facets,
-        ...$query,
         searchableFieldNames,
         facetFieldNames,
     });
@@ -78,6 +77,7 @@ export const createFunction = () => async function LodexBuildContext(data, feed)
         field,
         fields,
         // Default parameters for ALL scripts
+        query,
         maxSize,
         maxValue,
         minValue,

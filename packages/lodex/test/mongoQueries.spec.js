@@ -607,10 +607,10 @@ describe('mongo queries', () => {
         beforeEach(() => initDb(connectionStringURI, field));
         afterEach(() => drop());
 
-        it('with a standard query', (done) => {
+        it('with a standard context', (done) => {
             const res = [];
-            const query = { maxSize: '200', orderBy: '_id/asc' };
-            from([query])
+            const context = { maxSize: '200', orderBy: '_id/asc', query: 'xxx' };
+            from([context])
                 .pipe(ezs('buildContext', {
                     connectionStringURI,
                 }))
@@ -619,8 +619,9 @@ describe('mongo queries', () => {
                 })
                 .on('end', () => {
                     expect(res.length).toEqual(1);
-                    expect(res[0].maxSize).toEqual(query.maxSize);
-                    expect(res[0].orderBy).toEqual(query.orderBy);
+                    expect(res[0].maxSize).toEqual(context.maxSize);
+                    expect(res[0].orderBy).toEqual(context.orderBy);
+                    expect(res[0].query).toEqual(context.query);
                     expect(res[0].fields.length).toEqual(20);
                     expect(res[0].filter).toEqual({
                         removedAt: {
@@ -631,10 +632,10 @@ describe('mongo queries', () => {
                     done();
                 });
         });
-        it('with a query with field id', (done) => {
+        it('with a context with field id', (done) => {
             const res = [];
-            const query = { maxSize: '200', orderBy: '_id/asc', tfFF: ['The Lancet'] };
-            from([query])
+            const context = { maxSize: '200', orderBy: '_id/asc', tfFF: ['The Lancet'] };
+            from([context])
                 .pipe(ezs('buildContext', {
                     connectionStringURI,
                 }))
@@ -643,8 +644,8 @@ describe('mongo queries', () => {
                 })
                 .on('end', () => {
                     expect(res.length).toEqual(1);
-                    expect(res[0].maxSize).toEqual(query.maxSize);
-                    expect(res[0].orderBy).toEqual(query.orderBy);
+                    expect(res[0].maxSize).toEqual(context.maxSize);
+                    expect(res[0].orderBy).toEqual(context.orderBy);
                     expect(res[0].fields.length).toEqual(20);
                     expect(res[0].filter).toEqual({
                         removedAt: {
