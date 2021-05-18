@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.9.5...@ezs/lodex@1.10.0) (2021-05-18)
+
+
+### Features
+
+* 🎸 introduce query default parameter ([6fbeeda](https://github.com/Inist-CNRS/ezs/commit/6fbeedafff6b2073adadac0aa62f13f894ce03b5))
+
+
+
+
+
 ## [1.9.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.9.4...@ezs/lodex@1.9.5) (2021-05-04)
 
 **Note:** Version bump only for package @ezs/lodex
