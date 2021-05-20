@@ -2,10 +2,10 @@ import assert from 'assert';
 import InistArk from 'inist-ark';
 
 import from from 'from';
-import ezs from 'ezs';
-import locals from '../src';
+import ezs from '../../core/src';
+import statements from '../src';
 
-ezs.use(locals);
+ezs.use(statements);
 
 const ARK = new InistArk();
 describe('generateARK', () => {
