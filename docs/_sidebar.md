@@ -22,6 +22,7 @@
   - [loterre](plugin-loterre.md)
   - [storage](plugin-storage.md)
   - [transformers](plugin-transformers.md)
+  - [ark](plugin-ark.md)
 
 - Avancé
 

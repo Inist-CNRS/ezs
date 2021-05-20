@@ -76,3 +76,8 @@ globalConfig.json
 
 ## Webstorm ##
 .idea
+
+
+
+# local
+*.ark
