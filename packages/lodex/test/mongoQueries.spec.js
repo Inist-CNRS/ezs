@@ -4,6 +4,7 @@ import ezs from '../../core/src';
 import ezsLodex from '../src';
 import { handles } from '../src/mongoDatabase';
 import publishedDataset from './fixture.publishedDataset.json';
+import publishedDatasetWithSubResource from './lodex.publishedDataset.json';
 import publishedCharacteristic from './fixture.publishedCharacteristic.json';
 import field from './fixture.field.json';
 
@@ -790,6 +791,156 @@ describe('mongo queries', () => {
                 })
                 .on('end', () => {
                     done(new Error('Error is the right behavior'));
+                });
+        });
+    });
+
+    describe('fullAggregateQuery', () => {
+        beforeEach(() => initDb(connectionStringURI, publishedDatasetWithSubResource));
+        afterEach(() => drop());
+
+        it('should return nothing', (done) => {
+            let res = [];
+            from([{ connectionStringURI }])
+                .pipe(ezs('LodexFullAggregateQuery', {
+                    subResourcesIdentifier: '',
+                    subResourcesNameIdentifier: '',
+                    subResourcesName: '',
+                }))
+                .pipe(ezs.catch())
+                .on('error', done)
+                .on('data', (data) => {
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    expect(res).toHaveLength(1);
+                    expect(res[0].total).toBe(0);
+                    done();
+                });
+        });
+
+        it('should return nothing', (done) => {
+            let res = [];
+            from([{ connectionStringURI }])
+                .pipe(ezs('LodexFullAggregateQuery', {
+                    subResourcesIdentifier: '',
+                    subResourcesNameIdentifier: 'dqff',
+                    subResourcesName: '',
+                }))
+                .pipe(ezs.catch())
+                .on('error', done)
+                .on('data', (data) => {
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    expect(res).toHaveLength(1);
+                    expect(res[0].total).toBe(0);
+                    done();
+                });
+        });
+
+        it('should return nothing', (done) => {
+            let res = [];
+            from([{ connectionStringURI }])
+                .pipe(ezs('LodexFullAggregateQuery', {
+                    subResourcesIdentifier: 'aHOZ',
+                    subResourcesNameIdentifier: 'dqff',
+                    subResourcesName: '',
+                }))
+                .pipe(ezs.catch())
+                .on('error', done)
+                .on('data', (data) => {
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    expect(res).toHaveLength(1);
+                    expect(res[0].total).toBe(0);
+                    done();
+                });
+        });
+
+        it('should return nothing', (done) => {
+            let res = [];
+            from([{ connectionStringURI }])
+                .pipe(ezs('LodexFullAggregateQuery', {
+                    subResourcesIdentifier: 'aHOZ',
+                    subResourcesNameIdentifier: 'dqff',
+                    subResourcesName: 'Random Value',
+                }))
+                .pipe(ezs.catch())
+                .on('error', done)
+                .on('data', (data) => {
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    expect(res).toHaveLength(1);
+                    expect(res[0].total).toBe(0);
+                    done();
+                });
+        });
+
+        it('should return 10 sub resources', (done) => {
+            let res = [];
+            let expectResList = [
+                'Boa constrictor', 'Cebus capucinus', 'Chlorocebus pygerythrus',
+                'Crotalus durissus', 'Drymarchon corais', 'Macaca mulatta',
+                'Macaca radiata', 'Otolemur garnettii', 'Saguinus fuscicollis',
+                'Tarsius spectrum',
+            ];
+            from([{ connectionStringURI }])
+                .pipe(ezs('LodexFullAggregateQuery', {
+                    subResourcesIdentifier: 'aHOZ',
+                    subResourcesNameIdentifier: 'dqff',
+                    subResourcesName: 'Tarsius spectrum',
+                }))
+                .pipe(ezs.catch())
+                .on('error', done)
+                .on('data', (data) => {
+                    // Check if the current element is a sub-resource
+                    expect(data.subresourceId).toBeDefined();
+                    const currentElement = data.versions[0].dqff;
+                    // Check if the current element is valid element, at the same time check duplication
+                    expect(expectResList.includes(currentElement)).toBeTruthy();
+                    // Remove element at each step to verified duplication issue
+                    expectResList = expectResList.filter((value) => value !== currentElement);
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    expect(res).toHaveLength(10);
+                    done();
+                });
+        });
+
+        it('should return 13 sub resources', (done) => {
+            let res = [];
+            let expectResList = [
+                'Alligator mississippiensis', 'Eublepharis macularius', 'Gallus gallus',
+                'Mesocricetus auratus', 'Mus musculus', 'Rattus norvegicus',
+                'Sceloporus occidentalis', 'Tenebrio molitor', 'Crocodylus siamensis',
+                'Odontochelys semitestacea', 'Pelodiscus sinensis', 'Proganochelys quenstedti',
+                'Acheta domesticus',
+            ];
+            from([{ connectionStringURI }])
+                .pipe(ezs('LodexFullAggregateQuery', {
+                    subResourcesIdentifier: 'aHOZ',
+                    subResourcesNameIdentifier: 'dqff',
+                    subResourcesName: 'Gallus gallus',
+                }))
+                .pipe(ezs.catch())
+                .on('error', done)
+                .on('data', (data) => {
+                    // Check if the current element is a sub-resource
+                    expect(data.subresourceId).toBeDefined();
+                    const currentElement = data.versions[0].dqff;
+                    // Check if the current element is valid element, at the same time check duplication
+                    expect(expectResList.includes(currentElement)).toBeTruthy();
+                    // Remove element at each step to verified duplication issue
+                    expectResList = expectResList.filter((value) => value !== currentElement);
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    expect(res).toHaveLength(13);
+                    done();
                 });
         });
     });
