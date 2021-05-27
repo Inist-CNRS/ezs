@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.13.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.12.0...@ezs/basics@1.13.0) (2021-05-27)
+
+
+### Features
+
+* 🎸 add [XMLConvert] ([0040fce](https://github.com/Inist-CNRS/ezs/commit/0040fce60affd263f537853e5fd4957df43d6c7a))
+
+
+
+
+
 # [1.12.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.11.2...@ezs/basics@1.12.0) (2021-04-26)
 
 
