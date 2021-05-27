@@ -8,6 +8,7 @@ import TXTObject from './txt-object';
 import TXTParse from './txt-parse';
 import XMLParse from './xml-parse';
 import XMLString from './xml-string';
+import XMLConvert from './xml-convert';
 import CSVParse from './csv-parse';
 import CSVObject from './csv-object';
 import CSVString from './csv-string';
@@ -33,6 +34,7 @@ export default {
     TXTConcat,
     XMLParse,
     XMLString,
+    XMLConvert,
     CSVParse,
     CSVObject,
     CSVString,

@@ -3,16 +3,25 @@ import XML from 'xml-mapping';
 function XMLString(data, feed) {
     const rootElement = this.getParam('rootElement', 'items');
     const contentElement = this.getParam('contentElement', 'item');
-    const rootNamespace = this.getParam('rootNamespace', '');
-    const attrNS = rootNamespace.length > 0 ? ` xmlns="${encodeURI(rootNamespace)}"` : '';
-    const beginTag = rootElement.length > 0 ? `<${rootElement}${attrNS}>` : '';
-    const endTag = rootElement.length > 0 ? `</${rootElement}>` : '';
     if (this.isLast()) {
+        const endTag = rootElement.length > 0 ? `</${rootElement}>` : '';
         if (endTag) feed.write(endTag);
         return feed.close();
     }
-    if (this.isFirst() && beginTag) {
-        feed.write(beginTag);
+    if (this.isFirst()) {
+        const prologue = this.getParam('prologue', false) ? '<?xml version="1.0" encoding="UTF-8"?>\n' : '';
+        const rootNamespace = []
+            .concat(this.getParam('rootNamespace'))
+            .filter(Boolean)
+            .map((ns) => ns.replace('://', '§§§'))
+            .map((ns) => ns.split(':'))
+            .map((ns) => (ns[1] ? [`:${ns[0]}`, ns[1]] : ['', ns[0]]))
+            .map((ns) => [ns[0], ns[1].replace('§§§', '://').trim()])
+            .reduce((prev, cur) => `${prev} xmlns${cur[0]}="${encodeURI(cur[1])}"`, '');
+        const beginTag = rootElement.length > 0 ? `${prologue}<${rootElement}${rootNamespace}>` : '';
+        if (beginTag) {
+            feed.write(beginTag);
+        }
     }
     feed.send(XML.dump({ [contentElement]: data }));
 }
@@ -24,6 +33,7 @@ function XMLString(data, feed) {
  * @param {String} [rootElement=items] Root element name for the tag which start and close the feed
  * @param {String} [contentElement=item] Content element name for the tag which start and close each item
  * @param {String} [rootNamespace] Namespace for the root tag (xmlns=)
+ * @param {Boolean} [prologue=false] Add XML prologue <?xml
  * @returns {String}
  */
 export default {
