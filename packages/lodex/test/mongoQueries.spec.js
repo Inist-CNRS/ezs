@@ -4,7 +4,7 @@ import ezs from '../../core/src';
 import ezsLodex from '../src';
 import { handles } from '../src/mongoDatabase';
 import publishedDataset from './fixture.publishedDataset.json';
-import publishedDatasetWithSubResource from './lodex.publishedDataset.json';
+import publishedDatasetWithSubResource from './lodexV12.publishedDataset.json';
 import publishedCharacteristic from './fixture.publishedCharacteristic.json';
 import field from './fixture.field.json';
 
@@ -795,17 +795,35 @@ describe('mongo queries', () => {
         });
     });
 
-    describe('fullAggregateQuery', () => {
+    describe('#fullAggregateQuery(foo, bar, baz)', () => {
         beforeEach(() => initDb(connectionStringURI, publishedDatasetWithSubResource));
         afterEach(() => drop());
 
+        it('should return no results with parameters matchField, matchValue, joinField as empty string', (done) => {
+            const res = [];
+            from([{ connectionStringURI }])
+                .pipe(ezs('LodexFullAggregateQuery', {
+                    matchField: '',
+                    matchValue: '',
+                    joinField: '',
+                }))
+                .pipe(ezs.catch())
+                .on('error', done)
+                .on('data', (data) => res.push(data))
+                .on('end', () => {
+                    expect(res).toHaveLength(1);
+                    expect(res[0].total).toBe(0);
+                    done();
+                });
+        });
+
         it('should return nothing', (done) => {
             let res = [];
             from([{ connectionStringURI }])
                 .pipe(ezs('LodexFullAggregateQuery', {
-                    subResourcesIdentifier: '',
-                    subResourcesNameIdentifier: '',
-                    subResourcesName: '',
+                    matchField: '',
+                    matchValue: '',
+                    joinField: 'dqff',
                 }))
                 .pipe(ezs.catch())
                 .on('error', done)
@@ -823,9 +841,9 @@ describe('mongo queries', () => {
             let res = [];
             from([{ connectionStringURI }])
                 .pipe(ezs('LodexFullAggregateQuery', {
-                    subResourcesIdentifier: '',
-                    subResourcesNameIdentifier: 'dqff',
-                    subResourcesName: '',
+                    matchField: 'aHOZ',
+                    matchValue: '',
+                    joinField: 'dqff',
                 }))
                 .pipe(ezs.catch())
                 .on('error', done)
@@ -843,29 +861,9 @@ describe('mongo queries', () => {
             let res = [];
             from([{ connectionStringURI }])
                 .pipe(ezs('LodexFullAggregateQuery', {
-                    subResourcesIdentifier: 'aHOZ',
-                    subResourcesNameIdentifier: 'dqff',
-                    subResourcesName: '',
-                }))
-                .pipe(ezs.catch())
-                .on('error', done)
-                .on('data', (data) => {
-                    res = [...res, data];
-                })
-                .on('end', () => {
-                    expect(res).toHaveLength(1);
-                    expect(res[0].total).toBe(0);
-                    done();
-                });
-        });
-
-        it('should return nothing', (done) => {
-            let res = [];
-            from([{ connectionStringURI }])
-                .pipe(ezs('LodexFullAggregateQuery', {
-                    subResourcesIdentifier: 'aHOZ',
-                    subResourcesNameIdentifier: 'dqff',
-                    subResourcesName: 'Random Value',
+                    matchField: 'aHOZ',
+                    matchValue: 'Random Value',
+                    joinField: 'dqff',
                 }))
                 .pipe(ezs.catch())
                 .on('error', done)
@@ -889,9 +887,9 @@ describe('mongo queries', () => {
             ];
             from([{ connectionStringURI }])
                 .pipe(ezs('LodexFullAggregateQuery', {
-                    subResourcesIdentifier: 'aHOZ',
-                    subResourcesNameIdentifier: 'dqff',
-                    subResourcesName: 'Tarsius spectrum',
+                    matchField: 'aHOZ',
+                    matchValue: 'Tarsius spectrum',
+                    joinField: 'dqff',
                 }))
                 .pipe(ezs.catch())
                 .on('error', done)
@@ -922,9 +920,9 @@ describe('mongo queries', () => {
             ];
             from([{ connectionStringURI }])
                 .pipe(ezs('LodexFullAggregateQuery', {
-                    subResourcesIdentifier: 'aHOZ',
-                    subResourcesNameIdentifier: 'dqff',
-                    subResourcesName: 'Gallus gallus',
+                    matchField: 'aHOZ',
+                    matchValue: 'Gallus gallus',
+                    joinField: 'dqff',
                 }))
                 .pipe(ezs.catch())
                 .on('error', done)
