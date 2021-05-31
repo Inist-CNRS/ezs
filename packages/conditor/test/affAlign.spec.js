@@ -515,6 +515,42 @@ describe('affAlign', () => {
             });
     });
 
+    it('should not find structure where numero is in postal code', (done) => {
+        let res = [];
+        from([{
+            xPublicationDate: ['2019-11-19'],
+            authors: [{
+                affiliations: [{
+                    address: 'Université de Montpellier UM, '
+                    + 'UMR5253, Centre National de la Recherche Scientifique CNRS, '
+                    + 'Institut Charles Gerhardt Montpellier - '
+                    + 'Institut de Chimie Moléculaire et des Matériaux de Montpellier '
+                    + 'ICGM ICMMM, Bâtiment 15 - CC003 Place Eugène Bataillon - 34095 Montpellier cedex 5, FR',
+                }],
+            }],
+        }])
+            .pipe(ezs('affAlign', { year: 2019 }))
+            .on('data', (data) => {
+                res = [...res, data];
+            })
+            .on('end', () => {
+                expect(res).toEqual([{
+                    xPublicationDate: ['2019-11-19'],
+                    authors: [{
+                        affiliations: [{
+                            address: 'Université de Montpellier UM, '
+                            + 'UMR5253, Centre National de la Recherche Scientifique CNRS, '
+                            + 'Institut Charles Gerhardt Montpellier - '
+                            + 'Institut de Chimie Moléculaire et des Matériaux de Montpellier '
+                            + 'ICGM ICMMM, Bâtiment 15 - CC003 Place Eugène Bataillon - 34095 Montpellier cedex 5, FR',
+                            conditorRnsr: ['200711918D'],
+                        }],
+                    }],
+                }]);
+                done();
+            });
+    });
+
     describe('sigle seul', () => {
         it('should find the conditorRnsr', (done) => {
             let res = [];
