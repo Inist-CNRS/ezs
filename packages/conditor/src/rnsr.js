@@ -4,51 +4,55 @@
  */
 
 /**
- * @typedef {Object<string, any>} Structures
- * @property {Object} origineDonnees
- * @property {Structure[]} structure
+ * @typedef {{
+ * origineDonnees: object,
+ * structure: Structure[]
+ * }} Structures
  * @private
  */
 
 /**
- * @typedef {Object<string, any>} Structure
- * @property {string} num_nat_struct
- * @property {string} intitule
- * @property {string} intituleAppauvri
- * @property {string} sigle
- * @property {string} sigleAppauvri
- * @property {number} [annee_creation]
- * @property {number} [an_der_rec]
- * @property {number} [an_fermeture]
- * @property {number} code_postal
- * @property {string} ville_postale
- * @property {string} ville_postale_appauvrie
- * @property {EtabAssoc[]} etabAssoc
+ * @typedef {{
+ * num_nat_struct: string,
+ * intitule: string,
+ * intituleAppauvri: string,
+ * sigle: string,
+ * sigleAppauvri: string,
+ * annee_creation?: number,
+ * an_der_rec?: number,
+ * an_fermeture?: number,
+ * code_postal: number,
+ * ville_postale: string,
+ * ville_postale_appauvrie: string,
+ * etabAssoc: EtabAssoc[]
+ * }} Structure
  * @private
  */
 
 /**
- * @typedef {Object<string, any>} EtabAssoc
- * @property {"TUTE"|"PART"} [natTutEtab]
- * @property {Etab} etab
- * @property {number} [anDebut]
- * @property {number} [anFin]
- * @property {string} [idStructEtab]
- * @property {string} label
- * @property {string} labelAppauvri
- * @property {number} numero
+ * @typedef {{
+ * natTutEtab?: "TUTE"|"PART",
+ * etab: Etab,
+ * anDebut?: number,
+ * anFin?: number,
+ * idStructEtab: string,
+ * label: string,
+ * labelAppauvri: string,
+ * numero: number
+ * }} EtabAssoc
  * @private
  */
 
 /**
- * @typedef {Object<string, any>} Etab
- * @property {string} [cleEtab]
- * @property {string} sigle
- * @property {string} sigleAppauvri
- * @property {string} libelle
- * @property {string} libelleAppauvri
- * @property {string} [numUAI]
- * @property {string} [SirenSiret]
+ * @typedef {{
+ * cleEtab?: string,
+ * sigle: string,
+ * sigleAppauvri: string,
+ * libelle: string,
+ * libelleAppauvri: string,
+ * numUAI: string,
+ * SirenSiret: string
+ * }} Etab
  * @private
  */
 
@@ -66,7 +70,7 @@ const hasNumero = (address, etabAssocs) => etabAssocs[0] && etabAssocs.some(
  * @returns {boolean}
  * @private
  */
-const followsNumeroLabel = (tokens, etabAssocs) => etabAssocs[0]
+export const followsNumeroLabel = (tokens, etabAssocs) => etabAssocs[0]
     && etabAssocs.some(
         (etabAssoc) => {
             const { labelAppauvri: label, numero } = etabAssoc;
@@ -120,7 +124,7 @@ const hasSigle = (address, structure) => address.split(/[ -,]/).includes(structu
 const hasTutelle = (address, structure) => {
     const tutelles = structure.etabAssoc
         .map((ea) => ea.etab);
-    return tutelles.reduce((keep, etab) => {
+    const structureHasTutelle = tutelles.reduce((keep, etab) => {
         if (etab.libelleAppauvri.startsWith('universit')) {
             if (address.includes(etab.libelleAppauvri || '**')) {
                 return true;
@@ -131,6 +135,7 @@ const hasTutelle = (address, structure) => {
         }
         return keep;
     }, false);
+    return structureHasTutelle;
 };
 
 /**
