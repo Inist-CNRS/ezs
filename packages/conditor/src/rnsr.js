@@ -80,7 +80,7 @@ export const followsNumeroLabel = (tokens, etabAssocs) => etabAssocs[0]
             if (labelIndex === -1) return false;
             if (numeroIndex === -1) return false;
             if (numeroIndex < labelIndex) return false;
-            if (numeroIndex - labelIndex > 1) return false;
+            if (numeroIndex - labelIndex > 2) return false;
             return true;
         },
     );
