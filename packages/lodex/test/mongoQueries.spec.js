@@ -1,5 +1,6 @@
 import from from 'from';
 import { MongoClient } from 'mongodb';
+import _ from 'lodash';
 import ezs from '../../core/src';
 import ezsLodex from '../src';
 import { handles } from '../src/mongoDatabase';
@@ -795,123 +796,107 @@ describe('mongo queries', () => {
         });
     });
 
-    describe('#fullAggregateQuery(foo, bar, baz)', () => {
+    describe('#joinQuery', () => {
         beforeEach(() => initDb(connectionStringURI, publishedDatasetWithSubResource));
         afterEach(() => drop());
 
         it('should return no results with parameters matchField, matchValue, joinField as empty string', (done) => {
-            const res = [];
+            const results = [];
             from([{ connectionStringURI }])
-                .pipe(ezs('LodexFullAggregateQuery', {
+                .pipe(ezs('LodexJoinQuery', {
                     matchField: '',
                     matchValue: '',
                     joinField: '',
                 }))
                 .pipe(ezs.catch())
                 .on('error', done)
-                .on('data', (data) => res.push(data))
+                .on('data', (data) => results.push(data))
                 .on('end', () => {
-                    expect(res).toHaveLength(1);
-                    expect(res[0].total).toBe(0);
+                    expect(results).toHaveLength(1);
+                    expect(results[0].total).toBe(0);
                     done();
                 });
         });
 
-        it('should return nothing', (done) => {
-            let res = [];
+        it('should return nothing with incomplet parameters', (done) => {
+            const results = [];
             from([{ connectionStringURI }])
-                .pipe(ezs('LodexFullAggregateQuery', {
+                .pipe(ezs('LodexJoinQuery', {
                     matchField: '',
                     matchValue: '',
                     joinField: 'dqff',
                 }))
                 .pipe(ezs.catch())
                 .on('error', done)
-                .on('data', (data) => {
-                    res = [...res, data];
-                })
+                .on('data', (data) => results.push(data))
                 .on('end', () => {
-                    expect(res).toHaveLength(1);
-                    expect(res[0].total).toBe(0);
+                    expect(results).toHaveLength(1);
+                    expect(results[0].total).toBe(0);
                     done();
                 });
         });
 
-        it('should return nothing', (done) => {
-            let res = [];
+        it('should return nothing when searching value that not exists into the dataset', (done) => {
+            const results = [];
             from([{ connectionStringURI }])
-                .pipe(ezs('LodexFullAggregateQuery', {
+                .pipe(ezs('LodexJoinQuery', {
                     matchField: 'aHOZ',
-                    matchValue: '',
+                    matchValue: 'unset value',
                     joinField: 'dqff',
                 }))
                 .pipe(ezs.catch())
                 .on('error', done)
-                .on('data', (data) => {
-                    res = [...res, data];
-                })
+                .on('data', (data) => results.push(data))
                 .on('end', () => {
-                    expect(res).toHaveLength(1);
-                    expect(res[0].total).toBe(0);
+                    expect(results).toHaveLength(1);
+                    expect(results[0].total).toBe(0);
                     done();
                 });
         });
 
-        it('should return nothing', (done) => {
-            let res = [];
-            from([{ connectionStringURI }])
-                .pipe(ezs('LodexFullAggregateQuery', {
-                    matchField: 'aHOZ',
-                    matchValue: 'Random Value',
-                    joinField: 'dqff',
-                }))
-                .pipe(ezs.catch())
-                .on('error', done)
-                .on('data', (data) => {
-                    res = [...res, data];
-                })
-                .on('end', () => {
-                    expect(res).toHaveLength(1);
-                    expect(res[0].total).toBe(0);
-                    done();
-                });
-        });
-
-        it('should return 10 sub resources', (done) => {
-            let res = [];
-            let expectResList = [
+        it('should return 10 unique sub resources', (done) => {
+            const results = [];
+            const expectedResults = [
                 'Boa constrictor', 'Cebus capucinus', 'Chlorocebus pygerythrus',
                 'Crotalus durissus', 'Drymarchon corais', 'Macaca mulatta',
                 'Macaca radiata', 'Otolemur garnettii', 'Saguinus fuscicollis',
                 'Tarsius spectrum',
             ];
             from([{ connectionStringURI }])
-                .pipe(ezs('LodexFullAggregateQuery', {
+                .pipe(ezs('LodexJoinQuery', {
                     matchField: 'aHOZ',
                     matchValue: 'Tarsius spectrum',
                     joinField: 'dqff',
                 }))
                 .pipe(ezs.catch())
                 .on('error', done)
-                .on('data', (data) => {
-                    // Check if the current element is a sub-resource
-                    expect(data.subresourceId).toBeDefined();
-                    const currentElement = data.versions[0].dqff;
-                    // Check if the current element is valid element, at the same time check duplication
-                    expect(expectResList.includes(currentElement)).toBeTruthy();
-                    // Remove element at each step to verified duplication issue
-                    expectResList = expectResList.filter((value) => value !== currentElement);
-                    res = [...res, data];
-                })
+                .on('data', (data) => results.push(data))
                 .on('end', () => {
-                    expect(res).toHaveLength(10);
+                    const uniqResultsSize = _(results)
+                        .uniqWith(_.isEqual)
+                        .size();
+
+                    const isResultsSameHasExpectedResults = _.chain(results)
+                        .map((result) => _(result).get('versions[0].dqff'))
+                        .difference(expectedResults)
+                        .size()
+                        .eq(0);
+
+                    // Check if all result a in ExpectedResults list
+                    expect(isResultsSameHasExpectedResults).toBeTruthy();
+                    // Check the if all element returned are sub ressource
+                    expect(_.every(results, 'subresourceId')).toBeTruthy();
+                    // Check if we have only unique element
+                    expect(uniqResultsSize === results.length).toBeTruthy();
+                    // Check if we have 10 uinque element
+                    expect(uniqResultsSize).toBe(10);
                     done();
                 });
         });
 
         it('should return 13 sub resources', (done) => {
-            let res = [];
-            let expectResList = [
+            const results = [];
+            const expectedResults = [
                 'Alligator mississippiensis', 'Eublepharis macularius', 'Gallus gallus',
                 'Mesocricetus auratus', 'Mus musculus', 'Rattus norvegicus',
                 'Sceloporus occidentalis', 'Tenebrio molitor', 'Crocodylus siamensis',
@@ -919,25 +904,33 @@ describe('mongo queries', () => {
                 'Acheta domesticus',
             ];
             from([{ connectionStringURI }])
-                .pipe(ezs('LodexFullAggregateQuery', {
+                .pipe(ezs('LodexJoinQuery', {
                     matchField: 'aHOZ',
                     matchValue: 'Gallus gallus',
                     joinField: 'dqff',
                 }))
                 .pipe(ezs.catch())
                 .on('error', done)
-                .on('data', (data) => {
-                    // Check if the current element is a sub-resource
-                    expect(data.subresourceId).toBeDefined();
-                    const currentElement = data.versions[0].dqff;
-                    // Check if the current element is valid element, at the same time check duplication
-                    expect(expectResList.includes(currentElement)).toBeTruthy();
-                    // Remove element at each step to verified duplication issue
-                    expectResList = expectResList.filter((value) => value !== currentElement);
-                    res = [...res, data];
-                })
+                .on('data', (data) => results.push(data))
                 .on('end', () => {
-                    expect(res).toHaveLength(13);
+                    const uniqResultsSize = _(results)
+                        .uniqWith(_.isEqual)
+                        .size();
+
+                    const isResultsSameHasExpectedResults = _.chain(results)
+                        .map((result) => _(result).get('versions[0].dqff'))
+                        .difference(expectedResults)
+                        .size()
+                        .eq(0);
+
+                    // Check if all result a in ExpectedResults list
+                    expect(isResultsSameHasExpectedResults).toBeTruthy();
+                    // Check the if all element returned are sub ressource
+                    expect(_.every(results, 'subresourceId')).toBeTruthy();
+                    // Check if we have only unique element
+                    expect(uniqResultsSize === results.length).toBeTruthy();
+                    // Check if we have 10 uinque element
+                    expect(uniqResultsSize).toBe(13);
                     done();
                 });
         });

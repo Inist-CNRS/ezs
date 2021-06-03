@@ -1,6 +1,7 @@
+import get from 'lodash.get';
 import mongoDatabase from './mongoDatabase';
 
-export default async function LodexFullAggregateQuery(data, feed) {
+export default async function LodexJoinQuery(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
@@ -20,6 +21,8 @@ export default async function LodexFullAggregateQuery(data, feed) {
     const db = await mongoDatabase(connectionStringURI);
     const collection = db.collection(collectionName);
 
+    if (matchField === '' || joinField === '') return feed.send({ total: 0 });
+
     const aggregateQuery = [
         { $match: { [`versions.0.${matchField}`]: matchValue, removedAt: { $exists: false } } },
         { $project: { _id: 1, [`versions.${matchField}`]: 1 } },
@@ -31,27 +34,18 @@ export default async function LodexFullAggregateQuery(data, feed) {
 
     const aggregateCursor = await collection.aggregate(aggregateQuery);
 
-    let results;
-    try {
-        await aggregateCursor.forEach((e) => {
-            if (results === undefined && ![null, undefined].includes(e.items)) results = e.items;
-        });
+    const results = await aggregateCursor.toArray();
 
-        const aggregateTotal = results.length;
-        if (aggregateTotal === 0) {
-            return feed.send({ total: 0 });
-        }
-    } catch (e) {
-        return feed.send({ total: 0 });
-    }
+    if (results.length === 0) { return feed.send({ total: 0 }); }
 
     const findQuery = {
-        [`versions.${joinField}`]: { $in: results },
+        [`versions.${joinField}`]: { $in: get(results, '0.items', []) },
     };
 
     const findCursor = await collection.find(findQuery);
 
     const findTotal = await findCursor.count();
+
     if (findTotal === 0) {
         return feed.send({ total: 0 });
     }
@@ -67,6 +61,11 @@ export default async function LodexFullAggregateQuery(data, feed) {
     const stream = findCursor
         .skip(Number(skip))
         .limit(Number(limit))
-        .pipe(ezs('assign', { path, value }));
+        .pipe(ezs('assign',
+            {
+                path,
+                value,
+            }));
+
     feed.flow(stream);
 }
