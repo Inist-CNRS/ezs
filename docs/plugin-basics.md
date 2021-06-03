@@ -22,6 +22,7 @@ npm install @ezs/basics
 -   [BUFObject](#bufobject)
 -   [URLConnect](#urlconnect)
 -   [URLStream](#urlstream)
+-   [XMLConvert](#xmlconvert)
 -   [ZIPExtract](#zipextract)
 -   [TXTObject](#txtobject)
 -   [URLFetch](#urlfetch)
@@ -29,9 +30,9 @@ npm install @ezs/basics
 -   [INIString](#inistring)
 -   [CSVParse](#csvparse)
 -   [URLParse](#urlparse)
--   [XMLString](#xmlstring)
 -   [JSONParse](#jsonparse)
 -   [XMLParse](#xmlparse)
+-   [XMLString](#xmlstring)
 -   [TXTParse](#txtparse)
 -   [CSVString](#csvstring)
 -   [CSVObject](#csvobject)
@@ -128,6 +129,19 @@ Take `Object` as parameters of URL, throw each chunk from the result
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
+### XMLConvert
+
+-   **See: <https://www.npmjs.com/package/xml-mapping>
+    **
+
+Convert each chunk as XML String to JSON Object
+
+#### Parameters
+
+-   `invert` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** change conversion (JSON to XML) (optional, default `false`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
 ### ZIPExtract
 
 Take the content of a zip file, extract some files
@@ -208,18 +222,6 @@ Take `String` of URL, parse it and returns `Object`
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### XMLString
-
-Take `Object` and transform it into a XML string
-
-#### Parameters
-
--   `rootElement` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Root element name for the tag which start and close the feed (optional, default `items`)
--   `contentElement` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Content element name for the tag which start and close each item (optional, default `item`)
--   `rootNamespace` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Namespace for the root tag (xmlns=)
-
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
 ### JSONParse
 
 -   **See: <https://github.com/dominictarr/JSONStream>
@@ -245,6 +247,19 @@ Take `String` as XML input, parse it and split it in multi document at each path
 -   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose a character for flatten keys (optional, default `/`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### XMLString
+
+Take `Object` and transform it into a XML string
+
+#### Parameters
+
+-   `rootElement` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Root element name for the tag which start and close the feed (optional, default `items`)
+-   `contentElement` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Content element name for the tag which start and close each item (optional, default `item`)
+-   `rootNamespace` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Namespace for the root tag (xmlns=)
+-   `prologue` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Add XML prologue &lt;?xml (optional, default `false`)
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ### TXTParse
 

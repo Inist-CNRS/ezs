@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.15.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.14.2...@ezs/analytics@1.15.0) (2021-05-27)
+
+
+### Features
+
+* 🎸 add [XMLConvert] ([0040fce](https://github.com/Inist-CNRS/ezs/commit/0040fce60affd263f537853e5fd4957df43d6c7a))
+
+
+
+
+
 ## [1.14.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.14.1...@ezs/analytics@1.14.2) (2021-05-05)
 
 
