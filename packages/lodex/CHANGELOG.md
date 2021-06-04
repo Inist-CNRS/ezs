@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.11.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.10.0...@ezs/lodex@1.11.0) (2021-06-04)
+
+
+### Features
+
+* Specified Aggregation query for sub resource ([b594c95](https://github.com/Inist-CNRS/ezs/commit/b594c952b5baa57c818d62f4e9cf6d25d4bd1c7a))
+
+
+
+
+
 # [1.10.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.9.5...@ezs/lodex@1.10.0) (2021-05-18)
 
 

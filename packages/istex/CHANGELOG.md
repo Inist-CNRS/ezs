@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/istex@1.3.1...@ezs/istex@1.4.0) (2021-06-04)
+
+
+### Features
+
+* Specified Aggregation query for sub resource ([b594c95](https://github.com/Inist-CNRS/ezs/commit/b594c952b5baa57c818d62f4e9cf6d25d4bd1c7a))
+
+
+
+
+
 ## [1.3.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/istex@1.3.0...@ezs/istex@1.3.1) (2021-05-05)
 
 

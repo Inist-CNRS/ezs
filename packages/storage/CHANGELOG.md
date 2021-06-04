@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@1.4.2...@ezs/storage@1.5.0) (2021-06-04)
+
+
+### Features
+
+* Specified Aggregation query for sub resource ([b594c95](https://github.com/Inist-CNRS/ezs/commit/b594c952b5baa57c818d62f4e9cf6d25d4bd1c7a))
+
+
+
+
+
 ## [1.4.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@1.4.1...@ezs/storage@1.4.2) (2021-04-20)
 
 

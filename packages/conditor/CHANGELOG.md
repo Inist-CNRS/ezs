@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.1.2...@ezs/conditor@2.2.0) (2021-06-04)
+
+
+### Features
+
+* Specified Aggregation query for sub resource ([b594c95](https://github.com/Inist-CNRS/ezs/commit/b594c952b5baa57c818d62f4e9cf6d25d4bd1c7a))
+
+
+
+
+
 ## [2.1.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.1.1...@ezs/conditor@2.1.2) (2021-05-05)
 
 
