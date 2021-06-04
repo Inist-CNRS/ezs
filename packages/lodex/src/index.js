@@ -29,6 +29,7 @@ import injectCountFrom from './injectCountFrom';
 import labelizeFieldID from './labelizeFieldID';
 import buildContext from './buildContext';
 import aggregateQuery from './aggregateQuery';
+import LodexJoinQuery from './joinQuery';
 
 export default {
     flattenPatch,
@@ -61,6 +62,7 @@ export default {
     buildContext,
     aggregateQuery,
     writeTurtle,
+    LodexJoinQuery,
     // aliases
     fixFlatten: flattenPatch.flattenPatch,
     LodexContext: disabled.disabled,
