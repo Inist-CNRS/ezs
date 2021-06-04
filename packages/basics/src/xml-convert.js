@@ -5,7 +5,10 @@ function XMLConvert(data, feed) {
         return feed.close();
     }
     const func = this.getParam('invert', false) ? 'dump' : 'load';
-    feed.send(XML[func](data));
+    const opts = {
+        header: this.getParam('prologue', false),
+    };
+    feed.send(XML[func](data, opts));
 }
 
 /**

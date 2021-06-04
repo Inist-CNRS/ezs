@@ -39,4 +39,21 @@ describe('XMLConvert', () => {
                 done();
             });
     });
+    test('JSON to XML with prologue', (done) => {
+        const output = [];
+        from([
+            { x: { a: 1 } },
+            { x: { a: 2 } },
+        ])
+            .pipe(ezs('XMLConvert', { invert: true, prologue: true }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => output.push(chunk))
+            .on('end', () => {
+                expect(output.length).toStrictEqual(2);
+                expect(output[0]).toEqual('<?xml version="1.0" encoding="utf-8"?>\n<x a="1"/>');
+                expect(output[1]).toEqual('<?xml version="1.0" encoding="utf-8"?>\n<x a="2"/>');
+                done();
+            });
+    });
 });
