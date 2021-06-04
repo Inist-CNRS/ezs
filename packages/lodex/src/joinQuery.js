@@ -7,7 +7,7 @@ import mongoDatabase from './mongoDatabase';
  * The input object must contain a `connectionStringURI` property, containing
  * the connection string to MongoDB.
  *
- * @name LodexAggregateQuery
+ * @name LodexJoinQuery
  * @param {String}  [collection="publishedDataset"]  collection to use
  * @param {Object}  [referer]      data injected into every result object
  * @param {String}  [matchField]   Lodex flield, containing matcheble element
