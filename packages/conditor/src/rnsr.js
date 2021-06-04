@@ -74,6 +74,7 @@ export const followsNumeroLabel = (tokens, etabAssocs) => etabAssocs[0]
     && etabAssocs.some(
         (etabAssoc) => {
             const { labelAppauvri: label, numero } = etabAssoc;
+            if (label === '' || String(numero) === '') return false;
             if (tokens.includes(`${label}${numero}`)) return true;
             const labelIndex = tokens.indexOf(label.toLowerCase());
             const numeroIndex = tokens.indexOf(String(numero));
@@ -185,7 +186,7 @@ export function isIn(address) {
      * @private
      */
     function isInAddress(structure) {
-        return hasEtabAssocs(structure)
+        const result = hasEtabAssocs(structure)
         && hasPostalAddress(address, structure)
         && hasTutelle(address, structure)
         && (
@@ -193,6 +194,7 @@ export function isIn(address) {
             || hasIntitule(address, structure)
             || hasLabelAndNumero(address, structure)
         );
+        return result;
     }
     return isInAddress;
 }
