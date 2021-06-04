@@ -22,11 +22,11 @@ npm install @ezs/basics
 -   [BUFObject](#bufobject)
 -   [URLConnect](#urlconnect)
 -   [URLStream](#urlstream)
--   [XMLConvert](#xmlconvert)
 -   [ZIPExtract](#zipextract)
 -   [TXTObject](#txtobject)
 -   [URLFetch](#urlfetch)
 -   [TXTConcat](#txtconcat)
+-   [XMLConvert](#xmlconvert)
 -   [INIString](#inistring)
 -   [CSVParse](#csvparse)
 -   [URLParse](#urlparse)
@@ -129,19 +129,6 @@ Take `Object` as parameters of URL, throw each chunk from the result
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### XMLConvert
-
--   **See: <https://www.npmjs.com/package/xml-mapping>
-    **
-
-Convert each chunk as XML String to JSON Object
-
-#### Parameters
-
--   `invert` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** change conversion (JSON to XML) (optional, default `false`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
 ### ZIPExtract
 
 Take the content of a zip file, extract some files
@@ -195,6 +182,19 @@ Take `String` and concat all items in just one string
 -   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+### XMLConvert
+
+-   **See: <https://www.npmjs.com/package/xml-mapping>
+    **
+
+Convert each chunk as XML String to JSON Object
+
+#### Parameters
+
+-   `invert` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** change conversion (JSON to XML) (optional, default `false`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### INIString
 
