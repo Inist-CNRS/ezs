@@ -36,7 +36,7 @@ param2 = false
 param1 = fix('\n')
 param2 = fix('1.234')
 param3 = fix(1234)
-param4 = fix('Voici ', 'valeur', ' ', 'concaténée')
+param4 = fix('Voici ', 'valeur', ' ', 'concaténée').join('')
 ```
 
 
@@ -52,7 +52,7 @@ Il est possible de calculer une valeur à partir de l'item courant (object JSON 
 param1 = get('nom_du_champ').split('--').head()
 param2 = fix('1.234')
 param3 = fix(1234)
-param4 = fix('Voici ', 'valeur', ' ', 'concaténée')
+param4 = fix('Voici ', 'valeur', ' ', 'concaténée').join('')
 ```
 
 ###  à partir d'une variable d'environment 
