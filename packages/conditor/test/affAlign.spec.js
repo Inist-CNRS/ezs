@@ -515,6 +515,185 @@ describe('affAlign', () => {
             });
     });
 
+    describe('structure without label and numero', () => {
+        it('should not find structure where numero is in postal code', (done) => {
+            let res = [];
+            from([{
+                xPublicationDate: ['2019-11-19'],
+                authors: [{
+                    affiliations: [{
+                        address: 'Université de Montpellier UM, '
+                        + 'UMR5253, Centre National de la Recherche Scientifique CNRS, '
+                        + 'Institut Charles Gerhardt Montpellier - '
+                        + 'Institut de Chimie Moléculaire et des Matériaux de Montpellier '
+                        + 'ICGM ICMMM, Bâtiment 15 - CC003 Place Eugène Bataillon - 34095 Montpellier cedex 5, FR',
+                    }],
+                }],
+            }])
+                .pipe(ezs('affAlign', { year: 2019 }))
+                .on('data', (data) => {
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    expect(res).toEqual([{
+                        xPublicationDate: ['2019-11-19'],
+                        authors: [{
+                            affiliations: [{
+                                address: 'Université de Montpellier UM, '
+                                + 'UMR5253, Centre National de la Recherche Scientifique CNRS, '
+                                + 'Institut Charles Gerhardt Montpellier - '
+                                + 'Institut de Chimie Moléculaire et des Matériaux de Montpellier '
+                                // eslint-disable-next-line max-len
+                                + 'ICGM ICMMM, Bâtiment 15 - CC003 Place Eugène Bataillon - 34095 Montpellier cedex 5, FR',
+                                conditorRnsr: ['200711918D'],
+                            }],
+                        }],
+                    }]);
+                    done();
+                });
+        });
+
+        it('should not find structure in poor address', (done) => {
+            let res = [];
+            from([{
+                xPublicationDate: ['2019'],
+                authors: [{
+                    affiliations: [{
+                        address: 'UMR CNRS 95 35253 Montpellier',
+                    }],
+                }],
+            }])
+                .pipe(ezs('affAlign', { year: 2019 }))
+                .on('data', (data) => {
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    expect(res).toEqual([{
+                        xPublicationDate: ['2019'],
+                        authors: [{
+                            affiliations: [{
+                                address: 'UMR CNRS 95 35253 Montpellier',
+                                conditorRnsr: [],
+                            }],
+                        }],
+                    }]);
+                    done();
+                });
+        });
+
+        it('should find one structure for the CIRAD', (done) => {
+            let res = [];
+            from([{
+                xPublicationDate: ['2019'],
+                authors: [{
+                    affiliations: [{
+                        address: 'UMR CIRAD 95 35253 Montpellier',
+                    }],
+                }],
+            }])
+                .pipe(ezs('affAlign', { year: 2019 }))
+                .on('data', (data) => {
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    expect(res).toEqual([{
+                        xPublicationDate: ['2019'],
+                        authors: [{
+                            affiliations: [{
+                                address: 'UMR CIRAD 95 35253 Montpellier',
+                                conditorRnsr: ['200717639X'],
+                            }],
+                        }],
+                    }]);
+                    done();
+                });
+        });
+
+        it('should not find structure for the CIRAD in 2016', (done) => {
+            let res = [];
+            from([{
+                xPublicationDate: ['2006'],
+                authors: [{
+                    affiliations: [{
+                        address: 'UMR CIRAD 95 35253 Montpellier',
+                    }],
+                }],
+            }])
+                .pipe(ezs('affAlign', { year: 2019 }))
+                .on('data', (data) => {
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    expect(res).toEqual([{
+                        xPublicationDate: ['2006'],
+                        authors: [{
+                            affiliations: [{
+                                address: 'UMR CIRAD 95 35253 Montpellier',
+                                conditorRnsr: [],
+                            }],
+                        }],
+                    }]);
+                    done();
+                });
+        });
+
+        it('should find structure for UMR5253 CNRS', (done) => {
+            let res = [];
+            from([{
+                xPublicationDate: ['2019'],
+                authors: [{
+                    affiliations: [{
+                        address: 'UMR5253 CNRS,  34095 Montpellier cedex 5, FR',
+                    }],
+                }],
+            }])
+                .pipe(ezs('affAlign', { year: 2019 }))
+                .on('data', (data) => {
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    expect(res).toEqual([{
+                        xPublicationDate: ['2019'],
+                        authors: [{
+                            affiliations: [{
+                                address: 'UMR5253 CNRS,  34095 Montpellier cedex 5, FR',
+                                conditorRnsr: ['200711918D'],
+                            }],
+                        }],
+                    }]);
+                    done();
+                });
+        });
+
+        it('should not find structure for UMR5253 without CNRS', (done) => {
+            let res = [];
+            from([{
+                xPublicationDate: ['2019'],
+                authors: [{
+                    affiliations: [{
+                        address: 'UMR5253,  34095 Montpellier cedex 5, FR',
+                    }],
+                }],
+            }])
+                .pipe(ezs('affAlign', { year: 2019 }))
+                .on('data', (data) => {
+                    res = [...res, data];
+                })
+                .on('end', () => {
+                    expect(res).toEqual([{
+                        xPublicationDate: ['2019'],
+                        authors: [{
+                            affiliations: [{
+                                address: 'UMR5253,  34095 Montpellier cedex 5, FR',
+                                conditorRnsr: [],
+                            }],
+                        }],
+                    }]);
+                    done();
+                });
+        });
+    });
+
     describe('sigle seul', () => {
         it('should find the conditorRnsr', (done) => {
             let res = [];
