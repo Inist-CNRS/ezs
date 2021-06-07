@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.2.0...@ezs/conditor@2.2.1) (2021-06-07)
+
+
+### Bug Fixes
+
+* **conditor:** Fix followsNumeroLabel ([b64c53c](https://github.com/Inist-CNRS/ezs/commit/b64c53c5333bc88428a3b15d1d4efc5c6cf41cae))
+* **conditor:** Fix wrongly assigned RNSR ID ([365ad69](https://github.com/Inist-CNRS/ezs/commit/365ad69d788e276524181bb30d8b19b7a50c3bb8)), closes [#152](https://github.com/Inist-CNRS/ezs/issues/152)
+
+
+
+
+
 # [2.2.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.1.2...@ezs/conditor@2.2.0) (2021-06-04)
 
 
