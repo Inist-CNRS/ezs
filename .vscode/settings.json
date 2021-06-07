@@ -1,3 +1,7 @@
 {
     "js/ts.implicitProjectConfig.checkJs": true,
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.formatOnSave": true,
 }
