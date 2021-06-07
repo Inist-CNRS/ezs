@@ -5,4 +5,4 @@
 # White list only the required files
 !lib/**/*
 !bin/*
-!data/RNSR.json
+!data/RNSR*.json
