@@ -2,17 +2,17 @@ import get from 'lodash.get';
 import mongoDatabase from './mongoDatabase';
 
 /**
- * Take 3 paramettre use for creating an join query between two element (one to many, on sub-ressource)
+ * Take 3 parametres and creates a join query (one to many, on sub-ressource)
  *
- * The input object must contain a `connectionStringURI` property, containing
+ * The input object must contain a `connectionStringURI` property, valued with
  * the connection string to MongoDB.
  *
  * @name LodexJoinQuery
  * @param {String}  [collection="publishedDataset"]  collection to use
  * @param {Object}  [referer]      data injected into every result object
- * @param {String}  [matchField]   Lodex flield, containing matcheble element
- * @param {String}  [matchValue]   Value use with the match field for geting items
- * @param {String}  [joinField]    Lodex flield use for joining matching item and any ressource
+ * @param {String}  [matchField]   Lodex field, containing matchable element
+ * @param {String}  [matchValue]   Value used with the match field to get items
+ * @param {String}  [joinField]    Lodex field used for the join request
  * @param {Object}  [limit]        limit the result
  * @param {Object}  [skip]         limit the result
  * @returns {Object}
