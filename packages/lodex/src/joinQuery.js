@@ -36,11 +36,13 @@ export default async function LodexJoinQuery(data, feed) {
     await aggregateCursor
         .forEach((row) => {
             _.get(row, 'items', []).forEach((item) => {
-                const itemValue = _.get(results, item);
-                if (itemValue) {
-                    _.set(results, item, itemValue + 1);
-                } else {
-                    _.set(results, item, 1);
+                if (item !== matchValue) {
+                    const itemValue = _.get(results, item);
+                    if (itemValue) {
+                        _.set(results, item, itemValue + 1);
+                    } else {
+                        _.set(results, item, 1);
+                    }
                 }
             });
         });
