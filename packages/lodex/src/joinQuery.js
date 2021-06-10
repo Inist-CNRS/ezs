@@ -28,27 +28,40 @@ export default async function LodexJoinQuery(data, feed) {
         { $project: { _id: 1, [`versions.${matchField}`]: 1 } },
         { $unwind: '$versions' },
         { $project: { items: `$versions.${matchField}` } },
-        //{ $unwind: `$${matchField}` },
-        //{ $group: { _id: 0, items: { $push: `$${matchField}` } } },
+        // { $unwind: `$${matchField}` },
+        // { $group: { _id: 0, items: { $push: `$${matchField}` } } },
     ];
-fgfjgk
+
     const aggregateCursor = await collection.aggregate(aggregateQuery);
 
-    //const results = await aggregateCursor.toArray();
+    // const results = await aggregateCursor.toArray();
 
-    //if (results.length === 0) { return feed.send({ total: 0 }); }
+    // if (results.length === 0) { return feed.send({ total: 0 }); }
 
-    // const results = {};
-    // await aggregateCursor.forEach(row => {
-    //     _.get(row, 'items', []).forEach(item => {
-    //         const itemValue = _.get(results, item, false);
-    //         if (itemValue) {
-    //             _.set(results, item, itemValue + 1);
-    //         } else {
-    //             _.set(results, item, 1);
-    //         }
-    //     });
-    // });
+    // [
+    //     {_id: 1, items: ["A", "B"]},
+    //     {_id: 2, items: ["B"]}
+    // ]
+    //
+    // {
+    //     "A": 1,
+    //     "B": 2
+    // }
+
+    const results = {};
+    await aggregateCursor
+        .forEach((row) => {
+            _.get(row, 'items', []).forEach((item) => {
+                const itemValue = _.get(results, item);
+                if (itemValue) {
+                    _.set(results, item, itemValue + 1);
+                } else {
+                    _.set(results, item, 1);
+                }
+            });
+        });
+
+    console.dir(results);
 
     const findQuery = {
         [`versions.${joinField}`]: { $in: _.keys(results) },
@@ -77,7 +90,9 @@ fgfjgk
             {
                 path,
                 value,
-            }));
+            }))
+        .pipe((v)=>{console.log(v); return v})
+    ;
 
     feed.flow(stream);
 }

@@ -913,6 +913,7 @@ describe('mongo queries', () => {
                 .on('error', done)
                 .on('data', (data) => results.push(data))
                 .on('end', () => {
+                    console.dir(results)
                     const uniqResultsSize = _(results)
                         .uniqWith(_.isEqual)
                         .size();
