@@ -28,25 +28,9 @@ export default async function LodexJoinQuery(data, feed) {
         { $project: { _id: 1, [`versions.${matchField}`]: 1 } },
         { $unwind: '$versions' },
         { $project: { items: `$versions.${matchField}` } },
-        // { $unwind: `$${matchField}` },
-        // { $group: { _id: 0, items: { $push: `$${matchField}` } } },
     ];
 
     const aggregateCursor = await collection.aggregate(aggregateQuery);
-
-    // const results = await aggregateCursor.toArray();
-
-    // if (results.length === 0) { return feed.send({ total: 0 }); }
-
-    // [
-    //     {_id: 1, items: ["A", "B"]},
-    //     {_id: 2, items: ["B"]}
-    // ]
-    //
-    // {
-    //     "A": 1,
-    //     "B": 2
-    // }
 
     const results = {};
     await aggregateCursor
@@ -60,8 +44,6 @@ export default async function LodexJoinQuery(data, feed) {
                 }
             });
         });
-
-    console.dir(results);
 
     const findQuery = {
         [`versions.${joinField}`]: { $in: _.keys(results) },
@@ -91,8 +73,20 @@ export default async function LodexJoinQuery(data, feed) {
                 path,
                 value,
             }))
-        .pipe((v)=>{console.log(v); return v})
-    ;
+        .pipe(ezs((input, output) => {
+            if (input == null) {
+                output.end();
+                return;
+            }
+            const title = _.chain(input)
+                .get('versions')
+                .last()
+                .get(joinField)
+                .value();
+            const count = _.get(results, title);
+            _.set(input, 'count', count);
+            output.send(input);
+        }));
 
     feed.flow(stream);
 }

@@ -880,8 +880,16 @@ describe('mongo queries', () => {
                         .map((result) => _(result).get('versions[0].dqff'))
                         .difference(expectedResults)
                         .size()
-                        .eq(0);
+                        .eq(0)
+                        .value();
 
+                    const isCountEqualsToOne = _.chain(results)
+                        .map((result) => _(result).get('count'))
+                        .every((value) => _.eq(value, 1))
+                        .value();
+
+                    // Check if all result have the count to 1
+                    expect(isCountEqualsToOne).toBeTruthy();
                     // Check if all result a in ExpectedResults list
                     expect(isResultsSameHasExpectedResults).toBeTruthy();
                     // Check the if all element returned are sub ressource
@@ -913,7 +921,6 @@ describe('mongo queries', () => {
                 .on('error', done)
                 .on('data', (data) => results.push(data))
                 .on('end', () => {
-                    console.dir(results)
                     const uniqResultsSize = _(results)
                         .uniqWith(_.isEqual)
                         .size();
@@ -922,8 +929,15 @@ describe('mongo queries', () => {
                         .map((result) => _(result).get('versions[0].dqff'))
                         .difference(expectedResults)
                         .size()
-                        .eq(0);
+                        .eq(0)
+                        .value();
 
+                    const countEqualsOne = results.filter((value) => value.count === 1);
+                    const countEqualsTwo = results.filter((value) => value.count === 2);
+
+                    // Check if the count are good
+                    expect(countEqualsOne.length).toBe(11);
+                    expect(countEqualsTwo.length).toBe(2);
                     // Check if all result a in ExpectedResults list
                     expect(isResultsSameHasExpectedResults).toBeTruthy();
                     // Check the if all element returned are sub ressource
