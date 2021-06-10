@@ -1,4 +1,4 @@
-import get from 'lodash.get';
+import _ from 'lodash';
 import mongoDatabase from './mongoDatabase';
 
 export default async function LodexJoinQuery(data, feed) {
@@ -27,19 +27,31 @@ export default async function LodexJoinQuery(data, feed) {
         { $match: { [`versions.0.${matchField}`]: matchValue, removedAt: { $exists: false } } },
         { $project: { _id: 1, [`versions.${matchField}`]: 1 } },
         { $unwind: '$versions' },
-        { $project: { [`${matchField}`]: `$versions.${matchField}` } },
-        { $unwind: `$${matchField}` },
-        { $group: { _id: 0, items: { $push: `$${matchField}` } } },
+        { $project: { items: `$versions.${matchField}` } },
+        //{ $unwind: `$${matchField}` },
+        //{ $group: { _id: 0, items: { $push: `$${matchField}` } } },
     ];
-
+fgfjgk
     const aggregateCursor = await collection.aggregate(aggregateQuery);
 
-    const results = await aggregateCursor.toArray();
+    //const results = await aggregateCursor.toArray();
 
-    if (results.length === 0) { return feed.send({ total: 0 }); }
+    //if (results.length === 0) { return feed.send({ total: 0 }); }
+
+    // const results = {};
+    // await aggregateCursor.forEach(row => {
+    //     _.get(row, 'items', []).forEach(item => {
+    //         const itemValue = _.get(results, item, false);
+    //         if (itemValue) {
+    //             _.set(results, item, itemValue + 1);
+    //         } else {
+    //             _.set(results, item, 1);
+    //         }
+    //     });
+    // });
 
     const findQuery = {
-        [`versions.${joinField}`]: { $in: get(results, '0.items', []) },
+        [`versions.${joinField}`]: { $in: _.keys(results) },
     };
 
     const findCursor = await collection.find(findQuery);
