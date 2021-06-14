@@ -1,4 +1,4 @@
-import get from 'lodash.get';
+import _ from 'lodash';
 import mongoDatabase from './mongoDatabase';
 
 export default async function LodexJoinQuery(data, feed) {
@@ -27,19 +27,28 @@ export default async function LodexJoinQuery(data, feed) {
         { $match: { [`versions.0.${matchField}`]: matchValue, removedAt: { $exists: false } } },
         { $project: { _id: 1, [`versions.${matchField}`]: 1 } },
         { $unwind: '$versions' },
-        { $project: { [`${matchField}`]: `$versions.${matchField}` } },
-        { $unwind: `$${matchField}` },
-        { $group: { _id: 0, items: { $push: `$${matchField}` } } },
+        { $project: { items: `$versions.${matchField}` } },
     ];
 
     const aggregateCursor = await collection.aggregate(aggregateQuery);
 
-    const results = await aggregateCursor.toArray();
-
-    if (results.length === 0) { return feed.send({ total: 0 }); }
+    const results = {};
+    await aggregateCursor
+        .forEach((row) => {
+            _.get(row, 'items', []).forEach((item) => {
+                if (item !== matchValue) {
+                    const itemValue = _.get(results, item);
+                    if (itemValue) {
+                        _.set(results, item, itemValue + 1);
+                    } else {
+                        _.set(results, item, 1);
+                    }
+                }
+            });
+        });
 
     const findQuery = {
-        [`versions.${joinField}`]: { $in: get(results, '0.items', []) },
+        [`versions.${joinField}`]: { $in: _.keys(results) },
     };
 
     const findCursor = await collection.find(findQuery);
@@ -65,7 +74,21 @@ export default async function LodexJoinQuery(data, feed) {
             {
                 path,
                 value,
-            }));
+            }))
+        .pipe(ezs((input, output) => {
+            if (input == null) {
+                output.end();
+                return;
+            }
+            const title = _.chain(input)
+                .get('versions')
+                .last()
+                .get(joinField)
+                .value();
+            const count = _.get(results, title);
+            _.set(input, 'count', count);
+            output.send(input);
+        }));
 
     feed.flow(stream);
 }

@@ -860,7 +860,6 @@ describe('mongo queries', () => {
                 'Boa constrictor', 'Cebus capucinus', 'Chlorocebus pygerythrus',
                 'Crotalus durissus', 'Drymarchon corais', 'Macaca mulatta',
                 'Macaca radiata', 'Otolemur garnettii', 'Saguinus fuscicollis',
-                'Tarsius spectrum',
             ];
             from([{ connectionStringURI }])
                 .pipe(ezs('LodexJoinQuery', {
@@ -880,8 +879,16 @@ describe('mongo queries', () => {
                         .map((result) => _(result).get('versions[0].dqff'))
                         .difference(expectedResults)
                         .size()
-                        .eq(0);
+                        .eq(0)
+                        .value();
 
+                    const isCountEqualsToOne = _.chain(results)
+                        .map((result) => _(result).get('count'))
+                        .every((value) => _.eq(value, 1))
+                        .value();
+
+                    // Check if all result have the count to 1
+                    expect(isCountEqualsToOne).toBeTruthy();
                     // Check if all result a in ExpectedResults list
                     expect(isResultsSameHasExpectedResults).toBeTruthy();
                     // Check the if all element returned are sub ressource
@@ -889,7 +896,7 @@ describe('mongo queries', () => {
                     // Check if we have only unique element
                     expect(uniqResultsSize === results.length).toBeTruthy();
                     // Check if we have 10 uinque element
-                    expect(uniqResultsSize).toBe(10);
+                    expect(uniqResultsSize).toBe(9);
                     done();
                 });
         });
@@ -897,7 +904,7 @@ describe('mongo queries', () => {
         it('should return 13 sub resources', (done) => {
             const results = [];
             const expectedResults = [
-                'Alligator mississippiensis', 'Eublepharis macularius', 'Gallus gallus',
+                'Alligator mississippiensis', 'Eublepharis macularius',
                 'Mesocricetus auratus', 'Mus musculus', 'Rattus norvegicus',
                 'Sceloporus occidentalis', 'Tenebrio molitor', 'Crocodylus siamensis',
                 'Odontochelys semitestacea', 'Pelodiscus sinensis', 'Proganochelys quenstedti',
@@ -921,8 +928,15 @@ describe('mongo queries', () => {
                         .map((result) => _(result).get('versions[0].dqff'))
                         .difference(expectedResults)
                         .size()
-                        .eq(0);
+                        .eq(0)
+                        .value();
 
+                    const countEqualsOne = results.filter((value) => value.count === 1);
+                    const countEqualsTwo = results.filter((value) => value.count === 2);
+
+                    // Check if the count are good
+                    expect(countEqualsOne.length).toBe(11);
+                    expect(countEqualsTwo.length).toBe(1);
                     // Check if all result a in ExpectedResults list
                     expect(isResultsSameHasExpectedResults).toBeTruthy();
                     // Check the if all element returned are sub ressource
@@ -930,7 +944,7 @@ describe('mongo queries', () => {
                     // Check if we have only unique element
                     expect(uniqResultsSize === results.length).toBeTruthy();
                     // Check if we have 10 uinque element
-                    expect(uniqResultsSize).toBe(13);
+                    expect(uniqResultsSize).toBe(12);
                     done();
                 });
         });
