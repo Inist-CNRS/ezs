@@ -1,28 +1,12 @@
 import URL from 'url';
 import QueryString from 'qs';
 import fetch from 'fetch-with-proxy';
-import {
-    head, pathOr, pipe, toLower,
-} from 'ramda';
+import { head, pathOr, pipe, toLower } from 'ramda';
 import ProgressBar from 'progress';
 
-// Tests mock fetch, so that there is no need for CONDITOR_TOKEN
-if (process.env.NODE_ENV !== 'test') {
-    // eslint-disable-next-line global-require
-    const result = require('dotenv').config();
-
-    if (result.error) {
-        throw result.error;
-    }
-}
-
-const token = process.env.CONDITOR_TOKEN;
-
 // Because response.headers.get() does not work well
-const getHeader = (header) => pipe(
-    pathOr([], ['headers', '_headers', toLower(header)]),
-    head,
-);
+const getHeader = (header) =>
+    pipe(pathOr([], ['headers', '_headers', toLower(header)]), head);
 const getTotalFromHeader = getHeader('X-Total-Count');
 const getResultCountFromHeader = getHeader('X-Result-Count');
 const getScrollIdFromHeader = getHeader('Scroll-Id');
@@ -73,6 +57,18 @@ export default async function conditorScroll(data, feed) {
         return feed.close();
     }
     if (this.isFirst()) {
+        // Tests mock fetch, so that there is no need for CONDITOR_TOKEN
+        if (process.env.NODE_ENV !== 'test') {
+            // eslint-disable-next-line global-require
+            const result = require('dotenv').config();
+
+            if (result.error) {
+                throw result.error;
+            }
+        }
+
+        this.token = process.env.CONDITOR_TOKEN;
+
         this.resultsCount = 0;
     }
     const q = this.getParam('q') || data.query;
@@ -95,7 +91,7 @@ export default async function conditorScroll(data, feed) {
         includes,
         excludes,
         page_size: pageSize,
-        access_token: token,
+        access_token: this.token,
         sid,
     };
     const urlObj = {
@@ -118,7 +114,9 @@ export default async function conditorScroll(data, feed) {
     const total = Number(getTotalFromHeader(response));
     let bar;
     if (progress) {
-        bar = new ProgressBar('[:bar] :current / :total :elapseds <- :etas', { total });
+        bar = new ProgressBar('[:bar] :current / :total :elapseds <- :etas', {
+            total,
+        });
         bar.tick(this.resultsCount);
     }
 
@@ -129,7 +127,7 @@ export default async function conditorScroll(data, feed) {
             pathname: `/v1/scroll/${getScrollIdFromHeader(response)}`,
         };
         const scrollParameters = {
-            access_token: token,
+            access_token: this.token,
             sid,
         };
         const scrollUrlObj = {
