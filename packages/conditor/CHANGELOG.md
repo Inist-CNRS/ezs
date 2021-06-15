@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.3.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.2.2...@ezs/conditor@2.3.0) (2021-06-15)
+
+
+### Features
+
+* **conditor:** Use .env only in conditorScroll ([47451e5](https://github.com/Inist-CNRS/ezs/commit/47451e59ecf5b6a579534999cade4e13a0ad5140))
+
+
+
+
+
 ## [2.2.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.2.1...@ezs/conditor@2.2.2) (2021-06-07)
 
 **Note:** Version bump only for package @ezs/conditor

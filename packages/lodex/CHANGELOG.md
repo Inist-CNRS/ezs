@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.11.0...@ezs/lodex@1.12.0) (2021-06-15)
+
+
+### Features
+
+* add resource counting on LodexJoinQuery ([1e34fa5](https://github.com/Inist-CNRS/ezs/commit/1e34fa5cc4eaa8cc82b352eac569dca907be3ee3))
+* remove the current resource from the join query ([e62d48d](https://github.com/Inist-CNRS/ezs/commit/e62d48d50a82238fff24144324bdbad41fda02e3))
+* Start testing some code for occurrences counting ([9a2a5ec](https://github.com/Inist-CNRS/ezs/commit/9a2a5ec940246228a0cd803125ce1c25b65ff1b6))
+
+
+
+
+
 # [1.11.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.10.0...@ezs/lodex@1.11.0) (2021-06-04)
 
 
