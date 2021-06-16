@@ -275,6 +275,43 @@ test('with no path', (done) => {
             done();
         });
 });
+test.only('with no value #1', (done) => {
+    ezs.use(statements);
+    const input = [
+        { a: 1, b: [] },
+        { a: 2, b: 'b' },
+        { a: 3, b: false },
+        { a: 4, b: 0 },
+        { a: 5, b: null },
+        { a: 6, b: undefined },
+    ];
+    const output = [];
+    const script = `
+            [use]
+            plugin = analytics
+
+            [assign]
+            path = value
+            value = get('value').toUpper()
+        `;
+    from(input)
+        .pipe(ezs('expand', { path: 'b', script }))
+        .pipe(ezs.catch())
+        .on('error', done)
+        .on('data', (chunk) => {
+            output.push(chunk);
+        })
+        .on('end', () => {
+            expect(output.length).toEqual(6);
+            expect(output[0].b).toEqual([]);
+            expect(output[1].b).toEqual('B');
+            expect(output[2].b).toEqual(false);
+            expect(output[3].b).toEqual(0);
+            expect(output[4].b).toEqual(null);
+            expect(output[5].b).toEqual(undefined);
+            done();
+        });
+});
 test('with bad path', (done) => {
     ezs.use(statements);
     const input = [
