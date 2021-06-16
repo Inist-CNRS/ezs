@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.16.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.15.1...@ezs/analytics@1.16.0) (2021-06-16)
+
+
+### Features
+
+* 🎸 fix exampn for empty arrayx ([8af4b92](https://github.com/Inist-CNRS/ezs/commit/8af4b9283df2aaa0717297275b5d6596bf0a18ac))
+
+
+
+
+
 ## [1.15.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.15.0...@ezs/analytics@1.15.1) (2021-06-04)
 
 **Note:** Version bump only for package @ezs/analytics
