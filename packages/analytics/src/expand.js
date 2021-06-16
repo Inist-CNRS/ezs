@@ -66,7 +66,7 @@ async function mergeWith(data, feed) {
  * @param {String} [script] the external pipeline is described in a string of characters
  * @param {String} [commands] the external pipeline is described in a object
  * @param {String} [command] the external pipeline is described in a URL-like command
- * @param {String} [cache] Use a specific ezs statement to run commands (advanced)
+ * @param {String} [cache] Use a specific ezs statement to run commands (experimental)
  * @returns {Object}
  */
 export default async function expand(data, feed) {
@@ -124,7 +124,7 @@ export default async function expand(data, feed) {
     }
 
     const value = get(data, path);
-    if (value === undefined) {
+    if (!value || value.length === 0) {
         return feed.send(data);
     }
     const id = this.getIndex().toString().padStart(20, '0');
