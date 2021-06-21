@@ -1,6 +1,22 @@
 import _ from 'lodash';
 import mongoDatabase from './mongoDatabase';
 
+/**
+ * Take 3 parametres and creates a join query (one to many, on sub-ressource)
+ *
+ * The input object must contain a `connectionStringURI` property, valued with
+ * the connection string to MongoDB.
+ *
+ * @name LodexJoinQuery
+ * @param {String}  [collection="publishedDataset"]  collection to use
+ * @param {Object}  [referer]      data injected into every result object
+ * @param {String}  [matchField]   Lodex field, containing matchable element
+ * @param {String}  [matchValue]   Value used with the match field to get items
+ * @param {String}  [joinField]    Lodex field used for the join request
+ * @param {Object}  [limit]        limit the result
+ * @param {Object}  [skip]         limit the result
+ * @returns {Object}
+ */
 export default async function LodexJoinQuery(data, feed) {
     if (this.isLast()) {
         return feed.close();
