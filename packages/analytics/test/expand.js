@@ -275,7 +275,7 @@ test('with no path', (done) => {
             done();
         });
 });
-test.only('with no value #1', (done) => {
+test('with no value #1', (done) => {
     ezs.use(statements);
     const input = [
         { a: 1, b: [] },
