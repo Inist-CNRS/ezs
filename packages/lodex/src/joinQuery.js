@@ -48,9 +48,11 @@ export default async function LodexJoinQuery(data, feed) {
 
     const aggregateCursor = await collection.aggregate(aggregateQuery);
 
+    let hitsTotal = 0;
     const results = {};
     await aggregateCursor
         .forEach((row) => {
+            hitsTotal += 1;
             _.get(row, 'items', []).forEach((item) => {
                 if (item !== matchValue) {
                     const itemValue = _.get(results, item);
@@ -77,6 +79,9 @@ export default async function LodexJoinQuery(data, feed) {
 
     const path = ['total'];
     const value = [findTotal];
+
+    path.push('hitsTotal');
+    value.push(hitsTotal);
 
     if (referer) {
         path.push('referer');
