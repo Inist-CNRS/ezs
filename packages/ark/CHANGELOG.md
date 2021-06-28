@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/ark@1.2.0...@ezs/ark@1.2.1) (2021-06-28)
+
+**Note:** Version bump only for package @ezs/ark
+
+
+
+
+
 # [1.2.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/ark@1.1.0...@ezs/ark@1.2.0) (2021-06-04)
 
 

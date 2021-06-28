@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.13.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.12.0...@ezs/lodex@1.13.0) (2021-06-28)
+
+
+### Bug Fixes
+
+* Wrong name on doc ([443c896](https://github.com/Inist-CNRS/ezs/commit/443c89646fe764deb3fd1af530905747b6ecfb7e))
+
+
+### Features
+
+* add the number of document found in the output ([cbd9d90](https://github.com/Inist-CNRS/ezs/commit/cbd9d9089b0b0e7f861797756ac3360b263a6f14))
+
+
+
+
+
 # [1.12.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.11.0...@ezs/lodex@1.12.0) (2021-06-15)
 
 

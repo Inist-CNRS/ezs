@@ -1,6 +1,6 @@
 {
   "name": "@ezs/basics",
-  "version": "1.13.2",
+  "version": "1.13.3",
   "description": "Basics statements for EZS",
   "directories": {
     "test": "test"
@@ -19,12 +19,12 @@
   },
   "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/basics#readme",
   "dependencies": {
+    "JSONStream": "~1.3.5",
     "better-https-proxy-agent": "1.0.8",
     "csv-string": "~3.2.0",
     "debug": "4.1.1",
     "fetch-with-proxy": "3.0.1",
     "flat": "~5.0.2",
-    "JSONStream": "~1.3.5",
     "lodash.escaperegexp": "4.1.2",
     "lodash.get": "4.4.2",
     "lodash.mapkeys": "4.6.0",
