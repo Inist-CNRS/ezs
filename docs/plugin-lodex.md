@@ -21,6 +21,7 @@ npm install @ezs/core
 -   [convertToAtom](#converttoatom)
 -   [LodexAggregateQuery](#lodexaggregatequery)
 -   [LodexRunQuery](#lodexrunquery)
+-   [LodexJoinQuery](#lodexjoinquery)
 -   [LodexReduceQuery](#lodexreducequery)
 -   [LodexInjectSyndicationFrom](#lodexinjectsyndicationfrom)
 -   [Field](#field)
@@ -107,6 +108,25 @@ the connection string to MongoDB.
 -   `referer` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** data injected into every result object
 -   `filter` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** MongoDB filter
 -   `field` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** limit the result to some fields (optional, default `"uri"`)
+-   `limit` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
+-   `skip` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### LodexJoinQuery
+
+Take 3 parametres and creates a join query (one to many, on sub-ressource)
+
+The input object must contain a `connectionStringURI` property, valued with
+the connection string to MongoDB.
+
+#### Parameters
+
+-   `collection` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** collection to use (optional, default `"publishedDataset"`)
+-   `referer` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** data injected into every result object
+-   `matchField` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Lodex field, containing matchable element
+-   `matchValue` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Value used with the match field to get items
+-   `joinField` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Lodex field used for the join request
 -   `limit` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
 -   `skip` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
 
