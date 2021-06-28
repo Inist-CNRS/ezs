@@ -887,6 +887,10 @@ describe('mongo queries', () => {
                         .every((value) => _.eq(value, 1))
                         .value();
 
+                    const hitsTotal = results.filter((value) => value.hitsTotal === 1);
+
+                    // Check if we have 1 document containg this sous-ressources
+                    expect(hitsTotal.length).toBe(9);
                     // Check if all result have the count to 1
                     expect(isCountEqualsToOne).toBeTruthy();
                     // Check if all result a in ExpectedResults list
@@ -934,9 +938,13 @@ describe('mongo queries', () => {
                     const countEqualsOne = results.filter((value) => value.count === 1);
                     const countEqualsTwo = results.filter((value) => value.count === 2);
 
+                    const hitsTotal = results.filter((value) => value.hitsTotal === 2);
+
                     // Check if the count are good
                     expect(countEqualsOne.length).toBe(11);
                     expect(countEqualsTwo.length).toBe(1);
+                    // Check if we have 2 document containg this sous-ressources
+                    expect(hitsTotal.length).toBe(12);
                     // Check if all result a in ExpectedResults list
                     expect(isResultsSameHasExpectedResults).toBeTruthy();
                     // Check the if all element returned are sub ressource
