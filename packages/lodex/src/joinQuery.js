@@ -9,12 +9,15 @@ import mongoDatabase from './mongoDatabase';
  *
  * @name LodexJoinQuery
  * @param {String}  [collection="publishedDataset"]  collection to use
- * @param {Object}  [referer]      data injected into every result object
- * @param {String}  [matchField]   Lodex field, containing matchable element
- * @param {String}  [matchValue]   Value used with the match field to get items
- * @param {String}  [joinField]    Lodex field used for the join request
- * @param {Object}  [limit]        limit the result
- * @param {Object}  [skip]         limit the result
+ * @param {Object}  [referer]       data injected into every result object
+ * @param {Object}  [filter={}]     MongoDB filter
+ * @param {String}  [sortOn]        Field to sort on
+ * @param {Object}  [sortDirection] Direction to sort
+ * @param {String}  [matchField]    Lodex field, containing matchable element
+ * @param {String}  [matchValue]    Value used with the match field to get items
+ * @param {String}  [joinField]     Lodex field used for the join request
+ * @param {Object}  [limit]         limit the result
+ * @param {Object}  [skip]          limit the result
  * @returns {Object}
  */
 export default async function LodexJoinQuery(data, feed) {
@@ -27,6 +30,14 @@ export default async function LodexJoinQuery(data, feed) {
     const matchField = this.getParam('matchField', data.matchField || '');
     const matchValue = this.getParam('matchValue', data.matchValue || '');
     const joinField = this.getParam('joinField', data.joinField || '');
+    const sortOn = this.getParam('sort', data.sort || false);
+    const sortDirection = this.getParam('sort', data.sort || false);
+
+    const filter = {
+        ...this.getParam('filter', data.filter || {}),
+        [`versions.0.${matchField}`]: matchValue,
+        removedAt: { $exists: false },
+    };
 
     const collectionName = this.getParam('collection', data.collection || 'publishedDataset');
     const limit = this.getParam('limit', data.limit || 1000000);
@@ -40,7 +51,7 @@ export default async function LodexJoinQuery(data, feed) {
     if (matchField === '' || joinField === '') return feed.send({ total: 0 });
 
     const aggregateQuery = [
-        { $match: { [`versions.0.${matchField}`]: matchValue, removedAt: { $exists: false } } },
+        { $match: { ...filter } },
         { $project: { _id: 1, [`versions.${matchField}`]: 1 } },
         { $unwind: '$versions' },
         { $project: { items: `$versions.${matchField}` } },
@@ -88,7 +99,12 @@ export default async function LodexJoinQuery(data, feed) {
         value.push(referer);
     }
 
-    const stream = findCursor
+    let sortedFindCursor = findCursor;
+    if (sortOn !== false && sortDirection !== false) {
+        sortedFindCursor = findCursor.sort(sortOn, sortDirection === 'asc' ? 1 : -1);
+    }
+
+    const stream = sortedFindCursor
         .skip(Number(skip))
         .limit(Number(limit))
         .pipe(ezs('assign',
