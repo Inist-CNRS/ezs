@@ -135,8 +135,10 @@ export default async function expand(data, feed) {
     if (this.cache) {
         try {
             const cachedValue = await this.store.get(value);
-            set(data, path, cachedValue);
-            return feed.send(data);
+            if (cachedValue !== null) {
+                set(data, path, cachedValue);
+                return feed.send(data);
+            }
         } catch (e) {
             return feed.stop(e);
         }

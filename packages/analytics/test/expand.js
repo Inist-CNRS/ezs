@@ -565,4 +565,3 @@ test('with script (all values) #1 with cache', (done) => {
                 });
         });
 });
-
