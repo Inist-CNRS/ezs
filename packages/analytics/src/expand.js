@@ -75,7 +75,7 @@ async function mergeWith(data, feed) {
 export default async function expand(data, feed) {
     const { ezs } = this;
     const path = this.getParam('path');
-    const cache = this.getParam('cache');
+    const cacheName = this.getParam('cacheName');
 
     // Initialization
     if (!this.createStatements) {
@@ -89,9 +89,9 @@ export default async function expand(data, feed) {
         });
         this.createStatements = () => ezs.compileCommands(commands, this.getEnv());
     }
-    if (cache && !this.cache) {
+    if (cacheName && !this.cache) {
         const location = this.getParam('location');
-        this.cache = createStore(ezs, `expand${cache}`, location);
+        this.cache = createStore(ezs, `expand${cacheName}`, location);
     }
     if (!this.buffer2stream) {
         this.buffer2stream = () => {
