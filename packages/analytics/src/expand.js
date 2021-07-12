@@ -1,6 +1,5 @@
 import get from 'lodash.get';
 import set from 'lodash.set';
-import debug from 'debug';
 import { createStore } from '@ezs/store';
 import each from 'async-each-series';
 import core from './core';
@@ -9,13 +8,17 @@ async function mergeWith(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
-    const store = this.getEnv();
+    const { store, cache } = this.getEnv();
     const { id, value } = data;
     const path = this.getParam('path');
     try {
         const obj = await store.get(id);
         if (obj === null) {
             throw new Error('id was corrupted');
+        }
+        const source = get(obj, path);
+        if (cache && source) {
+            await cache.put(source, value);
         }
         set(obj, path, value);
         return feed.send(obj);
@@ -66,16 +69,16 @@ async function mergeWith(data, feed) {
  * @param {String} [script] the external pipeline is described in a string of characters
  * @param {String} [commands] the external pipeline is described in a object
  * @param {String} [command] the external pipeline is described in a URL-like command
- * @param {String} [cache] Use a specific ezs statement to run commands (experimental)
+ * @param {String} [cacheName] Enable cache, with dedicated name
  * @returns {Object}
  */
 export default async function expand(data, feed) {
     const { ezs } = this;
     const path = this.getParam('path');
+    const cache = this.getParam('cache');
 
     // Initialization
     if (!this.createStatements) {
-        const cache = this.getParam('cache');
         const commands = ezs.createCommands({
             file: this.getParam('file'),
             script: this.getParam('script'),
@@ -84,19 +87,21 @@ export default async function expand(data, feed) {
             prepend: this.getParam('prepend'),
             append: this.getParam('append'),
         });
-
-        if (cache) {
-            this.createStatements = () => [ezs(cache, { commands }, this.getEnv())];
-        } else {
-            this.createStatements = () => ezs.compileCommands(commands, this.getEnv());
-        }
+        this.createStatements = () => ezs.compileCommands(commands, this.getEnv());
+    }
+    if (cache && !this.cache) {
+        const location = this.getParam('location');
+        this.cache = createStore(ezs, `expand${cache}`, location);
     }
     if (!this.buffer2stream) {
         this.buffer2stream = () => {
             const statements = this.createStatements();
             const stream = ezs.createStream(ezs.objectMode());
             const output = ezs.createPipeline(stream, statements)
-                .pipe(ezs(mergeWith, { path }, this.store))
+                .pipe(ezs(mergeWith, { path }, {
+                    store: this.store,
+                    cache: this.cache,
+                }))
                 .pipe(ezs.catch());
             const input = Array.from(this.buffer);
             this.buffer = [];
@@ -126,6 +131,15 @@ export default async function expand(data, feed) {
     const value = get(data, path);
     if (!value || value.length === 0) {
         return feed.send(data);
+    }
+    if (this.cache) {
+        try {
+            const cachedValue = await this.store.get(value);
+            set(data, path, cachedValue);
+            return feed.send(data);
+        } catch (e) {
+            return feed.stop(e);
+        }
     }
     const id = this.getIndex().toString().padStart(20, '0');
     const size = Number(this.getParam('size', 1));
