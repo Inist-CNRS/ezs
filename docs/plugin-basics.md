@@ -152,13 +152,41 @@ Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Gl
 
 ### CSVString
 
-Take `Object` and transform row  into string
-where each field is separated with a character
+-   **See: CSVObject
+    **
+
+Take an array of objects and transform row into a string where each field is
+separated with a character.
+
+The resulting string is CSV-compliant.
+
+Input:
+
+```json
+[{
+  "a": 1,
+  "b": 2,
+  "c": 3
+}, {
+  "a": 4,
+  "b": 5,
+  "c": 6
+}]
+```
+
+Output:
+
+```txt
+a;b;c
+1;2;3
+4;5;6
+```
 
 #### Parameters
 
--   `format` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** if set to "strict" the fields will wrapped with double quote (optional, default `standard`)
--   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to indicate the CSV separator (optional, default `;`)
+-   `format` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** if set to "strict" the fields will be
+                                      wrapped with double quote (optional, default `standard`)
+-   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to indicate the CSV separator (optional, default `";"`)
 -   `header` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** first line contains key name (optional, default `true`)
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
