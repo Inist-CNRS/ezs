@@ -1,5 +1,5 @@
 /**
- * Take `Object` and generate JSON
+ * Take an `Object` and generate a JSON string.
  *
  * Input:
  *

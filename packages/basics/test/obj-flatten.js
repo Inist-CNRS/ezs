@@ -52,7 +52,6 @@ describe('OBJFlatten', () => {
             });
     });
 
-
     it('should use the given separator', (done) => {
         from([{ a: { b: 1, c: 2 } }])
             .pipe(ezs('OBJFlatten', { separator: ':' }))
@@ -66,10 +65,7 @@ describe('OBJFlatten', () => {
 
     it('should work on several objects', (done) => {
         let res = [];
-        from([
-            { a: { b: 1, c: 2 } },
-            { a: { b: 3, c: 4 } },
-        ])
+        from([{ a: { b: 1, c: 2 } }, { a: { b: 3, c: 4 } }])
             .pipe(ezs('OBJFlatten'))
             .on('data', (data) => {
                 res = [...res, data];
@@ -77,7 +73,8 @@ describe('OBJFlatten', () => {
             .on('end', () => {
                 expect(res).toStrictEqual([
                     { 'a/b': 1, 'a/c': 2 },
-                    { 'a/b': 3, 'a/c': 4 }]);
+                    { 'a/b': 3, 'a/c': 4 },
+                ]);
                 done();
             });
     });

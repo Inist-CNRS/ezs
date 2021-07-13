@@ -292,7 +292,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### JSONString
 
-Take `Object` and generate JSON
+Take an `Object` and generate a JSON string.
 
 Input:
 
@@ -340,11 +340,29 @@ Returns **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 -   **See: <https://www.npmjs.com/package/flat>
     **
 
-Take `Object` and flat it with delimited character.
+Flatten an `Object` with a path delimiting character.
+
+Input:
+
+```json
+[
+  { "a": { "b": 1, "c": 2}},
+  { "a": { "b": 3, "c": 4}}
+]
+```
+
+Output:
+
+```json
+[
+  { "a/b": 1, "a/c": 2 },
+  { "a/b": 3, "a/c": 4 }
+]
+```
 
 #### Parameters
 
--   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose a character for  flatten keys (optional, default `/`)
+-   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose a character to flatten keys (optional, default `"/"`)
 -   `safe` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** preserve arrays and their contents, (optional, default `false`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
