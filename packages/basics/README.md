@@ -294,9 +294,21 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Take `Object` and generate JSON
 
+Input:
+
+```json
+[{ "a": 1 }, { "b": 2 }]
+```
+
+Output:
+
+```json
+"[{\"a\":1},{\"b\":2}]"
+```
+
 #### Parameters
 
--   `wrap` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** every document are wrapped into an array (optional, default `true`)
+-   `wrap` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** every document is wrapped into an array (optional, default `true`)
 -   `indent` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** indent JSON (optional, default `false`)
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
