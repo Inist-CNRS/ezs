@@ -315,7 +315,19 @@ Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### OBJCount
 
-Take `Object` and count how many objects are received and sent the total
+Count how many objects are received, and yield the total.
+
+Input:
+
+```json
+["a", "b", "c", "d"]
+```
+
+Output:
+
+```json
+[4]
+```
 
 #### Parameters
 
