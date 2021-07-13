@@ -35,9 +35,9 @@ npm install @ezs/basics
 -   [XMLString](#xmlstring)
 -   [TXTParse](#txtparse)
 -   [CSVString](#csvstring)
--   [CSVObject](#csvobject)
 -   [OBJStandardize](#objstandardize)
 -   [OBJNamespaces](#objnamespaces)
+-   [CSVObject](#csvobject)
 
 ### JSONString
 
@@ -284,18 +284,6 @@ where each field is separated with a character
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
-### CSVObject
-
-Take `Array` and transform rows into object.
-Each row (Array) is tranformed
-into a object where keys are the value of the first row
-
-#### Parameters
-
--   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
 ### OBJStandardize
 
 Take `Object` and standardize it so each object will have the sames keys
@@ -368,3 +356,70 @@ Output:
 -   `reference` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** a regex to find key that contains a namespace to substitute (optional, default `null`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### CSVObject
+
+-   **See: CSVParse
+    **
+
+Take an `Array` of arrays and transform rows into objects.
+
+Each row (Array) is tranformed into an object where keys are the values of
+the first row.
+
+Input:
+
+```json
+[
+  ["a", "b", "c"],
+  [1, 2, 3],
+  [4, 5, 6]
+]
+```
+
+Output:
+
+```json
+[{
+ "a": 1,
+ "b": 2,
+ "c": 3
+}, {
+ "a": 4,
+ "b": 5,
+ "c": 6
+}]
+```
+
+> **Tip**: this is useful after a CSVParse, to convert raw rows into n array
+> of Javascript objects
+
+When several values of the first row are the same, produced keys are suffixed
+with a number.
+
+Input:
+
+```json
+[
+  ["a", "a", "b", "b", "b"],
+  [1, 2, 3, 4, 5],
+]
+```
+
+Output:
+
+```json
+[{
+   "a1": 1,
+   "a2": 2,
+   "b1": 3,
+   "b2": 4,
+   "b3": 5,
+}]
+```
+
+#### Parameters
+
+-   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
+
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 
