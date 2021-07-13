@@ -247,11 +247,46 @@ Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 -   **See: <https://github.com/dominictarr/JSONStream>
     **
 
-Take `String` and parse JSON and generate objects
+Parse a `String` to JSON and generate objects.
+
+##### Example 1: with separator
+
+Input:
+
+```json
+["{ \"a\": 1, \"b`": 3 }", "{ \"a\": 2, \"b\": 4 }"]
+```
+
+Script:
+
+```ini
+[JSONParse]
+separator = b
+```
+
+Output:
+
+```json
+[3, 4]
+```
+
+##### Example 2: without separator
+
+Input:
+
+```json
+["{ \"a\": 1 }", "{ \"a\": 2 }"]
+```
+
+Output:
+
+```json
+[1, 2]
+```
 
 #### Parameters
 
--   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to split at every JSONPath found (optional, default `*`)
+-   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to split at every JSONPath found (optional, default `"*"`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
