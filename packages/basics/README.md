@@ -121,15 +121,34 @@ Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 -   **See: <https://github.com/Inist-CNRS/node-csv-string>
     **
+-   **See: CSVObject
+    **
 
-Take `String` and parse it as CSV to generate objects
+Take `String` and parse it as CSV to generate arrays
+
+Input:
+
+```json
+"a,b,c\nd,e,d\n"
+```
+
+Output:
+
+```json
+[
+  ["a", "b", "c"],
+  ["d", "e", "d"]
+]
+```
+
+> **Tip**: see CSVObject, to convert arrays of values to array of objects.
 
 #### Parameters
 
 -   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to indicate the CSV separator (optional, default `auto`)
 -   `quote` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to indicate the CSV quote. (optional, default `auto`)
 
-Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)** 
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>>** 
 
 ### CSVString
 

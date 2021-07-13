@@ -98,7 +98,7 @@ function CSVObject(data, feed) {
  * @name CSVObject
  * @see CSVParse
  * @param {undefined} none
- * @returns {Object[]}
+ * @returns {Object|Object[]}
  */
 export default {
     CSVObject,

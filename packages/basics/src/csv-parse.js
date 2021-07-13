@@ -9,22 +9,38 @@ function CSVParse(data, feed) {
         this.handle.on('data', (obj) => feed.write(obj));
     }
     if (!this.isLast()) {
-        writeTo(this.handle,
-            data,
-            () => feed.end());
+        writeTo(this.handle, data, () => feed.end());
     } else {
         this.handle.end(() => feed.close());
     }
 }
 
 /**
- * Take `String` and parse CSV  to generate object
+ * Take `String` and parse it as CSV to generate arrays
+ *
+ * Input:
+ *
+ * ```json
+ * "a,b,c\nd,e,d\n"
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [
+ *   ["a", "b", "c"],
+ *   ["d", "e", "d"]
+ * ]
+ * ```
+ *
+ * > **Tip**: see CSVObject, to convert arrays of values to array of objects.
  *
  * @name CSVParse
  * @param {String} [separator=auto] to indicate the CSV separator
  * @param {String} [quote=auto] to indicate the CSV quote.
- * @returns {Object}
+ * @returns {Array<String[]>}
  * @see https://github.com/Inist-CNRS/node-csv-string
+ * @see CSVObject
  */
 export default {
     CSVParse,
