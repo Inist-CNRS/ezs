@@ -39,7 +39,7 @@ function INIString(data, feed) {
  *     { "param": 1, "section": { "arg1": "a", "arg2": "b" } },
  *     { "param": 1, "section": { "arg1": "a", "arg2": "b" } },
  *     { "section": { "arg1": "a", "arg2": true } },
- *     { "sec1": { "arg1": "a", "arg2": [3, 4, 5] }, "sec2": { "arg1": 'a', "arg2": { "x": 1, "y": 2 } } },
+ *     { "sec1": { "arg1": "a", "arg2": [3, 4, 5] }, "sec2": { "arg1": "a", "arg2": { "x": 1, "y": 2 } } },
  *     { "secvide1": {}, "secvide2": {} },
  * ]
  * ```

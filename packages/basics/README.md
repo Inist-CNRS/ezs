@@ -205,7 +205,7 @@ Input:
     { "param": 1, "section": { "arg1": "a", "arg2": "b" } },
     { "param": 1, "section": { "arg1": "a", "arg2": "b" } },
     { "section": { "arg1": "a", "arg2": true } },
-    { "sec1": { "arg1": "a", "arg2": [3, 4, 5] }, "sec2": { "arg1": 'a', "arg2": { "x": 1, "y": 2 } } },
+    { "sec1": { "arg1": "a", "arg2": [3, 4, 5] }, "sec2": { "arg1": "a", "arg2": { "x": 1, "y": 2 } } },
     { "secvide1": {}, "secvide2": {} },
 ]
 ```
@@ -254,7 +254,7 @@ Parse a `String` to JSON and generate objects.
 Input:
 
 ```json
-["{ \"a\": 1, \"b`": 3 }", "{ \"a\": 2, \"b\": 4 }"]
+["{ \"a\": 1, \"b\": 3 }", "{ \"a\": 2, \"b\": 4 }"]
 ```
 
 Script:
