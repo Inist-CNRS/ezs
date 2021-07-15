@@ -489,11 +489,129 @@ test('with a buggy script', (done) => {
             output.push(chunk);
         })
         .on('error', (e) => {
-            expect(e).toEqual(expect.not.stringContaining('BADVAL is not defined'));
+            expect(e.message).toEqual(expect.stringContaining('BADVAL is not defined'));
             expect(output.length).toEqual(0);
             done();
         })
         .on('end', () => {
             done(new Error('Error is the right behavior'));
+        });
+});
+test('with no script', (done) => {
+    ezs.use(statements);
+    const input = [
+        { a: 1, b: 'a' },
+        { a: 2, b: 'b' },
+        { a: 3, b: 'c' },
+        { a: 4, b: 'd' },
+        { a: 5, b: 'e' },
+        { a: 6, b: 'f' },
+    ];
+    const output = [];
+    from(input)
+        .pipe(ezs('expand', { path: 'b' }))
+        .pipe(ezs.catch())
+        .on('data', (chunk) => {
+            output.push(chunk);
+        })
+        .on('error', (e) => {
+            expect(e.message).toEqual(expect.stringContaining('Invalid parmeter for createCommands'));
+            expect(output.length).toEqual(0);
+            done();
+        })
+        .on('end', () => {
+            done(new Error('Error is the right behavior'));
+        });
+});
+
+const env = {
+    executed: false,
+};
+const cacheName = Date.now();
+
+test('with script (all values) #1 with cache', (done) => {
+    ezs.use(statements);
+    const output = [];
+    const script = `
+            [use]
+            plugin = analytics
+
+            [env]
+            path = executed
+            value = fix(true)
+
+            [assign]
+            path = value
+            value = get('value').toUpper()
+
+        `;
+    from([
+        { a: 1, b: 'a' },
+        { a: 2, b: 'b' },
+        { a: 3, b: 'c' },
+        { a: 4, b: 'd' },
+        { a: 5, b: 'e' },
+        { a: 6, b: 'f' },
+    ])
+        .pipe(ezs('expand', { path: 'b', script, cacheName }, env))
+        .pipe(ezs.catch())
+        .on('error', done)
+        .on('data', (chunk) => {
+            output.push(chunk);
+        })
+        .on('end', () => {
+            expect(output.length).toEqual(6);
+            expect(output[0].b).toEqual('A');
+            expect(output[1].b).toEqual('B');
+            expect(output[2].b).toEqual('C');
+            expect(output[3].b).toEqual('D');
+            expect(output[4].b).toEqual('E');
+            expect(output[5].b).toEqual('F');
+            expect(env.executed).toEqual(true);
+            env.executed = false;
+            done();
+        });
+});
+
+test('with script (all values) #2 with cache', (done) => {
+    ezs.use(statements);
+    const output = [];
+    const script = `
+            [use]
+            plugin = analytics
+
+            [env]
+            path = executed
+            value = fix(true)
+
+            [assign]
+            path = value
+            value = get('value').toUpper()
+
+        `;
+    from([
+        { a: 1, b: 'a' },
+        { a: 2, b: 'b' },
+        { a: 3, b: 'c' },
+        { a: 4, b: 'd' },
+        { a: 5, b: 'e' },
+        { a: 6, b: 'f' },
+    ])
+        .pipe(ezs('expand', { path: 'b', script, cacheName }, env))
+        .pipe(ezs.catch())
+        .on('error', done)
+        .on('data', (chunk) => {
+            output.push(chunk);
+        })
+        .on('end', () => {
+            expect(output.length).toEqual(6);
+            expect(output[0].b).toEqual('A');
+            expect(output[1].b).toEqual('B');
+            expect(output[2].b).toEqual('C');
+            expect(output[3].b).toEqual('D');
+            expect(output[4].b).toEqual('E');
+            expect(output[5].b).toEqual('F');
+            expect(env.executed).toEqual(false);
+            done();
         });
 });
