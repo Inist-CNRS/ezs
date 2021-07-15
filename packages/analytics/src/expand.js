@@ -1,6 +1,6 @@
 import get from 'lodash.get';
 import set from 'lodash.set';
-import { createStore } from '@ezs/store';
+import { createPersistentStore, createStore } from '@ezs/store';
 import each from 'async-each-series';
 import core from './core';
 
@@ -73,88 +73,83 @@ async function mergeWith(data, feed) {
  * @returns {Object}
  */
 export default async function expand(data, feed) {
-    const { ezs } = this;
-    const path = this.getParam('path');
-    const cacheName = this.getParam('cacheName');
+    try {
+        const { ezs } = this;
+        const path = this.getParam('path');
+        const cacheName = this.getParam('cacheName');
 
-    // Initialization
-    if (!this.createStatements) {
-        const commands = ezs.createCommands({
-            file: this.getParam('file'),
-            script: this.getParam('script'),
-            command: this.getParam('command'),
-            commands: this.getParam('commands'),
-            prepend: this.getParam('prepend'),
-            append: this.getParam('append'),
-        });
-        this.createStatements = () => ezs.compileCommands(commands, this.getEnv());
-    }
-    if (cacheName && !this.cache) {
-        const location = this.getParam('location');
-        this.cache = createStore(ezs, `expand${cacheName}`, location);
-    }
-    if (!this.buffer2stream) {
-        this.buffer2stream = () => {
-            const statements = this.createStatements();
-            const stream = ezs.createStream(ezs.objectMode());
-            const output = ezs.createPipeline(stream, statements)
-                .pipe(ezs(mergeWith, { path }, {
-                    store: this.store,
-                    cache: this.cache,
-                }))
-                .pipe(ezs.catch());
-            const input = Array.from(this.buffer);
-            this.buffer = [];
-
-            each(input, (cur, next) => ezs.writeTo(stream, cur, next), () => stream.end());
-            return output;
-        };
-    }
-    if (!this.buffer) {
-        this.buffer = [];
-    }
-    if (!this.store) {
-        const location = this.getParam('location');
-        this.store = createStore(ezs, 'expand', location);
-        this.store.reset();
-    }
-
-    // Processing
-
-    if (this.isLast()) {
-        if (this.buffer && this.buffer.length > 0) {
-            return feed.flow(this.buffer2stream());
+        // Initialization
+        if (!this.createStatements) {
+            const commands = ezs.createCommands({
+                file: this.getParam('file'),
+                script: this.getParam('script'),
+                command: this.getParam('command'),
+                commands: this.getParam('commands'),
+                prepend: this.getParam('prepend'),
+                append: this.getParam('append'),
+            });
+            this.createStatements = () => ezs.compileCommands(commands, this.getEnv());
         }
-        return feed.close();
-    }
+        if (cacheName && !this.cache) {
+            const location = this.getParam('location');
+            this.cache = createPersistentStore(ezs, `expand${cacheName}`, location);
+        }
+        if (!this.buffer2stream) {
+            this.buffer2stream = () => {
+                const statements = this.createStatements();
+                const stream = ezs.createStream(ezs.objectMode());
+                const output = ezs.createPipeline(stream, statements)
+                    .pipe(ezs(mergeWith, { path }, {
+                        store: this.store,
+                        cache: this.cache,
+                    }))
+                    .pipe(ezs.catch());
+                const input = Array.from(this.buffer);
+                this.buffer = [];
 
-    const value = get(data, path);
-    if (!value || value.length === 0) {
-        return feed.send(data);
-    }
-    if (this.cache) {
-        try {
-            const cachedValue = await this.store.get(value);
+                each(input, (cur, next) => ezs.writeTo(stream, cur, next), () => stream.end());
+                return output;
+            };
+        }
+        if (!this.buffer) {
+            this.buffer = [];
+        }
+        if (!this.store) {
+            const location = this.getParam('location');
+            this.store = createStore(ezs, 'expand', location);
+            this.store.reset();
+        }
+
+        // Processing
+
+        if (this.isLast()) {
+            if (this.buffer && this.buffer.length > 0) {
+                return feed.flow(this.buffer2stream());
+            }
+            return feed.close();
+        }
+        const value = get(data, path);
+        if (!value || value.length === 0) {
+            return feed.send(data);
+        }
+        if (this.cache) {
+            const cachedValue = await this.cache.get(value);
             if (cachedValue !== null) {
                 set(data, path, cachedValue);
                 return feed.send(data);
             }
-        } catch (e) {
-            return feed.stop(e);
         }
-    }
-    const id = this.getIndex().toString().padStart(20, '0');
-    const size = Number(this.getParam('size', 1));
+        const id = this.getIndex().toString().padStart(20, '0');
+        const size = Number(this.getParam('size', 1));
 
-    try {
         await this.store.put(id, data);
+
+        this.buffer.push(core(id, value));
+        if (this.buffer.length >= size) {
+            return feed.flow(this.buffer2stream());
+        }
+        return feed.end();
     } catch (e) {
         return feed.stop(e);
     }
-
-    this.buffer.push(core(id, value));
-    if (this.buffer.length >= size) {
-        return feed.flow(this.buffer2stream());
-    }
-    return feed.end();
 }
