@@ -21,15 +21,15 @@ npm install @ezs/analytics
 -   [files](#files)
 -   [buffers](#buffers)
 -   [maximizing](#maximizing)
--   [bufferize](#bufferize)
 -   [groupingByModulo](#groupingbymodulo)
 -   [reducing](#reducing)
+-   [bufferize](#bufferize)
 -   [aggregate](#aggregate)
 -   [slice](#slice)
--   [distinct](#distinct)
--   [exploding](#exploding)
 -   [graph](#graph)
 -   [upload](#upload)
+-   [exploding](#exploding)
+-   [distinct](#distinct)
 -   [pair](#pair)
 -   [merging](#merging)
 -   [summing](#summing)
@@ -38,19 +38,19 @@ npm install @ezs/analytics
 -   [greater](#greater)
 -   [pluck](#pluck)
 -   [drop](#drop)
--   [groupingByHamming](#groupingbyhamming)
 -   [groupingByLevenshtein](#groupingbylevenshtein)
+-   [groupingByHamming](#groupingbyhamming)
 -   [keys](#keys)
--   [groupingByEquality](#groupingbyequality)
 -   [tune](#tune)
+-   [groupingByEquality](#groupingbyequality)
 -   [multiply](#multiply)
 -   [less](#less)
 -   [count](#count)
--   [distribute](#distribute)
 -   [sort](#sort)
+-   [distribute](#distribute)
 -   [combine](#combine)
--   [distance](#distance)
 -   [expand](#expand)
+-   [distance](#distance)
 -   [segment](#segment)
 -   [statistics](#statistics)
 
@@ -243,44 +243,6 @@ Output:
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### bufferize
-
-Takes all `Objects` and bufferize them in a store
-
-```json
-[
-          { year: 2000, dept: 54 },
-          { year: 2001, dept: 55 },
-          { year: 2003, dept: 54 },
-]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[bufferize]
-path = bufferID
-```
-
-Output:
-
-```json
- [
-          { year: 2000, dept: 54, bufferID: 'AEERRFFF' },
-          { year: 2001, dept: 55, bufferID: 'AEERRFFF' },
-          { year: 2003, dept: 54, bufferID: 'AEERRFFF' },
- ]
-```
-
-#### Parameters
-
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the path to insert the bufferID (optional, default `bufferID`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
 ### groupingByModulo
 
 Take `Object` like `{ id, value }` and reduce all `value`s with the same
@@ -349,6 +311,44 @@ Output:
 
 -   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### bufferize
+
+Takes all `Objects` and bufferize them in a store
+
+```json
+[
+          { year: 2000, dept: 54 },
+          { year: 2001, dept: 55 },
+          { year: 2003, dept: 54 },
+]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[bufferize]
+path = bufferID
+```
+
+Output:
+
+```json
+ [
+          { year: 2000, dept: 54, bufferID: 'AEERRFFF' },
+          { year: 2001, dept: 55, bufferID: 'AEERRFFF' },
+          { year: 2003, dept: 54, bufferID: 'AEERRFFF' },
+ ]
+```
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the path to insert the bufferID (optional, default `bufferID`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -434,90 +434,6 @@ Output:
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### distinct
-
-Take `Object` object getting some fields with json path, and do ...
-
-```json
-[{
-          { a: 'x', b: 'z' },
-          { a: 't', b: 'z' },
-          { a: 't', b: 'z' },
-          { a: 'x', b: 'z' },
-          { a: 'x', b: 'z' },
-}]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[distinct]
-path = a
-```
-
-Output:
-
-```json
-[
-          { id: 'x', value: 1 },
-          { id: 't', value: 1 },
-          { id: 't', value: 1 },
-          { id: 'x', value: 1 },
-          { id: 'x', value: 1 },
-]
-```
-
-#### Parameters
-
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path (optional, default `"id"`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### exploding
-
-Take `Object` and take values with [value] path (must be an array)
-and throw object of each value. The new object is build with [id] and eac value.
-
-```json
-[
- { departure: ['tokyo', 'nancy'], arrival: 'toul' },
- { departure: ['paris', 'nancy'], arrival: 'toul' },
- { departure: ['london', 'berlin'], arrival: 'toul' },
-}]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[exploding]
-```
-
-Output:
-
-```json
-[
-   { "id": "toul", "value": "tokyo" },
-   { "id": "toul", "value": "nancy" },
-   { "id": "toul", "value": "paris" },
-   { "id": "toul", "value": "nancy" },
-   { "id": "toul", "value": "london" },
-   { "id": "toul", "value": "berlin" }
-]
-```
-
-#### Parameters
-
--   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `"id"`)
--   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `"value"`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
 ### graph
 
 Take `Object` and throw a new special object (id, value) for each combination of values
@@ -596,6 +512,90 @@ Output:
 -   `extension` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** set the file extension (optional, default `bin`)
 -   `prefix` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** set the file prefix (optional, default `upload`)
 -   `cleanupDelay` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** TTL in seconds, before cleanup the file (EZS_DELAY) (optional, default `3600`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### exploding
+
+Take `Object` and take values with [value] path (must be an array)
+and throw object of each value. The new object is build with [id] and eac value.
+
+```json
+[
+ { departure: ['tokyo', 'nancy'], arrival: 'toul' },
+ { departure: ['paris', 'nancy'], arrival: 'toul' },
+ { departure: ['london', 'berlin'], arrival: 'toul' },
+}]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[exploding]
+```
+
+Output:
+
+```json
+[
+   { "id": "toul", "value": "tokyo" },
+   { "id": "toul", "value": "nancy" },
+   { "id": "toul", "value": "paris" },
+   { "id": "toul", "value": "nancy" },
+   { "id": "toul", "value": "london" },
+   { "id": "toul", "value": "berlin" }
+]
+```
+
+#### Parameters
+
+-   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `"id"`)
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `"value"`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### distinct
+
+Take `Object` object getting some fields with json path, and do ...
+
+```json
+[{
+          { a: 'x', b: 'z' },
+          { a: 't', b: 'z' },
+          { a: 't', b: 'z' },
+          { a: 'x', b: 'z' },
+          { a: 'x', b: 'z' },
+}]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[distinct]
+path = a
+```
+
+Output:
+
+```json
+[
+          { id: 'x', value: 1 },
+          { id: 't', value: 1 },
+          { id: 't', value: 1 },
+          { id: 'x', value: 1 },
+          { id: 'x', value: 1 },
+]
+```
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path (optional, default `"id"`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -961,53 +961,6 @@ Output:
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### groupingByHamming
-
-Take `Object` like `{ id, value }` and reduce all `value` with `id` which
-have the same Hamming distance in a single object
-
--   ```json
-    [
-       { "id": "lorem", "value": 1 },
-       { "id": "Lorem", "value": 1 },
-       { "id": "loren", "value": 1 },
-       { "id": "korem", "value": 1 },
-       { "id": "olrem", "value": 1 },
-       { "id": "toto", "value": 1 },
-       { "id": "titi", "value": 1 },
-       { "id": "lorem", "value": 1 }
-    ]
-    ```
-
-
-    Script:
-
-    ```ini
-    [use]
-    plugin = analytics
-
-    [groupingByHamming]
-    distance = 1
-
-    [summing]
-
-Output:
-
-```json
-[
-   { "id": [ "lorem", "Lorem", "loren", "korem" ], "value": 5 },
-   { "id": [ "olrem" ], "value": 1 },
-   { "id": [ "toto", "titi" ], "value": 2 }
-]
-```
-
-#### Parameters
-
--   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `"id"`)
--   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `"value"`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
 ### groupingByLevenshtein
 
 Take `Object` like `{ id, value }` and reduce all `value`s with
@@ -1052,6 +1005,53 @@ Output:
 -   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
 -   `distance` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** minimal levenshtein distance to have a same id (optional, default `1`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### groupingByHamming
+
+Take `Object` like `{ id, value }` and reduce all `value` with `id` which
+have the same Hamming distance in a single object
+
+-   ```json
+    [
+       { "id": "lorem", "value": 1 },
+       { "id": "Lorem", "value": 1 },
+       { "id": "loren", "value": 1 },
+       { "id": "korem", "value": 1 },
+       { "id": "olrem", "value": 1 },
+       { "id": "toto", "value": 1 },
+       { "id": "titi", "value": 1 },
+       { "id": "lorem", "value": 1 }
+    ]
+    ```
+
+
+    Script:
+
+    ```ini
+    [use]
+    plugin = analytics
+
+    [groupingByHamming]
+    distance = 1
+
+    [summing]
+
+Output:
+
+```json
+[
+   { "id": [ "lorem", "Lorem", "loren", "korem" ], "value": 5 },
+   { "id": [ "olrem" ], "value": 1 },
+   { "id": [ "toto", "titi" ], "value": 2 }
+]
+```
+
+#### Parameters
+
+-   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `"id"`)
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `"value"`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -1108,6 +1108,37 @@ Output:
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
+### tune
+
+Take all `Object` and sort them with selected field
+
+```json
+[{
+}]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[tune]
+```
+
+Output:
+
+```json
+[
+]
+```
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for the sort key (optional, default `id`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
 ### groupingByEquality
 
 Take `Object` like `{ id, value }` and reduce all values with the same `id`
@@ -1155,37 +1186,6 @@ Output:
 
 -   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### tune
-
-Take all `Object` and sort them with selected field
-
-```json
-[{
-}]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[tune]
-```
-
-Output:
-
-```json
-[
-]
-```
-
-#### Parameters
-
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for the sort key (optional, default `id`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -1360,6 +1360,56 @@ Output:
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
+### sort
+
+Take all `Object` and sort them with dedicated key
+
+```json
+[{
+ { id: 2000, value: 1 },
+ { id: 2001, value: 2 },
+ { id: 2003, value: 3 },
+ { id: 2005, value: 4 },
+ { id: 2007, value: 5 },
+ { id: 2009, value: 6 },
+ { id: 2011, value: 7 },
+ { id: 2013, value: 8 },
+}]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[sort]
+path = value
+reverse = true
+```
+
+Output:
+
+```json
+[
+{ "id": 2013, "value": 8 },
+{ "id": 2011, "value": 7 },
+{ "id": 2009, "value": 6 },
+{ "id": 2007, "value": 5 },
+{ "id": 2005, "value": 4 },
+{ "id": 2003, "value": 3 },
+{ "id": 2001, "value": 2 },
+{ "id": 2000, "value": 1 }
+]
+```
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
+-   `reverse` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** reverser order (optional, default `false`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
 ### distribute
 
 Take `Object` like { id, value } and throw a serie of number value
@@ -1418,56 +1468,6 @@ Output:
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### sort
-
-Take all `Object` and sort them with dedicated key
-
-```json
-[{
- { id: 2000, value: 1 },
- { id: 2001, value: 2 },
- { id: 2003, value: 3 },
- { id: 2005, value: 4 },
- { id: 2007, value: 5 },
- { id: 2009, value: 6 },
- { id: 2011, value: 7 },
- { id: 2013, value: 8 },
-}]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[sort]
-path = value
-reverse = true
-```
-
-Output:
-
-```json
-[
-{ "id": 2013, "value": 8 },
-{ "id": 2011, "value": 7 },
-{ "id": 2009, "value": 6 },
-{ "id": 2007, "value": 5 },
-{ "id": 2005, "value": 4 },
-{ "id": 2003, "value": 3 },
-{ "id": 2001, "value": 2 },
-{ "id": 2000, "value": 1 }
-]
-```
-
-#### Parameters
-
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
--   `reverse` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** reverser order (optional, default `false`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
 ### combine
 
 Takes an `Object` and substitute a field with the corresponding value found in a external pipeline
@@ -1513,6 +1513,53 @@ Output:
 -   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
 -   `persistent` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The internal database will be reused until it is deleted (optional, default `false`)
 -   `cache` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Use a specific ezs statement to run commands (advanced)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### expand
+
+Takes an `Object` and substitute a field with the corresponding value found in a external pipeline
+the internal pipeline receive a special object { id, value } id is the item identifier & value is the item path value
+The internal pipeline can expand value with another
+
+```json
+[
+          { year: 2000, dept: 54 },
+          { year: 2001, dept: 55 },
+          { year: 2003, dept: 54 },
+]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[expand]
+path = dept
+file = ./departement.ini
+```
+
+Output:
+
+```json
+ [
+          { year: 2000, dept: { id: 54, value: 'Meurthe et moselle' } },
+          { year: 2001, dept: { id: 55, value: 'Meuse' } },
+          { year: 2003, dept: { id: 54, value: 'Meurthe et moselle' } },
+ ]
+```
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the path to substitute
+-   `size` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** How many chunk for sending to the external pipeline (optional, default `1`)
+-   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
+-   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
+-   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
+-   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
+-   `cacheName` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Enable cache, with dedicated name
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -1587,53 +1634,6 @@ Output:
 #### Parameters
 
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path (optional, default `value`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### expand
-
-Takes an `Object` and substitute a field with the corresponding value found in a external pipeline
-the internal pipeline receive a special object { id, value } id is the item identifier & value is the item path value
-The internal pipeline can expand value with another
-
-```json
-[
-          { year: 2000, dept: 54 },
-          { year: 2001, dept: 55 },
-          { year: 2003, dept: 54 },
-]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[expand]
-path = dept
-file = ./departement.ini
-```
-
-Output:
-
-```json
- [
-          { year: 2000, dept: { id: 54, value: 'Meurthe et moselle' } },
-          { year: 2001, dept: { id: 55, value: 'Meuse' } },
-          { year: 2003, dept: { id: 54, value: 'Meurthe et moselle' } },
- ]
-```
-
-#### Parameters
-
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the path to substitute
--   `size` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** How many chunk for sending to the external pipeline (optional, default `1`)
--   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
--   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
--   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
--   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
--   `cacheName` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Enable cache, with dedicated name
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 

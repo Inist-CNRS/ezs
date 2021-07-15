@@ -15,16 +15,16 @@ npm install @ezs/basics
 #### Table of Contents
 
 -   [JSONString](#jsonstring)
--   [OBJFlatten](#objflatten)
 -   [TXTZip](#txtzip)
--   [OBJCount](#objcount)
+-   [OBJFlatten](#objflatten)
 -   [URLString](#urlstring)
+-   [OBJCount](#objcount)
 -   [BUFObject](#bufobject)
--   [URLConnect](#urlconnect)
 -   [URLStream](#urlstream)
+-   [URLConnect](#urlconnect)
 -   [ZIPExtract](#zipextract)
--   [TXTObject](#txtobject)
 -   [URLFetch](#urlfetch)
+-   [TXTObject](#txtobject)
 -   [TXTConcat](#txtconcat)
 -   [XMLConvert](#xmlconvert)
 -   [INIString](#inistring)
@@ -50,6 +50,16 @@ Take `Object` and generate JSON
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
+### TXTZip
+
+Take a String and zip it
+
+#### Parameters
+
+-   `unzip` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** to Unzip input (optional, default `false`)
+
+Returns **[Buffer](https://nodejs.org/api/buffer.html)** 
+
 ### OBJFlatten
 
 -   **See: <https://www.npmjs.com/package/flat>
@@ -64,15 +74,11 @@ Take `Object` and flat it with delimited character.
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### TXTZip
+### URLString
 
-Take a String and zip it
+Take `Object` representing a URL and stringify it
 
-#### Parameters
-
--   `unzip` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** to Unzip input (optional, default `false`)
-
-Returns **[Buffer](https://nodejs.org/api/buffer.html)** 
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ### OBJCount
 
@@ -83,12 +89,6 @@ Take `Object` and count how many objects are received and sent the total
 -   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
 
 Returns **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
-
-### URLString
-
-Take `Object` representing a URL and stringify it
-
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ### BUFObject
 
@@ -101,20 +101,6 @@ For example, it's useful to send string to browser.
 
 Returns **[Buffer](https://nodejs.org/api/buffer.html)** 
 
-### URLConnect
-
-Take `Object` and send it to an URL
-the output will be the content of URL
-
-#### Parameters
-
--   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fecth
--   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Pasre as JSON the content of URL (optional, default `false`)
--   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (optional, default `1000`)
--   `noerror` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Ignore all errors (optional, default `false`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
 ### URLStream
 
 Take `String` asURL, throw each chunk from the result or
@@ -126,6 +112,20 @@ Take `Object` as parameters of URL, throw each chunk from the result
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose the path to split JSON result (optional, default `*`)
 -   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (optional, default `1000`)
 -   `noerror` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Ignore all errors, the target field will remain undefined (optional, default `false`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### URLConnect
+
+Take `Object` and send it to an URL
+the output will be the content of URL
+
+#### Parameters
+
+-   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fecth
+-   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Pasre as JSON the content of URL (optional, default `false`)
+-   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (optional, default `1000`)
+-   `noerror` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Ignore all errors (optional, default `false`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -146,16 +146,6 @@ it returns to the output stream
 
 Returns **any** <Object>
 
-### TXTObject
-
-Take `String` and generate an object with a key and a value, where the value is the input string.
-
-#### Parameters
-
--   `key` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose a the key name (optional, default `value`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
 ### URLFetch
 
 Take `Object` and create a new field with the content of URL.
@@ -170,6 +160,16 @@ Or if no target will be specified, the output will be the content of URL
 -   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (optional, default `1000`)
 -   `mimetype` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Mimetype for value of path  (if presents) (optional, default `application/json`)
 -   `noerror` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Ignore all errors, the target field will remain undefined (optional, default `false`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### TXTObject
+
+Take `String` and generate an object with a key and a value, where the value is the input string.
+
+#### Parameters
+
+-   `key` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose a the key name (optional, default `value`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 

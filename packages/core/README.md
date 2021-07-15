@@ -17,9 +17,9 @@ npm install @ezs/core
 -   [pack](#pack)
 -   [unpack](#unpack)
 -   [tracer](#tracer)
--   [debug](#debug)
 -   [env](#env)
 -   [spawn](#spawn)
+-   [debug](#debug)
 -   [delegate](#delegate)
 -   [dispatch](#dispatch)
 -   [metrics](#metrics)
@@ -34,8 +34,8 @@ npm install @ezs/core
 -   [exchange](#exchange)
 -   [extract](#extract)
 -   [keep](#keep)
--   [dump](#dump)
 -   [ignore](#ignore)
+-   [dump](#dump)
 -   [remove](#remove)
 -   [truncate](#truncate)
 -   [shuffle](#shuffle)
@@ -68,18 +68,6 @@ Useful to see the progress in the stream.
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### debug
-
-Take `Object` , print it and throw the same object
-
-#### Parameters
-
--   `level` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** console level : log or error (optional, default `log`)
--   `text` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** text before the dump (optional, default `valueOf`)
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to print
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
 ### env
 
 Take `Object` and send the same object but in the meantime,
@@ -105,6 +93,18 @@ Note : works like [delegate], but each chunk use its own external pipeline
 -   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
 -   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
 -   `cache` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Use a specific ezs statement to run commands (advanced)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### debug
+
+Take `Object` , print it and throw the same object
+
+#### Parameters
+
+-   `level` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** console level : log or error (optional, default `log`)
+-   `text` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** text before the dump (optional, default `valueOf`)
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to print
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -537,6 +537,53 @@ Output:
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
+### ignore
+
+Takes all the chunks, and ignore the firtst N chunk
+Input file:
+
+```json
+[{
+   a: 1,
+},
+{
+   a: 2,
+},
+{
+   a: 3,
+},
+{
+   a: 4,
+},
+{
+   a: 5,
+}]
+```
+
+Script:
+
+```ini
+[ignore]
+length = 3
+```
+
+Output:
+
+```json
+[{
+   a: 4,
+},
+{
+   a: 5,
+}]
+```
+
+#### Parameters
+
+-   `length` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Length of the feed
+
+Returns **any** 
+
 ### dump
 
 Take all `Object` and generete a JSON array
@@ -584,53 +631,6 @@ Output:
 -   `indent` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** indent JSON (optional, default `false`)
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-### ignore
-
-Takes all the chunks, and ignore the firtst N chunk
-Input file:
-
-```json
-[{
-   a: 1,
-},
-{
-   a: 2,
-},
-{
-   a: 3,
-},
-{
-   a: 4,
-},
-{
-   a: 5,
-}]
-```
-
-Script:
-
-```ini
-[ignore]
-length = 3
-```
-
-Output:
-
-```json
-[{
-   a: 4,
-},
-{
-   a: 5,
-}]
-```
-
-#### Parameters
-
--   `length` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Length of the feed
-
-Returns **any** 
 
 ### remove
 
