@@ -9,12 +9,15 @@ import mongoDatabase from './mongoDatabase';
  *
  * @name LodexJoinQuery
  * @param {String}  [collection="publishedDataset"]  collection to use
- * @param {Object}  [referer]      data injected into every result object
- * @param {String}  [matchField]   Lodex field, containing matchable element
- * @param {String}  [matchValue]   Value used with the match field to get items
- * @param {String}  [joinField]    Lodex field used for the join request
- * @param {Object}  [limit]        limit the result
- * @param {Object}  [skip]         limit the result
+ * @param {Object}  [referer]       data injected into every result object
+ * @param {Object}  [filter={}]     MongoDB filter
+ * @param {String}  [sortOn]        Field to sort on
+ * @param {String}  [sortOrder]     Oder to sort
+ * @param {String}  [matchField]    Lodex field, containing matchable element
+ * @param {String}  [matchValue]    Value used with the match field to get items
+ * @param {String}  [joinField]     Lodex field used for the join request
+ * @param {Object}  [limit]         limit the result
+ * @param {Object}  [skip]          limit the result
  * @returns {Object}
  */
 export default async function LodexJoinQuery(data, feed) {
@@ -27,6 +30,10 @@ export default async function LodexJoinQuery(data, feed) {
     const matchField = this.getParam('matchField', data.matchField || '');
     const matchValue = this.getParam('matchValue', data.matchValue || '');
     const joinField = this.getParam('joinField', data.joinField || '');
+    const sortOn = this.getParam('sortOn', data.sortOn || false);
+    const sortOrder = this.getParam('sortOrder', data.sortOrder || 'asc');
+
+    const filter = this.getParam('filter', data.filter || {});
 
     const collectionName = this.getParam('collection', data.collection || 'publishedDataset');
     const limit = this.getParam('limit', data.limit || 1000000);
@@ -67,9 +74,14 @@ export default async function LodexJoinQuery(data, feed) {
 
     const findQuery = {
         [`versions.${joinField}`]: { $in: _.keys(results) },
+        ..._.omit(filter, ['removedAt', 'subresourceId']),
     };
 
-    const findCursor = await collection.find(findQuery);
+    let findCursor = await collection.find(findQuery);
+
+    if (sortOn !== false) {
+        findCursor = findCursor.sort(`versions.0.${sortOn}`, sortOrder === 'desc' ? -1 : 1);
+    }
 
     const findTotal = await findCursor.count();
 
