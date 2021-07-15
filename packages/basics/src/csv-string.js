@@ -5,7 +5,12 @@ function strict(data, sep) {
     let line = '';
     let s = '';
     Object.keys(data).forEach((key) => {
-        line = line.concat(s.concat('"').concat(String(data[key]).replace(q, '""')).concat('"'));
+        line = line.concat(
+            s
+                .concat('"')
+                .concat(String(data[key]).replace(q, '""'))
+                .concat('"'),
+        );
         s = sep;
     });
     return line.concat('\r\n');
@@ -32,14 +37,40 @@ function CSVString(data, feed) {
 }
 
 /**
- * Take `Object` and transform row  into string
- * where each field is separated with a character
+ * Take an array of objects and transform row into a string where each field is
+ * separated with a character.
+ *
+ * The resulting string is CSV-compliant.
+ *
+ * Input:
+ *
+ * ```json
+ * [{
+ *   "a": 1,
+ *   "b": 2,
+ *   "c": 3
+ * }, {
+ *   "a": 4,
+ *   "b": 5,
+ *   "c": 6
+ * }]
+ * ```
+ *
+ * Output:
+ *
+ * ```txt
+ * a;b;c
+ * 1;2;3
+ * 4;5;6
+ * ```
  *
  * @name CSVString
- * @param {String} [format=standard] if set to "strict" the fields will wrapped with double quote
- * @param {String} [separator=;] to indicate the CSV separator
+ * @param {String} [format=standard] if set to "strict" the fields will be
+ *                                   wrapped with double quote
+ * @param {String} [separator=";"] to indicate the CSV separator
  * @param {Boolean} [header=true] first line contains key name
  * @returns {String}
+ * @see CSVObject
  */
 export default {
     CSVString,

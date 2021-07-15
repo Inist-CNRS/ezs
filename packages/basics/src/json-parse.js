@@ -8,9 +8,7 @@ function JSONParse(data, feed) {
         this.handle.on('data', (obj) => feed.write(obj));
     }
     if (!this.isLast()) {
-        writeTo(this.handle,
-            data,
-            () => feed.end());
+        writeTo(this.handle, data, () => feed.end());
     } else {
         this.handle.end();
         process.nextTick(() => {
@@ -20,10 +18,45 @@ function JSONParse(data, feed) {
 }
 
 /**
- * Take `String` and parse JSON and generate objects
+ * Parse a `String` to JSON and generate objects.
+ *
+ * #### Example 1: with separator
+ *
+ * Input:
+ *
+ * ```json
+ * ["{ \"a\": 1, \"b\": 3 }", "{ \"a\": 2, \"b\": 4 }"]
+ * ```
+ *
+ * Script:
+ *
+ * ```ini
+ * [JSONParse]
+ * separator = b
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [3, 4]
+ * ```
+ *
+ * #### Example 2: without separator
+ *
+ * Input:
+ *
+ * ```json
+ * ["{ \"a\": 1 }", "{ \"a\": 2 }"]
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [1, 2]
+ * ```
  *
  * @name JSONParse
- * @param {String} [separator=*] to split at every JSONPath found
+ * @param {String} [separator="*"] to split at every JSONPath found
  * @returns {Object}
  * @see https://github.com/dominictarr/JSONStream
  */
