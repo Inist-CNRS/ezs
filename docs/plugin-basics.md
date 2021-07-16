@@ -682,9 +682,70 @@ Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Convert each chunk as XML String to JSON Object
 
+##### Example 1: XML to JSON (default parameters)
+
+Input:
+
+```json
+[
+  "<xml>A</xml>",
+  "<xml>B</xml>"
+]
+```
+
+Output:
+
+```json
+[
+  { "xml": { "$t": "A" } },
+  { "xml": { "$t": "B" } }
+]
+```
+
+##### Example 2: JSON to XML (invert parameter true)
+
+Input:
+
+```json
+[
+  { "x": { "a": 1 } },
+  { "x": { "a": 2 } }
+]
+```
+
+Output:
+
+```json
+[
+  "<x a=\"1\"/>",
+  "<x a=\"2\"/>",
+]
+```
+
+##### Example 3: JSON to XML (prologue and invert true)
+
+Input:
+
+```json
+[
+  { "x": { "a": 1 } },
+  { "x": { "a": 2 } }
+]
+```
+
+Output:
+
+```json
+[
+  "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<x a=\"1\"/>",
+  "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<x a=\"2\"/>",
+]
+```
+
 #### Parameters
 
 -   `invert` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** change conversion (JSON to XML) (optional, default `false`)
+-   `prologue` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** add XML prologue (optional, default `false`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
