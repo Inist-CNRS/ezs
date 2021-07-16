@@ -82,37 +82,56 @@ npm install @ezs/transformers
 
 #### Table of Contents
 
--   [$ARRAY](#array)
--   [$BOOLEAN](#boolean)
--   [$CAPITALIZE](#capitalize)
--   [$FORMAT](#format)
 -   [$LOWERCASE](#lowercase)
+-   [$ARRAY](#array)
+-   [$TRIM](#trim)
+-   [$URLENCODE](#urlencode)
+-   [$UPPERCASE](#uppercase)
+-   [$FORMAT](#format)
+-   [$CAPITALIZE](#capitalize)
+-   [$UNIQ](#uniq)
 -   [$NUMBER](#number)
 -   [$PARSE](#parse)
+-   [$BOOLEAN](#boolean)
 -   [$STRING](#string)
--   [$TRIM](#trim)
--   [$UNIQ](#uniq)
--   [$UPPERCASE](#uppercase)
--   [$URLENCODE](#urlencode)
 -   [$COLUMN](#column)
--   [$DEFAULT](#default)
 -   [$GET](#get)
 -   [$JOIN](#join)
--   [$MASK](#mask)
--   [$PREFIX](#prefix)
+-   [$DEFAULT](#default)
 -   [$REMOVE](#remove)
--   [$SHIFT](#shift)
--   [$SUFFIX](#suffix)
 -   [$VALUE](#value)
--   [$CONCAT](#concat)
--   [$MAPPING](#mapping)
--   [$SELECT](#select)
+-   [$SUFFIX](#suffix)
+-   [$MASK](#mask)
+-   [$SHIFT](#shift)
+-   [$PREFIX](#prefix)
 -   [$SPLIT](#split)
+-   [$SELECT](#select)
 -   [$TRUNCATE_WORDS](#truncate_words)
 -   [$TRUNCATE](#truncate)
+-   [$MAPPING](#mapping)
+-   [$CONCAT](#concat)
 -   [$CONCAT_URI](#concat_uri)
--   [$REPLACE_REGEX](#replace_regex)
 -   [$REPLACE](#replace)
+-   [$REPLACE_REGEX](#replace_regex)
+
+### $LOWERCASE
+
+mettre en bas de casse (minuscules)
+
+Exemple :
+
+```ini
+[$LOWERCASE]
+field = title
+```
+
+#### Parameters
+
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to apply the transformation
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $ARRAY
 
@@ -133,15 +152,15 @@ field = keywords
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### $BOOLEAN
+### $TRIM
 
-transformer une chaîne de caractères en booléen
+enlève les espaces au début et à la fin d'une chaîne de caractères
 
 Exemple :
 
 ```ini
-[$BOOLEAN]
-field = haveMoney
+[$TRIM]
+field = title
 ```
 
 #### Parameters
@@ -152,14 +171,33 @@ field = haveMoney
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### $CAPITALIZE
+### $URLENCODE
 
-mettre le premier caractère en majuscule
+encode une chaine comme dans une URL
 
 Exemple :
 
 ```ini
-[$CAPITALIZE]
+[$URLENCODE]
+field = url
+```
+
+#### Parameters
+
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to apply the transformation
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### $UPPERCASE
+
+mettre la chaîne en majuscules
+
+Exemple :
+
+```ini
+[$UPPERCASE]
 field = title
 ```
 
@@ -190,14 +228,14 @@ with = (%s:%s)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### $LOWERCASE
+### $CAPITALIZE
 
-mettre en bas de casse (minuscules)
+mettre le premier caractère en majuscule
 
 Exemple :
 
 ```ini
-[$LOWERCASE]
+[$CAPITALIZE]
 field = title
 ```
 
@@ -206,6 +244,25 @@ field = title
 -   `data`  
 -   `feed`  
 -   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to apply the transformation
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### $UNIQ
+
+dédoublonne les valeurs (dans un tableau)
+
+Exemple :
+
+```ini
+[$UNIQ]
+field = title
+```
+
+#### Parameters
+
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to apply the transformation (must be an aarray)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -247,6 +304,25 @@ field = json
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
+### $BOOLEAN
+
+transformer une chaîne de caractères en booléen
+
+Exemple :
+
+```ini
+[$BOOLEAN]
+field = haveMoney
+```
+
+#### Parameters
+
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to apply the transformation
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
 ### $STRING
 
 transforme la valeur en chaîne de caractères
@@ -256,82 +332,6 @@ Exemple :
 ```ini
 [$STRING]
 field = title
-```
-
-#### Parameters
-
--   `data`  
--   `feed`  
--   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to apply the transformation
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### $TRIM
-
-enlève les espaces au début et à la fin d'une chaîne de caractères
-
-Exemple :
-
-```ini
-[$TRIM]
-field = title
-```
-
-#### Parameters
-
--   `data`  
--   `feed`  
--   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to apply the transformation
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### $UNIQ
-
-dédoublonne les valeurs (dans un tableau)
-
-Exemple :
-
-```ini
-[$UNIQ]
-field = title
-```
-
-#### Parameters
-
--   `data`  
--   `feed`  
--   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to apply the transformation (must be an aarray)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### $UPPERCASE
-
-mettre la chaîne en majuscules
-
-Exemple :
-
-```ini
-[$UPPERCASE]
-field = title
-```
-
-#### Parameters
-
--   `data`  
--   `feed`  
--   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to apply the transformation
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### $URLENCODE
-
-encode une chaine comme dans une URL
-
-Exemple :
-
-```ini
-[$URLENCODE]
-field = url
 ```
 
 #### Parameters
@@ -360,27 +360,6 @@ column = oldTitle
 -   `feed`  
 -   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to apply the transformation
 -   `column` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value to use during the transformation
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### $DEFAULT
-
-donner une valeur par défaut
-
-Exemple :
-
-```ini
-[$DEFAULT]
-field = title
-alternative = not available
-```
-
-#### Parameters
-
--   `data`  
--   `feed`  
--   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to apply the transformation
--   `alternative` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value to use if field does not exist
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -426,37 +405,16 @@ path = input
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### $MASK
+### $DEFAULT
 
-S'assure que la valeur respecte une expression régulière
-
-Exemple :
-
-```ini
-[$MASK]
-field = title
-with = ^[a-z]+$
-```
-
-#### Parameters
-
--   `data`  
--   `feed`  
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to apply the control
--   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value to use during the transformation
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### $PREFIX
-
-préfixer la valeur avec une chaîne de caractères
+donner une valeur par défaut
 
 Exemple :
 
 ```ini
-[$PREFIX]
+[$DEFAULT]
 field = title
-with = #
+alternative = not available
 ```
 
 #### Parameters
@@ -464,7 +422,7 @@ with = #
 -   `data`  
 -   `feed`  
 -   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to apply the transformation
--   `vith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value to add at the begining of the field
+-   `alternative` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value to use if field does not exist
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -489,24 +447,24 @@ the = .
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### $SHIFT
+### $VALUE
 
-décaler une valeur multiple (tableau ou chaîne de caractères)
+Fixer une valeur
 
 Exemple :
 
 ```ini
-[$SHIFT]
+[$VALUE]
 field = title
-gap = 2
+value = Hello world
 ```
 
 #### Parameters
 
 -   `data`  
 -   `feed`  
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to apply the transformation
--   `gap` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** how many item or characters to drop
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** new field path
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value to use to set the field
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -531,60 +489,58 @@ with = !
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### $VALUE
+### $MASK
 
-Fixer une valeur
+S'assure que la valeur respecte une expression régulière
 
 Exemple :
 
 ```ini
-[$VALUE]
+[$MASK]
 field = title
-value = Hello world
+with = ^[a-z]+$
 ```
 
 #### Parameters
 
 -   `data`  
 -   `feed`  
--   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** new field path
--   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value to use to set the field
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to apply the control
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value to use during the transformation
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### $CONCAT
+### $SHIFT
 
-concaténer deux valeurs
+décaler une valeur multiple (tableau ou chaîne de caractères)
 
 Exemple :
 
 ```ini
-[$CONCAT]
-field = result
-columns = part1
-columns = part2
+[$SHIFT]
+field = title
+gap = 2
 ```
 
 #### Parameters
 
 -   `data`  
 -   `feed`  
--   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to get the result of the transformation
--   `columns` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to get value
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to apply the transformation
+-   `gap` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** how many item or characters to drop
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### $MAPPING
+### $PREFIX
 
-Opération permettant le remplacement à partir d'une table
-(équivalent à l'enchaînement de plusieurs opération REPLACE)
+préfixer la valeur avec une chaîne de caractères
 
 Exemple :
 
 ```ini
-[$MAPPING]
-field = keywords
-list = "hello":"bonjour", "hi":"salut"
+[$PREFIX]
+field = title
+with = #
 ```
 
 #### Parameters
@@ -592,28 +548,7 @@ list = "hello":"bonjour", "hi":"salut"
 -   `data`  
 -   `feed`  
 -   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to apply the transformation
--   `list` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the mapping list
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### $SELECT
-
-Prendre une valeir dans un objet à partir de son chemin (dot path)
-
-Exemple :
-
-```ini
-[$SELECT]
-field = title
-path
-```
-
-#### Parameters
-
--   `data`  
--   `feed`  
--   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to get the result of the selection
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to get value
+-   `vith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value to add at the begining of the field
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -635,6 +570,27 @@ separator = |
 -   `feed`  
 -   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to apply the transformation
 -   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value to use to split the field
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### $SELECT
+
+Prendre une valeir dans un objet à partir de son chemin (dot path)
+
+Exemple :
+
+```ini
+[$SELECT]
+field = title
+path
+```
+
+#### Parameters
+
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to get the result of the selection
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to get value
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -681,6 +637,50 @@ gap = 25
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
+### $MAPPING
+
+Opération permettant le remplacement à partir d'une table
+(équivalent à l'enchaînement de plusieurs opération REPLACE)
+
+Exemple :
+
+```ini
+[$MAPPING]
+field = keywords
+list = "hello":"bonjour", "hi":"salut"
+```
+
+#### Parameters
+
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to apply the transformation
+-   `list` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the mapping list
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### $CONCAT
+
+concaténer deux valeurs
+
+Exemple :
+
+```ini
+[$CONCAT]
+field = result
+columns = part1
+columns = part2
+```
+
+#### Parameters
+
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to get the result of the transformation
+-   `columns` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to get value
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
 ### $CONCAT_URI
 
 compoer un identifiant avec plusieurs champs
@@ -705,29 +705,6 @@ separator = -
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### $REPLACE_REGEX
-
-remplacer une chaîne par une autre via une exrpression régulière
-
-Exemple :
-
-```ini
-[$REPLACE_REGEX]
-field = title
-searchValue = $hel\w+
-replaceValue = bonjour
-```
-
-#### Parameters
-
--   `data`  
--   `feed`  
--   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to apply the transformation
--   `searchValue` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** regex to search
--   `replaceValue` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value to replace with
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
 ### $REPLACE
 
 remplacer une chaîne par une autre
@@ -747,6 +724,29 @@ replaceValue = un
 -   `feed`  
 -   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to apply the transformation
 -   `searchValue` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value to search
+-   `replaceValue` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value to replace with
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### $REPLACE_REGEX
+
+remplacer une chaîne par une autre via une exrpression régulière
+
+Exemple :
+
+```ini
+[$REPLACE_REGEX]
+field = title
+searchValue = $hel\w+
+replaceValue = bonjour
+```
+
+#### Parameters
+
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to apply the transformation
+-   `searchValue` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** regex to search
 -   `replaceValue` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value to replace with
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 

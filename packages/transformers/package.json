@@ -1,6 +1,6 @@
 {
   "name": "@ezs/transformers",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "LODEX transformers statements for EZS",
   "directories": {
     "test": "src"

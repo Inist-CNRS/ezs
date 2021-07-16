@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.13.0...@ezs/lodex@1.14.0) (2021-07-15)
+
+
+### Features
+
+* add sorting and filtering on joinQuery ([8e17f61](https://github.com/Inist-CNRS/ezs/commit/8e17f617eebadecc9804a26eacf663c95b818eb4))
+* add sorting on RunQuery, change sorting on JoinQuery ([35794d3](https://github.com/Inist-CNRS/ezs/commit/35794d38ca4291a5adf2b31974d6e92659301ac9))
+* use mapping on sort ([49cf742](https://github.com/Inist-CNRS/ezs/commit/49cf742136752e69f727f63227d049cd10da1d39))
+
+
+
+
+
 # [1.13.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.12.0...@ezs/lodex@1.13.0) (2021-06-28)
 
 

@@ -15,21 +15,21 @@ npm install @ezs/core
 #### Table of Contents
 
 -   [objects2columns](#objects2columns)
--   [convertJsonLdToNQuads](#convertjsonldtonquads)
 -   [LodexGetFields](#lodexgetfields)
 -   [parseNQuads](#parsenquads)
+-   [convertJsonLdToNQuads](#convertjsonldtonquads)
 -   [convertToAtom](#converttoatom)
 -   [LodexAggregateQuery](#lodexaggregatequery)
 -   [LodexRunQuery](#lodexrunquery)
 -   [LodexJoinQuery](#lodexjoinquery)
 -   [LodexReduceQuery](#lodexreducequery)
 -   [LodexInjectSyndicationFrom](#lodexinjectsyndicationfrom)
--   [Field](#field)
--   [extractIstexQuery](#extractistexquery)
 -   [LodexOutput](#lodexoutput)
+-   [extractIstexQuery](#extractistexquery)
+-   [Field](#field)
+-   [keyMapping](#keymapping)
 -   [LodexGetCharacteristics](#lodexgetcharacteristics)
 -   [injectDatasetFields](#injectdatasetfields)
--   [keyMapping](#keymapping)
 -   [LodexBuildContext](#lodexbuildcontext)
 -   [flattenPatch](#flattenpatch)
 -   [labelizeFieldID](#labelizefieldid)
@@ -45,12 +45,6 @@ Take `Object` and ...
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### convertJsonLdToNQuads
-
-Take a JSON-LD object and transform it into NQuads triples.
-
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
 ### LodexGetFields
 
 Return the fields (the model) of a LODEX.
@@ -64,6 +58,12 @@ Return the fields (the model) of a LODEX.
 Take N-Quads string and transform it to Objects.
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### convertJsonLdToNQuads
+
+Take a JSON-LD object and transform it into NQuads triples.
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ### convertToAtom
 
@@ -107,6 +107,8 @@ the connection string to MongoDB.
 -   `collection` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** collection to use (optional, default `"publishedDataset"`)
 -   `referer` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** data injected into every result object
 -   `filter` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** MongoDB filter
+-   `sortOn` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Field to sort on
+-   `sortOrder` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Oder to sort
 -   `field` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** limit the result to some fields (optional, default `"uri"`)
 -   `limit` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
 -   `skip` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
@@ -124,6 +126,9 @@ the connection string to MongoDB.
 
 -   `collection` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** collection to use (optional, default `"publishedDataset"`)
 -   `referer` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** data injected into every result object
+-   `filter` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** MongoDB filter (optional, default `{}`)
+-   `sortOn` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Field to sort on
+-   `sortOrder` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Oder to sort
 -   `matchField` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Lodex field, containing matchable element
 -   `matchValue` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Value used with the match field to get items
 -   `joinField` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Lodex field used for the join request
@@ -180,37 +185,6 @@ Output:
 ]
 ```
 
-### Field
-
-Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), any>
-
-#### Properties
-
--   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The identifier of the field.
--   `scheme` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The semantic property of the field.
-
-### extractIstexQuery
-
-Extract an ISTEX API query.
-
-#### Parameters
-
--   `fields` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Field](#field)>** list of LODEX fields (optional, default `[]`)
-
-#### Examples
-
-Output:
-
-
-```javascript
-{
-   content: 'fake query',
-   lodex: {
-      uri: 'http://resource.uri',
-  },
-}
-```
-
 ### LodexOutput
 
 Format the output in compliance with LODEX routines format.
@@ -255,6 +229,82 @@ Output
 ```
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+### extractIstexQuery
+
+Extract an ISTEX API query.
+
+#### Parameters
+
+-   `fields` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Field](#field)>** list of LODEX fields (optional, default `[]`)
+
+#### Examples
+
+Output:
+
+
+```javascript
+{
+   content: 'fake query',
+   lodex: {
+      uri: 'http://resource.uri',
+  },
+}
+```
+
+### Field
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), any>
+
+#### Properties
+
+-   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The identifier of the field.
+-   `scheme` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The semantic property of the field.
+
+### keyMapping
+
+Take an object and map its keys to the one in mapping parameters.
+Keep keys absent in `from` parameter.
+
+#### Parameters
+
+-   `from` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** keys of the input
+-   `to` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** matching keys for the output
+
+#### Examples
+
+Input:
+
+
+```javascript
+[{
+  "dFgH": "Value",
+  "AaAa": "Value 2"
+}]
+```
+
+EZS:
+
+
+```javascript
+[keyMapping]
+from = dFgH
+to = Title
+from = AaAa
+to = Description
+```
+
+Output
+
+
+```javascript
+[{
+  "Title": "Value",
+  "Description": "Value 2"
+}]
+```
+
+Returns **any** Same object with modified keys
 
 ### LodexGetCharacteristics
 
@@ -325,51 +375,6 @@ Output:
   }
 ]
 ```
-
-### keyMapping
-
-Take an object and map its keys to the one in mapping parameters.
-Keep keys absent in `from` parameter.
-
-#### Parameters
-
--   `from` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** keys of the input
--   `to` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** matching keys for the output
-
-#### Examples
-
-Input:
-
-
-```javascript
-[{
-  "dFgH": "Value",
-  "AaAa": "Value 2"
-}]
-```
-
-EZS:
-
-
-```javascript
-[keyMapping]
-from = dFgH
-to = Title
-from = AaAa
-to = Description
-```
-
-Output
-
-
-```javascript
-[{
-  "Title": "Value",
-  "Description": "Value 2"
-}]
-```
-
-Returns **any** Same object with modified keys
 
 ### LodexBuildContext
 

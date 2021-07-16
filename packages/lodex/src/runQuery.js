@@ -11,6 +11,8 @@ import mongoDatabase from './mongoDatabase';
  * @param {String}  [collection="publishedDataset"]  collection to use
  * @param {Object}  [referer]      data injected into every result object
  * @param {Object}  [filter]       MongoDB filter
+ * @param {String}  [sortOn]       Field to sort on
+ * @param {String}  [sortOrder]    Oder to sort
  * @param {Object}  [field="uri"]  limit the result to some fields
  * @param {Object}  [limit]        limit the result
  * @param {Object}  [skip]         limit the result
@@ -24,6 +26,8 @@ export const createFunction = () => async function LodexRunQuery(data, feed) {
     const referer = this.getParam('referer', data.referer);
     const filter = this.getParam('filter', data.filter || {});
     filter.removedAt = { $exists: false }; // Ignore removed resources
+    const sortOn = this.getParam('sortOn', data.sortOn || false);
+    const sortOrder = this.getParam('sortOrder', data.sortOrder || 'asc');
     const field = this.getParam(
         'field',
         data.field || data.$field || 'uri',
@@ -40,7 +44,12 @@ export const createFunction = () => async function LodexRunQuery(data, feed) {
     );
     const db = await mongoDatabase(connectionStringURI);
     const collection = db.collection(collectionName);
-    const cursor = collection.find(filter, fields.length > 0 ? projection : null);
+    let cursor = collection.find(filter, fields.length > 0 ? projection : null);
+
+    if (sortOn !== false) {
+        cursor = cursor.sort(sortOn, sortOrder === 'desc' ? -1 : 1);
+    }
+
     const total = await cursor.count();
     if (total === 0) {
         return feed.send({ total: 0 });

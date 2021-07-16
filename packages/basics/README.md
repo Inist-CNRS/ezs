@@ -14,30 +14,62 @@ npm install @ezs/basics
 
 #### Table of Contents
 
--   [BUFObject](#bufobject)
--   [CSVObject](#csvobject)
--   [CSVParse](#csvparse)
--   [CSVString](#csvstring)
--   [INIString](#inistring)
--   [JSONParse](#jsonparse)
--   [JSONString](#jsonstring)
--   [OBJCount](#objcount)
--   [OBJFlatten](#objflatten)
--   [OBJNamespaces](#objnamespaces)
--   [OBJStandardize](#objstandardize)
--   [TXTConcat](#txtconcat)
--   [TXTObject](#txtobject)
--   [TXTParse](#txtparse)
--   [TXTZip](#txtzip)
--   [URLConnect](#urlconnect)
--   [URLFetch](#urlfetch)
--   [URLParse](#urlparse)
--   [URLStream](#urlstream)
--   [URLString](#urlstring)
--   [XMLConvert](#xmlconvert)
--   [XMLParse](#xmlparse)
--   [XMLString](#xmlstring)
--   [ZIPExtract](#zipextract)
+- [basics](#basics)
+  - [installation](#installation)
+  - [usage](#usage)
+      - [Table of Contents](#table-of-contents)
+    - [BUFObject](#bufobject)
+      - [Parameters](#parameters)
+    - [CSVObject](#csvobject)
+      - [Parameters](#parameters-1)
+    - [CSVParse](#csvparse)
+      - [Parameters](#parameters-2)
+    - [CSVString](#csvstring)
+      - [Parameters](#parameters-3)
+    - [INIString](#inistring)
+    - [JSONParse](#jsonparse)
+        - [Example 1: with separator](#example-1-with-separator)
+        - [Example 2: without separator](#example-2-without-separator)
+      - [Parameters](#parameters-4)
+    - [JSONString](#jsonstring)
+      - [Parameters](#parameters-5)
+    - [OBJCount](#objcount)
+      - [Parameters](#parameters-6)
+    - [OBJFlatten](#objflatten)
+      - [Parameters](#parameters-7)
+    - [OBJNamespaces](#objnamespaces)
+      - [Parameters](#parameters-8)
+    - [OBJStandardize](#objstandardize)
+      - [Parameters](#parameters-9)
+    - [TXTConcat](#txtconcat)
+      - [Parameters](#parameters-10)
+    - [TXTObject](#txtobject)
+      - [Parameters](#parameters-11)
+    - [TXTParse](#txtparse)
+      - [Parameters](#parameters-12)
+    - [TXTZip](#txtzip)
+      - [Parameters](#parameters-13)
+    - [URLConnect](#urlconnect)
+      - [Parameters](#parameters-14)
+    - [URLFetch](#urlfetch)
+      - [Parameters](#parameters-15)
+    - [URLParse](#urlparse)
+    - [URLStream](#urlstream)
+        - [Example with objects](#example-with-objects)
+        - [Example with URLs](#example-with-urls)
+      - [Parameters](#parameters-16)
+    - [URLString](#urlstring)
+    - [XMLConvert](#xmlconvert)
+        - [Example 1: XML to JSON (default parameters)](#example-1-xml-to-json-default-parameters)
+        - [Example 2: JSON to XML (invert parameter true)](#example-2-json-to-xml-invert-parameter-true)
+        - [Example 3: JSON to XML (prologue and invert true)](#example-3-json-to-xml-prologue-and-invert-true)
+      - [Parameters](#parameters-17)
+    - [XMLParse](#xmlparse)
+      - [Parameters](#parameters-18)
+    - [XMLString](#xmlstring)
+      - [Parameters](#parameters-19)
+    - [ZIPExtract](#zipextract)
+      - [Parameters](#parameters-20)
 
 ### BUFObject
 
@@ -46,9 +78,9 @@ For example, it's useful to send string to browser.
 
 #### Parameters
 
--   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
+-   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)**
 
-Returns **[Buffer](https://nodejs.org/api/buffer.html)** 
+Returns **[Buffer](https://nodejs.org/api/buffer.html)**
 
 ### CSVObject
 
@@ -113,9 +145,9 @@ Output:
 
 #### Parameters
 
--   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
+-   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)**
 
-Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)** 
+Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>)**
 
 ### CSVParse
 
@@ -148,7 +180,7 @@ Output:
 -   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to indicate the CSV separator (optional, default `auto`)
 -   `quote` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to indicate the CSV quote. (optional, default `auto`)
 
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>>** 
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>>**
 
 ### CSVString
 
@@ -189,7 +221,7 @@ a;b;c
 -   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to indicate the CSV separator (optional, default `";"`)
 -   `header` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** first line contains key name (optional, default `true`)
 
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**
 
 ### INIString
 
@@ -240,7 +272,7 @@ arg2 = {"x":1,"y":2}
 [secvide2]
 ```
 
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**
 
 ### JSONParse
 
@@ -288,7 +320,7 @@ Output:
 
 -   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to split at every JSONPath found (optional, default `"*"`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
 
 ### JSONString
 
@@ -311,7 +343,7 @@ Output:
 -   `wrap` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** every document is wrapped into an array (optional, default `true`)
 -   `indent` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** indent JSON (optional, default `false`)
 
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**
 
 ### OBJCount
 
@@ -331,9 +363,9 @@ Output:
 
 #### Parameters
 
--   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
+-   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)**
 
-Returns **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+Returns **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)**
 
 ### OBJFlatten
 
@@ -365,7 +397,7 @@ Output:
 -   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose a character to flatten keys (optional, default `"/"`)
 -   `safe` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** preserve arrays and their contents, (optional, default `false`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
 
 ### OBJNamespaces
 
@@ -429,7 +461,7 @@ Output:
 -   `namespace` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the namespace to substitute by a prefix
 -   `reference` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** a regex to find key that contains a namespace to substitute (optional, default `null`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
 
 ### OBJStandardize
 
@@ -453,9 +485,9 @@ Output:
 
 #### Parameters
 
--   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
+-   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)**
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
 
 ### TXTConcat
 
@@ -475,9 +507,9 @@ Output:
 
 #### Parameters
 
--   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
+-   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)**
 
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**
 
 ### TXTObject
 
@@ -500,7 +532,7 @@ Output:
 
 -   `key` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose a the key name (optional, default `"value"`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
 
 ### TXTParse
 
@@ -522,7 +554,7 @@ Output:
 
 -   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose character which trigger the split (optional, default `"\n"`)
 
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**
 
 ### TXTZip
 
@@ -535,7 +567,7 @@ algorithm to compress strings.
 
 -   `unzip` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** to Unzip input (optional, default `false`)
 
-Returns **[Buffer](https://nodejs.org/api/buffer.html)** 
+Returns **[Buffer](https://nodejs.org/api/buffer.html)**
 
 ### URLConnect
 
@@ -552,7 +584,7 @@ Useful to send JSON data to an API and get results.
 -   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (optional, default `1000`)
 -   `noerror` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Ignore all errors (optional, default `false`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
 
 ### URLFetch
 
@@ -570,7 +602,7 @@ Or if no target is specified, the output will be the returned content of URL.
 -   `mimetype` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** mimetype for value of path  (if presents) (optional, default `"application/json"`)
 -   `noerror` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** ignore all errors, the target field will remain undefined (optional, default `false`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
 
 ### URLParse
 
@@ -597,7 +629,7 @@ Fields of the returned object:
 
 URLString statement convert such an object to a string.
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
 
 ### URLStream
 
@@ -664,7 +696,7 @@ Output:
 -   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (optional, default `1000`)
 -   `noerror` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Ignore all errors, the target field will remain undefined (optional, default `false`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
 
 ### URLString
 
@@ -673,7 +705,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Take an `Object` representing an URL and stringify it.
 
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**
 
 ### XMLConvert
 
@@ -747,7 +779,7 @@ Output:
 -   `invert` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** change conversion (JSON to XML) (optional, default `false`)
 -   `prologue` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** add XML prologue (optional, default `false`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
 
 ### XMLParse
 
@@ -779,7 +811,7 @@ Output:
 
 -   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose a character for flatten keys (optional, default `"/"`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
 
 ### XMLString
 
@@ -809,7 +841,7 @@ Output:
 -   `rootNamespace` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Namespace for the root tag (xmlns=)
 -   `prologue` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Add XML prologue `<?xml` (optional, default `false`)
 
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**
 
 ### ZIPExtract
 
@@ -828,4 +860,4 @@ It returns to the output stream
 
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Regex to select the files to extract (optional, default `"**\/*.json"`)
 
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)}>** 
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)}>**
