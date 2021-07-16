@@ -504,7 +504,19 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### TXTParse
 
-Take `String` and split at each separator found
+Take a `String` and split it at each separator found.
+
+Input:
+
+```json
+["a\nb\n", "c\nd\n"]
+```
+
+Output:
+
+```json
+["a", "b", "c", "d"]
+```
 
 #### Parameters
 
