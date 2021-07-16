@@ -433,7 +433,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### OBJStandardize
 
-Standardize an `Object` so that each object have the same keys.
+Standardize `Object`s so that each object have the same keys.
 
 Input:
 
@@ -459,7 +459,19 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### TXTConcat
 
-Take `String` and concat all items in just one string
+Concatenate all `String` items into one string
+
+Input:
+
+```json
+["a", "b"]
+```
+
+Output:
+
+```json
+["ab"]
+```
 
 #### Parameters
 
