@@ -9,8 +9,8 @@ import writeTo from 'stream-write';
  *
  * ```json
  * {
- *    id: file name,
- *    value: file contents,
+ *    "id": "file name",
+ *    "value": "file contents"
  * }
  * ```
  *
