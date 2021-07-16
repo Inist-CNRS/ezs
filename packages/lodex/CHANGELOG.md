@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.14.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.14.0...@ezs/lodex@1.14.1) (2021-07-16)
+
+
+### Bug Fixes
+
+* fix sort on joinQuery and runQuery ([0f721c2](https://github.com/Inist-CNRS/ezs/commit/0f721c208d8877a8926bd03b6bad15e054be1386))
+
+
+
+
+
 # [1.14.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.13.0...@ezs/lodex@1.14.0) (2021-07-15)
 
 
