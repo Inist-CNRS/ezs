@@ -12,10 +12,23 @@ function TXTObject(data, feed) {
 }
 
 /**
- * Take `String` and generate an object with a key and a value, where the value is the input string.
+ * Take an array of values and generate an array containing objects with the
+ * given `key` and matching value from the input array.
+ *
+ * Input:
+ *
+ * ```json
+ * [1, "b"]
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [{ "value": 1 }, { "value": "b" }]
+ * ```
  *
  * @name TXTObject
- * @param {String} [key=value] choose a the key name
+ * @param {String} [key="value"] choose a the key name
  * @returns {Object}
  */
 export default {

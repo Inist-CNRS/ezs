@@ -8,10 +8,11 @@ function URLString(data, feed) {
 }
 
 /**
- * Take `Object` representing a URL and stringify it
+ * Take an `Object` representing an URL and stringify it.
  *
  * @name URLString
  * @returns {String}
+ * @see URLParse
  */
 export default {
     URLString,

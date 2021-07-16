@@ -8,8 +8,9 @@ ezs.use(require('../src'));
 describe('txt-zip', () => {
     it('should zip a stream containing a string', (done) => {
         let length = 0;
-        const input = 'Ahahahaha this is a longer string, to see if it\'s more efficient! '
-                    + 'When there is a gzip wrapper, the text should be longer';
+        const input =
+            "Ahahahaha this is a longer string, to see if it's more efficient! " +
+            'When there is a gzip wrapper, the text should be longer';
         from([input])
             .pipe(ezs('TXTZip'))
             .on('data', (chunk) => {
@@ -25,8 +26,10 @@ describe('txt-zip', () => {
     it('should zip a stream containing two strings', (done) => {
         let length = 0;
         let chunksNb = 0;
-        const input1 = 'Ahahahaha this is a longer string, to see if it\'s more efficient!';
-        const input2 = 'And this is the second string, that should be long to see a compression rate.';
+        const input1 =
+            "Ahahahaha this is a longer string, to see if it's more efficient!";
+        const input2 =
+            'And this is the second string, that should be long to see a compression rate.';
         from([input1, input2])
             .pipe(ezs('TXTZip'))
             .on('data', (chunk) => {
@@ -44,8 +47,10 @@ describe('txt-zip', () => {
     it('should be unzippable', (done) => {
         const inflate = new pako.Inflate({ to: 'string' });
 
-        const input1 = 'Ahahahaha this is a longer string, to see if it\'s more efficient!';
-        const input2 = 'And this is the second string, that should be long to see a compression rate.';
+        const input1 =
+            "Ahahahaha this is a longer string, to see if it's more efficient!";
+        const input2 =
+            'And this is the second string, that should be long to see a compression rate.';
         from([input1, input2])
             .pipe(ezs('TXTZip'))
             .on('data', (chunk) => {
@@ -54,7 +59,10 @@ describe('txt-zip', () => {
             .on('end', () => {
                 inflate.push(null, true);
                 const output = inflate.result;
-                assert.strictEqual(output.length, input1.length + input2.length);
+                assert.strictEqual(
+                    output.length,
+                    input1.length + input2.length,
+                );
                 assert.strictEqual(output, input1 + input2);
                 done();
             })
@@ -64,8 +72,10 @@ describe('txt-zip', () => {
     it('should preserve Unicode', (done) => {
         const inflate = new pako.Inflate({ to: 'string' });
 
-        const input1 = 'Ahahahaha je fais une chaîne assez longue pour constater une compression.';
-        const input2 = 'Et ça c\'est la seconde chaîne, avec des accents insérés, pour vérifier l\'encodage.';
+        const input1 =
+            'Ahahahaha je fais une chaîne assez longue pour constater une compression.';
+        const input2 =
+            "Et ça c'est la seconde chaîne, avec des accents insérés, pour vérifier l'encodage.";
         from([input1, input2])
             .pipe(ezs('TXTZip'))
             .on('data', (chunk) => {
@@ -83,8 +93,10 @@ describe('txt-zip', () => {
     it('should yield compressed string', (done) => {
         const inflate = new pako.Inflate({ to: 'string' });
 
-        const input1 = 'Ahahahaha je fais une chaîne assez longue pour constater une compression.';
-        const input2 = 'Et ça c\'est la seconde chaîne, avec des accents insérés, pour vérifier l\'encodage.';
+        const input1 =
+            'Ahahahaha je fais une chaîne assez longue pour constater une compression.';
+        const input2 =
+            "Et ça c'est la seconde chaîne, avec des accents insérés, pour vérifier l'encodage.";
         from([input1, input2])
             .pipe(ezs('TXTZip'))
             .on('data', (chunk) => {
@@ -94,16 +106,21 @@ describe('txt-zip', () => {
                 inflate.push(null, true);
                 const output = inflate.result;
                 assert.strictEqual(typeof output, 'string');
-                assert.strictEqual(output.length, input1.length + input2.length);
+                assert.strictEqual(
+                    output.length,
+                    input1.length + input2.length,
+                );
                 assert.strictEqual(output, input1 + input2);
                 done();
             })
             .on('error', done);
     });
 
-    it('should compressed and uncompres string', (done) => {
-        const input1 = 'Ahahahaha je fais une chaîne assez longue pour constater une compression.';
-        const input2 = 'Et ça c\'est la seconde chaîne, avec des accents insérés, pour vérifier l\'encodage.';
+    it('should compress and uncompress string', (done) => {
+        const input1 =
+            'Ahahahaha je fais une chaîne assez longue pour constater une compression.';
+        const input2 =
+            "Et ça c'est la seconde chaîne, avec des accents insérés, pour vérifier l'encodage.";
         const chunks = [];
         from([input1, input2])
             .pipe(ezs('TXTZip', { unzip: false }))
@@ -114,7 +131,10 @@ describe('txt-zip', () => {
             .on('end', () => {
                 const output = chunks.join('');
                 assert.strictEqual(typeof output, 'string');
-                assert.strictEqual(output.length, input1.length + input2.length);
+                assert.strictEqual(
+                    output.length,
+                    input1.length + input2.length,
+                );
                 assert.strictEqual(output, input1 + input2);
                 done();
             })

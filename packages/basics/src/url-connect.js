@@ -5,12 +5,15 @@ import AbortController from 'node-abort-controller';
 import fetch from 'fetch-with-proxy';
 
 /**
- * Take `Object` and send it to an URL
- * the output will be the content of URL
+ * Take an `Object` and send it to an URL.
+ *
+ * The output will be the returned content of URL.
+ *
+ * Useful to send JSON data to an API and get results.
  *
  * @name URLConnect
- * @param {String} [url] URL to fecth
- * @param {String} [json=false] Pasre as JSON the content of URL
+ * @param {String} [url] URL to fetch
+ * @param {String} [json=false] Parse as JSON the content of URL
  * @param {Number} [timeout=1000] Timeout in milliseconds
  * @param {Boolean} [noerror=false] Ignore all errors
  * @returns {Object}
@@ -46,16 +49,18 @@ export default function URLConnect(data, feed) {
                 if (!noerror) {
                     feed.stop(e);
                 } else {
-                    debug('ezs')(`Ignore item #${this.getIndex()} [URLConnect] <${e}>`);
+                    debug('ezs')(
+                        `Ignore item #${this.getIndex()} [URLConnect] <${e}>`,
+                    );
                 }
                 return Promise.resolve(true);
             });
     }
     if (this.isLast()) {
-        this.whenReady.finally(() => this.whenFinish.finally(() => feed.close()));
+        this.whenReady.finally(() =>
+            this.whenFinish.finally(() => feed.close()),
+        );
         return this.input.end();
     }
-    writeTo(this.input,
-        data,
-        () => feed.end());
+    writeTo(this.input, data, () => feed.end());
 }

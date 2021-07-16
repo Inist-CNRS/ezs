@@ -12,7 +12,19 @@ function TXTConcat(data, feed) {
 }
 
 /**
- * Take `String` and concat all items in just one string
+ * Concatenate all `String` items into one string
+ *
+ * Input:
+ *
+ * ```json
+ * ["a", "b"]
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * ["ab"]
+ * ```
  *
  * @name TXTConcat
  * @alias concat

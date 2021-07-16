@@ -41,7 +41,7 @@
   },
   "main": "./lib/index.js",
   "scripts": {
-    "doc": "documentation readme src/* --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-basics.md --section=usage  && cp ../../docs/plugin-basics.md ./README.md",
+    "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-basics.md --section=usage  && cp ../../docs/plugin-basics.md ./README.md",
     "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
     "build": "babel --root-mode upward src --out-dir lib",
     "prepublish": "npm run build",

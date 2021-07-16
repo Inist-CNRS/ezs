@@ -29,7 +29,19 @@ function TXTParse(data, feed) {
 }
 
 /**
- * Take `String` and split at each separator found
+ * Take a `String` and split it at each separator found.
+ *
+ * Input:
+ *
+ * ```json
+ * ["a\nb\n", "c\nd\n"]
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * ["a", "b", "c", "d"]
+ * ```
  *
  * @name TXTParse
  * @alias split

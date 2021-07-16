@@ -27,10 +27,7 @@ describe('test', () => {
 
     it('CSVParse #1', (done) => {
         const res = [];
-        from([
-            'a,b,c\n',
-            'd,e,d\n',
-        ])
+        from(['a,b,c\n', 'd,e,d\n'])
             .pipe(ezs('CSVParse'))
             .on('data', (chunk) => {
                 assert(typeof chunk === 'object');
@@ -69,7 +66,7 @@ describe('test', () => {
             [4, 5, 6],
         ])
             .pipe(ezs('CSVObject'))
-            .pipe(ezs('CSVString', { 'separator': ',' }))
+            .pipe(ezs('CSVString', { separator: ',' }))
             .on('data', (chunk) => {
                 res.push(chunk);
             })
@@ -164,17 +161,13 @@ describe('test', () => {
                 res += chunk;
             })
             .on('end', () => {
-                assert.strictEqual(res, "{\n    \"a\": 1\n},\n{\n    \"b\": 2\n}");
+                assert.strictEqual(res, '{\n    "a": 1\n},\n{\n    "b": 2\n}');
                 done();
             });
     });
     it('BUFObject #1', (done) => {
         let res = Buffer.alloc(0);
-        from([
-            'A',
-            'B',
-            'C',
-        ])
+        from(['A', 'B', 'C'])
             .pipe(ezs('BUFObject'))
             .on('data', (chunk) => {
                 assert(Buffer.isBuffer(chunk));
@@ -207,9 +200,7 @@ describe('test', () => {
         [CSVParse]
         [CSVObject]
         `;
-        from([
-            'a,b\nc,d\n',
-        ])
+        from(['a,b\nc,d\n'])
             .pipe(ezs('delegate', { script: cmd }))
             .on('data', (chunk) => {
                 assert(typeof chunk === 'object');
@@ -231,9 +222,7 @@ describe('test', () => {
         quote = \b
         [CSVObject]
         `;
-        from([
-            'a\tb\nc\td\n',
-        ])
+        from(['a\tb\nc\td\n'])
             .pipe(ezs('delegate', { script: cmd }))
             .on('data', (chunk) => {
                 assert(typeof chunk === 'object');
@@ -254,9 +243,7 @@ describe('test', () => {
         quote = "
         [CSVObject]
         `;
-        from([
-            '"a"\t"b"\n"c"\t"d"\n',
-        ])
+        from(['"a"\t"b"\n"c"\t"d"\n'])
             .pipe(ezs('delegate', { script: cmd }))
             .on('data', (chunk) => {
                 assert(typeof chunk === 'object');
@@ -272,9 +259,7 @@ describe('test', () => {
 
     it('CSVObject #4', (done) => {
         const res = [];
-        from([
-            'a\tb\nc\td\n',
-        ])
+        from(['a\tb\nc\td\n'])
             .pipe(ezs('CSVParse', { separator: '\t', quote: '\b' }))
             .pipe(ezs('CSVObject'))
             .on('data', (chunk) => {
@@ -301,43 +286,41 @@ describe('test', () => {
                 res = [...res, chunk];
             })
             .on('end', () => {
-                expect(res).toStrictEqual([{
-                    a1: 1,
-                    a2: 2,
-                    b1: 3,
-                    b2: 4,
-                    b3: 5,
-                }]);
+                expect(res).toStrictEqual([
+                    {
+                        a1: 1,
+                        a2: 2,
+                        b1: 3,
+                        b2: 4,
+                        b3: 5,
+                    },
+                ]);
                 done();
             });
     });
 
     it('CSVObject #6 lacking column name', (done) => {
         let res = [];
-        from([
-            ['a'],
-            [1, 2],
-        ])
+        from([['a'], [1, 2]])
             .pipe(ezs('CSVObject'))
             .on('data', (chunk) => {
                 expect(typeof chunk).toBe('object');
                 res = [...res, chunk];
             })
             .on('end', () => {
-                expect(res).toStrictEqual([{
-                    a: 1,
-                    'Column #1': 2,
-                }]);
+                expect(res).toStrictEqual([
+                    {
+                        a: 1,
+                        'Column #1': 2,
+                    },
+                ]);
                 done();
             });
     });
 
     it('CSVObject #7 data not array', (done) => {
         let res = [];
-        from([
-            ['a'],
-            { z: 1 },
-        ])
+        from([['a'], { z: 1 }])
             .pipe(ezs('CSVObject'))
             .on('data', (chunk) => {
                 expect(typeof chunk).toBe('object');
@@ -363,7 +346,6 @@ describe('test', () => {
                 a: 1,
                 c: 3,
             },
-
         ])
             .pipe(ezs('OBJStandardize'))
             .on('data', (chunk) => {
@@ -391,7 +373,6 @@ describe('test', () => {
                 a: 1,
                 b: 2,
             },
-
         ])
             .pipe(ezs('OBJStandardize'))
             .on('data', (chunk) => {
@@ -433,7 +414,8 @@ describe('test', () => {
         );
     });
     it('XMLString#1', (done) => {
-        const xml = '<a><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b></a>';
+        const xml =
+            '<a><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b></a>';
         const pass = new PassThrough();
         const output = [];
         pass.pipe(ezs('XMLParse', { separator: '/a/b' }))
@@ -456,7 +438,7 @@ describe('test', () => {
         const output = [];
         from(input)
             .pipe(ezs('URLParse'))
-        // .pipe(ezs('debug'))
+            // .pipe(ezs('debug'))
             .pipe(ezs('URLString'))
             .on('data', (chunk) => {
                 output.push(chunk);

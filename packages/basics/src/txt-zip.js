@@ -3,7 +3,10 @@ import { PassThrough } from 'stream';
 import writeTo from 'stream-write';
 
 /**
- * Take a String and zip it
+ * Take a `String` and zip it.
+ *
+ * Uses [gzip](https://fr.wikipedia.org/wiki/Gzip)
+ * algorithm to compress strings.
  *
  * @name TXTZip
  * @param {Boolean} [unzip=false] to Unzip input

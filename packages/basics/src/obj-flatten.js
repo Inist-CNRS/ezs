@@ -1,10 +1,28 @@
 import flatten, { unflatten } from 'flat';
 
 /**
- * Take `Object` and flat it with delimited character.
+ * Flatten an `Object` with a path delimiting character.
+ *
+ * Input:
+ *
+ * ```json
+ * [
+ *   { "a": { "b": 1, "c": 2}},
+ *   { "a": { "b": 3, "c": 4}}
+ * ]
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [
+ *   { "a/b": 1, "a/c": 2 },
+ *   { "a/b": 3, "a/c": 4 }
+ * ]
+ * ```
  *
  * @name OBJFlatten
- * @param {String} [separator=/] choose a character for  flatten keys
+ * @param {String} [separator="/"] choose a character to flatten keys
  * @param {Boolean} [safe=false] preserve arrays and their contents,
  * @returns {Object}
  * @see https://www.npmjs.com/package/flat

@@ -14,7 +14,9 @@ function OBJStandardize(data, feed) {
             .pipe(ezs.toBuffer())
             .pipe(ezs.compress())
             .pipe(fs.createWriteStream(self.tmpFile));
-        self.tmpHandle = new Promise((resolve, reject) => self.tmpStream.on('error', reject).on('close', resolve));
+        self.tmpHandle = new Promise((resolve, reject) =>
+            self.tmpStream.on('error', reject).on('close', resolve),
+        );
     }
 
     if (self.isLast()) {
@@ -52,7 +54,23 @@ function OBJStandardize(data, feed) {
 }
 
 /**
- * Take `Object` and standardize it so each object will have the sames keys
+ * Standardize `Object`s so that each object have the same keys.
+ *
+ * Input:
+ *
+ * ```json
+ * [{ "a": 1, "b": 2},
+ *  { "b": 2, "c": 3},
+ *  { "a": 1, "c": 3}]
+ * ```
+ *
+ * Output:
+ *
+ * ```json
+ * [{ "a": 1, "b": 2, "c": ""},
+ *  { "b": 2, "b": "", "c": 3},
+ *  { "a": 1, "b": "", "c": 3}]
+ * ```
  *
  * @name OBJStandardize
  * @alias standardize
