@@ -24,7 +24,7 @@ function TXTObject(data, feed) {
  * Output:
  *
  * ```json
- * [{ value: 1 }, { value: "b" }]
+ * [{ "value": 1 }, { "value": "b" }]
  * ```
  *
  * @name TXTObject
