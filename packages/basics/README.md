@@ -756,9 +756,28 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Take `String` as XML input, parse it and split it in multi document at each path found
 
+Input:
+
+```json
+<* ["<a><b>x</b><b>y</b></a>"]
+```
+
+Script:
+
+```ini
+[XMLParse]
+separator: /a/b
+```
+
+Output:
+
+```json
+["x", "y"]
+```
+
 #### Parameters
 
--   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose a character for flatten keys (optional, default `/`)
+-   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose a character for flatten keys (optional, default `"/"`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
