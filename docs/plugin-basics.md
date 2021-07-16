@@ -813,17 +813,19 @@ Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### ZIPExtract
 
-Take the content of a zip file, extract some files
+Take the content of a zip file, extract some files.
 The JSON object is sent to the output stream for each file.
-it returns to the output stream
+It returns to the output stream
 
- {
-    id: file name,
-    value: file contents,
- }
+```json
+{
+   id: file name,
+   value: file contents,
+}
+```
 
 #### Parameters
 
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Regex to select the files to extract (optional, default `"**\/*.json"`)
 
-Returns **any** <Object>
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)}>** 

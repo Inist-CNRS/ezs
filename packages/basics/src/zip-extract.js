@@ -3,18 +3,20 @@ import micromatch from 'micromatch';
 import writeTo from 'stream-write';
 
 /**
- * Take the content of a zip file, extract some files
+ * Take the content of a zip file, extract some files.
  * The JSON object is sent to the output stream for each file.
- * it returns to the output stream
+ * It returns to the output stream
  *
- *  {
- *     id: file name,
- *     value: file contents,
- *  }
+ * ```json
+ * {
+ *    id: file name,
+ *    value: file contents,
+ * }
+ * ```
  *
  * @name ZIPExtract
  * @param {String} [path="**\/*.json"] Regex to select the files to extract
- * @returns <Object>
+ * @returns {{id: String, value: String}[]}
  */
 export default function ZIPExtract(data, feed) {
     const filesPatern = this.getParam('path', '**/*.json');
@@ -27,7 +29,11 @@ export default function ZIPExtract(data, feed) {
             .on('entry', async (entry) => {
                 if (micromatch.isMatch(entry.path, filesPatern)) {
                     const content = await entry.buffer();
-                    return writeTo(this.output, { id: entry.path, value: content }, () => entry.autodrain());
+                    return writeTo(
+                        this.output,
+                        { id: entry.path, value: content },
+                        () => entry.autodrain(),
+                    );
                 }
                 return entry.autodrain();
             })
