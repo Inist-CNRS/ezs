@@ -783,14 +783,31 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### XMLString
 
-Take `Object` and transform it into a XML string
+-   **See: XMLParse
+    **
+
+Transform an `Object` into an XML string.
+
+Input:
+
+```json
+[{ "$t": "a" }]
+```
+
+Output:
+
+```json
+[
+  "<items><item>a</item></items>"
+]
+```
 
 #### Parameters
 
--   `rootElement` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Root element name for the tag which start and close the feed (optional, default `items`)
--   `contentElement` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Content element name for the tag which start and close each item (optional, default `item`)
+-   `rootElement` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Root element name for the tag which starts and close the feed (optional, default `"items"`)
+-   `contentElement` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Content element name for the tag which starts and closes each item (optional, default `"item"`)
 -   `rootNamespace` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Namespace for the root tag (xmlns=)
--   `prologue` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Add XML prologue &lt;?xml (optional, default `false`)
+-   `prologue` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Add XML prologue `<?xml` (optional, default `false`)
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
