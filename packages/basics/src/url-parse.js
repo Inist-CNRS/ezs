@@ -21,10 +21,28 @@ function URLParse(data, feed) {
 }
 
 /**
- * Take `String` of URL, parse it and returns `Object`
+ * Take an URL `String`, parse it and return `Object`.
+ *
+ * Fields of the returned object:
+ *
+ * - href
+ * - origin
+ * - protocol
+ * - username
+ * - password
+ * - host
+ * - hostname
+ * - port
+ * - pathname
+ * - search
+ * - hash
+ *
+ * URLString statement convert such an object to a string.
  *
  * @name URLParse
  * @returns {Object}
+ * @see URLString
+ * @see https://nodejs.org/api/url.html
  */
 export default {
     URLParse,

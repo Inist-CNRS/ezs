@@ -574,7 +574,28 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### URLParse
 
-Take `String` of URL, parse it and returns `Object`
+-   **See: URLString
+    **
+-   **See: <https://nodejs.org/api/url.html>
+    **
+
+Take an URL `String`, parse it and return `Object`.
+
+Fields of the returned object:
+
+-   href
+-   origin
+-   protocol
+-   username
+-   password
+-   host
+-   hostname
+-   port
+-   pathname
+-   search
+-   hash
+
+URLString statement convert such an object to a string.
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
