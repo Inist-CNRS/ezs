@@ -5,17 +5,18 @@ import AbortController from 'node-abort-controller';
 import fetch from 'fetch-with-proxy';
 
 /**
- * Take `Object` and create a new field with the content of URL.
- * Or if no target will be specified, the output will be the content of URL
+ * Add a new field to an `Object`, with the returned content of URL.
+ *
+ * Or if no target is specified, the output will be the returned content of URL.
  *
  * @name URLFetch
- * @param {String} [url] URL to fecth
+ * @param {String} [url] URL to fetch
  * @param {String} [path] if present select value to send (by POST)
  * @param {String} [target] choose the key to set
- * @param {String} [json=false] Parse as JSON the content of URL
- * @param {Number} [timeout=1000] Timeout in milliseconds
- * @param {String} [mimetype=application/json] Mimetype for value of path  (if presents)
- * @param {Boolean} [noerror=false] Ignore all errors, the target field will remain undefined
+ * @param {String} [json=false] parse as JSON the content of URL
+ * @param {Number} [timeout=1000] timeout in milliseconds
+ * @param {String} [mimetype="application/json"] mimetype for value of path  (if presents)
+ * @param {Boolean} [noerror=false] ignore all errors, the target field will remain undefined
  * @returns {Object}
  */
 export default async function URLFetch(data, feed) {
@@ -38,7 +39,11 @@ export default async function URLFetch(data, feed) {
     };
     if (body) {
         set(parameters, 'method', 'POST');
-        set(parameters, 'body', Buffer.isBuffer(body) ? body : JSON.stringify(body));
+        set(
+            parameters,
+            'body',
+            Buffer.isBuffer(body) ? body : JSON.stringify(body),
+        );
         set(parameters, 'headers.content-type', mimetype);
     }
     try {
