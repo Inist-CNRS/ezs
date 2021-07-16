@@ -526,7 +526,10 @@ Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### TXTZip
 
-Take a String and zip it
+Take a `String` and zip it.
+
+Uses [gzip](https://fr.wikipedia.org/wiki/Gzip)
+algorithm to compress strings.
 
 #### Parameters
 
