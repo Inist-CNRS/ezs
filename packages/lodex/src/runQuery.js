@@ -47,7 +47,7 @@ export const createFunction = () => async function LodexRunQuery(data, feed) {
     let cursor = collection.find(filter, fields.length > 0 ? projection : null);
 
     if (sortOn !== false) {
-        cursor = cursor.sort(sortOn, sortOrder === 'desc' ? -1 : 1);
+        cursor = cursor.sort(`versions.${sortOn}`, sortOrder === 'desc' ? -1 : 1);
     }
 
     const total = await cursor.count();

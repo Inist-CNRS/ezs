@@ -80,7 +80,7 @@ export default async function LodexJoinQuery(data, feed) {
     let findCursor = await collection.find(findQuery);
 
     if (sortOn !== false) {
-        findCursor = findCursor.sort(`versions.0.${sortOn}`, sortOrder === 'desc' ? -1 : 1);
+        findCursor = findCursor.sort(`versions.${sortOn}`, sortOrder === 'desc' ? -1 : 1);
     }
 
     const findTotal = await findCursor.count();
