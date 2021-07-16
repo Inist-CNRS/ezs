@@ -433,7 +433,23 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### OBJStandardize
 
-Take `Object` and standardize it so each object will have the sames keys
+Standardize an `Object` so that each object have the same keys.
+
+Input:
+
+```json
+[{ "a": 1, "b": 2},
+ { "b": 2, "c": 3},
+ { "a": 1, "c": 3}]
+```
+
+Output:
+
+```json
+[{ "a": 1, "b": 2, "c": ""},
+ { "b": 2, "b": "", "c": 3},
+ { "a": 1, "b": "", "c": 3}]
+```
 
 #### Parameters
 
