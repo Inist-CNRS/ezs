@@ -668,7 +668,10 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### URLString
 
-Take `Object` representing a URL and stringify it
+-   **See: URLParse
+    **
+
+Take an `Object` representing an URL and stringify it.
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
