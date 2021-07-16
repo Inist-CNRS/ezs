@@ -7,14 +7,18 @@ ezs.use(ezsBasics);
 describe('OBJNamespaces', () => {
     it('one namespace', (done) => {
         const result = [];
-        from([{
-            baseline: 0,
-            'http://purl.org/dc/terms/title': 1,
-        }])
-            .pipe(ezs('OBJNamespaces', {
-                prefix: 'dc:',
-                namespace: 'http://purl.org/dc/terms/',
-            }))
+        from([
+            {
+                baseline: 0,
+                'http://purl.org/dc/terms/title': 1,
+            },
+        ])
+            .pipe(
+                ezs('OBJNamespaces', {
+                    prefix: 'dc:',
+                    namespace: 'http://purl.org/dc/terms/',
+                }),
+            )
             .pipe(ezs.catch())
             .on('error', done)
             .on('data', (data) => result.push(data))
@@ -28,15 +32,22 @@ describe('OBJNamespaces', () => {
     });
     it('two namespace', (done) => {
         const result = [];
-        from([{
-            baseline: 0,
-            'http://purl.org/dc/terms/title': 1,
-            'http://www.w3.org/2004/02/skos/core#prefLabel': 2,
-        }])
-            .pipe(ezs('OBJNamespaces', {
-                prefix: ['dc:', 'skos:'],
-                namespace: ['http://purl.org/dc/terms/', 'http://www.w3.org/2004/02/skos/core#'],
-            }))
+        from([
+            {
+                baseline: 0,
+                'http://purl.org/dc/terms/title': 1,
+                'http://www.w3.org/2004/02/skos/core#prefLabel': 2,
+            },
+        ])
+            .pipe(
+                ezs('OBJNamespaces', {
+                    prefix: ['dc:', 'skos:'],
+                    namespace: [
+                        'http://purl.org/dc/terms/',
+                        'http://www.w3.org/2004/02/skos/core#',
+                    ],
+                }),
+            )
             .pipe(ezs.catch())
             .on('error', done)
             .on('data', (data) => result.push(data))
@@ -52,22 +63,30 @@ describe('OBJNamespaces', () => {
 
     it('with one reference', (done) => {
         const result = [];
-        from([{
-            baseline: 0,
-            'http://fake#1': 'a',
-            'http://purl.org/dc/terms/title': 1,
-        },
-        {
-            baseline: 0,
-            'http://fake#2': 'b',
-            'http://purl.org/dc/terms/title': 1,
-            'http://www.w3.org/2004/02/skos/core#broader': 'http://fake#1',
-        }])
-            .pipe(ezs('OBJNamespaces', {
-                prefix: ['dc:', 'skos:', 'fake:'],
-                namespace: ['http://purl.org/dc/terms/', 'http://www.w3.org/2004/02/skos/core#', 'http://fake#'],
-                reference: 'broader$',
-            }))
+        from([
+            {
+                baseline: 0,
+                'http://fake#1': 'a',
+                'http://purl.org/dc/terms/title': 1,
+            },
+            {
+                baseline: 0,
+                'http://fake#2': 'b',
+                'http://purl.org/dc/terms/title': 1,
+                'http://www.w3.org/2004/02/skos/core#broader': 'http://fake#1',
+            },
+        ])
+            .pipe(
+                ezs('OBJNamespaces', {
+                    prefix: ['dc:', 'skos:', 'fake:'],
+                    namespace: [
+                        'http://purl.org/dc/terms/',
+                        'http://www.w3.org/2004/02/skos/core#',
+                        'http://fake#',
+                    ],
+                    reference: 'broader$',
+                }),
+            )
             .pipe(ezs.catch())
             .on('error', done)
             .on('data', (data) => result.push(data))

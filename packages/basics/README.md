@@ -369,8 +369,9 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### OBJNamespaces
 
-Take `Object` and throw the same object, all keys were parsed to replace namespaces with their prefixes
-Note:  You can also parse values for specific keys (keys containing references to other keys)
+Take `Object` and throw the same object, all keys parsed to replace namespaces with their prefixes
+
+> **Note:**  You can also parse values for specific keys (keys containing references to other keys)
 
 ```json
 [
@@ -379,7 +380,7 @@ Note:  You can also parse values for specific keys (keys containing references t
    "http://purl.org/ontology/places#Countryl": "France",
  },
  {
-   "http://purl.org/dc/terms/title": "the rising sun",
+   "http://purl.org/dc/terms/title": "The rising sun",
    "http://purl.org/ontology/places#Country": "Japan",
  },
  {
@@ -412,7 +413,7 @@ Output:
    "place:Country": "France",
  },
  {
-   "dc:title": "the rising sun",
+   "dc:title": "The rising sun",
    "place:Country": "Japan",
  },
  {

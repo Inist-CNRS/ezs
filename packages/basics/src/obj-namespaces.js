@@ -4,8 +4,9 @@ import mapKeys from 'lodash.mapkeys';
 import mapValues from 'lodash.mapvalues';
 
 /**
- * Take `Object` and throw the same object, all keys were parsed to replace namespaces with their prefixes
- * Note:  You can also parse values for specific keys (keys containing references to other keys)
+ * Take `Object` and throw the same object, all keys parsed to replace namespaces with their prefixes
+ *
+ * > **Note:**  You can also parse values for specific keys (keys containing references to other keys)
  *
  * ```json
  * [
@@ -14,7 +15,7 @@ import mapValues from 'lodash.mapvalues';
  *    "http://purl.org/ontology/places#Countryl": "France",
  *  },
  *  {
- *    "http://purl.org/dc/terms/title": "the rising sun",
+ *    "http://purl.org/dc/terms/title": "The rising sun",
  *    "http://purl.org/ontology/places#Country": "Japan",
  *  },
  *  {
@@ -48,7 +49,7 @@ import mapValues from 'lodash.mapvalues';
  *    "place:Country": "France",
  *  },
  *  {
- *    "dc:title": "the rising sun",
+ *    "dc:title": "The rising sun",
  *    "place:Country": "Japan",
  *  },
  *  {
@@ -69,27 +70,38 @@ export default function OBJNamespaces(data, feed) {
         return feed.close();
     }
     if (this.isFirst()) {
-        const prefixes = [].concat(this.getParam('prefix'))
+        const prefixes = []
+            .concat(this.getParam('prefix'))
             .map((x) => String(x).trim())
             .filter(Boolean);
-        const namespaces = [].concat(this.getParam('namespace'))
+        const namespaces = []
+            .concat(this.getParam('namespace'))
             .filter(Boolean)
             .slice(0, prefixes.length)
             .map((x) => String(x).trim());
         this.mapping = zipObject(namespaces, prefixes);
-        this.expression = RegExp(Object.keys(this.mapping).map(escapeRegExp).join('|'), 'g');
-        this.references = [].concat(this.getParam('reference'))
+        this.expression = RegExp(
+            Object.keys(this.mapping).map(escapeRegExp).join('|'),
+            'g',
+        );
+        this.references = []
+            .concat(this.getParam('reference'))
             .filter(Boolean)
             .map((x) => RegExp(String(x).trim(), 'g'));
     }
-    const result = mapKeys(
-        data,
-        (val, key) => String(key).replace(this.expression, (matched) => (this.mapping[matched])),
+    const result = mapKeys(data, (val, key) =>
+        String(key).replace(
+            this.expression,
+            (matched) => this.mapping[matched],
+        ),
     );
     if (this.references.length > 0) {
         const result1 = mapValues(result, (value, key) => {
-            if (this.references.some((x) => (key.search(x) !== -1))) {
-                return String(value).replace(this.expression, (matched) => (this.mapping[matched]));
+            if (this.references.some((x) => key.search(x) !== -1)) {
+                return String(value).replace(
+                    this.expression,
+                    (matched) => this.mapping[matched],
+                );
             }
             return value;
         });
