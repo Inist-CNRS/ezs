@@ -493,7 +493,7 @@ Input:
 Output:
 
 ```json
-[{ value: 1 }, { value: "b" }]
+[{ "value": 1 }, { "value": "b" }]
 ```
 
 #### Parameters
@@ -601,13 +601,66 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### URLStream
 
-Take `String` asURL, throw each chunk from the result or
+Take `String` as URL, throw each chunk from the result or
 Take `Object` as parameters of URL, throw each chunk from the result
+
+Next examples use an API `https://httpbin.org/get?a=n` returning
+
+```json
+{ args: { "a": "n" }}
+```
+
+##### Example with objects
+
+Input:
+
+```json
+[{"a": "a"}, {"a": "b"}, {"a": "c" }]
+```
+
+Script:
+
+```ini
+[URLStream]
+url = https://httpbin.org/get
+path = .args
+```
+
+Output:
+
+```json
+[{"a": "a"}, {"a": "b"}, {"a": "c" }]
+```
+
+##### Example with URLs
+
+Input:
+
+```json
+[
+  "https://httpbin.org/get?a=a",
+  "https://httpbin.org/get?a=b",
+  "https://httpbin.org/get?a=c"
+]
+```
+
+Script:
+
+```ini
+[URLStream]
+path = .args
+```
+
+Output:
+
+```json
+[{"a": "a"}, {"a": "b"}, {"a": "c" }]
+```
 
 #### Parameters
 
 -   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fetch (by default input string is taken)
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose the path to split JSON result (optional, default `*`)
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose the path to split JSON result (optional, default `"*"`)
 -   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (optional, default `1000`)
 -   `noerror` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Ignore all errors, the target field will remain undefined (optional, default `false`)
 
