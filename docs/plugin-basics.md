@@ -481,11 +481,24 @@ Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### TXTObject
 
-Take `String` and generate an object with a key and a value, where the value is the input string.
+Take an array of values and generate an array containing objects with the
+given `key` and matching value from the input array.
+
+Input:
+
+```json
+[1, "b"]
+```
+
+Output:
+
+```json
+[{ value: 1 }, { value: "b" }]
+```
 
 #### Parameters
 
--   `key` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose a the key name (optional, default `value`)
+-   `key` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose a the key name (optional, default `"value"`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
