@@ -14,56 +14,36 @@ npm install @ezs/core
 
 #### Table of Contents
 
--   [objects2columns](#objects2columns)
 -   [convertJsonLdToNQuads](#convertjsonldtonquads)
--   [LodexGetFields](#lodexgetfields)
--   [parseNQuads](#parsenquads)
 -   [convertToAtom](#converttoatom)
--   [LodexAggregateQuery](#lodexaggregatequery)
--   [LodexRunQuery](#lodexrunquery)
--   [LodexJoinQuery](#lodexjoinquery)
--   [LodexReduceQuery](#lodexreducequery)
--   [LodexInjectSyndicationFrom](#lodexinjectsyndicationfrom)
--   [Field](#field)
+-   [convertToExtendedJsonLd](#converttoextendedjsonld)
 -   [extractIstexQuery](#extractistexquery)
--   [LodexOutput](#lodexoutput)
--   [LodexGetCharacteristics](#lodexgetcharacteristics)
+-   [Field](#field)
+-   [flattenPatch](#flattenpatch)
+-   [getLastCharacteristic](#getlastcharacteristic)
+-   [getParam](#getparam)
 -   [injectDatasetFields](#injectdatasetfields)
 -   [keyMapping](#keymapping)
--   [LodexBuildContext](#lodexbuildcontext)
--   [flattenPatch](#flattenpatch)
 -   [labelizeFieldID](#labelizefieldid)
--   [getParam](#getparam)
--   [convertToExtendedJsonLd](#converttoextendedjsonld)
--   [getLastCharacteristic](#getlastcharacteristic)
+-   [LodexAggregateQuery](#lodexaggregatequery)
+-   [LodexBuildContext](#lodexbuildcontext)
+-   [LodexGetCharacteristics](#lodexgetcharacteristics)
+-   [LodexGetFields](#lodexgetfields)
 -   [LodexInjectCountFrom](#lodexinjectcountfrom)
+-   [LodexInjectSyndicationFrom](#lodexinjectsyndicationfrom)
+-   [LodexJoinQuery](#lodexjoinquery)
+-   [LodexOutput](#lodexoutput)
+-   [LodexReduceQuery](#lodexreducequery)
+-   [LodexRunQuery](#lodexrunquery)
+-   [objects2columns](#objects2columns)
+-   [parseNQuads](#parsenquads)
 -   [writeTurtle](#writeturtle)
-
-### objects2columns
-
-Take `Object` and ...
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### convertJsonLdToNQuads
 
 Take a JSON-LD object and transform it into NQuads triples.
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-### LodexGetFields
-
-Return the fields (the model) of a LODEX.
-
-#### Parameters
-
--   `connectionStringURI` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** MongoDB connection string
-
-### parseNQuads
-
-Take N-Quads string and transform it to Objects.
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### convertToAtom
 
@@ -78,121 +58,16 @@ model.
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
-### LodexAggregateQuery
+### convertToExtendedJsonLd
 
-Take `Object` containing a MongoDB aggregate query and throw the result
+Convert the result of an ISTEX query to an extended JSON-LD.
 
-The input object must contain a `connectionStringURI` property, containing
-the connection string to MongoDB.
-
-#### Parameters
-
--   `collection` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** collection to use (optional, default `"publishedDataset"`)
--   `referer` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** data injected into every result object
--   `filter` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** MongoDB filter
--   `limit` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
--   `skip` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### LodexRunQuery
-
-Take `Object` containing a MongoDB query and throw the result
-
-The input object must contain a `connectionStringURI` property, containing
-the connection string to MongoDB.
+Every hit must contain the URI of original lodex resource, linked to the
+query.
 
 #### Parameters
 
--   `collection` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** collection to use (optional, default `"publishedDataset"`)
--   `referer` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** data injected into every result object
--   `filter` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** MongoDB filter
--   `sortOn` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Field to sort on
--   `sortOrder` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Oder to sort
--   `field` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** limit the result to some fields (optional, default `"uri"`)
--   `limit` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
--   `skip` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### LodexJoinQuery
-
-Take 3 parametres and creates a join query (one to many, on sub-ressource)
-
-The input object must contain a `connectionStringURI` property, valued with
-the connection string to MongoDB.
-
-#### Parameters
-
--   `collection` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** collection to use (optional, default `"publishedDataset"`)
--   `referer` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** data injected into every result object
--   `filter` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** MongoDB filter (optional, default `{}`)
--   `sortOn` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Field to sort on
--   `sortOrder` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Oder to sort
--   `matchField` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Lodex field, containing matchable element
--   `matchValue` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Value used with the match field to get items
--   `joinField` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Lodex field used for the join request
--   `limit` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
--   `skip` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### LodexReduceQuery
-
-Take an `Object` containing a MongoDB query, and a reducer, then throw the
-result.
-
-The input object must contain a `connectionStringURI` property, containing
-the connection string to MongoDB.
-
-#### Parameters
-
--   `reducer` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the reducer to use
--   `referer` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** data injected into every result object
--   `filter` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** MongoDB filter (optional, default `{}`)
--   `field` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** limit the result to some fields (optional, default `"uri"`)
--   `minValue` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
--   `maxValue` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
--   `maxSize` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** limit the result (optional, default `1000000`)
--   `orderBy` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** sort the result
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### LodexInjectSyndicationFrom
-
-Inject title & description (syndicationà from field what conatsin the uri of one resource
-
-#### Parameters
-
--   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Field path contains URI
--   `connectionStringURI` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** MongoDB connection string
-
-#### Examples
-
-Output:
-
-
-```javascript
-[
-  {
-{
-      "id": "uri:/ZD44DSQ",
-      "id-title": "Titre de la ressource uri:/ZD44DSQ",
-      "id-description": "Description de la ressource uri:/ZD44DSQ",
-      "value": 10
-    }
-  }
-]
-```
-
-### Field
-
-Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), any>
-
-#### Properties
-
--   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The identifier of the field.
--   `scheme` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The semantic property of the field.
+-   `schemeForIstexQuery` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** URI to put between document and resource
 
 ### extractIstexQuery
 
@@ -216,85 +91,72 @@ Output:
 }
 ```
 
-### LodexOutput
+### Field
 
-Format the output in compliance with LODEX routines format.
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), any>
 
-#### Parameters
+#### Properties
 
--   `keyName` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** name of the `data` property (optional, default `data`)
--   `indent` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** indent or not (optional, default `false`)
--   `extract` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>?** fields to put at the root of the output
-                                      object
+-   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The identifier of the field.
+-   `scheme` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The semantic property of the field.
 
-#### Examples
+### flattenPatch
 
-Input
+Take `Object` and transform all key ending byu number on array.
 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-```javascript
-[
-     { _id: 1, value: 2, total: 2 },
-     { _id: 2, value: 4, total: 2 }
-]
-```
+### getLastCharacteristic
 
-Script
-
-
-```javascript
-.pipe(ezs('LodexOutput', { extract: 'total' }))
-```
-
-Output
-
-
-```javascript
-{
-    data [
-        { _id: 1, value: 2 },
-        { _id: 2, value: 4 }
-    ],
-    total: 2
-}
-```
-
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-### LodexGetCharacteristics
-
-Return the last characteristics (the dataset covering fields) of a LODEX.
-
-#### Parameters
-
--   `connectionStringURI` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** MongoDB connection string
+Get last characteristic (list of all dataset covering fields).
 
 #### Examples
 
-Output:
+Input:
 
 
 ```javascript
 [
   {
-    "characteristics": {
-      "_id": "5d289071340bb500201b5146",
-      "qW6w": "Catégories WOS",
-      "ImiI": "Cette table correspond aux catégories Web Of Science.",
-      "alRS": "/api/run/syndication",
-      "aDLT": "Dans le cadre de l'enrichissement des documents du...",
-      "SFvt": "https://enrichment-process.data.istex.fr/ark:/67375/R0H-PWBRNFQ8-H",
-      "RzXW": "https://docs.google.com/drawings/d/1LzjO-oD6snh0MYfqxfPB7q-LU6Dev1SRmJstXFGzgvg/pub?w=960&h=720",
-      "E4jH": "https://www.etalab.gouv.fr/licence-ouverte-open-licence",
-      "MvkG": "Plateforme ISTEX",
-      "m7G5": "Inist-CNRS",
-      "1TvM": "2016-05-12",
-      "WcNl": "2019-01-16",
-      "publicationDate": "2019-07-12T13:51:45.129Z"
-    }
+    "_id" : ObjectId("5ca32c64019f45001d2b602d"),
+    "publicationDate" : ISODate("2019-04-02T09:33:24.463Z")
+  },
+  {
+    "_id" : ObjectId("5cee50bb019f45001d2b602f"),
+    "publicationDate" : ISODate("2019-05-29T09:28:27.773Z")
+  },
+  {
+    "_id" : ObjectId("5cee5119019f45001d2b6031"),
+    "publicationDate" : ISODate("2019-05-29T09:30:01.319Z")
+  },
+  {
+    "_id" : ObjectId("5cee5153019f45001d2b6032"),
+    "publicationDate" : ISODate("2019-05-29T09:30:59.770Z")
+  },
+  {
+    "_id" : ObjectId("5cee5160019f45001d2b6033"),
+    "publicationDate" : ISODate("2019-05-29T09:31:12.503Z")
+  },
+  {
+    "_id" : ObjectId("5cee530e3e9676001909ba24"),
+    "publicationDate" : ISODate("2019-05-29T09:38:22.569Z")
   }
 ]
 ```
+
+Output:
+
+
+```javascript
+{
+  "_id" : ObjectId("5cee530e3e9676001909ba24"),
+  "publicationDate" : ISODate("2019-05-29T09:38:22.569Z")
+}
+```
+
+Returns **any** 
+
+### getParam
 
 ### injectDatasetFields
 
@@ -376,24 +238,6 @@ Output
 
 Returns **any** Same object with modified keys
 
-### LodexBuildContext
-
-Take `Object` containing a URL query and throw a Context Object
-compatible with runQuery or reduceQuery
-
-#### Parameters
-
--   `connectionStringURI` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to connect to MongoDB (optional, default `"mongodb://ezmaster_db:27017"`)
--   `host` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** to set host (usefull to build some links)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### flattenPatch
-
-Take `Object` and transform all key ending byu number on array.
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
 ### labelizeFieldID
 
 Inject in each item the last characteristics (the dataset covering fields) of a LODEX.
@@ -433,68 +277,77 @@ Output:
 ]
 ```
 
-### getParam
+### LodexAggregateQuery
 
-### convertToExtendedJsonLd
+Take `Object` containing a MongoDB aggregate query and throw the result
 
-Convert the result of an ISTEX query to an extended JSON-LD.
-
-Every hit must contain the URI of original lodex resource, linked to the
-query.
+The input object must contain a `connectionStringURI` property, containing
+the connection string to MongoDB.
 
 #### Parameters
 
--   `schemeForIstexQuery` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** URI to put between document and resource
+-   `collection` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** collection to use (optional, default `"publishedDataset"`)
+-   `referer` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** data injected into every result object
+-   `filter` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** MongoDB filter
+-   `limit` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
+-   `skip` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
 
-### getLastCharacteristic
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-Get last characteristic (list of all dataset covering fields).
+### LodexBuildContext
+
+Take `Object` containing a URL query and throw a Context Object
+compatible with runQuery or reduceQuery
+
+#### Parameters
+
+-   `connectionStringURI` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to connect to MongoDB (optional, default `"mongodb://ezmaster_db:27017"`)
+-   `host` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** to set host (usefull to build some links)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### LodexGetCharacteristics
+
+Return the last characteristics (the dataset covering fields) of a LODEX.
+
+#### Parameters
+
+-   `connectionStringURI` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** MongoDB connection string
 
 #### Examples
-
-Input:
-
-
-```javascript
-[
-  {
-    "_id" : ObjectId("5ca32c64019f45001d2b602d"),
-    "publicationDate" : ISODate("2019-04-02T09:33:24.463Z")
-  },
-  {
-    "_id" : ObjectId("5cee50bb019f45001d2b602f"),
-    "publicationDate" : ISODate("2019-05-29T09:28:27.773Z")
-  },
-  {
-    "_id" : ObjectId("5cee5119019f45001d2b6031"),
-    "publicationDate" : ISODate("2019-05-29T09:30:01.319Z")
-  },
-  {
-    "_id" : ObjectId("5cee5153019f45001d2b6032"),
-    "publicationDate" : ISODate("2019-05-29T09:30:59.770Z")
-  },
-  {
-    "_id" : ObjectId("5cee5160019f45001d2b6033"),
-    "publicationDate" : ISODate("2019-05-29T09:31:12.503Z")
-  },
-  {
-    "_id" : ObjectId("5cee530e3e9676001909ba24"),
-    "publicationDate" : ISODate("2019-05-29T09:38:22.569Z")
-  }
-]
-```
 
 Output:
 
 
 ```javascript
-{
-  "_id" : ObjectId("5cee530e3e9676001909ba24"),
-  "publicationDate" : ISODate("2019-05-29T09:38:22.569Z")
-}
+[
+  {
+    "characteristics": {
+      "_id": "5d289071340bb500201b5146",
+      "qW6w": "Catégories WOS",
+      "ImiI": "Cette table correspond aux catégories Web Of Science.",
+      "alRS": "/api/run/syndication",
+      "aDLT": "Dans le cadre de l'enrichissement des documents du...",
+      "SFvt": "https://enrichment-process.data.istex.fr/ark:/67375/R0H-PWBRNFQ8-H",
+      "RzXW": "https://docs.google.com/drawings/d/1LzjO-oD6snh0MYfqxfPB7q-LU6Dev1SRmJstXFGzgvg/pub?w=960&h=720",
+      "E4jH": "https://www.etalab.gouv.fr/licence-ouverte-open-licence",
+      "MvkG": "Plateforme ISTEX",
+      "m7G5": "Inist-CNRS",
+      "1TvM": "2016-05-12",
+      "WcNl": "2019-01-16",
+      "publicationDate": "2019-07-12T13:51:45.129Z"
+    }
+  }
+]
 ```
 
-Returns **any** 
+### LodexGetFields
+
+Return the fields (the model) of a LODEX.
+
+#### Parameters
+
+-   `connectionStringURI` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** MongoDB connection string
 
 ### LodexInjectCountFrom
 
@@ -544,6 +397,153 @@ field = publicationDate
           { id: 7, value:2011, value_count:2  },
 ]
 ````
+
+### LodexInjectSyndicationFrom
+
+Inject title & description (syndicationà from field what conatsin the uri of one resource
+
+#### Parameters
+
+-   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Field path contains URI
+-   `connectionStringURI` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** MongoDB connection string
+
+#### Examples
+
+Output:
+
+
+```javascript
+[
+  {
+{
+      "id": "uri:/ZD44DSQ",
+      "id-title": "Titre de la ressource uri:/ZD44DSQ",
+      "id-description": "Description de la ressource uri:/ZD44DSQ",
+      "value": 10
+    }
+  }
+]
+```
+
+### LodexJoinQuery
+
+Take 3 parametres and creates a join query (one to many, on sub-ressource)
+
+The input object must contain a `connectionStringURI` property, valued with
+the connection string to MongoDB.
+
+#### Parameters
+
+-   `collection` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** collection to use (optional, default `"publishedDataset"`)
+-   `referer` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** data injected into every result object
+-   `filter` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** MongoDB filter (optional, default `{}`)
+-   `sortOn` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Field to sort on
+-   `sortOrder` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Oder to sort
+-   `matchField` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Lodex field, containing matchable element
+-   `matchValue` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Value used with the match field to get items
+-   `joinField` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Lodex field used for the join request
+-   `limit` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
+-   `skip` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### LodexOutput
+
+Format the output in compliance with LODEX routines format.
+
+#### Parameters
+
+-   `keyName` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** name of the `data` property (optional, default `data`)
+-   `indent` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** indent or not (optional, default `false`)
+-   `extract` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>?** fields to put at the root of the output
+                                      object
+
+#### Examples
+
+Input
+
+
+```javascript
+[
+     { _id: 1, value: 2, total: 2 },
+     { _id: 2, value: 4, total: 2 }
+]
+```
+
+Script
+
+
+```javascript
+.pipe(ezs('LodexOutput', { extract: 'total' }))
+```
+
+Output
+
+
+```javascript
+{
+    data [
+        { _id: 1, value: 2 },
+        { _id: 2, value: 4 }
+    ],
+    total: 2
+}
+```
+
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+### LodexReduceQuery
+
+Take an `Object` containing a MongoDB query, and a reducer, then throw the
+result.
+
+The input object must contain a `connectionStringURI` property, containing
+the connection string to MongoDB.
+
+#### Parameters
+
+-   `reducer` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the reducer to use
+-   `referer` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** data injected into every result object
+-   `filter` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** MongoDB filter (optional, default `{}`)
+-   `field` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** limit the result to some fields (optional, default `"uri"`)
+-   `minValue` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
+-   `maxValue` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
+-   `maxSize` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** limit the result (optional, default `1000000`)
+-   `orderBy` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** sort the result
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### LodexRunQuery
+
+Take `Object` containing a MongoDB query and throw the result
+
+The input object must contain a `connectionStringURI` property, containing
+the connection string to MongoDB.
+
+#### Parameters
+
+-   `collection` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** collection to use (optional, default `"publishedDataset"`)
+-   `referer` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** data injected into every result object
+-   `filter` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** MongoDB filter
+-   `sortOn` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Field to sort on
+-   `sortOrder` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Oder to sort
+-   `field` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** limit the result to some fields (optional, default `"uri"`)
+-   `limit` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
+-   `skip` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** limit the result
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### objects2columns
+
+Take `Object` and ...
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### parseNQuads
+
+Take N-Quads string and transform it to Objects.
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### writeTurtle
 
