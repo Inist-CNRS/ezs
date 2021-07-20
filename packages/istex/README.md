@@ -14,8 +14,8 @@ npm install @ezs/istex
 
 #### Table of Contents
 
--   [ISTEXUnzip](#istexunzip)
 -   [ISTEXFiles](#istexfiles)
+-   [ISTEXUnzip](#istexunzip)
 -   [ISTEXFilesContent](#istexfilescontent)
 -   [ISTEXResult](#istexresult)
 -   [ISTEXFacet](#istexfacet)
@@ -27,15 +27,6 @@ npm install @ezs/istex
 -   [ISTEXTriplify](#istextriplify)
 -   [ISTEXUniq](#istexuniq)
 -   [ISTEX](#istex)
-
-### ISTEXUnzip
-
-Take the content of a zip file, extract JSON files, and yield JSON objects.
-
-The zip file comes from dl.istex.fr, and the `manifest.json` is not
-extracted.
-
-Returns **any** Array<Object>
 
 ### ISTEXFiles
 
@@ -52,6 +43,15 @@ Take an Object with ISTEX `id` and generate an object for each file
 -   `sid` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** User-agent identifier (optional, default `"ezs-istex"`)
 
 Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** 
+
+### ISTEXUnzip
+
+Take the content of a zip file, extract JSON files, and yield JSON objects.
+
+The zip file comes from dl.istex.fr, and the `manifest.json` is not
+extracted.
+
+Returns **any** Array<Object>
 
 ### ISTEXFilesContent
 
