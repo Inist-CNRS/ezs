@@ -14,213 +14,38 @@ npm install @ezs/core
 
 #### Table of Contents
 
--   [pack](#pack)
--   [unpack](#unpack)
--   [tracer](#tracer)
--   [env](#env)
--   [spawn](#spawn)
+-   [assign](#assign)
+-   [concat](#concat)
 -   [debug](#debug)
 -   [delegate](#delegate)
 -   [dispatch](#dispatch)
--   [metrics](#metrics)
--   [swing](#swing)
--   [parallel](#parallel)
--   [time](#time)
--   [transit](#transit)
--   [concat](#concat)
--   [ungroup](#ungroup)
--   [group](#group)
--   [shift](#shift)
+-   [dump](#dump)
+-   [env](#env)
 -   [exchange](#exchange)
 -   [extract](#extract)
--   [keep](#keep)
+-   [group](#group)
 -   [ignore](#ignore)
--   [dump](#dump)
+-   [keep](#keep)
+-   [metrics](#metrics)
+-   [pack](#pack)
+-   [parallel](#parallel)
 -   [remove](#remove)
--   [truncate](#truncate)
--   [shuffle](#shuffle)
--   [validate](#validate)
 -   [replace](#replace)
--   [assign](#assign)
-
-### pack
-
-Take all `Object`, throw encoded `String`
-
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-### unpack
-
-Take `String` and throw `Object` builded by JSON.parse on each line
-
-Returns **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### tracer
-
-Take `Object`, print a character and throw the same object.
-Useful to see the progress in the stream.
-
-#### Parameters
-
--   `print` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** character to print at each object (optional, default `.`)
--   `last` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** character to print at last call (optional, default `.`)
--   `first` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** character to print at first call (optional, default `.`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### env
-
-Take `Object` and send the same object but in the meantime,
-it is possible to  add new environment field with the first
-Object of the feed
-
-#### Parameters
-
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of the new field
--   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value of the new field
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### spawn
-
-Take `Object` and delegate processing to an external pipeline, throw each chunk from the result
-Note : works like [delegate], but each chunk use its own external pipeline
-
-#### Parameters
-
--   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
--   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
--   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
--   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
--   `cache` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Use a specific ezs statement to run commands (advanced)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### debug
-
-Take `Object` , print it and throw the same object
-
-#### Parameters
-
--   `level` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** console level : log or error (optional, default `log`)
--   `text` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** text before the dump (optional, default `valueOf`)
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to print
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### delegate
-
-Takes an `Object` delegate processing to an external pipeline
-Note : works like [spawn], but each chunk share the same external pipeline
-
-#### Parameters
-
--   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
--   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
--   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
--   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### dispatch
-
-Takes an `Object` dispatch processing to an external pipeline on one or more servers
-
-#### Parameters
-
--   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
--   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
--   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
--   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### metrics
-
-Take `Object` and throw the same `Object`
-But in print some Prometheus metrics
-
-#### Parameters
-
--   `stage` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Stage name (optional, default `default`)
--   `bucket` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Bucket name (script name) (optional, default `unknow`)
--   `frequency` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** number of chunk between two metrics computation (optional, default `10`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### swing
-
-Takes an `Object` delegate processing to an external pipeline
-under specifics conditions
-Note : works like [spawn], but each chunk share the same external pipeline
-
-#### Parameters
-
--   `test` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** if test is true
--   `reverse` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** reverse the test (optional, default `false`)
--   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
--   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
--   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
--   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### parallel
-
-Takes an `Object` delegate processing to X internal pipelines
-
-#### Parameters
-
--   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
--   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
--   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
--   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### time
-
-Measure the execution time of a script, on each chunk on input.
-
-#### Parameters
-
--   `script` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
-
-#### Examples
-
-Input
-
-
-```javascript
-[1]
-```
-
-Program
-
-
-```javascript
-const script = `
-[transit]
-`;
-from([1])
-    .pipe(ezs('time', { script }))
-```
-
-Output
-
-
-```javascript
-[{
-  data: 1,
-  time: 15 // milliseconds
-}]
-```
-
-Returns **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### transit
-
-Take `Object` and throw the same object
+-   [shift](#shift)
+-   [shuffle](#shuffle)
+-   [spawn](#spawn)
+-   [swing](#swing)
+-   [time](#time)
+-   [tracer](#tracer)
+-   [transit](#transit)
+-   [truncate](#truncate)
+-   [ungroup](#ungroup)
+-   [unpack](#unpack)
+-   [validate](#validate)
+
+### assign
+
+Take `Object` and add new field
 Input file:
 
 ```json
@@ -229,13 +54,24 @@ Input file:
 },
 {
    a: 2,
+},
+{
+   a: 3,
+},
+{
+   a: 4,
+},
+{
+   a: 5,
 }]
 ```
 
 Script:
 
 ```ini
-[transit]
+[assign]
+path = b.c
+value = 'X'
 ```
 
 Output:
@@ -243,11 +79,30 @@ Output:
 ```json
 [{
    a: 1,
+   b: { c: "X" },
 },
 {
    a: 2,
+   b: { c: "X" },
+},
+{
+   a: 3,
+   b: { c: "X" },
+},
+{
+   a: 4,
+   b: { c: "X" },
+},
+{
+   a: 5,
+   b: { c: "X" },
 }]
 ```
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of the new field
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value of the new field
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -288,120 +143,103 @@ Output:
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
-### ungroup
+### debug
 
--   **See: group
-    **
+Take `Object` , print it and throw the same object
 
-Take all `chunk`s, and throw one item for every chunk
+#### Parameters
+
+-   `level` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** console level : log or error (optional, default `log`)
+-   `text` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** text before the dump (optional, default `valueOf`)
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to print
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### delegate
+
+Takes an `Object` delegate processing to an external pipeline
+Note : works like [spawn], but each chunk share the same external pipeline
+
+#### Parameters
+
+-   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
+-   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
+-   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
+-   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### dispatch
+
+Takes an `Object` dispatch processing to an external pipeline on one or more servers
+
+#### Parameters
+
+-   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
+-   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
+-   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
+-   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### dump
+
+Take all `Object` and generete a JSON array
 
 ```json
 [
-     [ 'a', 'b', 'c' ],
-     [ 'd', 'e', 'f' ],
-     [ 'g', 'h' ],
+    { a: 1 },
+    { a: 2 },
+    { a: 3 },
+    { a: 4 },
+    { a: 5 }
 ]
 ```
 
 Script:
 
 ```ini
-[ungroup]
+[dump]
+indent = true
 ```
 
 Output:
 
 ```json
-[
-     'a',
-     'b',
-     'c',
-     'd',
-     'e',
-     'f',
-     'g',
-     'h',
-]
-```
-
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-### group
-
-Take all `chunk`s, and throw one array of chunks
-
-```json
-[
-     'a',
-     'b',
-     'c',
-     'd',
-     'e',
-     'f',
-     'g',
-     'h',
-]
-```
-
-Script:
-
-```ini
-[group]
-length = 3
-```
-
-Output:
-
-```json
-[
-     [ 'a', 'b', 'c' ],
-     [ 'd', 'e', 'f' ],
-     [ 'g', 'h' ],
+ [{
+    "a": 1
+   },
+   {
+    "a": 2
+   },
+   {
+    "a": 3
+   },
+   {
+    "a": 4
+   },
+   {
+    "a": 5
+   }
 ]
 ```
 
 #### Parameters
 
--   `length` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Size of each partition
+-   `indent` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** indent JSON (optional, default `false`)
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
-### shift
+### env
 
-Return the first `Object` and close the feed
-Input file:
+Take `Object` and send the same object but in the meantime,
+it is possible to  add new environment field with the first
+Object of the feed
 
-```json
-[{
-   a: 1,
-},
-{
-   a: 2,
-},
-{
-   a: 3,
-},
-{
-   a: 4,
-},
-{
-   a: 5,
-}]
-```
+#### Parameters
 
-Script:
-
-```ini
-[shift]
-```
-
-Output:
-
-```json
-[{
-   a: 1,
-}]
-```
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of the new field
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value of the new field
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -492,50 +330,45 @@ Output:
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### keep
+### group
 
-Take `Object` and throw the same object but keep only specific fields
-Input file:
+Take all `chunk`s, and throw one array of chunks
 
 ```json
-[{
-   a: 'abcdefg',
-   b: '1234567',
-   c: 'XXXXXXX',
-},
-{
-   a: 'abcdefg',
-   b: '1234567',
-   c: 'XXXXXXX',
-}]
+[
+     'a',
+     'b',
+     'c',
+     'd',
+     'e',
+     'f',
+     'g',
+     'h',
+]
 ```
 
 Script:
 
 ```ini
-[keep]
-path = a
-path = b
+[group]
+length = 3
 ```
 
 Output:
 
 ```json
-[{
-   a: 'abcdefg',
-   b: '1234567',
-},
-{
-   a: 'abcdefg',
-   b: '1234567',
-}]
+[
+     [ 'a', 'b', 'c' ],
+     [ 'd', 'e', 'f' ],
+     [ 'g', 'h' ],
+]
 ```
 
 #### Parameters
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to keep
+-   `length` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Size of each partition
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ### ignore
 
@@ -584,53 +417,82 @@ Output:
 
 Returns **any** 
 
-### dump
+### keep
 
-Take all `Object` and generete a JSON array
+Take `Object` and throw the same object but keep only specific fields
+Input file:
 
 ```json
-[
-    { a: 1 },
-    { a: 2 },
-    { a: 3 },
-    { a: 4 },
-    { a: 5 }
-]
+[{
+   a: 'abcdefg',
+   b: '1234567',
+   c: 'XXXXXXX',
+},
+{
+   a: 'abcdefg',
+   b: '1234567',
+   c: 'XXXXXXX',
+}]
 ```
 
 Script:
 
 ```ini
-[dump]
-indent = true
+[keep]
+path = a
+path = b
 ```
 
 Output:
 
 ```json
- [{
-    "a": 1
-   },
-   {
-    "a": 2
-   },
-   {
-    "a": 3
-   },
-   {
-    "a": 4
-   },
-   {
-    "a": 5
-   }
-]
+[{
+   a: 'abcdefg',
+   b: '1234567',
+},
+{
+   a: 'abcdefg',
+   b: '1234567',
+}]
 ```
 
 #### Parameters
 
--   `indent` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** indent JSON (optional, default `false`)
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to keep
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### metrics
+
+Take `Object` and throw the same `Object`
+But in print some Prometheus metrics
+
+#### Parameters
+
+-   `stage` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Stage name (optional, default `default`)
+-   `bucket` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Bucket name (script name) (optional, default `unknow`)
+-   `frequency` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** number of chunk between two metrics computation (optional, default `10`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### pack
+
+Take all `Object`, throw encoded `String`
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+### parallel
+
+Takes an `Object` delegate processing to X internal pipelines
+
+#### Parameters
+
+-   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
+-   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
+-   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
+-   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### remove
 
@@ -679,156 +541,6 @@ Output:
 
 -   `test` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** if test is true
 -   `reverse` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** reverse the test (optional, default `false`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### truncate
-
-Takes all the chunks, and closes the feed when the total length is equal to the parameter
-Input file:
-
-```json
-[{
-   a: 1,
-},
-{
-   a: 2,
-},
-{
-   a: 3,
-},
-{
-   a: 4,
-},
-{
-   a: 5,
-}]
-```
-
-Script:
-
-```ini
-[truncate]
-length = 3
-```
-
-Output:
-
-```json
-[{
-   a: 1,
-},
-{
-   a: 2,
-},
-{
-   a: 3,
-}]
-```
-
-#### Parameters
-
--   `length` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Length of the feed
-
-Returns **any** 
-
-### shuffle
-
-Take `Object`, shuffle data of the whole object or only some fields specified by path
-Input file:
-
-```json
-[{
-   a: 'abcdefg',
-   b: '1234567',
-},
-{
-   a: 'abcdefg',
-   b: '1234567',
-}]
-```
-
-Script:
-
-```ini
-[shuffle]
-path = a
-```
-
-Output:
-
-```json
-[{
-   a: 'cadbefg',
-   b: '1234567',
-},
-{
-   a: 'dcaegbf',
-   b: '1234567',
-}]
-```
-
-#### Parameters
-
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to shuffle
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### validate
-
--   **See: laravel validator rules
-    **
--   **See: <https://github.com/skaterdav85/validatorjs#readme>
-    **
-
-From a `Object`, throw the same object if all rules pass
-
-Input file:
-
-```json
-[{
-   a: 1,
-   b: 'titi',
-},
-{
-   a: 2,
-   b: 'toto',
-},
-{
-   a: false,
-},
-]
-```
-
-Script:
-
-```ini
-[validate]
-path = a
-rule = required|number
-
-path = a
-rule = required|string
-```
-
-Output:
-
-```json
-[{
-   a: 1,
-   b: 'titi',
-},
-{
-   a: 2,
-   b: 'toto',
-},
-}]
-```
-
-#### Parameters
-
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of the field
--   `rule` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** rule to validate the field
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -890,9 +602,9 @@ Output:
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### assign
+### shift
 
-Take `Object` and add new field
+Return the first `Object` and close the feed
 Input file:
 
 ```json
@@ -916,9 +628,7 @@ Input file:
 Script:
 
 ```ini
-[assign]
-path = b.c
-value = 'X'
+[shift]
 ```
 
 Output:
@@ -926,29 +636,319 @@ Output:
 ```json
 [{
    a: 1,
-   b: { c: "X" },
+}]
+```
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### shuffle
+
+Take `Object`, shuffle data of the whole object or only some fields specified by path
+Input file:
+
+```json
+[{
+   a: 'abcdefg',
+   b: '1234567',
 },
 {
-   a: 2,
-   b: { c: "X" },
+   a: 'abcdefg',
+   b: '1234567',
+}]
+```
+
+Script:
+
+```ini
+[shuffle]
+path = a
+```
+
+Output:
+
+```json
+[{
+   a: 'cadbefg',
+   b: '1234567',
 },
 {
-   a: 3,
-   b: { c: "X" },
-},
-{
-   a: 4,
-   b: { c: "X" },
-},
-{
-   a: 5,
-   b: { c: "X" },
+   a: 'dcaegbf',
+   b: '1234567',
 }]
 ```
 
 #### Parameters
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of the new field
--   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value of the new field
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to shuffle
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### spawn
+
+Take `Object` and delegate processing to an external pipeline, throw each chunk from the result
+Note : works like [delegate], but each chunk use its own external pipeline
+
+#### Parameters
+
+-   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
+-   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
+-   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
+-   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
+-   `cache` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Use a specific ezs statement to run commands (advanced)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### swing
+
+Takes an `Object` delegate processing to an external pipeline
+under specifics conditions
+Note : works like [spawn], but each chunk share the same external pipeline
+
+#### Parameters
+
+-   `test` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** if test is true
+-   `reverse` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** reverse the test (optional, default `false`)
+-   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
+-   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
+-   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
+-   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### time
+
+Measure the execution time of a script, on each chunk on input.
+
+#### Parameters
+
+-   `script` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
+
+#### Examples
+
+Input
+
+
+```javascript
+[1]
+```
+
+Program
+
+
+```javascript
+const script = `
+[transit]
+`;
+from([1])
+    .pipe(ezs('time', { script }))
+```
+
+Output
+
+
+```javascript
+[{
+  data: 1,
+  time: 15 // milliseconds
+}]
+```
+
+Returns **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### tracer
+
+Take `Object`, print a character and throw the same object.
+Useful to see the progress in the stream.
+
+#### Parameters
+
+-   `print` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** character to print at each object (optional, default `.`)
+-   `last` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** character to print at last call (optional, default `.`)
+-   `first` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** character to print at first call (optional, default `.`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### transit
+
+Take `Object` and throw the same object
+Input file:
+
+```json
+[{
+   a: 1,
+},
+{
+   a: 2,
+}]
+```
+
+Script:
+
+```ini
+[transit]
+```
+
+Output:
+
+```json
+[{
+   a: 1,
+},
+{
+   a: 2,
+}]
+```
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### truncate
+
+Takes all the chunks, and closes the feed when the total length is equal to the parameter
+Input file:
+
+```json
+[{
+   a: 1,
+},
+{
+   a: 2,
+},
+{
+   a: 3,
+},
+{
+   a: 4,
+},
+{
+   a: 5,
+}]
+```
+
+Script:
+
+```ini
+[truncate]
+length = 3
+```
+
+Output:
+
+```json
+[{
+   a: 1,
+},
+{
+   a: 2,
+},
+{
+   a: 3,
+}]
+```
+
+#### Parameters
+
+-   `length` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Length of the feed
+
+Returns **any** 
+
+### ungroup
+
+-   **See: group
+    **
+
+Take all `chunk`s, and throw one item for every chunk
+
+```json
+[
+     [ 'a', 'b', 'c' ],
+     [ 'd', 'e', 'f' ],
+     [ 'g', 'h' ],
+]
+```
+
+Script:
+
+```ini
+[ungroup]
+```
+
+Output:
+
+```json
+[
+     'a',
+     'b',
+     'c',
+     'd',
+     'e',
+     'f',
+     'g',
+     'h',
+]
+```
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+### unpack
+
+Take `String` and throw `Object` builded by JSON.parse on each line
+
+Returns **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### validate
+
+-   **See: laravel validator rules
+    **
+-   **See: <https://github.com/skaterdav85/validatorjs#readme>
+    **
+
+From a `Object`, throw the same object if all rules pass
+
+Input file:
+
+```json
+[{
+   a: 1,
+   b: 'titi',
+},
+{
+   a: 2,
+   b: 'toto',
+},
+{
+   a: false,
+},
+]
+```
+
+Script:
+
+```ini
+[validate]
+path = a
+rule = required|number
+
+path = a
+rule = required|string
+```
+
+Output:
+
+```json
+[{
+   a: 1,
+   b: 'titi',
+},
+{
+   a: 2,
+   b: 'toto',
+},
+}]
+```
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of the field
+-   `rule` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** rule to validate the field
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
