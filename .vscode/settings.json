@@ -1,7 +1,12 @@
 {
     "js/ts.implicitProjectConfig.checkJs": true,
     "[javascript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": false,
     },
-    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true
+    },
+    "editor.tabSize": 4,
+    "prettier.configPath": "./.prettierrc"
 }
