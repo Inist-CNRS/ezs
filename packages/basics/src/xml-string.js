@@ -51,13 +51,13 @@ function XMLString(data, feed) {
  * ]
  * ```
  *
+ * See {@link XMLParse}
  * @name XMLString
  * @param {String} [rootElement="items"] Root element name for the tag which starts and close the feed
  * @param {String} [contentElement="item"] Content element name for the tag which starts and closes each item
  * @param {String} [rootNamespace] Namespace for the root tag (xmlns=)
  * @param {Boolean} [prologue=false] Add XML prologue `<?xml`
  * @returns {String}
- * @see XMLParse
  */
 export default {
     XMLString,

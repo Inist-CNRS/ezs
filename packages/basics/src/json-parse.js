@@ -20,6 +20,8 @@ function JSONParse(data, feed) {
 /**
  * Parse a `String` to JSON and generate objects.
  *
+ * See {@link https://github.com/dominictarr/JSONStream}
+ *
  * #### Example 1: with separator
  *
  * Input:
@@ -58,7 +60,6 @@ function JSONParse(data, feed) {
  * @name JSONParse
  * @param {String} [separator="*"] to split at every JSONPath found
  * @returns {Object}
- * @see https://github.com/dominictarr/JSONStream
  */
 export default {
     JSONParse,

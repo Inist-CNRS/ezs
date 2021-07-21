@@ -39,10 +39,13 @@ function URLParse(data, feed) {
  *
  * URLString statement convert such an object to a string.
  *
+ * See:
+ *
+ * - {@link URLString}
+ * - {@link https://nodejs.org/api/url.html}
+ *
  * @name URLParse
  * @returns {Object}
- * @see URLString
- * @see https://nodejs.org/api/url.html
  */
 export default {
     URLParse,

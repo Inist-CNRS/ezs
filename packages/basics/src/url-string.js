@@ -10,9 +10,10 @@ function URLString(data, feed) {
 /**
  * Take an `Object` representing an URL and stringify it.
  *
+ * See {@link URLParse}
+ *
  * @name URLString
  * @returns {String}
- * @see URLParse
  */
 export default {
     URLString,

@@ -72,12 +72,14 @@ function XMLConvert(data, feed) {
  *   "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<x a=\"1\"/>",
  *   "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<x a=\"2\"/>",
  * ]
+ * ```
+ *
+ * See {@link https://www.npmjs.com/package/xml-mapping}
  *
  * @name XMLConvert
  * @param {String} [invert=false] change conversion (JSON to XML)
  * @param {String} [prologue=false] add XML prologue
  * @returns {Object}
- * @see https://www.npmjs.com/package/xml-mapping
  */
 export default {
     XMLConvert,

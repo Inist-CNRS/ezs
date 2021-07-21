@@ -3,6 +3,8 @@ import flatten, { unflatten } from 'flat';
 /**
  * Flatten an `Object` with a path delimiting character.
  *
+ * See {@link https://www.npmjs.com/package/flat}
+ *
  * Input:
  *
  * ```json
@@ -25,7 +27,6 @@ import flatten, { unflatten } from 'flat';
  * @param {String} [separator="/"] choose a character to flatten keys
  * @param {Boolean} [safe=false] preserve arrays and their contents,
  * @returns {Object}
- * @see https://www.npmjs.com/package/flat
  */
 export default function OBJFlatten(data, feed) {
     if (this.isLast()) {
