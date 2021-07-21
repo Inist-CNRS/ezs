@@ -1,7 +1,7 @@
 const eol = '\n';
 
 /**
- * Take `String` and throw `Object` builded by JSON.parse on each line
+ * Take `String`s or `Buffer`s and throw `Object` builded by JSON.parse on each line.
  *
  * @name unpack
  * @returns {object}

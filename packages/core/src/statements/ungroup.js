@@ -1,11 +1,13 @@
 /**
- * Take all `chunk`s, and throw one item for every chunk
+ * Take all `chunk`s, and throw one item for every chunk.
+ *
+ * See also {@link group}.
  *
  * ```json
  * [
- *      [ 'a', 'b', 'c' ],
- *      [ 'd', 'e', 'f' ],
- *      [ 'g', 'h' ],
+ *      [ "a", "b", "c" ],
+ *      [ "d", "e", "f" ],
+ *      [ "g", "h" ]
  * ]
  * ```
  *
@@ -13,27 +15,25 @@
  *
  * ```ini
  * [ungroup]
- *
  * ```
  *
  * Output:
  *
  * ```json
  * [
- *      'a',
- *      'b',
- *      'c',
- *      'd',
- *      'e',
- *      'f',
- *      'g',
- *      'h',
+ *      "a",
+ *      "b",
+ *      "c",
+ *      "d",
+ *      "e",
+ *      "f",
+ *      "g",
+ *      "h"
  * ]
  * ```
  *
  * @name ungroup
- * @returns {String}
- * @see group
+ * @returns {Array<any>}
  */
 export default function ungroup(data, feed) {
     if (this.isLast()) {

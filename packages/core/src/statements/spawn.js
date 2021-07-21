@@ -1,12 +1,13 @@
 /**
- * Take `Object` and delegate processing to an external pipeline, throw each chunk from the result
- * Note : works like [delegate], but each chunk use its own external pipeline
+ * Delegate processing to an external pipeline, throw each chunk from the result.
+ *
+ * > **Note**: works like {@link delegate}, but each chunk use its own external pipeline
  *
  * @name spawn
  * @param {String} [file] the external pipeline is described in a file
  * @param {String} [script] the external pipeline is described in a string of characters
- * @param {String} [commands] the external pipeline is described in a object
- * @param {String} [command] the external pipeline is described in a URL-like command
+ * @param {String} [commands] the external pipeline is described in an object
+ * @param {String} [command] the external pipeline is described in an URL-like command
  * @param {String} [cache] Use a specific ezs statement to run commands (advanced)
  * @returns {Object}
  */

@@ -1,18 +1,20 @@
 import settings from '../settings';
 
 /**
- * Take all `chunk`s, and throw one array of chunks
+ * Take all `chunk`s, and throw them grouped by `length`.
+ *
+ * See also {@link ungroup}.
  *
  * ```json
  * [
- *      'a',
- *      'b',
- *      'c',
- *      'd',
- *      'e',
- *      'f',
- *      'g',
- *      'h',
+ *      "a",
+ *      "b",
+ *      "c",
+ *      "d",
+ *      "e",
+ *      "f",
+ *      "g",
+ *      "h"
  * ]
  * ```
  *
@@ -21,16 +23,15 @@ import settings from '../settings';
  * ```ini
  * [group]
  * length = 3
- *
  * ```
  *
  * Output:
  *
  * ```json
  * [
- *      [ 'a', 'b', 'c' ],
- *      [ 'd', 'e', 'f' ],
- *      [ 'g', 'h' ],
+ *      [ "a", "b", "c" ],
+ *      [ "d", "e", "f" ],
+ *      [ "g", "h" ]
  * ]
  * ```
  *

@@ -1,7 +1,7 @@
 import { PassThrough } from 'stream';
 
 /**
- * Measure the execution time of a script, on each chunk on input.
+ * Measure the execution time of a script, on each chunk of input.
  *
  * @example <caption>Input</caption>
  * [1]

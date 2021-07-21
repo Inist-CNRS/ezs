@@ -3,17 +3,20 @@ import _ from 'lodash';
 import debug from 'debug';
 
 /**
- * Takes an `Object` delegate processing to an external pipeline
- * under specifics conditions
- * Note : works like [spawn], but each chunk share the same external pipeline
+ * Delegate processing to an external pipeline under specifics conditions
+ *
+ * > **Note**: works like {@link spawn}, but each chunk shares the same external
+ * > pipeline.
  *
  * @name swing
  * @param {String} [test] if test is true
  * @param {String} [reverse=false] reverse the test
  * @param {String} [file] the external pipeline is described in a file
- * @param {String} [script] the external pipeline is described in a string of characters
- * @param {String} [commands] the external pipeline is described in a object
- * @param {String} [command] the external pipeline is described in a URL-like command
+ * @param {String} [script] the external pipeline is described in a string of
+ * characters
+ * @param {String} [commands] the external pipeline is described in an object
+ * @param {String} [command] the external pipeline is described in an URL-like
+ * command
  * @returns {Object}
  */
 export default function swing(data, feed) {

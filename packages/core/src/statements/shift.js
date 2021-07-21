@@ -1,22 +1,23 @@
 /**
  * Return the first `Object` and close the feed
-* Input file:
+ *
+ * Input file:
  *
  * ```json
  * [{
- *    a: 1,
+ *    "a": 1
  * },
  * {
- *    a: 2,
+ *    "a": 2
  * },
  * {
- *    a: 3,
+ *    "a": 3
  * },
  * {
- *    a: 4,
+ *    "a": 4
  * },
  * {
- *    a: 5,
+ *    "a": 5
  * }]
  * ```
  *
@@ -24,14 +25,13 @@
  *
  * ```ini
  * [shift]
- *
  * ```
  *
  * Output:
  *
  * ```json
  * [{
- *    a: 1,
+ *    "a": 1
  * }]
  * ```
  *

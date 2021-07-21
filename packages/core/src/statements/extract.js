@@ -2,18 +2,19 @@ import _ from 'lodash';
 
 /**
  * Take `Object` and throw each value of fields
- * Note: extract cannot throw undefined or null values
+ *
+ * > **Note**: extract cannot throw `undefined` or `null` values
  *
  * ```json
  * [{
- *    a: 'abcdefg',
- *    b: '1234567',
- *    c: 'XXXXXXX',
+ *    "a": "abcdefg",
+ *    "b": "1234567",
+ *    "c": "XXXXXXX"
  * },
  * {
- *    a: 'abcdefg',
- *    b: '1234567',
- *    c: 'XXXXXXX',
+ *    "a": "abcdefg",
+ *    "b": "1234567",
+ *    "c": "XXXXXXX"
  * }]
  * ```
  *
@@ -23,17 +24,16 @@ import _ from 'lodash';
  * [extract]
  * path = a
  * path = b
- *
  * ```
  *
  * Output:
  *
  * ```json
  * [
- *    'abcdefg',
- *    '1234567',
- *    'abcdefg',
- *    '1234567',
+ *    "abcdefg",
+ *    "1234567",
+ *    "abcdefg",
+ *    "1234567"
  * }]
  * ```
  *

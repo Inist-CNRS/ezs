@@ -1,13 +1,14 @@
 /**
- * Take `Object` and throw the same object
+ * Take `Object` and throw the same object again.
+ *
 * Input file:
  *
  * ```json
  * [{
- *    a: 1,
+ *    "a": 1
  * },
  * {
- *    a: 2,
+ *    "a": 2
  * }]
  * ```
  *
@@ -15,17 +16,16 @@
  *
  * ```ini
  * [transit]
- *
  * ```
  *
  * Output:
  *
  * ```json
  * [{
- *    a: 1,
+ *    "a": 1
  * },
  * {
- *    a: 2,
+ *    "a": 2
  * }]
  * ```
  *

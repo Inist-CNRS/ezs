@@ -1,11 +1,11 @@
 /**
- * Take all `String`, concat them and thow just one
+ * Take all `String`, concat them and throw just one.
  *
  * ```json
  * [
- *      'a',
- *      'b',
- *      'c',
+ *      "a",
+ *      "b",
+ *      "c"
  * ]
  * ```
  *
@@ -16,17 +16,15 @@
  * beginWith = <
  * joinWith = |
  * endWith = >
- *
  * ```
  *
  * Output:
  *
  * ```json
  * [
- *      '<a|b|c>',
+ *      "<a|b|c>"
  * ]
  * ```
-
  *
  * @name concat
  * @param {String} [beginWith] Add value at the begin
