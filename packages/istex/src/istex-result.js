@@ -7,8 +7,8 @@ import { newValue } from './utils';
  *
  * This should be placed after ISTEXScroll.
  *
+ * See {@link ISTEXScroll}
  * @name ISTEXResult
- * @see ISTEXScroll
  * @param {string} [source=data]
  * @param {string} [target=feed]
  * @returns {Array<Object>}

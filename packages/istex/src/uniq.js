@@ -69,20 +69,29 @@ function ISTEXUniq(data, feed) {
  * Assume that every triple of a document (except the first one) follows another
  * triple of the same document.
  *
- * @name ISTEXUniq
+ * <caption>Input:</caption>
  *
- * @example <caption>Input:</caption>
+ * ```turtle
  * <https://api.istex.fr/ark:/67375/NVC-JMPZTKTT-R> <http://purl.org/dc/terms/creator> "S Corbett" .
  * <https://api.istex.fr/ark:/67375/NVC-JMPZTKTT-R> <https://data.istex.fr/ontology/istex#affiliation> "Department of Public Health, University of Sydney, Australia." .
  * <https://api.istex.fr/ark:/67375/NVC-JMPZTKTT-R> <https://data.istex.fr/ontology/istex#affiliation> "Department of Public Health, University of Sydney, Australia." .
  * <https://api.istex.fr/ark:/67375/NVC-JMPZTKTT-R> <https://data.istex.fr/ontology/istex#affiliation> "Department of Public Health, University of Sydney, Australia." .
+ * ```
  *
- * @example <caption>Action in a `.ezs` script</caption>
+ * <caption>Action in a `.ezs` script</caption>
+ *
+ * ```ini
  * [ISTEXUniq]
+ * ```
  *
- * @example <caption>Output</caption>
+ * <caption>Output</caption>
+ *
+ * ```n3
  * <https://api.istex.fr/ark:/67375/NVC-JMPZTKTT-R> <http://purl.org/dc/terms/creator> "S Corbett" .
  * <https://api.istex.fr/ark:/67375/NVC-JMPZTKTT-R> <https://data.istex.fr/ontology/istex#affiliation> "Department of Public Health, University of Sydney, Australia." .
+ * ```
+ *
+ * @name ISTEXUniq
  */
 export default {
     ISTEXUniq,

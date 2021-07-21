@@ -9,7 +9,9 @@ ezs.use(istex);
  * Parse a `.corpus` file content, and execute the action contained in the
  * `.corpus` file.
  *
- * @example <caption>1query.corpus</caption>
+ * <caption>1query.corpus</caption>
+ *
+ * ```ini
  * [ISTEX]
  * query = language.raw:rum
  * field = doi
@@ -20,10 +22,14 @@ ezs.use(istex);
  * field = keywords
  * field = host
  * field = fulltext
+ * ```
  *
- * @example <caption>1notice.corpus</caption>
+ * <caption>1notice.corpus</caption>
+ *
+ * ```ini
  * [ISTEX]
  * id 2FF3F5B1477986B9C617BB75CA3333DBEE99EB05
+ * ```
  *
  * @name ISTEXParseDotCorpus
  * @returns {Object}

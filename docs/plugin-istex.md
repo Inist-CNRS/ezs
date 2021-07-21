@@ -109,10 +109,9 @@ Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Gl
 
 ### ISTEXFiles
 
--   **See: ISTEXScroll
-    **
-
 Take an Object with ISTEX `id` and generate an object for each file
+
+See [ISTEXScroll](#istexscroll)
 
 #### Parameters
 
@@ -125,12 +124,11 @@ Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Gl
 
 ### ISTEXFilesContent
 
--   **See: ISTEXFiles
-    **
-
 Take an Object with ISTEX `source` and check the document's file.
 Warning: to access fulltext, you have to give a `token` parameter.
 ISTEXFetch produces the stream you need to save the file.
+
+See [ISTEXFiles](#istexfiles)
 
 #### Parameters
 
@@ -141,10 +139,9 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### ISTEXFilesWrap
 
--   **See: ISTEXFiles
-    **
-
 Take and Object with ISTEX `stream` and wrap into a single zip
+
+See [ISTEXFiles](#istexfiles)
 
 Returns **[Buffer](https://nodejs.org/api/buffer.html)** 
 
@@ -153,12 +150,9 @@ Returns **[Buffer](https://nodejs.org/api/buffer.html)**
 Parse a `.corpus` file content, and execute the action contained in the
 `.corpus` file.
 
-#### Examples
+<caption>1query.corpus</caption>
 
-1query.corpus
-
-
-```javascript
+```ini
 [ISTEX]
 query = language.raw:rum
 field = doi
@@ -171,10 +165,9 @@ field = host
 field = fulltext
 ```
 
-1notice.corpus
+<caption>1notice.corpus</caption>
 
-
-```javascript
+```ini
 [ISTEX]
 id 2FF3F5B1477986B9C617BB75CA3333DBEE99EB05
 ```
@@ -183,13 +176,12 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### ISTEXResult
 
--   **See: ISTEXScroll
-    **
-
 Take `Object` containing results of ISTEX API, and returns `hits` value
 (documents).
 
 This should be placed after ISTEXScroll.
+
+See [ISTEXScroll](#istexscroll)
 
 #### Parameters
 
@@ -200,12 +192,13 @@ Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Gl
 
 ### ISTEXSave
 
--   **See: ISTEXFetch
-    **
-
 Take and Object with ISTEX `id` and save the document's file.
+
 Warning: to access fulltext, you have to give a `token` parameter.
-ISTEXFetch produces the stream you need to save the file.
+
+[ISTEXFetch](#istexfetch) produces the stream you need to save the file.
+
+See [ISTEXFetch](#istexfetch)
 
 #### Parameters
 
@@ -246,26 +239,18 @@ Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Gl
 
 ### ISTEXTriplify
 
--   **See: ISTEXResult
-    **
--   **See: OBJFlatten (from ezs-basics)
-    **
-
 Take `Object` containing flatten hits from ISTEXResult.
 
 If the environment variable DEBUG is set, some errors could appear on stderr.
 
-#### Parameters
+See
 
--   `property` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** path to uri for the properties to output (property and uri separated by `->`) (optional, default `[]`)
--   `source` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the root of the keys (ex: `istex/`) (optional, default `""`)
+-   [ISTEXResult](#istexresult)
+-   [OBJFlatten](https://inist-cnrs.github.io/ezs/#/plugin-basics?id=objflatten) (from `@ezs/basics`)
 
-#### Examples
+<caption>data:</caption>
 
-data:
-
-
-```javascript
+```js
 {
   'author/0/name': 'Geoffrey Strickland',
   'author/0/affiliations/0': 'University of Reading',
@@ -279,10 +264,9 @@ data:
 }
 ```
 
-javascript:
+<caption>javascript:</caption>
 
-
-```javascript
+```js
 .pipe(ezs('ISTEXTriplify', {
    property: [
      'doi/0 -> http://purl.org/ontology/bibo/doi',
@@ -293,17 +277,21 @@ javascript:
  ));
 ```
 
-output:
+ <caption>output:</caption>
 
-
-```javascript
-<https://data.istex.fr/document/F6CB7249E90BD96D5F7E3C4E80CC1C3FEE4FF483>
+```turtle
+ <https://data.istex.fr/document/F6CB7249E90BD96D5F7E3C4E80CC1C3FEE4FF483>
     a <http://purl.org/ontology/bibo/Document> ;
       "10.1002/zaac.19936190205" ;
     <https://data.istex.fr/ontology/istex#idIstex> "F6CB7249E90BD96D5F7E3C4E80CC1C3FEE4FF483" ;
     <http://purl.org/dc/terms/creator> "Geoffrey Strickland" ;
     <https://data.istex.fr/ontology/istex#affiliation> "University of Reading" ;
 ```
+
+#### Parameters
+
+-   `property` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** path to uri for the properties to output (property and uri separated by `->`) (optional, default `[]`)
+-   `source` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the root of the keys (ex: `istex/`) (optional, default `""`)
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
@@ -315,29 +303,24 @@ subject).
 Assume that every triple of a document (except the first one) follows another
 triple of the same document.
 
-#### Examples
+<caption>Input:</caption>
 
-Input:
-
-
-```javascript
+```turtle
 <https://api.istex.fr/ark:/67375/NVC-JMPZTKTT-R> <http://purl.org/dc/terms/creator> "S Corbett" .
 <https://api.istex.fr/ark:/67375/NVC-JMPZTKTT-R> <https://data.istex.fr/ontology/istex#affiliation> "Department of Public Health, University of Sydney, Australia." .
 <https://api.istex.fr/ark:/67375/NVC-JMPZTKTT-R> <https://data.istex.fr/ontology/istex#affiliation> "Department of Public Health, University of Sydney, Australia." .
 <https://api.istex.fr/ark:/67375/NVC-JMPZTKTT-R> <https://data.istex.fr/ontology/istex#affiliation> "Department of Public Health, University of Sydney, Australia." .
 ```
 
-Action in a `.ezs` script
+<caption>Action in a `.ezs` script</caption>
 
-
-```javascript
+```ini
 [ISTEXUniq]
 ```
 
-Output
+<caption>Output</caption>
 
-
-```javascript
+```n3
 <https://api.istex.fr/ark:/67375/NVC-JMPZTKTT-R> <http://purl.org/dc/terms/creator> "S Corbett" .
 <https://api.istex.fr/ark:/67375/NVC-JMPZTKTT-R> <https://data.istex.fr/ontology/istex#affiliation> "Department of Public Health, University of Sydney, Australia." .
 ```

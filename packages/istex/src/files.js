@@ -3,8 +3,8 @@ import URL from 'url';
 /**
  * Take an Object with ISTEX `id` and generate an object for each file
  *
+ * See {@link ISTEXScroll}
  * @name ISTEXFiles
- * @see ISTEXScroll
  * @param {string} [fulltext=pdf]    typology of the document to save
  * @param {string} [metadata=json]   format of the files to save
  * @param {string} [enrichment]   enrichment of the document to save
