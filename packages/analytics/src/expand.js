@@ -8,7 +8,12 @@ async function mergeWith(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
-    const { store, cache } = this.getEnv();
+    const {
+        store,
+        cache,
+        stack,
+        bufferID,
+    } = this.getEnv();
     const { id, value } = data;
     const path = this.getParam('path');
     try {
@@ -20,6 +25,7 @@ async function mergeWith(data, feed) {
         if (cache && source) {
             await cache.put(source, value);
         }
+        delete stack[bufferID][id];
         set(obj, path, value);
         return feed.send(obj);
     } catch (e) {
@@ -95,24 +101,46 @@ export default async function expand(data, feed) {
             this.cache = createPersistentStore(ezs, `expand${cacheName}`, location);
         }
         if (!this.buffer2stream) {
-            this.buffer2stream = () => {
+            this.buffer2stream = (bufferID) => {
                 const statements = this.createStatements();
                 const stream = ezs.createStream(ezs.objectMode());
                 const output = ezs.createPipeline(stream, statements)
                     .pipe(ezs(mergeWith, { path }, {
                         store: this.store,
                         cache: this.cache,
+                        stack: this.stack,
+                        bufferID,
                     }))
-                    .pipe(ezs.catch());
+                    .pipe(ezs.catch())
+                    .on('end', () => each(
+                        Object.keys(this.stack[bufferID]),
+                        async (cur, next) => {
+                            try {
+                                const obj = await this.store.get(cur);
+                                if (obj === null) {
+                                    throw new Error('id has been lost');
+                                }
+                                feed.write(obj);
+                            } catch (e) {
+                                feed.write(e);
+                            }
+                            next();
+                        },
+                    ));
                 const input = Array.from(this.buffer);
                 this.buffer = [];
+                this.bufferID += 1;
+                this.stack[this.bufferID] = {};
 
                 each(input, (cur, next) => ezs.writeTo(stream, cur, next), () => stream.end());
                 return output;
             };
         }
         if (!this.buffer) {
+            this.stack = [];
             this.buffer = [];
+            this.bufferID = 0;
+            this.stack[this.bufferID] = {};
         }
         if (!this.store) {
             const location = this.getParam('location');
@@ -124,7 +152,7 @@ export default async function expand(data, feed) {
 
         if (this.isLast()) {
             if (this.buffer && this.buffer.length > 0) {
-                return feed.flow(this.buffer2stream());
+                return feed.flow(this.buffer2stream(this.bufferID));
             }
             return feed.close();
         }
@@ -144,9 +172,10 @@ export default async function expand(data, feed) {
 
         await this.store.put(id, data);
 
+        this.stack[this.bufferID][id] = true;
         this.buffer.push(core(id, value));
         if (this.buffer.length >= size) {
-            return feed.flow(this.buffer2stream());
+            return feed.flow(this.buffer2stream(this.bufferID));
         }
         return feed.end();
     } catch (e) {
