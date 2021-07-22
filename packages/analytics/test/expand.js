@@ -615,3 +615,45 @@ test('with script (all values) #2 with cache', (done) => {
             done();
         });
 });
+test('with a script that loses some items', (done) => {
+    ezs.use(statements);
+    const output = [];
+    const input = [
+        { a: 1, b: 'a' },
+        { a: 2, b: 'b' },
+        { a: 3, b: 'c' },
+        { a: 4, b: 'd' },
+        { a: 5, b: 'e' },
+        { a: 6, b: 'f' },
+    ];
+    const script = `
+            [use]
+            plugin = analytics
+
+            [drop]
+            if = c
+
+            [assign]
+            path = value
+            value = get('value').toUpper()
+        `;
+
+    from(input)
+        .pipe(ezs('expand', { path: 'b', script }))
+        .pipe(ezs.catch())
+        .on('error', done)
+        .on('data', (chunk) => {
+            output.push(chunk);
+        })
+        .on('end', () => {
+            expect(output.length).toEqual(6);
+            expect(output[0].b).toEqual('A');
+            expect(output[1].b).toEqual('B');
+            expect(output[2].b).toEqual('c');
+            expect(output[3].b).toEqual('D');
+            expect(output[4].b).toEqual('E');
+            expect(output[5].b).toEqual('F');
+            expect(env.executed).toEqual(false);
+            done();
+        });
+});
