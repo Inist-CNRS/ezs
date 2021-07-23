@@ -8,7 +8,7 @@ export const split = (value, separator) => {
     if (typeof value !== 'string') {
         throw new Error('Invalid value: need a string');
     }
-    let splitted = value.split(separator).map(x => x.trim());
+    const splitted = value.split(separator).map(x => x.trim());
     return splitted.filter(x => x != '');
 };
 
