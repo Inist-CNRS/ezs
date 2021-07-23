@@ -3,11 +3,18 @@ const fetch = require('fetch-with-proxy').default;
 /**
  * Take a SPARQL query and endpoint and send in output the execution result in JSON format.
  *
- * @example <caption>Input:</caption>
- * { query: 'SELECT DISTINCT ?g, count(*) AS ?nb WHERE { graph ?g { ?s ?p ?o } } LIMIT 3',
- *  endpoint: 'https://data.istex.fr/sparql/' }
+ * <caption>Input:</caption>
  *
- * @example <caption>Ouput:</caption>
+ * ```json
+ * {
+ *   "query": "SELECT DISTINCT ?g, count(*) AS ?nb WHERE { graph ?g { ?s ?p ?o } } LIMIT 3",
+ *    "endpoint": "https://data.istex.fr/sparql/"
+ * }
+ * ```
+ *
+ * <caption>Ouput:</caption>
+ *
+ * ```json
  * { "head": { "link": [], "vars": ["g", "nb"] },
  *   "results": { "distinct": false, "ordered": true, "bindings": [
  *     { "g": {
@@ -39,6 +46,7 @@ const fetch = require('fetch-with-proxy').default;
  *     }}
  *   ]}
  * }
+ * ```
  *
  * @export
  * @name SPARQLQuery

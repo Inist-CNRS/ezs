@@ -12,8 +12,8 @@ import dollar from './dollar';
  * with = #
  * ```
  *
- * @param {String} [field] field path to apply the transformation
- * @param {String} [vith] value to add at the begining of the field
+ * @param {String} field field path to apply the transformation
+ * @param {String} with  value to add at the begining of the field
  * @returns {Object}
  */
 export default function $PREFIX(data, feed) {

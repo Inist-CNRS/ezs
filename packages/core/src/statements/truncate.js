@@ -1,22 +1,23 @@
 /**
- * Takes all the chunks, and closes the feed when the total length is equal to the parameter
+ * Takes all the chunks, and closes the feed when the total length is equal to the parameter.
+ *
  * Input file:
  *
  * ```json
  * [{
- *    a: 1,
+ *    "a": 1
  * },
  * {
- *    a: 2,
+ *    "a": 2
  * },
  * {
- *    a: 3,
+ *    "a": 3
  * },
  * {
- *    a: 4,
+ *    "a": 4
  * },
  * {
- *    a: 5,
+ *    "a": 5
  * }]
  * ```
  *
@@ -25,20 +26,19 @@
  * ```ini
  * [truncate]
  * length = 3
- *
  * ```
  *
  * Output:
  *
  * ```json
  * [{
- *    a: 1,
+ *    "a": 1
  * },
  * {
- *    a: 2,
+ *    "a": 2
  * },
  * {
- *    a: 3,
+ *    "a": 3
  * }]
  * ```
  *

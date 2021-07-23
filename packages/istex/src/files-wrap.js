@@ -15,8 +15,8 @@ const add2archive = (archive, { content, name }) => {
 /**
  * Take and Object with ISTEX `stream` and wrap into a single zip
  *
+ * See {@link ISTEXFiles}
  * @name ISTEXFilesWrap
- * @see ISTEXFiles
  * @returns {Buffer}
  */
 function ISTEXFilesWrap(data, feed) {

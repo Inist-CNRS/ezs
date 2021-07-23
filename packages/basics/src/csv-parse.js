@@ -16,7 +16,12 @@ function CSVParse(data, feed) {
 }
 
 /**
- * Take `String` and parse it as CSV to generate arrays
+ * Take `String` and parse it as CSV to generate arrays.
+ *
+ * See:
+ *
+ * - {@link CSVObject}
+ * - {@link https://github.com/Inist-CNRS/node-csv-string}
  *
  * Input:
  *
@@ -39,8 +44,6 @@ function CSVParse(data, feed) {
  * @param {String} [separator=auto] to indicate the CSV separator
  * @param {String} [quote=auto] to indicate the CSV quote.
  * @returns {Array<String[]>}
- * @see https://github.com/Inist-CNRS/node-csv-string
- * @see CSVObject
  */
 export default {
     CSVParse,

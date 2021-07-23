@@ -1,13 +1,13 @@
 /**
- * Take all `Object` and generete a JSON array
+ * Take all `Object`s and generate a JSON array
  *
  * ```json
  * [
- *     { a: 1 },
- *     { a: 2 },
- *     { a: 3 },
- *     { a: 4 },
- *     { a: 5 }
+ *     { "a": 1 },
+ *     { "a": 2 },
+ *     { "a": 3 },
+ *     { "a": 4 },
+ *     { "a": 5 }
  * ]
  * ```
  *
@@ -16,27 +16,26 @@
  * ```ini
  * [dump]
  * indent = true
- *
  * ```
  *
  * Output:
  *
  * ```json
  *  [{
- *     "a": 1
- *    },
- *    {
- *     "a": 2
- *    },
- *    {
- *     "a": 3
- *    },
- *    {
- *     "a": 4
- *    },
- *    {
- *     "a": 5
- *    }
+ *    "a": 1
+ *   },
+ *   {
+ *    "a": 2
+ *   },
+ *   {
+ *    "a": 3
+ *   },
+ *   {
+ *    "a": 4
+ *   },
+ *   {
+ *    "a": 5
+ *   }
  * ]
  * ```
  * @name dump

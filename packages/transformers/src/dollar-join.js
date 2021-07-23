@@ -12,8 +12,8 @@ import dollar from './dollar';
  * path = input
  * ```
  *
- * @param {String} [field] field path to apply the transformation (must be an array)
- * @param {String} [separator] glue between each field
+ * @param {String} field     field path to apply the transformation (must be an array)
+ * @param {String} separator glue between each field
  * @returns {Object}
  */
 export default function $JOIN(data, feed) {

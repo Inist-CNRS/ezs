@@ -2,7 +2,7 @@ import util from 'util';
 import _ from 'lodash';
 
 /**
- * Take `Object` , print it and throw the same object
+ * Take `Object`, print it (with its number), and throw the same object.
  *
  * @name debug
  * @param {String} [level=log] console level : log or error

@@ -1,17 +1,19 @@
 /**
- * Take `Object` and throw un new item computed by the value= parameter
+ * Take `Object` and throw a new item computed by the `value=` parameter (which
+ * replace the input one).
+ *
  * Input file:
  *
  * ```json
  * [{
- *    a: 'abcdefg',
- *    b: '1234567',
- *    c: 'XXXXXXX',
+ *    "a": "abcdefg",
+ *    "b": "1234567",
+ *    "c": "XXXXXXX"
  * },
  * {
- *    a: 'abcdefg',
- *    b: '1234567',
- *    c: 'XXXXXXX',
+ *    "a": "abcdefg",
+ *    "b": "1234567",
+ *    "c": "XXXXXXX"
  * }]
  * ```
  *
@@ -20,19 +22,18 @@
  * ```ini
  * [exchange]
  * value = omit('c')
- *
  * ```
  *
  * Output:
  *
  * ```json
  * [{
- *    a: 'abcdefg',
- *    b: '1234567',
+ *    "a": "abcdefg",
+ *    "b": "1234567"
  * },
  * {
- *    a: 'abcdefg',
- *    b: '1234567',
+ *    "a": "abcdefg",
+ *    "b": "1234567"
  * }]
  * ```
  *

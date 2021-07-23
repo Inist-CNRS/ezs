@@ -3,7 +3,10 @@ import set from 'lodash.set';
 import generate from 'nanoid/async/generate';
 import nolookalikes from 'nanoid-dictionary/nolookalikes';
 
-export const validKey = (input) => (Boolean(input) && typeof input === 'string' && input.search(/\w+:(\/?\/?)[^\s]+/g) >= 0);
+export const validKey = (input) =>
+    Boolean(input) &&
+    typeof input === 'string' &&
+    input.search(/\w+:(\/?\/?)[^\s]+/g) >= 0;
 
 //
 // JS implentation of NCDA
@@ -31,7 +34,7 @@ export function ncda(input, alphabet = []) {
 }
 
 /**
- * Take `Object`, and compute & add a identifier
+ * Take `Object`, and compute & add an identifier
  *
  * @param {String} [scheme = uid] scheme prefix
  * @param {String} [path = uri] path containing the object Identifier

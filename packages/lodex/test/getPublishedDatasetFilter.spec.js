@@ -4,7 +4,7 @@ import {
     addRegexToFilters,
     addKeyToFilters,
     getValueQueryFragment,
-} from './getPublishedDatasetFilter';
+} from '../src/getPublishedDatasetFilter';
 
 describe('getPublishedDatasetFilter', () => {
     describe('addFacetToFilters', () => {

@@ -1,9 +1,31 @@
 /**
- * Take `Object` and ...
+ * Take an `Object` and flatten it to get only one level of keys.
+ *
+ * <caption>Input:</caption>
+ *
+ * ```json
+ * [{
+ *   "foo": {
+ *     "hello": "world"
+ *   },
+ *   "bar": "anything else",
+ *   "baz": 1
+ * }]
+ * ```
+ *
+ * <caption>Output:</caption>
+ *
+ * ```json
+ * [{
+ *   "foo": "{\"hello\":\"world\"}",
+ *   "bar": "anything else",
+ *   "baz": 1
+ * }]
+ * ```
  *
  * @name objects2columns
  * @alias flatten
- * @param none.
+ * @param {undefined} none
  * @returns {Object}
  */
 export default function objects2columns(data, feed) {

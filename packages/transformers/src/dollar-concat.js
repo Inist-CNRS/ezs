@@ -13,8 +13,8 @@ import dollar from './dollar';
  * columns = part2
  * ```
  *
- * @param {String} [field] field path to get the result of the transformation
- * @param {String} [columns] field path to get value
+ * @param {String} field    field path to get the result of the transformation
+ * @param {String} columns  field path to get value
  * @returns {Object}
  */
 export default function $CONCAT(data, feed) {

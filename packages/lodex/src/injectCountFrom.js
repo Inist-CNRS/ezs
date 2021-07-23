@@ -6,39 +6,43 @@ import mongoDatabase from './mongoDatabase';
 /**
  * Inject in each item the last characteristics (the dataset covering fields) of a LODEX.
  *
- * @example
  * <caption>Input:</caption>
+ *
  * ```json
  * [
- *           { id: 0, value:2000  },
- *           { id: 1, value:2001  },
- *           { id: 2, value:2003  },
- *           { id: 3, value:2005  },
- *           { id: 4, value:2007  },
- *           { id: 2, value:2003  },
- *           { id: 6, value:2011  },
- *           { id: 7, value:2013  },
+ *           { "id": 0, "value":2000  },
+ *           { "id": 1, "value":2001  },
+ *           { "id": 2, "value":2003  },
+ *           { "id": 3, "value":2005  },
+ *           { "id": 4, "value":2007  },
+ *           { "id": 2, "value":2003  },
+ *           { "id": 6, "value":2011  },
+ *           { "id": 7, "value":2013  }
  * ]
  * ```
  *
  * <caption>Script:</caption>
+ *
  * ```ini
  * [injectCountFrom]
  * path = value
  * field = publicationDate
- *
  * ```
  *
+ * <caption>Output:</caption>
+ *
+ * ```json
  * [
- *           { id: 0, value:2003, value_count:3  },
- *           { id: 1, value:2001, value_count:1  },
- *           { id: 2, value:2003, value_count:3  },
- *           { id: 3, value:2005, value_count:1  },
- *           { id: 4, value:2007, value_count:1  },
- *           { id: 2, value:2003, value_count:3  },
- *           { id: 6, value:2011, value_count:2  },
- *           { id: 7, value:2011, value_count:2  },
+ *           { "id": 0, "value":2003, "value_count":3  },
+ *           { "id": 1, "value":2001, "value_count":1  },
+ *           { "id": 2, "value":2003, "value_count":3  },
+ *           { "id": 3, "value":2005, "value_count":1  },
+ *           { "id": 4, "value":2007, "value_count":1  },
+ *           { "id": 2, "value":2003, "value_count":3  },
+ *           { "id": 6, "value":2011, "value_count":2  },
+ *           { "id": 7, "value":2011, "value_count":2  }
  * ]
+ * ```
  *
  * @export
  * @param {string} connectionStringURI MongoDB connection string

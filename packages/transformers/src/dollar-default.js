@@ -12,8 +12,8 @@ import dollar from './dollar';
  * alternative = not available
  * ```
  *
- * @param {String} [field] field path to apply the transformation
- * @param {String} [alternative] value to use if field does not exist
+ * @param {String} field    field path to apply the transformation
+ * @param {String} alternative value to use if field does not exist
  * @returns {Object}
  */
 export default function $DEFAULT(data, feed) {

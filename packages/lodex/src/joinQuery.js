@@ -2,7 +2,7 @@ import _ from 'lodash';
 import mongoDatabase from './mongoDatabase';
 
 /**
- * Take 3 parametres and creates a join query (one to many, on sub-ressource)
+ * Take 3 parameters and create a join query (one to many, on sub-ressource)
  *
  * The input object must contain a `connectionStringURI` property, valued with
  * the connection string to MongoDB.

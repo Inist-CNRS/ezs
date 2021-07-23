@@ -1,24 +1,27 @@
 import _ from 'lodash';
 
 /**
- * Take `Object` and replace it with a new object with some fields
+ * Take `Object` and replace it with a new object with some fields.
+ *
+ * See also {@link exchange} and {@link assign}.
+ *
  * Input file:
  *
  * ```json
  * [{
- *    a: 1,
+ *    "a": 1
  * },
  * {
- *    a: 2,
+ *    "a": 2
  * },
  * {
- *    a: 3,
+ *    "a": 3
  * },
  * {
- *    a: 4,
+ *    "a": 4
  * },
  * {
- *    a: 5,
+ *    "a": 5
  * }]
  * ```
  *
@@ -28,26 +31,25 @@ import _ from 'lodash';
  * [replace]
  * path = b.c
  * value = 'X'
- *
  * ```
  *
  * Output:
  *
  * ```json
  * [{
- *    b: { c: "X" },
+ *    "b": { "c": "X" }
  * },
  * {
- *    b: { c: "X" },
+ *    "b": { "c": "X" }
  * },
  * {
- *    b: { c: "X" },
+ *    "b": { "c": "X" }
  * },
  * {
- *    b: { c: "X" },
+ *    "b": { "c": "X" }
  * },
  * {
- *    b: { c: "X" },
+ *    "b": { "c": "X" }
  * }]
  * ```
  *

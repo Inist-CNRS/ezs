@@ -45,6 +45,8 @@ function CSVObject(data, feed) {
  * Each row (Array) is tranformed into an object where keys are the values of
  * the first row.
  *
+ * See {@link CSVParse}.
+ *
  * Input:
  *
  * ```json
@@ -79,7 +81,7 @@ function CSVObject(data, feed) {
  * ```json
  * [
  *   ["a", "a", "b", "b", "b"],
- *   [1, 2, 3, 4, 5],
+ *   [1, 2, 3, 4, 5]
  * ]
  * ```
  *
@@ -91,12 +93,11 @@ function CSVObject(data, feed) {
  *    "a2": 2,
  *    "b1": 3,
  *    "b2": 4,
- *    "b3": 5,
+ *    "b3": 5
  * }]
  * ```
  *
  * @name CSVObject
- * @see CSVParse
  * @param {undefined} none
  * @returns {Object|Object[]}
  */

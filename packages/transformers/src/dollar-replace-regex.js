@@ -11,12 +11,11 @@ import dollar from './dollar';
  * field = title
  * searchValue = $hel\w+
  * replaceValue = bonjour
- *
  * ```
  *
- * @param {String} [field] field path to apply the transformation
- * @param {String} [searchValue] regex to search
- * @param {String} [replaceValue] value to replace with
+ * @param {String} field        field path to apply the transformation
+ * @param {String} searchValue  regex to search
+ * @param {String} replaceValue value to replace with
  * @returns {Object}
  */
 export default function $REPLACE_REGEX(data, feed) {

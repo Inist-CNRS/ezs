@@ -2,7 +2,7 @@ import transformer from './operations/GET';
 import dollar from './dollar';
 
 /**
- * Récupére toutes les valeurs correspondant à un chemin (dot path)
+ * Récupère toutes les valeurs correspondant à un chemin (dot path)
  *
  *  Exemple :
  *
@@ -12,8 +12,8 @@ import dollar from './dollar';
  * path = input
  * ```
  *
- * @param {String} [field] field path to get the result of the transformation
- * @param {String} [path] field path to get value
+ * @param {String} field    field path to get the result of the transformation
+ * @param {String} path     field path to get value
  * @returns {Object}
  */
 export default function $GET(data, feed) {

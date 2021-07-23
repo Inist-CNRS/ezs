@@ -1,9 +1,8 @@
 import _ from 'lodash';
 
 /**
- * Take `Object` and send the same object but in the meantime,
- * it is possible to  add new environment field with the first
- * Object of the feed
+ * Send the input object again, while adding new environment field(s) with the
+ * first `Object` of the feed.
  *
  * @name env
  * @param {String} [path] path of the new field

@@ -45,10 +45,10 @@ function XMLParse(data, feed) {
  * ["x", "y"]
  * ```
  *
+ * See {@link https://www.npmjs.com/package/xml-splitter}
  * @name XMLParse
  * @param {String} [separator="/"] choose a character for flatten keys
  * @returns {Object}
- * @see https://www.npmjs.com/package/xml-splitter
  */
 export default {
     XMLParse,

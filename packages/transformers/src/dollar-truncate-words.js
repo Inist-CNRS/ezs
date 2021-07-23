@@ -3,7 +3,7 @@ import dollar from './dollar';
 
 /**
  * Opération permettant la troncature par nombre de mots
- * et non pas par nombre de caractères comme pour opération TRUNCATE
+ * et non pas par nombre de caractères comme pour l'opération {@link $TRUNCATE}
  *
  * Exemple :
  *

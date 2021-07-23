@@ -11,8 +11,9 @@ import dollar from './dollar';
  * field = newTitle
  * column = oldTitle
  * ```
- * @param {String} [field] field path to apply the transformation
- * @param {String} [column] value to use during the transformation
+ *
+ * @param {String} field    field path to apply the transformation
+ * @param {String} column   value to use during the transformation
  * @returns {Object}
  */
 export default function $COLUMN(data, feed) {

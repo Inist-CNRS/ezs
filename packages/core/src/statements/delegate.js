@@ -1,8 +1,9 @@
 import debug from 'debug';
 
 /**
- * Takes an `Object` delegate processing to an external pipeline
- * Note : works like [spawn], but each chunk share the same external pipeline
+ * Delegate processing to an external pipeline.
+ *
+ * > **Note**: works like {@link spawn}, but each chunk share the same external pipeline.
  *
  * @name delegate
  * @param {String} [file] the external pipeline is described in a file

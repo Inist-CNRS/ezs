@@ -1,22 +1,23 @@
 /**
  * Takes all the chunks, and ignore the firtst N chunk
+ *
  * Input file:
  *
  * ```json
  * [{
- *    a: 1,
+ *    "a": 1
  * },
  * {
- *    a: 2,
+ *    "a": 2
  * },
  * {
- *    a: 3,
+ *    "a": 3
  * },
  * {
- *    a: 4,
+ *    "a": 4
  * },
  * {
- *    a: 5,
+ *    "a": 5
  * }]
  * ```
  *
@@ -25,22 +26,21 @@
  * ```ini
  * [ignore]
  * length = 3
- *
  * ```
  *
  * Output:
  *
  * ```json
  * [{
- *    a: 4,
+ *    "a": 4
  * },
  * {
- *    a: 5,
+ *    "a": 5
  * }]
  * ```
  *
  * @name ignore
- * @param {Number} [length] Length of the feed
+ * @param {Number} [length] Length of the feed to ignore
  * @returns {any}
  */
 export default function ignore(data, feed) {

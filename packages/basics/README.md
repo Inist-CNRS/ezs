@@ -52,13 +52,12 @@ Returns **[Buffer](https://nodejs.org/api/buffer.html)**
 
 ### CSVObject
 
--   **See: CSVParse
-    **
-
 Take an `Array` of arrays and transform rows into objects.
 
 Each row (Array) is tranformed into an object where keys are the values of
 the first row.
+
+See [CSVParse](#csvparse).
 
 Input:
 
@@ -95,7 +94,7 @@ Input:
 ```json
 [
   ["a", "a", "b", "b", "b"],
-  [1, 2, 3, 4, 5],
+  [1, 2, 3, 4, 5]
 ]
 ```
 
@@ -107,7 +106,7 @@ Output:
    "a2": 2,
    "b1": 3,
    "b2": 4,
-   "b3": 5,
+   "b3": 5
 }]
 ```
 
@@ -119,12 +118,12 @@ Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 ### CSVParse
 
--   **See: <https://github.com/Inist-CNRS/node-csv-string>
-    **
--   **See: CSVObject
-    **
+Take `String` and parse it as CSV to generate arrays.
 
-Take `String` and parse it as CSV to generate arrays
+See:
+
+-   [CSVObject](#csvobject)
+-   <https://github.com/Inist-CNRS/node-csv-string>
 
 Input:
 
@@ -152,13 +151,12 @@ Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Gl
 
 ### CSVString
 
--   **See: CSVObject
-    **
-
 Take an array of objects and transform row into a string where each field is
 separated with a character.
 
 The resulting string is CSV-compliant.
+
+See [CSVObject](#csvobject)
 
 Input:
 
@@ -244,10 +242,9 @@ Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### JSONParse
 
--   **See: <https://github.com/dominictarr/JSONStream>
-    **
-
 Parse a `String` to JSON and generate objects.
+
+See <https://github.com/dominictarr/JSONStream>
 
 ##### Example 1: with separator
 
@@ -337,10 +334,9 @@ Returns **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### OBJFlatten
 
--   **See: <https://www.npmjs.com/package/flat>
-    **
-
 Flatten an `Object` with a path delimiting character.
+
+See <https://www.npmjs.com/package/flat>
 
 Input:
 
@@ -574,11 +570,6 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### URLParse
 
--   **See: URLString
-    **
--   **See: <https://nodejs.org/api/url.html>
-    **
-
 Take an URL `String`, parse it and return `Object`.
 
 Fields of the returned object:
@@ -596,6 +587,11 @@ Fields of the returned object:
 -   hash
 
 URLString statement convert such an object to a string.
+
+See:
+
+-   [URLString](#urlstring)
+-   <https://nodejs.org/api/url.html>
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -668,17 +664,13 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### URLString
 
--   **See: URLParse
-    **
-
 Take an `Object` representing an URL and stringify it.
+
+See [URLParse](#urlparse)
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ### XMLConvert
-
--   **See: <https://www.npmjs.com/package/xml-mapping>
-    **
 
 Convert each chunk as XML String to JSON Object
 
@@ -742,6 +734,8 @@ Output:
 ]
 ```
 
+See <https://www.npmjs.com/package/xml-mapping>
+
 #### Parameters
 
 -   `invert` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** change conversion (JSON to XML) (optional, default `false`)
@@ -750,9 +744,6 @@ Output:
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### XMLParse
-
--   **See: <https://www.npmjs.com/package/xml-splitter>
-    **
 
 Take `String` as XML input, parse it and split it in multi document at each path found
 
@@ -775,6 +766,8 @@ Output:
 ["x", "y"]
 ```
 
+See <https://www.npmjs.com/package/xml-splitter>
+
 #### Parameters
 
 -   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose a character for flatten keys (optional, default `"/"`)
@@ -782,9 +775,6 @@ Output:
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### XMLString
-
--   **See: XMLParse
-    **
 
 Transform an `Object` into an XML string.
 
@@ -801,6 +791,8 @@ Output:
   "<items><item>a</item></items>"
 ]
 ```
+
+See [XMLParse](#xmlparse)
 
 #### Parameters
 

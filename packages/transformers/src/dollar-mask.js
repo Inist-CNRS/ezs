@@ -12,8 +12,8 @@ import dollar from './dollar';
  * with = ^[a-z]+$
  * ```
  *
- * @param {String} [path] field path to apply the control
- * @param {String} [value] value to use during the transformation
+ * @param {String} path field path to apply the control
+ * @param {String} with regular expression to check
  * @returns {Object}
  */
 export default function $MASK(data, feed) {

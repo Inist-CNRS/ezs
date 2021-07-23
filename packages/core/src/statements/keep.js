@@ -1,18 +1,19 @@
 import _ from 'lodash';
 /**
- * Take `Object` and throw the same object but keep only specific fields
+ * Throw input `Object` but keep only specific fields.
+ *
  * Input file:
  *
  * ```json
  * [{
- *    a: 'abcdefg',
- *    b: '1234567',
- *    c: 'XXXXXXX',
+ *    "a": "abcdefg",
+ *    "b": "1234567",
+ *    "c": "XXXXXXX"
  * },
  * {
- *    a: 'abcdefg',
- *    b: '1234567',
- *    c: 'XXXXXXX',
+ *    "a": "abcdefg",
+ *    "b": "1234567",
+ *    "c": "XXXXXXX"
  * }]
  * ```
  *
@@ -22,19 +23,18 @@ import _ from 'lodash';
  * [keep]
  * path = a
  * path = b
- *
  * ```
  *
  * Output:
  *
  * ```json
  * [{
- *    a: 'abcdefg',
- *    b: '1234567',
+ *    "a": "abcdefg",
+ *    "b": "1234567"
  * },
  * {
- *    a: 'abcdefg',
- *    b: '1234567',
+ *    "a": "abcdefg",
+ *    "b": "1234567"
  * }]
  * ```
  *

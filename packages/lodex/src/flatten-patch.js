@@ -29,7 +29,7 @@ function flattenPatch(data, feed) {
  *
  * @name flattenPatch
  * @alias flatten
- * @param none.
+ * @param {undefined} none
  * @returns {Object}
  */
 export default {

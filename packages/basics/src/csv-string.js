@@ -42,6 +42,8 @@ function CSVString(data, feed) {
  *
  * The resulting string is CSV-compliant.
  *
+ * See {@link CSVObject}
+ *
  * Input:
  *
  * ```json
@@ -70,7 +72,6 @@ function CSVString(data, feed) {
  * @param {String} [separator=";"] to indicate the CSV separator
  * @param {Boolean} [header=true] first line contains key name
  * @returns {String}
- * @see CSVObject
  */
 export default {
     CSVString,

@@ -9,9 +9,32 @@ import dollar from './dollar';
  * ```ini
  * [$ARRAY]
  * field = keywords
+ *
+ * [exchange]
+ * value = omit('$origin')
  * ```
  *
- * @param {String} [field] field path to apply the transformation
+ * Entrée:
+ *
+ * ```json
+ * [{
+ *   "keywords": "un"
+ * }, {
+ *   "keywords": "deux"
+ * }]
+ * ```
+ *
+ * Sortie:
+ *
+ * ```json
+ * [{
+ *   "keywords": ["un"]
+ * }, {
+ *   "keywords": ["deux"]
+ * }]
+ * ```
+ *
+ * @param {String} field field path to apply the transformation
  * @returns {Object}
  */
 export default function $ARRAY(data, feed) {

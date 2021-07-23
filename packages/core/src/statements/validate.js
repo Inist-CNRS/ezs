@@ -3,21 +3,26 @@ import _ from 'lodash';
 import Validator from 'validatorjs';
 
 /**
- * From a `Object`, throw the same object if all rules pass
+ * From an `Object`, throw the same object if all rules pass
+ *
+ * See
+ *
+ * - {@link https://laravel.com/docs/8.x/validation Laravel validator rules}
+ * - {@link https://github.com/skaterdav85/validatorjs#readme}
  *
  * Input file:
  *
  * ```json
  * [{
- *    a: 1,
- *    b: 'titi',
+ *    "a": 1,
+ *    "b": "titi"
  * },
  * {
- *    a: 2,
- *    b: 'toto',
+ *    "a": 2,
+ *    "b": "toto"
  * },
  * {
- *    a: false,
+ *    "a": false
  * },
  * ]
  * ```
@@ -31,28 +36,24 @@ import Validator from 'validatorjs';
  *
  * path = a
  * rule = required|string
- *
  * ```
  *
  * Output:
  *
  * ```json
  * [{
- *    a: 1,
- *    b: 'titi',
+ *    "a": 1,
+ *    "b": "titi"
  * },
  * {
- *    a: 2,
- *    b: 'toto',
- * },
+ *    "a": 2,
+ *    "b": "toto"
  * }]
  * ```
  *
  * @name validate
  * @param {String} [path] path of the field
  * @param {String} [rule] rule to validate the field
- * @see laravel validator rules
- * @see https://github.com/skaterdav85/validatorjs#readme
  * @returns {Object}
  */
 export default function validate(data, feed) {

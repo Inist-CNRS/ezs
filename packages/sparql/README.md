@@ -24,45 +24,42 @@ npm install @ezs/sparql
     **
 
 Take a query share link from a YASGUI editor and convert it into an object
-which contains the query and the endpoint. Then, it could be used by `SPARQLQuery` instruction.
+which contains the query and the endpoint. Then, it could be used by
+`SPARQLQuery` instruction.
 
-#### Examples
+<caption>Input:</caption>
 
-Input:
-
-
-```javascript
+```json
 {
-  linkQuery: 'https://data.istex.fr/triplestore/sparql/#query=SELECT+DISTINCT+%3Fg%2C+count(*)+AS+%3Fnb+%0AWHERE+%0A%7B+%0A%09graph+%3Fg+%7B+%3Fs+%3Fp+%3Fo+%7D+%0A%7D+%0ALIMIT+3&contentTypeConstruct=text%2Fturtle&endpoint=https%3A%2F%2Fdata.istex.fr%2Fsparql%2F&outputFormat=table'
+  "linkQuery": "https://data.istex.fr/triplestore/sparql/#query=SELECT+DISTINCT+%3Fg%2C+count(*)+AS+%3Fnb+%0AWHERE+%0A%7B+%0A%09graph+%3Fg+%7B+%3Fs+%3Fp+%3Fo+%7D+%0A%7D+%0ALIMIT+3&contentTypeConstruct=text%2Fturtle&endpoint=https%3A%2F%2Fdata.istex.fr%2Fsparql%2F&outputFormat=table"
 }
 ```
 
-Output:
+<caption>Output:</caption>
 
-
-```javascript
-{ query: 'SELECT DISTINCT ?g, count(*) AS ?nb WHERE { graph ?g { ?s ?p ?o } } LIMIT 3',
- endpoint: 'https://data.istex.fr/sparql/' }
+```json
+{
+  "query": "SELECT DISTINCT ?g, count(*) AS ?nb WHERE { graph ?g { ?s ?p ?o } } LIMIT 3",
+  "endpoint": "https://data.istex.fr/sparql/"
+}
 ```
 
 ### SPARQLQuery
 
 Take a SPARQL query and endpoint and send in output the execution result in JSON format.
 
-#### Examples
+<caption>Input:</caption>
 
-Input:
-
-
-```javascript
-{ query: 'SELECT DISTINCT ?g, count(*) AS ?nb WHERE { graph ?g { ?s ?p ?o } } LIMIT 3',
- endpoint: 'https://data.istex.fr/sparql/' }
+```json
+{
+  "query": "SELECT DISTINCT ?g, count(*) AS ?nb WHERE { graph ?g { ?s ?p ?o } } LIMIT 3",
+   "endpoint": "https://data.istex.fr/sparql/"
+}
 ```
 
-Ouput:
+<caption>Ouput:</caption>
 
-
-```javascript
+```json
 { "head": { "link": [], "vars": ["g", "nb"] },
   "results": { "distinct": false, "ordered": true, "bindings": [
     { "g": {
@@ -98,10 +95,7 @@ Ouput:
 
 ### SPARQLToDistinct
 
--   **See: SPARQLQuery
-    **
-
-Format SPARQLQuery result as a LODEX routine.
+Format [SPARQLQuery](#sparqlquery) result as a LODEX routine.
 
 The input should contain **at least two fields**:
 
@@ -110,12 +104,11 @@ The input should contain **at least two fields**:
 
 > **Warning**: input's second field value should contain an integer
 
-#### Examples
+See [SPARQLQuery](#sparqlquery)
 
-Input:
+<caption>Input:</caption>
 
-
-```javascript
+```json
 { "head": { "link": [], "vars": ["g", "nb"] },
   "results": { "distinct": false, "ordered": true, "bindings": [
     { "g": {
@@ -147,10 +140,9 @@ Input:
 }
 ```
 
-Output:
+<caption>Output:</caption>
 
-
-```javascript
+```json
 {
    "total": 3,
    "data": [{

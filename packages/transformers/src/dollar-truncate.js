@@ -10,11 +10,10 @@ import dollar from './dollar';
  * [$TRUNCATE]
  * field = title
  * gap = 25
- *
  * ```
  *
- * @param {String} [field] field path to apply the transformation
- * @param {String} [gap] how many items or characters to keep
+ * @param {String} field field path to apply the transformation
+ * @param {String} gap   how many items or characters to keep
  * @returns {Object}
  */
 export default function $TRUNCATE(data, feed) {
