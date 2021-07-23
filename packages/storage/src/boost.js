@@ -47,7 +47,7 @@ function hitThe(cache, ttl) {
  *
  * @param {String} [file] the external pipeline is described in a file
  * @param {String} [script] the external pipeline is described in a string of characters
- * @param {String} [commands] the external pipeline is described in a object
+ * @param {String} [commands] the external pipeline is described in an object
  * @param {String} [command] the external pipeline is described in a URL-like command
  * @param {String} [key] the cache key form the stream, in not provided, it's computed with the first chunk
  * @param {Number} [cleanupDelay=3600] Frequency (seconds) to cleanup the cache (EZS_DELAY)

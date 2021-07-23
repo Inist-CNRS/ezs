@@ -2,7 +2,8 @@ import Store from './store';
 
 /**
  * Take an `Object` and replace it with all the objects of the same domain contained in the store.
- * Warning: order is not guaranteed
+ *
+ * > Warning: order is not guaranteed
  *
  * @param {String} [domain=ezs] domain ID (same for all objects)
  * @param {Number} [length] limit the number of output objects
