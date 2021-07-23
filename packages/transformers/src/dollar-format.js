@@ -10,8 +10,8 @@ import dollar from './dollar';
  * with = (%s:%s)
  * ```
  *
- * @param {String} [field] field path to get data source (must be an array)
- * @param {String} [with] template string like sprintf
+ * @param {String} field    field path to get data source (must be an array)
+ * @param {String} with     template string like sprintf
  * @returns {Object}
  */
 export default function $FORMAT(data, feed) {

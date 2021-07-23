@@ -11,12 +11,11 @@ import dollar from './dollar';
  * field = title
  * searchValue = 1
  * replaceValue = un
- *
  * ```
  *
- * @param {String} [field] field path to apply the transformation
- * @param {String} [searchValue] value to search
- * @param {String} [replaceValue] value to replace with
+ * @param {String} field        field path to apply the transformation
+ * @param {String} searchValue  value to search
+ * @param {String} replaceValue value to replace with
  * @returns {Object}
  */
 export default function $REPLACE(data, feed) {

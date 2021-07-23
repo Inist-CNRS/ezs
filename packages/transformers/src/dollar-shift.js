@@ -12,8 +12,8 @@ import dollar from './dollar';
  * gap = 2
  * ```
  *
- * @param {String} [path] field path to apply the transformation
- * @param {String} [gap] how many item or characters to drop
+ * @param {String} path field path to apply the transformation
+ * @param {String} gap  how many items or characters to drop
  * @returns {Object}
  */
 export default function $SHIFT(data, feed) {

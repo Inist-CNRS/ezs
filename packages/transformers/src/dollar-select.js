@@ -2,19 +2,18 @@ import transformer from './operations/SELECT';
 import dollar from './dollar';
 
 /**
- * Prendre une valeir dans un objet à partir de son chemin (dot path)
+ * Prendre une valeur dans un objet à partir de son chemin (dot path)
  *
  * Exemple :
  *
  * ```ini
  * [$SELECT]
  * field = title
- * path
- *
+ * path = en
  * ```
  *
- * @param {String} [field] field path to get the result of the selection
- * @param {String} [path] field path to get value
+ * @param {String} field field path to get the result of the selection
+ * @param {String} path  field path to get value
  * @returns {Object}
  */
 export default function $SELECT(data, feed) {

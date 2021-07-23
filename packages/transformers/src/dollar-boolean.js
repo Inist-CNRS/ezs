@@ -9,9 +9,42 @@ import dollar from './dollar';
  * ```ini
  * [$BOOLEAN]
  * field = haveMoney
+ *
+ * [exchange]
+ * value = omit('$origin')
  * ```
  *
- * @param {String} [field] field path to apply the transformation
+ * Entrée:
+ *
+ * ```json
+ * [{
+ *   "name": "Chuck",
+ *   "haveMoney": 10000
+ * }, {
+ *   "name": "Charlot",
+ *   "haveMoney": "yes"
+ * }, {
+ *   "name": "Alan",
+ *   "haveMoney": 1
+ * }]
+ * ```
+ *
+ * Sortie:
+ *
+ * ```json
+ * [{
+ *   "name": "Chuck",
+ *   "haveMoney": false
+ * }, {
+ *   "name": "Charlot",
+ *   "haveMoney": true
+ * }, {
+ *   "name": "Alan",
+ *   "haveMoney": true
+ * }]
+ * ```
+ *
+ * @param {String} field field path to apply the transformation
  * @returns {Object}
  */
 export default function $BOOLEAN(data, feed) {

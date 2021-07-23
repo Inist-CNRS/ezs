@@ -10,8 +10,8 @@ import dollar from './dollar';
  * [$NUMBER]
  * field = counter
  * ```
- * 
- * @param {String} [feild] field path to apply the transformation
+ *
+ * @param {String} field field path to apply the transformation
  * @returns {Object}
  */
 export default function $NUMBER(data, feed) {

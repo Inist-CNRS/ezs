@@ -11,7 +11,7 @@ import dollar from './dollar';
  * field = title
  * ```
  *
- * @param {String} [field] field path to apply the transformation (must be an aarray)
+ * @param {String} field field path to apply the transformation (must be an aarray)
  * @returns {Object}
  */
 export default function $UNIQ(data, feed) {

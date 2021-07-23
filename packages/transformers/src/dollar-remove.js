@@ -12,8 +12,8 @@ import dollar from './dollar';
  * the = .
  * ```
  *
- * @param {String} [path] field path to apply the transformation
- * @param {String} [the] value todrop in the field
+ * @param {String} path field path to apply the transformation
+ * @param {String} the  value to drop in the field
  * @returns {Object}
  */
 export default function $REMOVE(data, feed) {

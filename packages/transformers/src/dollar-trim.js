@@ -11,7 +11,7 @@ import dollar from './dollar';
  * field = title
  * ```
  *
- * @param {String} [field] field path to apply the transformation
+ * @param {String} field field path to apply the transformation
  * @returns {Object}
  */
 export default function $TRIM(data, feed) {

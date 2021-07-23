@@ -10,11 +10,10 @@ import dollar from './dollar';
  * [$SPLIT]
  * field = title
  * separator = |
- *
  * ```
  *
- * @param {String} [field] field path to apply the transformation
- * @param {String} [separator] value to use to split the field
+ * @param {String} field     field path to apply the transformation
+ * @param {String} separator value to use to split the field
  * @returns {Object}
  */
 export default function $SPLIT(data, feed) {

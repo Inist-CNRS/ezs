@@ -2,7 +2,7 @@ import transformer from './operations/CONCAT_URI';
 import dollar from './dollar';
 
 /**
- * compoer un identifiant avec plusieurs champs
+ * composer un identifiant avec plusieurs champs
  *
  * Exemple :
  *
@@ -13,9 +13,10 @@ import dollar from './dollar';
  * column = prenom
  * separator = -
  * ```
- * @param {String} [field] field path to get the result of the transformation
- * @param {String} [column] field path to get data
- * @param {String} [separator] glue between each column
+ *
+ * @param {String} field    field path to get the result of the transformation
+ * @param {String} column   field path to get data
+ * @param {String} separator glue between each column
  * @returns {Object}
  */
 export default function $CONCAT_URI(data, feed) {
