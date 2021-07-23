@@ -4,6 +4,7 @@ import { createStore } from '@ezs/store';
 /**
  * @param {string} property
  * @param {Object} obj
+ * @private
  */
 function checkIfPropertyExist(property, obj) {
     return (typeof (obj[property]) !== 'undefined');
@@ -17,8 +18,8 @@ function checkIfPropertyExist(property, obj) {
  * @param {Object} store
  * @param {string} lang
  * @param {number} weight
+ * @private
  */
-
 async function writeEdge(data, feed, property, store, lang, weight) {
     for (let i = 0; i < data[property].length; i += 1) {
         const key = `${data.rdf$about}#${data[property][i].key}`;
@@ -38,7 +39,6 @@ async function writeEdge(data, feed, property, store, lang, weight) {
 }
 
 /**
- * SKOSHierarchy
  * Output:
  *
  * ```json
@@ -50,9 +50,9 @@ async function writeEdge(data, feed, property, store, lang, weight) {
  *      }
  *  ]
  * ```
- * @name SKOSHierarchy
- * @param {String} [language=en] Choose langauge of prefLabel
- * @returns {Promise} Return fedd Object
+ * @name SKOSToGexf
+ * @param {String} [language=en] Choose language of `prefLabel`
+ * @returns {Promise} Return fed Object
  */
 async function SKOSToGexf(data, feed) {
     const lang = this.getParam('language', 'en');

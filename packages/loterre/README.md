@@ -14,63 +14,13 @@ npm install @ezs/loterre
 
 #### Table of Contents
 
--   [checkIfPropertyExist](#checkifpropertyexist)
--   [checkIfPropertyExist](#checkifpropertyexist-1)
--   [checkIfPropertyExist](#checkifpropertyexist-2)
--   [getBroaderAndNarrower](#getbroaderandnarrower)
--   [getBroaderAndNarrower](#getbroaderandnarrower-1)
 -   [SKOSHierarchy](#skoshierarchy)
--   [SKOSHierarchy](#skoshierarchy-1)
 -   [SKOSObject](#skosobject)
 -   [SKOSPathEnum](#skospathenum)
--   [SKOSPathEnum](#skospathenum-1)
--   [writeEdge](#writeedge)
--   [writeHierarchy](#writehierarchy)
-
-### checkIfPropertyExist
-
-#### Parameters
-
--   `property` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `obj` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### checkIfPropertyExist
-
-#### Parameters
-
--   `property` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `obj` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### checkIfPropertyExist
-
-#### Parameters
-
--   `property` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `obj` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### getBroaderAndNarrower
-
-#### Parameters
-
--   `broaderOrNarrower` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `concept` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
--   `store` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
--   `lang` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)** Returns object
-
-### getBroaderAndNarrower
-
-#### Parameters
-
--   `data` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
--   `feed` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)** Returns object
+-   [SKOSToGexf](#skostogexf)
 
 ### SKOSHierarchy
 
-SKOSHierarchy
 Output:
 
 ```json
@@ -85,30 +35,9 @@ Output:
 
 #### Parameters
 
--   `language` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Choose langauge of prefLabel (optional, default `en`)
+-   `language` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Choose language of `prefLabel` (optional, default `en`)
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)** Return fedd Object
-
-### SKOSHierarchy
-
-SKOSHierarchy
-Output:
-
-```json
- [
-     {
-         "source": ...,
-         "target": ...,
-         "weight": ...
-     }
- ]
-```
-
-#### Parameters
-
--   `language` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Choose langauge of prefLabel (optional, default `en`)
-
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)** Return fedd Object
+Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)** Return fed Object
 
 ### SKOSObject
 
@@ -123,16 +52,8 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### SKOSPathEnum
 
-#### Parameters
-
--   `language` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Choose langauge of prefLabel (optional, default `en`)
-
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)** Returns object
-
-### SKOSPathEnum
-
-Takes an `Object` and transform "broader","narrower" and "related"
-properties to an 'Object' containing the prefLabel and rdf$about
+Take an `Object` and transform "broader","narrower" and "related"
+properties to an 'Object' containing the `prefLabel` and `rdf$about`
 
     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:skos="http://www.w3.org/2004/02/skos/core#">
 
@@ -182,33 +103,33 @@ Output:
 ```json
   [
    {
-      'rdf$about': 'http://example.com/dishes#fries',
-      'prefLabel@fr': 'Frites',
-      'prefLabel@en': 'French fries',
-      'prefLabel@de': 'Französisch frites',
-      inScheme: 'http://example.com/dishes',
-      broader: [ [{ key: 'http://example.com/dishes#potatoBased', label: 'Plats à base de pomme de terre' }] ]
+      "rdf$about": "http://example.com/dishes#fries",
+      "prefLabel@fr": "Frites",
+      "prefLabel@en": "French fries",
+      "prefLabel@de": "Französisch frites",
+      "inScheme": "http://example.com/dishes",
+      "broader": [ [{ "key": "http://example.com/dishes#potatoBased", "label": "Plats à base de pomme de terre" }] ]
     },
     {
-      'rdf$about': 'http://example.com/dishes#mashed',
-      'prefLabel@fr': 'Purée de pomme de terre',
-      'prefLabel@en': 'Mashed potatoes',
-      'prefLabel@de': 'Kartoffelpüree',
-      inScheme: 'http://example.com/dishes',
-      broader: [ [{ key: 'http://example.com/dishes#potatoBased', label: 'Plats à base de pomme de terre' }] ]
+      "rdf$about": "http://example.com/dishes#mashed",
+      "prefLabel@fr": "Purée de pomme de terre",
+      "prefLabel@en": "Mashed potatoes",
+      "prefLabel@de": "Kartoffelpüree",
+      "inScheme": "http://example.com/dishes",
+      "broader": [ [{ "key": "http://example.com/dishes#potatoBased", "label": "Plats à base de pomme de terre" }] ]
     },
     {
-      'rdf$about': 'http://example.com/dishes#potatoBased',
-      'prefLabel@fr': 'Plats à base de pomme de terre',
-      'prefLabel@en': 'Potato based dishes',
-      'prefLabel@de': 'Kartoffelgerichte',
-      inScheme: 'http://example.com/dishes',
-      topConceptOf: 'http://example.com/dishes',
-      narrower: [
-         { key: 'http://example.com/dishes#fries', label: 'Frites' },
+      "rdf$about": "http://example.com/dishes#potatoBased",
+      "prefLabel@fr": "Plats à base de pomme de terre",
+      "prefLabel@en": "Potato based dishes",
+      "prefLabel@de": "Kartoffelgerichte",
+      "inScheme": "http://example.com/dishes",
+      "topConceptOf": "http://example.com/dishes",
+      "narrower": [
+         { "key": "http://example.com/dishes#fries", "label": "Frites" },
          {
-             key: 'http://example.com/dishes#mashed',
-             label: 'Purée de pomme de terre'
+             "key": "http://example.com/dishes#mashed",
+             "label": "Purée de pomme de terre"
          }
       ]
     }
@@ -217,28 +138,26 @@ Output:
 
 #### Parameters
 
--   `language` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Choose langauge of prefLabel (optional, default `en`)
+-   `language` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Choose language of `prefLabel` (optional, default `en`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Returns object
 
-### writeEdge
+### SKOSToGexf
+
+Output:
+
+```json
+ [
+     {
+         "source": ...,
+         "target": ...,
+         "weight": ...
+     }
+ ]
+```
 
 #### Parameters
 
--   `data` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
--   `feed` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
--   `property` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `store` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
--   `lang` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `weight` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+-   `language` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Choose language of `prefLabel` (optional, default `en`)
 
-### writeHierarchy
-
-#### Parameters
-
--   `data` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
--   `feed` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
--   `property` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `store` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
--   `lang` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `weight` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)** Return fed Object

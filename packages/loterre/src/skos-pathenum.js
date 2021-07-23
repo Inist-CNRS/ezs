@@ -4,6 +4,7 @@ import { createStore } from '@ezs/store';
  * @name checkIfPropertyExist
  * @param {string} property
  * @param {Object} obj
+ * @private
  */
 function checkIfPropertyExist(obj, property) {
     return Object.prototype.hasOwnProperty.call(obj, property);
@@ -16,6 +17,7 @@ function checkIfPropertyExist(obj, property) {
  * @param {Object} store
  * @param {string} lang
  * @returns {Promise} Returns object
+ * @private
  */
 async function getBroaderOrNarrowerLst(broaderOrNarrower, concept, store, lang) {
     const result = [];
@@ -54,6 +56,7 @@ async function getBroaderOrNarrowerLst(broaderOrNarrower, concept, store, lang) 
  * @param {Object} data
  * @param {Object} feed
  * @returns {Promise} Returns object
+ * @private
  */
 async function getBroaderAndNarrower(data, feed) {
     const store = this.getEnv();
@@ -82,11 +85,6 @@ async function getBroaderAndNarrower(data, feed) {
     return feed.end();
 }
 
-/**
-* @name SKOSPathEnum
-* @param {String} [language=en] Choose langauge of prefLabel
-* @returns {Promise} Returns object
-*/
 async function SKOSPathEnum(data, feed) {
     if (!this.store) {
         this.store = createStore(this.ezs, 'skos_pathenum_store');
@@ -107,8 +105,8 @@ async function SKOSPathEnum(data, feed) {
 }
 
 /**
- * Takes an `Object` and transform "broader","narrower" and "related"
- * properties to an 'Object' containing the prefLabel and rdf$about
+ * Take an `Object` and transform "broader","narrower" and "related"
+ * properties to an 'Object' containing the `prefLabel` and `rdf$about`
  *
  * ```
  * <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:skos="http://www.w3.org/2004/02/skos/core#">
@@ -153,7 +151,6 @@ async function SKOSPathEnum(data, feed) {
  *
  * [SKOSPathEnum]
  * language = fr
- *
  * ```
  *
  * Output:
@@ -161,33 +158,33 @@ async function SKOSPathEnum(data, feed) {
  * ```json
  *   [
  *    {
- *       'rdf$about': 'http://example.com/dishes#fries',
- *       'prefLabel@fr': 'Frites',
- *       'prefLabel@en': 'French fries',
- *       'prefLabel@de': 'Französisch frites',
- *       inScheme: 'http://example.com/dishes',
- *       broader: [ [{ key: 'http://example.com/dishes#potatoBased', label: 'Plats à base de pomme de terre' }] ]
+ *       "rdf$about": "http://example.com/dishes#fries",
+ *       "prefLabel@fr": "Frites",
+ *       "prefLabel@en": "French fries",
+ *       "prefLabel@de": "Französisch frites",
+ *       "inScheme": "http://example.com/dishes",
+ *       "broader": [ [{ "key": "http://example.com/dishes#potatoBased", "label": "Plats à base de pomme de terre" }] ]
  *     },
  *     {
- *       'rdf$about': 'http://example.com/dishes#mashed',
- *       'prefLabel@fr': 'Purée de pomme de terre',
- *       'prefLabel@en': 'Mashed potatoes',
- *       'prefLabel@de': 'Kartoffelpüree',
- *       inScheme: 'http://example.com/dishes',
- *       broader: [ [{ key: 'http://example.com/dishes#potatoBased', label: 'Plats à base de pomme de terre' }] ]
+ *       "rdf$about": "http://example.com/dishes#mashed",
+ *       "prefLabel@fr": "Purée de pomme de terre",
+ *       "prefLabel@en": "Mashed potatoes",
+ *       "prefLabel@de": "Kartoffelpüree",
+ *       "inScheme": "http://example.com/dishes",
+ *       "broader": [ [{ "key": "http://example.com/dishes#potatoBased", "label": "Plats à base de pomme de terre" }] ]
  *     },
  *     {
- *       'rdf$about': 'http://example.com/dishes#potatoBased',
- *       'prefLabel@fr': 'Plats à base de pomme de terre',
- *       'prefLabel@en': 'Potato based dishes',
- *       'prefLabel@de': 'Kartoffelgerichte',
- *       inScheme: 'http://example.com/dishes',
- *       topConceptOf: 'http://example.com/dishes',
- *       narrower: [
- *          { key: 'http://example.com/dishes#fries', label: 'Frites' },
+ *       "rdf$about": "http://example.com/dishes#potatoBased",
+ *       "prefLabel@fr": "Plats à base de pomme de terre",
+ *       "prefLabel@en": "Potato based dishes",
+ *       "prefLabel@de": "Kartoffelgerichte",
+ *       "inScheme": "http://example.com/dishes",
+ *       "topConceptOf": "http://example.com/dishes",
+ *       "narrower": [
+ *          { "key": "http://example.com/dishes#fries", "label": "Frites" },
  *          {
- *              key: 'http://example.com/dishes#mashed',
- *              label: 'Purée de pomme de terre'
+ *              "key": "http://example.com/dishes#mashed",
+ *              "label": "Purée de pomme de terre"
  *          }
  *       ]
  *     }
@@ -195,7 +192,7 @@ async function SKOSPathEnum(data, feed) {
  * ```
  *
  * @name SKOSPathEnum
- * @param {String} [language=en] Choose langauge of prefLabel
+ * @param {String} [language=en] Choose language of `prefLabel`
  * @returns {Object} Returns object
  */
 export default {
