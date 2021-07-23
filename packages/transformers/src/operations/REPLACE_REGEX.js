@@ -1,7 +1,7 @@
 import { transformerWithTwoArgs } from './transformer';
 
 export const replace = (value, searchValue, replaceValue) => {
-    const template = typeof input === 'string' ? searchValue : searchValue.toString();
+    const template = typeof searchValue === 'string' ? searchValue : searchValue.toString();
     const cleantemplate = template.trim().replace(/^[/]+/, '').replace(/[/]+$/, '');
     return value.replace(RegExp(cleantemplate, 'gi'), replaceValue);
 };
