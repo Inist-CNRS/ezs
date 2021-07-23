@@ -1,13 +1,18 @@
 /**
- * Format SPARQLQuery result as a LODEX routine.
+ * Format {@link SPARQLQuery} result as a LODEX routine.
  *
  * The input should contain **at least two fields**:
+ *
  * - the first is corresponding with the **_id** output field
  * - the second is corresponding with the **value** output field
  *
  * > **Warning**: input's second field value should contain an integer
  *
- * @example <caption>Input:</caption>
+ * See {@link SPARQLQuery}
+ *
+ * <caption>Input:</caption>
+ *
+ * ```json
  * { "head": { "link": [], "vars": ["g", "nb"] },
  *   "results": { "distinct": false, "ordered": true, "bindings": [
  *     { "g": {
@@ -37,8 +42,11 @@
  *     }}
  *   ]}
  * }
+ * ```
  *
- * @example <caption>Output:</caption>
+ * <caption>Output:</caption>
+ *
+ * ```json
  * {
  *    "total": 3,
  *    "data": [{
@@ -53,9 +61,9 @@
 *        }
  *    ]
  * }
+ * ```
  *
  * @export
- * @see SPARQLQuery
  * @name SPARQLToDistinct
  */
 export default function SPARQLToDistinct(data, feed) {
