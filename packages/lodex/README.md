@@ -104,6 +104,10 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 
 Take `Object` and transform all key ending byu number on array.
 
+#### Parameters
+
+-   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
+
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### getLastCharacteristic
@@ -198,27 +202,18 @@ Output:
 Take an object and map its keys to the one in mapping parameters.
 Keep keys absent in `from` parameter.
 
-#### Parameters
+<caption>Input:</caption>
 
--   `from` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** keys of the input
--   `to` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** matching keys for the output
-
-#### Examples
-
-Input:
-
-
-```javascript
+```json
 [{
   "dFgH": "Value",
   "AaAa": "Value 2"
 }]
 ```
 
-EZS:
+<caption>EZS:</caption>
 
-
-```javascript
+```ini
 [keyMapping]
 from = dFgH
 to = Title
@@ -226,15 +221,19 @@ from = AaAa
 to = Description
 ```
 
-Output
+<caption>Output</caption>
 
-
-```javascript
+```json
 [{
   "Title": "Value",
   "Description": "Value 2"
 }]
 ```
+
+#### Parameters
+
+-   `from` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** keys of the input
+-   `to` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** matching keys for the output
 
 Returns **any** Same object with modified keys
 
@@ -353,50 +352,49 @@ Return the fields (the model) of a LODEX.
 
 Inject in each item the last characteristics (the dataset covering fields) of a LODEX.
 
+<caption>Input:</caption>
+
+```json
+[
+          { "id": 0, "value":2000  },
+          { "id": 1, "value":2001  },
+          { "id": 2, "value":2003  },
+          { "id": 3, "value":2005  },
+          { "id": 4, "value":2007  },
+          { "id": 2, "value":2003  },
+          { "id": 6, "value":2011  },
+          { "id": 7, "value":2013  }
+]
+```
+
+<caption>Script:</caption>
+
+```ini
+[injectCountFrom]
+path = value
+field = publicationDate
+```
+
+<caption>Output:</caption>
+
+```json
+[
+          { "id": 0, "value":2003, "value_count":3  },
+          { "id": 1, "value":2001, "value_count":1  },
+          { "id": 2, "value":2003, "value_count":3  },
+          { "id": 3, "value":2005, "value_count":1  },
+          { "id": 4, "value":2007, "value_count":1  },
+          { "id": 2, "value":2003, "value_count":3  },
+          { "id": 6, "value":2011, "value_count":2  },
+          { "id": 7, "value":2011, "value_count":2  }
+]
+```
+
 #### Parameters
 
 -   `connectionStringURI` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** MongoDB connection string
 -   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to get value to find
 -   `field` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** name contains the value to find (generaly equals to path) (optional, default `auto`)
-
-#### Examples
-
-Input:
-
-
-````javascript
-```json
-[
-          { id: 0, value:2000  },
-          { id: 1, value:2001  },
-          { id: 2, value:2003  },
-          { id: 3, value:2005  },
-          { id: 4, value:2007  },
-          { id: 2, value:2003  },
-          { id: 6, value:2011  },
-          { id: 7, value:2013  },
-]
-```
-
-<caption>Script:</caption>
-```ini
-[injectCountFrom]
-path = value
-field = publicationDate
-
-```
-
-[
-          { id: 0, value:2003, value_count:3  },
-          { id: 1, value:2001, value_count:1  },
-          { id: 2, value:2003, value_count:3  },
-          { id: 3, value:2005, value_count:1  },
-          { id: 4, value:2007, value_count:1  },
-          { id: 2, value:2003, value_count:3  },
-          { id: 6, value:2011, value_count:2  },
-          { id: 7, value:2011, value_count:2  },
-]
-````
 
 ### LodexInjectSyndicationFrom
 
@@ -427,7 +425,7 @@ Output:
 
 ### LodexJoinQuery
 
-Take 3 parametres and creates a join query (one to many, on sub-ressource)
+Take 3 parameters and create a join query (one to many, on sub-ressource)
 
 The input object must contain a `connectionStringURI` property, valued with
 the connection string to MongoDB.
@@ -453,7 +451,7 @@ Format the output in compliance with LODEX routines format.
 
 #### Parameters
 
--   `keyName` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** name of the `data` property (optional, default `data`)
+-   `keyName` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** name of the `data` property (optional, default `"data"`)
 -   `indent` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** indent or not (optional, default `false`)
 -   `extract` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>?** fields to put at the root of the output
                                       object
@@ -535,7 +533,33 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### objects2columns
 
-Take `Object` and ...
+Take an `Object` and flatten it to get only one level of keys.
+
+<caption>Input:</caption>
+
+```json
+[{
+  "foo": {
+    "hello": "world"
+  },
+  "bar": "anything else",
+  "baz": 1
+}]
+```
+
+<caption>Output:</caption>
+
+```json
+[{
+  "foo": "{\"hello\":\"world\"}",
+  "bar": "anything else",
+  "baz": 1
+}]
+```
+
+#### Parameters
+
+-   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -549,12 +573,9 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Take quad or prefixes object and return turtle string.
 
-#### Examples
+<caption>Input:</caption>
 
-Input:
-
-
-```javascript
+```js
 [{
    quad: {
      subject: { id: 'http://uri/janedoe' },
@@ -586,21 +607,20 @@ Input:
      object: { id: 'http://schema.org/Person' }
      }
  }, { prefixes: {} }
- ]
+]
 ```
 
-Output:
+<caption>Output:</caption>
 
+```txt
+\@prefix schema: <http://schema.org/>.
+\@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 
-```javascript
-'@prefix schema: <http://schema.org/>.\n'
-'@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.\n'
-'\n'
-'<http://uri/janedoe> schema:jobTitle "Professor";\n'
-'    schema:name "Jane Doe";\n'
-'    schema:telephone "(425) 123-4567";\n'
-'    schema:url <http://www.janedoe.com>;\n'
-'    a schema:Person.\n"'
+<http://uri/janedoe> schema:jobTitle "Professor";
+    schema:name "Jane Doe";
+    schema:telephone "(425) 123-4567";
+    schema:url <http://www.janedoe.com>;
+    a schema:Person.
 ```
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** turtle

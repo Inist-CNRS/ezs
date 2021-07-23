@@ -22,7 +22,7 @@ import unset from 'lodash.unset';
  * }
  *
  * @name LodexOutput
- * @param {string}   [keyName=data]  name of the `data` property
+ * @param {string}   [keyName="data"]  name of the `data` property
  * @param {boolean}  [indent=false]  indent or not
  * @param {string[]} [extract]       fields to put at the root of the output
  *                                   object

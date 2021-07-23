@@ -4,24 +4,33 @@ import zipObject from 'lodash.zipobject';
  * Take an object and map its keys to the one in mapping parameters.
  * Keep keys absent in `from` parameter.
  *
- * @example <caption>Input:</caption>
+ * <caption>Input:</caption>
+ *
+ * ```json
  * [{
  *   "dFgH": "Value",
  *   "AaAa": "Value 2"
  * }]
+ * ```
  *
- * @example <caption>EZS:</caption>
+ * <caption>EZS:</caption>
+ *
+ * ```ini
  * [keyMapping]
  * from = dFgH
  * to = Title
  * from = AaAa
  * to = Description
+ * ```
  *
- * @example <caption>Output</caption>
+ * <caption>Output</caption>
+ *
+ * ```json
  * [{
  *   "Title": "Value",
  *   "Description": "Value 2"
  * }]
+ * ```
  *
  * @param {Array<string>}   from    keys of the input
  * @param {Array<string>}   to  matching keys for the output

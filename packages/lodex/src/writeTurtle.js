@@ -7,7 +7,9 @@ const uriPrefixes = Object.values(defaultPrefixes);
 /**
  * Take quad or prefixes object and return turtle string.
  *
- * @example <caption>Input:</caption>
+ * <caption>Input:</caption>
+ *
+ * ```js
  * [{
  *    quad: {
  *      subject: { id: 'http://uri/janedoe' },
@@ -39,17 +41,21 @@ const uriPrefixes = Object.values(defaultPrefixes);
  *      object: { id: 'http://schema.org/Person' }
  *      }
  *  }, { prefixes: {} }
- *  ]
+ * ]
+ * ```
  *
- * @example <caption>Output:</caption>
- * '@prefix schema: <http://schema.org/>.\n'
- * '@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.\n'
- * '\n'
- * '<http://uri/janedoe> schema:jobTitle "Professor";\n'
- * '    schema:name "Jane Doe";\n'
- * '    schema:telephone "(425) 123-4567";\n'
- * '    schema:url <http://www.janedoe.com>;\n'
- * '    a schema:Person.\n"'
+ * <caption>Output:</caption>
+ *
+ * ```txt
+ * \@prefix schema: <http://schema.org/>.
+ * \@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+ *
+ * <http://uri/janedoe> schema:jobTitle "Professor";
+ *     schema:name "Jane Doe";
+ *     schema:telephone "(425) 123-4567";
+ *     schema:url <http://www.janedoe.com>;
+ *     a schema:Person.
+ * ```
  *
  * @export
  * @return {String} turtle
