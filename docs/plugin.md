@@ -6,8 +6,9 @@ Les _plugins_ sont une série d’instructions généralement regroupées par
 thématique ou par usage dans un paquet NPM.
 Les instructions sont documentées dans le fichier `README.md` du paquet.
 
-Le dépôt Github @ezs regroupe plusieurs _plugins_ utilisés en production. Leur
-évolution et leur compatibilité avec @ezs/core sont garanties.
+Le dépôt Github [@ezs](https://github.com/Inist-CNRS/ezs) regroupe plusieurs
+_plugins_ utilisés en production. Leur évolution et leur compatibilité avec
+`@ezs/core` sont garanties.
 
 D’autres plugins sont disponibles par ailleurs, leur développement est
 indépendant de l'organisation npm [`@ezs`](https://www.npmjs.com/org/ezs).
@@ -34,7 +35,7 @@ import ezs from '@ezs/core':
 import basics from '@ezs/basics':
 import analytics from '@ezs/analytics':
 
-ezs.use(bascis);
+ezs.use(basics);
 ezs.use(analytics);
 ```
 
