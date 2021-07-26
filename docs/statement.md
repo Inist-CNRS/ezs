@@ -3,12 +3,12 @@
 ## Présentation
 
 Un instruction est une fonction JavaScript qui permet de traiter chaque élément
-d’un flux (stream). @ezs/core se charge de la rendre compatible avec les
-`stream` NodeJS.
+d’un flux (stream). `@ezs/core` se charge de la rendre compatible avec les
+`stream`s NodeJS.
 
-Les instructions sont des fonctions Javascript, elles doivent être déclarées
+Les instructions sont des fonctions JavaScript, elles doivent être déclarées
 avant leur exécution. Par contre, elles doivent impérativement être utilisées
-via la fonction ezs pour être compatible avec les `stream` NodeJS.
+via la fonction `ezs` pour être compatible avec les `stream`s NodeJS.
 
 ## Instruction existante
 
@@ -21,7 +21,7 @@ elles sont directement utilisables une fois le plugin installé et déclaré.
 import ezs from '@ezs/core':
 import basics from '@ezs/basics':
 
-ezs.use(bascis);
+ezs.use(basics);
 
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
@@ -52,7 +52,7 @@ function print(data, feed) {
     if (this.isLast()) {
         return feed.send(data);
     }
-    const message = this.getParam('Message', 'Print :');
+    const message = this.getParam('message', 'Print :');
     console.log(message, data);
     return feed.send(data);
 }
