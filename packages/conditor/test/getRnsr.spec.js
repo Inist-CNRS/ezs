@@ -1,0 +1,76 @@
+import fs from 'fs/promises';
+import CSV from 'csv-string';
+import from from 'from';
+// @ts-ignore
+import ezs from '../../core/src';
+import statements from '../src';
+
+ezs.use(statements);
+
+describe('getRnsr', () => {
+    let examples;
+
+    beforeAll(async () => {
+        const csvExamples = await fs.readFile(`${__dirname}/corpus_test_juillet2021.csv`, { encoding: 'utf-8' });
+        examples = CSV.parse(csvExamples, '\t');
+    });
+
+    it('should return an empty array when not found', (done) => {
+        from([{
+            id: 1,
+            value: {
+                year: 2000,
+                address: 'Anywhere',
+            },
+        }])
+            .pipe(ezs('getRnsr'))
+            .on('data', (data) => {
+                expect(data).toHaveProperty('id');
+                expect(data).toHaveProperty('value');
+                expect(data.value).toBeDefined();
+                expect(data.value).toBeInstanceOf(Array);
+                expect(data.value).toHaveLength(0);
+                done();
+            });
+    });
+
+    it('should return an object for the first example', (done) => {
+        from([{
+            id: 0,
+            value: {
+                year: examples[0][2],
+                address: examples[0][0],
+            },
+        }])
+            .pipe(ezs('getRnsr'))
+            .on('data', (data) => {
+                expect(data).toHaveProperty('id');
+                expect(data).toHaveProperty('value');
+                expect(data.value).toBeDefined();
+                expect(data.value).toBeInstanceOf(Array);
+                expect(data.value).toHaveLength(0);
+                done();
+            });
+    });
+
+    it('should return a correct RNSR for the last example', (done) => {
+        const i = examples.length - 1;
+        let res = [];
+        from([{
+            id: i,
+            value: {
+                year: examples[i][2],
+                address: examples[i][0],
+            },
+        }])
+            .pipe(ezs('getRnsr'))
+            .on('data', (data) => { res = [...res, data]; })
+            .on('end', () => {
+                const data = res[0];
+                expect(data.id).toBe(i);
+                expect(data.value).toHaveLength(1);
+                expect(data.value).toBe(examples[i][1]);
+                done();
+            });
+    });
+});
