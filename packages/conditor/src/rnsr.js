@@ -174,7 +174,6 @@ export const hasLabelAndNumero = (address, structure) => {
  *
  * @export
  * @param {string}  address depleted address (without accents, lowercase)
- * @returns {Function} a function that look for the `structure` within `address`
  * @private
  */
 export function isIn(address) {
