@@ -24,7 +24,7 @@ describe('getRnsr', () => {
                 address: 'Anywhere',
             },
         }])
-            .pipe(ezs('getRnsr'))
+            .pipe(ezs('getRnsr', { year: 2020 }))
             .on('data', (data) => {
                 expect(data).toHaveProperty('id');
                 expect(data).toHaveProperty('value');
@@ -44,7 +44,7 @@ describe('getRnsr', () => {
                 address: examples[0][0],
             },
         }])
-            .pipe(ezs('getRnsr'))
+            .pipe(ezs('getRnsr', { year: 2020 }))
             .on('data', (data) => {
                 res = [...res, data];
             })
@@ -69,7 +69,7 @@ describe('getRnsr', () => {
                 address: examples[i][0],
             },
         }])
-            .pipe(ezs('getRnsr'))
+            .pipe(ezs('getRnsr', { year: 2020 }))
             .on('data', (data) => { res = [...res, data]; })
             .on('end', () => {
                 const data = res[0];
@@ -90,14 +90,35 @@ describe('getRnsr', () => {
                 address: examples[i][0],
             },
         }])
-            .pipe(ezs('getRnsr'))
+            .pipe(ezs('getRnsr', { year: 2020 }))
             .on('data', (data) => { res = [...res, data]; })
             .on('end', () => {
                 const data = res[0];
                 const expectedArray = examples[i][1].split(',');
                 console.log({ data, expectedArray });
                 expect(data.id).toBe(i);
-                expect(data.value).toBe(expectedArray);
+                expect(data.value).toEqual(expectedArray);
+                expect(intersection(data.value, expectedArray).length).toBeGreaterThanOrEqual(1);
+                done();
+            });
+    });
+
+    it('should return at least one correct RNSR for the last - 2 example', (done) => {
+        const i = examples.length - 3;
+        let res = [];
+        from([{
+            id: i,
+            value: {
+                year: examples[i][2],
+                address: examples[i][0],
+            },
+        }])
+            .pipe(ezs('getRnsr', { year: 2020 }))
+            .on('data', (data) => { res = [...res, data]; })
+            .on('end', () => {
+                const data = res[0];
+                const expectedArray = examples[i][1].split(',');
+                expect(data.value).toEqual(expectedArray);
                 expect(intersection(data.value, expectedArray).length).toBeGreaterThanOrEqual(1);
                 done();
             });
@@ -112,14 +133,14 @@ describe('getRnsr', () => {
                 address: examples[0][0],
             },
         }])
-            .pipe(ezs('getRnsr'))
+            .pipe(ezs('getRnsr', { year: 2020 }))
             .on('data', (data) => { res = [...res, data]; })
             .on('end', () => {
                 const data = res[0];
                 const expectedArray = examples[0][1].split(',');
                 console.log({ data, expectedArray });
                 expect(data.id).toBe(0);
-                expect(data.value).toBe(expectedArray);
+                expect(data.value).toEqual(expectedArray);
                 expect(intersection(data.value, expectedArray).length).toBeGreaterThanOrEqual(1);
                 done();
             });
