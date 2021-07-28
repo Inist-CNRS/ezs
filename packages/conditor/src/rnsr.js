@@ -223,3 +223,17 @@ export async function getRnsrYear(year) {
     loadedRNSR[year] = rnsr;
     return rnsr;
 }
+
+const isValidYear = (min, max) => (year) => {
+    if (min > year) return false;
+    if (max && max < year) return false;
+    return true;
+};
+
+export const existedInYear = (year) => (structure) => {
+    if (year === undefined) return true;
+    const createdAt = Number(structure.annee_creation);
+    const closedAt = structure.an_fermeture && Number(structure.an_fermeture);
+    const checkInterval = isValidYear(createdAt, closedAt);
+    return checkInterval(year);
+};
