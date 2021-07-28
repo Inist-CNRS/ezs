@@ -80,7 +80,7 @@ describe('getRnsr', () => {
             });
     });
 
-    it('should return at least one correct RNSR for example #22', (done) => {
+    it.skip('should return at least one correct RNSR for example #22', (done) => {
         const i = 22;
         let res = [];
         from([{
