@@ -1,34 +1,11 @@
-import fs from 'fs';
-import path from 'path';
 import { any, pipe, slice } from 'ramda';
-import { isIn } from './rnsr';
+import { isIn, getRnsrYear } from './rnsr';
 import { depleteString } from './strings';
 
 /** @private @typedef {import('./rnsr').RepNatStrRech} RNSR */
 
 /** @private @type {RNSR} */
 let RNSR;
-
-/**
- * Cache the different years of RNSR
- * @type {Object<number,RNSR>}
- * @private
- */
-const loadedRNSR = {};
-
-/**
- * Get the RNSR of year
- * @param {number}  year    4 digits year of RNSR to load
- * @returns {Promise<RNSR|null>}
- * @private
- */
-const getRnsrYear = async (year) => {
-    if (loadedRNSR[year]) return loadedRNSR[year];
-    const filePath = path.resolve(__dirname, `../data/RNSR-${year}.json`);
-    const rnsr = JSON.parse(await fs.promises.readFile(filePath, { encoding: 'utf-8' }));
-    loadedRNSR[year] = rnsr;
-    return rnsr;
-};
 
 /**
  * @typedef {Object<string, any>} Affiliation

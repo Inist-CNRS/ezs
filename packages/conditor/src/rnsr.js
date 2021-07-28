@@ -1,3 +1,6 @@
+import fs from 'fs/promises';
+import path from 'path';
+
 /**
  * @typedef {{structures: Structures}} RepNatStrRech
  * @private
@@ -196,4 +199,27 @@ export function isIn(address) {
         return result;
     }
     return isInAddress;
+}
+
+// RNSR File
+
+/**
+ * Cache the different years of RNSR
+ * @type {Object<number,RepNatStrRech>}
+ * @private
+ */
+const loadedRNSR = {};
+
+/**
+  * Get the RNSR of year
+  * @param {number}  year    4 digits year of RNSR to load
+  * @returns {Promise<RepNatStrRech|null>}
+  * @private
+  */
+export async function getRnsrYear(year) {
+    if (loadedRNSR[year]) return loadedRNSR[year];
+    const filePath = path.resolve(__dirname, `../data/RNSR-${year}.json`);
+    const rnsr = JSON.parse(await fs.readFile(filePath, { encoding: 'utf-8' }));
+    loadedRNSR[year] = rnsr;
+    return rnsr;
 }
