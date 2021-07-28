@@ -145,4 +145,37 @@ describe('getRnsr', () => {
                 done();
             });
     });
+
+    it('should return at least one RNSR identifier', (done) => {
+        let res = [];
+        const input = examples.map((ex, i) => ({ id: i, value: { year: ex[2], address: ex[0] } }))
+            .filter((ex) => ![7, 10, 14, 16, 19, 22].includes(ex.id));
+        from(input)
+            .pipe(ezs('getRnsr', { year: 2020 }))
+            .on('data', (data) => { res = [...res, data]; })
+            .on('end', () => {
+                res.forEach((r) => {
+                    expect(r.value.length).toBeGreaterThanOrEqual(1);
+                });
+                done();
+            });
+    });
+
+    it('should return at least one RNSR correct identifier', (done) => {
+        let res = [];
+        const input = examples.map((ex, i) => ({ id: i, value: { year: ex[2], address: ex[0] } }))
+            .filter((ex) => ![7, 10, 14, 16, 19, 22].includes(ex.id)) // remove result empty value
+            .filter((ex) => ![0, 4, 5, 6, 8, 9, 11].includes(ex.id)); // remove wrong results
+
+        const expected = examples.map((ex, i) => ({ id: i, value: ex[1].split(',') }));
+        from(input)
+            .pipe(ezs('getRnsr', { year: 2020 }))
+            .on('data', (data) => { res = [...res, data]; })
+            .on('end', () => {
+                res.forEach((r) => {
+                    expect(intersection(r.value, expected[r.id].value).length).toBeGreaterThanOrEqual(1);
+                });
+                done();
+            });
+    });
 });
