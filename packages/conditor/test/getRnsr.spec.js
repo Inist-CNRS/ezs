@@ -54,7 +54,7 @@ describe('getRnsr', () => {
                 expect(data).toHaveProperty('value');
                 expect(data.value).toBeDefined();
                 expect(data.value).toBeInstanceOf(Array);
-                expect(data.value).toHaveLength(1);
+                expect(data.value.length).toBeGreaterThanOrEqual(1);
                 done();
             });
     });
@@ -165,7 +165,7 @@ describe('getRnsr', () => {
         let res = [];
         const input = examples.map((ex, i) => ({ id: i, value: { year: ex[2], address: ex[0] } }))
             .filter((ex) => ![7, 10, 14, 16, 19, 22].includes(ex.id)) // remove result empty value
-            .filter((ex) => ![0, 4, 5, 6, 8, 9, 11].includes(ex.id)); // remove wrong results
+            .filter((ex) => ![4, 5, 6, 8, 9, 11].includes(ex.id)); // remove wrong results
 
         const expected = examples.map((ex, i) => ({ id: i, value: ex[1].split(',') }));
         from(input)

@@ -112,7 +112,7 @@ const hasIntitule = (address, structure) => address.includes(structure.intituleA
  * @returns {boolean}
  * @private
  */
-const hasSigle = (address, structure) => address.split(/[ -,]/).includes(structure.sigleAppauvri || '**');
+const hasSigle = (address, structure) => address.split(/[ -,/]/).includes(structure.sigleAppauvri || '**');
 
 /**
  * Check that for at least one of the tutelles (`structure.etabAssoc.*.etab`):
