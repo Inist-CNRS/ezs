@@ -80,8 +80,8 @@ describe('getRnsr', () => {
             });
     });
 
-    it('should return at least one correct RNSR for the penultimate example', (done) => {
-        const i = examples.length - 2;
+    it('should return at least one correct RNSR for example #22', (done) => {
+        const i = 22;
         let res = [];
         from([{
             id: i,
@@ -124,7 +124,7 @@ describe('getRnsr', () => {
             });
     });
 
-    it('should return at least one correct RNSR for the first example', (done) => {
+    it('should return at least one correct RNSR for example 0', (done) => {
         let res = [];
         from([{
             id: 0,
@@ -174,6 +174,24 @@ describe('getRnsr', () => {
             .on('end', () => {
                 res.forEach((r) => {
                     expect(intersection(r.value, expected[r.id].value).length).toBeGreaterThanOrEqual(1);
+                });
+                done();
+            });
+    });
+
+    it('should return exactly the right identifier(s)', (done) => {
+        let res = [];
+        const input = examples.map((ex, i) => ({ id: i, value: { year: ex[2], address: ex[0] } }))
+            .filter((ex) => [12, 15, 17, 18, 21].includes(ex.id)); // keep exactly correct cases
+
+        const expected = examples.map((ex, i) => ({ id: i, value: ex[1].split(',') }));
+        from(input)
+            .pipe(ezs('getRnsr', { year: 2020 }))
+            .on('data', (data) => { res = [...res, data]; })
+            .on('end', () => {
+                expect(res.length).toBe(input.length);
+                res.forEach((r) => {
+                    expect(r.value).toEqual(expected[r.id].value);
                 });
                 done();
             });
