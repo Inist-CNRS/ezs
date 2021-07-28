@@ -167,7 +167,7 @@ const hasEtabAssocs = (structure) => {
 export const hasLabelAndNumero = (address, structure) => {
     if (!hasLabel(address, structure.etabAssoc)) return false;
     if (!hasNumero(address, structure.etabAssoc)) return false;
-    const tokens = address.split(/[ -,]/);
+    const tokens = address.split(/[ -,_]/);
     if (!followsNumeroLabel(tokens, structure.etabAssoc)) return false;
     return true;
 };
