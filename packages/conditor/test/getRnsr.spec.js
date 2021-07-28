@@ -194,4 +194,22 @@ describe('getRnsr', () => {
                 done();
             });
     });
+
+    it('should return all correct identifier(s) - unfortunately maybe other ones', (done) => {
+        let res = [];
+        const input = examples.map((ex, i) => ({ id: i, value: { year: ex[2], address: ex[0] } }))
+            .filter((ex) => [0, 1, 2, 3, 8, 12, 15, 17, 18, 21].includes(ex.id)); // keep correct cases
+
+        const expected = examples.map((ex, i) => ({ id: i, value: ex[1].split(',') }));
+        from(input)
+            .pipe(ezs('getRnsr', { year: 2020 }))
+            .on('data', (data) => { res = [...res, data]; })
+            .on('end', () => {
+                expect(res.length).toBe(input.length);
+                res.forEach((r) => {
+                    expect(r.value).toEqual(expect.arrayContaining(expected[r.id].value));
+                });
+                done();
+            });
+    });
 });
