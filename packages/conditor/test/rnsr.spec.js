@@ -1,5 +1,5 @@
 import {
-    followsNumeroLabel, hasEtabAssocs, hasLabelAndNumero, hasTutelle, isIn,
+    existedInYear, followsNumeroLabel, hasEtabAssocs, hasLabelAndNumero, hasTutelle, isIn,
 } from '../src/rnsr';
 
 /**
@@ -328,6 +328,67 @@ describe('hasEtabAssocs', () => {
         const structure = {};
         // @ts-ignore
         const result = hasEtabAssocs(structure);
+
+        expect(result).toBe(false);
+    });
+});
+
+describe('existedInYear', () => {
+    it('should exist', () => {
+        const structure = {
+            annee_creation: '2000',
+            an_fermeture: '',
+        };
+        const year = 2021;
+
+        const result = existedInYear(year)(structure);
+
+        expect(result).toBe(true);
+    });
+
+    it('should exist when no year given', () => {
+        const structure = {
+            annee_creation: '2000',
+            an_fermeture: '',
+        };
+
+        const result = existedInYear()(structure);
+
+        expect(result).toBe(true);
+    });
+
+    it('should exist within an interval', () => {
+        const structure = {
+            annee_creation: '2000',
+            an_fermeture: '2020',
+        };
+        const year = 2010;
+
+        const result = existedInYear(year)(structure);
+
+        expect(result).toBe(true);
+    });
+
+    it('should not exist', () => {
+        const structure = {
+            annee_creation: '2000',
+            an_fermeture: '',
+        };
+        const year = 1999;
+
+        const result = existedInYear(year)(structure);
+
+        expect(result).toBe(false);
+    });
+
+    it('should not exist when year is greater than closing', () => {
+        const structure = {
+            annee_creation: '2000',
+            an_fermeture: '2010',
+        };
+        const year = 2015;
+
+        const result = existedInYear(year)(structure);
 
         expect(result).toBe(false);
     });
