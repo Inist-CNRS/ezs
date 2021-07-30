@@ -1,4 +1,4 @@
-import fs from 'fs/promises';
+import fs from 'fs';
 import path from 'path';
 
 /**
@@ -219,7 +219,7 @@ const loadedRNSR = {};
 export async function getRnsrYear(year) {
     if (loadedRNSR[year]) return loadedRNSR[year];
     const filePath = path.resolve(__dirname, `../data/RNSR-${year}.json`);
-    const rnsr = JSON.parse(await fs.readFile(filePath, { encoding: 'utf-8' }));
+    const rnsr = JSON.parse(await fs.promises.readFile(filePath, { encoding: 'utf-8' }));
     loadedRNSR[year] = rnsr;
     return rnsr;
 }
