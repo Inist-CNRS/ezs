@@ -131,7 +131,7 @@ export const hasTutelle = (address, structure) => {
         .map((ea) => ea.etab);
     const structureHasTutelle = tutelles.reduce((keep, etab) => {
         if (etab.libelleAppauvri.startsWith('universit')) {
-            if (address.includes(etab.libelleAppauvri || '**')) {
+            if (address.includes(etab.libelleAppauvri)) {
                 return true;
             }
         } else if (address.includes(etab.sigleAppauvri || '**')

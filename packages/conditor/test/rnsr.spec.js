@@ -263,7 +263,7 @@ describe('hasTutelle', () => {
                 },
             }],
         };
-        const address = 'sigle nnn labo X blabla';
+        const address = 'nnn labo X blabla';
         // @ts-ignore
         const result = hasTutelle(address, structure);
 
@@ -279,7 +279,7 @@ describe('hasTutelle', () => {
                 },
             }],
         };
-        const address = 'nnn labo x blabla';
+        const address = 'nnn sigle blabla';
         // @ts-ignore
         const result = hasTutelle(address, structure);
 
