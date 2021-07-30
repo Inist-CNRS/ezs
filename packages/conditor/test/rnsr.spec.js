@@ -1,4 +1,6 @@
-import { followsNumeroLabel, hasLabelAndNumero, isIn } from '../src/rnsr';
+import {
+    followsNumeroLabel, hasLabelAndNumero, hasTutelle, isIn,
+} from '../src/rnsr';
 
 /**
  * @typedef {import("../src/rnsr").EtabAssoc} EtabAssoc
@@ -92,6 +94,7 @@ describe('isIn', () => {
         const address = 'universite de montpellier umr_b 95 34095 montpellier';
         const isInAddress = isIn(address);
 
+        // @ts-ignore
         const result = isInAddress(structure);
 
         expect(result).toBe(true);
@@ -118,6 +121,7 @@ describe('isIn', () => {
         const address = 'universite de montpellier 34095 montpellier';
         const isInAddress = isIn(address);
 
+        // @ts-ignore
         const result = isInAddress(structure);
 
         expect(result).toBe(false);
@@ -151,6 +155,55 @@ describe('hasLabelAndNumero', () => {
 
         // @ts-ignore
         const result = hasLabelAndNumero(address, structure);
+
+        expect(result).toBe(true);
+    });
+});
+
+describe('hasTutelle', () => {
+    it('should find a Univ', () => {
+        const structure = {
+            etabAssoc: [{
+                etab: {
+                    libelleAppauvri: 'universite de lyon',
+                },
+            }],
+        };
+        const address = 'umr nnn universite de lyon blabla';
+        // @ts-ignore
+        const result = hasTutelle(address, structure);
+
+        expect(result).toBe(true);
+    });
+
+    it('should find a libelle', () => {
+        const structure = {
+            etabAssoc: [{
+                etab: {
+                    libelleAppauvri: 'labo X',
+                    sigleAppauvri: 'sigle',
+                },
+            }],
+        };
+        const address = 'sigle nnn labo X blabla';
+        // @ts-ignore
+        const result = hasTutelle(address, structure);
+
+        expect(result).toBe(true);
+    });
+
+    it('should find a sigle', () => {
+        const structure = {
+            etabAssoc: [{
+                etab: {
+                    libelleAppauvri: 'labo x',
+                    sigleAppauvri: 'sigle',
+                },
+            }],
+        };
+        const address = 'nnn labo x blabla';
+        // @ts-ignore
+        const result = hasTutelle(address, structure);
 
         expect(result).toBe(true);
     });

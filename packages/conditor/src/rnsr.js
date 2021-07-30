@@ -125,7 +125,7 @@ const hasSigle = (address, structure) => address.split(/[ -,/]/).includes(struct
  * @returns {boolean}
  * @private
  */
-const hasTutelle = (address, structure) => {
+export const hasTutelle = (address, structure) => {
     const tutelles = structure.etabAssoc
         .map((ea) => ea.etab);
     const structureHasTutelle = tutelles.reduce((keep, etab) => {
