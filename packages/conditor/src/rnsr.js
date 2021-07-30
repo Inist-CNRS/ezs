@@ -88,6 +88,7 @@ export const followsNumeroLabel = (tokens, etabAssocs) => etabAssocs[0]
             return true;
         },
     );
+
 const hasPostalAddress = (address, structure) => (
     address.includes((structure.ville_postale_appauvrie || '**').split(' cedex')[0])
     || address.includes(String(structure.code_postal) || '**')

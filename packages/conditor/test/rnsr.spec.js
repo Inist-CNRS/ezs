@@ -70,6 +70,54 @@ describe('followsNumeroLabel', () => {
 
         expect(result).toBe(false);
     });
+
+    it('should return false for structure lacking label', () => {
+        const tokens = ['umr', 'one', 'two', '95'];
+        /** @type {EtabAssoc[]} */
+        const etabAssocs = [{
+            labelAppauvri: '',
+            idStructEtab: '?',
+            label: 'UMR',
+            numero: 95,
+            etab: null,
+        }];
+
+        const result = followsNumeroLabel(tokens, etabAssocs);
+
+        expect(result).toBe(false);
+    });
+
+    it('should return false for structure bad numero', () => {
+        const tokens = ['umr', 'one', 'two', '96'];
+        /** @type {EtabAssoc[]} */
+        const etabAssocs = [{
+            labelAppauvri: 'umr',
+            idStructEtab: '?',
+            label: 'UMR',
+            numero: 95,
+            etab: null,
+        }];
+
+        const result = followsNumeroLabel(tokens, etabAssocs);
+
+        expect(result).toBe(false);
+    });
+
+    it('should return false when numero precedes label', () => {
+        const tokens = ['95', 'umr'];
+        /** @type {EtabAssoc[]} */
+        const etabAssocs = [{
+            labelAppauvri: 'umr',
+            idStructEtab: '?',
+            label: 'UMR',
+            numero: 95,
+            etab: null,
+        }];
+
+        const result = followsNumeroLabel(tokens, etabAssocs);
+
+        expect(result).toBe(false);
+    });
 });
 
 describe('isIn', () => {
@@ -176,6 +224,21 @@ describe('hasTutelle', () => {
         expect(result).toBe(true);
     });
 
+    it('should not find the Univ', () => {
+        const structure = {
+            etabAssoc: [{
+                etab: {
+                    libelleAppauvri: 'universite de lyon',
+                },
+            }],
+        };
+        const address = 'umr nnn universite de nancy blabla';
+        // @ts-ignore
+        const result = hasTutelle(address, structure);
+
+        expect(result).toBe(false);
+    });
+
     it('should find a libelle', () => {
         const structure = {
             etabAssoc: [{
@@ -206,5 +269,21 @@ describe('hasTutelle', () => {
         const result = hasTutelle(address, structure);
 
         expect(result).toBe(true);
+    });
+
+    it('should not find a sigle nor a libelle', () => {
+        const structure = {
+            etabAssoc: [{
+                etab: {
+                    libelleAppauvri: 'labo x',
+                    sigleAppauvri: 'sigle',
+                },
+            }],
+        };
+        const address = 'nnn labo blabla';
+        // @ts-ignore
+        const result = hasTutelle(address, structure);
+
+        expect(result).toBe(false);
     });
 });
