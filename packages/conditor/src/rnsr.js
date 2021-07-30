@@ -149,7 +149,7 @@ export const hasTutelle = (address, structure) => {
  * @returns {boolean}
  * @private
  */
-const hasEtabAssocs = (structure) => {
+export const hasEtabAssocs = (structure) => {
     if (!structure.etabAssoc) return false;
     if (!structure.etabAssoc[0]) return false;
     return true;

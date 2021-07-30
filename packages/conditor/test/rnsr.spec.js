@@ -1,5 +1,5 @@
 import {
-    followsNumeroLabel, hasLabelAndNumero, hasTutelle, isIn,
+    followsNumeroLabel, hasEtabAssocs, hasLabelAndNumero, hasTutelle, isIn,
 } from '../src/rnsr';
 
 /**
@@ -192,6 +192,21 @@ describe('hasLabelAndNumero', () => {
         expect(result).toBe(false);
     });
 
+    it('should not find UMR 96', () => {
+        const structure = {
+            etabAssoc: [{
+                labelAppauvri: 'umr',
+                numero: 96,
+            }],
+        };
+        const address = 'umr 95 universite de montpellier';
+
+        // @ts-ignore
+        const result = hasLabelAndNumero(address, structure);
+
+        expect(result).toBe(false);
+    });
+
     it('should find UMR 95', () => {
         const structure = {
             etabAssoc: [{
@@ -199,7 +214,7 @@ describe('hasLabelAndNumero', () => {
                 numero: 95,
             }],
         };
-        const address = 'umr 95 universite de montpellier 34096 montpellier';
+        const address = 'umr 95 34096 montpellier';
 
         // @ts-ignore
         const result = hasLabelAndNumero(address, structure);
@@ -283,6 +298,36 @@ describe('hasTutelle', () => {
         const address = 'nnn labo blabla';
         // @ts-ignore
         const result = hasTutelle(address, structure);
+
+        expect(result).toBe(false);
+    });
+});
+
+describe('hasEtabAssocs', () => {
+    it('should return true when etabAssoc', () => {
+        const structure = {
+            etabAssoc: [{}],
+        };
+        // @ts-ignore
+        const result = hasEtabAssocs(structure);
+
+        expect(result).toBe(true);
+    });
+
+    it('should return false when etabAssoc is empty', () => {
+        const structure = {
+            etabAssoc: [],
+        };
+        // @ts-ignore
+        const result = hasEtabAssocs(structure);
+
+        expect(result).toBe(false);
+    });
+
+    it('should return false when no etabAssoc', () => {
+        const structure = {};
+        // @ts-ignore
+        const result = hasEtabAssocs(structure);
 
         expect(result).toBe(false);
     });
