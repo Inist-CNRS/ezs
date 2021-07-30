@@ -19,6 +19,41 @@ describe('getRnsr', () => {
         examples = CSV.parse(csvExamples, '\t');
     });
 
+    it('should return an error when data is not an object', (done) => {
+        from(['aha'])
+            .pipe(ezs('getRnsr'))
+            .pipe(ezs.catch((e) => done()))
+            .on('data', () => done('Should not work'));
+    });
+
+    it('should return an error when data has no id', (done) => {
+        from([{ value: 0 }])
+            .pipe(ezs('getRnsr'))
+            .pipe(ezs.catch((e) => done()))
+            .on('data', () => done('Should not work'));
+    });
+
+    it('should return an error when data has no value', (done) => {
+        from([{ id: 0 }])
+            .pipe(ezs('getRnsr'))
+            .pipe(ezs.catch((e) => done()))
+            .on('data', () => done('Should not work'));
+    });
+
+    it('should return an error when data.value is not an object', (done) => {
+        from([{ id: 0, value: 1 }])
+            .pipe(ezs('getRnsr'))
+            .pipe(ezs.catch((e) => done()))
+            .on('data', () => done('Should not work'));
+    });
+
+    it('should return an error when data.value has no address field', (done) => {
+        from([{ id: 0, value: {} }])
+            .pipe(ezs('getRnsr'))
+            .pipe(ezs.catch((e) => done()))
+            .on('data', () => done('Should not work'));
+    });
+
     it('should return an empty array when not found', (done) => {
         from([
             {

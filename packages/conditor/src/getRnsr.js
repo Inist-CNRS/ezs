@@ -52,6 +52,12 @@ export default async function getRnsr(data, feed) {
     if (data.value === undefined) {
         return feed.send(new Error('getRnsr: input objects should contain a value field'));
     }
+    if (typeof data.value !== 'object') {
+        return feed.send(new Error('getRnsr: input value should be an object'));
+    }
+    if (data.value.address === undefined) {
+        return feed.send(new Error('getRnsr: input value objects should contain an address field'));
+    }
     const { id, value } = data;
     const { address, year } = value;
     const isInAddress = isIn(depleteString(address));
