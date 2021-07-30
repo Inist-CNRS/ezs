@@ -1,3 +1,6 @@
+import fs from 'fs';
+import path from 'path';
+
 /**
  * @typedef {{structures: Structures}} RepNatStrRech
  * @private
@@ -85,6 +88,7 @@ export const followsNumeroLabel = (tokens, etabAssocs) => etabAssocs[0]
             return true;
         },
     );
+
 const hasPostalAddress = (address, structure) => (
     address.includes((structure.ville_postale_appauvrie || '**').split(' cedex')[0])
     || address.includes(String(structure.code_postal) || '**')
@@ -109,7 +113,7 @@ const hasIntitule = (address, structure) => address.includes(structure.intituleA
  * @returns {boolean}
  * @private
  */
-const hasSigle = (address, structure) => address.split(/[ -,]/).includes(structure.sigleAppauvri || '**');
+const hasSigle = (address, structure) => address.split(/[ -,/]/).includes(structure.sigleAppauvri || '**');
 
 /**
  * Check that for at least one of the tutelles (`structure.etabAssoc.*.etab`):
@@ -122,12 +126,12 @@ const hasSigle = (address, structure) => address.split(/[ -,]/).includes(structu
  * @returns {boolean}
  * @private
  */
-const hasTutelle = (address, structure) => {
+export const hasTutelle = (address, structure) => {
     const tutelles = structure.etabAssoc
         .map((ea) => ea.etab);
     const structureHasTutelle = tutelles.reduce((keep, etab) => {
         if (etab.libelleAppauvri.startsWith('universit')) {
-            if (address.includes(etab.libelleAppauvri || '**')) {
+            if (address.includes(etab.libelleAppauvri)) {
                 return true;
             }
         } else if (address.includes(etab.sigleAppauvri || '**')
@@ -145,7 +149,7 @@ const hasTutelle = (address, structure) => {
  * @returns {boolean}
  * @private
  */
-const hasEtabAssocs = (structure) => {
+export const hasEtabAssocs = (structure) => {
     if (!structure.etabAssoc) return false;
     if (!structure.etabAssoc[0]) return false;
     return true;
@@ -164,7 +168,7 @@ const hasEtabAssocs = (structure) => {
 export const hasLabelAndNumero = (address, structure) => {
     if (!hasLabel(address, structure.etabAssoc)) return false;
     if (!hasNumero(address, structure.etabAssoc)) return false;
-    const tokens = address.split(/[ -,]/);
+    const tokens = address.split(/[ -,:;]/);
     if (!followsNumeroLabel(tokens, structure.etabAssoc)) return false;
     return true;
 };
@@ -174,7 +178,6 @@ export const hasLabelAndNumero = (address, structure) => {
  *
  * @export
  * @param {string}  address depleted address (without accents, lowercase)
- * @returns {Function} a function that look for the `structure` within `address`
  * @private
  */
 export function isIn(address) {
@@ -198,3 +201,40 @@ export function isIn(address) {
     }
     return isInAddress;
 }
+
+// RNSR File
+
+/**
+ * Cache the different years of RNSR
+ * @type {Object<number,RepNatStrRech>}
+ * @private
+ */
+const loadedRNSR = {};
+
+/**
+  * Get the RNSR of year
+  * @param {number}  year    4 digits year of RNSR to load
+  * @returns {Promise<RepNatStrRech|null>}
+  * @private
+  */
+export async function getRnsrYear(year) {
+    if (loadedRNSR[year]) return loadedRNSR[year];
+    const filePath = path.resolve(__dirname, `../data/RNSR-${year}.json`);
+    const rnsr = JSON.parse(await fs.promises.readFile(filePath, { encoding: 'utf-8' }));
+    loadedRNSR[year] = rnsr;
+    return rnsr;
+}
+
+const isValidYear = (min, max) => (year) => {
+    if (min > year) return false;
+    if (max && max < year) return false;
+    return true;
+};
+
+export const existedInYear = (year) => (structure) => {
+    if (year === undefined) return true;
+    const createdAt = Number(structure.annee_creation);
+    const closedAt = structure.an_fermeture && Number(structure.an_fermeture);
+    const checkInterval = isValidYear(createdAt, closedAt);
+    return checkInterval(year);
+};
