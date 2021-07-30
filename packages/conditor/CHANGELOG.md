@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.4.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.3.2...@ezs/conditor@2.4.0) (2021-07-30)
+
+
+### Bug Fixes
+
+* **conditor:** Find sigle separated with / ([a04882d](https://github.com/Inist-CNRS/ezs/commit/a04882d668986c487d5990bc9c4d853d19bcde38))
+* **conditor:** Fix rnsr.js in node < 14 ([e7b51de](https://github.com/Inist-CNRS/ezs/commit/e7b51def651da99616309471360b65c17b7f61e5))
+* **conditor:** split label and numero also on underscore ([8350a5d](https://github.com/Inist-CNRS/ezs/commit/8350a5d17880e98d01220c6099c7b23022e8bc7a))
+
+
+### Features
+
+* **conditor:** Make getRnsr functional ([6760528](https://github.com/Inist-CNRS/ezs/commit/6760528c75a1eb4c5b7ce8af55c7d1aa79813175))
+
+
+
+
+
 ## [2.3.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.3.1...@ezs/conditor@2.3.2) (2021-07-22)
 
 **Note:** Version bump only for package @ezs/conditor

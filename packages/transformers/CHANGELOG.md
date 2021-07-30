@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.6](https://github.com/Inist-CNRS/ezs/compare/@ezs/transformers@1.3.5...@ezs/transformers@1.3.6) (2021-07-30)
+
+
+### Bug Fixes
+
+* **transformers:** Fix error messages ([7ade53d](https://github.com/Inist-CNRS/ezs/commit/7ade53d0725ae7c0af88e790122a046994e9434b))
+* **transformers:** non string search value ([fc2edef](https://github.com/Inist-CNRS/ezs/commit/fc2edef61909dc5797cee601ed8f47f6e6a9165d))
+
+
+
+
+
 ## [1.3.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/transformers@1.3.4...@ezs/transformers@1.3.5) (2021-07-22)
 
 **Note:** Version bump only for package @ezs/transformers
