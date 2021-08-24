@@ -1,12 +1,10 @@
 # transformers
 
-Ce plugin propose une série d'instructions spécifiques de transformation sur un
-seul champ d'un objet. Cette notion est utilisée dans
-[lodex](https://lodex.inist.fr) pour transformer les valeurs des colonnes à
-charger.
+Ce plugin propose une série d'instructions spécifiques de transformation sur un seul champ d'un objet.
+Cette notion est utilisée dans [lodex](https://lodex.inist.fr) pour transformer les valeurs des colonnes à charger.
 
-Chaque instruction possède le paramètre `field`. Il s'agit du chemin vers le
-champ à transformer ou le chemin vers un nouveau champ.
+Chaque instruction possède le paramètre `field`.
+Il s'agit du chemin vers le champ à transformer ou le chemin vers un nouveau champ.
 
 Il est possible d'enchaîner les transformations sur un même champ :
 
@@ -20,12 +18,10 @@ field = tag
 with = >
 ```
 
-Comme cette série d'instructions fonctionne uniqument sur un seul champ (et non
-sur la totalité comme les autres plugins), elle génère en sortie un champ
-"technique" nommé `$origin` qui contient l'objet tel qu'il était avant
-d'appliquer un traitement.
+Comme cette série d'instructions fonctionne uniqument sur un seul champ (et non sur la totalité comme les autres plugins),
+elle génère en sortie un champ "technique" nommé `$origin` qui contient l'objet tel qu'il était avant d'appliquer un traitement.
 
-Ce champ peut-être facilement supprimé :
+Ce champ peut être facilement supprimé :
 
 ```ini
 [$UPPERCASE]
@@ -38,11 +34,11 @@ value = omit('$origin')
 ## exemple
 
 ```json
-[
-  { "id": 1, "title": "un" },
-  { "id": 2, "title": "deux" },
-  { "id": 3, "title": "trois" },
-]
+  [
+            { "id": 1, "title": "un" },
+            { "id": 2, "title": "deux" },
+            { "id": 3, "title": "trois" },
+  ]
 ```
 
   Script:
@@ -69,11 +65,11 @@ with = uri:/
 Output:
 
 ```json
-[
-  { "id": "uri:/1", "title": "UN§" },
-  { "id": "uri:/2", "title": "DEUX§" },
-  { "id": "uri:/3", "title": "TROIS§" },
-]
+   [
+            { "id": "uri:/1", "title": "UN§" },
+            { "id": "uri:/2", "title": "DEUX§" },
+            { "id": "uri:/3", "title": "TROIS§" },
+   ]
 ```
 
 ## installation
@@ -88,73 +84,37 @@ npm install @ezs/transformers
 
 #### Table of Contents
 
-- [transformers](#transformers)
-  - [exemple](#exemple)
-  - [installation](#installation)
-  - [usage](#usage)
-      - [Table of Contents](#table-of-contents)
-    - [$ARRAY](#array)
-      - [Parameters](#parameters)
-    - [$BOOLEAN](#boolean)
-      - [Parameters](#parameters-1)
-    - [$CAPITALIZE](#capitalize)
-      - [Parameters](#parameters-2)
-    - [$COLUMN](#column)
-      - [Parameters](#parameters-3)
-    - [$CONCAT](#concat)
-      - [Parameters](#parameters-4)
-    - [$CONCAT_URI](#concat_uri)
-      - [Parameters](#parameters-5)
-    - [$DEFAULT](#default)
-      - [Parameters](#parameters-6)
-    - [$FORMAT](#format)
-      - [Parameters](#parameters-7)
-    - [$GET](#get)
-      - [Parameters](#parameters-8)
-    - [$JOIN](#join)
-      - [Parameters](#parameters-9)
-    - [$LOWERCASE](#lowercase)
-      - [Parameters](#parameters-10)
-    - [$MAPPING](#mapping)
-      - [Parameters](#parameters-11)
-    - [$MASK](#mask)
-      - [Parameters](#parameters-12)
-    - [$NUMBER](#number)
-      - [Parameters](#parameters-13)
-    - [$PARSE](#parse)
-      - [Parameters](#parameters-14)
-    - [$PREFIX](#prefix)
-      - [Parameters](#parameters-15)
-    - [$REMOVE](#remove)
-      - [Parameters](#parameters-16)
-    - [$REPLACE](#replace)
-      - [Parameters](#parameters-17)
-    - [$REPLACE_REGEX](#replace_regex)
-      - [Parameters](#parameters-18)
-    - [$SELECT](#select)
-      - [Parameters](#parameters-19)
-    - [$SHIFT](#shift)
-      - [Parameters](#parameters-20)
-    - [$SPLIT](#split)
-      - [Parameters](#parameters-21)
-    - [$STRING](#string)
-      - [Parameters](#parameters-22)
-    - [$SUFFIX](#suffix)
-      - [Parameters](#parameters-23)
-    - [$TRIM](#trim)
-      - [Parameters](#parameters-24)
-    - [$TRUNCATE](#truncate)
-      - [Parameters](#parameters-25)
-    - [$TRUNCATE_WORDS](#truncate_words)
-      - [Parameters](#parameters-26)
-    - [$UNIQ](#uniq)
-      - [Parameters](#parameters-27)
-    - [$UPPERCASE](#uppercase)
-      - [Parameters](#parameters-28)
-    - [$URLENCODE](#urlencode)
-      - [Parameters](#parameters-29)
-    - [$VALUE](#value)
-      - [Parameters](#parameters-30)
+-   [$ARRAY](#array)
+-   [$BOOLEAN](#boolean)
+-   [$CAPITALIZE](#capitalize)
+-   [$COLUMN](#column)
+-   [$CONCAT](#concat)
+-   [$CONCAT_URI](#concat_uri)
+-   [$DEFAULT](#default)
+-   [$FORMAT](#format)
+-   [$GET](#get)
+-   [$JOIN](#join)
+-   [$LOWERCASE](#lowercase)
+-   [$MAPPING](#mapping)
+-   [$MASK](#mask)
+-   [$NUMBER](#number)
+-   [$PARSE](#parse)
+-   [$PREFIX](#prefix)
+-   [$REMOVE](#remove)
+-   [$REPLACE](#replace)
+-   [$REPLACE_REGEX](#replace_regex)
+-   [$SELECT](#select)
+-   [$SHIFT](#shift)
+-   [$SPLIT](#split)
+-   [$STRING](#string)
+-   [$SUFFIX](#suffix)
+-   [$TRIM](#trim)
+-   [$TRUNCATE](#truncate)
+-   [$TRUNCATE_WORDS](#truncate_words)
+-   [$UNIQ](#uniq)
+-   [$UPPERCASE](#uppercase)
+-   [$URLENCODE](#urlencode)
+-   [$VALUE](#value)
 
 ### $ARRAY
 
@@ -192,11 +152,11 @@ Sortie:
 
 #### Parameters
 
-- `data`
-- `feed`
-- `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $BOOLEAN
 
@@ -244,11 +204,11 @@ Sortie:
 
 #### Parameters
 
-- `data`
-- `feed`
-- `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $CAPITALIZE
 
@@ -263,11 +223,11 @@ field = title
 
 #### Parameters
 
-- `data`
-- `feed`
-- `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to apply the transformation
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to apply the transformation
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $COLUMN
 
@@ -283,12 +243,12 @@ column = oldTitle
 
 #### Parameters
 
-- `data`
-- `feed`
-- `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
-- `column` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** value to use during the transformation
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
+-   `column` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** value to use during the transformation
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $CONCAT
 
@@ -305,12 +265,12 @@ columns = part2
 
 #### Parameters
 
-- `data`
-- `feed`
-- `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to get the result of the transformation
-- `columns` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to get value
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to get the result of the transformation
+-   `columns` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to get value
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $CONCAT_URI
 
@@ -328,13 +288,13 @@ separator = -
 
 #### Parameters
 
-- `data`
-- `feed`
-- `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to get the result of the transformation
-- `column` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to get data
-- `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** glue between each column
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to get the result of the transformation
+-   `column` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to get data
+-   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** glue between each column
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $DEFAULT
 
@@ -350,12 +310,12 @@ alternative = not available
 
 #### Parameters
 
-- `data`
-- `feed`
-- `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
-- `alternative` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** value to use if field does not exist
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
+-   `alternative` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** value to use if field does not exist
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $FORMAT
 
@@ -369,12 +329,12 @@ with = (%s:%s)
 
 #### Parameters
 
-- `data`
-- `feed`
-- `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to get data source (must be an array)
-- `with` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** template string like sprintf
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to get data source (must be an array)
+-   `with` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** template string like sprintf
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $GET
 
@@ -390,12 +350,12 @@ path = input
 
 #### Parameters
 
-- `data`
-- `feed`
-- `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to get the result of the transformation
-- `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to get value
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to get the result of the transformation
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to get value
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $JOIN
 
@@ -411,12 +371,12 @@ path = input
 
 #### Parameters
 
-- `data`
-- `feed`
-- `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation (must be an array)
-- `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** glue between each field
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation (must be an array)
+-   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** glue between each field
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $LOWERCASE
 
@@ -431,11 +391,11 @@ field = title
 
 #### Parameters
 
-- `data`
-- `feed`
-- `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $MAPPING
 
@@ -452,12 +412,12 @@ list = "hello":"bonjour", "hi":"salut"
 
 #### Parameters
 
-- `data`
-- `feed`
-- `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
-- `list` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the mapping list
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
+-   `list` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the mapping list
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $MASK
 
@@ -473,12 +433,12 @@ with = ^[a-z]+$
 
 #### Parameters
 
-- `data`
-- `feed`
-- `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the control
-- `with` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** regular expression to check
+-   `data`  
+-   `feed`  
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the control
+-   `with` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** regular expression to check
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $NUMBER
 
@@ -493,11 +453,11 @@ field = counter
 
 #### Parameters
 
-- `data`
-- `feed`
-- `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $PARSE
 
@@ -512,11 +472,11 @@ field = json
 
 #### Parameters
 
-- `data`
-- `feed`
-- `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $PREFIX
 
@@ -532,12 +492,12 @@ with = #
 
 #### Parameters
 
-- `data`
-- `feed`
-- `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
-- `with` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** value to add at the begining of the field
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
+-   `with` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** value to add at the begining of the field
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $REMOVE
 
@@ -553,12 +513,12 @@ the = .
 
 #### Parameters
 
-- `data`
-- `feed`
-- `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
-- `the` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** value to drop in the field
+-   `data`  
+-   `feed`  
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
+-   `the` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** value to drop in the field
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $REPLACE
 
@@ -575,13 +535,13 @@ replaceValue = un
 
 #### Parameters
 
-- `data`
-- `feed`
-- `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
-- `searchValue` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** value to search
-- `replaceValue` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** value to replace with
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
+-   `searchValue` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** value to search
+-   `replaceValue` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** value to replace with
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $REPLACE_REGEX
 
@@ -598,13 +558,13 @@ replaceValue = bonjour
 
 #### Parameters
 
-- `data`
-- `feed`
-- `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
-- `searchValue` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** regex to search
-- `replaceValue` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** value to replace with
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
+-   `searchValue` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** regex to search
+-   `replaceValue` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** value to replace with
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $SELECT
 
@@ -620,12 +580,12 @@ path = en
 
 #### Parameters
 
-- `data`
-- `feed`
-- `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to get the result of the selection
-- `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to get value
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to get the result of the selection
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to get value
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $SHIFT
 
@@ -641,12 +601,12 @@ gap = 2
 
 #### Parameters
 
-- `data`
-- `feed`
-- `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
-- `gap` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** how many items or characters to drop
+-   `data`  
+-   `feed`  
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
+-   `gap` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** how many items or characters to drop
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $SPLIT
 
@@ -662,12 +622,12 @@ separator = |
 
 #### Parameters
 
-- `data`
-- `feed`
-- `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
-- `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** value to use to split the field
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
+-   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** value to use to split the field
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $STRING
 
@@ -682,11 +642,11 @@ field = title
 
 #### Parameters
 
-- `data`
-- `feed`
-- `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $SUFFIX
 
@@ -702,12 +662,12 @@ with = !
 
 #### Parameters
 
-- `data`
-- `feed`
-- `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
-- `with` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** value to add at the end of the field
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
+-   `with` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** value to add at the end of the field
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $TRIM
 
@@ -722,11 +682,11 @@ field = title
 
 #### Parameters
 
-- `data`
-- `feed`
-- `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $TRUNCATE
 
@@ -742,12 +702,12 @@ gap = 25
 
 #### Parameters
 
-- `data`
-- `feed`
-- `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
-- `gap` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** how many items or characters to keep
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
+-   `gap` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** how many items or characters to keep
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $TRUNCATE_WORDS
 
@@ -764,12 +724,12 @@ gap = 10
 
 #### Parameters
 
-- `data`
-- `feed`
-- `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to apply the transformation
-- `gap` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** how many words to keep
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** field path to apply the transformation
+-   `gap` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** how many words to keep
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $UNIQ
 
@@ -784,11 +744,11 @@ field = title
 
 #### Parameters
 
-- `data`
-- `feed`
-- `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation (must be an aarray)
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation (must be an aarray)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $UPPERCASE
 
@@ -803,11 +763,11 @@ field = title
 
 #### Parameters
 
-- `data`
-- `feed`
-- `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $URLENCODE
 
@@ -822,11 +782,11 @@ field = url
 
 #### Parameters
 
-- `data`
-- `feed`
-- `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field path to apply the transformation
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### $VALUE
 
@@ -842,9 +802,9 @@ value = Hello world
 
 #### Parameters
 
-- `data`
-- `feed`
-- `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** new field path
-- `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** value to use to set the field
+-   `data`  
+-   `feed`  
+-   `field` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** new field path
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** value to use to set the field
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 

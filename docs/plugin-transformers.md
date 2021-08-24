@@ -3,9 +3,10 @@
 Ce plugin propose une série d'instructions spécifiques de transformation sur un seul champ d'un objet.
 Cette notion est utilisée dans [lodex](https://lodex.inist.fr) pour transformer les valeurs des colonnes à charger.
 
-Chaque instruction posséde le paramètre \`field ̀, il s'agit du chemin vers le champ à transformer ou le chemin vers un nouveau champ.
+Chaque instruction possède le paramètre `field`.
+Il s'agit du chemin vers le champ à transformer ou le chemin vers un nouveau champ.
 
-Il est possible d'enchainer les transformations sur un même champ :
+Il est possible d'enchaîner les transformations sur un même champ :
 
 ```ini
 [$PREFIX]
@@ -14,12 +15,13 @@ with = <
 
 [$SUFFIX]
 field = tag
-with = > 
+with = >
 ```
 
-Comme cette série d'instructions fonctionne uniqument sur un seul champ (et non sur la totalité comme les autres plugins)
-Il génére en sortie un champ "technique" nommé `$origin` qui contient l'objet tel qu'il était avant d'appliquer un traitement.
-Ce champ peut-être facillement supprimé :
+Comme cette série d'instructions fonctionne uniqument sur un seul champ (et non sur la totalité comme les autres plugins),
+elle génère en sortie un champ "technique" nommé `$origin` qui contient l'objet tel qu'il était avant d'appliquer un traitement.
+
+Ce champ peut être facilement supprimé :
 
 ```ini
 [$UPPERCASE]
@@ -33,9 +35,9 @@ value = omit('$origin')
 
 ```json
   [
-            { id: 1, title: 'un' },
-            { id: 2, title: 'deux' },
-            { id: 3, title: 'trois' },
+            { "id": 1, "title": "un" },
+            { "id": 2, "title": "deux" },
+            { "id": 3, "title": "trois" },
   ]
 ```
 
@@ -64,9 +66,9 @@ Output:
 
 ```json
    [
-            { id: 'uri:/1', title: 'UN§' },
-            { id: 'uri:/2', title: 'DEUX§' },
-            { id: 'uri:/3', title: 'TROIS§' },
+            { "id": "uri:/1", "title": "UN§" },
+            { "id": "uri:/2", "title": "DEUX§" },
+            { "id": "uri:/3", "title": "TROIS§" },
    ]
 ```
 
