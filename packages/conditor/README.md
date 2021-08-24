@@ -55,6 +55,7 @@ Sachant qu'on appauvrit (casse, accents, tiret, apostrophe) tous les champs.
 -   [affAlign](#affalign)
 -   [compareRnsr](#comparernsr)
 -   [conditorScroll](#conditorscroll)
+-   [getRnsr](#getrnsr)
 
 ### affAlign
 
@@ -188,3 +189,37 @@ Output
 ```
 
 Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 
+
+### getRnsr
+
+Find the RNSR identifier(s) matching the `address` and the publication `year`
+of an article.
+
+Get objects with an `id` field and a `value` field.
+
+The `value` field is an object containing `address` and `year`.
+
+Returns an object with `id` and `value` fields. The `value` is an array of
+RNSR identifiers (if any).
+
+Input:
+
+```json
+[{
+  "id": 1,
+  "value": {
+    "address": "GDR 2989 Université Versailles Saint-Quentin-en-Yvelines, 63009",
+    "year": "2012"
+  }
+}]
+```
+
+Output:
+
+```json
+[{ "id": 1, "value": ["200619958X"] }]
+```
+
+#### Parameters
+
+-   `year` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Year of the RNSR to use instead of the last one
