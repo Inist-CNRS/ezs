@@ -3,6 +3,7 @@ import debug from 'debug';
 import writeTo from 'stream-write';
 import AbortController from 'node-abort-controller';
 import fetch from 'fetch-with-proxy';
+import parseHeaders from 'parse-headers';
 
 /**
  * Take an `Object` and send it to an URL.
@@ -25,6 +26,10 @@ export default function URLConnect(data, feed) {
     const { ezs } = this;
     if (this.isFirst()) {
         const timeout = Number(this.getParam('timeout')) || 1000;
+        const headers = parseHeaders([]
+            .concat(this.getParam('header'))
+            .filter(Boolean)
+            .join('\n'));
         const controller = new AbortController();
         this.input = ezs.createStream(ezs.objectMode());
         this.whenReady = fetch(url, {
