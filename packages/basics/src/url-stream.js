@@ -3,6 +3,8 @@ import { URL, URLSearchParams } from 'url';
 import AbortController from 'node-abort-controller';
 import JSONStream from 'JSONStream';
 import fetch from 'fetch-with-proxy';
+import parseHeaders from 'parse-headers';
+
 
 /**
  * Take `String` as URL, throw each chunk from the result or
@@ -77,6 +79,10 @@ export default async function URLStream(data, feed) {
     const path = this.getParam('path', '*');
     const noerror = Boolean(this.getParam('noerror', false));
     const timeout = Number(this.getParam('timeout')) || 1000;
+    const headers = parseHeaders([]
+            .concat(this.getParam('header'))
+            .filter(Boolean)
+            .join('\n'));
     const cURL = new URL(url || data);
     const controller = new AbortController();
     if (url) {
@@ -84,6 +90,7 @@ export default async function URLStream(data, feed) {
     }
     try {
         const response = await fetch(cURL.href, {
+            headers,
             timeout,
             signal: controller.signal,
         });

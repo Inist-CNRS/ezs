@@ -3,6 +3,7 @@ import get from 'lodash.get';
 import set from 'lodash.set';
 import AbortController from 'node-abort-controller';
 import fetch from 'fetch-with-proxy';
+import parseHeaders from 'parse-headers';
 
 /**
  * Add a new field to an `Object`, with the returned content of URL.
@@ -29,12 +30,17 @@ export default async function URLFetch(data, feed) {
     const json = Boolean(this.getParam('json', false));
     const noerror = Boolean(this.getParam('noerror', false));
     const timeout = Number(this.getParam('timeout')) || 1000;
+    const headers = parseHeaders([]
+        .concat(this.getParam('header'))
+        .filter(Boolean)
+        .join('\n'));
     const mimetype = String(this.getParam('mimetype', 'application/json'));
     const controller = new AbortController();
     const key = Array.isArray(path) ? path.shift() : path;
     const body = get(data, key);
     const parameters = {
         timeout,
+        headers,
         signal: controller.signal,
     };
     if (body) {
