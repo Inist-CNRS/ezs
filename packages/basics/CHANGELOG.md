@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.13.6...@ezs/basics@1.14.0) (2021-08-27)
+
+
+### Features
+
+* 🎸 support http headers ([0d11b7c](https://github.com/Inist-CNRS/ezs/commit/0d11b7c46a44040c48aa0d0fcb7954611dd36658))
+
+
+
+
+
 ## [1.13.6](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.13.5...@ezs/basics@1.13.6) (2021-07-30)
 
 **Note:** Version bump only for package @ezs/basics
