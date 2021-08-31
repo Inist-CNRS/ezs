@@ -18,7 +18,7 @@ export default class Shell {
         this.ezs = ezs;
         this.environment = environment;
         const lodash = _.runInContext();
-        const getEnvVar = (path, defval) => (path ? _.get(this.environment, path, defval) : this.environment);
+        const getEnvVar = (path, defval) => (path ? _.get(this.environment, path, _.get(process.env, path, defval)) : this.environment);
         lodash.mixin({
             ...mixins,
             env: (i, p, d) => getEnvVar(p, d),
