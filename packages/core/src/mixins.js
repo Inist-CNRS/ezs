@@ -7,6 +7,10 @@ const fix = (input, ...args) => {
     return args;
 };
 
+const prepend = (input, prefix = '') => String(prefix).concat(input);
+
+const append = (input, suffix = '') => String(input).concat(suffix);
+
 const compute = (input, expr) => compileExpression(expr)(input);
 
 const self = (input) => input;
@@ -15,4 +19,6 @@ export default {
     fix,
     compute,
     self,
+    prepend,
+    append,
 };

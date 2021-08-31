@@ -817,4 +817,44 @@ describe('statements', () => {
                 });
         });
     });
+    describe('mixin', () => {
+        it('with one test', (done) => {
+            const res = [];
+            process.env.STATEMENTS_TEST_VAR = 'OK';
+            const script = `
+            [replace]
+            path = b
+            value = get('b').upperCase().prepend('<').append('>')
+            path = d
+            value = env('STATEMENTS_TEST_VAR')
+            `;
+            from([
+                { a: 1, b: 'a' },
+                { a: 'Y', b: 'b' },
+                { a: 2, b: 'c' },
+                { a: 'Z', b: 'd' },
+                { a: 3, b: 'e' },
+            ])
+                .pipe(ezs('delegate', { script }))
+                .pipe(ezs.catch())
+                .on('error', done)
+                .on('data', (chunk) => {
+                    res.push(chunk);
+                })
+                .on('end', () => {
+                    assert.equal(res.length, 5);
+                    assert.equal(res[0].b, '<A>');
+                    assert.equal(res[0].d, 'OK');
+                    assert.equal(res[1].b, '<B>');
+                    assert.equal(res[1].d, 'OK');
+                    assert.equal(res[2].b, '<C>');
+                    assert.equal(res[2].d, 'OK');
+                    assert.equal(res[3].b, '<D>');
+                    assert.equal(res[3].d, 'OK');
+                    assert.equal(res[4].b, '<E>');
+                    assert.equal(res[4].d, 'OK');
+                    done();
+                });
+        });
+    });
 });
