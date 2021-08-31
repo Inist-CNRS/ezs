@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.25.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.24.4...@ezs/core@1.25.0) (2021-08-31)
+
+
+### Bug Fixes
+
+* env() use process.env by default ([b742448](https://github.com/Inist-CNRS/ezs/commit/b742448ebc0315e9b4e9e834724390068732511b))
+
+
+### Features
+
+* 🎸 add preprend() & append() mixins ([c418bcc](https://github.com/Inist-CNRS/ezs/commit/c418bcc70270b576e5ca8e5d836efa577ce065e8))
+
+
+
+
+
 ## [1.24.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.24.3...@ezs/core@1.24.4) (2021-07-30)
 
 **Note:** Version bump only for package @ezs/core
