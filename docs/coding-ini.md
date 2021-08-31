@@ -55,20 +55,48 @@ param4 = fix('Voici ', 'valeur', ' ', 'concaténée').join('')
 
 ## Valeurs dynamiques
 
-### Fonctions standards
-
 Il est possible de calculer une valeur à partir de l'item courant (objet JSON
 reçu). Pour cela `ezs` utilise le mécanisme de chaînage de fonctions proposé par
 [lodash](https://lodash.com/docs/4.17.15#chain).
+
+
+
+
+
+### Fonctions disponibles
+
+Toutes les fonctions chainable dans lodash sont utilisables.
+`ezs` propose quelqeus fonctions supplémentaires :
+
+#### Pour définir une valeur : fix()
+
+Cette fonction permet notamment de saisir des caractères spéciaux (retour chariot), de s'assurer 
+de du typage d'une valeur ou de créer un tableau de plusieurs valeurs :
+
+```ini
+[STATEMENT]
+param1 = fix('\n')
+param2 = fix('1.234')
+param3 = fix(1234)
+param4 = fix('Voici ', 'valeur', ' ', 'concaténée').join('')
+```
+
+#### Pour prefixer ou suffixer une valeur : prepend() , append()
+
+Cette fonction permet notamment d'ajouter un prefix et ou un suffix à une chaine de caractères :
+
+```ini
+[STATEMENT]
+param1 = fix('item').prepend('<').append('>')
+param2 = get('path').prepend('Valeur champ path:')
+```
+
 
 ### À partir d'un champ de l'objet courant (reçu)
 
 ```ini
 [STATEMENT]
 param1 = get('nom_du_champ').split('--').head()
-param2 = fix('1.234')
-param3 = fix(1234)
-param4 = fix('Voici ', 'valeur', ' ', 'concaténée').join('')
 ```
 
 Ici, `get('nom_du_champ')` récupère la valeur du champ `nom_du_champ` dans
