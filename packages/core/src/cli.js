@@ -40,7 +40,7 @@ export default function cli(errlog) {
             env: {
                 alias: 'e',
                 default: false,
-                describe: 'Execute commands with environement variables as input',
+                describe: 'Execute commands with environment variables as input',
                 type: 'boolean',
             },
             file: {
@@ -51,7 +51,7 @@ export default function cli(errlog) {
             },
             param: {
                 alias: 'p',
-                describe: 'Environement parameters',
+                describe: 'Environment parameters',
                 type: 'string',
             },
         })
@@ -105,7 +105,7 @@ export default function cli(errlog) {
         input.resume();
     }
     const params = Array.isArray(argv.param) ? argv.param : [argv.param];
-    const environement = params
+    const environment = params
         .filter(Boolean)
         .map((p) => p.split('='))
         .reduce((obj, item) => {
@@ -132,7 +132,7 @@ export default function cli(errlog) {
     const { prepend, append } = meta;
     const script = scripts.reduce((prev, cur) => prev.concat(cur), '');
     const commands = ezs.createCommands({ script, append, prepend });
-    const statements = ezs.compileCommands(commands, environement);
+    const statements = ezs.compileCommands(commands, environment);
     const output = ezs.createPipeline(input, statements)
         .pipe(ezs.catch())
         .on('error', (e) => {
