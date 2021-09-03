@@ -1,6 +1,8 @@
 import dir from 'node-dir';
+import loadJsonFile from 'load-json-file';
+import pathExists from 'path-exists';
 import autocast from 'autocast';
-import { dirname } from 'path';
+import { dirname, resolve as pathResolve } from 'path';
 import _ from 'lodash';
 import settings from '../settings';
 import {
@@ -22,8 +24,8 @@ const keyOfPathItemObject = [ // https://swagger.io/specification/
     'servers',
     'parameters',
 ];
-const getInformations = (ezs, dirPath, hostName) => new Promise((resolve) => {
-    const infos = {
+const collectMetadata = async (dirPath, hostName) => {
+    const globalSwagger = {
         openapi: '3.0.0',
         info: {
             title: settings.title,
@@ -116,10 +118,23 @@ const getInformations = (ezs, dirPath, hostName) => new Promise((resolve) => {
             },
         },
     };
-    if (!dirPath) {
-        return resolve(infos);
+    const swaggerFile = pathResolve(dirPath, 'swagger.json');
+    try {
+        if (await pathExists(swaggerFile)) {
+            const localSwagger = await loadJsonFile(swaggerFile);
+            return _.merge(globalSwagger, localSwagger);
+        }
     }
-    return dir.files(dirPath, (err, files) => {
+    catch(e) {
+        return globalSwagger;
+    }
+    return globalSwagger;
+}
+const collectPaths = (ezs, dirPath) => new Promise((resolve) => {
+    if (!dirPath) {
+        return resolve({});
+    }
+    dir.files(dirPath, (err, files) => {
         const filenames = err ? [] : files;
         const paths = filenames
             .filter((f) => (f.search(/\.(ini|ezs)$/) > 0))
@@ -143,26 +158,26 @@ const getInformations = (ezs, dirPath, hostName) => new Promise((resolve) => {
                     ...cur,
                 }), {},
             );
-        return resolve({
-            ...infos,
-            paths,
-        });
+        resolve(paths);
     });
 });
 
-const serverInformation = (ezs, serverPath) => (request, response) => {
-    getInformations(ezs, serverPath, request.headers.host)
-        .then((informations) => {
-            const responseBody = JSON.stringify(informations);
-            const responseHeaders = {
-                'Access-Control-Allow-Origin': '*',
-                'Content-Type': 'application/json',
-                'Content-Length': Buffer.byteLength(responseBody),
-            };
-            response.writeHead(200, responseHeaders);
-            response.write(responseBody);
-            response.end();
-        });
+const serverInformation =  (ezs, serverPath) => async (request, response) => {
+    const infos = await collectMetadata(serverPath, request.headers.host);
+    const paths = await collectPaths(ezs, serverPath);
+    const swagger = {
+        ...infos,
+        paths,
+    };
+    const responseBody = JSON.stringify(swagger);
+    const responseHeaders = {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(responseBody),
+    };
+    response.writeHead(200, responseHeaders);
+    response.write(responseBody);
+    response.end();
 };
 
 export default serverInformation;
