@@ -43,7 +43,7 @@
         "@ezs/core": "*"
     },
     "devDependencies": {
-        "@ezs/core": "1.25.1"
+        "@ezs/core": "*"
     },
     "dependencies": {
         "@ezs/store": "1.3.3"
