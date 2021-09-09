@@ -611,11 +611,13 @@ describe('mongo queries', () => {
 
         it('with a standard context', (done) => {
             const res = [];
-            const context = { maxSize: '200', orderBy: '_id/asc', query: 'xxx' };
+            const context = { maxSize: '200', orderBy: '_id/asc', $query: { uri: 'xxx' } };
             from([context])
                 .pipe(ezs('buildContext', {
                     connectionStringURI,
                 }))
+                .pipe(ezs.catch())
+                .on('error', done)
                 .on('data', (data) => {
                     res.push(data);
                 })
@@ -623,13 +625,14 @@ describe('mongo queries', () => {
                     expect(res.length).toEqual(1);
                     expect(res[0].maxSize).toEqual(context.maxSize);
                     expect(res[0].orderBy).toEqual(context.orderBy);
-                    expect(res[0].query).toEqual(context.query);
+                    expect(res[0].$query).not.toBeDefined();
                     expect(res[0].fields.length).toEqual(20);
                     expect(res[0].filter).toEqual({
                         removedAt: {
                             $exists: false,
                         },
                         subresourceId: null,
+                        uri: 'xxx',
                     });
                     done();
                 });
@@ -641,6 +644,8 @@ describe('mongo queries', () => {
                 .pipe(ezs('buildContext', {
                     connectionStringURI,
                 }))
+                .pipe(ezs.catch())
+                .on('error', done)
                 .on('data', (data) => {
                     res.push(data);
                 })
