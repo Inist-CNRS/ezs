@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.14.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.14.3...@ezs/lodex@1.14.4) (2021-09-09)
+
+
+### Bug Fixes
+
+* 🐛 unable to set uri value ([220d472](https://github.com/Inist-CNRS/ezs/commit/220d47217a4993dded0e725236491fe16a013837))
+
+
+
+
+
 ## [1.14.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.14.2...@ezs/lodex@1.14.3) (2021-07-30)
 
 **Note:** Version bump only for package @ezs/lodex
