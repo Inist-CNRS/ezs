@@ -23,20 +23,17 @@ describe('SKOSPathEnum', () => {
             .pipe(ezs('concat'))
             .pipe(ezs('XMLParse', { separator: ' /rdf:RDF/skos:Concept' }))
             .pipe(ezs('SKOSObject'))
-            .pipe(ezs('SKOSPathEnum', { language: 'fr' }))
+            .pipe(ezs('SKOSPathEnum', { path: ['narrower', 'broader'], label: 'prefLabel@fr' }))
             .pipe(ezs.catch())
             .on('error', done)
             .on('data', (chunk) => output.push(chunk))
             .on('end', () => {
                 expect(output.length).toBe(3);
-                expect(output[0].broader).toEqual(expect.arrayContaining([{ key: 'http://example.com/dishes#potatoBased', label: 'Plats à base de pomme de terre' }]));
-                expect(output[1].broader).toEqual(expect.arrayContaining([{ key: 'http://example.com/dishes#potatoBased', label: 'Plats à base de pomme de terre' }]));
+                expect(output[0].broader).toEqual(expect.arrayContaining([{ rdf$about: 'http://example.com/dishes#potatoBased', 'prefLabel@fr': 'Plats à base de pomme de terre' }]));
+                expect(output[1].broader).toEqual(expect.arrayContaining([{ rdf$about: 'http://example.com/dishes#potatoBased', 'prefLabel@fr': 'Plats à base de pomme de terre' }]));
                 expect(output[2].narrower).toEqual(expect.arrayContaining([
-                    { key: 'http://example.com/dishes#fries', label: 'Frites' },
-                    {
-                        key: 'http://example.com/dishes#mashed',
-                        label: 'Purée de pomme de terre'
-                    }
+                    { rdf$about: 'http://example.com/dishes#fries', 'prefLabel@fr': 'Frites' },
+                    { rdf$about: 'http://example.com/dishes#mashed', 'prefLabel@fr': 'Purée de pomme de terre' }
                 ]));
                 done();
             });
@@ -49,7 +46,7 @@ describe('SKOSPathEnum', () => {
             .pipe(ezs('concat'))
             .pipe(ezs('XMLParse', { separator: ' /rdf:RDF/skos:Concept' }))
             .pipe(ezs('SKOSObject'))
-            .pipe(ezs('SKOSPathEnum', { language: 'fr' }))
+            .pipe(ezs('SKOSPathEnum', { path: ['narrower', 'broader'], label: 'prefLabel@fr' }))
             .pipe(ezs.catch())
             .on('error', done)
             .on('data', (chunk) => output.push(chunk))
@@ -58,26 +55,26 @@ describe('SKOSPathEnum', () => {
                 expect(output[10]['prefLabel@fr']).toEqual('cobalt');
                 expect(output[10].broader).toEqual(expect.arrayContaining([
                     {
-                        key: 'http://data.loterre.fr/ark:/67375/8HQ-NM5G007X-D',
-                        label: 'métal de transition'
+                        rdf$about: 'http://data.loterre.fr/ark:/67375/8HQ-NM5G007X-D',
+                        'prefLabel@fr': 'métal de transition'
                     }
                 ]));
                 expect(output[10].broader).toEqual(expect.arrayContaining([
                     {
-                        key: 'http://data.loterre.fr/ark:/67375/8HQ-NM5G007X-D',
-                        label: 'métal de transition'
+                        rdf$about: 'http://data.loterre.fr/ark:/67375/8HQ-NM5G007X-D',
+                        'prefLabel@fr': 'métal de transition'
                     },
                     {
-                        key: 'http://data.loterre.fr/ark:/67375/8HQ-ZR503FCG-D',
-                        label: 'élément du bloc d'
+                        rdf$about: 'http://data.loterre.fr/ark:/67375/8HQ-ZR503FCG-D',
+                        'prefLabel@fr': 'élément du bloc d'
                     },
                     {
-                        key: 'http://data.loterre.fr/ark:/67375/8HQ-WGZD8DMF-Z',
-                        label: 'élément de la période 4'
+                        rdf$about: 'http://data.loterre.fr/ark:/67375/8HQ-WGZD8DMF-Z',
+                        'prefLabel@fr': 'élément de la période 4'
                     },
                     {
-                        key: 'http://data.loterre.fr/ark:/67375/8HQ-VVBTC56K-P',
-                        label: 'élément du groupe 9'
+                        rdf$about: 'http://data.loterre.fr/ark:/67375/8HQ-VVBTC56K-P',
+                        'prefLabel@fr': 'élément du groupe 9'
                     }
                 ]));
                 done();
