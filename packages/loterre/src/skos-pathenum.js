@@ -12,7 +12,7 @@ import set from 'lodash.set';
  * @returns {Promise} Returns object
  * @private
  */
-async function getBroaderOrNarrowerLst(broaderOrNarrower, concept, store) {
+async function getBroaderOrNarrowerLst(broaderOrNarrower, recursion, concept, store) {
     const result = [];
     const values = get(concept, broaderOrNarrower);
     if (values) for (let i = 0; i < values.length; i += 1) {
@@ -20,8 +20,10 @@ async function getBroaderOrNarrowerLst(broaderOrNarrower, concept, store) {
         const response = await store.get(key);
         if (response !== 'undefined' && Array.isArray(response)) {
             result.push(response[0]);
-            const deeper = await getBroaderOrNarrowerLst(broaderOrNarrower, response[0], store);
-            result.push(...deeper);
+            if (recursion) {
+                const deeper = await getBroaderOrNarrowerLst(broaderOrNarrower, response[0], store);
+                result.push(...deeper);
+            }
         }
     }
     return result.filter(Boolean);
@@ -52,9 +54,10 @@ async function getBroaderAndNarrower(data, feed) {
             .concat(this.getParam('label', 'skos$prefLabel'))
             .filter(Boolean)
             .shift();
+        const recursion = Boolean(this.getParam('recursion', false));
 
 
-        const values = await Promise.all(paths.map(path => getBroaderOrNarrowerLst(path, concept, store)));
+        const values = await Promise.all(paths.map(path => getBroaderOrNarrowerLst(path, recursion, concept, store)));
         values.forEach((foundConcepts, i) => set(concept, paths[i], foundConcepts.map(foundConcept => {
             const obj = {};
             set(obj, uriPath, get(foundConcept, uriPath));
@@ -72,6 +75,7 @@ async function SKOSPathEnum(data, feed) {
     try {
         if (!this.store) {
             this.store = createStore(this.ezs, 'skos_pathenum_store');
+            this.store.reset();
         }
         if (this.isLast()) {
             return this.store.cast()
@@ -79,6 +83,7 @@ async function SKOSPathEnum(data, feed) {
                     path: this.getParam('path', 'skos$broader'),
                     uri: this.getParam('uri', 'rdf$about'),
                     label: this.getParam('label', 'skos$prefLabel'),
+                    recursion: this.getParam('recursion', false),
                 }, this.store))
                 .on('data', (chunk) => {
                     feed.write(chunk);
@@ -187,6 +192,7 @@ async function SKOSPathEnum(data, feed) {
  * @param {String} [path=skos$broader] Choose one or more paths to enum
  * @param {String} [path=rdf$about] Choose one path to select uri from found concepts
  * @param {String} [path=skos$prefLabel] Choose one path to select label from found concepts
+ * @param {String} [recursion=false] Follow path to enum (usefull for broaderConcept)
  * @returns {Object} Returns object
 */
 export default {

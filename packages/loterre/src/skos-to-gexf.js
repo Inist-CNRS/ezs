@@ -55,7 +55,9 @@ async function SKOSToGexf(data, feed) {
 
     if (!this.store) {
         this.store = createStore(this.ezs, 'skos_hierarchy_store');
+        this.store.reset();
         this.storeNode = createStore(this.ezs, 'skos_hierarchyNode_store');
+        this.storeNode.reset();
     }
     if (this.isLast()) {
         this.store.close();

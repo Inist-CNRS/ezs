@@ -51,6 +51,7 @@ async function SKOSHierarchy(data, feed) {
 
     if (!this.store) {
         this.store = createStore(this.ezs, 'skos_hierarchy_store');
+        this.store.reset();
     }
     if (this.isLast()) {
         this.store.close();
