@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/loterre@1.1.17...@ezs/loterre@1.2.0) (2021-09-16)
+
+
+### Features
+
+* 🎸 introduce recursion ([9fa4c7b](https://github.com/Inist-CNRS/ezs/commit/9fa4c7b08078149bacba31288d839bea39691522))
+
+
+
+
+
 ## [1.1.17](https://github.com/Inist-CNRS/ezs/compare/@ezs/loterre@1.1.16...@ezs/loterre@1.1.17) (2021-09-09)
 
 **Note:** Version bump only for package @ezs/loterre
