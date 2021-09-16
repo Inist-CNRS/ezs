@@ -95,7 +95,9 @@ separator = /rdf:RDF/skos:Concept
 [SKOSObject]
 
 [SKOSPathEnum]
-language = fr
+path = broader
+path = narrower
+label = prefLabel@fr
 ```
 
 Output:
@@ -108,7 +110,7 @@ Output:
       "prefLabel@en": "French fries",
       "prefLabel@de": "Französisch frites",
       "inScheme": "http://example.com/dishes",
-      "broader": [ [{ "key": "http://example.com/dishes#potatoBased", "label": "Plats à base de pomme de terre" }] ]
+      "broader": [ [{ "rdf$about": "http://example.com/dishes#potatoBased", "prefLabel@fr": "Plats à base de pomme de terre" }] ]
     },
     {
       "rdf$about": "http://example.com/dishes#mashed",
@@ -116,7 +118,7 @@ Output:
       "prefLabel@en": "Mashed potatoes",
       "prefLabel@de": "Kartoffelpüree",
       "inScheme": "http://example.com/dishes",
-      "broader": [ [{ "key": "http://example.com/dishes#potatoBased", "label": "Plats à base de pomme de terre" }] ]
+      "broader": [ [{ "rdf$about": "http://example.com/dishes#potatoBased", "prefLabel@fr": "Plats à base de pomme de terre" }] ]
     },
     {
       "rdf$about": "http://example.com/dishes#potatoBased",
@@ -126,10 +128,10 @@ Output:
       "inScheme": "http://example.com/dishes",
       "topConceptOf": "http://example.com/dishes",
       "narrower": [
-         { "key": "http://example.com/dishes#fries", "label": "Frites" },
+         { "rdf$about": "http://example.com/dishes#fries", "prefLabel@fr": "Frites" },
          {
-             "key": "http://example.com/dishes#mashed",
-             "label": "Purée de pomme de terre"
+             "rdf$about": "http://example.com/dishes#mashed",
+             "prefLabel@fr": "Purée de pomme de terre"
          }
       ]
     }
@@ -138,7 +140,10 @@ Output:
 
 #### Parameters
 
--   `language` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Choose language of `prefLabel` (optional, default `en`)
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Choose one or more paths to enum (optional, default `skos$broader`)
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Choose one path to select uri from found concepts (optional, default `rdf$about`)
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Choose one path to select label from found concepts (optional, default `skos$prefLabel`)
+-   `recursion` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Follow path to enum (usefull for broaderConcept) (optional, default `false`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Returns object
 
