@@ -1,17 +1,10 @@
 import { createStore } from '@ezs/store';
+import has from 'lodash.has';
+import get from 'lodash.get';
+import set from 'lodash.set';
 
 /**
- * @name checkIfPropertyExist
- * @param {string} property
- * @param {Object} obj
- * @private
- */
-function checkIfPropertyExist(obj, property) {
-    return Object.prototype.hasOwnProperty.call(obj, property);
-}
-
-/**
- * @name getBroaderAndNarrower
+ * @name getBroaderOrNarrowerLst
  * @param {string} broaderOrNarrower
  * @param {Object} concept
  * @param {Object} store
@@ -19,36 +12,21 @@ function checkIfPropertyExist(obj, property) {
  * @returns {Promise} Returns object
  * @private
  */
-async function getBroaderOrNarrowerLst(broaderOrNarrower, concept, store, lang) {
+async function getBroaderOrNarrowerLst(broaderOrNarrower, recursion, concept, store) {
     const result = [];
-    if (concept[broaderOrNarrower] !== undefined) {
-        for (let i = 0; i < concept[broaderOrNarrower].length; i += 1) {
-            const key = concept[broaderOrNarrower][i];
-            const response = await store.get(key);
-            if (response !== 'undefined' && Array.isArray(response)) {
-                const obj = {};
-                obj.key = key;
-                obj.label = response[0][`prefLabel@${lang}`];
-                if (obj.label === undefined) {
-                // search prefLabel property :
-                    const conceptKeys = (Object.keys(response[0]));
-                    const regex = /^prefLabel@/;
-                    for (const objKey of conceptKeys) {
-                        if (objKey.match(regex)) {
-                            const llang = objKey.replace('prefLabel@', '');
-                            obj.label = `${response[0][objKey]} (${llang})`;
-                            // privilege english lang
-                            if (llang === 'en') {
-                                break;
-                            }
-                        }
-                    }
-                }
-                result.push(obj);
+    const values = get(concept, broaderOrNarrower);
+    if (values) for (let i = 0; i < values.length; i += 1) {
+        const key = concept[broaderOrNarrower][i];
+        const response = await store.get(key);
+        if (response !== 'undefined' && Array.isArray(response)) {
+            result.push(response[0]);
+            if (recursion) {
+                const deeper = await getBroaderOrNarrowerLst(broaderOrNarrower, response[0], store);
+                result.push(...deeper);
             }
         }
     }
-    return (result);
+    return result.filter(Boolean);
 }
 
 /**
@@ -59,48 +37,65 @@ async function getBroaderOrNarrowerLst(broaderOrNarrower, concept, store, lang) 
  * @private
  */
 async function getBroaderAndNarrower(data, feed) {
-    const store = this.getEnv();
-    const lang = this.getParam('language', 'en');
-    if (data) {
-        const concept = data.value[0];
-        if (checkIfPropertyExist(concept, 'narrower') && checkIfPropertyExist(concept, 'broader')) {
-            concept.broader = await getBroaderOrNarrowerLst('broader', concept, store, lang);
-            concept.narrower = await getBroaderOrNarrowerLst('narrower', concept, store, lang);
-        } else if (
-            checkIfPropertyExist(concept, 'narrower')
-            && !checkIfPropertyExist(concept, 'broader')
-        ) { // the top element in the hierarchy
-            concept.narrower = await getBroaderOrNarrowerLst('narrower', concept, store, lang);
-        } else if (
-            !checkIfPropertyExist(concept, 'narrower')
-            && checkIfPropertyExist(concept, 'broader')
-        ) { // the last element in the hierarchy
-            concept.broader = await getBroaderOrNarrowerLst('broader', concept, store, lang);
+    try {
+        if (this.isLast()) {
+            return feed.close();
         }
+        const store = this.getEnv();
+        const concept = data.value[0];
+        const paths = Array()
+            .concat(this.getParam('path'))
+            .filter(path => has(concept, path));
+        const uriPath = Array()
+            .concat(this.getParam('uri', 'rdf$about'))
+            .filter(Boolean)
+            .shift();
+        const labelPath = Array()
+            .concat(this.getParam('label', 'skos$prefLabel'))
+            .filter(Boolean)
+            .shift();
+        const recursion = Boolean(this.getParam('recursion', false));
+
+
+        const values = await Promise.all(paths.map(path => getBroaderOrNarrowerLst(path, recursion, concept, store)));
+        values.forEach((foundConcepts, i) => set(concept, paths[i], foundConcepts.map(foundConcept => {
+            const obj = {};
+            set(obj, uriPath, get(foundConcept, uriPath));
+            set(obj, labelPath, get(foundConcept, labelPath));
+            return obj;
+        })));
         return feed.send(concept);
     }
-    if (this.isLast()) {
-        return feed.close();
+    catch(e) {
+        return feed.stop(e);
     }
-    return feed.end();
 }
 
 async function SKOSPathEnum(data, feed) {
-    if (!this.store) {
-        this.store = createStore(this.ezs, 'skos_pathenum_store');
-    }
-    if (this.isLast()) {
-        this.store.cast()
-            .pipe(this.ezs(getBroaderAndNarrower, { language: this.getParam('language', 'en') }, this.store))
-            .on('data', (chunk) => {
-                feed.write(chunk);
-            }).on('end', () => {
-                this.store.close();
-                feed.close();
-            });
-    } else {
+    try {
+        if (!this.store) {
+            this.store = createStore(this.ezs, 'skos_pathenum_store');
+            this.store.reset();
+        }
+        if (this.isLast()) {
+            return this.store.cast()
+                .pipe(this.ezs(getBroaderAndNarrower, {
+                    path: this.getParam('path', 'skos$broader'),
+                    uri: this.getParam('uri', 'rdf$about'),
+                    label: this.getParam('label', 'skos$prefLabel'),
+                    recursion: this.getParam('recursion', false),
+                }, this.store))
+                .on('data', (chunk) => {
+                    feed.write(chunk);
+                }).on('end', () => {
+                    this.store.close();
+                    feed.close();
+                });
+        }
         await this.store.add(data.rdf$about, data);
         feed.end();
+    } catch(e) {
+        feed.stop(e);
     }
 }
 
@@ -150,7 +145,9 @@ async function SKOSPathEnum(data, feed) {
  * [SKOSObject]
  *
  * [SKOSPathEnum]
- * language = fr
+ * path = broader
+ * path = narrower
+ * label = prefLabel@fr
  * ```
  *
  * Output:
@@ -163,7 +160,7 @@ async function SKOSPathEnum(data, feed) {
  *       "prefLabel@en": "French fries",
  *       "prefLabel@de": "Französisch frites",
  *       "inScheme": "http://example.com/dishes",
- *       "broader": [ [{ "key": "http://example.com/dishes#potatoBased", "label": "Plats à base de pomme de terre" }] ]
+ *       "broader": [ [{ "rdf$about": "http://example.com/dishes#potatoBased", "prefLabel@fr": "Plats à base de pomme de terre" }] ]
  *     },
  *     {
  *       "rdf$about": "http://example.com/dishes#mashed",
@@ -171,7 +168,7 @@ async function SKOSPathEnum(data, feed) {
  *       "prefLabel@en": "Mashed potatoes",
  *       "prefLabel@de": "Kartoffelpüree",
  *       "inScheme": "http://example.com/dishes",
- *       "broader": [ [{ "key": "http://example.com/dishes#potatoBased", "label": "Plats à base de pomme de terre" }] ]
+ *       "broader": [ [{ "rdf$about": "http://example.com/dishes#potatoBased", "prefLabel@fr": "Plats à base de pomme de terre" }] ]
  *     },
  *     {
  *       "rdf$about": "http://example.com/dishes#potatoBased",
@@ -181,10 +178,10 @@ async function SKOSPathEnum(data, feed) {
  *       "inScheme": "http://example.com/dishes",
  *       "topConceptOf": "http://example.com/dishes",
  *       "narrower": [
- *          { "key": "http://example.com/dishes#fries", "label": "Frites" },
+ *          { "rdf$about": "http://example.com/dishes#fries", "prefLabel@fr": "Frites" },
  *          {
- *              "key": "http://example.com/dishes#mashed",
- *              "label": "Purée de pomme de terre"
+ *              "rdf$about": "http://example.com/dishes#mashed",
+ *              "prefLabel@fr": "Purée de pomme de terre"
  *          }
  *       ]
  *     }
@@ -192,9 +189,12 @@ async function SKOSPathEnum(data, feed) {
  * ```
  *
  * @name SKOSPathEnum
- * @param {String} [language=en] Choose language of `prefLabel`
+ * @param {String} [path=skos$broader] Choose one or more paths to enum
+ * @param {String} [path=rdf$about] Choose one path to select uri from found concepts
+ * @param {String} [path=skos$prefLabel] Choose one path to select label from found concepts
+ * @param {String} [recursion=false] Follow path to enum (usefull for broaderConcept)
  * @returns {Object} Returns object
- */
+*/
 export default {
     SKOSPathEnum,
 };

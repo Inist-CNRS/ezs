@@ -1,14 +1,9 @@
 /* istanbul ignore file */
 import { createStore } from '@ezs/store';
+import has from 'lodash.has';
+import get from 'lodash.get';
+import set from 'lodash.set';
 
-/**
- * @param {string} property
- * @param {Object} obj
- * @private
- */
-function checkIfPropertyExist(property, obj) {
-    return (typeof (obj[property]) !== 'undefined');
-}
 
 /**
  * @name writeEdge
@@ -20,13 +15,14 @@ function checkIfPropertyExist(property, obj) {
  * @param {number} weight
  * @private
  */
-async function writeEdge(data, feed, property, store, lang, weight) {
-    for (let i = 0; i < data[property].length; i += 1) {
-        const key = `${data.rdf$about}#${data[property][i].key}`;
+async function writeEdge(data, feed, uriPath, linkPath, labelPath, store, weight) {
+    const target = get(data, linkPath);
+    for (let i = 0; i < target.length; i += 1) {
+        const key = `${get(data, uriPath)}#${get(target[i], uriPath)}`;
         const attrs = {
-            label: data[`prefLabel@${lang}`],
-            source: data.rdf$about,
-            target: data[property][i].label,
+            label: get(data, labelPath),
+            source: get(data, uriPath),
+            target: get(target[i], labelPath),
             weight: `${weight}.0`,
         };
         const edge = { name: 'edge', attrs };
@@ -59,7 +55,9 @@ async function SKOSToGexf(data, feed) {
 
     if (!this.store) {
         this.store = createStore(this.ezs, 'skos_hierarchy_store');
+        this.store.reset();
         this.storeNode = createStore(this.ezs, 'skos_hierarchyNode_store');
+        this.storeNode.reset();
     }
     if (this.isLast()) {
         this.store.close();
@@ -77,35 +75,27 @@ async function SKOSToGexf(data, feed) {
             feed.close();
         });
     } else {
-        // weight calculation
-        let weight = 0;
-        if (checkIfPropertyExist('narrower', data)) {
-            weight += data.narrower.length;
-        }
-        if (checkIfPropertyExist('broader', data)) {
-            weight += data.broader.length;
-        }
-        if (checkIfPropertyExist('related', data)) {
-            weight += data.related.length;
-        }
+        const paths = Array()
+            .concat(this.getParam('path'))
+            .filter(path => has(data, path));
+        const uriPath = Array()
+            .concat(this.getParam('uri', 'rdf$about'))
+            .filter(Boolean)
+            .shift();
+        const labelPath = Array()
+            .concat(this.getParam('label', 'skos$prefLabel'))
+            .filter(Boolean)
+            .shift();
 
-        if (checkIfPropertyExist('narrower', data)) {
-            await writeEdge(data, feed, 'narrower', this.store, lang, weight);
-        }
-
-        if (checkIfPropertyExist('broader', data)) {
-            await writeEdge(data, feed, 'broader', this.store, lang, weight);
-        }
-
-        if (checkIfPropertyExist('related', data)) {
-            await writeEdge(data, feed, 'related', this.store, lang, weight);
-        }
+        const weight = paths.reduce((prev, path) => (get(data, path).length + prev));
+        const values = await Promise.all(paths.map(linkPath =>
+            writeEdge(data, feed, uriPath, linkPath, labelPath, this.store, weight)
+        ));
 
         const obj = {};
-        obj.id = data.rdf$about;
-        obj.label = data[`prefLabel@${lang}`];
+        obj.id = get(data, uriPath);
+        obj.target = get(data, labelPath);
         await this.storeNode.add(obj.id, obj);
-
         feed.end();
     }
 }

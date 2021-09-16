@@ -46,6 +46,9 @@
         "@ezs/core": "*"
     },
     "dependencies": {
-        "@ezs/store": "1.3.3"
+        "@ezs/store": "1.3.3",
+        "lodash.get": "^4.4.2",
+        "lodash.has": "^4.5.2",
+        "lodash.set": "^4.3.2"
     }
 }

@@ -1,13 +1,8 @@
 import { createStore } from '@ezs/store';
+import has from 'lodash.has';
+import get from 'lodash.get';
+import set from 'lodash.set';
 
-/**
- * @param {string} property
- * @param {Object} obj
- * @private
- */
-function checkIfPropertyExist(property, obj) {
-    return (typeof (obj[property]) !== 'undefined');
-}
 
 /**
  * @name writeHierarchy
@@ -15,17 +10,18 @@ function checkIfPropertyExist(property, obj) {
  * @param {Object} feed
  * @param {string} property
  * @param {Object} store
- * @param {string} lang
  * @param {number} weight
  * @private
  */
-async function writeHierarchy(data, feed, property, store, lang, weight) {
-    for (let i = 0; i < data[property].length; i += 1) {
+async function writeHierarchy(data, feed, uriPath, linkPath, labelPath, store, weight) {
+    const target = get(data, linkPath);
+    for (let i = 0; i < target.length; i += 1) {
         const obj = {};
-        obj.source = data[`prefLabel@${lang}`];
-        obj.target = data[property][i].label;
+        obj.source = get(data, labelPath);
+        obj.target = get(target[i], labelPath);
         obj.weight = weight;
-        const key = `${data.rdf$about}#${data[property][i].key}`;
+
+        const key = `${get(data, uriPath)}#${get(target[i], uriPath)}`;
         // check if key exist else write and add to db.
         const checkIfWrited = await store.get(key);
         if (!checkIfWrited) {
@@ -52,61 +48,32 @@ async function writeHierarchy(data, feed, property, store, lang, weight) {
  * @returns {Promise} Return fed Object
  */
 async function SKOSHierarchy(data, feed) {
-    const lang = this.getParam('language', 'en');
-    const addNodes = this.getParam('addNodes', false);
 
     if (!this.store) {
         this.store = createStore(this.ezs, 'skos_hierarchy_store');
-        if (addNodes) {
-            this.storeNode = createStore(this.ezs, 'skos_hierarchyNode_store');
-        }
+        this.store.reset();
     }
     if (this.isLast()) {
         this.store.close();
-        if (addNodes) {
-            const nodes = [];
-            this.storeNode.cast().on('data', (chunk) => {
-                nodes.push({ id: chunk.value[0].id, label: chunk.value[0].id });
-            }).on('end', () => {
-                feed.write(nodes);
-                this.storeNode.close();
-                feed.close();
-            });
-        } else {
-            feed.close();
-        }
+        feed.close();
     } else {
+        const paths = Array()
+            .concat(this.getParam('path'))
+            .filter(path => has(data, path));
+        const uriPath = Array()
+            .concat(this.getParam('uri', 'rdf$about'))
+            .filter(Boolean)
+            .shift();
+        const labelPath = Array()
+            .concat(this.getParam('label', 'skos$prefLabel'))
+            .filter(Boolean)
+            .shift();
+
         // weight calculation
-        let weight = 0;
-        if (checkIfPropertyExist('narrower', data)) {
-            weight += data.narrower.length;
-        }
-        if (checkIfPropertyExist('broader', data)) {
-            weight += data.broader.length;
-        }
-        if (checkIfPropertyExist('related', data)) {
-            weight += data.related.length;
-        }
-
-        if (checkIfPropertyExist('narrower', data)) {
-            await writeHierarchy(data, feed, 'narrower', this.store, lang, weight);
-        }
-
-        if (checkIfPropertyExist('broader', data)) {
-            await writeHierarchy(data, feed, 'broader', this.store, lang, weight);
-        }
-
-        if (checkIfPropertyExist('related', data)) {
-            await writeHierarchy(data, feed, 'related', this.store, lang, weight);
-        }
-
-        if (addNodes) {
-            const obj = {};
-            obj.id = data[`prefLabel@${lang}`];
-            obj.label = data[`prefLabel@${lang}`];
-            await this.storeNode.add(obj.id, obj);
-        }
-
+        const weight = paths.reduce((prev, path) => (get(data, path).length + prev));
+        const values = await Promise.all(paths.map(linkPath =>
+            writeHierarchy(data, feed, uriPath, linkPath, labelPath, this.store, weight)
+        ));
         feed.end();
     }
 }
