@@ -1,3 +1,4 @@
+import debug from 'debug';
 import dir from 'node-dir';
 import loadJsonFile from 'load-json-file';
 import pathExists from 'path-exists';
@@ -126,6 +127,7 @@ const collectMetadata = async (dirPath, hostName) => {
         }
     }
     catch(e) {
+        debug('ezs')('Unable to load swagger.json', e);
         return globalSwagger;
     }
     return globalSwagger;
@@ -172,6 +174,8 @@ const serverInformation =  (ezs, serverPath) => async (request, response) => {
     const responseBody = JSON.stringify(swagger);
     const responseHeaders = {
         'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT, PATCH, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization',
         'Content-Type': 'application/json',
         'Content-Length': Buffer.byteLength(responseBody),
     };
