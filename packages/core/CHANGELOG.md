@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.25.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.25.1...@ezs/core@1.25.2) (2021-09-17)
+
+
+### Bug Fixes
+
+* 🐛 swagger-ui & cors ([2e920be](https://github.com/Inist-CNRS/ezs/commit/2e920be1961b104dc7695ec33e98117b1d395af6))
+
+
+
+
+
 ## [1.25.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.25.0...@ezs/core@1.25.1) (2021-09-03)
 
 **Note:** Version bump only for package @ezs/core
