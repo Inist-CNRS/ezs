@@ -29,6 +29,7 @@
     "lodash.set": "~4.3.2",
     "lodash.uniq": "~4.5.0",
     "lodash.unset": "~4.5.2",
+    "node-object-hash":"^2.3.10",
     "tempy": "^1.0.1"
   },
   "main": "./lib/index.js",
