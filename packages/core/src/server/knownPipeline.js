@@ -23,7 +23,7 @@ const knownPipeline = (ezs, serverPath) => (request, response) => {
 
     debug('ezs')(`PID ${process.pid} will execute ${pathname} commands with ${sizeof(query)}B of global parameters`);
     const read = iterate(request);
-    return executePipeline(ezs, files, headers, query, triggerError, read, response);
+    return executePipeline(ezs, files, headers, query, triggerError, read, response, pathname);
 };
 
 export default knownPipeline;

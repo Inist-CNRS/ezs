@@ -4,6 +4,7 @@ const makeMetric = (labels) => {
     const timestamp = Date.now();
     return (name, value) => process.stderr.write(`${name}{${labels}} ${value} ${timestamp}\n`);
 };
+let counter = 0;
 /**
  * Take `Object` and throw the same `Object`
  * But in print some Prometheus metrics
@@ -33,6 +34,8 @@ export default function metrics(data, feed) {
     }
     if (!this.total) {
         this.total = 0;
+        globalCounter += 1;
+        this.metric('ezs_statement_starter_counter', counter);
     }
     if (!this.totalBytes) {
         this.totalBytes = 0;

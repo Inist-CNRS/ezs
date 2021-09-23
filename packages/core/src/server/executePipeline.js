@@ -12,7 +12,7 @@ const encodingFrom = (headers) => (headers
 const typeFrom = ({ mimeType }) => (mimeType || 'application/json');
 const onlyOne = (item) => (Array.isArray(item) ? item.shift() : item);
 
-function executePipeline(ezs, files, headers, environment, triggerError, read, response) {
+function executePipeline(ezs, files, headers, environment, triggerError, read, response, stage) {
     const meta = ezs.memoize(`executePipeline>${files}`,
         () => files.map((file) => ezs.metaFile(file)).reduce((prev, cur) => _.merge(cur, prev), {}));
     const contentEncoding = encodingFrom(headers);
@@ -88,7 +88,6 @@ function executePipeline(ezs, files, headers, environment, triggerError, read, r
             statements.push(ezs('tracer', { print: '.', last: '!' }));
         }
         if (metricsEnable) {
-            const stage = files.map((f) => basename(f, '.ini')).join('-');
             statements.unshift(ezs('metrics', { stage, bucket: 'input' }));
             statements.push(ezs('metrics', { stage, bucket: 'output' }));
         }

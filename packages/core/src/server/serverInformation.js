@@ -76,7 +76,7 @@ const collectMetadata = async (dirPath, hostName) => {
                             'https',
                             'http',
                         ],
-                        default: 'http',
+                        default: 'https',
                     },
                     hostname: {
                         description: 'Webservices are accessible via various network interfaces',
