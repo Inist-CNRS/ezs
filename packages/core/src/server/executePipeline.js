@@ -9,7 +9,7 @@ const encodingFrom = (headers) => (headers
     && headers['accept-encoding']
     && headers['accept-encoding'].match(/\bgzip\b/) ? 'gzip' : 'identity'
 );
-const typeFrom = ({ mimeType }) => (mimeType || 'application/octet-stream');
+const typeFrom = ({ mimeType }) => (mimeType || 'application/json');
 const onlyOne = (item) => (Array.isArray(item) ? item.shift() : item);
 
 function executePipeline(ezs, files, headers, environment, triggerError, read, response) {
@@ -22,6 +22,8 @@ function executePipeline(ezs, files, headers, environment, triggerError, read, r
     const prepend2Pipeline = ezs.parseCommand(onlyOne(prepend));
     const append2Pipeline = ezs.parseCommand(onlyOne(append));
     response.setHeader('Access-Control-Allow-Origin', '*');
+    response.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    response.setHeader('Access-Control-Allow-Headers', '*');
     response.setHeader('Content-Encoding', contentEncoding);
     response.setHeader('Content-Disposition', contentDisposition);
     response.setHeader('Content-Type', contentType);
