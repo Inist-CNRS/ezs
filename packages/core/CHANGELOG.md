@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.25.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.25.2...@ezs/core@1.25.3) (2021-09-27)
+
+
+### Bug Fixes
+
+* 🐛 enable metrics for cli ([05d110a](https://github.com/Inist-CNRS/ezs/commit/05d110ab2523ebee9c62ffc6af8575340a89a9f1))
+* 🐛 headers for CORS ([feec292](https://github.com/Inist-CNRS/ezs/commit/feec292566b619077a341ba8b175729d8b26f091))
+* 🐛 improve stage label ([5cc5d72](https://github.com/Inist-CNRS/ezs/commit/5cc5d72d8da481456ce4044b9c07763e32d64d0f))
+
+
+### Performance Improvements
+
+* ⚡️ add new metrics ([c2e3a2d](https://github.com/Inist-CNRS/ezs/commit/c2e3a2d7dbea06dec569061744bcb0a0255a0644))
+
+
+
+
+
 ## [1.25.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.25.1...@ezs/core@1.25.2) (2021-09-17)
 
 

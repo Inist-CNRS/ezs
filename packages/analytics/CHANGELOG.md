@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.16.4...@ezs/analytics@1.16.5) (2021-09-27)
+
+
+### Bug Fixes
+
+* **analytics:** Add lacking dependency node-object-hash ([fd1f3d9](https://github.com/Inist-CNRS/ezs/commit/fd1f3d9da1affbe71d19ee1d3c07fca61459e184))
+
+
+
+
+
 ## [1.16.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.16.3...@ezs/analytics@1.16.4) (2021-07-22)
 
 
