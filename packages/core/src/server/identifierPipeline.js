@@ -25,7 +25,7 @@ const identifierPipeline = (ezs, serverPath) => (request, response) => {
     const read = iterate(input);
     input.write(identifier);
     input.end();
-    return executePipeline(ezs, files, headers, query, triggerError, read, response);
+    return executePipeline(ezs, files, headers, query, triggerError, read, response, pathname);
 };
 
 export default identifierPipeline;

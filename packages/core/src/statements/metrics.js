@@ -1,9 +1,5 @@
-import _ from 'lodash';
-
-const makeMetric = (labels) => {
-    const timestamp = Date.now();
-    return (name, value) => process.stderr.write(`${name}{${labels}} ${value} ${timestamp}\n`);
-};
+import { getMetricLogger }  from '../logger'
+let globalCounter = 0;
 /**
  * Take `Object` and throw the same `Object`
  * But in print some Prometheus metrics
@@ -15,24 +11,16 @@ const makeMetric = (labels) => {
  * @returns {Object}
  */
 export default function metrics(data, feed) {
-    if (!this.metric) {
-        const stages = []
-            .concat(this.getParam('stage', 'default'))
-            .filter(Boolean)
-            .map(_.snakeCase)
-            .map((s) => (`stage=${s}`))
-            .join('');
-        const buckets = []
-            .concat(this.getParam('bucket', 'unknow'))
-            .filter(Boolean)
-            .map(_.snakeCase)
-            .map((s) => (`bucket=${s}`))
-            .join('');
-        const labels = `${stages},${buckets}`;
-        this.metric = makeMetric(labels);
+    if (!this.logger) {
+        this.logger = getMetricLogger(
+            this.getParam('stage', 'default'),
+            this.getParam('bucket', 'unknow'),
+        );
     }
     if (!this.total) {
         this.total = 0;
+        globalCounter += 1;
+        this.logger('ezs_statement_starter_counter', globalCounter);
     }
     if (!this.totalBytes) {
         this.totalBytes = 0;
@@ -46,10 +34,10 @@ export default function metrics(data, feed) {
     const frequency = Number(this.getParam('frequency', 10));
     if (this.isLast() || this.counter >= frequency) {
         this.counter = 0;
-        this.metric('ezs_statement_chunks_count', this.total);
-        this.metric('ezs_statement_chunks_bytes', this.totalBytes);
-        this.metric('ezs_statement_duration_seconds', this.getCumulativeTime());
-        this.metric('ezs_statement_opened_count', this.getCounter());
+        this.logger('ezs_statement_chunks_count', this.total);
+        this.logger('ezs_statement_chunks_bytes', this.totalBytes);
+        this.logger('ezs_statement_duration_seconds', this.getCumulativeTime());
+        this.logger('ezs_statement_opened_count', this.getCounter());
     }
     if (this.isLast()) {
         return feed.close();

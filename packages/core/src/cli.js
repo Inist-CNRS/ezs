@@ -133,6 +133,10 @@ export default function cli(errlog) {
     const script = scripts.reduce((prev, cur) => prev.concat(cur), '');
     const commands = ezs.createCommands({ script, append, prepend });
     const statements = ezs.compileCommands(commands, environment);
+    if (settings.metricsEnable) {
+        statements.unshift(ezs('metrics', { stage: 'cli', bucket: 'input' }));
+        statements.push(ezs('metrics', { stage: 'cli', bucket: 'output' }));
+    }
     const output = ezs.createPipeline(input, statements)
         .pipe(ezs.catch())
         .on('error', (e) => {

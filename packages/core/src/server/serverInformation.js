@@ -76,7 +76,7 @@ const collectMetadata = async (dirPath, hostName) => {
                             'https',
                             'http',
                         ],
-                        default: 'http',
+                        default: 'https',
                     },
                     hostname: {
                         description: 'Webservices are accessible via various network interfaces',
@@ -107,15 +107,24 @@ const collectMetadata = async (dirPath, hostName) => {
             schemas: {
                 anyValue: {
                     description: 'Any value: string, object, array, number, etc.',
-                    example: '...',
                     format: 'text/plain',
+                    example: 'string or object or array o number, etc.'
+                },
+                minimalObject: {
+                    description: 'at least one field named value',
+                    type: 'object',
+                    properties: {
+                        value: {
+                            $ref: '#/components/schemas/anyValue'
+                        }
+                    }
                 },
                 JSONStream: {
                     type: 'array',
                     items: {
-                        $ref: '#/components/schemas/anyValue',
-                    },
-                },
+                        $ref: '#/components/schemas/minimalObject'
+                    }
+                }
             },
         },
     };
@@ -174,8 +183,8 @@ const serverInformation =  (ezs, serverPath) => async (request, response) => {
     const responseBody = JSON.stringify(swagger);
     const responseHeaders = {
         'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT, PATCH, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, api_key, Authorization',
+        'Access-Control-Allow-Methods': 'GET, OPTIONS',
+        'Access-Control-Allow-Headers': '*',
         'Content-Type': 'application/json',
         'Content-Length': Buffer.byteLength(responseBody),
     };
