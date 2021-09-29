@@ -14,7 +14,7 @@ const errorHandler = (request, response) => (error, code = 400) => {
     }
     response.end();
     errorCounter += 1;
-    const logger = getMetricLogger('error', request.url.pathname);
+    const logger = getMetricLogger('error', request.pathName);
     logger('ezs_statement_error_counter', errorCounter);
 };
 

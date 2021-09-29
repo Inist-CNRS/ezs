@@ -1,3 +1,4 @@
+import connect from 'connect';
 import cluster from 'cluster';
 import http from 'http';
 import controlServer from 'http-shutdown';
@@ -11,28 +12,13 @@ import settings from '../settings';
 import { getMetricLogger }  from '../logger';
 import { RX_FILENAME } from '../constants';
 
-const isPipeline = (filename) => {
-    const f = filename.match(RX_FILENAME);
+function isPipeline() {
+    const f = this.pathName.match(RX_FILENAME);
     return (f && f.shift() !== undefined);
-};
-const isRoot = (pathname) => (pathname === '/');
-const search = (input, values) => (values.indexOf(input) !== -1);
+}
 
-function createMidddleware(ezs, serverPath, method, pathname) {
-    if (search(method, ['POST']) && isRoot(pathname)) {
-        debug('ezs')(`Create middleware 'unknownPipeline' for ${method} ${pathname}`);
-        return unknownPipeline(ezs);
-    }
-    if (search(method, ['GET', 'OPTIONS', 'HEAD']) && isRoot(pathname)) {
-        debug('ezs')(`Create middleware 'serverInformation' for ${method} ${pathname}`);
-        return serverInformation(ezs, serverPath);
-    }
-    if (search(method, ['POST', 'OPTIONS', 'HEAD']) && serverPath !== false && isPipeline(pathname)) {
-        debug('ezs')(`Create middleware 'knownPipeline' for ${method} ${pathname}`);
-        return knownPipeline(ezs, serverPath);
-    }
-    const error = new Error(`Unable to create middleware for ${method} ${pathname}`);
-    return (request, response) => errorHandler(request, response)(error, 404);
+function methodMatch(values) {
+    return (values.indexOf(this.method) !== -1);
 }
 
 const signals = ['SIGINT', 'SIGTERM'];
@@ -41,15 +27,32 @@ let serverCounter = 0;
 let connectionCounter = 0;
 let connectionNumber = 0;
 function createServer(ezs, serverPort, serverPath) {
+    const app = connect();
+    app.use((request, response, next) => {
+        request.catched = false;
+        request.serverPath = serverPath;
+        request.urlParsed = parse(request.url, true)
+        request.pathName = request.urlParsed.pathname;
+        request.methodMatch = methodMatch;
+        request.isPipeline = isPipeline;
+        next();
+    });
+    app.use(serverInformation(ezs));
+    app.use(unknownPipeline(ezs));
+    app.use(knownPipeline(ezs));
+    app.use((request, response, next) => {
+        if (request.catched === false) {
+            const error = new Error(`Unable to create middleware for ${request.method} ${request.pathName}`);
+            errorHandler(request, response)(error, 404);
+        }
+        next();
+    });
+    app.use((error, request, response, next) => {
+        errorHandler(request, response)(error, 500);
+        next();
+    });
     const logger = getMetricLogger('server', `PID${process.pid}`);
-    const server = controlServer(http
-        .createServer((request, response) => {
-            const { method } = request;
-            response.socket.setNoDelay(false);
-            request.url = parse(request.url, true);
-            const middleware = createMidddleware(ezs, serverPath, method, request.url.pathname);
-            middleware(request, response);
-        }));
+    const server = controlServer(http.createServer(app));
     server.setTimeout(0);
     server.listen(serverPort);
     server.addListener('connection', (socket) => {

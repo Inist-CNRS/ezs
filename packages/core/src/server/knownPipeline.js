@@ -1,9 +1,10 @@
 import { join, basename, dirname } from 'path';
 import debug from 'debug';
 import sizeof from 'object-sizeof';
+import { PassThrough } from 'stream';
+import once from 'once';
 import _ from 'lodash';
 import errorHandler from './errorHandler';
-import executePipeline from './executePipeline';
 import { isFile } from '../file';
 import settings from '../settings';
 
@@ -19,23 +20,31 @@ const typeFrom = ({ mimeType }) => (mimeType || 'application/json');
 
 const onlyOne = (item) => (Array.isArray(item) ? item.shift() : item);
 
-const knownPipeline = (ezs, serverPath) => (request, response) => {
+const knownPipeline = (ezs) => (request, response, next) => {
+
+    if (!request.methodMatch(['POST', 'OPTIONS', 'HEAD']) || request.serverPath === false || !request.isPipeline()) {
+        return next();
+    }
+    request.catched = true;
+    debug('ezs')(`Create middleware 'knownPipeline' for ${request.method} ${request.pathName}`);
+
     const { headers } = request;
     const triggerError = errorHandler(request, response);
-    const { pathname, query } = request.url;
-    const files = ezs.memoize(`knownPipeline>${pathname}`,
-        () => pathname
+    const { query } = request.urlParsed;
+    const files = ezs.memoize(`knownPipeline>${request.pathName}`,
+        () => request.pathName
             .slice(1)
             .split(',')
-            .map((file) => join(serverPath, dirname(file), basename(file, '.ini').concat('.ini')))
+            .map((file) => join(request.serverPath, dirname(file), basename(file, '.ini').concat('.ini')))
             .filter((file) => isFile(file)));
     if (files.length === 0) {
-        triggerError(new Error(`Cannot find ${pathname}`), 404);
+        triggerError(new Error(`Cannot find ${request.pathName}`), 404);
         return false;
     }
 
-    debug('ezs')(`PID ${process.pid} will execute ${pathname} commands with ${sizeof(query)}B of global parameters`);
-
+    debug('ezs')(
+        `PID ${process.pid} will execute ${request.pathName} commands with ${sizeof(query)}B of global parameters`,
+    );
 
     const meta = ezs.memoize(`executePipeline>${files}`,
         () => files.map((file) => ezs.metaFile(file)).reduce((prev, cur) => _.merge(cur, prev), {}));
@@ -49,6 +58,7 @@ const knownPipeline = (ezs, serverPath) => (request, response) => {
     response.setHeader('Content-Encoding', contentEncoding);
     response.setHeader('Content-Disposition', contentDisposition);
     response.setHeader('Content-Type', contentType);
+    response.socket.setNoDelay(false);
 
     if (request.method !== 'POST') {
         response.writeHead(200);
@@ -77,11 +87,60 @@ const knownPipeline = (ezs, serverPath) => (request, response) => {
         statements.push(ezs('tracer', { print: '.', last: '!' }));
     }
     if (metricsEnable) {
-        statements.unshift(ezs('metrics', { stage: pathname, bucket: 'input' }));
-        statements.push(ezs('metrics', { stage: pathname, bucket: 'output' }));
+        statements.unshift(ezs('metrics', { stage: request.pathName, bucket: 'input' }));
+        statements.push(ezs('metrics', { stage: request.pathName, bucket: 'output' }));
     }
 
-    return executePipeline(ezs, statements, triggerError, request, response);
+    const rawStream = new PassThrough();
+    let emptyStream = true;
+    const responseToBeContinued = setInterval(() => response.writeContinue(), settings.response.checkInterval);
+    const responseStarted = once(() => clearInterval(responseToBeContinued));
+
+    const decodedStream = rawStream
+        .pipe(ezs('truncate', { length: request.headers['content-length'] }))
+        .pipe(ezs.uncompress(request.headers));
+
+    const transformedStream = ezs.createPipeline(decodedStream, statements)
+        .pipe(ezs.catch((e) => e))
+        .on('error', (e) => {
+            responseStarted();
+            return triggerError(e);
+        })
+        .pipe(ezs((data, feed) => {
+            if (!response.headersSent) {
+                response.writeHead(200);
+            }
+            responseStarted();
+            emptyStream = false;
+            return feed.send(data);
+        }))
+        .pipe(ezs.toBuffer())
+        .pipe(ezs.compress(response.getHeaders()))
+        .on('error', () => responseStarted())
+        .on('end', () => { 
+            response.end();
+        });
+
+    transformedStream.pipe(response, { end: false });
+
+    request
+        .on('aborted', () => {
+            rawStream.destroy();
+        })
+        .on('error', (e) => {
+            request.unpipe(rawStream);
+            triggerError(e);
+        })
+        .on('close', () => {
+            if (emptyStream) {
+                transformedStream.destroy(new Error('No Content'));
+            }
+        })
+        .on('end', () => {
+            rawStream.end();
+        });
+    request.pipe(rawStream);
+    request.resume();
 };
 
 export default knownPipeline;

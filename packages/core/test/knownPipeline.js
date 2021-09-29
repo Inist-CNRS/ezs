@@ -3,10 +3,8 @@ import assert from 'assert';
 import os from 'os';
 import from from 'from';
 import fetch from 'node-fetch';
-import { Readable, PassThrough } from 'stream';
+import { PassThrough } from 'stream';
 import ezs from '../src';
-import { parseAddress } from '../src/client';
-import JSONezs from '../src/json';
 
 ezs.use(require('./locals'));
 
@@ -227,14 +225,14 @@ describe(' through server(s)', () => {
 
     describe('errors' , () => {
         it('abort request', (done) => {
-            const input = Array(100000).fill('a');
+            const input = Array(1000000).fill('a');
             const stream = from(input);
             fetch('http://127.0.0.1:33333/transit.ini', { method: 'POST', body: stream })
                 .then(() => true)
                 .catch(() => {
                     done();
                 });
-            setTimeout(() => stream.destroy(), 100);
+            setTimeout(() => stream.destroy(), 10);
         });
         it('baseline', (done) => {
             const stream = from(['1', '2', '3', '4', '5', '6', '7', '8', '9']);
