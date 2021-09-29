@@ -1,119 +1,58 @@
-import { basename } from 'path';
-import _ from 'lodash';
 import { PassThrough } from 'stream';
 import once from 'once';
 import settings from '../settings';
 
-const dispositionFrom = ({ extension }) => (extension ? `dump.${extension}` : 'inline');
-const encodingFrom = (headers) => (headers
-    && headers['accept-encoding']
-    && headers['accept-encoding'].match(/\bgzip\b/) ? 'gzip' : 'identity'
-);
-const typeFrom = ({ mimeType }) => (mimeType || 'application/json');
-const onlyOne = (item) => (Array.isArray(item) ? item.shift() : item);
 
-function executePipeline(ezs, files, headers, environment, triggerError, read, response, stage) {
-    const meta = ezs.memoize(`executePipeline>${files}`,
-        () => files.map((file) => ezs.metaFile(file)).reduce((prev, cur) => _.merge(cur, prev), {}));
-    const contentEncoding = encodingFrom(headers);
-    const contentDisposition = dispositionFrom(meta);
-    const contentType = typeFrom(meta);
-    const { prepend, append } = meta;
-    const prepend2Pipeline = ezs.parseCommand(onlyOne(prepend));
-    const append2Pipeline = ezs.parseCommand(onlyOne(append));
-    response.setHeader('Access-Control-Allow-Origin', '*');
-    response.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    response.setHeader('Access-Control-Allow-Headers', '*');
-    response.setHeader('Content-Encoding', contentEncoding);
-    response.setHeader('Content-Disposition', contentDisposition);
-    response.setHeader('Content-Type', contentType);
+export default function executePipeline(ezs, statements, triggerError, request, response) {
 
-    const input = new PassThrough();
-    const createInput = (firstChunk) => {
-        let midput;
-        if (!firstChunk) {
-            midput = input;
-            input.write('No Content');
-        } else {
-            midput = input
-                .pipe(ezs('truncate', { length: headers['content-length'] }))
-                .pipe(ezs.uncompress(headers))
-                .on('error', triggerError);
-            input.write(firstChunk);
-        }
-        return midput;
-    };
-    const loop = (midput) => read((err, data, next) => {
-        if (err) {
-            triggerError(err);
-            return false;
-        }
-        next();
-        if (data === null) {
-            midput.end();
-            return null;
-        }
-        if (data) {
-            midput.write(data);
-            loop(midput);
-            return true;
-        }
-        return false;
-    });
+    const rawStream = new PassThrough();
+    let emptyStream = true;
+    const responseToBeContinued = setInterval(() => response.writeContinue(), settings.response.checkInterval);
+    const responseStarted = once(() => clearInterval(responseToBeContinued));
 
-    return read((firstError, firstChunk, firstCalled) => {
-        if (firstError) {
-            triggerError(firstError);
-            return false;
-        }
-        const responseToBeContinued = setInterval(() => response.writeContinue(), settings.response.checkInterval);
-        const responseStarted = once(() => clearInterval(responseToBeContinued));
-        const inputBis = createInput(firstChunk);
-        const {
-            server,
-            delegate,
-            tracerEnable,
-            metricsEnable,
-        } = settings;
-        const execMode = server ? 'dispatch' : delegate;
-        const statements = files.map((file) => ezs(execMode, { file, server }, environment));
-        if (prepend2Pipeline) {
-            statements.unshift(ezs.createCommand(prepend2Pipeline, environment));
-        }
-        if (append2Pipeline) {
-            statements.push(ezs.createCommand(append2Pipeline, environment));
-        }
-        if (tracerEnable) {
-            statements.unshift(ezs('tracer', { print: '-', last: '>' }));
-            statements.push(ezs('tracer', { print: '.', last: '!' }));
-        }
-        if (metricsEnable) {
-            statements.unshift(ezs('metrics', { stage, bucket: 'input' }));
-            statements.push(ezs('metrics', { stage, bucket: 'output' }));
-        }
-        ezs.createPipeline(inputBis, statements)
-            .pipe(ezs.catch((e) => e))
-            .on('error', (e) => {
-                responseStarted();
-                return triggerError(e);
-            })
-            .pipe(ezs((data, feed) => {
-                if (!response.headersSent) {
-                    response.writeHead(200);
-                }
-                responseStarted();
-                return feed.send(data);
-            }))
-            .pipe(ezs.toBuffer())
-            .pipe(ezs.compress(response.getHeaders()))
-            .pipe(response)
-            .on('error', () => responseStarted());
-        firstCalled();
-        if (firstChunk) {
-            return loop(input);
-        }
-        return input.end();
-    });
+    const decodedStream = rawStream
+        .pipe(ezs('truncate', { length: request.headers['content-length'] }))
+        .pipe(ezs.uncompress(request.headers));
+
+    const transformedStream = ezs.createPipeline(decodedStream, statements)
+        .pipe(ezs.catch((e) => e))
+        .on('error', (e) => {
+            responseStarted();
+            return triggerError(e);
+        })
+        .pipe(ezs((data, feed) => {
+            if (!response.headersSent) {
+                response.writeHead(200);
+            }
+            responseStarted();
+            emptyStream = false;
+            return feed.send(data);
+        }))
+        .pipe(ezs.toBuffer())
+        .pipe(ezs.compress(response.getHeaders()))
+        .on('error', () => responseStarted())
+        .on('end', () => { 
+            response.end();
+        });
+
+    transformedStream.pipe(response, { end: false });
+
+    request
+        .on('aborted', () => {
+            rawStream.destroy();
+        })
+        .on('error', (e) => {
+            request.unpipe(rawStream);
+            triggerError(e);
+        })
+        .on('close', () => {
+            if (emptyStream) {
+                transformedStream.destroy(new Error('No Content'));
+            }
+        })
+        .on('end', () => {
+            rawStream.end();
+        });
+    request.pipe(rawStream);
+    request.resume();
 }
-
-export default executePipeline;

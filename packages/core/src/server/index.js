@@ -4,38 +4,30 @@ import controlServer from 'http-shutdown';
 import { parse } from 'url';
 import debug from 'debug';
 import knownPipeline from './knownPipeline';
-import identifierPipeline from './identifierPipeline';
 import unknownPipeline from './unknownPipeline';
 import serverInformation from './serverInformation';
 import errorHandler from './errorHandler';
 import settings from '../settings';
-import { getMetricLogger }  from '../logger'
-import { RX_IDENTIFIER, RX_FILENAME } from '../constants';
+import { getMetricLogger }  from '../logger';
+import { RX_FILENAME } from '../constants';
 
 const isPipeline = (filename) => {
     const f = filename.match(RX_FILENAME);
     return (f && f.shift() !== undefined);
 };
-
-const isIdentifier = (filename) => {
-    const f = filename.slice(1).match(RX_IDENTIFIER);
-    return (f && f.shift() !== undefined);
-};
+const isRoot = (pathname) => (pathname === '/');
+const search = (input, values) => (values.indexOf(input) !== -1);
 
 function createMidddleware(ezs, serverPath, method, pathname) {
-    if (method === 'POST' && pathname === '/') {
+    if (search(method, ['POST']) && isRoot(pathname)) {
         debug('ezs')(`Create middleware 'unknownPipeline' for ${method} ${pathname}`);
         return unknownPipeline(ezs);
     }
-    if (method === 'GET' && pathname === '/') {
+    if (search(method, ['GET', 'OPTIONS', 'HEAD']) && isRoot(pathname)) {
         debug('ezs')(`Create middleware 'serverInformation' for ${method} ${pathname}`);
         return serverInformation(ezs, serverPath);
     }
-    if (serverPath !== false && isIdentifier(pathname)) {
-        debug('ezs')(`Create middleware 'identifierPipeline' for ${method} ${pathname}`);
-        return identifierPipeline(ezs, serverPath);
-    }
-    if (serverPath !== false && isPipeline(pathname)) {
+    if (search(method, ['POST', 'OPTIONS', 'HEAD']) && serverPath !== false && isPipeline(pathname)) {
         debug('ezs')(`Create middleware 'knownPipeline' for ${method} ${pathname}`);
         return knownPipeline(ezs, serverPath);
     }
@@ -49,19 +41,14 @@ let serverCounter = 0;
 let connectionCounter = 0;
 let connectionNumber = 0;
 function createServer(ezs, serverPort, serverPath) {
-    const logger = getMetricLogger('error', `PID ${process.pid}`);
+    const logger = getMetricLogger('server', `PID${process.pid}`);
     const server = controlServer(http
         .createServer((request, response) => {
             const { method } = request;
             response.socket.setNoDelay(false);
             request.url = parse(request.url, true);
             const middleware = createMidddleware(ezs, serverPath, method, request.url.pathname);
-            try {
-                middleware(request, response);
-            } catch (error) {
-                errorHandler(request, response)(error);
-            }
-            return true;
+            middleware(request, response);
         }));
     server.setTimeout(0);
     server.listen(serverPort);
@@ -84,7 +71,7 @@ function createServer(ezs, serverPort, serverPath) {
     }));
     debug('ezs')(`Server starting with PID ${process.pid} and listening on port ${serverPort}`);
     serverCounter += 1;
-    logger('ezs_server_server', serverCounter);
+    logger('ezs_server_counter', serverCounter);
     return server;
 }
 
