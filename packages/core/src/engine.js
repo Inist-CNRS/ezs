@@ -9,6 +9,7 @@ import Shell from './shell';
 import SafeTransform from './SafeTransform';
 
 const nanoZero = () => BigInt(0);
+
 const nano2sec = (ns) => {
     const sec = ns / BigInt(1e9);
     const msec = (ns / BigInt(1e6)) - (sec * BigInt(1e3));
@@ -68,6 +69,7 @@ export default class Engine extends SafeTransform {
         this.scope.getIndex = () => this.index;
         this.scope.isLast = () => (this.chunk === null);
         this.scope.getCumulativeTime = () => nano2sec(hrtime.bigint() - this.stime);
+        this.scope.getCumulativeTimeMS = () => nano2sec(hrtime.bigint() - this.stime) * 1000;
         this.scope.getCounter = () => counter;
         this.scope.getParam = (name, defval) => {
             if (this.params[name] !== undefined) {

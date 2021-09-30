@@ -41,6 +41,7 @@
         "connect": "^3.7.0",
         "debug": "~4.1.1",
         "deep-object-diff": "~1.1.0",
+        "end-of-stream": "^1.4.4",
         "filename-regex": "~2.0.1",
         "filtrex": "~1.0.0",
         "global-modules": "~2.0.0",
@@ -54,6 +55,7 @@
         "once": "^1.4.0",
         "p-wait-for": "^3.1.0",
         "path-exists": "^4.0.0",
+        "prom-client": "^14.0.0",
         "stream-write": "~1.0.1",
         "validatorjs": "~3.18.1",
         "yargs": "~15.4.1"

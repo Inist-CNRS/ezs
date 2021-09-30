@@ -4,6 +4,7 @@ import sizeof from 'object-sizeof';
 import { PassThrough } from 'stream';
 import once from 'once';
 import _ from 'lodash';
+import { metricsHandle } from './metrics';
 import errorHandler from './errorHandler';
 import { isFile } from '../file';
 import settings from '../settings';
@@ -22,7 +23,7 @@ const onlyOne = (item) => (Array.isArray(item) ? item.shift() : item);
 
 const knownPipeline = (ezs) => (request, response, next) => {
 
-    if (!request.methodMatch(['POST', 'OPTIONS', 'HEAD']) || request.serverPath === false || !request.isPipeline()) {
+    if (request.catched || !request.methodMatch(['POST', 'OPTIONS', 'HEAD']) || request.serverPath === false || !request.isPipeline()) {
         return next();
     }
     request.catched = true;
@@ -87,8 +88,8 @@ const knownPipeline = (ezs) => (request, response, next) => {
         statements.push(ezs('tracer', { print: '.', last: '!' }));
     }
     if (metricsEnable) {
-        statements.unshift(ezs('metrics', { stage: request.pathName, bucket: 'input' }));
-        statements.push(ezs('metrics', { stage: request.pathName, bucket: 'output' }));
+        statements.unshift(ezs(metricsHandle, { pathName: request.pathName, bucket: 'input' }));
+        statements.push(ezs(metricsHandle, { pathName: request.pathName, bucket: 'output' }));
     }
 
     const rawStream = new PassThrough();
@@ -141,6 +142,7 @@ const knownPipeline = (ezs) => (request, response, next) => {
         });
     request.pipe(rawStream);
     request.resume();
+    response.on('close', next);
 };
 
 export default knownPipeline;

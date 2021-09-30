@@ -26,7 +26,6 @@ import time from './time';
 import ignore from './ignore';
 import exchange from './exchange';
 import swing from './swing';
-import metrics from './metrics';
 
 export default {
     extract,
@@ -57,5 +56,4 @@ export default {
     ignore,
     exchange,
     swing,
-    metrics,
 };
