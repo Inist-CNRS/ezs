@@ -117,7 +117,7 @@ const knownPipeline = (ezs) => (request, response, next) => {
         .pipe(ezs.toBuffer())
         .pipe(ezs.compress(response.getHeaders()))
         .on('error', () => responseStarted())
-        .on('end', () => { 
+        .on('end', () => {
             response.end();
         });
 

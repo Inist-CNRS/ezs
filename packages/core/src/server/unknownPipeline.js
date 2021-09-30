@@ -5,7 +5,7 @@ import errorHandler from './errorHandler';
 
 const unknownPipeline = ezs => (request, response, next) => {
 
-    if (!request.methodMatch(['POST']) || request.serverPath !== '/') {
+    if (!request.methodMatch(['POST']) || request.pathName !== '/') {
         return next();
     }
     request.catched = true;
@@ -48,7 +48,6 @@ const unknownPipeline = ezs => (request, response, next) => {
         .pipe(ezs.compress(headers))
         .pipe(response);
     request.resume();
-    return next();
 };
 
 export default unknownPipeline;

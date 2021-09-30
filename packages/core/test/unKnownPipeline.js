@@ -1,7 +1,5 @@
 import assert from 'assert';
-import os from 'os';
 import from from 'from';
-import fetch from 'node-fetch';
 import { Readable } from 'stream';
 import ezs from '../src';
 import { parseAddress } from '../src/client';
@@ -14,7 +12,7 @@ ezs.addPath(__dirname);
 ezs.settings.servePath = __dirname;
 ezs.settings.cacheEnable = true;
 ezs.settings.tracerEnable = true;
-ezs.settings.metricsEnable = true;
+ezs.settings.metricsEnable = false;
 
 class Upto extends Readable {
     constructor(m) {
