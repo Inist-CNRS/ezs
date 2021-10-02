@@ -80,6 +80,7 @@ function createServer(ezs, serverPort, serverPath, workerId) {
     return server;
 }
 
+/* istanbul ignore next */
 function createCluster(ezs, serverPort, serverPath) {
     let term = false;
     if (cluster.isMaster) {

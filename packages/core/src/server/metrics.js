@@ -1,6 +1,6 @@
 import http from 'http';
 import {
-    Register,
+    register,
     Counter,
     Histogram,
     Gauge,
@@ -77,10 +77,7 @@ export const ezsStreamDurationMicroseconds = new Histogram({
     buckets: [0.10, 5, 15, 50, 100, 200, 300, 400, 500]
 });
 
-if (settings.metricsEnable) {
-    collectDefaultMetrics();
-}
-
+let collected = false;
 export const metrics = () => (request, response, next) => {
     const {
         port,
@@ -90,6 +87,10 @@ export const metrics = () => (request, response, next) => {
     if (!metricsEnable) {
         return next();
     }
+    if (!collected) {
+        collected = true;
+        collectDefaultMetrics();
+    }
 
     if (request.catched || request.pathName !== '/metrics') {
         ezsStreamTotal.labels(request.pathName).inc();
@@ -98,10 +99,12 @@ export const metrics = () => (request, response, next) => {
     request.catched = true;
 
     if (!request.workerId) {
-        response.set('Content-Type', Register.contentType);
-        response.end(Register.metrics());
-        response.once('close', next);
-        return next();
+        return register.metrics().then((dump) => {
+            response.setHeader('Content-Type', register.contentType);
+            response.write(dump);
+            response.end();
+            response.once('close', next);
+        }).catch(next);
     }
 
     const options = {
@@ -119,8 +122,8 @@ export const metrics = () => (request, response, next) => {
 };
 
 export function metricsHandle(data, feed) {
-    const pathName = this.getParam('pathname', 'default');
-    const stage = this.getParam('stage', 'unknow');
+    const pathName = this.getParam('pathName', 'default');
+    const bucket = this.getParam('bucket', 'unknow');
 
     if (!this.total) {
         this.total = 0;
@@ -130,12 +133,12 @@ export function metricsHandle(data, feed) {
     }
     this.total += 1;
     this.totalBytes += JSON.stringify(data || '').length;
-    ezsStatementChunksTotal.labels(pathName, stage).inc();
+    ezsStatementChunksTotal.labels(pathName, bucket).inc();
     if (this.isLast()) {
-        ezsStreamStatementOpen.labels(pathName, stage).observe(this.getCounter());
-        ezsStreamChunks.labels(pathName, stage).observe(this.total);
-        ezsStreamSizeBytes.labels(pathName, stage).observe(this.totalBytes);
-        ezsStreamDurationMicroseconds.labels(pathName, stage).observe(this.getCumulativeTimeMS());
+        ezsStreamStatementOpen.labels(pathName, bucket).observe(this.getCounter());
+        ezsStreamChunks.labels(pathName, bucket).observe(this.total);
+        ezsStreamSizeBytes.labels(pathName, bucket).observe(this.totalBytes);
+        ezsStreamDurationMicroseconds.labels(pathName, bucket).observe(this.getCumulativeTimeMS());
         return feed.close();
     }
     return feed.send(data);
