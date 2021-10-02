@@ -65,7 +65,7 @@ describe(' through server(s)', () => {
             .catch(done);
     });
 
-    if (semver.gt(process.version, '10.0.0')) {
+    if (semver.gte(process.version, '11.0.0')) {
         it('buggy.ini', (done) => {
             const stream = from([
                 'hello',
