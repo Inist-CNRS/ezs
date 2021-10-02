@@ -34,7 +34,7 @@ describe(' through server(s)', () => {
         server5.close();
     });
 
-   it('transit.ini', (done) => {
+    it('POST transit.ini', (done) => {
         const stream = from([
             'hello',
             'world',
@@ -47,6 +47,21 @@ describe(' through server(s)', () => {
             })
             .catch(done);
     });
+
+    it('OPTIONS transit.ini', (done) => {
+        const stream = from([
+            'hello',
+            'world',
+        ]);
+        fetch('http://127.0.0.1:33333/transit.ini', { method: 'OPTIONS', body: stream })
+            .then((res) => res.text())
+            .then((text) => {
+                assert.equal(text, '');
+                done();
+            })
+            .catch(done);
+    });
+
 
     it('transit2.ini', (done) => {
         const stream = from([
