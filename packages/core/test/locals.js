@@ -109,6 +109,16 @@ function badaboum(_data, feed) {
     }, 1);
 }
 
+function aie(data, feed) {
+    if (this.isLast()) {
+        return feed.close();
+    }
+    return setTimeout(() => {
+        feed.stop(new Error('aie!'));
+    }, 1);
+}
+
+
 function bang() {
     throw new Error('Bang!');
 }
@@ -141,6 +151,20 @@ function plaf(data, feed) {
         }
     }, 1);
 }
+
+function plof(data, feed) {
+    if (this.isLast()) {
+        return feed.close();
+    }
+    return setTimeout(() => {
+        if (data === 7) {
+            feed.send(new Error('Plof!'));
+        } else {
+            feed.send(data);
+        }
+    }, 1);
+}
+
 
 function splish(data, feed) {
     if (this.isLast()) {
@@ -180,6 +204,7 @@ module.exports = {
     decrement,
     stepper,
     slow,
+    aie,
     bad,
     accu,
     beat,
@@ -189,6 +214,7 @@ module.exports = {
     bing,
     plouf,
     plaf,
+    plof,
     splish,
     splash,
     throttle,

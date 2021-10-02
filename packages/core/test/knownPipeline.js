@@ -81,19 +81,75 @@ describe(' through server(s)', () => {
     });
 
     if (semver.gte(process.version, '11.0.0')) {
-        it('buggy.ini', (done) => {
-            const stream = from([
-                'hello',
-                'world',
-            ]);
-            fetch('http://127.0.0.1:33333/buggy.ini', { method: 'POST', body: stream })
-                .then((res) => {
-                    assert(res.headers.has('x-error'));
-                    done();
-                })
-                .catch(done);
+        describe('buggy scripts' , () => {
+            it('buggy1.ini', (done) => {
+                const input = Array(1000000).fill('a');
+                const stream = from(input);
+                fetch('http://127.0.0.1:33333/buggy1.ini', { method: 'POST', body: stream })
+                    .then((res) => {
+                        assert(res.headers.has('x-error'));
+                        done();
+                    })
+                    .catch(done);
+            });
+
+            it('buggy2.ini', (done) => {
+                const input = Array(1000000).fill('a');
+                const stream = from(input);
+                fetch('http://127.0.0.1:33333/buggy2.ini', { method: 'POST', body: stream })
+                    .then((res) => {
+                        assert(res.headers.has('x-error'));
+                        done();
+                    })
+                    .catch(done);
+            });
+
+            it('buggy3.ini', (done) => {
+                const input = Array(1000000).fill('a');
+                const stream = from(input);
+                fetch('http://127.0.0.1:33333/buggy3.ini', { method: 'POST', body: stream })
+                    .then((res) => {
+                        assert(res.headers.has('x-error'));
+                        done();
+                    })
+                    .catch(done);
+            });
+            it('buggy4.ini', (done) => {
+                const output = [];
+                const input = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+                const stream = from(input);
+                fetch('http://127.0.0.1:33333/buggy4.ini', { method: 'POST', body: stream })
+                    .then((res) => {
+                        res.body.on('data', (chunk) => {
+                            output.push(chunk);
+                        });
+                        res.body.on('error', done);
+                        res.body.on('end', () => {
+                            assert.equal(output.length, 0);
+                            done();
+                        })
+                    })
+                    .catch(done);
+            });
+            it('buggy5.ini', (done) => {
+                const output = [];
+                const input = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+                const stream = from(input);
+                fetch('http://127.0.0.1:33333/buggy5.ini', { method: 'POST', body: stream })
+                    .then((res) => {
+                        res.body.on('data', (chunk) => {
+                            output.push(chunk);
+                        });
+                        res.body.on('error', done);
+                        res.body.on('end', () => {
+                            assert.equal(output.length, 0);
+                            done();
+                        })
+                    })
+                    .catch(done);
+            });
         });
-    };
+    }
 
     it('transit.ini with paramaters', (done) => {
         const stream = from([

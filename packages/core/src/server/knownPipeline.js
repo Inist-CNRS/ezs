@@ -113,6 +113,9 @@ const knownPipeline = (ezs) => (request, response, next) => {
     const transformedStream = ezs.createPipeline(decodedStream, statements)
         .pipe(ezs.catch((e) => e))
         .on('error', (e) => {
+            rawStream.destroy();
+            decodedStream.destroy();
+            transformedStream.destroy();
             responseStarted();
             next(e);
         });
