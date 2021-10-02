@@ -117,7 +117,6 @@ function createCluster(ezs, serverPort, serverPath) {
                 }
             });
         });
-
     } else {
         createServer(ezs, serverPort, serverPath, cluster.worker.id);
     }

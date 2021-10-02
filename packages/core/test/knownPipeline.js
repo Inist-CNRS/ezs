@@ -34,17 +34,7 @@ describe(' through server(s)', () => {
         server5.close();
     });
 
-    it('get information', (done) => {
-        fetch('http://127.0.0.1:33333/')
-            .then((res) => res.json())
-            .then((json) => {
-                assert(json.info['x-uptime'].value);
-                assert.equal(os.cpus().length, json.info['x-concurrency'].value);
-                done();
-            });
-    });
-
-    it('transit.ini', (done) => {
+   it('transit.ini', (done) => {
         const stream = from([
             'hello',
             'world',
