@@ -1,6 +1,6 @@
 import http from 'http';
 import assert from 'assert';
-import os from 'os';
+import semver from 'semver';
 import from from 'from';
 import fetch from 'node-fetch';
 import { PassThrough } from 'stream';
@@ -65,18 +65,20 @@ describe(' through server(s)', () => {
             .catch(done);
     });
 
-    it('buggy.ini', (done) => {
-        const stream = from([
-            'hello',
-            'world',
-        ]);
-        fetch('http://127.0.0.1:33333/buggy.ini', { method: 'POST', body: stream })
-            .then((res) => {
-                assert(res.headers.has('x-error'));
-                done();
-            })
-            .catch(done);
-    });
+    if (semver.gt(process.version, '10')) {
+        it('buggy.ini', (done) => {
+            const stream = from([
+                'hello',
+                'world',
+            ]);
+            fetch('http://127.0.0.1:33333/buggy.ini', { method: 'POST', body: stream })
+                .then((res) => {
+                    assert(res.headers.has('x-error'));
+                    done();
+                })
+                .catch(done);
+        });
+    };
 
     it('transit.ini with paramaters', (done) => {
         const stream = from([
