@@ -113,6 +113,10 @@ function bang() {
     throw new Error('Bang!');
 }
 
+function bing(_data, feed) {
+    feed.stop(new Error('Bing!'));
+}
+
 function plouf(_data, feed) {
     if (this.isLast()) {
         return feed.close();
@@ -182,6 +186,7 @@ module.exports = {
     ignoreMe,
     badaboum,
     bang,
+    bing,
     plouf,
     plaf,
     splish,

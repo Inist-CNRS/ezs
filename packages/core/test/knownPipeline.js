@@ -264,13 +264,12 @@ describe(' through server(s)', () => {
                         req.destroy();
                     }
                 });
-                res.on('end', () => {
-                    assert.equal(output.length, 100);
-                    done();
-                });
-
             });
             stream.pipe(req);
+            req.on('close', () => {
+                assert.equal(output.length, 100);
+                done();
+            });
         });
 
         it('kill req at start', (done) => {
@@ -305,13 +304,12 @@ describe(' through server(s)', () => {
                         req.socket.destroy();
                     }
                 });
-                res.on('end', () => {
-                    assert.equal(output.length, 100);
-                    done();
-                });
-
             });
             stream.pipe(req);
+            req.on('close', () => {
+                assert.equal(output.length, 100);
+                done();
+            });
         });
 
         it('kill res', (done) => {
@@ -325,11 +323,11 @@ describe(' through server(s)', () => {
                     output.push(chunk);
                     if (output.length >= 100) {
                         res.destroy();
-                        setTimeout(() => {
-                            assert(output.length > 0);
-                            done();
-                        }, 100);
                     }
+                });
+                res.on('close', () => {
+                    assert(output.length > 0);
+                    done();
                 });
             });
             stream.pipe(req);

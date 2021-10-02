@@ -48,7 +48,7 @@ const unknownPipeline = ezs => (request, response, next) => {
         .pipe(ezs.compress(headers))
         .pipe(response);
     request.resume();
-    response.on('close', next);
+    response.once('close', next);
 };
 
 export default unknownPipeline;

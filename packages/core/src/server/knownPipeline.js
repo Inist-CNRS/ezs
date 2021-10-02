@@ -1,7 +1,7 @@
 import { join, basename, dirname } from 'path';
 import debug from 'debug';
 import sizeof from 'object-sizeof';
-import { PassThrough } from 'stream';
+import { PassThrough, pipeline } from 'stream';
 import once from 'once';
 import _ from 'lodash';
 import { metricsHandle } from './metrics';
@@ -97,6 +97,15 @@ const knownPipeline = (ezs) => (request, response, next) => {
     const responseToBeContinued = setInterval(() => response.writeContinue(), settings.response.checkInterval);
     const responseStarted = once(() => clearInterval(responseToBeContinued));
 
+    statements.push(ezs((data, feed) => {
+        if (!response.headersSent) {
+            response.writeHead(200);
+        }
+        responseStarted();
+        emptyStream = false;
+        return feed.send(data);
+    }));
+
     const decodedStream = rawStream
         .pipe(ezs('truncate', { length: request.headers['content-length'] }))
         .pipe(ezs.uncompress(request.headers));
@@ -105,44 +114,40 @@ const knownPipeline = (ezs) => (request, response, next) => {
         .pipe(ezs.catch((e) => e))
         .on('error', (e) => {
             responseStarted();
-            return triggerError(e);
-        })
-        .pipe(ezs((data, feed) => {
-            if (!response.headersSent) {
-                response.writeHead(200);
-            }
-            responseStarted();
-            emptyStream = false;
-            return feed.send(data);
-        }))
-        .pipe(ezs.toBuffer())
-        .pipe(ezs.compress(response.getHeaders()))
-        .on('error', () => responseStarted())
-        .on('end', () => {
-            response.end();
+            next(e);
         });
 
-    transformedStream.pipe(response, { end: false });
+    pipeline(
+        transformedStream,
+        ezs.toBuffer(),
+        ezs.compress(response.getHeaders()),
+        response,
+        (e) => {
+            responseStarted();
+            next(e);
+        }
+    );
 
     request
-        .on('aborted', () => {
+        .once('aborted', () => {
             rawStream.destroy();
+            decodedStream.destroy();
+            transformedStream.destroy();
         })
         .on('error', (e) => {
             request.unpipe(rawStream);
             triggerError(e);
         })
-        .on('close', () => {
+        .once('close', () => {
             if (emptyStream) {
                 transformedStream.destroy(new Error('No Content'));
             }
         })
-        .on('end', () => {
+        .once('end', () => {
             rawStream.end();
         });
     request.pipe(rawStream);
     request.resume();
-    response.on('close', next);
 };
 
 export default knownPipeline;

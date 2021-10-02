@@ -100,7 +100,7 @@ export const metrics = () => (request, response, next) => {
     if (!request.workerId) {
         response.set('Content-Type', Register.contentType);
         response.end(Register.metrics());
-        response.on('close', next);
+        response.once('close', next);
         return next();
     }
 
