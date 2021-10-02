@@ -142,9 +142,6 @@ const collectMetadata = async (dirPath, hostName) => {
     return globalSwagger;
 }
 const collectPaths = (ezs, dirPath) => new Promise((resolve) => {
-    if (!dirPath) {
-        return resolve({});
-    }
     dir.files(dirPath, (err, files) => {
         const filenames = err ? [] : files;
         const paths = filenames
