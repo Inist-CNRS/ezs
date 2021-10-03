@@ -142,9 +142,6 @@ const collectMetadata = async (dirPath, hostName) => {
     return globalSwagger;
 }
 const collectPaths = (ezs, dirPath) => new Promise((resolve) => {
-    if (!dirPath) {
-        return resolve({});
-    }
     dir.files(dirPath, (err, files) => {
         const filenames = err ? [] : files;
         const paths = filenames
@@ -173,24 +170,38 @@ const collectPaths = (ezs, dirPath) => new Promise((resolve) => {
     });
 });
 
-const serverInformation =  (ezs, serverPath) => async (request, response) => {
-    const infos = await collectMetadata(serverPath, request.headers.host);
-    const paths = await collectPaths(ezs, serverPath);
-    const swagger = {
-        ...infos,
-        paths,
-    };
-    const responseBody = JSON.stringify(swagger);
-    const responseHeaders = {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, OPTIONS',
-        'Access-Control-Allow-Headers': '*',
-        'Content-Type': 'application/json',
-        'Content-Length': Buffer.byteLength(responseBody),
-    };
-    response.writeHead(200, responseHeaders);
-    response.write(responseBody);
-    response.end();
+const collectAll = async (ezs, request) => {
+    const infos = await collectMetadata(request.serverPath, request.headers.host);
+    const paths = await collectPaths(ezs, request.serverPath);
+    return ({ infos, paths });
+};
+
+const serverInformation =  (ezs) => (request, response, next) => {
+    if (!request.methodMatch(['GET', 'OPTIONS', 'HEAD']) || request.pathName !== '/') {
+        return next();
+    }
+    request.catched = true;
+    debug('ezs')(`Create middleware 'serverInformation' for ${request.method} ${request.pathName}`);
+
+    return collectAll(ezs, request)
+        .then(({ infos, paths }) => {
+            const swagger = {
+                ...infos,
+                paths,
+            };
+            const responseBody = JSON.stringify(swagger);
+            const responseHeaders = {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, OPTIONS',
+                'Access-Control-Allow-Headers': '*',
+                'Content-Type': 'application/json',
+                'Content-Length': Buffer.byteLength(responseBody),
+            };
+            response.writeHead(200, responseHeaders);
+            response.write(responseBody);
+            response.end();
+            return next();
+        }).catch(next);
 };
 
 export default serverInformation;

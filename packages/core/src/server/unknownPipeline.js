@@ -3,7 +3,14 @@ import sizeof from 'object-sizeof';
 import Parameter from '../parameter';
 import errorHandler from './errorHandler';
 
-const unknownPipeline = ezs => (request, response) => {
+const unknownPipeline = ezs => (request, response, next) => {
+
+    if (request.catched || !request.methodMatch(['POST']) || request.pathName !== '/') {
+        return next();
+    }
+    request.catched = true;
+    debug('ezs')(`Create middleware 'unknownPipeline' for ${request.method} ${request.pathName}`);
+
     const { headers } = request;
     response.setHeader('Content-Encoding', headers['content-encoding'] || 'identity');
     const commands = Object.keys(headers)
@@ -41,6 +48,7 @@ const unknownPipeline = ezs => (request, response) => {
         .pipe(ezs.compress(headers))
         .pipe(response);
     request.resume();
+    response.once('close', next);
 };
 
 export default unknownPipeline;

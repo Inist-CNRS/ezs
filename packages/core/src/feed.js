@@ -31,13 +31,13 @@ export default class Feed {
             }
             return this.stop(e);
         });
-        stream.on('end', () => {
+        stream.once('end', () => {
             if (done instanceof Function) {
                 return done();
             }
             return this.end();
         });
-        return new Promise((resolve) => stream.on('end', resolve));
+        return new Promise((resolve) => stream.once('end', resolve));
     }
 
     end() {

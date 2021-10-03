@@ -1,80 +1,74 @@
+import connect from 'connect';
 import cluster from 'cluster';
 import http from 'http';
+import eos from 'end-of-stream';
 import controlServer from 'http-shutdown';
 import { parse } from 'url';
 import debug from 'debug';
 import knownPipeline from './knownPipeline';
-import identifierPipeline from './identifierPipeline';
 import unknownPipeline from './unknownPipeline';
 import serverInformation from './serverInformation';
 import errorHandler from './errorHandler';
 import settings from '../settings';
-import { getMetricLogger }  from '../logger'
-import { RX_IDENTIFIER, RX_FILENAME } from '../constants';
+import { RX_FILENAME } from '../constants';
+import {
+    metrics,
+    httpConnectionTotal,
+    httpConnectionOpen,
+    httpRequestDurationMicroseconds,
+    aggregatorRegistry,
+} from './metrics';
 
-const isPipeline = (filename) => {
-    const f = filename.match(RX_FILENAME);
+function isPipeline() {
+    const f = this.pathName.match(RX_FILENAME);
     return (f && f.shift() !== undefined);
-};
+}
 
-const isIdentifier = (filename) => {
-    const f = filename.slice(1).match(RX_IDENTIFIER);
-    return (f && f.shift() !== undefined);
-};
-
-function createMidddleware(ezs, serverPath, method, pathname) {
-    if (method === 'POST' && pathname === '/') {
-        debug('ezs')(`Create middleware 'unknownPipeline' for ${method} ${pathname}`);
-        return unknownPipeline(ezs);
-    }
-    if (method === 'GET' && pathname === '/') {
-        debug('ezs')(`Create middleware 'serverInformation' for ${method} ${pathname}`);
-        return serverInformation(ezs, serverPath);
-    }
-    if (serverPath !== false && isIdentifier(pathname)) {
-        debug('ezs')(`Create middleware 'identifierPipeline' for ${method} ${pathname}`);
-        return identifierPipeline(ezs, serverPath);
-    }
-    if (serverPath !== false && isPipeline(pathname)) {
-        debug('ezs')(`Create middleware 'knownPipeline' for ${method} ${pathname}`);
-        return knownPipeline(ezs, serverPath);
-    }
-    const error = new Error(`Unable to create middleware for ${method} ${pathname}`);
-    return (request, response) => errorHandler(request, response)(error, 404);
+function methodMatch(values) {
+    return (values.indexOf(this.method) !== -1);
 }
 
 const signals = ['SIGINT', 'SIGTERM'];
 
-let serverCounter = 0;
-let connectionCounter = 0;
-let connectionNumber = 0;
-function createServer(ezs, serverPort, serverPath) {
-    const logger = getMetricLogger('error', `PID ${process.pid}`);
-    const server = controlServer(http
-        .createServer((request, response) => {
-            const { method } = request;
-            response.socket.setNoDelay(false);
-            request.url = parse(request.url, true);
-            const middleware = createMidddleware(ezs, serverPath, method, request.url.pathname);
-            try {
-                middleware(request, response);
-            } catch (error) {
-                errorHandler(request, response)(error);
-            }
-            return true;
-        }));
+function createServer(ezs, serverPort, serverPath, workerId) {
+    const app = connect();
+    app.use((request, response, next) => {
+        request.workerId = workerId;
+        request.catched = false;
+        request.serverPath = serverPath;
+        request.urlParsed = parse(request.url, true);
+        request.pathName = request.urlParsed.pathname;
+        request.methodMatch = methodMatch;
+        request.isPipeline = isPipeline;
+        const stopTimer = httpRequestDurationMicroseconds.startTimer();
+        eos(response, () => stopTimer());
+        next();
+    });
+    app.use(metrics(ezs));
+    app.use(serverInformation(ezs));
+    app.use(unknownPipeline(ezs));
+    app.use(knownPipeline(ezs));
+    app.use((request, response, next) => {
+        if (request.catched === false) {
+            const error = new Error(`Unable to create middleware for ${request.method} ${request.pathName}`);
+            errorHandler(request, response)(error, 404);
+        }
+        next();
+    });
+    app.use((error, request, response, next) => {
+        errorHandler(request, response)(error, 500);
+        next();
+    });
+    const server = controlServer(http.createServer(app));
     server.setTimeout(0);
     server.listen(serverPort);
     server.addListener('connection', (socket) => {
         const uniqId = `${Date.now()}-${Math.floor(Math.random() * 1e6)}`;
         debug('ezs')('New connection', uniqId);
-        connectionCounter += 1;
-        connectionNumber += 1;
-        logger('ezs_server_connections_counter', connectionCounter);
-        logger('ezs_server_connections_number', connectionNumber);
+        httpConnectionTotal.inc();
+        httpConnectionOpen.inc();
         socket.on('close', () => {
-            connectionNumber -= 1;
-            logger('ezs_server_connections_number', connectionNumber);
+            httpConnectionOpen.dec();
             debug('ezs')('Connection closed', uniqId);
         });
     });
@@ -83,11 +77,10 @@ function createServer(ezs, serverPort, serverPath) {
         server.shutdown(() => process.exit(0));
     }));
     debug('ezs')(`Server starting with PID ${process.pid} and listening on port ${serverPort}`);
-    serverCounter += 1;
-    logger('ezs_server_server', serverCounter);
     return server;
 }
 
+/* istanbul ignore next */
 function createCluster(ezs, serverPort, serverPath) {
     let term = false;
     if (cluster.isMaster) {
@@ -99,14 +92,34 @@ function createCluster(ezs, serverPort, serverPath) {
                 cluster.fork();
             }
         });
+        let metricServer;
+        if (settings.metricsEnable) {
+            metricServer = controlServer(http.createServer(async (req, res) => {
+                try {
+                    const dumpMetrics = await aggregatorRegistry.clusterMetrics();
+                    res.setHeader('Content-Type', aggregatorRegistry.contentType);
+                    res.writeHead(200);
+                    res.write(dumpMetrics);
+                    res.end();
+                } catch (ex) {
+                    res.writeHead(500);
+                    res.write(ex.message);
+                    res.end();
+                }
+            })).listen(serverPort + 1);
+            debug('ezs')(`Cluster metrics server listening on port ${serverPort+1}`);
+        }
         signals.forEach((signal) => {
             process.on(signal, () => {
                 term = true;
                 Object.keys(cluster.workers).forEach((id) => cluster.workers[id].kill());
+                if (settings.metricsEnable) {
+                    metricServer.shutdown(() => process.exit(0));
+                }
             });
         });
     } else {
-        createServer(ezs, serverPort, serverPath);
+        createServer(ezs, serverPort, serverPath, cluster.worker.id);
     }
     return cluster;
 }

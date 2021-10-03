@@ -2,6 +2,7 @@
 import debug from 'debug';
 import queue from 'concurrent-queue';
 import { hrtime } from 'process';
+import eos from 'end-of-stream';
 import pWaitFor from 'p-wait-for';
 import Feed from './feed';
 import Shell from './shell';
@@ -9,6 +10,7 @@ import Shell from './shell';
 import SafeTransform from './SafeTransform';
 
 const nanoZero = () => BigInt(0);
+
 const nano2sec = (ns) => {
     const sec = ns / BigInt(1e9);
     const msec = (ns / BigInt(1e6)) - (sec * BigInt(1e3));
@@ -55,8 +57,7 @@ export default class Engine extends SafeTransform {
             this.parentStream = src;
         });
         increaseCounter();
-        this.on('error', decreaseCounter);
-        this.on('end', decreaseCounter);
+        eos(this, decreaseCounter);
         this.shell = new Shell(ezs, this.environment);
         this.chunk = {};
         this.scope = {};
@@ -68,6 +69,7 @@ export default class Engine extends SafeTransform {
         this.scope.getIndex = () => this.index;
         this.scope.isLast = () => (this.chunk === null);
         this.scope.getCumulativeTime = () => nano2sec(hrtime.bigint() - this.stime);
+        this.scope.getCumulativeTimeMS = () => nano2sec(hrtime.bigint() - this.stime) * 1000;
         this.scope.getCounter = () => counter;
         this.scope.getParam = (name, defval) => {
             if (this.params[name] !== undefined) {
@@ -114,6 +116,7 @@ export default class Engine extends SafeTransform {
             done();
         });
     }
+
     isReady() {
         return (!this._readableState.ended
             && (this._readableState.length < this._readableState.highWaterMark
@@ -148,7 +151,7 @@ export default class Engine extends SafeTransform {
         };
         const wait = async () => {
             this.pause();
-            await pWaitFor(() => this.isReady(), { interval: 20 });
+            await pWaitFor(() => (this.isReady()), { interval: 20 });
             return this.resume();
         };
         const feed = new Feed(push, done, warn, wait);
