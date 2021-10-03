@@ -26,7 +26,6 @@ npm install @ezs/core
 -   [group](#group)
 -   [ignore](#ignore)
 -   [keep](#keep)
--   [metrics](#metrics)
 -   [pack](#pack)
 -   [parallel](#parallel)
 -   [remove](#remove)
@@ -467,19 +466,6 @@ Output:
 #### Parameters
 
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to keep
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### metrics
-
-Take `Object` and throw the same `Object`
-But in print some Prometheus metrics
-
-#### Parameters
-
--   `stage` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Stage name (optional, default `default`)
--   `bucket` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Bucket name (script name) (optional, default `unknow`)
--   `frequency` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** number of chunk between two metrics computation (optional, default `10`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
