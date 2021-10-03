@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.26.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.25.3...@ezs/core@1.26.0) (2021-10-03)
+
+
+### Bug Fixes
+
+* 🐛 iattempts to fix tests ([48168ee](https://github.com/Inist-CNRS/ezs/commit/48168eee983f16fccd2dee93950bd27baa1c4aa3))
+
+
+### Features
+
+* 🎸 use prom-client ([3ad4548](https://github.com/Inist-CNRS/ezs/commit/3ad4548e68c040fd7328dc35a8c8f5425bb36d1b))
+
+
+
+
+
 ## [1.25.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.25.2...@ezs/core@1.25.3) (2021-09-27)
 
 
