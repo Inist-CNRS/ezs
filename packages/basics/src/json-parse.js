@@ -68,7 +68,7 @@ function JSONParse(data, feed) {
  *
  * @name JSONParse
  * @param {String} [separator="*"] to split at every JSONPath found
- * @param {String} [legacy=true] use legacy or newer parser 
+ * @param {String} [legacy=true] use legacy or newer parser (separator should be different)
  * @returns {Object}
  */
 export default {
