@@ -17,7 +17,7 @@ describe('JSONParse', () => {
     });
     it('should return a value (yajs)', (done) => {
         from(['{ "a": 1 }'])
-            .pipe(ezs('JSONParse', { legacy: true }))
+            .pipe(ezs('JSONParse', { legacy: false, separator: "$.a" }))
             .on('data', (data) => {
                 expect(data).toBe(1);
             })
