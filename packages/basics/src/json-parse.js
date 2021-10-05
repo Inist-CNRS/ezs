@@ -1,22 +1,31 @@
 import JSONStream from 'JSONStream';
+import { PassThrough } from 'stream';
+import yajs from 'yajson-stream';
 import writeTo from 'stream-write';
 
 function JSONParse(data, feed) {
-    if (!this.handle) {
+    if (this.isFirst()) {
+        const legacy = this.getParam('legacy', true);
         const separator = this.getParam('separator', '*');
-        this.handle = JSONStream.parse(separator);
-        this.handle.on('data', (obj) => feed.write(obj));
+        if (legacy) {
+            this.input = JSONStream.parse(separator);
+            this.whenFinish = feed.flow(this.input);
+        } else {
+            this.input = new PassThrough();
+            const stream = this
+                .input
+                .pipe(this.ezs.toBuffer())
+                .pipe(yajs(separator))
+                .pipe(this.ezs((d,f) => f.send(d ? d.value : d)));
+            this.whenFinish = feed.flow(stream);
+        }
     }
-    if (!this.isLast()) {
-        writeTo(this.handle, data, () => feed.end());
-    } else {
-        this.handle.end();
-        process.nextTick(() => {
-            feed.close();
-        });
+    if (this.isLast()) {
+        this.whenFinish.finally(() => feed.close());
+        return this.input.end();
     }
+    writeTo(this.input, data, () => feed.end());
 }
-
 /**
  * Parse a `String` to JSON and generate objects.
  *
@@ -59,6 +68,7 @@ function JSONParse(data, feed) {
  *
  * @name JSONParse
  * @param {String} [separator="*"] to split at every JSONPath found
+ * @param {String} [legacy=true] use legacy or newer parser (separator should be different)
  * @returns {Object}
  */
 export default {
