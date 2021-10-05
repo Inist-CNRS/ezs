@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.15.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.14.0...@ezs/basics@1.15.0) (2021-10-05)
+
+
+### Features
+
+* 🎸 introduce new parser ([66a408b](https://github.com/Inist-CNRS/ezs/commit/66a408b0be2f6f2374d7193df2576e2fa383d369))
+
+
+
+
+
 # [1.14.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.13.6...@ezs/basics@1.14.0) (2021-08-27)
 
 
