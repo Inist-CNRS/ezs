@@ -26,8 +26,8 @@ export const createFunction = () => async function LodexRunQuery(data, feed) {
     const referer = this.getParam('referer', data.referer);
     const filter = this.getParam('filter', data.filter || {});
     filter.removedAt = { $exists: false }; // Ignore removed resources
-    const sortOn = this.getParam('sortOn', data.sortOn || false);
-    const sortOrder = this.getParam('sortOrder', data.sortOrder || 'asc');
+    const sortOn = this.getParam('sortOn', data.sortOn);
+    const sortOrder = this.getParam('sortOrder', data.sortOrder);
     const field = this.getParam(
         'field',
         data.field || data.$field || 'uri',
@@ -46,7 +46,7 @@ export const createFunction = () => async function LodexRunQuery(data, feed) {
     const collection = db.collection(collectionName);
     let cursor = collection.find(filter, fields.length > 0 ? projection : null);
 
-    if (sortOn !== false) {
+    if (sortOn) {
         cursor = cursor.sort(`versions.${sortOn}`, sortOrder === 'desc' ? -1 : 1);
     }
 
