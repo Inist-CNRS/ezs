@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.14.6](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.14.5...@ezs/lodex@1.14.6) (2021-10-27)
+
+
+### Bug Fixes
+
+* consider all empty values ([42f51a9](https://github.com/Inist-CNRS/ezs/commit/42f51a96fe5e32164f0be2ae4568b22c55706175))
+
+
+
+
+
 ## [1.14.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.14.4...@ezs/lodex@1.14.5) (2021-10-05)
 
 
