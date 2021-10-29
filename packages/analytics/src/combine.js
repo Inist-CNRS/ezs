@@ -144,5 +144,8 @@ export default function combine(data, feed) {
             }
             return feed.send(data);
         })
-        .catch((e) => feed.stop(e));
+        .catch((e) => {
+            this.store.close();
+            feed.stop(e);
+        });
 }

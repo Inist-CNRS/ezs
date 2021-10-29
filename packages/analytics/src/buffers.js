@@ -50,7 +50,10 @@ export default function buffers(data, feed) {
         .pipe(ezs('extract', { path: 'value' }))
         .pipe(ezs(statement, { length }))
         .on('data', (item) => feed.write(item))
-        .on('error', (e) => feed.stop(e))
+        .on('error', (e) => {
+            this.store.close();
+            feed.stop(e);
+        })
         .on('end', () => {
             feed.end();
             store.close();

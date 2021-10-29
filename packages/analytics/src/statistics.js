@@ -173,6 +173,7 @@ export default function statistics(data, feed) {
                 feed.write(value.data);
             })
             .on('end', () => {
+                this.store.close();
                 feed.close();
             });
         return;
