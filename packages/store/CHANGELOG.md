@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/store@1.3.4...@ezs/store@1.3.5) (2021-10-29)
+
+
+### Bug Fixes
+
+* 🐛 on lose cleanup everything ([c007409](https://github.com/Inist-CNRS/ezs/commit/c007409c1935d5d5a06ae8b0baacb6e5854b64de))
+* 🐛 tests ([d376d0c](https://github.com/Inist-CNRS/ezs/commit/d376d0c631d64a66999f2bf5a4b87af4f2192a0f))
+
+
+
+
+
 ## [1.3.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/store@1.3.3...@ezs/store@1.3.4) (2021-10-05)
 
 **Note:** Version bump only for package @ezs/store

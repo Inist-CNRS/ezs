@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.7](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.16.6...@ezs/analytics@1.16.7) (2021-10-29)
+
+
+### Bug Fixes
+
+* 🐛 tests ([d376d0c](https://github.com/Inist-CNRS/ezs/commit/d376d0c631d64a66999f2bf5a4b87af4f2192a0f))
+
+
+
+
+
 ## [1.16.6](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.16.5...@ezs/analytics@1.16.6) (2021-10-05)
 
 **Note:** Version bump only for package @ezs/analytics

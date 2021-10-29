@@ -1,6 +1,6 @@
 {
     "name": "@ezs/store",
-    "version": "1.3.4",
+    "version": "1.3.5",
     "description": "Internal store for EZS",
     "directories": {
         "test": "test"
@@ -35,8 +35,8 @@
         "mkdirp": "^1.0.4"
     },
     "dependencies": {
-        "del": "^6.0.0",
         "debug": "^4.3.2",
+        "del": "^6.0.0",
         "leveldown": "^6.1.0",
         "levelup": "^5.1.1",
         "make-dir": "^3.1.0",
