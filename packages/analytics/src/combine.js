@@ -70,11 +70,11 @@ function sha1(input, salt) {
  */
 export default function combine(data, feed) {
     const { ezs } = this;
+    const persistent = Boolean(this.getParam('persistent', false));
     let whenReady = Promise.resolve(true);
     if (this.isFirst()) {
         debug('ezs')('[combine] with sub pipeline.');
         const location = this.getParam('location');
-        const persistent = Boolean(this.getParam('persistent', false));
         const primer = this.getParam('primer');
         const input = ezs.createStream(ezs.objectMode());
         const commands = ezs.createCommands({
@@ -111,7 +111,9 @@ export default function combine(data, feed) {
         }
     }
     if (this.isLast()) {
-        this.store.close();
+        if (!persistent) {
+            this.store.close();
+        }
         return feed.close();
     }
     return whenReady
