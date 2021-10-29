@@ -17,7 +17,7 @@ async function mergeWith(data, feed) {
     const { id, value } = data;
     const path = this.getParam('path');
     try {
-        const obj = await store.get(id);
+        const obj = await store.cut(id);
         if (obj === null) {
             throw new Error('id was corrupted');
         }
@@ -84,7 +84,11 @@ export default async function expand(data, feed) {
         const path = this.getParam('path');
         const cacheName = this.getParam('cacheName');
 
-        // Initialization
+        if (!this.store) {
+            const location = this.getParam('location');
+            this.store = createStore(ezs, 'expand', location);
+            this.store.reset();
+        }
         if (!this.createStatements) {
             const commands = ezs.createCommands({
                 file: this.getParam('file'),
@@ -100,6 +104,7 @@ export default async function expand(data, feed) {
             const location = this.getParam('location');
             this.cache = createPersistentStore(ezs, `expand${cacheName}`, location);
         }
+        
         if (!this.buffer2stream) {
             this.buffer2stream = (bufferID) => {
                 const statements = this.createStatements();
@@ -142,18 +147,16 @@ export default async function expand(data, feed) {
             this.bufferID = 0;
             this.stack[this.bufferID] = {};
         }
-        if (!this.store) {
-            const location = this.getParam('location');
-            this.store = createStore(ezs, 'expand', location);
-            this.store.reset();
-        }
 
         // Processing
 
         if (this.isLast()) {
             if (this.buffer && this.buffer.length > 0) {
-                return feed.flow(this.buffer2stream(this.bufferID));
-            }
+                const strm = this.buffer2stream(this.bufferID);
+                strm.once('end', () => this.store.close());
+                return feed.flow(strm);
+            } 
+            this.store.close();
             return feed.close();
         }
         const value = get(data, path);
@@ -175,10 +178,12 @@ export default async function expand(data, feed) {
         this.stack[this.bufferID][id] = true;
         this.buffer.push(core(id, value));
         if (this.buffer.length >= size) {
-            return feed.flow(this.buffer2stream(this.bufferID));
+            const strm = this.buffer2stream(this.bufferID);
+            return feed.flow(strm);
         }
         return feed.end();
     } catch (e) {
+        this.store.close();
         return feed.stop(e);
     }
 }

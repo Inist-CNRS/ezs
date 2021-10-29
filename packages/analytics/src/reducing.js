@@ -45,7 +45,10 @@ export default function reducing(data, feed) {
     if (this.isLast()) {
         this.store.empty()
             .on('data', (item) => feed.write(item))
-            .on('end', () => feed.close());
+            .on('end', () => {
+                this.store.close();
+                feed.close();
+            });
     } else {
         const id = get(data, this.getParam('id', 'id')) || this.getIndex();
         const value = get(data, this.getParam('value', 'value'));

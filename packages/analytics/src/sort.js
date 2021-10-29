@@ -70,7 +70,7 @@ export default async function sort(data, feed) {
         await sorted.reduce(
             async (previousPromise, cur) => {
                 await previousPromise;
-                return this.store.get(cur).then((val) => feed.write(val));
+                return this.store.cut(cur).then((val) => feed.write(val));
             },
             Promise.resolve(),
         );

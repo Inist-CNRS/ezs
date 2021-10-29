@@ -105,6 +105,7 @@ export default function distribute(data, feed) {
                     const newobj = core(ruler[l], defval);
                     feed.write(newobj);
                 }
+                this.store.close();
                 feed.close();
             });
     } else {
