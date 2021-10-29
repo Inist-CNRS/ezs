@@ -49,10 +49,7 @@ export default async function bufferize(data, feed) {
             .pipe(this.ezs('extract', { path: 'value' }))
             .on('data', (item) => feed.write(item))
             .on('error', (e) => feed.stop(e))
-            .on('end', () => {
-                feed.close();
-                this.store.close();
-            });
+            .on('end', () => feed.close());
     }
     const path = this.getParam('path', 'bufferID');
     const key = this.getIndex().toString().padStart(20, '0');

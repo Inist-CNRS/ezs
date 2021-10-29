@@ -147,6 +147,9 @@ class Store {
 
     close() {
         delete handle[this.directory];
+        if (!this.db.isOperational()) {
+            return del([this.directory], { force: true });
+        }
         return Promise.all([
             this.db.clear(),
             this.db.close(),
