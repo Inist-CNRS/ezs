@@ -48,7 +48,10 @@ export default async function bufferize(data, feed) {
         return this.store.stream()
             .pipe(this.ezs('extract', { path: 'value' }))
             .on('data', (item) => feed.write(item))
-            .on('error', (e) => feed.stop(e))
+            .on('error', (e) => {
+                this.store.close();
+                feed.stop(e);
+            })
             .on('end', () => feed.close());
     }
     const path = this.getParam('path', 'bufferID');
