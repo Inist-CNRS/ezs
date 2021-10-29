@@ -3,6 +3,7 @@ import { tmpdir } from 'os';
 import pathExists from 'path-exists';
 import makeDir from 'make-dir';
 import debug from 'debug';
+import del from 'del';
 import uuid from 'uuid-random';
 
 import levelup from 'levelup';
@@ -30,16 +31,16 @@ class Store {
         this.ezs = ezs;
         this.identifier = identifier;
         this.created = false;
-        const directory = path.resolve(location || tmpdir(), 'store', identifier);
-        if (!pathExists.sync(directory)) {
+        this.directory = path.resolve(location || tmpdir(), 'store', identifier);
+        if (!pathExists.sync(this.directory)) {
             this.created = true;
-            makeDir.sync(directory);
+            makeDir.sync(this.directory);
         }
-        debug('ezs')(`DB from ${directory}`, (this.created ? 'was created' : 'already exists'));
-        if (!handle[directory]) {
-            handle[directory] = levelup(leveldown(directory));
+        debug('ezs')(`DB from ${this.directory}`, (this.created ? 'was created' : 'already exists'));
+        if (!handle[this.directory]) {
+            handle[this.directory] = levelup(leveldown(this.directory));
         }
-        this.db = handle[directory];
+        this.db = handle[this.directory];
     }
 
     isCreated() {
@@ -63,6 +64,27 @@ class Store {
             });
         });
     }
+
+    cut(key1) {
+        return new Promise((resolve, reject) => {
+            const key2 = encodeKey(key1);
+            this.db.get(key2, (err1, value) => {
+                if (err1) {
+                    if (err1.notFound) {
+                        return resolve(null);
+                    }
+                    return reject(err1);
+                }
+                return this.db.del(key2, (err2) => {
+                    if (err2) {
+                        console.error('WARNING', err2);
+                    }
+                    return resolve(decodeValue(value));
+                });
+            });
+        });
+    }
+
 
     put(key, value) {
         return new Promise((resolve, reject) => {
@@ -124,7 +146,12 @@ class Store {
     }
 
     close() {
-        return true;
+        delete handle[this.directory];
+        return Promise.all([
+            this.db.clear(),
+            this.db.close(),
+            del([this.directory], { force: true }),
+        ]);
     }
 }
 
