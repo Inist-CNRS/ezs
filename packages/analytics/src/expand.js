@@ -17,7 +17,7 @@ async function mergeWith(data, feed) {
     const { id, value } = data;
     const path = this.getParam('path');
     try {
-        const obj = await store.get(id);
+        const obj = await store.cut(id);
         if (obj === null) {
             throw new Error('id was corrupted');
         }
