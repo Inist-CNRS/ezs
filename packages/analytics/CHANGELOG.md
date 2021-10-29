@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.8](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.16.7...@ezs/analytics@1.16.8) (2021-10-29)
+
+
+### Bug Fixes
+
+* 🐛 close store everywhere ([6688b33](https://github.com/Inist-CNRS/ezs/commit/6688b333473e90a3586df7f441e91da36847bf12))
+* 🐛 tests ([bde57e7](https://github.com/Inist-CNRS/ezs/commit/bde57e7f3f5f17263a81beefde19f9c944d0ff11))
+
+
+
+
+
 ## [1.16.7](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.16.6...@ezs/analytics@1.16.7) (2021-10-29)
 
 
