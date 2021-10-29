@@ -1,5 +1,4 @@
 import { tmpdir } from 'os';
-import del from 'del';
 import mkdirp from 'mkdirp';
 import ezs from '../../core/src';
 import { createStore, createStoreWithID } from '../src/store';
@@ -21,12 +20,11 @@ describe('Store', () => {
             .on('data', (chunk) => {
                 output.push(chunk);
             })
-            .on('end', () => {
+            .on('end', async () => {
                 expect(output.length).toEqual(3);
                 expect(output[0].id).toEqual(1);
                 expect(output[0].value[0]).toEqual('A');
-                store.close();
-                del.sync([location], { force: true });
+                await store.close();
                 done();
             });
     });
@@ -46,11 +44,11 @@ describe('Store', () => {
             .on('data', (chunk) => {
                 output.push(chunk);
             })
-            .on('end', () => {
+            .on('end', async () => {
                 expect(output.length).toEqual(3);
                 expect(output[0].id).toEqual(1);
                 expect(output[0].value[0]).toEqual('A');
-                store.close();
+                await store.close();
                 done();
             });
     });
@@ -69,11 +67,11 @@ describe('Store', () => {
             .on('data', (chunk) => {
                 output.push(chunk);
             })
-            .on('end', () => {
+            .on('end', async () => {
                 expect(output.length).toEqual(3);
                 expect(output[0].id).toEqual(1);
                 expect(output[0].value[0]).toEqual('A');
-                store.close();
+                await store.close();
                 done();
             });
     });
@@ -92,6 +90,7 @@ describe('Store', () => {
         expect(k2.shift()).toEqual('B');
         const k3 = await store.get(3);
         expect(k3.shift()).toEqual('C');
+        await store.close();
         done();
     });
 
@@ -109,11 +108,11 @@ describe('Store', () => {
             .on('data', (chunk) => {
                 output.push(chunk);
             })
-            .on('end', () => {
+            .on('end', async () => {
                 expect(output.length).toEqual(3);
                 expect(output[0].id).toEqual(1);
                 expect(output[0].value[0]).toEqual('A');
-                store.close();
+                await store.close();
                 done();
             });
     });
@@ -135,13 +134,13 @@ describe('Store', () => {
             .on('data', (chunk) => {
                 output.push(chunk);
             })
-            .on('end', () => {
+            .on('end', async () => {
                 expect(output.length).toEqual(3);
                 expect(output[0].id).toEqual(1);
                 expect(output[0].value.length).toEqual(4);
                 expect(output[1].value.length).toEqual(3);
                 expect(output[2].value.length).toEqual(1);
-                store.close();
+                await store.close();
                 done();
             });
     });
@@ -162,7 +161,7 @@ describe('Store', () => {
             .on('data', (chunk) => {
                 output.push(chunk);
             })
-            .on('end', () => {
+            .on('end', async () => {
                 expect(output.length).toEqual(3);
                 expect(output[0].id).toEqual(1);
                 expect(output[0].value).toEqual('R');
@@ -170,7 +169,7 @@ describe('Store', () => {
                 expect(output[1].value).toEqual('D');
                 expect(output[2].value.length).toEqual(1);
                 expect(output[2].value).toEqual('C');
-                store.close();
+                await store.close();
                 done();
             });
     });
@@ -191,7 +190,37 @@ describe('Store', () => {
         expect(k3.shift()).toEqual('C');
         const k4 = await store.get(4);
         expect(k4).toBeNull();
-        await store.reset();
+        await store.close();
         done();
+    });
+
+    it('put and cut #1', async (done) => {
+        const store = createStore(ezs, 'test_store7');
+        expect(store.id()).toEqual(expect.stringContaining('test_store7'));
+        await Promise.all([
+            store.add(1, 'A'),
+            store.add(2, 'B'),
+            store.add(3, 'C'),
+        ]);
+        const k1 = await store.cut(1);
+        expect(k1.shift()).toEqual('A');
+        const k2 = await store.cut(2);
+        expect(k2.shift()).toEqual('B');
+        const k3 = await store.cut(3);
+        expect(k3.shift()).toEqual('C');
+        const k4 = await store.cut(4);
+        expect(k4).toBeNull();
+
+        const output = [];
+        store
+            .cast()
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', async () => {
+                expect(output.length).toEqual(0);
+                await store.close();
+                done();
+            });
     });
 });
