@@ -155,7 +155,7 @@ export default async function expand(data, feed) {
                 const strm = this.buffer2stream(this.bufferID);
                 strm.once('end', () => this.store.close());
                 return feed.flow(strm);
-            }
+            } 
             this.store.close();
             return feed.close();
         }
@@ -179,7 +179,6 @@ export default async function expand(data, feed) {
         this.buffer.push(core(id, value));
         if (this.buffer.length >= size) {
             const strm = this.buffer2stream(this.bufferID);
-            strm.once('end', () => this.store.close());
             return feed.flow(strm);
         }
         return feed.end();
