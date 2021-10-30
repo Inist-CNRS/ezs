@@ -104,7 +104,7 @@ export default async function expand(data, feed) {
             const location = this.getParam('location');
             this.cache = createPersistentStore(ezs, `expand${cacheName}`, location);
         }
-        
+
         if (!this.buffer2stream) {
             this.buffer2stream = (bufferID) => {
                 const statements = this.createStatements();
@@ -155,7 +155,7 @@ export default async function expand(data, feed) {
                 const strm = this.buffer2stream(this.bufferID);
                 strm.once('end', () => this.store.close());
                 return feed.flow(strm);
-            } 
+            }
             this.store.close();
             return feed.close();
         }
