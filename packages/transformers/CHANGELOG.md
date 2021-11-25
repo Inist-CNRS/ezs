@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.9](https://github.com/Inist-CNRS/ezs/compare/@ezs/transformers@1.3.8...@ezs/transformers@1.3.9) (2021-11-25)
+
+**Note:** Version bump only for package @ezs/transformers
+
+
+
+
+
 ## [1.3.8](https://github.com/Inist-CNRS/ezs/compare/@ezs/transformers@1.3.7...@ezs/transformers@1.3.8) (2021-10-05)
 
 **Note:** Version bump only for package @ezs/transformers
