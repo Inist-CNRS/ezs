@@ -134,4 +134,90 @@ describe('TeeftListFiles', () => {
 
 });
 
-describe('TeeftGetFilesContent', () => {});
+describe('TeeftGetFilesContent', () => {
+    it('should return the content of one file', (done) => {
+        let res = [];
+        const dataPath = path.resolve(__dirname, '../examples/data');
+        const filePath = `${dataPath}/artificial.txt`;
+        from([filePath])
+            .pipe(ezs('TeeftGetFilesContent'))
+            .on('data', (chunk) => {
+                expect(Array.isArray(chunk)).toBe(true);
+                res = res.concat(chunk);
+            })
+            .on('end', () => {
+                expect(res).toHaveLength(1);
+                expect(res).toMatchObject([{path: filePath}]);
+                expect(res[0].content).toHaveLength(1067);
+                expect(res[0].content.startsWith('Ceci est')).toBe(true);
+                done();
+            });
+    });
+
+    it('should return the content of two files', (done) => {
+        let res = [];
+        const dataPath = path.resolve(__dirname, '../examples/data');
+        const filePath = `${dataPath}/artificial.txt`;
+        from([filePath, filePath])
+            .pipe(ezs('TeeftGetFilesContent'))
+            .on('data', (chunk) => {
+                expect(Array.isArray(chunk)).toBe(true);
+                res = res.concat(chunk);
+            })
+            .on('end', () => {
+                expect(res).toHaveLength(2);
+                expect(res).toMatchObject([{path: filePath}, {path: filePath}]);
+                expect(res[0].content).toHaveLength(1067);
+                expect(res[0].content.startsWith('Ceci est')).toBe(true);
+                expect(res[1].content).toHaveLength(1067);
+                expect(res[1].content.startsWith('Ceci est')).toBe(true);
+                done();
+            });
+    });
+
+    it('should return an error when the file does not exist', (done) => {
+        let res = [];
+        const dataPath = path.resolve(__dirname, '../examples/data');
+        const filePath = `${dataPath}/nonexisting.txt`;
+        from([filePath])
+            .pipe(ezs('TeeftGetFilesContent'))
+            .on('data', (chunk) => {
+                expect(Array.isArray(chunk)).toBe(true);
+                res = res.concat(chunk);
+            })
+            .on('end', () => {
+                expect(res).toHaveLength(1);
+                expect(res).toMatchObject([{errno: -2, code: 'ENOENT', path: filePath, syscall: 'open'}]);
+                expect(res[0].content).toBeUndefined();
+                done();
+            });
+    });
+
+    it('should continue when encountering an error', (done) => {
+        let res = [];
+        const dataPath = path.resolve(__dirname, '../examples/data');
+        const filePath = `${dataPath}/nonexisting.txt`;
+        const filePath2 = `${dataPath}/artificial.txt`;
+        from([filePath, filePath2])
+            .pipe(ezs('TeeftGetFilesContent'))
+            .on('data', (chunk) => {
+                expect(Array.isArray(chunk)).toBe(true);
+                res = res.concat(chunk);
+            })
+            .on('end', () => {
+                expect(res).toHaveLength(2);
+                expect(res[0].content).toBeUndefined();
+                expect(res).toMatchObject([{
+                    path: filePath,
+                    errno: -2,
+                    code: 'ENOENT',
+                    syscall: 'open'
+                }, {
+                    path: filePath2
+                }]);
+                expect(res[1].content).toHaveLength(1067);
+                expect(res[1].content.startsWith('Ceci est')).toBe(true);
+                done();
+            });
+    });
+});

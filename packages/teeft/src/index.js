@@ -8,8 +8,8 @@
 // import TeeftNaturalTag from './natural-tag';
 // import TeeftSentenceTokenize from './sentence-tokenize';
 // import TeeftFilterMultiSpec from './filter-multi-spec';
-import ListFiles from './list-files';
-// import GetFilesContent from './get-files-content';
+import TeeftListFiles from './list-files';
+import TeeftGetFilesContent from './get-files-content';
 // import ToLowerCase from './to-lower-case';
 
 export default {
@@ -23,7 +23,7 @@ export default {
     // TeeftNaturalTag,
     // TeeftSentenceTokenize,
     // TeeftFilterMultiSpec,
-    ListFiles,
-    // GetFilesContent,
+    TeeftListFiles,
+    TeeftGetFilesContent,
     // ToLowerCase,
 };
