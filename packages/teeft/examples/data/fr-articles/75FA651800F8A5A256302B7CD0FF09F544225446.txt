@@ -1,0 +1,787 @@
+Rev Méd Interne 2000 ; 21 : 961-71
+© 2000 Éditions scientiﬁques et médicales Elsevier SAS. Tous droits réservés
+S0248866300002526/SSU
+
+Mise au point
+
+L’hémochromatose génétique
+S. Durupt1*, I. Durieu1, R. Nové-Josserand1, L. Bencharif1, H. Rousset1,
+D. Vital Durand1
+1
+
+Service de médecine interne, centre hospitalier Lyon-Sud, 69495 Pierre-Bénite, France
+
+(Reçu le 11 janvier 2000 ; accepté le 3 mai 2000)
+
+Résumé
+Introduction. – L’hémochromatose génétique est une maladie fréquente avec une prévalence dans
+la population caucasienne estimée entre 1,5 et 3 ‰. Sa présentation clinique s’est modiﬁée au cours
+de ces dernières années et actuellement la cirrhose bronzée avec diabète ne représente plus que
+10 % des formes cliniques au moment du diagnostic.
+Actualités et points forts. – En 1996, la découverte de la mutation C282Y au niveau du gène HFE
+a transformé la stratégie diagnostique de l’hémochromatose génétique. Actuellement chez un patient
+ayant une asthénie isolée, des manifestations articulaires inexpliquées ou une cytolyse hépatique
+modérée, le diagnostic d’hémochromatose génétique doit être envisagé. Dans ces cas, une élévation
+du coefficient de saturation de la transferrine supérieure à 45 % impose la recherche d’une homozygotie C282Y qui affirme le diagnostic d’hémochromatose. La ponction biopsie hépatique n’est plus
+nécessaire pour le diagnostic, mais reste utile en cas de suspicion de cirrhose qui constitue le facteur
+de risque principal du carcinome hépatocellulaire. Le traitement repose toujours sur les saignées réalisées selon un protocole précis. Une enquête familiale doit être réalisée lors de chaque nouveau cas
+diagnostiqué.
+Perspectives et projets. – La reconnaissance du gène HFE permet maintenant d’individualiser facilement l’hémochromatose génétique des autres surcharges en fer, au sein desquelles émerge une
+entité nouvelle, l’hépatosidérose dysmétabolique. L’évolution de certains sujets C282Y homozygotes
+qui ne présentent aucune surcharge en fer reste à étudier et alimente la controverse sur l’opportunité
+d’un dépistage systématique. © 2000 Éditions scientiﬁques et médicales Elsevier SAS
+hémochromatose génétique / gène HFE / mutation C282Y / surcharges en fer
+
+Summary – Hereditary hemochromatosis.
+Introduction. – Hereditary hemochromatosis is a fairly common disease in the Caucasian population, with a prevalence estimated at between 1.5 to 3/1,000 inhabitants. Over the past few years, its
+symptomatology has altered; at present, its clinical aspect with diabetes mellitus, cirrhosis, and darker
+skin pigmentation only constitutes 10% of new cases of this disease.
+Current knowledge and key points. – In 1996, the discovery of the C282Y mutation in the HFE
+gene radically altered the diagnostic approach to hereditary hemochromatosis. At present, any patient
+admitted with an isolated case of asthenia, or with arthralgia or hypertransaminasemia should be
+examined via transferrin-saturation testing: if the transferrin saturation coefficient is > 45%, then the
+presence of the C282Y mutation should be investigated to conﬁrm the diagnosis of hemochromatosis.
+A liver biopsy is no longer necessary to establish the diagnosis, but this is still useful in cases of
+possible cirrhosis, which is the main risk factor for hepatocellular carcinoma. Phlebotomy remains the
+
+*Correspondance et tirés à part : S. Durupt, service de médecine interne, hôpital William-Morey, 7, quai de l’Hôpital, BP 20, 71321 Châlon-sur-Saône.
+
+962
+
+S. Durupt et al.
+
+sole recommended treatment, and should be undertaken in a case-speciﬁc manner. Family screening
+should be carried out for all ﬁrst-degree relatives for every new case that is diagnosed.
+Future prospects and projects. – The discovery of the HFE gene has permitted hereditary hemochromatosis to be easily differentiated from other forms of hepatic iron overload including a new syndrome, dysmetabolic hepatosiderosis. Cases of homozygotic C282Y without hepatic iron overload
+have been described, but the clinical outcome of some of these cases requires further study, and
+adds to the controversy on whether systematic population screening should be made available. © 2000
+Éditions scientiﬁques et médicales Elsevier SAS
+genetic hemochromatosis / HFE gene / C282Y mutation / iron overload disorder
+
+L’hémochromatose génétique est une maladie fréquente de transmission autosomique récessive liée
+au gène HFE situé sur le bras court du chromosome 6.
+La prévalence de la maladie dans la population caucasienne est estimée entre 1,5 et 3 ‰ [1] ; aux ÉtatsUnis, la prévalence serait plus importante aux alentours de 5 ‰ [2]. La fréquence des sujets
+hétérozygotes est de 10 % environ [3]. La physiopathologie est une hyperabsorption intestinale du fer
+qui, en l’absence de traitement, se dépose progressivement au niveau du foie, mais aussi au niveau articulaire, cutané, cardiaque, pancréatique et hypophysaire [4, 5]. En 1996, la découverte de la mutation
+C282Y au niveau du gène HFE [6] a complètement
+remis en cause la procédure diagnostique de l’hémochromatose génétique. Jusqu’alors la maladie était
+exclusivement reconnue sur des critères phénotypiques (cliniques, biologiques et histologiques) dont le
+caractère discriminant était parfois pris en défaut au
+cours d’autres surcharges en fer. Ce diagnostic génotypique qui s’est désormais imposé a, par ailleurs,
+permis de mieux cerner des entités pathologiques distinctes qui étaient parfois confondues avec l’hémochromatose génétique. Actuellement la présence de
+la mutation C282Y à l’état homozygote permet de
+retenir le diagnostic d’hémochromatose génétique [7]. Toutefois, à ce génotype correspond une
+hétérogénéité phénotypique importante qui comprend, à une extrémité, un syndrome hémochromatosique pleinement exprimé et, à l’autre extrémité,
+des sujets qui n’expriment pas la moindre surcharge
+en fer [8].
+ASPECTS GÉNÉTIQUES
+La transmission de la maladie se fait selon un mode
+autosomique récessif. La reconnaissance formelle de
+la nature génétique de l’hémochromatose date de
+
+1976, lorsque Simon et al. [9] démontrèrent l’association entre l’antigène A3 du système HLA et la
+maladie. Il fallut encore 20 ans pour que soient mises
+en évidence des mutations pathologiques au niveau
+d’un gène baptisé HFE (H pour hémochromatose et
+FE pour fer) situé sur le bras court du chromosome 6
+(région 6p21.3). En 1996, Feder et al. [6] décrivaient
+une mutation dite C282Y fortement associée à
+l’hémochromatose génétique ; cette mutation substitue une base adénosine à une base guanine en position 845 sur le gène, entraînant le remplacement de
+la cystéine par une tyrosine en position 282 sur la
+protéine. Cette mutation était retrouvée à l’état homozygote chez 85 % de 101 patients non apparentés,
+considérés comme atteints d’hémochromatose génétique sur les critères phénotypiques classiques (versus 3,2 % des chromosomes témoins) (tableau I).
+Cette association très forte a rapidement été conﬁrmée par d’autres études dans la population caucasienne [11]. À l’heure actuelle, la prévalence de
+l’homozygotie C282Y dans l’hémochromatose génétique, déﬁnie par des critères phénotypiques
+stricts [12-14], varie de 64 % [15] à 96 % [16]. En
+Europe, la corrélation phénotype–génotype semble
+diminuer selon un gradient Nord-Sud ; c’est en Italie
+que la prévalence de la mutation C282Y chez les
+patients hémochromatosiques semble la plus faible
+(64 %) [17].
+Une autre mutation dite H63D, correspondant au
+remplacement sur la protéine de l’histidine par l’acide
+aspartique en position 63 a été mise en évidence sur
+le gène HFE [6]. Sur un même chromosome, les deux
+mutations sont exclusives. Sa signiﬁcation pathologique reste incertaine car cette mutation est présente,
+dans la population générale, à l’état hétérozygote
+avec une fréquence qui se situe entre 15 et 20 % [18].
+Elle pourrait n’être qu’un simple polymorphisme ou
+
+963
+
+L’hémochromatose génétique
+
+Tableau I. Critères classiquement recommandés, chez un sujet
+ayant une surcharge en fer, pour établir le diagnostic phénotypique d’hémochromatose génétique homozygote avant la découverte du gène HFE et de la mutation C282Y (adapté de [10]).
+Critères obligatoires
+1. Augmentation de la saturation de la transferrine supérieure à
+45 %.
+2. Surcharge hépatique en fer prédominant dans les hépatocytes
+avec gradient décroissant des zones périportales aux zones centrolobulaires avec, en cas de cirrhose, présence de dépôts sidériques au sein du tissu ﬁbreux, notamment dans les parois des vaisseaux et des canaux biliaires, et distribution homogène de la
+surcharge d’un nodule à l’autre.
+3. Rapport de la concentration hépatique en fer sur l’âge supérieur à 2, et/ou déplétion en fer obtenue après soustraction d’au
+moins 5 g de fer chez l’homme (3 g chez la femme) par un programme comprenant une saignée par semaine.
+4. Absence d’une autre cause de surcharge en fer.
+Critère facultatif (mais quasi déﬁnitif quelle que soit l’importance
+de la surcharge)
+5. Démonstration de la transmission familiale HLA liée de la
+surcharge.
+
+une mutation mineure dont l’association à la mutation C282Y pourrait conduire à une expression modérée de la maladie (les sujets sont alors considérés
+comme des hétérozygotes composites) [19].
+Récemment, Mura et al. [20] ont rapporté une nouvelle mutation, S65C, qui est elle aussi exclusive de
+la mutation C282Y ou de la H63D sur un même chromosome, et qui pourrait rendre compte, là aussi, de
+l’expression modérée de certaines formes d’hémochromatose génétique non homozygote C282Y.
+L’existence d’autres mutations au niveau du gène
+HFE, ou bien d’autres gènes encore inconnus est probable. En effet, en Italie, d’authentiques hémochromatoses sans aucune de ces mutations du gène HFE
+ont été récemment décrites [21].
+PHYSIOPATHOLOGIE
+L’hyperabsorption intestinale du fer est une des
+caractéristiques de l’hémochromatose génétique,
+mais son mécanisme reste inconnu [22]. Cependant
+les hypothèses physiopathologiques ont beaucoup
+progressé depuis la mise en évidence de la mutation
+C282Y, même si la relation exacte entre le gène HFE
+muté et l’hyperavidité intestinale pour le fer reste
+mystérieuse [23]. Des modèles animaux de souris qui
+développent une surcharge en fer identique à celle
+rencontrée dans l’hémochromatose génétique, après
+qu’elles ont été rendues déﬁcientes en
+2-microglobuline [24] ou en protéine HFE [25], per-
+
+mettront peut-être de mieux comprendre cette maladie. On sait actuellement que la mutation C282Y
+empêche la constitution de pont disulfure entre la protéine HFE et une chaîne légère 2-microglobuline.
+L’expression de la protéine HFE à la surface des cellules du tube digestif est alors bloquée, empêchant
+dans le même temps l’interaction avec le récepteur
+de la transferrine [26]. La découverte récente d’un
+transporteur du fer (Nramp2/DCT-1 rebaptisé
+DMT-1) constitue une nouvelle pièce d’un puzzle
+physiopathologique en cours de constitution [27].
+PRÉSENTATION CLINIQUE
+L’évolution naturelle de l’hémochromatose génétique débute par une phase totalement latente dont la
+caractéristique est l’hyperabsorption intestinale du
+fer. Puis apparaissent les anomalies biologiques, vers
+l’âge de 20 ou 30 ans, avec en premier lieu l’augmentation du fer sérique et surtout du coefficient de
+saturation de la transferrine, puis l’hyperferritinémie.
+La troisième phase correspond à l’expression clinique de la maladie, habituellement entre 45 et 60 ans,
+dont l’évolution ultime classique est une « cirrhose
+bronzée avec diabète » [4]. En fait, l’expression phénotypique de l’hémochromatose génétique est très
+variable d’un individu à l’autre, à la fois dans l’intensité et dans le retentissement viscéral de la surcharge
+en fer. De plus, des facteurs environnementaux peuvent affecter l’expression de la maladie. Ainsi une
+supplémentation en fer ou en vitamine C, qui augmente l’absorption intestinale du fer, peut entraîner
+une expression phénotypique plus précoce. Inversement des dons du sang, des pertes physiologiques de
+fer (menstruation et grossesse(s)) ou des pertes pathologiques de sang (maladies inﬂammatoires du tube
+digestif, ulcération gastroduodénale) peuvent retarder l’expression clinique de l’hémochromatose génétique en diminuant le niveau de la surcharge en
+fer [4].
+Il faut actuellement évoquer le diagnostic d’hémochromatose génétique chez l’adulte quels que soient
+l’âge et le sexe [28] en présence de manifestations
+non spéciﬁques : une asthénie isolée, des manifestations articulaires inexpliquées ou une cytolyse hépatique modérée [7]. La présentation clinique complète,
+de pronostic défavorable ne représente plus actuellement que 10 à 20 % des patients des principales
+séries [29].
+
+964
+
+S. Durupt et al.
+
+L’asthénie chronique est un symptôme fréquent,
+présent dans 70 % des cas au moment du diagnostic
+et qui peut être révélateur de l’hémochromatose génétique dans 10 % des cas [30]. C’est fréquemment la
+recherche d’une carence martiale au cours d’une
+asthénie chronique qui motive la réalisation d’un
+bilan biologique ; dans cette situation la découverte
+d’une hyperferritinémie doit faire penser à l’hémochromatose génétique.
+Les manifestations rhumatologiques comportent
+surtout une atteinte articulaire qui se manifeste par
+une chondrocalcinose ou une arthropathie souschondrale. Une ostéoporose est également possible.
+L’arthropathie hémochromatosique constitue à
+l’heure actuelle l’atteinte la plus importante de la
+maladie. Elle affecte au moins 50 % des malades avec
+une prédominance de l’arthropathie sous-chondrale
+sur la chondrocalcinose articulaire [30, 31]. Elle est
+révélatrice dans 20 % des cas et le retard diagnostic
+est souvent important [32]. Le diagnostic d’hémochromatose génétique doit donc être systématiquement évoqué en présence de manifestations ostéoarticulaires, même peu spéciﬁques, survenant chez des
+sujets jeunes. Une oligoarthrite ou une polyarthrite
+peu inﬂammatoire touchant les métacarpophalangiennes des deuxième et troisième doigts est évocatrice. Les articulations interphalangiennes proximales, les poignets, les genoux, les chevilles ou les
+métatarsophalangiennes peuvent également être
+atteintes. Une arthrite aiguë touchant préférentiellement le genou, et correspondant à une crise de chondrocalcinose articulaire, doit également faire penser
+à l’hémochromatose génétique. Enﬁn, des douleurs,
+dans le cadre d’une arthropathie mécanique de la hanche ou du genou, sont fréquentes.
+L’expression radiologique de la chondrocalcinose
+articulaire dans l’hémochromatose génétique ne présente pas de particularité par rapport à la forme primitive. L’arthropathie sous-chondrale se caractérise
+par quatre lésions élémentaires : pincement de l’interligne articulaire, condensation osseuse souschondrale, microgéode(s), ostéophyte(s) ; elle peut
+toucher quasiment toutes les articulations, même si
+l’atteinte des métacarpophalangiennes des deuxième
+et troisième doigts est la plus évocatrice. Il faut garder à l’esprit l’absence totale de corrélation radioclinique au cours de l’hémochromatose génétique. Ainsi
+certains patients, chez qui le diagnostic d’hémochromatose génétique est acquis, présentent une sympto-
+
+matologie articulaire avec des radiographies normales ; inversement, dans 20 % des cas l’atteinte
+osseuse est asymptomatique et n’est mise en évidence
+que sur des clichés systématiques au niveau des articulations les plus fréquemment touchées (mains, poignets, genoux, bassin).
+Deux hypothèses physiopathologiques sont retenues : une toxicité directe du fer au niveau articulaire, ou l’intervention d’une hyperparathormonémie
+normocalcique, et en particulier l’élévation du fragment 44-68 de la parathormone qui pourrait expliquer en grande partie l’arthropathie souschondrale [33].
+L’ostéoporose n’a aucune particularité ; souvent
+asymptomatique, elle expose au risque fracturaire.
+Un des mécanismes à l’origine de l’ostéopénie est la
+carence en androgènes liée à l’hypogonadisme. Il
+s’agit donc dans ce cas d’une manifestation traduisant une forme avancée de l’hémochromatose génétique. D’autres mécanismes mineurs à l’origine de
+l’ostéoporose ont été évoqués comme le rôle direct
+du fer qui déprimerait l’activité ostéoblastique ou des
+anomalies de l’hydroxylation hépatique de la vitamine D en cas de surcharge importante en fer [34].
+Cela implique qu’il peut être utile de rechercher une
+ostéopénie, voire une ostéoporose par la mesure de
+la densité minérale osseuse chez les patients hémochromatosiques [35].
+Le foie est l’organe cible de l’hémochromatose
+génétique. Il constitue le site le plus précoce et le
+plus important des dépôts de fer sous forme de ferritine et d’hémosidérine. Ces dépôts se font au niveau
+parenchymateux avec une prédominance périportale
+et un gradient décroissant vers la région centrolobulaire, ce qui signe l’hyperabsorption digestive du
+fer [36]. L’expression biologique inconstante est une
+cytolyse modérée. En l’absence de traitement, le risque évolutif est la survenue d’une cirrhose qui constitue le principal facteur de risque du carcinome hépatocellulaire. Ce dernier pourrait affecter jusqu’à 30 %
+des hémochromatoses génétiques selon les séries [37,
+38]. Le risque relatif de développer un carcinome
+hépatocellulaire, au stade de cirrhose, est supérieur
+à 200 [37, 38], mais la survenue de carcinome hépatocellulaire sans cirrhose sous-jacente à été rapportée [38]. Des foyers prolifératifs et souvent dysplasiques dépourvus de fer, mis en évidence sur la
+biopsie, sont pour certains auteurs des lésions prénéoplasiques [38, 39].
+
+965
+
+L’hémochromatose génétique
+
+Tableau II. Situations cliniques ou biologiques devant faire
+rechercher une hémochromatose génétique.
+À un stade précoce de la maladie
+Hyperferritinémie isolée
+Hypertransaminasémie persistante
+Asthénie chronique
+Oligoarthrite ou polyarthrite (arthropathie sous-chondrale)
+Chondrocalcinose articulaire
+À un stade évolué de la maladie
+Mélanodermie
+Diabète sucré
+Insuffisance hypogonadique
+Myocardiopathie dilatée
+Manifestations diverses
+Infection à Yersinia [43]
+Infection à Vibrion vulniﬁcus [44]
+
+Le foie peut être exploré par l’imagerie par résonance magnétique (IRM). Cette technique non invasive permet de documenter l’existence d’une surcharge en fer ; celle-ci se caractérise par un
+hyposignal du parenchyme hépatique sur les séquences en T2 [40]. Avec des appareils d’IRM parfaitement étalonnés, une approche quantitative de la surcharge en fer est possible et l’on peut alors déterminer
+une concentration hépatique en fer (CHF) par IRM.
+Cette CHF-IRM pour des valeurs comprises entre
+40 et 300 µmol/g est bien corrélée à la concentration
+hépatique en fer déterminée habituellement par la
+méthode biochimique sur la ponction biopsie hépatique (concentration hépatique en fer normale inférieure à 36 µmol/g) [41]. Par ailleurs, l’IRM pourrait
+dans le même temps dépister un éventuel carcinome
+hépatocellulaire qui peut être présent d’emblée au
+diagnostic, particulièrement chez les patients à risque de carcinome hépatocellulaire [42]. Toutefois,
+cette approche séduisante n’est pas encore une technique accessible dans tous les centres, essentiellement pour des raisons techniques (différence dans
+les champs électromagnétiques, type de séquence utilisée, calibrage de l’IRM).
+Les autres manifestations de l’hémochromatose
+génétique sont rappelées dans le tableau II [43-46].
+Il s’agit le plus souvent de manifestations tardives,
+correspondant à des formes évoluées de la maladie.
+Actuellement, 30 % des malades sont totalement
+asymptomatiques au moment du diagnostic [29, 32].
+Celui-ci est effectué à partir d’un bilan du fer pathologique, le plus souvent une hyperferritinémie découverte lors d’un dosage systématique ou lors d’un
+
+dépistage familial. La pratique de ces enquêtes familiales, surtout depuis la mise en évidence de la mutation C282Y, a fait apparaître l’existence d’individus
+homozygotes pour la mutation C282Y qui n’expriment aucune surcharge en fer [29, 47, 48]. Ces formes génétiques pures peuvent évoluer, sous
+l’inﬂuence d’autres facteurs génétiques ou environnementaux, vers une expression phénotypique biologique et/ou clinique. Cependant, il semble que certains sujets suivis pendant quatre ans ne développent
+aucune surcharge en fer [8].
+STRATÉGIE DIAGNOSTIQUE
+La ﬁgure 1 rappelle la stratégie diagnostique chez un
+sujet suspect d’hémochromatose génétique. La première étape consiste à analyser le bilan du fer. Le fer
+sérique est d’interprétation difficile. En effet, il est
+soumis à un cycle nycthéméral important (sidérémie
+maximale le matin et diminuant dans la journée) avec
+des ﬂuctuations individuelles de 20 à 30 %. De plus,
+il n’est pas spéciﬁque et augmente au cours de tous
+les processus de cytolyse. Au stade symptomatique,
+il est habituellement supérieur à 35 µmol/L. Le coefﬁcient de saturation de la transferrine est le test biologique le plus sensible [4, 8]. C’est l’examen clé,
+car il est le reﬂet de l’hyperabsorption digestive. La
+saturation de la transferrine subit aussi des ﬂuctuations circadiennes (son calcul nécessite le dosage du
+fer sérique et de la transferrine), mais elle est constamment augmentée lorsqu’une surcharge en fer est
+présente [10]. En pratique, un coefficient de saturation de la transferrine supérieur à 45 % implique de
+poursuivre les investigations. Sa sensibilité dans
+l’hémochromatose génétique est de 98 % [49], mais
+il n’est pas spéciﬁque puisqu’il est augmenté dans
+d’autres surcharges en fer non hémochromatosiques
+et il faut éliminer une cytolyse et/ou une insuffisance
+hépatocellulaire responsable d’une diminution de la
+synthèse de la transferrine. Toutefois, le coefficient
+de saturation de la transferrine ne renseigne pas sur
+l’importance de la surcharge en fer, et la ferritine sérique reste le meilleur paramètre pour apprécier de
+façon indirecte le stock martial [50]. Elle peut être
+élevée dans de nombreuses circonstances en dehors
+de l’hémochromatose génétique (voir diagnostic différentiel). Elle peut être normale en cas d’excès de
+fer modéré sans que cela ne permette d’écarter le diagnostic d’hémochromatose génétique. Enﬁn, son
+taux peut être minoré par une déﬁcience en vitami-
+
+966
+
+S. Durupt et al.
+
+Figure 1. Stratégie diagnostique de l’hémochromatose génétique
+(adaptée de [10]).
+
+ne C. La ferritinémie est normalement inférieure à
+200 µg/L chez la femme et 300 µg/L chez l’homme.
+Il n’y a pas de variation nycthémérale de la ferritinémie.
+Le dosage de la ferritine érythrocytaire et le test à
+la déféroxamine n’ont plus de place dans le diagnostic actuel de l’hémochromatose génétique.
+L’étape suivante consiste à rechercher la mutation
+C282Y. Un prélèvement de sang veineux et un
+consentement éclairé sont nécessaires. Trois résultats sont possibles :
+– la présence d’une homozygotie C282Y permet
+d’affirmer le diagnostic d’hémochromatose génétique. Il est nécessaire alors d’apprécier l’importance
+de la surcharge en fer et son retentissement viscéral.
+On recherchera un diabète, une atteinte ostéoarticulaire, un hypogonadisme ou une myocardiopathie. La
+
+réalisation d’une ponction biopsie hépatique n’est
+plus systématique. Avant l’existence du test génétique, elle était réalisée à titre diagnostique et pronostique Cette étape diagnostique de la ponction-biopsie
+hépatique ne se justiﬁe plus, mais l’existence d’une
+ﬁbrose ou d’une cirrhose doit être discutée systématiquement. Les patients dont la ferritinémie est inférieure à 1 000 µg/L et en l’absence d’hépatomégalie
+et de cytolyse hépatique n’ont jamais de ﬁbrose en
+pont ou de cirrhose [8, 51]. On peut donc dans ce
+cas éviter une ponction biopsie hépatique pronostique. Celle-ci peut-être effectuée si l’une de ces trois
+conditions est présente ;
+– l’absence de mutation C282Y élimine a priori une
+hémochromatose génétique. D’exceptionnelles
+observations de malades ayant un tableau d’hémochromatose héréditaire en l’absence de la mutation
+C282Y ont été rapportées en Italie [21]. Avant d’évoquer cette possibilité il faut éliminer une autre cause
+de surcharge en fer (cf. diagnostic différentiel) ;
+– la présence d’une mutation C282Y à l’état hétérozygote ne permet pas de retenir immédiatement une
+hémochromatose génétique. Les patients hétérozygotes ont dans 25 % des cas des perturbations du bilan
+du fer (augmentation du coefficient de saturation de
+la transferrine, hyperferritinémie) [52] ; une augmentation discrète de la concentration hépatique en fer
+peut être notée dans 30 % des cas, mais cette surcharge en fer n’augmente pas avec le temps [13] et
+l’absence d’expression clinique est la règle. Il faut
+donc, en cas de surcharge en fer avec une expression
+clinique chez un sujet hétérozygote C282Y, rechercher un facteur de surcroît tel qu’une hépatite
+virale [53], une consommation excessive d’alcool ou
+une porphyrie cutanée tardive [52]. Des facteurs
+génétiques de surexpression sont également à rechercher tels que, par exemple, la mutation H63D [19,
+54] ou, plus récemment, la mutation S65C [20]. On
+admet actuellement que les hétérozygotes composites C282Y/H63D représentent 2 à 5 % des cas
+d’hémochromatose génétique [27]. D’autres mutations rares et non identiﬁées à ce jour sont sans doute
+aussi responsables d’une expression phénotypique
+chez des patients C282Y hétérozygotes [55]. C’est
+certainement dans ces situations complexes (expression clinicobiologique d’une surcharge en fer et
+absence de la mutation C282Y à l’état homozygote)
+qu’il faut envisager un constat histologique et effectuer une ponction-biopsie hépatique à titre diagnos-
+
+L’hémochromatose génétique
+
+Tableau III. Étiologies des surcharges en fer [10, 27].
+Hémochromatose génétique (C282Y homozygote)
+Surcharges en fer non hémochromatosiques
+Héréditaires
+Hémochromatose juvénile
+Atransferrinémie héréditaire
+Acéruléoplasminémie héréditaire
+Surcharge en fer néonatale
+Surcharge en fer africaine
+Acquises
+Apport excessif en fer
+Maladies hématologiques :
+Porphyrie cutanée tardive
+Dysérythropoïèses
+Anémies hémolytiques
+Maladies chroniques hépatiques :
+Alcoolisme
+Hépatite chronique virale C
+Autres cirrhoses
+Hépatosidérose dysmétabolique
+
+tique [56]. C’est également dans ces cas qu’un diagnostic ne pourra être déﬁnitivement affirmé qu’après
+la mise en place de saignées qui permettront une estimation précise de la surcharge en fer, si leur réalisation a fait appel à un protocole strict. La soustraction
+de plus de 3 g de fer chez une femme et de plus de
+5 g chez un homme autorise à retenir le diagnostic
+d’hémochromatose génétique [44].
+DIAGNOSTIC DIFFÉRENTIEL
+Actuellement, environ 30 % des hémochromatoses
+génétiques sont asymptomatiques lors du diagnostic,
+et celui-ci est alors réalisé au cours de l’inventaire
+étiologique d’une hyperferritinémie. Il faut donc éliminer préalablement les hyperferritinémies sans surcharge martiale que l’on retrouve essentiellement au
+cours du syndrome inﬂammatoire et des cytolyses [57].
+Les surcharges martiales non liées à une hémochromatose génétique sont nombreuses, héréditaires ou
+acquises [10, 58, 59] (tableau III).
+L’hémochromatose juvénile est rare. Il s’agit d’une
+entité bien distincte de l’hémochromatose génétique
+liée à une mutation sur le chromosome 1. L’atteinte
+cardiaque est prédominante [60].
+Une dizaine de cas seulement d’atransferrinémie
+ont été rapportés [58]. De même il existe d’exceptionnels cas de surcharge néonatale en fer non liée
+au gène HFE [27, 59].
+
+967
+
+L’acéruléoplasminémie héréditaire se transmet sur
+le mode autosomique récessif et se révèle chez
+l’adulte le plus souvent par un diabète auquel s’associent une surcharge hépatique en fer, une atteinte du
+système nerveux (syndrome extrapyramidal, syndrome démentiel), de la rétine (rétinite pigmentaire)
+et fréquemment une anémie microcytaire. La biologie montre un fer sérique et un coefficient de saturation de la transferrine bas, une hyperferritinémie et
+un effondrement de la céruléoplasmine [61].
+La surcharge en fer africaine est liée à un apport
+alimentaire excessif en fer chez des sujets génétiquement prédisposés [62].
+Les causes acquises de surcharges en fer non hémochromatosiques sont beaucoup plus fréquentes.
+Un apport excessif de fer peut induire une véritable surcharge, surtout s’il existe par ailleurs une hyperabsorption digestive de fer (dans le cadre d’une dysérythropoïèse
+modérée
+non
+connue,
+par
+exemple) [58]. Cette hyperabsorption digestive de fer
+réactionnelle à une érythropoïèse inefficace est le
+mécanisme principal de la surcharge en fer que l’on
+peut rencontrer dans la thalassémie ou les anémies
+sidéroblastiques, et cela parfois avant toute transfusion [58]. Par la suite, le tableau clinique sera aggravé
+par les apports transfusionnels si une prévention par
+les chélateurs du fer n’est pas assurée.
+Il existe fréquemment dans la porphyrie cutanée
+tardive une surcharge en fer modérée et les rapports
+entre la porphyrie cutanée tardive et le gène de
+l’hémochromatose génétique sont discutés depuis
+longtemps. La recherche de la mutation C282Y a
+conﬁrmé cette association sans toutefois permettre
+d’élucider complètement les mécanismes [63].
+Au cours des hépatopathies chroniques, le bilan du
+fer est fréquemment perturbé. Dans l’alcoolisme
+chronique, une surcharge en fer existe dans 30 % des
+cas, mais reste habituellement modérée [13]. Dans
+l’infection chronique au virus de l’hépatite C, une
+surcharge en fer à prédominance mésenchymateuse,
+observée dans un tiers des cas, aggraverait les lésions
+hépatiques et serait de plus un facteur de moindre
+réponse au traitement à l’interféron [10]. Le rôle des
+mutations du gène HFE dans l’apparition de la surcharge en fer et dans la majoration du risque de
+ﬁbrose reste discuté [64]. Au stade avancé de toutes
+les cirrhoses, une surcharge en fer peut s’être constituée et mimer une hémochromatose génétique. Une
+hyperferritinémie avec une élévation du coefficient
+
+968
+
+S. Durupt et al.
+
+de saturation de la transferrine est possible. Sur la
+ponction-biopsie hépatique, la concentration hépatique en fer peut être importante avec parfois des rapports CHF/âge supérieurs à 2, valeur seuil retenue
+comme déterminante d’une hémochromatose génétique homozygote [14]. En fait, dans les cirrhoses
+constituées, l’utilisation de ce seul index est insuffisante. Dans une étude récente chez 447 patients greffés hépatiques dont la maladie était connue,
+38 d’entre eux avaient un rapport CHF/âge supérieur
+à 2, alors que seulement cinq avaient une réelle hémochromatose génétique. Les 33 autres malades étaient
+atteints d’une cirrhose alcoolique, postvirale, d’une
+maladie de Wilson, d’une cholangite sclérosante ou
+d’une cirrhose biliaire primitive [65]. Ces constatations sont conﬁrmées par d’autres auteurs [66].
+L’hépatosidérose dysmétabolique est en fait le principal diagnostic différentiel de l’hémochromatose
+génétique. Il s’agit d’une entité récemment décrite
+par Moirand et al. [67], touchant des sujets masculins (sex-ratio homme/femme = 12), non alcooliques
+et qui présentent une surcharge en fer modérée (rapport de la CHF/âge compris en 1,5 et 3), mixte (hépatocytaire et mésenchymateuse), associée à un syndrome polymétabolique. Celui-ci se caractérise par
+un surpoids (index de masse corporelle supérieur
+à 25) et/ou une dyslipidémie (hypertriglycéridémie
+surtout) et/ou une intolérance aux hydrates de carbone (voire un diabète non insulinodépendant). La
+ferritinémie est augmentée, mais le coefficient de
+saturation de la transferrine est toujours normal. Les
+transaminases peuvent être discrètement élevées de
+même que les γGT. Histologiquement on trouve, en
+plus de la surcharge en fer, une stéatose hépatique
+dans 50 % des cas environ [68]. Une ﬁbrose sévère,
+voire une cirrhose est possible dans 10 % des cas.
+Deux tiers des patients ont l’une et/ou l’autre
+mutation du gène HFE (C282Y et H63D), mais la
+mutation C282Y n’est jamais présente à l’état homozygote [10]. La correction du syndrome polymétabolique constitue la base du traitement. La réalisation de saignées, à un rythme et à une fréquence
+moindre que dans l’hémochromatose génétique, est
+possible.
+TRAITEMENT
+Il repose sur des saignées avec une phase d’attaque
+dont les modalités sont détaillées dans le
+tableau IV [69]. Elle a pour but la déplétion du stock
+
+Tableau IV. Modalités pratiques du traitement de l’hémochromatose génétique
+1. Traitement d’attaque
+Une saignée de 400 à 500 mL toutes les semaines (500 mL de
+sang permet une soustraction de 250 mg de fer)
+Numération-formule plaquette et ferritinémie mensuelles si la ferritinémie au début du traitement est supérieure à 1 000 ng/mL ;
+Numération-formule plaquette, ferritinémie, dosage du fer sérique et du coefficient de saturation de la transferrine à chaque nouvelle saignée quand la désaturation approche (ferritinémie à
+150–200 ng/mL) ;
+Objectif : ferritinémie inférieure à 50 ng/mL ; coefficient de saturation de la transferrine inférieur à 20 % ; sidérémie inférieure à
+15 µmol/L.
+2. Traitement d’entretien à vie
+Une saignée de 400 à 500 mL tous les 1 à 3 mois (variation individuelle) dont le but est de maintenir une ferritinémie inférieure
+à 50 ng/mL
+3. Recommandations hygiénodiététiques
+Consommation modérée d’alcool ; cette consommation doit être
+nulle en cas d’hépatopathie avérée
+Éviter toute supplémentation en vitamine C
+Consommation modérée de viande rouge
+Le thé diminue l’absorption du fer
+
+de fer, et est suivie d’une phase d’entretien, à vie,
+pour empêcher la reconstitution de la surcharge. La
+tolérance des saignées est bonne [70], surtout si une
+hydratation suffisante et une limitation des activités
+physiques intensives sont assurées dans les 24 heures suivant celles-ci. Il n’y a pas d’indication à un
+régime visant à diminuer, voire à éliminer les apports
+de fer dans l’alimentation ; cette approche serait
+irréalisable compte tenu de la diversité des aliments
+contenant du fer. Qui plus est, la suppression théorique d’un apport quotidien d’environ 1 mg de fer
+est faible en comparaison des 250 mg de fer soustraits par une saignée [44].
+Le facteur pronostique majeur dans l’hémochromatose génétique étant la cirrhose [32, 71, 72], la
+mise en route des saignées avant la constitution de
+celle-ci donne aux patients une espérance de vie identique à la population générale [72]. L’asthénie, les
+douleurs abdominales, la mélanodermie, l’atteinte
+hépatique (hépatomégalie et hypertransaminasémie)
+ainsi que l’atteinte cardiaque sont habituellement
+réversibles sous traitement. Le diabète est occasionnellement amélioré, parfois stabilisé, mais le plus
+souvent de façon temporaire. En ce qui concerne les
+manifestations articulaires, les arthralgies peuvent
+diminuer, mais si l’atteinte est plus évoluée avec des
+remaniements articulaires (arthropathie souschondrale), l’efficacité des saignées est faible et une
+
+969
+
+L’hémochromatose génétique
+
+progression des lésions au niveau des articulations
+atteintes est même parfois observée [44]. L’insuffisance gonadique est habituellement déﬁnitive. La cirrhose constituée n’est pas modiﬁée par le traitement,
+et le risque est celui d’un carcinome hépatocellulaire
+dont il faudra surveiller l’apparition [32, 69, 71, 72].
+ENQUÊTE FAMILIALE ET DÉPISTAGE
+Elle doit être réalisée chez les ascendants, les descendants et les collatéraux du probant. Elle repose
+sur la recherche de signes cliniques et biologiques
+de surcharge en fer et sur la recherche de la mutation
+C282Y [73]. Les enfants d’un patient homozygote
+C282Y sont hétérozygotes obligatoires pour la mutation. L’absence de la mutation chez le ou la conjointe
+permet raisonnablement d’éliminer toute arrièrepensée d’hémochromatose génétique chez ces
+enfants [74]. Si ce n’est pas le cas, une enquête phénotypique et génotypique sera réalisée chez ces
+enfants après leur 15e année.
+La pratique d’un dépistage systématique de
+l’hémochromatose génétique dans la population
+générale reste controversée et n’est pas encore retenue [27]. Ce dépistage général pose en effet des problèmes médicaux, ﬁnanciers et éthiques et se heurte
+particulièrement à la question non résolue de la pénétrance du gène et à l’existence de sujets homozygotes C282Y qui n’expriment aucune surcharge en
+fer [75, 76].
+L’hémochromatose génétique est une maladie dont
+la connaissance a considérablement évolué depuis
+20 ans. Le tableau de cirrhose bronzée avec diabète
+n’est plus qu’une présentation historique de la maladie qui doit être actuellement évoquée dans des situations non spéciﬁques telles qu’une asthénie, une
+hypertransaminasémie, des manifestations articulaires persistantes ou une hyperferritinémie isolée. La
+mesure du coefficient de saturation de la transferrine
+est alors l’examen clé et son élévation au-dessus de
+45 % impose la recherche d’une homozygotie
+C282Y. La ponction-biopsie hépatique n’est maintenant plus réalisée qu’à visée pronostique, après une
+analyse précise de la présentation clinicobiologique.
+Cette stratégie simple doit permettre d’effectuer de
+plus en plus souvent des diagnostics précoces qui
+mettront les sujets à l’abri des complications ultérieures. Les saignées, bien tolérées, de réalisation
+simple et peu coûteuse, restent le traitement de réfé-
+
+rence. Le dépistage familial doit permettre d’étendre
+ce diagnostic aux apparentés.
+REMERCIEMENTS
+Nous remercions le professeur R. Levrat pour son
+aide et ses conseils.
+´ ´
+REFERENCES
+1 Adams PC. Population screening for hemochromatosis. Hepatology 1999 ; 29 : 1324-7.
+2 McDonnell SM, Hover A, Gloe D, Ou CY, Cogswell ME, Grummer-Strawn L. Population-based screening for hemochromatosis
+using phenotypic and DNA testing among employees of Health
+Maintenance Organizations in Springﬁeld Missouri. Am J Med
+1999 ; 107 : 30-7.
+3 McLaren C, Gordeuk VR, Looker AC, Hasselblad V,
+Edwards CQ, Griffen LM, et al. Prevalence of heterozygotes for
+the hemochromatosis in the white population of the United States. Blood 1995 ; 86 : 2021-7.
+4 Powell LW, George DK, McDonnell SM, Kowdley KV. Diagnosis of hemochromatosis. Ann Intern Med 1998 ; 129 : 925-31.
+5 Witte DL, Crosby WH, Edwards CQ, Fairbanks VF, Mitros FA.
+Practice guideline development task force of the college of american pathologists. Hereditary hemochromatosis. Clin Chim Acta
+1996 ; 245 : 139-200.
+6 Feder JN, Gnirke A, Thomas W, Tsuchihashi Z, Ruddy DA,
+Basava A, et al. A novel MHC class I-like gene is mutated in
+patients with hereditary haemochromatosis. Nat Genet 1996 ;
+13 : 399-408.
+7 Brissot P, Moirand D, Guyader D, Loréal O, Turlin B, Deugnier Y. Hemochromatosis after the gene discovery: revisiting
+the diagnostic strategy. J Hepatol 1998 ; 28 Suppl 1 : 14-8.
+8 Olynyk JK, Cullen DJ, Aquilia S, Rossi E, Summerville L,
+Powell LW. A population-based study of the clinical expression
+of the hemochromatosis gene. N Engl J Med 1999 ; 341 : 71824.
+9 Simon M, Bourel M, Fauchet R, Genetet B. Association of
+HLA-A3 and HLA- B14 antigens with idiopathic haemochromatosis. Gut 1976 ; 17 : 332-4.
+10 Deugnier Y, Moirand R, Guyader D, Jouanolle AM, Brissot P.
+Surcharges en fer et gène HFE. Gastroentérol Clin Biol 1999 ;
+23 : 122-31.
+11 Beutler E, Gelbart T, West C, Lee P, Adams M, Blackstone R, et
+al. Mutation analysis in hereditary hemochromatosis. Blood Cell
+Mol Dis 1996 ; 22 : 187-94.
+12 Deugnier YM, Turlin B, Powell LW, Summers KM, Moirand R,
+Fletcher L, et al. Differenciation between heterozygotes and
+homozygotes in genetic hemochromatosis by means of a histological hepatic iron index : a study of 192 cases. Hepatology
+1993 ; 17 : 30-4.
+13 Basset ML, Halliday JW, Powell LW. Value of hepatic iron measurement in early hemochromatosis and determination of the critical iron level associated with ﬁbrosis. Hepatology 1986 ; 6 :
+24-9.
+14 Summers KM, Halliday JW, Powell LW. Identiﬁcation of homozygous hemochromatosis subjects by measurement of hepatic
+iron index. Hepatology 1990 ; 12 : 20-5.
+15 Carella M, D’ambrosio L, Totaro A, Grifa A, Valentino MA,
+Piperno A, et al. Mutations analysis of the HLA-H gene in Italian hemochromatosis patients. Am J Hum Genet 1997 ; 60 :
+828-32.
+
+970
+
+S. Durupt et al.
+
+16 Brissot P, Moirand R, Jouanolle AM, Guyader D, Le Gall JY,
+Deugnier Y, et al. A genotypic study of 217 unrelated probands
+diagnosed as “genetic hemochromatosis” on “classical” phenotypic criteria. J Hepatol 1999 ; 30 : 588-93.
+17 Piperno A, Sampietro M, Pietrangelo A, Arosio C, Lupica L, Montosi G, et al. Heterogeneity of hemochromatosis in Italy. Gastroenterology 1998 ; 114 : 996-1002.
+18 Burt MJ, George PM, Upton JD, Collett JA, Frampton CMA,
+Chapman TM, et al. The signiﬁcance of haemochromatosis gene
+mutations in the general population: implications for screening.
+Gut 1998 ; 43 : 830-6.
+19 Aguilar Martinez P, Biron C, Blanc F, Masmejean C, Jeanjean P,
+Michel H, et al. Compound heterozygotes for hemochromatosis
+gene mutations: may they help to understand the pathophysiology of the disease? Blood Cell Mol Dis 1997 ; 23 : 269-76.
+20 Mura C, Raguenes O, Férec C. HFE mutations analysis in
+711 hemochromatosis probands: evidence for S65C implication
+in mild form of hemochromatosis. Blood 1999 ; 93 : 2502-5.
+21 Pietrangelo A, Montosi G, Totaro A, Garuti C, Conte D, Casanelli S, et al. Hereditary hemochromatosis in adults without pathogenic mutations in the hemochromatosis. N Engl J Med 1999 ;
+341 : 725-32.
+22 Pounder R, Dooley JS, Walker AP, Macfarlane B, Worwood M.
+Genetic haemochromatosis. Lancet 1997 ; 349 : 1688-93.
+23 Pietrangello A, Camaschella C. Moleculars genetics and control
+of iron metabolism in hemochromatosis. Haematologica 1998 ;
+83 : 456-61.
+24 Rothenberg BE, Voland JR. 2 knock out mice develop parenchymal iron overload: a putative role for class I genes of the
+major histocompatibility complex in iron metabolism. Proc Natl
+Acad Sci USA 1996 ; 93 : 1529-34.
+25 Zhou X, Tomatsu S, Fleming RE, Parkkila S, Waheed A, Jiang J,
+et al. HFE gene knockout produces mouse model of hereditary
+hemochromatosis. Proc Natl Acad Sci USA 1998 ; 95 : 2492797.
+26 Feder JN, Penny DM, Irrinki A, Lee VK, Lebron JA, Watson N,
+et al. The hemochromatosis gene product complexes with the
+transferrin receptor and lowers its affinity for ligand binding. Proc
+Natl Acad Sci USA 1998 ; 95 : 1472-7.
+27 Bacon BR, Powell LW, Adams PC, Kresina TF, Hoofnagle JH.
+Molecular medicine and hemochromatosis: at the crossroads.
+Gastroenterology 1999 ; 116 : 193-207.
+28 Moirand R, Adams PC, Bicheler V, Brissot P, Deugnier Y. Clinical feature of genetic hemochromatosis in women compared
+with men. Ann Intern Med 1997 ; 127 : 105-10.
+29 Adams PC, Deugnier Y, Moirand R, Brissot P. The relationship
+between iron overload, clinical symptoms and age in
+410 patients with genetic hemochromatosis. Hepatology 1997 ;
+25 : 162-6.
+30 McDonnell SM, Preston BL, Jewell SA, Barton JC,
+Edwards CQ, Adams PC, et al. A survey of 2.851 patients with
+hemochromatosis: symptoms and response to treatment. Am J
+Med 1999 ; 106 : 619-24.
+31 Askaris AD, Miur WA, Rosner IA, Moskowitz RW, Mc
+Laren GD, Braun WE. Arthritis of hemochromatosis. Clinical
+spectrum, relation to histocompatibility antigens, and effectiveness of early phlebotomy. Am J Med 1983 ; 75 : 957-65.
+32 Adams PC, Kertesz AE, Valberg LS. Clinical presentation of
+hemochromatosis : a changing scene. Am J Med 1991 ; 90 : 445-9.
+33 Pawlotsky Y, Le Dantec P, Moirand R, Guggenbuhl P, Jouanolle AM, Catheline M, et al. Elevated parathyroid hormone
+44-68 and osteoarticular changes in patients with genetic hemochromatosis. Arthritis Rheum 1999 ; 42 : 799-806.
+34 Diamond T, Shiel D, Posen S. Osteoporosis in hemochromatosis: iron excess, gonadal deﬁciency or other factors? Ann Intern
+Med 1989 ; 110 : 430-6.
+
+35 Sinigaglia L, Fargion S, Fracanzani AL, Binelli L, Battafarano N, Varenna M, et al. Bone and joint involvement in genetic
+hemochromatosis: role of cirrhosis and iron overload. J Rheumatol 1997 ; 24 : 1809-13.
+36 Niederau C, Erhardt A, Häussinger D, Strohmeyer G. Haemochromatosis and the liver. J Hepatol 1999 ; 30 Suppl 1 : 6-11.
+37 Bradbear RA, Bain C, Sisking V, Schoﬁeld FD, Webb S, Axelsen E, et al. Cohort study of internal malignancy in genetic hemochromatosis and other chronic nonalcoholic liver diseases. J Natl
+Cancer Inst 1985 ; 75 : 81-4.
+38 Deugnier YM, Guyader D, Crantock L, Lopez JM, Turlin B,
+Yaouanq J, et al. Primary liver cancer in genetic hemochromatosis: a clinical, pathological and pathogenetic study of 54 cases.
+Gastroenterology 1993 ; 104 : 228-34.
+39 Deugnier YM, Charalambous P, Le Quilleuc D, Turlin B,
+Searle J, Brissot P, et al. Preneoplastic signiﬁcance of hepatic
+iron-free foci in genetic hemochromatosis : a study of
+185 patients. Hepatology 1993 ; 18 : 1363-9.
+40 Siegelman ES, Mitchell DG, Outwater E, Munoz SJ, Rubin R.
+Idiopathic hemochromatosis : MR imaging ﬁngings in cirrhotic
+and precirrhotic patients. Radiology 1993 ; 188 : 637-41.
+41 Gandon Y, Guyader D, Heautot JF, Reda MI, Yaouanq, Buhe T,
+et al. Hemochromatosis: diagnosis and quantiﬁcation of liver iron
+with gradient echo MR imaging. Radiology 1994 ; 193 : 533-8.
+42 Guyader D, Gandon Y, Sapey T, Turlin B, Mendler MH, Brissot P, et al. Magnetic resonance iron-free nodules in genetic hemochromatosis. Am J Gastroenterol 1999 ; 94 : 1083-6.
+43 Vadillo M, Corbella X, Pac V, Fernandez-Viladrich P, Pujol R.
+Multiple liver abscesses due to Yersinia enterocolitica discloses
+primary hemochromatosis : three cases reports and review. Clin
+Inf Dis 1994 ; 18 : 938-41.
+44 Barton JC, McDonnell SM, Adams PC, Brissot P, Powell LW,
+Edwards CQ, et al. Management of hemochromatosis. Hemochromatosis Management Working Group. Ann Intern Med
+1998 ; 129 : 932-9.
+45 Yaouanq J. Diabete and hemochromatosis : current concept,
+management and prevention. Diab Metabolism 1995 ; 21 : 31929.
+46 Deugnier Y, Rabot AF, Guyader D, Moirand R, Turlin B, Boucher E, et al. Serum increase and liver over expression of carbohydrate 19.9 antigen in patients with genetic haemochromatosis.
+Gut 1994 ; 35 : 1107-11.
+47 Darrell HG, Crawford DHG, Jazwinska EC, Cullen LM,
+Powell LW. Expression of HLA-linked hemochromatosis in subjects homozygous or heterozygous for the C282Y mutation. Gastroenterology 1998 ; 114 : 1003-8.
+48 Adams PC, Chakrabarti S. Genotypic/phenotypic correlations in
+genetic hemochromatosis: evolution of diagnostic criteria. Gastroenterology 1998 ; 114 : 319-23.
+49 McLaren CE, McLachlan GJ, Halliday JW, Webb SI, Leggett BA, Jazwinska EC, et al. Distribution of transferrin saturation in an Australian population: relevance to the early diagnosis
+of hemochromatosis. Gastroenterology 1998 ; 114 : 543-9.
+50 Brissot P, Bourel M, Herry D, Verger JP, Messner M, Beaumont C, et al. Assessment of liver iron content in 271 patients: a
+reevaluation of direct and indirect methods. Gastroenterology
+1981 ; 80 : 557-65.
+51 Guyader D, Jacquelinet C, Moirand R, Turlin B, Mendler MH,
+Chaperon J, et al. Noninvasive prediction of ﬁbrosis in C282Y
+homozygous hemochromatosis. Gastroenterology 1998 ; 115 :
+929-36.
+52 Bulaj ZJ, Griffen LM, Jorde LB, Edwards CQ, Kushner JP. Clinical and biochemical abnormalities in people heterozygous for
+hemochromatosis. N Engl J Med 1996 ; 335 : 1799-805.
+53 Piperno A, Fargion S, D’Alba R, Roffi I, Fracanzani AL, Vecchi I, et al. Liver damage in italian patients with hereditary hemochromatosis is highly inﬂuenced by hepatitis B and C virus infection. J Hepatol 1992 ; 16 : 364-8.
+
+L’hémochromatose génétique
+
+54 The UK Haemochromatosis Consortium. A simple genetic test
+identiﬁes 90 % of UK patients with haemochromatosis. Gut
+1997 ; 41 : 841-4.
+55 Wallace DF, Dooley JS, Walker AP. A novel mutation of HFE
+explains the classical phenotype of genetic hemochromatosis in
+a C282Y heterozygote. Gastroenterology 1999 ; 116 : 1409-12.
+56 Brissot P. Dépistage génétique de l’hémochromatose. Rev Méd
+Interne 1998 ; 19 : 165-7.
+57 Damade R, Cacoub P. Diagnostic des hyperferritinémies en médecine interne. In : Rousset H, Vital Durand D, Dupond JL, Eds.
+Diagnostics difficiles en médecine interne. 2e édition. Paris :
+Maloine ; 1999. p. 454-66.
+58 Bottomley S. Secondary iron overload disorders. Semin Hematol 1998 ; 35 : 77-86.
+59 Andrews NC. Disorders of iron metabolism. N Engl J Med
+1999 ; 341 : 1986-95.
+60 Roetto A, Totaro A, Cazzola M, Cicilano M, Bosio S,
+D’Ascola G, et al. Juvenile hemochromatosis locus maps to chromosome 1q. Am J Hum Genet 1999 ; 64 : 1388-93.
+61 Morita H, Ikeda SI, Yamamoto K, Morita S, Yoshida K,
+Nomoto S, et al. Hereditary ceruloplasmin deﬁciency with hemosiderosis: a clinicopathological study of a Japanese family. Ann
+Neurol 1995 ; 37 : 646-56.
+62 Gangaidzo IT, Moyo VM, Saungweme T, Khumalo H, Charakupa RM, Gomo ZAR, et al. Iron overload in urban Africans
+in the 1990s. Gut 1999 ; 45 : 278-83.
+63 Sampietro M, Fiorelli G, Fargion S. Iron overload in porphyria
+cutanea tarda. Haematologica 1999 ; 84 : 248-53.
+64 Piperno A, Vergani A, Malosio I, Parma L, Fossati L, Ricci A, et
+al. Hepatic iron overload in patients with chronic viral hepatitis:
+role of HFE gene mutations. Hepatology 1998 ; 28 : 1105-9.
+65 Ludwig J, Hashimoto E, Porayko MK, Moya TP, Baldus WP.
+Hemosiderosis in cirrhosis: a study of 447 native livers. Gastroenterology 1997 ; 112 : 882-8.
+
+971
+
+66 Deugnier Y, Turlin B, Le Quilleuc D, Moirand R, Loréal O, Messner M, et al. A reappraisal of hepatic siderosis in patients with
+end-stage cirrhosis: practical implications for the diagnosis of
+hemochromatosis. Am J Surg Pathol 1997 ; 21 : 669-75.
+67 Moirand R, Mortaji AM, Loréal O, Paillard F, Brissot P, Deugnier Y. A new syndrome of iron overload with normal transferrin saturation. Lancet 1997 ; 349 : 95-7.
+68 George DK, Goldwurm S, MacDonald GA, Cowley LL, Walker NI, Ward PJ, et al. Increased hepatic iron concentration in
+nonalcoholic steatohepatitis is associated with increased ﬁbrosis.
+Gastroenterology 1998 ; 114 : 311-8.
+69 Crawford DH, Halliday JW. Current concept in rational therapy
+for haemochromatosis. Drugs 1991 ; 41 : 875-82.
+70 Adams PC. Factors affecting the rate of iron mobilization during
+venesection therapy for genetic hemochromatosis. Am J Hematol 1998 ; 58 : 16-9.
+71 Fargion S, Mandelli C, Piperno A, Cesana B, Fracanzani AL,
+Fraquelli M, et al. Survival and prognostic factors in 212 Italians
+patients with genetic hemochromatosis. Hepatology 1992 ; 15 :
+655-9.
+72 Niederau C, Fischer R, Purschel A, Stremmel W, Haussinger D,
+Strohmeyer G. Long-term survival in patients with hereditary
+hemochromatosis. Gastroenterology 1996 ; 110 : 1107-19.
+73 Brissot P. Le diagnostic de l’hémochromatose à l’heure du test
+génétique. Presse Méd 2000 ; 8 : 425-7.
+74 Adams PC. Implications of genotyping of spouses to limit investigation of children in genetic hemochromatosis. Clin Genet
+1998 ; 53 : 176-8.
+75 Yaouanq J, Feingold J, Lacombe D. Société française de génétique humaine. Commission pratique de la génétique. Synthése
+des données scientiﬁques utiles aux conseils génétiques. L’hémochromatose. Ann Génet 1999 ; 42 : 234-40.
+76 Agence nationale d’accréditation et d’évaluation en santé. Évaluation clinique et économique : intérêt du dépistage de l’hémochromatose génétique en France. Paris : ANAES ; 1999.
+

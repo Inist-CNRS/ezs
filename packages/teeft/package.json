@@ -3,38 +3,40 @@
     "version": "1.0.0",
     "description": "ezs statements for teeft",
     "publishConfig": {
-      "access": "public"
+        "access": "public"
     },
     "main": "lib/index.js",
     "scripts": {
-      "build": "babel src --out-dir lib",
-      "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-teeft.md --section=usage && cp ../../docs/plugin-teeft.md ./README.md",
-      "lint": "eslint --ext=.js ./test/*.js ./src/*.js ./bin/*.js",
-      "prepublish": "npm run build",
-      "pretest": "npm run build",
-      "preversion": "npm run doc"
+        "build": "babel src --out-dir lib",
+        "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-teeft.md --section=usage && cp ../../docs/plugin-teeft.md ./README.md",
+        "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
+        "prepublish": "npm run build",
+        "pretest": "npm run build",
+        "preversion": "npm run doc"
     },
     "repository": {
-      "type": "git",
-      "url": "git+https://github.com/Inist-CNRS/ezs.git"
+        "type": "git",
+        "url": "git+https://github.com/Inist-CNRS/ezs.git"
     },
     "keywords": [
-      "teeft",
-      "term",
-      "extraction",
-      "nlp",
-      "ezs",
-      "stream"
+        "teeft",
+        "term",
+        "extraction",
+        "nlp",
+        "ezs",
+        "stream"
     ],
     "author": "François Parmentier <francois.parmentier@gmail.com>",
     "license": "CECILL-2.1",
     "bugs": {
-      "url": "https://github.com/Inist-CNRS/ezs/issues"
+        "url": "https://github.com/Inist-CNRS/ezs/issues"
     },
     "homepage": "https://github.com/Inist-CNRS/ezs/packages/teeft#readme",
     "dependencies": {
+        "glob": "^7.2.0",
+        "ramda": "^0.27.1"
     },
     "peerDependencies": {
-      "@ezs/core": "*"
+        "@ezs/core": "*"
     }
-  }
+}
