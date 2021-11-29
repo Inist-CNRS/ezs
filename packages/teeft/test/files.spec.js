@@ -135,7 +135,6 @@ describe('TeeftGetFilesContent', () => {
         from([filePath])
             .pipe(ezs('TeeftGetFilesContent'))
             .on('data', (chunk) => {
-                expect(Array.isArray(chunk)).toBe(true);
                 res = res.concat(chunk);
             })
             .on('end', () => {
@@ -154,7 +153,6 @@ describe('TeeftGetFilesContent', () => {
         from([filePath, filePath])
             .pipe(ezs('TeeftGetFilesContent'))
             .on('data', (chunk) => {
-                expect(Array.isArray(chunk)).toBe(true);
                 res = res.concat(chunk);
             })
             .on('end', () => {
@@ -175,7 +173,6 @@ describe('TeeftGetFilesContent', () => {
         from([filePath])
             .pipe(ezs('TeeftGetFilesContent'))
             .on('data', (chunk) => {
-                expect(Array.isArray(chunk)).toBe(true);
                 res = res.concat(chunk);
             })
             .on('end', () => {
@@ -194,7 +191,6 @@ describe('TeeftGetFilesContent', () => {
         from([filePath, filePath2])
             .pipe(ezs('TeeftGetFilesContent'))
             .on('data', (chunk) => {
-                expect(Array.isArray(chunk)).toBe(true);
                 res = res.concat(chunk);
             })
             .on('end', () => {

@@ -16,9 +16,9 @@ export default async function TeeftGetFilesContent(data, feed) {
     let content;
     try {
         content = await readFilePromise(filePath, 'utf8');
-        feed.write([{ path: filePath , content }]);
+        feed.write({ path: filePath , content });
     } catch (err) {
-        feed.write([err]);
+        feed.write(err);
     }
     feed.end();
 }
