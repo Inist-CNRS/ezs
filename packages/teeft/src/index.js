@@ -6,7 +6,7 @@
 // import TeeftFilterMonoFreq from './filter-mono-freq';
 // import TeeftSpecificity from './specificity';
 // import TeeftNaturalTag from './natural-tag';
-// import TeeftSentenceTokenize from './sentence-tokenize';
+import TeeftSentenceTokenize from './sentence-tokenize';
 // import TeeftFilterMultiSpec from './filter-multi-spec';
 import TeeftListFiles from './list-files';
 import TeeftGetFilesContent from './get-files-content';
@@ -21,7 +21,7 @@ export default {
     // TeeftFilterMonoFreq,
     // TeeftSpecificity,
     // TeeftNaturalTag,
-    // TeeftSentenceTokenize,
+    TeeftSentenceTokenize,
     // TeeftFilterMultiSpec,
     TeeftListFiles,
     TeeftGetFilesContent,
