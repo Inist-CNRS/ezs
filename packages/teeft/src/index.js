@@ -10,7 +10,7 @@
 // import TeeftFilterMultiSpec from './filter-multi-spec';
 import TeeftListFiles from './list-files';
 import TeeftGetFilesContent from './get-files-content';
-// import ToLowerCase from './to-lower-case';
+import TeeftToLowerCase from './to-lower-case';
 
 export default {
     // TeeftTokenize,
@@ -25,5 +25,5 @@ export default {
     // TeeftFilterMultiSpec,
     TeeftListFiles,
     TeeftGetFilesContent,
-    // ToLowerCase,
+    TeeftToLowerCase,
 };
