@@ -1,4 +1,4 @@
-import fs from 'fs/promises';
+import readFilePromise from 'fs-readfile-promise';
 
 /**
  * Take an array of file paths as input, and returns a list of
@@ -14,7 +14,7 @@ export default function TeeftGetFilesContent(data, feed) {
     }
     const filePaths = Array.isArray(data) ? data : [data];
     const promises = filePaths.map((filePath) => {
-        const promise = fs.readFile(filePath, 'utf8')
+        const promise = readFilePromise(filePath, 'utf8')
             .then(content => ({
                 path: filePath,
                 content,

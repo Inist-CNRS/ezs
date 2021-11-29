@@ -33,6 +33,7 @@
     },
     "homepage": "https://github.com/Inist-CNRS/ezs/packages/teeft#readme",
     "dependencies": {
+        "fs-readfile-promise": "^3.0.1",
         "glob": "^7.2.0",
         "ramda": "^0.27.1"
     },
