@@ -8,27 +8,17 @@ import readFilePromise from 'fs-readfile-promise';
  * @name TeeftGetFilesContent
  * @return {[{path: string, content: string}]} Array of { path, content }
  */
-export default function TeeftGetFilesContent(data, feed) {
+export default async function TeeftGetFilesContent(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
-    const filePaths = Array.isArray(data) ? data : [data];
-    const promises = filePaths.map((filePath) => {
-        const promise = readFilePromise(filePath, 'utf8')
-            .then(content => ({
-                path: filePath,
-                content,
-            }));
-        return promise;
-    });
-    Promise.all(promises)
-        .then((objects) => {
-            feed.write(objects);
-        })
-        .catch((err) => {
-            feed.write([err]);
-        })
-        .finally(() => {
-            feed.end();
-        });
+    const filePath = data;
+    let content;
+    try {
+        content = await readFilePromise(filePath, 'utf8');
+        feed.write([{ path: filePath , content }]);
+    } catch (err) {
+        feed.write([err]);
+    }
+    feed.end();
 }
