@@ -1,4 +1,4 @@
-// import TeeftTokenize from './tokenize';
+import TeeftTokenize from './tokenize';
 // import TeeftStopWords from './stop-words';
 // import TeeftFilterTags from './filter-tags';
 // import TeeftExtractTerms from './extract-terms';
@@ -13,7 +13,7 @@ import TeeftGetFilesContent from './get-files-content';
 import TeeftToLowerCase from './to-lower-case';
 
 export default {
-    // TeeftTokenize,
+    TeeftTokenize,
     // TeeftStopWords,
     // TeeftFilterTags,
     // TeeftExtractTerms,
