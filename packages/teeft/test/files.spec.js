@@ -13,7 +13,6 @@ describe('TeeftListFiles', () => {
         from([dirPath])
             .pipe(ezs('TeeftListFiles'))
             .on('data', (chunk) => {
-                expect(Array.isArray(chunk)).toBe(true);
                 res = res.concat(chunk);
             })
             .on('end', () => {
@@ -30,7 +29,6 @@ describe('TeeftListFiles', () => {
         ])
             .pipe(ezs('TeeftListFiles'))
             .on('data', (chunk) => {
-                expect(Array.isArray(chunk)).toBe(true);
                 res = res.concat(chunk);
             })
             .on('end', () => {
@@ -47,7 +45,6 @@ describe('TeeftListFiles', () => {
             .pipe(ezs('TeeftListFiles'))
             .pipe(ezs('debug'))
             .on('data', (chunk) => {
-                expect(Array.isArray(chunk)).toBe(true);
                 res = res.concat(chunk);
             })
             .on('end', () => {
@@ -78,7 +75,6 @@ describe('TeeftListFiles', () => {
         from([dirPath])
             .pipe(ezs('TeeftListFiles', { pattern: '*m*.txt' }))
             .on('data', (chunk) => {
-                expect(Array.isArray(chunk)).toBe(true);
                 res = res.concat(chunk);
             })
             .on('end', () => {
@@ -93,7 +89,6 @@ describe('TeeftListFiles', () => {
         from([dirPath])
             .pipe(ezs('TeeftListFiles'))
             .on('data', (chunk) => {
-                expect(Array.isArray(chunk)).toBe(true);
                 res = res.concat(chunk);
             })
             .on('end', () => {
@@ -108,7 +103,6 @@ describe('TeeftListFiles', () => {
         from([dirPath])
             .pipe(ezs('TeeftListFiles'))
             .on('data', (chunk) => {
-                expect(Array.isArray(chunk)).toBe(true);
                 res = res.concat(chunk);
             })
             .on('end', () => {
@@ -123,7 +117,6 @@ describe('TeeftListFiles', () => {
         from([dirPath])
             .pipe(ezs('TeeftListFiles'))
             .on('data', (chunk) => {
-                expect(Array.isArray(chunk)).toBe(true);
                 res = res.concat(chunk);
             })
             .on('end', () => {
