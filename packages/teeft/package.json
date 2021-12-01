@@ -35,6 +35,7 @@
     "dependencies": {
         "fs-readfile-promise": "^3.0.1",
         "glob": "^7.2.0",
+        "natural": "^5.1.11",
         "ramda": "^0.27.1",
         "talisman": "^1.1.4"
     },
