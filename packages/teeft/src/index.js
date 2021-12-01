@@ -1,7 +1,7 @@
 import TeeftTokenize from './tokenize';
 // import TeeftStopWords from './stop-words';
-// import TeeftFilterTags from './filter-tags';
-// import TeeftExtractTerms from './extract-terms';
+import TeeftFilterTags from './filter-tags';
+import TeeftExtractTerms from './extract-terms';
 // import TeeftSumUpFrequencies from './sum-up-freq';
 // import TeeftFilterMonoFreq from './filter-mono-freq';
 // import TeeftSpecificity from './specificity';
@@ -15,8 +15,8 @@ import TeeftToLowerCase from './to-lower-case';
 export default {
     TeeftTokenize,
     // TeeftStopWords,
-    // TeeftFilterTags,
-    // TeeftExtractTerms,
+    TeeftFilterTags,
+    TeeftExtractTerms,
     // TeeftSumUpFrequencies,
     // TeeftFilterMonoFreq,
     // TeeftSpecificity,
