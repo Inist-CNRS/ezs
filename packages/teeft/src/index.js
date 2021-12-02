@@ -1,29 +1,29 @@
-import TeeftTokenize from './tokenize';
-import TeeftStopWords from './stop-words';
-import TeeftFilterTags from './filter-tags';
 import TeeftExtractTerms from './extract-terms';
-import TeeftSumUpFrequencies from './sum-up-frequencies';
 import TeeftFilterMonoFreq from './filter-mono-freq';
-import TeeftSpecificity from './specificity';
+import TeeftFilterMultiSpec from './filter-multi-spec';
+import TeeftFilterTags from './filter-tags';
+import TeeftGetFilesContent from './get-files-content';
+import TeeftListFiles from './list-files';
 import TeeftNaturalTag from './natural-tag';
 import TeeftSentenceTokenize from './sentence-tokenize';
-// import TeeftFilterMultiSpec from './filter-multi-spec';
-import TeeftListFiles from './list-files';
-import TeeftGetFilesContent from './get-files-content';
+import TeeftSpecificity from './specificity';
+import TeeftStopWords from './stop-words';
+import TeeftSumUpFrequencies from './sum-up-frequencies';
+import TeeftTokenize from './tokenize';
 import TeeftToLowerCase from './to-lower-case';
 
 export default {
-    TeeftTokenize,
-    TeeftStopWords,
-    TeeftFilterTags,
     TeeftExtractTerms,
-    TeeftSumUpFrequencies,
     TeeftFilterMonoFreq,
-    TeeftSpecificity,
+    TeeftFilterMultiSpec,
+    TeeftFilterTags,
+    TeeftGetFilesContent,
+    TeeftListFiles,
     TeeftNaturalTag,
     TeeftSentenceTokenize,
-    // TeeftFilterMultiSpec,
-    TeeftListFiles,
-    TeeftGetFilesContent,
+    TeeftSpecificity,
+    TeeftStopWords,
+    TeeftSumUpFrequencies,
+    TeeftTokenize,
     TeeftToLowerCase,
 };
