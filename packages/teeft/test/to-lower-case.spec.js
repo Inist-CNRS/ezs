@@ -85,4 +85,27 @@ describe('to lower case', () => {
             })
             .on('error', done);
     });
+
+    it('should convert one string to a one-element array', (done) => {
+        const res = [];
+        from([{
+            content: 'This is Content!',
+            other: 1,
+        }, {
+            content: 'This too.',
+            other: 2,
+        }])
+            .pipe(ezs('TeeftToLowerCase', { path: 'content' }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                expect(res).toEqual([
+                    { content: 'this is content!', other: 1 },
+                    { content: 'this too.', other: 2 },
+                ]);
+                done();
+            })
+            .on('error', done);
+    });
 });
