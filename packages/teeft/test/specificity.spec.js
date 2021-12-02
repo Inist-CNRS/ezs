@@ -66,8 +66,8 @@ describe('compute specificity', () => {
                 expect(terms[0]).toMatchObject({
                     term: 'semble',
                     frequency: 1,
-                    specificity: 0.0008964346775894242
                 });
+                expect(terms[0].specificity).toBeCloseTo(0.0008964346775894242, 16);
                 done();
             });
     });
