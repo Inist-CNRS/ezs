@@ -2,7 +2,7 @@ import TeeftTokenize from './tokenize';
 import TeeftStopWords from './stop-words';
 import TeeftFilterTags from './filter-tags';
 import TeeftExtractTerms from './extract-terms';
-// import TeeftSumUpFrequencies from './sum-up-freq';
+import TeeftSumUpFrequencies from './sum-up-frequencies';
 // import TeeftFilterMonoFreq from './filter-mono-freq';
 // import TeeftSpecificity from './specificity';
 import TeeftNaturalTag from './natural-tag';
@@ -17,7 +17,7 @@ export default {
     TeeftStopWords,
     TeeftFilterTags,
     TeeftExtractTerms,
-    // TeeftSumUpFrequencies,
+    TeeftSumUpFrequencies,
     // TeeftFilterMonoFreq,
     // TeeftSpecificity,
     TeeftNaturalTag,
