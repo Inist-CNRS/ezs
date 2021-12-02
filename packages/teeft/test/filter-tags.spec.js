@@ -119,6 +119,36 @@ describe('filter tags', () => {
                 done();
             });
     });
+
+    // TODO: check that this case is useful. If not, simplify tested code.
+    it('should work also on one-level array', (done) => {
+        let res = [];
+        /* eslint-disable object-curly-newline */
+        from([{ id: 0, token: 'elle', tag: ['PRO:per'], lemma: 'elle' },
+            { id: 1, token: 'semble', tag: ['VER'], lemma: 'sembler' },
+            { id: 2, token: 'se', tag: ['PRO:per'], lemma: 'se' },
+            { id: 3, token: 'nourrir', tag: ['VER'], lemma: 'nourrir' },
+            { id: 4,
+                token: 'essentiellement',
+                tag: ['ADV'],
+                lemma: 'essentiellement',
+            },
+            { id: 5, token: 'de', tag: ['PRE', 'ART:def'], lemma: 'de' },
+            { id: 6, token: 'plancton', tag: ['NOM'], lemma: 'plancton' },
+            { id: 7, token: 'frais', tag: ['ADJ'], lemma: 'frais' }])
+        /* eslint-enable object-curly-newline */
+            .pipe(ezs('TeeftFilterTags'))
+            // .pipe(ezs('debug'))
+            .on('data', (chunk) => {
+                res = res.concat(chunk);
+            })
+            .on('end', () => {
+                expect(res).toHaveLength(2);
+                expect(res[0].tag[0]).toBe('NOM');
+                expect(res[1].tag[0]).toBe('ADJ');
+                done();
+            });
+    });
 });
 
 describe('someBeginsWith', () => {
