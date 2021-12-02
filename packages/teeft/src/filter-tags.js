@@ -36,9 +36,15 @@ export default function TeeftFilterTags(data, feed) {
         return feed.close();
     }
     const tagsToKeep = this.getParam('tags', ['ADJ', 'NOM']);
-    const dataArray = Array.isArray(data) ? data : [data];
-    const res = dataArray
+
+    const docIn = data;
+    const dataArray = docIn.terms;
+    const newTerms = dataArray
         .filter(w => someBeginsWith(tagsToKeep, w.tag));
-    feed.write(res);
+    const docOut = {
+        ...docIn,
+        terms: newTerms
+    };
+    feed.write(docOut);
     feed.end();
 }
