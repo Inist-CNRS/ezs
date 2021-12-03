@@ -56,5 +56,5 @@ describe('teeft fr', () => {
                 expect(classifAuto.specificity).toBeCloseTo(0.06410256410256408, 10);
                 done();
             });
-    });
+    }, 6000);
 });
