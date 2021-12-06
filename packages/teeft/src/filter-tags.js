@@ -30,6 +30,7 @@ export function someBeginsWith(tags, texts) {
  *
  * @export
  * @param {string} [tags=['ADJ', 'NOM']]  Tags to keep
+ * @name TeeftFilterTags
  */
 export default function TeeftFilterTags(data, feed) {
     if (this.isLast()) {

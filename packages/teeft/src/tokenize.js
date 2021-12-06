@@ -5,9 +5,9 @@ const hideDash = replace(/-/g, 'xyxyxyxyxyxy');
 const revealDash = map(replace(/xyxyxyxyxyxy/g, '-'));
 
 /**
- * Extract tokens from an array of documents (objects { path, sentences: [] }).
+ * Extract tokens from an array of documents (objects `{ path, sentences: [] }`).
  *
- * Yields an array of documents (objects: { path, sentences: [[]] })
+ * Yields an array of documents (objects: `{ path, sentences: [[]] }`)
  *
  * > **Warning**: results are surprising on uppercase sentences,
  * > use TeeftToLowerCase

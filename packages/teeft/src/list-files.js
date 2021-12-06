@@ -7,9 +7,9 @@ import { startsWith, trim } from 'ramda';
  * file paths matching the pattern in the directories from the input.
  *
  * @export
- * @name ListFiles
  * @param {String}  [pattern="*"]   pattern for files (ex: "*.txt")
- * @param {[String]} feed    an array of file paths
+ * @returns {[String]} an array of file paths
+ * @name TeeftListFiles
  */
 export default function TeeftListFiles(data, feed) {
     if (this.isLast()) {

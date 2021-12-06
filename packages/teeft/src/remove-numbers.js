@@ -8,7 +8,8 @@ export const termIsNotNumber = pipe(
 );
 
 /**
- * Remove numbers from the terms of documents (objects { path, terms: [{ term, ...}] }).
+ * Remove numbers from the terms of documents (objects `{ path, terms: [{ term,
+ * ...}] }`).
  *
  * Yields an array of documents with the same structure.
  *

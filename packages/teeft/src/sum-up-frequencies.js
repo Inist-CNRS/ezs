@@ -9,6 +9,7 @@ const reinitDocumentAggregations = (obj) => {
  * Sums up the frequencies of identical lemmas from different chunks.
  *
  * @export
+ * @name TeeftSumUpFrequencies
  */
 export default function TeeftSumUpFrequencies(data, feed) {
     if (this.isLast()) {

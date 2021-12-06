@@ -20,6 +20,7 @@ const filterMultiSpec = (document) => {
  * multiterms' average specificity.
  *
  * @export
+ * @name TeeftFilterMultiSpec
  */
 export default function TeeftFilterMultiSpec(data, feed) {
     if (this.isLast()) {

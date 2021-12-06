@@ -13,7 +13,7 @@ const isMono = term => term.tag;
 
 /**
  * Take documents (with a `path`, an array of `terms`, each term being an object
- * { term, frequency, length[, tag] })
+ * `{ term, frequency, length[, tag] }`).
  *
  * Process objects containing frequency, add a specificity to each object, and
  * remove all object with a specificity below average specificity (except when
@@ -26,7 +26,7 @@ const isMono = term => term.tag;
  * @param {string} [weightedDictionary="Ress_Frantext"] name of the weigthed dictionary
  * @param {Boolean} [filter=true]   filter below average specificity
  * @param {Boolean} [sort=false]    sort objects according to their specificity
- * @returns
+ * @name TeeftSpecificity
  */
 export default async function TeeftSpecificity(data, feed) {
     if (this.isLast()) {

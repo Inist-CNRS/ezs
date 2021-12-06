@@ -56,7 +56,7 @@ export function extractSentenceTerms(taggedTerms,
 }
 
 /**
- * Take an array of objects { path, sentences: [token, tag: ["tag"]]}
+ * Take an array of objects `{ path, sentences: [token, tag: ["tag"]]}`.
  * Regroup multi-terms when possible (noun + noun, adjective + noun, *etc*.),
  * and computes statistics (frequency, *etc*.).
  *
@@ -87,6 +87,7 @@ export function extractSentenceTerms(taggedTerms,
  * @param {string}  [nounTag='NOM']  noun tag
  * @param {string}  [adjTag='ADJ']   adjective tag
  * @returns same as input, with `term` replacing `token`, `length`, and `frequency`
+ * @name TeeftExtractTerms
  */
 export default function TeeftExtractTerms(data, feed) {
     const self = this;

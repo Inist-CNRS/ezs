@@ -3,7 +3,10 @@ import {
 } from 'ramda';
 
 const objPropLower = curry((propPath, obj) => {
-    /** @type {function(object): string} */
+    /**
+     * @type {function(object): string}
+     * @private
+     */
     const propToLowerCase = pipe(
         path(propPath),
         toLower,
@@ -17,6 +20,7 @@ const objPropLower = curry((propPath, obj) => {
  * Transform strings to lower case.
  *
  * @export
+ * @name TeeftToLowerCase
  * @param {Array<string>}   [path=[]]    path to the property to modify
  */
 export default function TeeftToLowerCase(data, feed) {

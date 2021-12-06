@@ -35,9 +35,12 @@ const toCommonStruct = taggedWords => taggedWords
  *
  * French pos tagging using natural (and LEFFF resources)
  *
- * Take an array of documents (objects: { path, sentences: [[]] })
+ * Take an array of documents (objects: `{ path, sentences: [[]] })`
  *
- * Yield an array of documents (objects: {
+ * Yield an array of documents (objects:
+ *
+ * ```
+ * {
  *      path, sentences: [
  *          [{
  *              token: "token",
@@ -45,7 +48,9 @@ const toCommonStruct = taggedWords => taggedWords
  *          },
  *          ...]
  *      ]
- * })
+ * }
+ * ```
+ * )
  *
  * @example
  *  [{
@@ -60,6 +65,7 @@ const toCommonStruct = taggedWords => taggedWords
  *  }]
  *
  * @export
+ * @name TeeftNaturalTag
  */
 export default async function TeeftNaturalTag(data, feed) {
     if (this.isLast()) {

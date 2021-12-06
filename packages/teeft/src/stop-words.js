@@ -18,7 +18,7 @@ export async function getResource(fileName) {
  *
  * @export
  * @param {string} [stopwords='StopwFrench']    name of the stopwords file to use
- * @returns
+ * @name TeeftStopWords
  */
 export default async function TeeftStopWords(data, feed) {
     if (this.isLast()) {

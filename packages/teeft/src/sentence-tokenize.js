@@ -14,9 +14,9 @@ const sentencesCutter = (input) => {
 };
 
 /**
- * Segment the data into an array of documents (objects { path, content }).
+ * Segment the data into an array of documents (objects `{ path, content }`).
  *
- * Yield an array of documents (objects { path, sentences: []})
+ * Yield an array of documents (objects `{ path, sentences: []}`)
  *
  * @export
  * @name TeeftSentenceTokenize

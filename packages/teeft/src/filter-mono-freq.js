@@ -9,10 +9,11 @@ const computeDocFrequencyThreshold = nbTokens => 0.9786 * nbTokens ** 0.2911;
  * automatically computed from the number of tokens in the document.
  *
  * @export
- * @param {Number}  [multiLimit=2]  threshold for being a multiterm (in tokens
+ * @param {Number} [multiLimit=2]   threshold for being a multiterm (in tokens
  * number)
- * @param {Number}  [minFrequency=7]    minimal frequency to be taken as a
+ * @param {Number} [minFrequency=7] minimal frequency to be taken as a
  * frequent term
+ * @name TeeftFilterMonoFreq
  */
 export default function TeeftFilterMonoFreq(data, feed) {
     if (this.isLast()) {
