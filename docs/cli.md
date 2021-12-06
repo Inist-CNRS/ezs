@@ -1,7 +1,5 @@
 # Ligne de commande
 
-
-
 ```shell
 $ ezs -h
 Usage: ezs [options] [<file>|<directory>] [<file2> <file3> ...]
@@ -21,4 +19,3 @@ Options:
 
 for more information, find our manual at https://github.com/Inist-CNRS/ezs
 ```
-

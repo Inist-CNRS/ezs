@@ -15,8 +15,8 @@ Une chaîne de traitements correspond à un fichier, ce fichier respecte la
 syntaxe [.ini](https://fr.wikipedia.org/wiki/Fichier_INI) avec le parallèle
 suivant :
 
-- Chaque section `[SECTION]` correspond à un traitement ezs
-- Chaque paramètre `name = value` correspond aux paramètres du traitement
+- chaque section `[SECTION]` correspond à un traitement ezs,
+- chaque paramètre `name = value` correspond aux paramètres du traitement.
 
 L'ordonnancement des sections correspond à l’ordonnancement des traitements.
 
@@ -24,7 +24,7 @@ L'ordonnancement des sections correspond à l’ordonnancement des traitements.
 
 > Les paramètres en entêtes du fichier (non rattaché à une section) ne sont pas
 > utilisés directement par ezs, mais ils peuvent servir de métadonnées à
-> destination de l’application ou le programme en charge de son exécution
+> destination de l’application ou du programme en charge de son exécution
 
 ## Exemple
 
@@ -37,7 +37,7 @@ Voici un fichier `.ini` et son équivalent en `.js`
 [use]
 plugin = basics
 
-; Step #1 : Parse JSON input (from elasticsearch result )
+; Step #1 : Parse JSON input (from elasticsearch result)
 [JSONParse]
 separator = hits.*
 
@@ -47,7 +47,7 @@ separator = hits.*
 ; Step #3 : make uniform each object
 [OBJStandardize]
 
-; Step #4 : genreate csv
+; Step #4 : generate csv
 [CSVString]
 format = strict
 ```
@@ -60,7 +60,7 @@ format = strict
 import basics from 'ezs-basics';
 ezs.use(basics);
 
-// Step #1 : Parse JSON input (from elasticsearch result )
+// Step #1 : Parse JSON input (from elasticsearch result)
 const s1 = input.pipe(ezs('JSONParse', {
     'separator' : 'hits.*'
 }));

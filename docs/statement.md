@@ -26,7 +26,7 @@ ezs.use(basics);
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
 process.stdin
-    .pipe(ezs('CSVParse', { delimiter: ',' }))
+    .pipe(ezs('CSVParse', { separator: ',' }))
     .pipe(ezs('dump'))
     .pipe(process.stdout);
 ```
@@ -38,7 +38,7 @@ process.stdin
 plugin = basics
 
 [CSVParse]
-delimiter = ,
+separator = ,
 
 [dump]
 ```

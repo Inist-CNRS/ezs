@@ -1,26 +1,24 @@
 # Enrichissement de données par API
 
-Voici une série d’exemples, pour enrichir ou traiter une information via une API ou un webservice. Pour fonctionner, l’API doit pouvoir traiter un tableau de JSON avec des objets contenant un moins un champ  *value* qui servira comme valeur d’entrée et qui contiendra le résultat du traitement en sortie. Idéalement, l’API pourra fonctionner avec ezs lui-même.
+Voici une série d’exemples, pour enrichir ou traiter une information via une API ou un webservice. Pour fonctionner, l’API doit pouvoir traiter un tableau JSON avec des objets contenant au moins un champ  *value* qui servira comme valeur d’entrée et qui contiendra le résultat du traitement en sortie. Idéalement, l’API pourra fonctionner avec ezs lui-même.
 
 Les exemples ci-après proposent différents patrons à réutiliser en fonction de l’emplacement de donnée à traiter dans l’objet source.
 
 Pour chaque exemple, le champ d’origine est dupliqué pour avoir en sortie la valeur originelle et la valeur modifiée par le web service.
 
-## Chemin direct et valeur unique 
+## Chemin direct et valeur unique
 
-
-
-### Données 
+### Données
 
 ```json
 { 
-	address : {
-		city: "Nancy"
-	}
+  "address" : {
+    "city": "Nancy"
+  }
 }
 ```
 
-Le contenu du champ "city" est envoyé au web service quel que soit son contenu. Charge au web service de savoir le traiter.
+Le contenu du champ `city` est envoyé au web service quel que soit son contenu. Charge au web service de savoir le traiter.
 
 ### Configuration
 
@@ -45,17 +43,18 @@ noerror = true
 
 ## Chemin direct et valeurs multiples (tableau)
 
-### Données 
+### Données
 
 ```json
 {
-	address : {
-		cities: ["Nancy", "Toul", "Paris"]
-	}
+ "address" : {
+    "cities": ["Nancy", "Toul", "Paris"]
+  }
 }
 ```
 
-Chaque élément du champ "cities" est envoyé au web service quel que soit son contenu. Charge au web service de savoir les traiter.
+Chaque élément du champ `cities` est envoyé au web service quel que soit son
+contenu. Charge au web service de savoir les traiter.
 
 ### Configuration
 
@@ -88,24 +87,25 @@ noerror = true
 
 ## Sous chemin valeur unique dans valeur multiple
 
-### Données 
+### Données
 
 ```json
 { 
-	cities: [
-		{ 
-            nom : "Nancy", 
-            dept: 54 
-        },
-		{ 
-            nom : "Paris", 
-            dept: 75 
-        }
-	]
+  "cities": [
+  { 
+    "nom": "Nancy", 
+    "dept": 54 
+  },
+  { 
+    "nom": "Paris", 
+    "dept": 75 
+  }
+  ]
 }
 ```
 
-Le contenu de chaque champ "nom" est envoyé au web service quel que soit son contenu. Charge au web service de savoir les traiter.
+Le contenu de chaque champ `nom` est envoyé au web service quel que soit son
+contenu. Charge au web service de savoir les traiter.
 
 ### Configuration
 
@@ -138,24 +138,25 @@ noerror = true
 
 ## Sous chemin avec valeur multiple dans valeur multiple
 
-### Données 
+### Données
 
 ```json
 { 
-	cities: [
-		{ 
-			nom : "Nancy",
-			quartier: [ "Boudonville", "Scarpone", "Libération" ]
- 		},
-		{ 
-			nom : "Paris",
- 			quartier: ["Saint-Germain", "Halles", "Palais-Royal"]
-        }
-    ]
+  "cities": [
+  { 
+    "nom": "Nancy",
+    "quartier": [ "Boudonville", "Scarpone", "Libération" ]
+   },
+  { 
+    "nom": "Paris",
+    "quartier": ["Saint-Germain", "Halles", "Palais-Royal"]
+  }
+  ]
 }
 ```
 
-Tous les éléments de chaque champ "quartier" sont envoyés au web service quel que soit leur contenu. Charge au web service de savoir les traiter.
+Tous les éléments de chaque champ `quartier` sont envoyés au web service quel
+que soit leur contenu. Charge au web service de savoir les traiter.
 
 ### Configuration
 
@@ -196,9 +197,6 @@ noerror = true
 
 ## Notes
 
--  L'imbrication d'instructions peut également s'écrire avec des points (ou tout autre caractères). Exemple: [expand/expand/expand/exploding] =\> [./././exploding]
-
-
-
-
-
+- L'imbrication d'instructions peut également s'écrire avec des points (ou tout
+  autre caractères). Exemple: `[expand/expand/expand/exploding]` =\>
+  `[./././exploding]`
