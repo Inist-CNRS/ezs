@@ -1,0 +1,239 @@
+﻿Visualisation pour la détection d'évolutions dans des corpus de publications scientifiques
+Indexation, classification et analyse diachronique pour la visualisation 
+Nicolas Dugué
+Jean-Charles Lamirel
+Pascal Cuxac
+
+
+Dans cet article, nous proposons tout d'abord un état de l'art des méthodes pour la visualisation et l'interprétation des données textuelles, et en particulier des données scientifiques. Nous présentons ensuite nos contributions à ce domaine, sous la forme de méthodes originales pour la classification automatique de documents et l'interprétation facile de leur contenu grâce à des mots-clés caractéristiques et à des classes créées par nos algorithmes. Dans un second temps, nous focalisons notre analyse autour des données évolutives dans le temps. Nous détaillons notre approche par diachronie, particulièrement appropriée à la visualisation des évolutions. Cela nous permet de conclure en présentant Diachronic'Explorer, un outil de visualisation destiné à l'exploration visuelle de données évolutives.
+1. Introduction
+Les bases de données de littérature scientifique et de brevets fournissent des volumes de données considérables pour l'étude de la production scientifique. Ces données sont également très riches et donc complexes. En effet, le contenu textuel des publications, les mots-clés utilisés pour leur archivage dans ces bases de données, les citations qu'elles contiennent, les affiliations des auteurs sont autant d'informations qu'il est possible d'extraire pour étudier les corpus de publications.
+Ces corpus sont donc une aubaine pour l’analyse de l’information scientifique et technique. Dans cet article, nous nous concentrons en particulier sur l'un des objectifs principaux de ce domaine qui est d’identifier et de décrire de façon textuelle et visuelle les changements majeurs liés aux évolutions de la science. 
+Dans l’activité des chercheurs, le suivi du développement de thématiques transverses, la détection de thématiques émergentes ou de ponts entre thématiques permet à ces derniers de s’assurer du caractère novateur de leur thématique de recherche.
+Par ailleurs, dans la gestion même du financement de la recherche par les instances européennes, la détection des thématiques émergentes est fondamentale, comme le montrent les exemples suivants. Le programme NEST (New and Emerging Science and Technology) était un programme spécifique au 6ème programme cadre (FP6). Son objectif était d’encourager une recherche visionnaire, non conventionnelle, aux frontières de la connaissance et à l’interface des disciplines. Afin d’organiser ce programme, la CE a lancé un appel pour des « actions  support », permettant de suivre et d’évaluer les projets mais également d’identifier les prochaines opportunités de recherche. De même, à coté des programmes thématiques en ICT (Information & Communication Technologies), la Commission Européenne a mis en place dans le 6ème programme cadre, le programme FET (Future and emerging technologies), pour promouvoir une recherche à long terme, ou à haut risque, mais ayant potentiellement un impact fort d’un point de vue sociétal ou industriel.
+La détection de technologies émergentes demeure néanmoins un processus complexe, et fait donc l’objet d’études dans un large spectre de domaines allant du marketing à la bibliométrie.
+L’arbre de sélection proposé par (Armstrong et Green, 2007) donne une bonne image de l’ensemble des méthodes de prévision qui peuvent être appliquées, en particulier, pour la détection de ces technologies émergentes. Elle illustre très bien la dichotomie entre les méthodes quantitatives et celles fondées sur l’expertise et montre la grande diversité des approches existantes : des méthodes Delphi ou Nominal Group Technique, fondées sur la confrontation d’avis d’experts, des méthodes de scénarios qui visent à balayer les différents futurs possibles [MON 98], jusqu’aux méthodes combinant la connaissance des experts sur le domaine et des techniques statistiques permettant l’identification de facteurs de causalité agissant sur les tendances.
+La taille et la complexité des données pouvant être exploitées pour étudier les corpus issus de bases de publications scientifiques requièrent le développement de méthodes quantitatives pour la détection de nouvelles thématiques par des méthodes bibliométriques, appliquant des techniques statistiques relativement simples comme les courbes de croissance, ou plus sophistiquées, comme la classification automatique ou l’analyse de réseaux ([NOY 04] ; [DAI 06] ; [MOG 07] ; [KAJ 08]). Il s'agit également de fournir des outils capables de produire des sorties exploitables par l'utilisateur final. Ces sorties doivent donc être  descriptives, intelligibles et visualisables.
+Nous séparons donc notre analyse en deux parties. Dans une première partie, nous décrivons les méthodes quantitatives et automatiques qui permettent l'extraction d'informations pertinentes d'un corpus. En particulier, ces techniques proposent de détecter les mots-clés caractéristiques des documents, ou encore les thématiques sous-jacentes - et les mots clés qui les décrivent - évoquées dans les documents. Nous discutons également l'exploitation visuelle qui peut être faite de ces méthodes. Dans une seconde partie, nous détaillons les méthodes utilisables pour étudier les évolutions thématiques au sein d'un corpus dont les données sont ancrées dans le temps. Nous insisterons en particulier sur les méthodes d'analyse diachronique, particulièrement efficaces pour suivre ces évolutions pas à pas, et de façon synthétique.
+Enfin, dans une dernière partie, nous présentons en détails Diachronic'Explorer, notre outil open source pour la production et la visualisation de résultats d'analyse diachronique. Nous montrons l'efficacité des méthodes d’extraction que nous proposons à travers des visualisations complémentaires et dynamiques exploitant des technologies récentes.
+2. Exploitation de données textuelles et visualisation
+L’identification thématique est une technique qui consiste à appréhender le sens du contenu des documents automatiquement de manière non supervisée (sans connaissance du corpus ni intervention humaine) en isolant les sujets sous-jacents à ce contenu. Ces sujets sont généralement représentés par des groupes de mots coordonnés et sont souvent classées par ordre d’importance dans les documents. Comme le montrent ( , 20xx), de nombreuses techniques peuvent être appliquées pour l’identification thématique et celles-ci exploitent des recherches menées dans différentes communautés, comme celle de la fouille de données, celle de la linguistique computationnelle et celle de la recherche d’information. Nous présentons ci-après deux types de techniques d’identification différentes et leurs outils de visualisation associés : la première est une technique de l’état de l’art très utilisée, la seconde est une technique alternative que nous proposons. Nous menons une analyse critique et nous montrons à travers un exemple de synthèse du contenu et de résumé automatique que notre méthode, contrairement à la première mentionnée, ne nécessite pas d’estimation de paramètres et peut s’appliquer indifféremment à différents niveaux d’échelle, y compris individuellement sur des documents. 
+2.1. LDA
+2.1.1. La méthode
+La méthode LDA est une méthode probabiliste d’extraction de sujets qui considère que les thématiques sous-jacentes à un corpus de documents sont caractérisées par des distributions multinomiales des mots présents dans les documents ( , 20xx). Selon ce principe, chaque document est alors considéré comme une composition des sujets extraits du corpus considéré. La figure 2.1 présente une liste de sujets produits par LDA, ainsi que leur manifestation dans un document. LDA utilise une loi de Dirichlet pour permettre un choix judicieux des paramètres des lois multinomiales. Dans la pratique, l’extraction de ces paramètres s’avère cependant complexe et lourde en temps de calcul. Elle nécessite de passer par des algorithmes de maximisation de vraisemblance ( , 20xx) qui eux-mêmes sont sujets à produire des solutions sous‑optimales, et notamment des résultats triviaux ou généraux, qui ne sont pas exploitables dans beaucoup de cas, comme dans celui de l’analyse diachronique (Section 3). Ce type d’analyse, qui compare des thématiques évoluant dans le temps, nécessite en effet de travailler avec des descriptions précises de ces thématiques pour en isoler des changements. Finalement l’importance des mots vis-à-vis des documents ne peut être estimée que de manière indirecte et l’algorithme ne s’applique pas lui-même sur des documents isolés. Nous présentons donc par la suite une méthode basée sur la maximisation des traits que nous avons développée et qui ne présente pas ces inconvénients.
+
+
+Figure 2.1 Résultats de LDA par Blei et al.
+
+2.2.1. Visualisation utilisant la LDA
+Dans LDAExplore (Ganesan et al., 2015), les auteurs utilisent des Treemap (cartes arborescentes) pour représenter la distribution de l'importance des mots-clés dans les thématiques apprises par la LDA. La représentation des thématiques dans chaque document est également visualisée, mais sous forme de courbe où chaque point d'abscisse représente une thématique, et son poids est en ordonnée. 
+
+Figure 2.1 TreeMap issu de (Ganesan et al., 2015)
+Guille et Morales proposent quant à eux une librairie complète pour la mdélisation thématique, incluant la LDA, qui permet également de produire des visualisations sous forme de nuages de mots ou d'histogrammes (Guille et Morales, 2016).
+2.2. Maximisation des traits
+2.1.2. La méthode
+Pour introduire la maximisation des traits, prenons tout d’abord un exemple. Nous en expliquerons ensuite l’utilisation dans notre cas d’application. Dans le Tableau 2.1,  nous présentons des données exemples récoltées sur un panel d’hommes (M) et de femmes (F) décrits par trois variables (Taille_Nez (N), Longueur_Cheveux (C), Taille_Pieds (P)). Le problème de la classification supervisée en informatique consiste à apprendre à discriminer de façon automatique la classe des hommes de la classe des femmes en utilisant ces variables. Pour parvenir à cela, il s’agit de permettre aux algorithmes d’utiliser les variables qui séparent le mieux les hommes des femmes.
+
+
+Tab 2.1 Données-exemple de classification supervisée Hommes/Femmes
+
+Le processus de maximisation des traits est comparable à un processus de sélection de variables. Ce processus repose sur la F-mesure de traits. La F‑mesure de trait (notée FF) d'une variable f associée à une classe (H ou F dans notre exemple) est définie comme la moyenne harmonique du rappel de trait et de la prépondérance de trait, eux‑mêmes définis comme suit :
+
+
+
+où  représente le poids de la variable f pour la donnée d et Fc  représente l'ensemble des caractéristiques des données associées à la classe 𝑐.
+Le processus de sélection de variables basé sur la maximisation des traits peut donc être défini comme un processus non paramétré dans lequel une variable de classe est caractérisée en utilisant à la fois sa capacité à discriminer la classe à laquelle elle se rattache (indice ) et de sa capacité à représenter fidèlement les données cette classe (indice ).
+
+
+Le tableau 2.2 présente comment s’opère le calcul de la F-mesure de trait de la variable Taille_Pieds vis-à-vis de la classe Homme.
+
+
+Tab 2.2 Données-exemple et calcul de la F-mesure d’étiquetage.
+Une fois les capacités à discriminer une classe (indice ) et à représenter fidèlement les données de cette classe (indice ) de chaque variable calculées (tableau 2.3), il s’agit de choisir automatiquement les variables les plus pertinentes pour distinguer les classes. Ainsi, l'ensemble Sc des variables qui sont caractéristiques d'une classe donnée c appartenant à un ensemble de classes C s’exprime comme 
+	
+
+où   et  
+et C/f  représente un sous ensemble de C restreint aux classes dans lesquelles la variable f est représentée.
+
+
+Tab 2.3  Tableau des F-mesures d’étiquetage de variables et de leurs moyennes.
+Enfin, l'ensemble SC de toutes les variables sélectionnées est le sous-ensemble de F défini comme:
+ 
+Les variables qui sont jugées pertinentes pour une classe donnée sont les variables dont les représentations sont meilleures que leurs représentations moyennes dans toutes les classes, et meilleures que la représentation moyenne de toutes les variables, en termes de F-mesure de traits (FF). Ainsi, les variables dont la F-mesure est systématiquement inférieure à la moyenne globale sont éliminées, et la variable Taille_Nez est donc supprimée (0.3 < 0.38 et 0.24 < 0.38).
+Une étape complémentaire d’estimation du contraste peut être exploitée en complément de la première étape de sélection. Le rôle de cette étape est d’estimer le gain d’information produit par une variable sur une classe. Celui-ci  est proportionnel au rapport entre la valeur de la F-mesure d’une variable dans la classe et la valeur moyenne de la F‑mesure de cette même variable dans l’ensemble des classes. Pour une variable f appartenant à l’ensemble Sc des variables sélectionnées pour une classe c, le contraste   susmentionné peut s’exprimer comme:
+
+	
+Finalement, les variables actives, ou descriptives, d’une classe sont celles pour lesquelles le contraste est supérieur à 1 dans celles‑ci.
+Ainsi, les variables sélectionnées sont considérées actives dans les classes dans lesquelles la F-mesure de trait est supérieure à la moyenne marginale :
+1. Taille_Pieds est active dans la classe Homme (0.48 > 0.35),
+2. Longueur_Cheveux est active dans la classe Femme (0.66 > 0.53).
+Le facteur de contraste met en évidence le degré d’activité/passivité des variables sélectionnées par rapport à leur F-mesure moyenne. Le tableau 2.4 montre comment le contraste est calculé sur l’exemple présenté. Dans le contexte de cet exemple, le contraste pourra ainsi être considéré comme une fonction qui aura virtuellement les effets suivants :
+1. Augmenter la longueur des cheveux des femmes,
+2. Augmenter la taille des pieds des hommes,
+3. Diminuer la longueur des cheveux des hommes,
+4. Diminuer la taille des pieds des femmes.
+
+
+Tab 2.4  Principe de calcul du contraste sur les variables sélectionnées et résultats obtenus.
+
+Des expériences préalables menées sur l’étiquetage de clusters avaient également montré que la métrique de maximisation des traits présentait des capacités de discrimination équivalentes à celle du Khi 2, tout en ayant des capacités de généralisation très sensiblement supérieures (Lamirel et al., 2008). De plus, cette technique, s’avère très peu couteuse en temps de calcul, contrairement à LDA. Elle a souvent une double fonction, en apprentissage et en visualisation, comme le montrent les expériences menées dans ( toto, 2000) : dans le cas de la classification, elle permet ainsi d’optimiser les performances des classifieurs, tout en produisant des profils de classes exploitables pour la visualisation du contenu des classes. 
+La figure 2.2 montre une application de la méthode sur des données textuelles et visant à établir les profils des orateurs Chirac et Mitterrand obtenus à partir des données du corpus DEFT 2006 contenant 80000 extraits des discours des deux présidents. Elle montre notamment que le contraste permet de quantifier l’influence des variables dans les classes (termes typiques chez chaque orateur). Les variables extraites et leur contraste peuvent ainsi être utilisés, qui comme des profils de classes par un classifieur, qui comme des indicateurs de contenus et de sens par un analyste. 
+
+Mitterrand
+
+Chirac
+Contraste
+Terme
+
+Contraste
+Terme
+1.88
+douze
+
+1.93
+partenariat
+1.85
+est-ce
+
+1.86
+dynamisme
+1.80
+eh
+
+1.81
+exigence
+1.79
+quoi
+
+1.78
+compatriotes
+1.78
+-
+
+1.77
+vision
+1.76
+gens
+
+1.77
+honneur
+1.75
+assez
+
+1.76
+asie
+1.74
+capables
+
+1.76
+efficacité
+1.72
+penser
+
+1.75
+saluer
+1.70
+bref
+
+1.74
+soutien
+1.69
+puisque
+
+1.74
+renforcer
+1.67
+on
+
+1.72
+concitoyens
+1.66
+étais
+
+1.71
+réforme
+1.62
+parle
+
+1.70
+devons
+1.62
+fallait
+
+1.70
+engagement
+1.60
+simplement
+
+1.69
+estime
+Fig 2.2  Expressions les plus contrastées dans les discours de Chirac et Mitterrand (extrait).
+
+Ce premier exemple montre comment utiliser la maximisation de traits dans le cadre de corpus de texte. Nous montrons plus précisément Section 3 comment notre méthode de maximisation des traits peut s’appliquer dans un contexte général de description des thématiques d’un corpus, et décrivons Section 4 des visualisations avancées. Mais nous donnons tout d’abord un exemple plus précis, celui de la visualisation synthétique et du résumé du contenu individuel des documents à partir de cette méthode.  
+
+2.2.2. Visualisation utilisant la maximisation des traits
+Pour la représentation d'un seul document, nous proposons une méthode basée sur la compétition entre les blocs de texte couplée avec la métrique de maximisation des traits. Cette approche permet de s’affranchir de l’absence de méta-données pour décrire le texte. Par ailleurs, elle présente l’avantage d’être indépendante de la langue, de fonctionner sans source de connaissances externe et sans paramètres, et, est susceptible d’avoir des applications multiples : génération  de méta-données ou de données d’entrée pour le clustering, génération d’explications et de résumés automatiques exploitable à plusieurs niveaux.
+Il s’agit ici de proposer une indexation d’articles plein texte en tenant compte de la structure des documents. Chaque partie du texte peut être vue comme une classe, le document lui-même étant alors une classification : par exemple, on pourra avoir les classes « introduction, méthodologie, état de l’art, résultats, conclusion…». Nous allons illustrer notre propos avec l’article suivant (choisi au hasard dans les réservoirs Istex) : Hauk P, Friedl K, Kaufmehl K, Urbanek R, Forster J. : Subsequent insect stings in children with hypersensitivity to Hymenoptera. J Pediatr. 1995 Feb ;126(2):185-90. (fig. 2.3). Cet article comprend les grandes parties suivantes : Introduction / Methods / Results / Discussion.
+
+Fig. 2.3  Première page de l’article choisi
+Dans chacune des parties, après extraction des termes par une méthode classique PoS, la méthode de maximisation des traits décrite Section 2.1.2 permet d’obtenir une liste de termes spécifiques pour chaque partie de l’article, pondérés par leur importance. On peut alors faire une représentation vectorielle du document mais également construire un graphe pondéré parties/termes sélectionnés qui va illustrer de façon claire le contenu scientifique du texte (fig. 2.4). 
+
+
+Fig. 2.4  Représentation graphique du document tenant compte de sa structure
+
+
+Fig. 2.5  Répartition du poids des phrases
+
+Dans le cadre d'une approche de résumé automatique (toto1 , 2001), chaque terme sélectionné étant pondéré pour chaque partie du document identifiée, il est aisé de pondérer les phrases contenant ces termes en cumulant leurs poids. Nous affectons une sur-pondération aux termes qui font également parti du titre de l’article. La courbe du poids des phrases ainsi calculé pour chacune d’entre elles montre toujours un palier (fig. 2.5) ; nous choisissons alors de ne retenir que les phrases supérieures ou égales à ce palier et de les ré-ordonner par rang d’apparition dans le texte.
+Nous avons alors un résumé obtenu par extraction de phrases significatives du texte et généralement de taille réduite (moins de 12 phrases dans toutes nos expérimentations). Pour le document utilisé en illustration ici le résumé produit est décrit figure 2.6.
+
+
+Fig. 2.6  Résumé automatique produit par extraction de phrases et leur poids associé
+3. Visualisation de données textuelles évolutives
+3.1. Les méthodes de visualisation
+Wang et al., utilisent dans Neviewer des diagrammes alluviaux (figure 3.1), parfois appelés visualisation Sankey (Wang et al., 2014). Ces visualisations ont également été utilisées dans (Rosvall et Bergstrom, 2010) pour visualiser les changements dans les citations entre disciplines scientifiques. 
+
+
+Figure 3.1 Diagramme Alluvial issu de Neviewer  (Wang et al, 2014)
+Ratinaud utilise des dendogrammes pour visualiser les différentes thématiques (et leurs proximités) évoquées sur Twitter avec le hashtag #mariagepourtous (Ratinaud, 2015). Ce sont néanmoins les cartes arborescentes (Section 2, fig 2.1) qui lui permettent de montrer la progression ou régression de ses thématiques dans le temps. Osborne et Motta utilisent quant à eux des graphiques à zones empilées pour suivre l'évolution de la quantité de publications regroupées en thématiques à travers le temps (Osborne et Motta, 2014).
+Ces méthodes présentent toutes des avantages intéressants et nous montrons leur utilisation complémentaire dans la Section 4.
+
+3.2. Analyse diachronique
+L'analyse diachronique, qui consiste à comparer des données ou des résultats par pas de temps est intensivement utilisée. En linguistique, Perea utilise cette technique pour suivre l'évolution du Catalan à travers le temps (Perea,2012). Cardon et al. étudient l'évolution des blogs et de leur importance dans le tissus de l'internet à travers le temps de façon diachronique (Cardon et al., 2011). De même, l'activité des bloggers et l'évolution de leurs intérêts sont étudiées de façon diachronique par (Itoh et al., 2012). Les travaux de Wang et al., plus connectés à notre champ d'applications, analyse les évolutions thématiques de la recherche de façon diachronique (Wang et al., 2014).
+Dans notre cas, nous développons une méthode sans paramètres, directement utilisable par l'utilisateur, et basée sur la maximisation des traits pour identifier et décrire les thématiques d’un corpus. Cette approche permet d'identifier des mots-clés issus du contenu plein texte des documents caractéristiques de chaque thématique, au contraire des méthodes basées sur les mots-clés indexés par les bases de données de publications (Wang et al., 2014)(Osborne et Scavo, 2014). Par ailleurs, l'absence de paramètres dans le processus permet d'automatiser complètement la tâche, de l’indexation des documents, en passant par de la détection des thématiques et jusqu’à la visualisation de leur évolution.
+
+Nous présentons tout d'abord une approche originale basée sur la maximisation des traits présentée Section 2.2. À partir des groupes de documents formés et des résultats de la sélection de variables appliqués à chacun d'eux, nous construisons un graphe permettant de visualiser l'interaction entre les mots clés et les groupes de documents à l'aide de liens pondérés définissant la force de la relation. L’approche de construction du graphe est elle–même découpée en quatre etapes
+•	Nous interrogeons une base de données bibliographiques afin de construire un corpus couvrant plusieurs annes de publication sur un sujet donne;
+•	Les notices bibliographiques du corpus sont affectee a une classe classe qui représente le domaine scientifique et / ou la période. Ce faisant, nous construisons une classification mélangeant les thèmes et les périodes;
+•	Les notices sont représentées par les mots clés associés, nous sélectionnons ceux liés à chaque domaine scientifique et / ou à la période et nous calculons la force des relations (contraste) entre les mots clés et les domaines scientifiques et / ou les périodes en utilisant la métrique F-max de maximisation d’étiquetage décrite ci-avant;
+•	La dernière étape est la construction du graphe mettant en évidence les relations entre les annees et les mots clés en pondérant les liens du graphe avec les valeurs de contraste précédemment obtenus.
+
+
+
+Fig. xx: Principe de l'approche GRAFSEL.
+	Cette approche permet donc d'avoir une visualisation efficace d'un corpus complet.
+Tout d'abord, nous déterminons automatiquement le nombre de périodes à  prendre en compte pour le clustering diachronique d’un corpus. Après extraction des termes de tous les documents d’un corpus sur la thématique de la gériatrie/gérontologie entre 1996 et 2010, on considère les années de publication comme étant les classes et ainsi on peut construire un graphe pondéré par le contraste termes sélectionnés / année de publication (fig gg a).
+  
+Fig. 3.1 À gauche, le graphe pondére et élagué termes/années construit à partir des termes sélectionnés. À droite les groupes d'années extraits.
+Grace à un algorithme de type marche aléatoire (ici Walktrap (Pons et Latapy, 2005)), il est alors possible de détecter des groupes d’années qui serviront ensuite de pas de temps à l’algorithme de clustering diachronique.
+
+4. Diachronic'Explorer
+Nous introduisons maintenant Diachronic'Explorer, notre outil open source pour la production et l'exploitation visuelle de résultats d'analyse diachronique. 
+Diachronic'Explorer est composé de deux modules. Le premier implémente la méthode de sélection de variables de (Lamirel et. Al, 2012 présentée à la Section 2.2 qui permet de décrire les thématiques du corpus de façon précise et concise. Ce premier module permet par la suite d'utiliser les descriptions des thématiques produites pour suivre celles-ci dans le temps et ainsi détecter les changements et les similarités. Le second module est dédié à la visualisation des résultats produits par le premier. Conçu sous forme de plateforme web utilisant des technologies modernes, l'outil offre la possibilité de plonger dans le corpus à travers différentes visualisations complémentaires représentant chacune un niveau de granularité différent dans l'exploration du corpus. 
+Nous allons détailler ci-après l'utilisation de l'outil du niveau de grain le plus fin à la visualisation la plus synthétique du corpus et de ses évolutions. Nous prendrons comme corpus-exemple le corpus d’évaluation exploité dans le projet ISTEX. Ce corpus comprend  xxx notices issues de la recherche ayant trait au domaine général de la gérontologie. C’est un corpus commun à l’ensemble des partenaires du projet. Les données sont issues de plusieurs éditeurs différents et les métadonnées, quand elles sont disponibles, ne sont pas homogènes, ce qui rend nécessaire l’exploitation du contenu plein texte pour toute forme d’analyse. Nous appliquons donc les différentes étapes d’analyse présentées à la figure xxx sur ce corpus et les résultats de l’analyse sont transmis à l’outil de visualisation.
+Tout d'abord, l'outil permet d'étudier les mots-clés particulièrement caractéristiques des thématiques, et de voir l'évolution de leur importance dans le temps. La Figure 4.1. nous montre par exemple des mots-clés et leur évolution au sein d'un corpus de publication scientifiques liés au vieillissement découpé en trois périodes. La taille des cercles utilisée est proportionnelle à l'importance du mot dans sa thématique. Cette taille est donc conditionnée par la valeur de F-Mesure produite par l'outil. La Figure 4.2. nous montre la description d'une thématique à travers les mots-clés qui en sont représentatifs. La  taille des rectangles est elle aussi proportionnelle à la valeur de contraste.
+
+Figure 4.1. Évolution de l'importance des mots-clés au fil des trois périodes du corpus étudié dans ce cas. La taille des cercles est représentative de cette importance.
+Figure 4.2. Description d'une thématique liée aux soins à domicile à travers les mots-clés qui en sont caractéristiques. Chaque chiffre représente l'importance du mot-clé lié à travers sa F-mesure de traits dans la thématique.
+En prenant de la hauteur vis-à-vis du corpus, nous pouvons maintenant avec la Figure 4.3. prendre connaissance des thématiques d'une période. Sur cette Figure, chaque colonne représente une thématique, et les cellules au sein de la colonne sont les mots-clés qui décrivent cette thématique. La taille de ces cellules est conditionnée par la valeur de F-mesure du mot-clé dans la thématique.
+Figure 4.3. Les thématiques décrites par les mots-clés qui les caractérisent. Chaque thématique est une colonne et la hauteur de case indique l'importance du mot-clé dans celle-ci.
+La Figure 4.4. nous permet de prendre à nouveau du recul, et de considérer deux périodes deux-à-deux. Cette visualisation offre une représentation détaillée de l'analyse diachronique effectuée entre deux périodes. Le rectangle bleu représente la période antérieure à celle représentée par le rectangle jaune. Les cercles matérialisent des thématiques dont la taille est conditionnée par la quantité de documents qu'elles contiennent. L'étiquette de chaque cercle est actuellement le mot le plus caractéristique de la période. Pour plus de détails, il est possible d'en choisir deux. Par ailleurs, les liens entre cercles représentent les liens thématiques inter-périodes. Ceux-ci sont caractérisés par une force, calculée suivant la méthode décrite en Section 3.1, et qui proportionne l'épaisseur du lien. Quant au rectangle jaune en dessous, il fait apparaître les similarités pour chaque lien entre deux thématiques.
+Figure 4.4. Visualisation diachronique de deux périodes. Les cercles sont des thématiques, et les liens entre elles indiquent des similarités ou changements. Le cadre jaune en dessous détaille les similarités entre la Classe 8 de la période bleue et la Classe 3 de la période jaune.
+Enfin, la Figure 4.5. nous permet de prendre connaissance de la totalité des liens thématiques inter-périodes existants au sein du corpus. Chaque couleur représente une période et les rectangles verticaux les thématiques de cette période qui possèdent des liens avec d'autres périodes. En gris, nous observons les liens inter-périodes entre thématiques. Les liens en pointillé indiquent des correspondances thématiques particulières : l'une des deux thématiques possède un vocabulaire descriptif plus large. Il est possible de voir le détail des thématiques en passant la souris sur les rectangles de couleur. De même, les détails quant aux correspondances thématiques sont accessibles sur les liens en gris.
+Figure 4.5. Visualisation diachronique de toutes les périodes d'un corpus. Chaque couleur représente une période et les rectangles verticaux des thématiques. En gris, nous observons les liens inter-périodes entre thématiques.
+	Pour visualiser le corpus dans sa totalité, nous reprenons également dans Diachronic'Explorer une méthode de visualisation qui présente les informations sous forme de graphe (Figure 4.6). Les gros cercles représentent des thématiques, les petits des mots-clés, et si une thématique est décrite par un mot-clé alors on ajoute un lien entre les deux cercles. Cette visualisation présente donc toute l'information de façon condensée.
+Figure 4.6. Visualisation diachronique de toutes les périodes d'un corpus. Chaque couleur représente une période et les gros cercles des thématiques. En orange, on observe les mots-clés des thématiques. 
+Conclusion
+Dans cet article, à l’aide d’un état de l’art détaillé présentant les travaux utiles à l’analyse de données textuelles, nous avons montré l’intérêt de nos méthodes basées sur la maximisation des traits. En effet, celles-ci sont sans paramètres, applicables à un corpus ou un document unique, leur calcul est simple, et leurs résultats sont facilement interprétables. Ce dernier point nous a en particulier permis de créer l’outil Diachronic’Explorer, qui fournit des visualisations efficaces pour un problème aussi compliqué que la détection d’évolution au sein d’un corpus de publications scientifiques évoluant dans le temps.
+Remerciements
+ISTEX reçoit l’assistance de l’état Français par l’Agence Nationale pour la Recherche dans le cadre du programme d’Investissements pour le Futur de référence ANR-10-IDEX-0004-12.

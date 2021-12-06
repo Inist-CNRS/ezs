@@ -1,0 +1,851 @@
+﻿
+Une nouvelle approche pour la sélection de variables et leur contraste basée sur une métrique d’estimation de la qualité :
+Application à la classification de données textuelles complexes
+
+Jean-Charles Lamirel 1, Pascal Cuxac 2, Aneesh Sreevallabh Chivukula 3, et
+Kafil Hajlaoui 2
+
+1 SYNALP Team-LORIA, INRIA Nancy-Grand Est, Vandoeuvre-les-Nancy, France.
+jean-charles.lamirel@loria.fr 
+http://www.loria.fr/
+2 INIST-CNRS, Vandoeuvre-lès-Nancy, France.
+<pascal.cuxac@inist.fr>
+http://www.inist.fr/
+3 Center For Data Engineering, International Institute of Information Technology, Gachibowli Hyderabad, Andhra Pradesh, India. 
+<aneesh.chivukula@gmail.com>
+http://www.iiit.ac.in/
+
+Résumé. La maximisation d’étiquetage (F-max) est une métrique non biaisée d’estimation de la qualité d’une classification non supervisée (clustering) qui favorise les clusters ayant une valeur maximale de F-mesure d’étiquetage. Dans cet article, nous montrons qu'une adaptation de cette métrique dans le cadre de la classification supervisée, permet de réaliser une sélection de variables et de calculer pour chacune d’elles une fonction de contraste. La méthode est expérimentée sur différents types de données textuelles. Nous montrons dans cet article que cette technique améliore les performances des méthodes de classification de façon très significative (+90%) par rapport à l'état de l’art des techniques de sélection de variables notamment dans le cas de la classification de données textuelles déséquilibrées, fortement multidimensionnelles et bruitées.
+
+Mots-clés: fonction maximisation, indice de la qualité de clustering, sélection variables, apprentissage supervisé, données déséquilibrées, texte
+
+1 Introduction
+Depuis les années 1990, les progrès de l'informatique et des capacités de stockage permettent la manipulation de très gros volumes de données: il n'est pas rare d'avoir des espaces de description de plusieurs milliers, voire de dizaines de milliers de variables. On pourrait penser que les algorithmes de classification sont plus efficaces avec un grand nombre de variables. Toutefois, la situation n'est pas aussi simple que cela. Le premier problème qui se pose est l'augmentation du temps de calcul. En outre, le fait qu'un nombre important de variables soient redondantes ou non pertinentes pour la tâche de classification perturbe considérablement le fonctionnement des classifieurs. De plus, la plupart des algorithmes d'apprentissage exploitent des probabilités et les distributions de probabilités peuvent alors être difficiles à estimer dans le cas de la présence d'un très grand nombre de variables. L'intégration d'un processus de sélection de variables dans le cadre de la classification des données de grande dimension devient donc un enjeu central. Ceci est d’autant plus vrai qu’il est également nécessaire, pour des raisons de synthèse, de mettre en avant les variables privilégiés lors de la visualisation des résultats de classification.
+Dans la littérature, trois types d'approches pour la sélection de variables sont principalement proposés: les approches directement intégrées aux méthodes de classification, dites «embedded», les méthodes basées sur des techniques d’optimisation, dites «wrapper», et finalement,  les approches de filtrage. Des états de l’art exhaustifs des différentes techniques ont été réalisés par de nombreux auteurs, comme Ladha et al. (Ladha et Deepa, 2011), Bolón-Canedo et al. (Bolón-Canedo, Sanchez-Maroño et Alonso-Betanzos, 2012), Guyon et al. (Guyon et Elisseeff, 2003) ou Daviet (Daviet, 2009).
+Nous faisons ci-après un rapide tour d'horizon des approches existantes.
+
+Les approches « embedded » intègrent la sélection des variables dans le processus d'apprentissage [6]. Les méthodes les plus populaires de cette catégorie sont les méthodes basées sur SVM et les méthodes à base de neurones. SVM-EFR (Recursive Feature Elimination for Support Vector Machines) [12] est un processus intégré qui effectue la sélection des variables de façon  itérative en utilisant un classificateur SVM. Le processus commence avec l’ensemble des variables et supprime les variables données comme les moins importantes par le SVM. Sous une autre forme, l'idée de base de l'approche FS-P (Feature Selection-Perceptron) est d'effectuer un apprentissage supervisé basé sur un modèle neuronal perceptron et d'exploiter les poids d'interconnexion résultant entre les neurones comme indicateurs des variables qui peuvent être pertinentes [26].
+
+De leur côté, les méthodes « wrappers » utilisent explicitement un critère de performance pour la recherche d'un sous-ensemble de prédicteurs pertinents [17]. Le plus souvent, c'est le taux d'erreur (mais cela peut être un coût de prédiction ou l'aire sous la courbe ROC). À titre d'exemple, la méthode WrapperSubsetEval évalue l’ensemble des variables en utilisant une approche par apprentissage. La validation croisée est utilisée pour estimer la précision de l'apprentissage pour un ensemble donné de variables. L'algorithme commence avec un ensemble vide de variable et se poursuit jusqu'à ce que l'ajout de nouvelles variables n'améliore plus les performances [35]. Forman présente un remarquable travail de comparaison des méthodes dans [10]. Comme d'autres travaux similaires, cette comparaison met clairement en évidence que, sans tenir compte de leur efficacité, l'un des principaux inconvénients de ces méthodes, c'est qu'elles sont très gourmandes en temps de calcul. Cela interdit leur utilisation dans le cas de données très multidimensionnels. Dans ce contexte, une alternative possible est d'exploiter les méthodes de filtrage.
+
+Les approches par filtrage sont des méthodes de sélection qui sont utilisées avant et indépendamment de l'algorithme d'apprentissage. Basées sur des tests statistiques, elles sont donc plus légères en termes de temps de calcul que les autres approches.
+
+La méthode du khi-carré exploite un test statistique courant qui mesure l'écart à une distribution attendue en supposant qu'une variable est indépendante d'une étiquette de classe [19]. Le gain d'information est également l'une des méthodes les plus courantes de l'évaluation de variables. Ce filtre univarié fournit une classification ordonnée de toutes les variables. Dans cette approche, les variables retenues sont celles qui obtiennent une valeur positive du gain d'information [14].
+Dans la méthode MIFS (Mutual Information Feature Selection), une variable f est ajouté à un sous ensemble M de variables déjà sélectionnés, si son lien avec la cible Y surpasse sa connexion moyenne avec les prédicteurs déjà sélectionnés. La méthode prend en compte à la fois la pertinence et la redondance. De la même manière, la méthode CSF (Correlation-based Feature Selection) utilise une mesure globale du «mérite» d'un sous-ensemble M de m variables. Ensuite, un sous-ensemble pertinent se compose des éléments fortements corrélés avec la classe et faiblement corrélés aux autres [14].
+
+La méthode CBF (Consistency-based Filter) évalue la pertinence d'un sous-ensemble de variables par le niveau de cohérence des classes lorsque les échantillons d'apprentissage sont projetés sur ce sous-ensemble [8].
+
+La méthode MODTREE est un procédé de filtrage qui repose sur le principe du calcul de la corrélation par paire. La méthode fonctionne dans l'espace des paires d'individus décrits par des indicateurs de co-étiquetage attachés à chaque variable d'origine. Pour cela, un coefficient de corrélation par paire, qui représente la corrélation linéaire entre deux éléments, est utilisé. Le calcul des coefficients de corrélation partielle permet d'effectuer une sélection de variables pas à pas [20].
+
+L'hypothèse de base de la méthode Relief est de considérer une variable pertinente si elle discrimine bien un objet dans la classe positive par rapport à son voisin le plus proche dans la classe négative. Le score des variables est cumulatif et calculé grâce à une sélection aléatoire d'objets. ReliefF, une extension de Relief, ajoute la capacité de résoudre les problèmes multi-classes. Cette variante est aussi plus robuste et capable de traiter des données incomplètes et bruitées [18]. ReliefF est considérée comme l'une des méthodes de sélection à base de filtres les plus efficace.
+
+Comme tout test statistique, les approches par filtrage sont connues pour avoir un comportement erratique dans le cas de variables de très faibles fréquences (ce qui est le cas commun dans la classification de texte) [19]. En outre, nous montrons dans cet article que, malgré leur diversité, toutes les approches de filtrages existants échouent dans le cas de données très déséquilibrés, fortement multidimensionnelles et bruitées, avec un degré de similitude élevé entre les classes.
+De leur côté, les méthodes de ré-échantillonnage visent à corriger le déséquilibre de classes soit par l'ajout de nouveaux échantillons artificiels dans les classes minoritaires (sur-échantillonnage) ou en supprimant certains échantillons des classes majoritaires (sous-échantillonnage) [11]. À titre d'exemple, Chawla et al. [7] a proposé la méthode de sur-échantillonnage SMOTE en 2002 dont le principe est de synthétiser de nouveaux exemples dans les classes minoritaires, plutôt que de simplement les reproduire comme en sur-échantillonnage aléatoire.
+
+Cependant, nous montrons dans cet article que, dans ce contexte complexe qu’est celui de la classification de données textuelles avec des classes très déséquilibrées et souvent très similaires, la capacité de toutes les techniques, mentionnées ci-dessus, de détecter précisément la bonne classe est entravé par l’importante similarité des classes
+Nous proposons comme alternative une nouvelle méthode de sélection de variables et de contraste basée sur la métrique de maximisation des variables récemment développé et nous comparons ses performances avec des techniques classiques dans le contexte d'aide à la validation des brevets. Nous étendons ensuite la portée de notre étude aux ensembles de données de référence habituellement utilisés.
+
+Le reste du document est structuré comme suit. La section 2 présente notre nouvelle approche de sélection de variables. La section 3 détaille les données utilisées. La section 4 compare les résultats de la classification avec et sans l'utilisation de l'approche proposée sur les différents corpus de données. La section 5 présente nos conclusions et perspectives.
+
+
+
+2 Maximisation d’étiquetage pour la sélection de variables
+
+La maximisation d’étiquetage (F-max) est une métrique non biaisée d’estimation de la qualité d’une classification non supervisée (clustering)  qui exploite les propriétés des données associées à chaque cluster sans examen préalable des profils de clusters. Cette métrique a été initialement proposée dans (Lamirel et al 2004). Son principal avantage est d'être tout à fait indépendante des méthodes de classification et de leur mode de fonctionnement.
+Quand elle est utilisée pendant le processus de clustering, elle peut se substituer aux distances habituellement employées [24]. De façon complémentaire, chaque fois qu'elle est utilisée après l'apprentissage, elle peut être exploitée pour établir des indices globaux de qualité de clustering [23] ou pour l'étiquetage de cluster [22].
+Considérons un ensemble de clusters C résultant d'une méthode de clustering appliquée sur un ensemble de données D représentée par un ensemble de caractéristiques descriptives F La métrique de maximisation d’étiquetage favorise les clusters avec une valeur maximale de F-mesure d’étiquetage. La F-mesure d’étiquetage   d'une variable f associée à un cluster 𝑐 est définie comme la moyenne harmonique du rappel d'étiquetage  et de la précision d’étiquetage  , eux-mêmes définis comme suit.
+	, 	(1)
+avec	
+	(2)
+
+
+Et où  représente le poids de la variable  pour les données D et  représente l'ensemble des caractéristiques des données associées au cluster 𝑐.
+
+
+Une application importante de la métrique de maximisation d’étiquetage est liée à l'étiquetage des clusters dont le rôle est de mettre en évidence les caractéristiques courantes des clusters associés à un modèle de clustering à un moment donné. L’étiquetage peut être utilisé pour visualiser ou synthétiser les résultats de clustering et optimiser le processus d'apprentissage d'une méthode de classification [2]. Elle peut s'appuyer sur des caractéristiques endogènes ou exogènes des données. Les caractéristiques endogènes des données représentent celles utilisées lors du processus de clustering. Les caractéristiques exogènes des données représentent soit des caractéristiques complémentaires soit des caractéristiques spécifiques de validation. Exploiter la métrique de maximisation d’étiquetage afin d'étiqueter des clusters ne demande aucun paramétrage [22]. En ce qui concerne cette approche, une caractéristique est dite maximale ou fréquente pour un cluster donné si et seulement si sa F-mesure est plus élevé pour ce cluster que pour tout autre cluster. Ainsi, l'ensemble des variables Lc fréquentes d'un cluster c peut être définie comme:
+
+Lc = f ∈ Fc | FFc(f) = max (FF c� (f)) (3) 
+
+Chaque fois qu'il a été exploité en combinaison avec la représentation hypertree, cette technique a mis en évidence des résultats prometteurs, par rapport aux techniques d’étiquetage usuelles, comme l'étiquetage Chi-carré, pour synthétiser  des sortie de clustering complexe issues de données hautement multidimensionnelles [ 22]. En outre, la combinaison de cette technique avec le raisonnement bayésien non supervisée a abouti à la proposition de la première approche totalement non supervisée sans paramètre pour analyser l'information textuelle évolutive au fil du temps. Des expériences sur des corpus de notices bibliographiques ont montré que l'approche est fiable et susceptible de produire des résultats précis et significatifs pour des études scientométriques diachroniques [25].
+
+Tenant compte de la définition de base de la métrique de maximisation d’étiquetage présentée précédement, son exploitation pour la tâche de sélection de variables dans le contexte de l'apprentissage supervisé devient un processus simple, dès lors que cette métrique générique peut s'appliquer sur des données associées à une classe aussi bien qu’à celles qui sont associées à un cluster. Le processus de sélection peut donc être défini comme un processus non paramétré basé sur les classes dans lesquelles une variable de classe est caractérisée en utilisant à la fois sa capacité à discriminer une classe donnée ( et de sa capacité à représenter fidèlement les données de la classe .
+L'ensemble Sc des variables qui sont caractéristiques d'une classe donnée c appartenant à un ensemble de classe C se traduit par:
+
+	(4)	
+
+où    et  .	(5)
+
+et C/f  représente un sous ensemble de C aux classes dans lesquelles la variable f est représentée.
+
+Enfin, l'ensemble de toutes les variables SC sélectionnées est le sous-ensemble de F défini comme:
+ 
+
+Les variables qui sont jugées pertinentes pour une classe donnée sont les variables dont les représentations sont meilleures que leurs représentations moyennes dans toutes les classes, et meilleures que la représentation moyenne de toutes les variables, en termes de F-mesure d’étiquetage.
+
+Dans le cadre spécifique du processus de maximisation d’étiquetage, une étape d'amélioration par contraste peut être exploitée en complément de la première étape de sélection. Le rôle de cette étape est d’adapter la description de chaque donnée aux caractéristiques spécifiques de leurs classes associées qui ont été précédemment mises en évidence par l'étape de sélection. Dans le cas de notre métrique, cela consiste à modifier le schéma de pondération des données pour chaque classe en prenant en considération le gain d'information fournie par la F-mesure d’étiquetage des variables, localement à cette classe.
+
+Le gain d’information est proportionnel au rapport entre la valeur de la F-mesure d’une variable dans la classe et la valeur moyenne de la F-mesure de variable dans toute la partition.
+
+
+Le gain d'information est proportionnel au rapport entre la valeur de la F-mesure d’une variable dans la classe FFc (f) et la valeur moyenne de la F-mesure de cette variable sur l'ensemble de la partition FF (f). 
+Pour une donnée et pour une variable décrivant cette donnée, le gain résultant agit comme un facteur de contraste pondérant le poids existant de cette variable quel qu’il soit. 
+Pour une variable f appartenant à l'ensemble des variables sélectionnées Sc d'une classe C, le gain Gc (f) est exprimé comme suit:
+
+Gc (f) = (FFc (F) / F F (f)) k 	(6)
+
+où k est un facteur d’amplification qui peut être optimisé en fonction de la précision obtenue.
+
+Les variables actives d'une classe sont celles pour lesquelles le gain d'information est supérieur à 1 dans cette classe. La méthode qui en résulte est une sélection basée sur les caractéristiques des classes et un contraste de leur pondération  ; le nombre moyen de variables actives par classes est comparable au nombre total de variables sélectionnées avec des méthodes de sélection globales.
+
+3 Données expérimentales
+
+Notre ressource principale est une collection de documents de brevets se rapportant au domaine de la pharmacologie. Les citations bibliographiques dans les brevets sont extraites de la base de données Medline4. Les données source contiennent 6387 brevets au format XML, regroupés en 15 sous-classes de la classe A61K (préparation médicale). 25887 citations ont été extraites à partir de ces 6387 brevets [15]. Ensuite, l’interrogation de la base de données Medline avec les citations extraites nous permet de récupérer les notices bibliographiques de 7501 articles. Chaque notice est ensuite marquée par le premier code de classement du brevet citant. La série de notices étiquetées représente le corpus final sur lequel l’apprentissage est effectué. Ce corpus final est fortement déséquilibré, avec la plus petite classe contenant 22 articles (classe A61K41) et la plus grande classe contenant 2500 articles (classe A61K31). La similarité inter-classes calculée en utilisant une corrélation cosinus indique que plus de 70% des couples des classes ont une similitude comprise entre 0,5 et 0,9. Ainsi, la capacité d'un modèle de classification de détecter précisément la bonne classe est fortement réduite. Une solution habituellement utilisée pour faire face à un déséquilibre dans des données est un sous-échantillonage des grosses classes et un sur-échantillonnage des petites classes. Toutefois, l'échantillonnage qui introduit de la redondance dans les données n'améliore pas les performances dans cet ensemble de données, comme cela a été montré dans [15]. Nous proposons donc ci-après ,comme solution alternative, d’élaguer les caractéristiques non pertinentes et de contraster celles fiables.
+
+Le résumé de chaque article est traité et transformé en un sac de mots [31] en utilisant l'outil TreeTagger [33] développé par l'Institute for Computational Linguistics de l'Université de Stuttgart. Cet outil est à la fois un lemmatiseur et un tagger. En conséquence, chaque article est représenté comme un vecteur de termes rempli avec les fréquences de mots clés. L'espace de description généré par le tagger a 31214 dimensions. Pour réduire le bruit généré par l'outil TreeTager, un seuil de fréquence de 45 (soit le seuil moyen de 3/classe) est appliqué sur les descripteurs extraits. Il en résulte un espace de description seuillé de dimension 1804. Une dernière étape de pondération TF-IDF (Term Frequency-Inverse Document Frequency) [32] est appliquée.
+
+Cinq autres ensembles de données de référence ,décrits ci-après, sont utilisés dans nos expérimentations sur les données textuelles:
+
+les datasets R8 et R52 sont des corpus obtenus par Cardoso Cachopo à partir des ensembles de données R10 et R90 issues de la collection Reuters 21578. Le but de ces adaptations est de ne considérer que les ensembles de données ayant une seule étiquette. A cet effet, les documents appartenant à plus d'une classe sont éliminés. Considérant uniquement  les documents monothématiques et les classes qui ont encore au moins un exemple d’apprentissage et un exemple de test et d’après la convention de Sebastiani, R8 est une réduction à 8 classes du corpus R10 (10 classes plus fréquentes) et R52 est une réduction à 52 classes du corpus R90 (90 classes). R10 et R52 ont respectivement une taille de 7674 et 9100 et un espace de description de 1187 et 2618 mots.
+
+L'ensemble de données 20Newsgroups [16] est une collection d'environ 20.000 documents répartis (presque) uniformément dans 20 groupes de discussion différents. Nous considérons deux versions de sac de mots. Dans la version (20N-AT) tous les mots sont conservés et les caractères non alphabétiques sont transformés en espaces. Il en résulte un espace de description de 11153 mots. La version (20N-ST) est obtenue après une étape de racinisation (stemming). Les mots de moins de 2 caractères, ainsi que les mots vides (liste S24 SMART [31]), sont éliminés. La racinisation est obtenue en utilisant l’algorithme de Porter [29]. L'espace de description est ainsi réduit à 5473 mots.
+
+Le Corpus AmazonTM (AMZ) est un ensemble de données UCI [3] dérivé des avis de clients du site web Amazon et exploitable pour l'identification des auteurs. Pour examiner la robustesse des algorithmes de classification avec un grand nombre de classes cibles, 50 des utilisateurs les plus actifs (représenté par un identifiant unique et un nom d’utilisateur) qui ont fréquemment postés des commentaires dans ces newsgroups sont identifiés. Le nombre de messages collectés pour chaque auteur est de 30. Chaque message comprend le style linguistique des auteurs tels que l'utilisation de chiffres, la ponctuation, les mots et les phrases fréquentes. Pour cette raison, tous les mots, y compris des signes mentionnés ci-dessus sont conservés dans cette base de données et l’espace de description est de 10000 mots.
+
+Le corpus WebKB (WKB) contient 8282 pages recueillies auprès des départements de sciences informatiques de diverses universités en Janvier 1997 par le World Wide Knowledge Base (Web KB), projet du CMU text learning group (Carnegie Mellon University, Pittsburgh). Les pages ont été réparties manuellement en 7 classes: étudiant, faculté, département, cours, personnel, projet, autre. Nous exploitons la version réduite de Cardoso Cachopo dans laquelle les classes ‘département’ et ‘personnel’ ont été rejetées en raison de leur faible nombre de pages et la classe divers a été supprimée. Les méthodes de nettoyage et de racinisation des termes d'indexation brute utilisées dans le cas du corpus 20Newsgroups ont été appliquées ici. Elles ont abouti à un ensemble de données de taille 4158 dans un espace de description de 1805.
+
+4 Expériences et résultats
+4.1 Expériences
+
+Pour effectuer nos expériences nous prenons d'abord en considération les différents algorithmes de classification qui sont mises en œuvre dans le Weka toolkit : J48 algorithme d'arbre de décision [30], algorithme de forêts aléatoires [4] (RF), l'algorithme KNN [1], des algorithmes bayésiens, comme Multinomial Naïve Bayes (MNB) et Bayes Net (NE), et enfin, l'algorithme SMO-SVM [28] (SMO). La plupart de ces algorithmes sont des algorithmes de classification généraux, sauf MNB (Discriminative Multinomial Naive Bayes) qui est un classificateur spécialement développé pour la classification de texte. D'autres algorithmes d'usage général dont la précision a surtout été signalée pour la classification de texte sont SMO et KNN [37]. Les paramètres par défaut sont utilisés lors de l'exécution de ces algorithmes, à l'exception de KNN pour lequel le nombre de voisins est optimisé sur la base de la précision résultante.
+Nous avons ensuite mis l'accent plus particulièrement sur les tests d'efficacité des approches de sélection de variables, y compris notre nouvelle proposition (FMC). Nous incluons dans notre test un panel d'approches de filtrage qui sont applicables avec des données de grande dimension, en utilisant la plateforme Weka. L’ensemble des méthodes testées comprend: Chi-carré [19], le gain d’information [14], CBF [8] (CBF), l'incertitude symétrique [36], ReliefF [18] (RLF), Analyse en composantes principales [27] (PCA). Les paramètres par défaut sont utilisés pour la plupart de ces méthodes, sauf pour PCA pour lequel le pourcentage de variance expliquée est accordé en fonction de la précision obtenue.
+Enfin, l'approche SMOTE [7] est incluse dans notre processus expérimental pour déterminer l'efficacité des techniques de ré-échantillonnage.
+
+
+Dans un premier temps nous expérimentons les méthodes séparément. Dans une deuxième phase, nous combinons la sélection des variables fournies par les différentes méthodes avec la méthode de contraste que nous avons proposé. Une validation croisée (k-fold cross validation, avec k=10) est utilisée sur l'ensemble de nos expériences.
+
+4.2 Résultats
+
+Les différents résultats sont présentés dans les tableaux 1 à 10 et les figures 1 à 8. Les tableaux et figures présentent les mesures de performance standard (taux de vrai positif (TP) ou Rappel (R), taux de faux positifs (FP), Précision (R), F-mesure (F) et ROC) pondérés par la taille des classes et moyenné sur toutes les classes. Pour chaque table et chaque combinaison de méthodes de sélection et de classification, un indicateur de gain de performance est calculé en utilisant le TP résultant de SMO sur les données originales comme référence. Enfin, quand les résultats sont identiques pour Chi-carré, gain d'information et incertitude symétrique, ils ne sont repostés qu'une seule fois dans les tableaux comme résultats du chi carré (et noté CHI +).
+
+Le tableau 1 met en évidence que les performances de toutes les méthodes de classification sont faibles sur l'ensemble de données considéré si aucun processus de sélection de variables n’est exécuté. Il confirme également dans ce contexte la supériorité des méthodes SMO, KNN et Bayes sur les deux autres méthodes basées sur les arbres. En outre, SMO fournit la meilleure performance globale en termes de discrimination comme le montre sa valeur de ROC la plus élevée. Toutefois, comme il est également indiqué par la matrice de confusion de la figure 1, la méthode n'est clairement pas exploitable dans un contexte opérationnel d'évaluation des brevets en raison de la grande confusion entre les classes. Il met en évidence son incapacité intrinsèque à faire face au très important effet d'attraction des plus grandes classes.
+Chaque fois qu'un processus habituel de sélection de variables est appliqué en association avec les meilleures méthodes, son exploitation altère légèrement la qualité des résultats, comme il est indiqué dans le tableau 2. Le tableau 3 montre que les mêmes remarques peuvent être faites concernant l'utilisation de la technique de ré-échantillonnage, qui ne produit pas d'augmentation de la performance sur cet ensemble de données. Le tableau 2 souligne également que la réduction du nombre de variables par la méthode F-Max est similaire à Chi 2 (En termes de variables actives (voir la section 2 pour plus de détails) mais sa combinaison avec le contraste F-Max des données stimule les performances des méthodes de classification, et en particulier les méthodes Bayesiennes (tableau 4) , conduisant à des résultats de classification impressionnants (précision de 0,987%, soit 94 cas mal classés parmi un total de 7252 avec la méthode BN) dans un contexte de classification très complexe.
+
+Les résultats présentés dans le tableau 5 illustrent plus précisément l'efficacité de la procédure FMC contrastée qui agit sur les descriptions des données. Dans les expériences relatives à ce tableau, FMC contrasté est appliqué individuellement sur des variables extraites par chaque mode de sélection et, dans une deuxième étape, un classifieur BN est appliqué sur les données résultantes contrastées. Les résultats montrent que, quel que soit le type de méthode de sélection de variable utilisé, les performances de classification qui en résultent sont renforcées chaque fois que la F-Max contraste est effectuée. L'augmentation moyenne de la performance est de 44%.
+
+Le tableau 6 et la figure 2 illustrent les capacités de l'approche FMC pour faire face efficacement aux problèmes de déséquilibre et de similitudes des classes. L'examen conjoint des variations des taux TP (surtout dans les petites classes) dans le tableau 6 et la matrice de confusion de la figure 2 montre que l'effet d'attraction de données des plus grandes classes, qui se produit à un niveau élevé dans le cas de l'exploitation des données originales (figure 1) est complètement surmonté chaque fois que l'approche FMC est exploitée (tableau 6 et figure 2). Dans le même tableau, la capacité de l'approche à corriger un déséquilibre de classes est clairement mis en évidence par la répartition homogène des éléments actifs (voir la section 2 pour plus de détails) dans les classes, malgré des dimensions très hétérogène de chaque classe.
+
+
+TP R
+FP
+P
+F
+ROC
+TP Incr 
+J48 
+0.42 
+0.16 
+0.40 
+0.40 
+0.63 
+-23% 
+RandomForest 
+0.45 
+0.23 
+0.46 
+0.38 
+0.72 
+-17% 
+SMO 
+0.54 
+0.14 
+0.53 
+0.52 
+0.80 
+0% (Ref) 
+BN 
+0.48 
+0.14 
+0.47 
+0.47 
+0.78 
+-10% 
+MNB 
+0.53 
+0.18 
+0.54 
+0.47 
+0.85 
+-10% 
+KNN (k=3) 
+0.53 
+0.16 
+0.53 
+0.51 
+0.77 
+-2% 
+
+Tableau 1. Résultats de classification sur les données initiales.
+
+
+Fig. 1. Matrice de confusion des résultats optimaux avant la sélection de variables (classification SMO).
+
+
+TP R 
+FP
+P
+F
+ROC
+Nbr. Feat 
+TP Incr 
+CHI+ 
+0.52 
+0.17 
+0.51 
+0.47 
+0.80 
+282 
+-4% 
+CBF 
+0.47 
+0.21 
+0.44 
+0.41 
+0.75 
+37 
+-13% 
+PCA (50% vr.) 
+0.47 
+0.18 
+0.47 
+0.44 
+0.77 
+483 
+-13% 
+RLF 
+0.52 
+0.16 
+0.53 
+0.48 
+0.81 
+937 
+-4% 
+FMC 
+0.99 
+0.003 
+0.99 
+0.99 
+1 
+262/cl 
++90% 
+
+Tableau 2. Résultats de classification après la sélection de variables (classification BN, toutes méthodes de sélection de variables).
+
+
+
+
+
+
+No selection 
+CHI+ 
+CBF 
+No resampling
+BN
+F
+0.47
+0.47
+0.47
+
+
+ROC
+0.78
+0.78
+0.78
+
+MNB
+F
+0.47
+0.47
+0.40
+
+
+ROC
+0.85
+0.85
+0.82
+
+SMO
+F
+0.52
+0.52
+0.50
+
+
+ROC
+0.80
+0.80
+0.78
+SMOTE
+BN
+F
+0.47
+0.47
+0.47
+
+
+ROC
+0.78
+0.78
+0.78
+
+MNB
+F
+0.47
+0.47
+0.40
+
+
+ROC
+0.85
+0.85
+0.82
+
+SMO
+F
+0.52
+0.52
+0.50
+
+
+ROC
+0.80
+0.80
+0.78
+
+Tableau 3. Résultats de classification après ré-échantillonnage SMOTE (classification SMO).
+
+
+TP R
+FP
+P
+F
+ROC
+TP Incr
+J48
+0.80
+0.05
+0.79
+0.79
+0.92
++48%
+RandomForest
+0.76
+0.09
+0.79
+0.73
+0.96
++40%
+SMO
+0.92
+0.03
+0.92
+0.91
+0.98
++70%
+BN
+0.99
+0.003
+0.99
+0.99
+1
++90%
+MNB
+0.92
+0.03
+0.92
+0.92
+0.99
++71%
+KNN (k=3)
+0.66
+0.14
+0.71
+0.63
+0.85
++22%
+
+Tableau 4. Résultats de classification après la sélection de variables FMC (Toutes les méthodes de classification).
+
+
+TP R
+FP
+P
+F
+ROC
+Nbr. Feat
+TP Incr
+CHI+
+0.79
+0.08
+0.82
+0.78
+0.98
+282
++46%
+CBF
+0.63
+0.15
+0.69
+0.59
+0.90
+37
++16%
+PCA (50% vr.)
+0.71
+0.11
+0.73
+0.67
+0.53
+483
++31%
+RLF
+0.79
+0.08
+0.81
+0.78
+0.98
+937
++46%
+FMC
+0.99
+0.003
+0.99
+0.99
+1
+262/cl
++90%
+
+
+Tableau 5. Résultats de classification après sélection de variables par toute les méthodes + F-max contrastée (classification BN).
+
+Etiquette classe
+Taille classe
+Nb variables selectionnées
+% TP FMC
+% TP avant
+a61k31
+2533
+223
+1
+0.79
+a61k33
+60
+276
+0.95
+0.02
+a61k35
+459
+262
+0.99
+0.31
+a61k36
+212
+278
+0.95
+0.23
+a61k38
+1110
+237
+1
+0.44
+a61k39
+1141
+240
+0.99
+0.65
+a61k41
+22
+225
+0.24
+0
+a61k45
+304
+275
+0.98
+0.09
+a61k47
+304
+278
+0.99
+0.21
+a61k48
+140
+265
+0.98
+0.12
+a61k49
+90
+302
+0.93
+0.26
+a61k51
+78
+251
+0.98
+0.26
+a61k6
+47
+270
+0.82
+0.04
+a61k8
+87
+292
+0.98
+0.02
+a61k9
+759
+250
+1
+0.45
+
+Tableau 6. Caractéristiques / classe (Classification BN) Classe données et FMC sélectionnés.
+
+
+Fig. 2. Matrice de confusion des résultats optimaux après la sélection de variables FMC (classification BN).
+
+Le résumé des résultats sur les 5 ensembles de données de référence décrits dans la section 3 est présenté dans les tableaux 7-8. Ils soulignent que la méthode FMC peut améliorer très significativement les performances des classifieurs dans différents cas. Comme dans le contexte ‘QUAERO’, la meilleure performance est obtenue par l'utilisation de la méthode FMC en combinaison avec les classifieurs bayésiens MNB et BN. Le tableau 7 présente les résultats comparatifs d'une telle combinaison. Ils mettent en évidence que la méthode FMC est particulièrement efficace pour augmenter les performances des classifieurs chaque fois que la complexité de la tâche de classification devient plus élevé en raison d'un nombre croissant de classes. Le tableau 8 fournit des informations générales sur les données et sur les méthodes de sélection. Il illustre la diminution significative de la complexité de la classification obtenue avec FMC en raison de la réduction du nombre de variables à gérer, ainsi que la diminution des données mal classées. Il souligne également le temps de calcul très modéré de la méthode FMC (le calcul est effectué sur Linux avec un ordinateur portable équipé d'Intel® Pentium® CPU B970 2.3Ghz et avec une mémoire standard de 8Go.)
+
+Sur ces ensembles de données, des remarques similaires à celles mentionnées pour l'ensemble de données ‘QUAREO’ peuvent être faites au sujet de la faible efficacité des méthodes usuelles dea sélection de variable des méthodes de ré-échantillonnage. Une autre observation intéressante est fournie par la comparaison entre les résultats obtenus avec et sans exploitation de la racinisation des termes sur le corpus 20Newgroups. En effet, la méthode FMC est capable de maintenir les performances des classifieurs même si la racinisation n’est pas utilisée. De fait, comme le montre la figure 3, le nombre et la répartition des variables actives entre les groupes de classes est toujours conservé lorsque le nombre de variables initiales diminue d'un facteur 2 (soit de 11153 à 5473 variables entre les deux corpus 20Newsgroups).
+De même pour les observations réalisées dans le cadre ’ QUAERO’, la figure 4 confirme qu'une distribution presque uniforme des variables actives entre les classes peut être obtenue avec FMC, quelle que soit la taille des classes. Le tableau 8 montre également que la valeur du facteur d’amplification contraste (4), qui est exploitée pour obtenir la meilleure performance, peut varier au fil des expériences (par exemple de 1 à 4). Cependant, on peut observer qu’en prenant une valeur fixée pour ce facteur, par exemple la plus élevée utilisée (ici 4), ne dégrade pas les résultats. Cela représente donc une bonne alternative pour faire face au problème de paramétrage.
+
+Les 10 variables les plus contrastées 10 (avec racinisation) des 8 classes issues du corpus Reuter8 sont présentés dans le tableau 9. Le fait que les grandes lignes de chaque sujet peuvent être clairement mise en évidence  illustre les capacités d'extraction de thématiques de la méthode FMC.
+Enfin, l'obtention d'une très bonne performance en combinant l'approche de sélection de variables FMC avec une méthode de classification comme MNB est un réel avantage pour l'exploitation à grande échelle, sachant que la méthode MNB a des capacités incrémentales et que les deux méthodes ont un temps de calcul faible.
+
+
+
+TP (R)
+FP
+P
+F
+ROC
+TP Incr.
+Reuters8 (R8)
+-
+0.937
+0.02
+0.942
+0.938
+0.984
+
+
+FMC
+0.998
+0.001
+0.998
+0.998
+1
++6%
+Reuters52 (R52)
+-
+0.91
+0.01
+0.909
+0.903
+0.985
+
+
+FMC
+0.99
+0.001
+0.99
+0.99
+0.999
++10%
+Amazon
+-
+0.748
+0.05
+0.782
+0.748
+0.981
+
+
+FMC
+0.998
+0.001
+0.998
+0.998
+1
++33%
+20Newsgroups (tous termes)
+-
+0.882
+0.006
+0.884
+0.881
+0.988
+
+
+FMC
+0.992
+0
+0.992
+0.992
+1
++13%
+20Newsgroups (Stemmed)
+-
+0.865
+0.007
+0.866
+0.864
+0.987
+
+
+FMC
+0.991
+0.001
+0.991
+0.991
+1
++15%
+WebKB
+-
+0.842
+0.068
+0.841
+0.841
+0.946
+
+
+FMC
+0.996
+0.002
+0.996
+0.996
+1
++18%
+
+Table 7. Résultats de classifications après selection de variablesFMC (Données de référence et classification MNB ou BN).
+
+Des résultats complémentaires obtenus avec les données numériques ‘Wine’ de l’UCI montrent que, avec l'aide de FMC, les méthodes NB / BN sont capables d'exploiter que deux caractéristiques (parmi 13) pour classer alors qu’un arbre de décision comme J48 (i.e. C4 .5 [27]) a besoin des données standard. La différence est qu'un résultat parfait est obtenu avec NB / BN et FMC alors que ce n'est pas le cas avec J48 (tableau 10). Quelques explications sont fournies en regardant la distribution des échantillons de classe sur les plans de décision alternatifs des deux méthodes. 
+
+
+R8
+R52
+AMZ
+20N-AT
+20N-ST
+WKB
+Nb. class
+8
+52
+50
+20
+20
+4
+Nb. data
+7674
+9100
+1500
+18820
+18820
+4158
+Nb feat.
+3497
+7369
+10000
+11153
+5473
+1805
+Nb. sel. feat.
+1186
+2617
+3318
+3768
+4372
+725
+Act. feat./class (av.)
+268.5
+156.05
+761.32
+616.15
+525.95
+261
+Magniﬁcation factor
+4
+2
+1
+4
+4
+4
+Misclassed (Std)
+373
+816
+378
+2230
+2544
+660
+Misclassed (FMC)
+19
+91
+3
+157
+184
+17
+Comp. time (s)
+1
+3
+1.6
+10.2
+4.6
+0.8
+
+Table 8. Informations sur les données utilisées et résultats complémentaires après selection de variables FMC (Données de références et classifieur MNB ou BN).
+
+Trade
+Grain
+Ship
+Acq
+6.35 tariﬀ 
+5.60 agricultur 
+6.59 ship 
+5.11 common 
+5.49 trade 
+5.44 farmer 
+6.51 strike 
+4.97 complet 
+5.04 practic 
+5.33 winter 
+6.41 worker 
+4.83 ﬁle 
+4.86 impos 
+5.15 certif 
+5.79 handl 
+4.65 subject 
+4.78 sanction 
+4.99 land 
+5.16 ﬂag 
+4.61 tender 
+4.77 japanes 
+4.94 soviet 
+5.06 bulk 
+4.53 share 
+4.76 bilater 
+4.90 grain 
+5.04 wind 
+4.45 merger 
+4.73 washington 
+4.87 spark 
+5.03 gulf 
+4.36 transact 
+4.52 semiconductor 
+4.84 provinc 
+4.89 brazilian 
+4.35 subsidiari 
+4.42 surplu 
+4.77 bad 
+4.87 contain 
+4.312 acquir 
+Learn
+Money-fx
+Interest
+Crude
+7.57 net 
+6.13 currenc 
+5.95 rate 
+6.99 oil 
+7.24 loss 
+5.55 dollar 
+5.85 prime 
+5.20 ceil 
+6.78 proﬁt 
+5.52 germani 
+5.12 point 
+4.94 post 
+6.19 prior 
+5.49 shortag 
+5.10 percentag 
+4.86 quota 
+5.97 split 
+5.16 stabil 
+4.95 surpris 
+4.83 crude 
+5.74 earn 
+4.87 assist 
+4.70 lend 
+4.48 oﬀshor 
+5.09 gain 
+4.79 pari 
+4.41 yield 
+4.46 output 
+4.88 jan 
+4.70 underli 
+4.39 barclai 
+4.15 light 
+4.87 mln 
+4.65 governor 
+4.26 borrow 
+4.12 intermedi 
+4.60 oper 
+4.51 accord 
+4.25 cut 
+4.07 price 
+
+Table 9. Liste des variables de contraste élevé (formes racinisés) pour les 8 classes du corpus REUTER8.
+
+
+Fig. 3. Comparaison des évolutions des variables actives et sélectionnées partagées par groupe de classes - par la taille de groupe (ensembles de données 20Newsgroups).
+
+
+Fig. 4. Comparaison des distributions de variables FMC-actives et documents/(ensembles de données 20Newsgroups).
+
+Dans le plan de decision “Proline-Color intensity” exploité par J48, les différentes classes ne sont pas clairement discriminables (figure 5). De son coté, la méthode FMC génère un plan de décision encore plus complexe “Proline-magnesium”, si on ne considère pas le contraste (figure 6). Cependant, comme le montrent les figures 7-8, avec l'effet combiné du contraste et du facteur d’amplification (4) sur les caractéristiques des données, les différentes classes deviennent très clairement discriminables sur ce plan décisionnel, surtout lorsque le facteur d’amplification est suffisamment augmenté (figure 8) .
+
+
+5 Conclusion 
+
+Notre objectif principal était de développer une méthode efficace de sélection et de contraste de variables qui pourrait permettre de surmonter les problèmes habituels liés à la classification supervisée de gros volumes de données textuelles. Ces problèmes sont liés à des classes déséquilibrées, de grandes dimensions, bruitées, et avec un degré élevé de similitude entre les classes.
+
+
+TP R
+FP
+P
+F
+ROC
+TP Incr
+J48
+0.94
+0.04
+0.94
+0.94
+0.95
+0% (Ref)
+BN + FMC
+1
+0
+1
+1
+1
++6%
+
+Table 10. Résultats de classification sur les données UCI “Wine”.
+
+
+Fig. 5. Données “Wine” : plan de decision “Proline-Color intensity” généré par J48 -Proline est sur l’axe Y
+.
+Pour ce faire, nous avons proposé d'adapter une métrique développée récemment au contexte de classification supervisée. Grâce à diverses expériences sur de grands ensembles de données textuelles, nous avons illustré de nombreux avantages de notre approche, et surtout sa grande efficacité pour améliorer la performance de classifieurs dans un tel contexte, tout en mettant l'accent sur la souplesse et l’usage moins intensifs de calculs de certains classifieurs, comme les classifieurs Bayesiens.
+
+Un autre avantage de cette méthode est qu'il s'agit d'une approche sans paramètre qui peut s'appuyer sur un schéma simple d'extraction de variables ; il peut donc être utilisé dans différentes applications, comme l'apprentissage incrémental et semi-supervisé. Une autre perspective intéressante serait d'adapter cette technique dans le contexte de l'exploration de texte pour enrichir des ontologies et des lexiques grâce à l'exploitation à grande échelle des corpus existant. En outre, notre sélection de variables et de contraste peut facilement être étendue à d’autres domaine d'application comme dans le contexte plus large des données numériques.
+
+
+
+Fig. 6. Données “Wine” : plan de decision “Proline-Magnesium” généré par FMC (avant contraste).
+
+Fig. 7. Données “Wine” : Plan de décision “Proline-Magnesium” généré par FMC (après contraste avec facteur d’amplification k=1).
+
+
+Remerciements
+Ce travail a été réalisé dans le cadre du programme QUAERO soutenu par OSEO  Agence française de développement de la recherche.
+
+

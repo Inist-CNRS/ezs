@@ -18,6 +18,7 @@ Repository containing all @ezs packages (monorepo)
 - [@ezs/conditor](./packages/conditor#readme) [![npm version](https://img.shields.io/npm/v/@ezs/conditor)](https://npm.im/@ezs/conditor)
 - [@ezs/storage](./packages/storage#readme) [![npm version](https://img.shields.io/npm/v/@ezs/storage)](https://npm.im/@ezs/storage)
 - [@ezs/transformers](./packages/transformers#readme) [![npm version](https://img.shields.io/npm/v/@ezs/transformers)](https://npm.im/@ezs/transformers)
+- [@ezs/teeft](./packages/teeft#readme) [![npm version](https://img.shields.io/npm/v/@ezs/teeft)](https://npm.im/@ezs/teeft)
 
 ## History
 

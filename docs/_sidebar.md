@@ -23,9 +23,13 @@
   - [storage](plugin-storage.md)
   - [transformers](plugin-transformers.md)
   - [ark](plugin-ark.md)
+  - [teeft](plugin-teeft.md)
+
 - Exemples
-   -  [Conversion de flux](example-conversions.md)
-   -  [Enrichissement par web API](example-enrichments.md)
+
+  - [Conversion de flux](example-conversions.md)
+  - [Enrichissement par web API](example-enrichments.md)
+
 - Avancé
 
   - [Serveur de traitement](server.md)

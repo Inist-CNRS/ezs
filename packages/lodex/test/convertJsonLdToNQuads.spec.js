@@ -1,5 +1,6 @@
 import from from 'from';
 import testOne from './testOne';
+// @ts-ignore
 import ezs from '../../core/src';
 
 import statements from '../src';
@@ -44,7 +45,7 @@ describe('convertJSonLdToNquads', () => {
             done,
         );
     },
-        8000);
+    8000);
 
     // There is still a bug in error management in ezs@6.0.0
     // Wait for a fix to remove .skip
@@ -71,5 +72,5 @@ describe('convertJSonLdToNquads', () => {
                 expect(data).not.toBeDefined();
             });
     },
-        8000);
+    9000);
 });

@@ -1,0 +1,20 @@
+Ceci est un texte en français totalement artificiel (d'où le nom du fichier), et
+construit pour l'occasion. C'est un minimum pour tester l'algorithme teeft et
+ses différents paramètres. Il nous permettra aussi de nous assurer que son
+implémentation est correcte et donne des résultats plausibles.
+
+Dans l'idéal, un document devrait être long comme un article scientifique, ce
+qui implique qu'il me faut encore beaucoup écrire de texte. Je n'ai pas assez de
+mots, ni de paragraphes, d'ailleurs.
+
+Je suis curieux de découvrir les termes qui vont ressortir de ce texte, et je ne
+me risquerai à essayer de les deviner.
+
+Comme nous travaillons sur ce projet un jour par semaine d'août 2018 à décembre
+2018, nous n'aurons en gros que 20 jours de travail. Nous adaptons un programme
+déjà écrit, en javascript, pour le rendre plus générique, et intégrable à des
+chaînes de traitement différentes.
+
+À ce stade, nous ne nous sommes pas encore assurés qu'un flux de documents
+passera bien. Dans un premier temps, nous allons tester le programme sur un seul
+document (celui-ci).

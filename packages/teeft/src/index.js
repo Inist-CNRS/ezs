@@ -1,0 +1,31 @@
+import TeeftExtractTerms from './extract-terms';
+import TeeftFilterMonoFreq from './filter-mono-freq';
+import TeeftFilterMultiSpec from './filter-multi-spec';
+import TeeftFilterTags from './filter-tags';
+import TeeftGetFilesContent from './get-files-content';
+import TeeftListFiles from './list-files';
+import TeeftNaturalTag from './natural-tag';
+import TeeftRemoveNumbers from './remove-numbers';
+import TeeftSentenceTokenize from './sentence-tokenize';
+import TeeftSpecificity from './specificity';
+import TeeftStopWords from './stop-words';
+import TeeftSumUpFrequencies from './sum-up-frequencies';
+import TeeftTokenize from './tokenize';
+import TeeftToLowerCase from './to-lower-case';
+
+export default {
+    TeeftExtractTerms,
+    TeeftFilterMonoFreq,
+    TeeftFilterMultiSpec,
+    TeeftFilterTags,
+    TeeftGetFilesContent,
+    TeeftListFiles,
+    TeeftNaturalTag,
+    TeeftRemoveNumbers,
+    TeeftSentenceTokenize,
+    TeeftSpecificity,
+    TeeftStopWords,
+    TeeftSumUpFrequencies,
+    TeeftTokenize,
+    TeeftToLowerCase,
+};

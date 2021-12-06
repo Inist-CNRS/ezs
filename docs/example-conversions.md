@@ -1,6 +1,7 @@
 # Conversion
 
-Voici une série d’exemples pour convertir un flux de données dans un autre format.
+Voici une série d’exemples pour convertir un flux de données dans un autre
+format.
 
 ## Convertir du CSV en JSON
 
@@ -98,6 +99,3 @@ separator = ,
 [CSVString]
 format = strict
 ```
-
-
-
