@@ -10,7 +10,6 @@ ezs.use(statements);
 describe('teeft fr', () => {
     it('should work on a single file', (done) => {
         let res = [];
-        // from([`${__dirname}/../examples/data/artificial.txt`])
         from([`${__dirname}/../examples/data/fr-articles/docnum1_2013.txt`])
             .pipe(ezs('TeeftGetFilesContent'))
             .pipe(ezs('TeeftToLowerCase', { path: ['content'] }))
@@ -21,6 +20,7 @@ describe('teeft fr', () => {
             // .pipe(ezs('debug', { text: 'extract-terms'}))
             .pipe(ezs('TeeftFilterTags', { tags: ['NOM', 'ADJ', 'UNK'] }))
             // .pipe(ezs('debug', { text: 'filter-tags'}))
+            .pipe(ezs('TeeftRemoveNumbers'))
             .pipe(ezs('TeeftStopWords'))
             // .pipe(ezs('debug', { text: 'stop-words'}))
             .pipe(ezs('TeeftSumUpFrequencies'))
@@ -44,16 +44,16 @@ describe('teeft fr', () => {
                     frequency: 13,
                     length: 1,
                     tag: [ 'NOM' ],
-                    term: 'catégorisation'
+                    term: 'catégorisation',
+                    specificity: 1
                 });
-                expect(categorisation.specificity).toBeCloseTo(0.8909066666666675, 10);
                 const classifAuto = terms.find(term => term.term === 'classification automatique');
                 expect(classifAuto).toMatchObject({
                     frequency: 5,
                     length: 2,
                     term: 'classification automatique'
                 });
-                expect(classifAuto.specificity).toBeCloseTo(0.06410256410256408, 10);
+                expect(classifAuto.specificity).toBeCloseTo(0.07195205345404385, 10);
                 done();
             });
     }, 6000);

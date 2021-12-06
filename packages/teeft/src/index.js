@@ -5,6 +5,7 @@ import TeeftFilterTags from './filter-tags';
 import TeeftGetFilesContent from './get-files-content';
 import TeeftListFiles from './list-files';
 import TeeftNaturalTag from './natural-tag';
+import TeeftRemoveNumbers from './remove-numbers';
 import TeeftSentenceTokenize from './sentence-tokenize';
 import TeeftSpecificity from './specificity';
 import TeeftStopWords from './stop-words';
@@ -20,6 +21,7 @@ export default {
     TeeftGetFilesContent,
     TeeftListFiles,
     TeeftNaturalTag,
+    TeeftRemoveNumbers,
     TeeftSentenceTokenize,
     TeeftSpecificity,
     TeeftStopWords,
