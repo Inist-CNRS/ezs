@@ -33,8 +33,9 @@ describe('filter multiterms and frequent monoterms', () => {
             .on('end', () => {
                 expect(res).toHaveLength(1);
                 const { terms } = res[0];
-                expect(terms).toHaveLength(1);
+                expect(terms).toHaveLength(2);
                 expect(terms[0]).toMatchObject({ term: 'elle', frequency: 8 });
+                expect(terms[1]).toMatchObject({ term: 'de', frequency: 2 });
                 done();
             });
     });
