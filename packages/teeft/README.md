@@ -24,9 +24,9 @@ ses propres paramètres (voir [usage](#usage)).
 Voici la séquence typique d'instructions qui permet de lire les fichiers `.txt`
 d'un répertoire et de les envoyer aux tokenizers de phrase, puis de mots;
 ensuite on procède à un étiquetage grammatical, puis on extrait les termes, et
-on les filtre (par fonction grammaticale), on supprime les mots vides, on
-calcule les fréquences des tokens, puis leur spécificité, enfin, on les filtre
-suivant leur fréquence.
+on les filtre (par fonction grammaticale), on enlève les nombres, on supprime
+les mots vides, on calcule les fréquences des tokens, puis leur spécificité,
+enfin, on les filtre suivant leur fréquence.
 
 ```txt
 [ "/path/to/a/directory/of/documents" ] ->
@@ -79,6 +79,22 @@ adjTag = ADJ
 [TeeftFilterTags]
 tags = NOM
 tags = ADJ
+
+--> [  { path, terms:  [
+  {
+    term: "monoterm",
+    tag: [ "tag", ...],
+    frequency,
+    length
+  },
+  {
+    term: "multiterm",
+    frequency,
+    length
+  }, ...
+ ] }, ... ]
+
+[TeeftRemoveNumbers]
 
 --> [  { path, terms:  [
   {
