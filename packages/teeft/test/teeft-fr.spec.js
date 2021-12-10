@@ -18,7 +18,7 @@ describe('teeft fr', () => {
             .pipe(ezs('TeeftNaturalTag', { lang: 'fr' }))
             .pipe(ezs('TeeftExtractTerms', { lang: 'fr' }))
             // .pipe(ezs('debug', { text: 'extract-terms'}))
-            .pipe(ezs('TeeftFilterTags', { tags: ['NOM', 'ADJ', 'UNK'] }))
+            .pipe(ezs('TeeftFilterTags', { lang: 'fr' }))
             // .pipe(ezs('debug', { text: 'filter-tags'}))
             .pipe(ezs('TeeftRemoveNumbers'))
             .pipe(ezs('TeeftStopWords'))
