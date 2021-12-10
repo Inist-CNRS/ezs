@@ -15,7 +15,7 @@ describe('teeft fr', () => {
             .pipe(ezs('TeeftToLowerCase', { path: ['content'] }))
             .pipe(ezs('TeeftSentenceTokenize'))
             .pipe(ezs('TeeftTokenize'))
-            .pipe(ezs('TeeftNaturalTag'))
+            .pipe(ezs('TeeftNaturalTag', { lang: 'fr' }))
             .pipe(ezs('TeeftExtractTerms', { nounTag: 'NOM', adjTag: 'ADJ' }))
             // .pipe(ezs('debug', { text: 'extract-terms'}))
             .pipe(ezs('TeeftFilterTags', { tags: ['NOM', 'ADJ', 'UNK'] }))
