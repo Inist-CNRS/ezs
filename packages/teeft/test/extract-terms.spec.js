@@ -29,7 +29,7 @@ describe('extract terms', () => {
                 { token: 'hotdog', tag: ['UNK'] },
             ]],
         }])
-            .pipe(ezs('TeeftExtractTerms'))
+            .pipe(ezs('TeeftExtractTerms', { lang: 'fr' }))
             // .pipe(ezs('debug'))
             .on('data', (chunk) => {
                 res = res.concat(chunk);
@@ -202,7 +202,7 @@ describe('extract terms', () => {
                 { token: 'hotdog', tag: ['UNK'] },
             ]],
         }])
-            .pipe(ezs('TeeftExtractTerms'))
+            .pipe(ezs('TeeftExtractTerms', { lang: 'fr' }))
             // .pipe(ezs('debug'))
             .on('data', (chunk) => {
                 // assert.ok(Array.isArray(chunk));
@@ -243,7 +243,7 @@ describe('extract terms', () => {
                 { token: 'hotdog', tag: ['UNK'] },
             ]],
         }])
-            .pipe(ezs('TeeftExtractTerms'))
+            .pipe(ezs('TeeftExtractTerms', { lang: 'fr' }))
             // .pipe(ezs('debug'))
             .on('data', (chunk) => {
                 res = res.concat(chunk);
@@ -298,6 +298,55 @@ describe('extract terms', () => {
                     tag: ['UNK'],
                     term: 'hotdog',
                 }]);
+                done();
+            });
+    });
+
+    it('should work on English tags', (done) => {
+        let res = [];
+        from([{
+            path: '/path/1',
+            sentences:
+            [[
+                { token: 'this', tag: ['DT'] },
+                { token: 'preliminary', tag: ['JJ'] },
+                { token: 'study', tag: ['NN'] },
+                { token: 'has', tag: ['VBZ'] },
+                { token: 'interesting', tag: ['JJ'] },
+                { token: 'perspectives', tag: [ 'NNS' ] },
+            ]],
+        }])
+            .pipe(ezs('TeeftExtractTerms', { lang: 'en' }))
+            // .pipe(ezs('debug'))
+            .on('data', (chunk) => {
+                res = res.concat(chunk);
+            })
+            .on('end', () => {
+                expect(res).toHaveLength(1);
+                const { terms } = res[0];
+                expect(terms).toHaveLength(8);
+                expect(terms[0].term).toBe('this');
+                expect(terms[1].term).toBe('preliminary');
+                expect(terms[2].term).toBe('study');
+                expect(terms[3].term).toBe('preliminary study');
+                expect(terms[5]).toMatchObject({
+                    term: 'interesting',
+                    tag: ['JJ'],
+                    frequency: 1,
+                    length: 1
+                });
+                expect(terms[6]).toMatchObject({
+                    term: 'perspectives',
+                    tag: ['NNS'],
+                    frequency: 1,
+                    length: 1
+                });
+                expect(terms[7]).toMatchObject({
+                    term: 'interesting perspectives',
+                    frequency: 1,
+                    length: 2
+                });
+                expect(terms[7].tag).toBeUndefined();
                 done();
             });
     });

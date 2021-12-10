@@ -56,9 +56,12 @@ export function extractSentenceTerms(taggedTerms,
 }
 
 /**
- * Take an array of objects `{ path, sentences: [token, tag: ["tag"]]}`.
- * Regroup multi-terms when possible (noun + noun, adjective + noun, *etc*.),
- * and computes statistics (frequency, *etc*.).
+ * Take an array of objects `{ path, sentences: [token, tag: ["tag"]]}`. Regroup
+ * multi-terms when possible (noun + noun, adjective + noun, *etc*.), and
+ * computes statistics (frequency, *etc*.).
+ *
+ * Use `lang` or `nounTag`, `adjTag`, but not `lang` and the others at the same
+ * time. `lang` is enough to set `nounTag` and `adjTag`.
  *
  * @example
  * [{
@@ -82,11 +85,16 @@ export function extractSentenceTerms(taggedTerms,
  *    ]]
  * }]
  *
- * @see https://github.com/istex/sisyphe/blob/master/src/worker/teeft/lib/termextractor.js
+ * @see
+ * https://github.com/istex/sisyphe/blob/master/src/worker/teeft/lib/termextractor.js
  * @export
- * @param {string}  [nounTag='NOM']  noun tag
- * @param {string}  [adjTag='ADJ']   adjective tag
- * @returns same as input, with `term` replacing `token`, `length`, and `frequency`
+ * @param {string}  [lang='fr']     language of the terms to extract (`en` or
+ * `fr`)
+ * @param {string}  [nounTag='NOM'] noun tag (`NOM` in French, `NN` in English)
+ * @param {string}  [adjTag='ADJ']  adjective tag (`ADJ` in French, `JJ` in
+ * English)
+ * @returns same as input, with `term` replacing `token`, `length`, and
+ * `frequency`
  * @name TeeftExtractTerms
  */
 export default function TeeftExtractTerms(data, feed) {
@@ -98,10 +106,10 @@ export default function TeeftExtractTerms(data, feed) {
         self.termFrequency = {};
         self.termSequence = [];
     }
-    const nounTag = this.getParam('nounTag', 'NOM');
-    const adjTag = this.getParam('adjTag', 'ADJ');
+    const lang = this.getParam('lang', 'en');
+    const nounTag = this.getParam('nounTag', lang === 'en' ? 'NN' : 'NOM');
+    const adjTag = this.getParam('adjTag', lang === 'en' ? 'JJ' : 'ADJ');
     const docIn = data;
-
     function extractFromDocument(document) {
         reinitSequenceFrequency(self);
         let taggedTerms = [];
