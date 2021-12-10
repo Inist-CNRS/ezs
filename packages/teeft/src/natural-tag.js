@@ -1,34 +1,38 @@
 import readFilePromise from 'fs-readfile-promise';
 import { Lexicon, RuleSet, BrillPOSTagger } from 'natural';
 
-const getTagger = async () => {
-    const baseFolder = `${__dirname}/..`;
-    const lexiconFilename = `${baseFolder}/resources/tagging_wiki08.txt`;
-    const defaultCategory = 'UNK';
+const languageTagger = {};
 
-    const lexiconContent = await readFilePromise(lexiconFilename, 'utf8');
+/**
+ * @param {string} lang language of the text to tag
+ * @returns
+ */
+const getTagger = async (lang) => {
+    if (languageTagger[lang]) return languageTagger[lang];
+    let tagger;
+    if (lang === 'fr') {
+        const baseFolder = `${__dirname}/..`;
+        const defaultCategory = 'UNK';
+        const lexiconFilename = `${baseFolder}/resources/tagging_wiki08.txt`;
 
-    const lexicon = new Lexicon('FR', defaultCategory);
-    // FR language is not present in natural
-    lexicon.parseLexicon(lexiconContent);
-    // Maybe using a trained RuleSet could improve tagging?
-    const rules = new RuleSet();
-    const tagger = new BrillPOSTagger(lexicon, rules);
+        const lexiconContent = await readFilePromise(lexiconFilename, 'utf8');
+
+        const lexicon = new Lexicon('FR', defaultCategory);
+        // FR language is not present in natural
+        lexicon.parseLexicon(lexiconContent);
+        // Maybe using a trained RuleSet could improve tagging?
+        const rules = new RuleSet();
+        tagger = new BrillPOSTagger(lexicon, rules);
+    }
+    if (lang === 'en') {
+        const defaultCategory = 'NN';
+        const lexicon = new Lexicon('EN', defaultCategory);
+        const rules = new RuleSet('EN');
+        tagger = new BrillPOSTagger(lexicon, rules);
+    }
+    languageTagger[lang] = tagger;
     return tagger;
 };
-
-let tagger;
-
-const tokens2taggedWords = (tokens) => {
-    const { taggedWords } = tagger.tag(tokens);
-    return taggedWords;
-};
-
-const toCommonStruct = taggedWords => taggedWords
-    .map(taggedWord => ({
-        token: taggedWord.token,
-        tag: [taggedWord.tag],
-    }));
 
 /**
  * POS Tagger from natural
@@ -65,15 +69,32 @@ const toCommonStruct = taggedWords => taggedWords
  *  }]
  *
  * @export
+ * @param {string} [lang='en']  language of the text to tag (possible values: `fr`, `en`)
  * @name TeeftNaturalTag
  */
 export default async function TeeftNaturalTag(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
+    const lang = this.getParam('lang', 'en');
+    const self = this;
+
     if (this.isFirst()) {
-        tagger = tagger || await getTagger();
+        self.tagger = await getTagger(lang);
     }
+
+    // #region Functions
+    const tokens2taggedWords = (tokens) => {
+        const { taggedWords } = self.tagger.tag(tokens);
+        return taggedWords;
+    };
+
+    const toCommonStruct = taggedWords => taggedWords
+        .map(taggedWord => ({
+            token: taggedWord.token,
+            tag: [taggedWord.tag],
+        }));
+    // #endregion Functions
 
     const docIn = data;
 
