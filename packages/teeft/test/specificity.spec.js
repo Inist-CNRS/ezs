@@ -6,40 +6,7 @@ import statements from '../src';
 ezs.use(statements);
 
 describe('compute specificity', () => {
-    it('should work without weights', (done) => {
-        let res = [];
-        from([{
-            path: '/path/1',
-            terms: [
-                /* eslint-disable object-curly-newline */
-                { frequency: 8, length: 1, term: 'elle', id: 0, tag: ['PRO:per'], lemma: 'elle' },
-                { frequency: 1, length: 1, term: 'semble', id: 1, tag: ['VER'], lemma: 'sembler' },
-                { frequency: 1, length: 1, term: 'se', id: 2, tag: ['PRO:per'], lemma: 'se' },
-                { frequency: 1, length: 1, term: 'nourrir', id: 3, tag: ['VER'], lemma: 'nourrir' },
-                { frequency: 1, length: 1, term: 'essentiellement', id: 4, tag: ['ADV'], lemma: 'essentiellement' },
-                { frequency: 2, length: 1, term: 'de', id: 9, tag: ['PRE', 'ART:def'], lemma: 'de' },
-                { frequency: 1, length: 1, term: 'plancton', id: 6, tag: ['NOM'], lemma: 'plancton' },
-                { frequency: 1, length: 1, term: 'frais', id: 7, tag: ['ADJ'], lemma: 'frais' },
-                { frequency: 1, length: 1, term: 'et', id: 8, tag: ['CON'], lemma: 'et' },
-                { frequency: 1, length: 1, term: 'hotdog', id: 10, tag: ['UNK'], lemma: 'hotdog' },
-                /* eslint-enable object-curly-newline */
-            ],
-        }])
-            .pipe(ezs('TeeftSpecificity', { weightedDictionary: null, filter: false }))
-            // .pipe(ezs('debug'))
-            .on('data', (chunk) => {
-                res = res.concat(chunk);
-            })
-            .on('end', () => {
-                expect(res).toHaveLength(1);
-                const { terms } = res[0];
-                expect(terms).toHaveLength(10);
-                expect(terms[0]).toMatchObject({ lemma: 'elle', frequency: 8, specificity: 1 });
-                done();
-            });
-    });
-
-    it('should work with weights', (done) => {
+    it('should work with on French terms', (done) => {
         let res = [];
         from([{
             path: '/path/1',
@@ -54,7 +21,7 @@ describe('compute specificity', () => {
                 /* eslint-enable object-curly-newline */
             ],
         }])
-            .pipe(ezs('TeeftSpecificity', { filter: false }))
+            .pipe(ezs('TeeftSpecificity', { lang: 'fr', filter: false }))
             // .pipe(ezs('debug'))
             .on('data', (chunk) => {
                 res = res.concat(chunk);
@@ -68,6 +35,38 @@ describe('compute specificity', () => {
                     frequency: 1,
                 });
                 expect(terms[0].specificity).toBeCloseTo(0.0008964346775894242, 16);
+                done();
+            });
+    });
+
+    it('should work with on English terms', (done) => {
+        let res = [];
+        from([{
+            path: '/path/1',
+            terms: [
+                /* eslint-disable object-curly-newline */
+                { frequency: 1, length: 1, term: 'seems', id: 1, tag: ['VER'], lemma: 'sembler' },
+                { frequency: 1, length: 1, term: 'breath', id: 3, tag: ['VER'], lemma: 'nourrir' },
+                { frequency: 1, length: 1, term: 'essentially', id: 4, tag: ['ADV'], lemma: 'essentiellement' },
+                { frequency: 1, length: 1, term: 'fresh', id: 7, tag: ['ADJ'], lemma: 'frais' },
+                { frequency: 1, length: 1, term: 'air', id: 10, tag: ['UNK'], lemma: 'hotdog' },
+                /* eslint-enable object-curly-newline */
+            ],
+        }])
+            .pipe(ezs('TeeftSpecificity', { lang: 'en', filter: false }))
+            // .pipe(ezs('debug'))
+            .on('data', (chunk) => {
+                res = res.concat(chunk);
+            })
+            .on('end', () => {
+                expect(res).toHaveLength(1);
+                const { terms } = res[0];
+                expect(terms).toHaveLength(5);
+                expect(terms[0]).toMatchObject({
+                    term: 'seems',
+                    frequency: 1,
+                });
+                expect(terms[0].specificity).toBeCloseTo(0.18, 2);
                 done();
             });
     });
@@ -87,7 +86,7 @@ describe('compute specificity', () => {
                 /* eslint-enable object-curly-newline */
             ],
         }])
-            .pipe(ezs('TeeftSpecificity'))
+            .pipe(ezs('TeeftSpecificity', { lang: 'fr' }))
             // .pipe(ezs('debug'))
             .on('data', (chunk) => {
                 res = res.concat(chunk);
@@ -120,7 +119,7 @@ describe('compute specificity', () => {
                 /* eslint-enable object-curly-newline */
             ],
         }])
-            .pipe(ezs('TeeftSpecificity', { sort: true, weightedDictionary: '', filter: false }))
+            .pipe(ezs('TeeftSpecificity', { sort: true, filter: false }))
             // .pipe(ezs('debug'))
             .on('data', (chunk) => {
                 res = res.concat(chunk);
@@ -155,7 +154,7 @@ describe('compute specificity', () => {
                 /* eslint-enable object-curly-newline */
             ],
         }])
-            .pipe(ezs('TeeftSpecificity', { sort: true, weightedDictionary: '', filter: false }))
+            .pipe(ezs('TeeftSpecificity', { lang: 'fr', sort: true, weightedDictionary: '', filter: false }))
             // .pipe(ezs('debug'))
             .on('data', (chunk) => {
                 res = res.concat(chunk);
@@ -166,7 +165,7 @@ describe('compute specificity', () => {
                 expect(terms).toHaveLength(10);
                 expect(terms.find(t => t.term === 'elle').specificity).toBe(1);
                 expect(terms.find(t => t.term === 'de').specificity).toBe(0.25);
-                expect(terms.find(t => t.term === 'semble').specificity).toBe(0.125);
+                expect(terms.find(t => t.term === 'semble').specificity).toBeCloseTo(0.000112,5);
                 done();
             });
     });
@@ -184,7 +183,7 @@ describe('compute specificity', () => {
                 /* eslint-enable object-curly-newline */
             ],
         }])
-            .pipe(ezs('TeeftSpecificity', { sort: true, weightedDictionary: '', filter: true }))
+            .pipe(ezs('TeeftSpecificity', { sort: true, filter: true }))
             // .pipe(ezs('debug'))
             .on('data', (chunk) => {
                 res = res.concat(chunk);
@@ -266,7 +265,7 @@ describe('compute specificity', () => {
             ],
         }])
         /* eslint-enable object-curly-newline */
-            .pipe(ezs('TeeftSpecificity', { sort: true, weightedDictionary: '', filter: false }))
+            .pipe(ezs('TeeftSpecificity', { lang: 'fr', sort: true, filter: false }))
             // .pipe(ezs('debug'))
             .on('data', (chunk) => {
                 res = res.concat(chunk);
@@ -277,11 +276,10 @@ describe('compute specificity', () => {
                 const { terms: terms2 } = res[1];
 
                 expect(terms1).toHaveLength(3);
-                expect(terms1[0]).toMatchObject({ lemma: 'logiciel', frequency: 3, specificity: 1 });
+                expect(terms1[0]).toMatchObject({ term: 'logiciel', frequency: 3, specificity: 1 });
 
-                expect(terms1[2]).toMatchObject({ term: 'logiciel content', frequency: 1, length: 2});
-                expect(terms1[2].specificity).toBeCloseTo(1 / 3, 3);
-                // expect(Math.floor(terms1[2].specificity * 1000)).toBe(Math.floor(1 / 3 * 1000));
+                expect(terms1[1]).toMatchObject({ term: 'logiciel content', frequency: 1, length: 2});
+                expect(terms1[1].specificity).toBeCloseTo(0.1247, 3);
 
                 expect(terms2).toHaveLength(1);
                 expect(terms2[0]).toMatchObject({ term: 'management', frequency: 1, specificity: 1});
