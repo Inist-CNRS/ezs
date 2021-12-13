@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/teeft@1.1.0...@ezs/teeft@2.0.0) (2021-12-13)
+
+
+### Features
+
+* **teeft:** Add English language to extract-terms ([bff027a](https://github.com/Inist-CNRS/ezs/commit/bff027a2f54d61131c0956d86d63f0243d38d639))
+* **teeft:** Add English language to natural-tag ([e487813](https://github.com/Inist-CNRS/ezs/commit/e487813d7470cc5ed3096e192fb9be5f06be7d5a))
+* **teeft:** Add English stopwords ([b0301ce](https://github.com/Inist-CNRS/ezs/commit/b0301ceddda61dddfe8a382f226319d2488ba29f))
+* **teeft:** Add English to filter-tags ([41c5fc6](https://github.com/Inist-CNRS/ezs/commit/41c5fc61ed6f3b693586b58786f4129ffd5b4b10))
+* **teeft:** Add English to specificity ([65e018f](https://github.com/Inist-CNRS/ezs/commit/65e018f6a9f1d7c2a24975340c9c9f45fd701eaf))
+* **teeft:** Add example scripts ([bc1fcc4](https://github.com/Inist-CNRS/ezs/commit/bc1fcc4927a04581f2dbf1d349fd0b2d48e31a2f))
+
+
+### BREAKING CHANGES
+
+* **teeft:** Replace weightDictionary param with lang.
+* **teeft:** Use lang instead of stopwords argument.
+
+
+
+
+
 # 1.1.0 (2021-12-06)
 
 
