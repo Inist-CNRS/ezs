@@ -4,6 +4,7 @@ import { Lexicon, RuleSet, BrillPOSTagger } from 'natural';
 const languageTagger = {};
 
 /**
+ * @private
  * @param {string} lang language of the text to tag
  * @returns
  */
