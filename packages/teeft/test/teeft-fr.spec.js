@@ -21,7 +21,7 @@ describe('teeft fr', () => {
             .pipe(ezs('TeeftFilterTags', { lang: 'fr' }))
             // .pipe(ezs('debug', { text: 'filter-tags'}))
             .pipe(ezs('TeeftRemoveNumbers'))
-            .pipe(ezs('TeeftStopWords'))
+            .pipe(ezs('TeeftStopWords', { lang: 'fr' }))
             // .pipe(ezs('debug', { text: 'stop-words'}))
             .pipe(ezs('TeeftSumUpFrequencies'))
             // .pipe(ezs('debug', { text: 'sum-up-frequencies'}))

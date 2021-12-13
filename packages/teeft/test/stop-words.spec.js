@@ -2,11 +2,12 @@ import from from 'from';
 // @ts-ignore
 import ezs from '../../core/src';
 import statements from '../src';
+import { getResource } from '../src/stop-words';
 
 ezs.use(statements);
 
 describe('stopwords', () => {
-    it('should remove stopwords', (done) => {
+    it('should remove French stopwords', (done) => {
         let res = [];
         /* eslint-disable object-curly-newline */
         from([{
@@ -24,7 +25,7 @@ describe('stopwords', () => {
             ],
         }])
         /* eslint-enable object-curly-newline */
-            .pipe(ezs('TeeftStopWords'))
+            .pipe(ezs('TeeftStopWords', { lang: 'fr' }))
             // .pipe(ezs('debug'))
             .on('data', (chunk) => {
                 res = res.concat(chunk);
@@ -37,7 +38,7 @@ describe('stopwords', () => {
             });
     });
 
-    it('should remove uppercase stopwords', (done) => {
+    it('should remove uppercase French stopwords', (done) => {
         let res = [];
         from([{
             path: '/path/1',
@@ -49,7 +50,7 @@ describe('stopwords', () => {
             /* eslint-enable object-curly-newline */
             ],
         }])
-            .pipe(ezs('TeeftStopWords'))
+            .pipe(ezs('TeeftStopWords', { lang: 'fr' }))
             // .pipe(ezs('debug'))
             .on('data', (chunk) => {
                 res = res.concat(chunk);
@@ -62,19 +63,24 @@ describe('stopwords', () => {
             });
     });
 
-    it('should remove no term when no stopwords', (done) => {
+    it('should remove English stopwords by default', (done) => {
         let res = [];
+        /* eslint-disable object-curly-newline */
         from([{
             path: '/path/1',
             terms: [
-            /* eslint-disable object-curly-newline */
-                { frequency: 1, length: 1, term: 'Introduction', tag: ['NOM'] },
-                { frequency: 14, length: 1, term: 'L', tag: ['NOM'] },
-                { frequency: 5, length: 1, term: 'accès', tag: ['NOM'] },
-            /* eslint-enable object-curly-newline */
+                { term: 'she' },
+                { term: 'seems' },
+                { term: 'to' },
+                { term: 'be' },
+                { term: 'a' },
+                { term: 'really' },
+                { term: 'good' },
+                { term: 'player' },
             ],
         }])
-            .pipe(ezs('TeeftStopWords', {stopwords: ''}))
+        /* eslint-enable object-curly-newline */
+            .pipe(ezs('TeeftStopWords'))
             // .pipe(ezs('debug'))
             .on('data', (chunk) => {
                 res = res.concat(chunk);
@@ -82,34 +88,28 @@ describe('stopwords', () => {
             .on('end', () => {
                 expect(res).toHaveLength(1);
                 const { terms } = res[0];
-                expect(terms).toHaveLength(3);
+                expect(terms).toHaveLength(2);
                 done();
             });
     });
+});
 
-    it('should remove no term when bad filename', (done) => {
-        let res = [];
-        from([{
-            path: '/path/1',
-            terms: [
-            /* eslint-disable object-curly-newline */
-                { frequency: 1, length: 1, term: 'Introduction', tag: ['NOM'] },
-                { frequency: 14, length: 1, term: 'L', tag: ['NOM'] },
-                { frequency: 5, length: 1, term: 'accès', tag: ['NOM'] },
-            /* eslint-enable object-curly-newline */
-            ],
-        }])
-            .pipe(ezs('TeeftStopWords', { stopwords: 'inexisting.file' }))
-            // .pipe(ezs('debug'))
-            .on('data', (chunk) => {
-                res = res.concat(chunk);
-            })
-            .on('end', () => {
-                expect(res).toHaveLength(1);
-                const { terms } = res[0];
-                expect(terms).toHaveLength(3);
-                done();
-            });
+describe('getResource', () => {
+    it('should read existing file', async () => {
+        const res = await getResource('en-stopwords');
+        expect(res).toBeDefined();
+        expect(res.length).toBeGreaterThan(0);
     });
 
+    it('should return an empty array when resource not found', async () => {
+        const res = await getResource('non-existing');
+        expect(res).toBeDefined();
+        expect(res).toHaveLength(0);
+    });
+
+    it('should return an empty array when no resource given', async () => {
+        const res = await getResource();
+        expect(res).toBeDefined();
+        expect(res).toHaveLength(0);
+    });
 });
