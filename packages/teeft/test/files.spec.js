@@ -32,7 +32,7 @@ describe('TeeftListFiles', () => {
                 res = res.concat(chunk);
             })
             .on('end', () => {
-                expect(res).toHaveLength(7);
+                expect(res).toHaveLength(8);
                 done();
             });
     });

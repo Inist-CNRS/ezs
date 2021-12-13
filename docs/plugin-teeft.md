@@ -3,11 +3,10 @@
 ## Présentation
 
 Ce plugin propose une série d'instructions pour extraire des mots-clés d'un
-texte français, en utilisant l'algorithme Teeft.
+texte français, ou en anglais en utilisant l'algorithme Teeft.
 
 C'est le paquet officiel qui fait suite à l'expérimentation
-[ezs-teeftfr](https://github.com/istex/node-ezs-teeftfr), et qui devrait bientôt
-être rendue configurable pour traiter des textes en anglais.
+[ezs-teeftfr](https://github.com/istex/node-ezs-teeftfr).
 
 ### Bibliographie
 
@@ -211,33 +210,40 @@ indent = true
 
 #### Table of Contents
 
-*   [TeeftExtractTerms](#teeftextractterms)
-*   [TeeftFilterMonoFreq](#teeftfiltermonofreq)
-*   [TeeftFilterMultiSpec](#teeftfiltermultispec)
-*   [TeeftFilterTags](#teeftfiltertags)
-*   [TeeftGetFilesContent](#teeftgetfilescontent)
-*   [TeeftListFiles](#teeftlistfiles)
-*   [TeeftNaturalTag](#teeftnaturaltag)
-*   [TeeftRemoveNumbers](#teeftremovenumbers)
-*   [TeeftSentenceTokenize](#teeftsentencetokenize)
-*   [TeeftSpecificity](#teeftspecificity)
-*   [TeeftStopWords](#teeftstopwords)
-*   [TeeftSumUpFrequencies](#teeftsumupfrequencies)
-*   [TeeftTokenize](#teefttokenize)
-*   [TeeftToLowerCase](#teefttolowercase)
+-   [TeeftExtractTerms](#teeftextractterms)
+-   [TeeftFilterMonoFreq](#teeftfiltermonofreq)
+-   [TeeftFilterMultiSpec](#teeftfiltermultispec)
+-   [TeeftFilterTags](#teeftfiltertags)
+-   [TeeftGetFilesContent](#teeftgetfilescontent)
+-   [TeeftListFiles](#teeftlistfiles)
+-   [TeeftNaturalTag](#teeftnaturaltag)
+-   [TeeftRemoveNumbers](#teeftremovenumbers)
+-   [TeeftSentenceTokenize](#teeftsentencetokenize)
+-   [TeeftSpecificity](#teeftspecificity)
+-   [TeeftStopWords](#teeftstopwords)
+-   [TeeftSumUpFrequencies](#teeftsumupfrequencies)
+-   [TeeftTokenize](#teefttokenize)
+-   [TeeftToLowerCase](#teefttolowercase)
 
 ### TeeftExtractTerms
 
-*   **See**: <https://github.com/istex/sisyphe/blob/master/src/worker/teeft/lib/termextractor.js>
+-   **See: <https://github.com/istex/sisyphe/blob/master/src/worker/teeft/lib/termextractor.js>
+    **
 
-Take an array of objects `{ path, sentences: [token, tag: ["tag"]]}`.
-Regroup multi-terms when possible (noun + noun, adjective + noun, *etc*.),
-and computes statistics (frequency, *etc*.).
+Take an array of objects `{ path, sentences: [token, tag: ["tag"]]}`. Regroup
+multi-terms when possible (noun + noun, adjective + noun, _etc_.), and
+computes statistics (frequency, _etc_.).
+
+Use `lang` or `nounTag`, `adjTag`, but not `lang` and the others at the same
+time. `lang` is enough to set `nounTag` and `adjTag`.
 
 #### Parameters
 
-*   `nounTag` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** noun tag (optional, default `'NOM'`)
-*   `adjTag` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** adjective tag (optional, default `'ADJ'`)
+-   `lang` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** language of the terms to extract (`en` or
+    `fr`) (optional, default `'fr'`)
+-   `nounTag` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** noun tag (`NOM` in French, `NN` in English) (optional, default `'NOM'`)
+-   `adjTag` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** adjective tag (`ADJ` in French, `JJ` in
+    English) (optional, default `'ADJ'`)
 
 #### Examples
 
@@ -264,7 +270,8 @@ and computes statistics (frequency, *etc*.).
 }]
 ```
 
-Returns **any** same as input, with `term` replacing `token`, `length`, and `frequency`
+Returns **any** same as input, with `term` replacing `token`, `length`, and
+`frequency`
 
 ### TeeftFilterMonoFreq
 
@@ -275,9 +282,9 @@ automatically computed from the number of tokens in the document.
 
 #### Parameters
 
-*   `multiLimit` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** threshold for being a multiterm (in tokens
+-   `multiLimit` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** threshold for being a multiterm (in tokens
     number) (optional, default `2`)
-*   `minFrequency` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** minimal frequency to be taken as a
+-   `minFrequency` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** minimal frequency to be taken as a
     frequent term (optional, default `7`)
 
 ### TeeftFilterMultiSpec
@@ -291,7 +298,8 @@ Filter the text in input, by keeping only adjectives and names
 
 #### Parameters
 
-*   `tags` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Tags to keep (optional, default `['ADJ','NOM']`)
+-   `lang` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Language to set tags (`en` or `fr`)
+-   `tags` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Tags to keep (ex: `ADJ`, `NOM`)
 
 ### TeeftGetFilesContent
 
@@ -307,7 +315,7 @@ file paths matching the pattern in the directories from the input.
 
 #### Parameters
 
-*   `pattern` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** pattern for files (ex: "\*.txt") (optional, default `"*"`)
+-   `pattern` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** pattern for files (ex: "\*.txt") (optional, default `"*"`)
 
 Returns **\[[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)]** an array of file paths
 
@@ -332,6 +340,10 @@ Yield an array of documents (objects:
     }
 
 )
+
+#### Parameters
+
+-   `lang` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** language of the text to tag (possible values: `fr`, `en`) (optional, default `'en'`)
 
 #### Examples
 
@@ -375,9 +387,9 @@ Can also sort the objects according to their specificity, when `sort` is
 
 #### Parameters
 
-*   `weightedDictionary` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** name of the weigthed dictionary (optional, default `"Ress_Frantext"`)
-*   `filter` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** filter below average specificity (optional, default `true`)
-*   `sort` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** sort objects according to their specificity (optional, default `false`)
+-   `lang` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** language to take into account (optional, default `"en"`)
+-   `filter` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** filter below average specificity (optional, default `true`)
+-   `sort` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** sort objects according to their specificity (optional, default `false`)
 
 ### TeeftStopWords
 
@@ -385,7 +397,7 @@ Filter the text in input, by removing stopwords in token
 
 #### Parameters
 
-*   `stopwords` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** name of the stopwords file to use (optional, default `'StopwFrench'`)
+-   `lang` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** language of the stopwords (`en` or `fr`) (optional, default `'en'`)
 
 ### TeeftSumUpFrequencies
 
@@ -393,7 +405,8 @@ Sums up the frequencies of identical lemmas from different chunks.
 
 ### TeeftTokenize
 
-*   **See**: <http://yomguithereal.github.io/talisman/tokenizers/words>
+-   **See: <http://yomguithereal.github.io/talisman/tokenizers/words>
+    **
 
 Extract tokens from an array of documents (objects `{ path, sentences: [] }`).
 
@@ -408,4 +421,4 @@ Transform strings to lower case.
 
 #### Parameters
 
-*   `path` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** path to the property to modify (optional, default `[]`)
+-   `path` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** path to the property to modify (optional, default `[]`)

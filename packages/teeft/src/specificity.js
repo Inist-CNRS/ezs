@@ -23,7 +23,7 @@ const isMono = term => term.tag;
  * `true`.
  *
  * @export
- * @param {string} [weightedDictionary="Ress_Frantext"] name of the weigthed dictionary
+ * @param {string}  [lang="en"] language to take into account
  * @param {Boolean} [filter=true]   filter below average specificity
  * @param {Boolean} [sort=false]    sort objects according to their specificity
  * @name TeeftSpecificity
@@ -71,21 +71,20 @@ export default async function TeeftSpecificity(data, feed) {
     // #endregion Functions
 
     // Parameters
-    const weightedDictionary = this.getParam('weightedDictionary', 'Ress_Frantext');
+    const lang = this.getParam('lang', 'en');
+    const weightedDictionary = lang === 'fr' ? 'Ress_Frantext': 'en-specificity';
     const filter = this.getParam('filter', true);
     const sort = this.getParam('sort', false);
 
     if (this.isFirst()) {
         weights = {};
-        if (weightedDictionary) {
-            if (!dictionaryWeights[weightedDictionary]) {
-                (await getResource(weightedDictionary))
-                    .map(line => line.split('\t'))
-                    .forEach(([term, weight]) => { weights[term] = weight; });
-                dictionaryWeights[weightedDictionary] = { ...weights };
-            } else {
-                weights = dictionaryWeights[weightedDictionary];
-            }
+        if (!dictionaryWeights[weightedDictionary]) {
+            (await getResource(weightedDictionary))
+                .map(line => line.split('\t'))
+                .forEach(([term, weight]) => { weights[term] = weight; });
+            dictionaryWeights[weightedDictionary] = { ...weights };
+        } else {
+            weights = dictionaryWeights[weightedDictionary];
         }
     }
     const docIn = data;

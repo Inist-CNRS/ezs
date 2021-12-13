@@ -29,14 +29,23 @@ export function someBeginsWith(tags, texts) {
  * Filter the text in input, by keeping only adjectives and names
  *
  * @export
- * @param {string} [tags=['ADJ', 'NOM']]  Tags to keep
+ * @param {string} [lang]   Language to set tags (`en` or `fr`)
+ * @param {string} [tags]   Tags to keep (ex: `ADJ`, `NOM`)
  * @name TeeftFilterTags
  */
 export default function TeeftFilterTags(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
-    const tagsToKeep = this.getParam('tags', ['ADJ', 'NOM']);
+    const lang = this.getParam('lang', 'nolang');
+    const tagsToKeep = this.getParam('tags',
+        // eslint-disable-next-line no-nested-ternary
+        lang === 'nolang'
+            ? []
+            : lang === 'en'
+                ? ['JJ', 'NN']
+                : ['ADJ', 'NOM', 'UNK']
+    );
 
     const docIn = data;
     const dataArray = docIn.terms;

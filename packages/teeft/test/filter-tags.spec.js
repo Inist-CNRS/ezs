@@ -7,7 +7,7 @@ import { someBeginsWith } from '../src/filter-tags';
 ezs.use(statements);
 
 describe('filter tags', () => {
-    it('should keep only adjectives and names, by default', (done) => {
+    it('should keep only adjectives and names, in French', (done) => {
         let res = [];
         /* eslint-disable object-curly-newline */
         from([{
@@ -26,7 +26,7 @@ describe('filter tags', () => {
                 { id: 7, token: 'frais', tag: ['ADJ'], lemma: 'frais' }]
         }])
         /* eslint-enable object-curly-newline */
-            .pipe(ezs('TeeftFilterTags'))
+            .pipe(ezs('TeeftFilterTags', { lang: 'fr' }))
             // .pipe(ezs('debug'))
             .on('data', (chunk) => {
                 res = res.concat(chunk);
@@ -37,6 +37,38 @@ describe('filter tags', () => {
                 expect(terms).toHaveLength(2);
                 expect(terms[0].tag[0]).toBe('NOM');
                 expect(terms[1].tag[0]).toBe('ADJ');
+                done();
+            });
+    });
+
+    it('should keep only adjectives and names, in English', (done) => {
+        let res = [];
+        /* eslint-disable object-curly-newline */
+        from([{
+            path: '/path/1',
+            terms: [
+                { token: 'this', tag: ['DT'] },
+                { token: 'preliminary', tag: ['JJ'] },
+                { token: 'study', tag: ['NN'] },
+                { token: 'has', tag: ['VBZ'] },
+                { token: 'interesting', tag: ['JJ'] },
+                { token: 'perspectives', tag: [ 'NNS' ] },
+            ]
+        }])
+        /* eslint-enable object-curly-newline */
+            .pipe(ezs('TeeftFilterTags', { lang: 'en' }))
+            // .pipe(ezs('debug'))
+            .on('data', (chunk) => {
+                res = res.concat(chunk);
+            })
+            .on('end', () => {
+                expect(res).toHaveLength(1);
+                const { terms } = res[0];
+                expect(terms).toHaveLength(4);
+                expect(terms[0].tag[0]).toBe('JJ');
+                expect(terms[1].tag[0]).toBe('NN');
+                expect(terms[2].tag[0]).toBe('JJ');
+                expect(terms[3].tag[0]).toBe('NNS');
                 done();
             });
     });

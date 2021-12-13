@@ -17,7 +17,7 @@ export async function getResource(fileName) {
  * Filter the text in input, by removing stopwords in token
  *
  * @export
- * @param {string} [stopwords='StopwFrench']    name of the stopwords file to use
+ * @param {string} [lang='en']  language of the stopwords (`en` or `fr`)
  * @name TeeftStopWords
  */
 export default async function TeeftStopWords(data, feed) {
@@ -26,7 +26,8 @@ export default async function TeeftStopWords(data, feed) {
     }
     let stopWords;
     if (this.isFirst()) {
-        const stopWordsFile = this.getParam('stopwords', 'StopwFrench');
+        const lang = this.getParam('lang', 'en');
+        const stopWordsFile = lang === 'fr' ? 'StopwFrench' : 'en-stopwords';
         stopWords = await getResource(stopWordsFile);
     }
 
