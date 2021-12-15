@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/teeft@2.0.0...@ezs/teeft@2.1.0) (2021-12-15)
+
+
+### Features
+
+* **teeft:** Improve French teeft ([ebc853a](https://github.com/Inist-CNRS/ezs/commit/ebc853a07623d3c4219dde0dc95d528dac8def98))
+
+
+
+
+
 # [2.0.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/teeft@1.1.0...@ezs/teeft@2.0.0) (2021-12-13)
 
 
