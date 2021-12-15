@@ -34,7 +34,7 @@ describe('compute specificity', () => {
                     term: 'semble',
                     frequency: 1,
                 });
-                expect(terms[0].specificity).toBeCloseTo(0.0008964346775894242, 16);
+                expect(terms[0].specificity).toBeCloseTo(0.00008294915254237265, 16);
                 done();
             });
     });
@@ -165,7 +165,7 @@ describe('compute specificity', () => {
                 expect(terms).toHaveLength(10);
                 expect(terms.find(t => t.term === 'elle').specificity).toBe(1);
                 expect(terms.find(t => t.term === 'de').specificity).toBe(0.25);
-                expect(terms.find(t => t.term === 'semble').specificity).toBeCloseTo(0.000112,5);
+                expect(terms.find(t => t.term === 'semble').specificity).toBeCloseTo(0.0000103,6);
                 done();
             });
     });
@@ -276,10 +276,12 @@ describe('compute specificity', () => {
                 const { terms: terms2 } = res[1];
 
                 expect(terms1).toHaveLength(3);
-                expect(terms1[0]).toMatchObject({ term: 'logiciel', frequency: 3, specificity: 1 });
 
-                expect(terms1[1]).toMatchObject({ term: 'logiciel content', frequency: 1, length: 2});
-                expect(terms1[1].specificity).toBeCloseTo(0.1247, 3);
+                expect(terms1[0]).toMatchObject({ term: 'logiciel content', frequency: 1, length: 2});
+                expect(terms1[0].specificity).toBe(1);
+
+                expect(terms1[1]).toMatchObject({ term: 'logiciel', frequency: 3 });
+                expect(terms1[1].specificity).toBeCloseTo(0.00321, 4);
 
                 expect(terms2).toHaveLength(1);
                 expect(terms2[0]).toMatchObject({ term: 'management', frequency: 1, specificity: 1});

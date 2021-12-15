@@ -45,15 +45,15 @@ describe('teeft fr', () => {
                     length: 1,
                     tag: [ 'NOM' ],
                     term: 'catégorisation',
-                    specificity: 1
                 });
+                expect(categorisation.specificity).toBeCloseTo(0.39295941176470534, 10);
                 const classifAuto = terms.find(term => term.term === 'classification automatique');
                 expect(classifAuto).toMatchObject({
                     frequency: 5,
                     length: 2,
                     term: 'classification automatique'
                 });
-                expect(classifAuto.specificity).toBeCloseTo(0.07195205345404385, 10);
+                expect(classifAuto.specificity).toBeCloseTo(0.2941176470588235, 10);
                 done();
             });
     }, 10000);
