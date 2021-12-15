@@ -72,7 +72,7 @@ export default async function TeeftSpecificity(data, feed) {
 
     // Parameters
     const lang = this.getParam('lang', 'en');
-    const weightedDictionary = lang === 'fr' ? 'Ress_Frantext': 'en-specificity';
+    const weightedDictionary = lang === 'fr' ? 'fr-specificity': 'en-specificity';
     const filter = this.getParam('filter', true);
     const sort = this.getParam('sort', false);
 
