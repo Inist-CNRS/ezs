@@ -92,6 +92,52 @@ describe('stopwords', () => {
                 done();
             });
     });
+
+    it('should work with several documents', (done) => {
+        let res = [];
+        /* eslint-disable object-curly-newline */
+        from([{
+            path: '/path/1',
+            terms: [
+                { term: 'elle', tag: ['PRO'], frequency: 1, length: 1 },
+                { term: 'semble', tag: ['VER'], frequency: 1, length: 1 },
+                { term: 'se', tag: ['PRO'], frequency: 1, length: 1 },
+                { term: 'nourrir', tag: ['VER'], frequency: 1, length: 1 },
+                { term: 'essentiellement', tag: ['ADV'], frequency: 1, length: 1 },
+                { term: 'de', tag: ['PRP'], frequency: 2, length: 1 },
+                { term: 'plancton', tag: ['NOM'], frequency: 1, length: 1 },
+                { term: 'et', tag: ['KON'], frequency: 1, length: 1 },
+                { term: 'hotdog', tag: ['NOM'], frequency: 1, length: 1 },
+            ],
+        }, {
+            path: '/path/2',
+            terms: [
+                { term: 'elle', tag: ['PRO'], frequency: 1, length: 1 },
+                { term: 'semble', tag: ['VER'], frequency: 1, length: 1 },
+                { term: 'se', tag: ['PRO'], frequency: 1, length: 1 },
+                { term: 'nourrir', tag: ['VER'], frequency: 1, length: 1 },
+                { term: 'essentiellement', tag: ['ADV'], frequency: 1, length: 1 },
+                { term: 'de', tag: ['PRP'], frequency: 2, length: 1 },
+                { term: 'plancton', tag: ['NOM'], frequency: 1, length: 1 },
+                { term: 'et', tag: ['KON'], frequency: 1, length: 1 },
+                { term: 'hotdog', tag: ['NOM'], frequency: 1, length: 1 },
+            ],
+        }])
+        /* eslint-enable object-curly-newline */
+            .pipe(ezs('TeeftStopWords', { lang: 'fr' }))
+            // .pipe(ezs('debug'))
+            .on('data', (chunk) => {
+                res = res.concat(chunk);
+            })
+            .on('end', () => {
+                expect(res).toHaveLength(2);
+                const { terms } = res[0];
+                expect(terms).toHaveLength(5);
+                const { terms: terms2 } = res[1];
+                expect(terms2).toHaveLength(5);
+                done();
+            });
+    });
 });
 
 describe('getResource', () => {
