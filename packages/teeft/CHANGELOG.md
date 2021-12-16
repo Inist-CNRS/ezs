@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/teeft@2.1.0...@ezs/teeft@2.1.1) (2021-12-16)
+
+
+### Bug Fixes
+
+* **teeft:** Make stop-words work with more than one document ([3ed6ac9](https://github.com/Inist-CNRS/ezs/commit/3ed6ac9049a7ee4e9b3df1f9da9b526fdfdc98c5))
+
+
+
+
+
 # [2.1.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/teeft@2.0.0...@ezs/teeft@2.1.0) (2021-12-15)
 
 

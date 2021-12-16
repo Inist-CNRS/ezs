@@ -1,6 +1,6 @@
 {
     "name": "@ezs/teeft",
-    "version": "2.1.0",
+    "version": "2.1.1",
     "description": "ezs statements for teeft",
     "publishConfig": {
         "access": "public"
