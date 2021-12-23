@@ -7,6 +7,13 @@ const parse = (input) => ({
         .reduce((obj, cur) => ({ ...obj, [cur.component]: cur.value }), {}),
 });
 
+/**
+ * Takes a string containing an address to return an object.
+ * This will contain the different fields present in the address.
+ *
+ * @name parseAddress
+ * @returns {Object}
+ */
 export default function parseAddress(data, feed) {
     if (this.isLast()) {
         return feed.close();

@@ -10,6 +10,14 @@ const expand = (input) => ({
         .reduce((obj, cur) => ({ ...obj, [cur.component]: cur.value }), {}),
 });
 
+/*
+ * Takes a field of object containing an address to return the same object except for the field containing the address.
+ * This will contain a standardized version of the address.
+ *
+ * @name parseAddress
+ * @param {String} [path] path to the chosen field
+ * @returns {Object}
+ */
 export default function expandAddressWith(data, feed) {
     const paths = []
         .concat(this.getParam('path'))

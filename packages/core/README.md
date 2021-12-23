@@ -516,6 +516,7 @@ Script:
 ```ini
 [remove]
 test = get('a).isInteger()
+reverse = true
 ```
 
 Output:
