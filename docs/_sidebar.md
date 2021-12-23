@@ -24,6 +24,7 @@
   - [transformers](plugin-transformers.md)
   - [ark](plugin-ark.md)
   - [teeft](plugin-teeft.md)
+  - [libpostal](plugin-libpostal.md)
 
 - Exemples
 
