@@ -1,6 +1,6 @@
 {
   "name": "@ezs/libpostal",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Libpostal statements for EZS",
   "repository": {
     "type": "git",
@@ -15,11 +15,11 @@
     "url": "https://github.com/Inist-CNRS/ezs/issues"
   },
   "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/libpostal#readme",
-	"dependencies": {
-		"lodash.clone": "4.5.0",
-		"lodash.get": "4.4.2",
-		"lodash.set": "4.3.2"
-	},
+  "dependencies": {
+    "lodash.clone": "4.5.0",
+    "lodash.get": "4.4.2",
+    "lodash.set": "4.3.2"
+  },
   "main": "./lib/index.js",
   "scripts": {
     "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-libpostal.md --section=usage  && cp ../../docs/plugin-libpostal.md ./README.md",
@@ -33,10 +33,10 @@
     "access": "public"
   },
   "devDependencies": {
-    "@ezs/core": "*"
+    "@ezs/core": "1.26.2"
   },
   "peerDependencies": {
-    "@ezs/core": "*",
-    "@cymen/node-postal": "2.0.5"
+    "@cymen/node-postal": "2.0.5",
+    "@ezs/core": "*"
   }
 }
