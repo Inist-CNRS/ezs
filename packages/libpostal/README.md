@@ -17,8 +17,9 @@ npm install @ezs/libpostal
 #### Table of Contents
 
 -   [expandAddress](#expandaddress)
+-   [expandAddressWith](#expandaddresswith)
 -   [parseAddress](#parseaddress)
--   [parseAddress](#parseaddress-1)
+-   [parseAddressWith](#parseaddresswith)
 
 ### expandAddress
 
@@ -27,10 +28,10 @@ This will contain a standardized version of the address.
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### parseAddress
+### expandAddressWith
 
 Takes a field of object containing an address to return the same object except for the field containing the address.
-This will contain the different fields found in the address.
+This will contain a standardized version of the address.
 
 #### Parameters
 
@@ -42,5 +43,16 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Takes a string containing an address to return an object.
 This will contain the different fields present in the address.
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### parseAddressWith
+
+Takes a field of object containing an address to return the same object except for the field containing the address.
+This will contain the different fields found in the address.
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path to the chosen field
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
