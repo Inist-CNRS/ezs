@@ -14,7 +14,7 @@ const expand = (input) => ({
  * Takes a field of object containing an address to return the same object except for the field containing the address.
  * This will contain a standardized version of the address.
  *
- * @name parseAddress
+ * @name expandAddressWith
  * @param {String} [path] path to the chosen field
  * @returns {Object}
  */
