@@ -340,4 +340,40 @@ describe('no combine', () => {
                 done(new Error('Error is the right behavior'));
             });
     });
+    test('with wrong location', (done) => {
+        ezs.use(statements);
+        const input = [
+            { a: 1, b: 'a' },
+            { a: 2, b: 'b' },
+            { a: 3, b: 'c' },
+            { a: 4, b: 'd' },
+            { a: 5, b: 'e' },
+            { a: 6, b: 'f' },
+        ];
+        const script = `
+            [use]
+            plugin = analytics
+
+            [replace]
+            path = value
+            value = fix({id:'a', value:'aa'},{id:'b', value:'bb'},{id:'c', value:'cc'},{id:'d', value:'dd'},{id:'e', value:'ee'},{id:'f', value:'ff'})
+
+            [exploding]
+            [value]
+        `;
+
+        from(input)
+            .pipe(ezs('combine', { path: 'b', script, location: '/no/where' }))
+            .pipe(ezs.catch())
+            .on('error', (e) => {
+                expect(e.message).toEqual(expect.stringContaining('EACCES: permission denied'));
+                done();
+            })
+            .on('data', () => {
+                done(new Error('Error is the right behavior'));
+            })
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+        });
+    });
 });
