@@ -1,6 +1,6 @@
 {
   "name": "@ezs/libpostal",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Libpostal statements for EZS",
   "repository": {
     "type": "git",
@@ -33,7 +33,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "@ezs/core": "1.26.2"
+    "@ezs/core": "1.26.3"
   },
   "peerDependencies": {
     "@cymen/node-postal": "2.0.5",

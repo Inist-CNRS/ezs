@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.26.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.26.2...@ezs/core@1.26.3) (2022-01-06)
+
+
+### Bug Fixes
+
+* 🐛 deep nested script ([627ca49](https://github.com/Inist-CNRS/ezs/commit/627ca49dadcc3a34e06f7cd44dd2861080c6c1ea))
+
+
+
+
+
 ## [1.26.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.26.1...@ezs/core@1.26.2) (2021-12-23)
 
 **Note:** Version bump only for package @ezs/core

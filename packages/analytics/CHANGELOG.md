@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.14](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.16.13...@ezs/analytics@1.16.14) (2022-01-06)
+
+
+### Bug Fixes
+
+* 🐛 the right error for wrong location ([1337817](https://github.com/Inist-CNRS/ezs/commit/13378171ac457d006a5aecafcd4681cd550192d8))
+
+
+
+
+
 ## [1.16.13](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.16.12...@ezs/analytics@1.16.13) (2021-12-15)
 
 **Note:** Version bump only for package @ezs/analytics
