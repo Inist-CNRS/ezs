@@ -183,7 +183,9 @@ export default async function expand(data, feed) {
         }
         return feed.end();
     } catch (e) {
-        this.store.close();
+        if (this.store) {
+            this.store.close();
+        }
         return feed.stop(e);
     }
 }

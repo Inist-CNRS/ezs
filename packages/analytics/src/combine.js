@@ -147,7 +147,9 @@ export default function combine(data, feed) {
             return feed.send(data);
         })
         .catch((e) => {
-            this.store.close();
+            if (this.store) {
+                this.store.close();
+            }
             feed.stop(e);
         });
 }
