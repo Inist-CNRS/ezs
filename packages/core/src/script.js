@@ -68,7 +68,12 @@ function flat(cmd) {
     if (cmd.length === gcmd.length) {
         return gcmd;
     }
-    return flat(gcmd);
+    return flat(gcmd).map((item) => {
+        if (item.args.commands) {
+            item.args.commands = flat(item.args.commands);
+        }
+        return item;
+    });
 }
 
 export default function Script(commands) {
@@ -101,10 +106,5 @@ export default function Script(commands) {
         args: parseOpts(command.args),
     }));
 
-    return flat(cmd).map((item) => {
-        if (item.args.commands) {
-            item.args.commands = flat(item.args.commands);
-        }
-        return item;
-    });
+    return flat(cmd);
 }

@@ -486,6 +486,50 @@ describe('delegate through file(s)', () => {
                     done();
                 });
         });
+        it('same result with deep nested commands', (done) => {
+            const script = `
+            [use]
+            plugin = packages/core/test/locals
+
+            [increment]
+            step = 1
+
+            [delegate]
+
+            [delegate/delegate]
+
+            [delegate/delegate/increment]
+            step = 1
+
+            [delegate/increment]
+            step = 1
+
+            [delegate]
+
+            [delegate/delegate]
+            [delegate/delegate/delegate]
+            [delegate/delegate/delegate/decrement]
+            step = 1
+
+            [delegate/decrement]
+            step = 1
+
+            [decrement]
+            step = 1
+        `;
+            let res = 0;
+            const ten = new Upto(10);
+            ten
+                .pipe(ezs('delegate', { script }))
+                .on('data', (chunk) => {
+                    res += chunk;
+                })
+                .on('end', () => {
+                    assert.strictEqual(res, 45);
+                    done();
+                });
+        });
+
 
         it('other result with complex nested commands', (done) => {
             const script = `
