@@ -11,7 +11,7 @@ pool.config.cwd = __dirname;
 
 describe('exec', () => {
     afterAll(async () => {
-        await pool.shutdown()
+        await pool.shutdown();
     });
 
     test('cat', (done) => {

@@ -37,7 +37,7 @@ class Pool {
                 return Promise.resolve(resource);
             }
             return Promise.reject(new Error('Invalid command !'));
-        } catch(e) {
+        } catch (e) {
             return Promise.reject(e);
         }
     }
@@ -106,7 +106,7 @@ const uid = (...args) => args.map((x) => String(x)).join('');
 const startup = (concurrency, command, args) => new Promise((resolve) => {
     const key = uid(command, args);
     if (!handles[key]) {
-        handles[key] = new Pool(factory(command, args, { concurrency }));
+        handles[key] = new Pool(factory(command, args, { concurrency }));
     }
     return resolve(handles[key]);
 });
