@@ -10,7 +10,9 @@ ezs.use(analytics);
 pool.config.cwd = __dirname;
 
 describe('exec', () => {
-    afterAll(() => pool.shutdown());
+    afterAll(async () => {
+        await pool.shutdown()
+    });
 
     test('cat', (done) => {
         ezs.use(statements);
@@ -240,31 +242,6 @@ describe('exec', () => {
                 done();
             });
     });
-    test('nonexisting file', (done) => {
-        ezs.use(statements);
-        const input = [
-            { a: 1, b: 'a' },
-            { a: 2, b: 'b' },
-            { a: 3, b: 'c' },
-            { a: 4, b: 'd' },
-            { a: 5, b: 'e' },
-            { a: 6, b: 'f' },
-        ];
-        const script = `
-            [exec]
-            command = ./fake_command
-        `;
-        from(input)
-            .pipe(ezs('delegate', { script }))
-            .pipe(ezs.catch())
-            .on('error', (e) => {
-                expect(e.message).toEqual(expect.stringContaining('ENOENT'));
-                done();
-            })
-            .on('end', () => {
-                done(new Error('Error is the right behavior'));
-            });
-    });
     test('bad file', (done) => {
         ezs.use(statements);
         const input = [
@@ -293,5 +270,95 @@ describe('exec', () => {
             .on('end', () => {
                 done(new Error('Error is the right behavior'));
             });
+    });
+
+    test('nonexisting file', (done) => {
+        ezs.use(statements);
+        const input = [
+            { a: 1, b: 'a' },
+            { a: 2, b: 'b' },
+            { a: 3, b: 'c' },
+            { a: 4, b: 'd' },
+            { a: 5, b: 'e' },
+            { a: 6, b: 'f' },
+        ];
+        const script = `
+            [exec]
+            command = ./fake_command
+        `;
+        from(input)
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', (e) => {
+                expect(e.message).toEqual(expect.stringContaining('ENOENT'));
+                done();
+            })
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+            });
+    });
+
+    describe('exec (with preload)', () => {
+        ezs.use(statements);
+        const call = (resolve, reject) => {
+            const input = [
+                { a: 1, b: 'a' },
+                { a: 2, b: 'b' },
+                { a: 3, b: 'c' },
+                { a: 4, b: 'd' },
+                { a: 5, b: 'e' },
+                { a: 6, b: 'f' },
+            ];
+            const script = `
+            [replace]
+            path = id
+            value = get('a')
+            path = value
+            value = get('b')
+
+            [exec]
+            command = ./slow.py
+            concurrency = 6
+
+            [replace]
+            path = a
+            value = get('id')
+            path = b
+            value = get('value')
+        `;
+            const output = [];
+            from(input)
+                .pipe(ezs('delegate', { script }))
+                .pipe(ezs.catch())
+                .on('error', (e) => reject(e))
+                .on('data', (chunk) => {
+                    output.push(chunk);
+                })
+                .on('end', () => resolve(output));
+        };
+        beforeAll(async () => {
+            // // fire pool and wait
+            await new Promise(call);
+            await new Promise((r) => setTimeout(r, 30000));
+        }, 60000);
+
+        test('slow.py (1)', async (done) => {
+            // X calls ...
+            await Promise.all([
+                await new Promise(call),
+                await new Promise(call),
+                await new Promise(call),
+                await new Promise(call),
+            ]);
+            const output = await new Promise(call);
+            expect(output.length).toEqual(6);
+            expect(output[0].b).toEqual('A');
+            expect(output[1].b).toEqual('B');
+            expect(output[2].b).toEqual('C');
+            expect(output[3].b).toEqual('D');
+            expect(output[4].b).toEqual('E');
+            expect(output[5].b).toEqual('F');
+            done();
+        }, 60000);
     });
 });

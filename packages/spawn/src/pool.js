@@ -1,12 +1,74 @@
 import { spawn } from 'child_process';
-import { Pool } from 'sequelize-pool';
+
+class Pool {
+    constructor(template) {
+        this.template = template;
+        this.size = Number(this.template.concurrency);
+        this.queue = [];
+        this.closed = false;
+        this.promises = [];
+    }
+
+    fillup() {
+        if (!this.closed) {
+            Array(Number(this.size - this.queue.length))
+                .fill(true)
+                .map(() => this.template.create())
+                .forEach((p) => {
+                    this.queue.push(p);
+                });
+        }
+    }
+
+    async acquire() {
+        if (this.queue.length === 0 && !this.closed) {
+            this.fillup();
+        }
+        const promise = this.queue.shift();
+        if (promise === undefined) {
+            return Promise.reject(new Error('Broken pool ?'));
+        }
+        this.fillup();
+
+        try {
+            const resource = await promise;
+            const ok = await this.template.validate(resource);
+            if (ok) {
+                return Promise.resolve(resource);
+            }
+            return Promise.reject(new Error('Invalid command !'));
+        } catch(e) {
+            return Promise.reject(e);
+        }
+    }
+
+    destroy(resource) {
+        return this.template.destroy(resource);
+    }
+
+    async close() {
+        this.closed = true;
+        const resources = [];
+        while (this.queue.length > 0) {
+            resources.push(this.queue.shift());
+        }
+        try {
+            const values = await Promise.all(resources);
+            await Promise.all(values.map((r) => this.destroy(r)));
+            return Promise.resolve(true);
+        } catch (e) {
+            return Promise.resolve(false);
+        }
+    }
+}
 
 const config = {};
 const handles = {};
-const options = {};
+
+// see https://github.com/sequelize/sequelize-pool/blob/master/docs/interfaces/FactoryOptions.md
 const factory = (command, args, opts) => {
     const create = () => new Promise((resolve, reject) => {
-        const onError = (e) => reject(e);
+        let spawned = false;
         const child = spawn(
             command,
             args,
@@ -16,9 +78,15 @@ const factory = (command, args, opts) => {
                 detached: false,
             },
         );
-        child.once('error', onError);
+        child.once('error', (e) => {
+            if (!spawned) {
+                return reject(e);
+            }
+            child.errorTriggered = e;
+            return true;
+        });
         child.on('spawn', () => {
-            child.removeListener('error', onError);
+            spawned = true;
             resolve(child);
         });
     });
@@ -33,51 +101,20 @@ const factory = (command, args, opts) => {
     };
 };
 
-const opts = ({ settings }) => {
-    const { concurrency } = settings;
-    return {
-        max: concurrency * 2,
-        min: concurrency,
-        idleTimeoutMillis: 1000, // * 30,
-        acquireTimeoutMillis: 1000, // * 30,
-    };
-};
-
 const uid = (...args) => args.map((x) => String(x)).join('');
 
-const get = (ezs, command, args) => new Promise((resolve) => {
+const startup = (concurrency, command, args) => new Promise((resolve) => {
     const key = uid(command, args);
     if (!handles[key]) {
-        options[key] = factory(command, args, opts(ezs));
-        handles[key] = new Pool(options[key]);
+        handles[key] = new Pool(factory(command, args, { concurrency }));
     }
     return resolve(handles[key]);
 });
 
-const del = (ezs, command, args) => {
-    const key = uid(command, args);
-    if (!handles[key]) {
-        return Promise.resolve();
-    }
-    return handles[key].destroyAllNow();
-};
-
-const shutdown = () => {
-    const keys = Object.keys(handles);
-    return Promise
-        .all(keys.map((k) => handles[k].drain()))
-        .then(() => Promise.all(keys.map((k) => {
-            options[k].min = 0;
-            return handles[k].destroyAllNow();
-        }))).then(() => Promise.all(keys.map((k) => {
-            delete options[k];
-            return Promise.resolve(true);
-        })));
-};
+const shutdown = () => Promise.all(Object.keys(handles).map((k) => handles[k].close()));
 
 const pool = {
-    get,
-    del,
+    startup,
     shutdown,
     config,
 };
