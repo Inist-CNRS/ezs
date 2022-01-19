@@ -534,11 +534,14 @@ describe('statements', () => {
             { a: 3 },
         ])
             .pipe(ezs('validate', { path: 'a', rule: 'required|integer' }))
-            .pipe(ezs.catch((err) => {
-                assert.ok(err instanceof Error);
-            }))
             .on('data', (chunk) => {
-                res.push(chunk);
+                if (res.length === 2) {
+                    assert.ok(chunk instanceof Error);
+                    const context = JSON.parse(chunk.sourceChunk);
+                    assert.equal(context.a, 'X');
+                } else {
+                    res.push(chunk);
+                }
             })
             .on('end', () => {
                 assert.equal(res.length, 2);
