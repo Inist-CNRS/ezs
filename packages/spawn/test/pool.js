@@ -2,6 +2,8 @@ import pool from '../src/pool';
 
 pool.config.cwd = __dirname;
 
+const timeout = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 describe('pool', () => {
     afterAll(async () => {
         await pool.shutdown();
@@ -29,15 +31,14 @@ describe('pool', () => {
         return Promise.reject(new Error('error is the expected behavior'));
     });
 
-    test.skip('acquire after close', async () => {
+    test('break the pool', async () => {
         const handle = await pool.startup(1, './cmd.py');
-        console.log('PID', handle.queue[0].pid);
+        handle.queue[0] = undefined;
         try {
-            const resource = await handle.acquire();
+            await handle.acquire();
         } catch (e) {
             return Promise.resolve(true);
         }
         return Promise.reject(new Error('error is the expected behavior'));
     });
-
 });
