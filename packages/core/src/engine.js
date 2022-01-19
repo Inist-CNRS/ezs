@@ -25,13 +25,14 @@ function decreaseCounter() {
     counter -= 1;
 }
 
-function createErrorWith(error, index, funcName) {
+function createErrorWith(error, index, funcName, chunk) {
     const stk = String(error.stack).split('\n');
     const prefix = `item #${index} `;
     const erm = stk.shift().replace(prefix, '');
     const msg = `${prefix}[${funcName}] <${erm}>\n\t${stk.slice(0, 10).join('\n\t')}`;
     const err = Error(msg);
     err.sourceError = error;
+    err.sourceChunk = JSON.stringify(chunk);
     Error.captureStackTrace(err, createErrorWith);
     debug('ezs')('Caught an', err);
     return err;
@@ -136,13 +137,13 @@ export default class Engine extends SafeTransform {
         const warn = (error) => {
             if (!this.errorWasSent) {
                 this.errorWasSent = true;
-                this.emit('error', createErrorWith(error, currentIndex, this.funcName));
+                this.emit('error', createErrorWith(error, currentIndex, this.funcName, chunk));
             }
         };
         const push = (data) => {
             if (data instanceof Error) {
                 debug('ezs')(`Ignoring error at item #${currentIndex}`);
-                return this.push(createErrorWith(data, currentIndex, this.funcName));
+                return this.push(createErrorWith(data, currentIndex, this.funcName, chunk));
             }
             if (data === null) {
                 this.nullWasSent = true;
@@ -159,12 +160,12 @@ export default class Engine extends SafeTransform {
             this.chunk = chunk;
             return Promise.resolve(this.func.call(this.scope, chunk, feed, currentIndex)).catch((e) => {
                 debug('ezs')(`Async error thrown at item #${currentIndex}, pipeline is broken`);
-                this.emit('error', createErrorWith(e, currentIndex, this.funcName));
+                this.emit('error', createErrorWith(e, currentIndex, this.funcName, chunk));
                 done();
             });
         } catch (e) {
             debug('ezs')(`Sync error thrown at item #${currentIndex}, pipeline carries errors`);
-            this.push(createErrorWith(e, currentIndex, this.funcName));
+            this.push(createErrorWith(e, currentIndex, this.funcName, chunk));
             return done();
         }
     }
