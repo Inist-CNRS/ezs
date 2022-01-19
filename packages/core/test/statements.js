@@ -535,6 +535,7 @@ describe('statements', () => {
         ])
             .pipe(ezs('validate', { path: 'a', rule: 'required|integer' }))
             .pipe(ezs.catch((err) => {
+                assert.equal(err.context.a, 'X');
                 assert.ok(err instanceof Error);
             }))
             .on('data', (chunk) => {

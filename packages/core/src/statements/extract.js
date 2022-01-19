@@ -56,7 +56,7 @@ export default function extract(data, feed) {
         .filter((v) => v !== null && v !== undefined);
 
     if (values.length === 0) {
-        return feed.send(new Error('Nonexistent path.'));
+        return feed.sendWithError(data, new Error('Nonexistent path.'));
     } if (values.length === 1) {
         return feed.send(values[0]);
     }

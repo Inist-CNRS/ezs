@@ -69,7 +69,7 @@ export default function validate(data, feed) {
     const assets = _.zipObject(pathss, ruless);
     const validation = new Validator(data, assets);
     if (validation.fails()) {
-        return feed.send(new Error(util.inspect(validation.errors.all())));
+        return feed.sendWithError(data, new Error(util.inspect(validation.errors.all())));
     }
     return feed.send(data);
 }

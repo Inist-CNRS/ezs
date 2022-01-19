@@ -49,6 +49,11 @@ export default class Feed {
         this.end();
     }
 
+    sendWithError(something, error) {
+        error.context = something;
+        this.send(error);
+    }
+
     close() {
         this.seal();
     }
