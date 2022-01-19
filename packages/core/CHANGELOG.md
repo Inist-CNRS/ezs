@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.27.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.26.3...@ezs/core@1.27.0) (2022-01-19)
+
+
+### Features
+
+* 🎸 add sourceChunk in Error ([7ae43e7](https://github.com/Inist-CNRS/ezs/commit/7ae43e7254c4c45fc53211ec05a1fb6a176874af))
+
+
+
+
+
 ## [1.26.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.26.2...@ezs/core@1.26.3) (2022-01-06)
 
 
