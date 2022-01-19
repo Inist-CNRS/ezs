@@ -1,4 +1,5 @@
 import { spawn } from 'child_process';
+import { satisfies } from 'semver';
 
 class Pool {
     constructor(template) {
@@ -82,13 +83,17 @@ const factory = (command, args, opts) => {
             if (!spawned) {
                 return reject(e);
             }
-            child.errorTriggered = e;
             return true;
         });
-        child.on('spawn', () => {
+        const ready = () => {
             spawned = true;
             resolve(child);
-        });
+        };
+        if (satisfies(process.versions.node, '>=14.0.0')) {
+            child.on('spawn', ready);
+        } else {
+            process.nextTick(ready);
+        }
     });
     const validate = (resource) => Promise.resolve(!resource.killed);
     const destroy = (resource) => Promise.resolve(resource.kill());

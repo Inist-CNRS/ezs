@@ -18,7 +18,7 @@ describe('pool', () => {
         handle.fillup();
     });
 
-    test('acuire after close', async () => {
+    test('acquire after close', async () => {
         const handle = await pool.startup(2, './cmd.py');
         await handle.close();
         try {
@@ -28,4 +28,16 @@ describe('pool', () => {
         }
         return Promise.reject(new Error('error is the expected behavior'));
     });
+
+    test.skip('acquire after close', async () => {
+        const handle = await pool.startup(1, './cmd.py');
+        console.log('PID', handle.queue[0].pid);
+        try {
+            const resource = await handle.acquire();
+        } catch (e) {
+            return Promise.resolve(true);
+        }
+        return Promise.reject(new Error('error is the expected behavior'));
+    });
+
 });
