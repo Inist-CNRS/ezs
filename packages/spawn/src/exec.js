@@ -65,7 +65,8 @@ export default async function exec(data, feed) {
         }
         return ezs.writeTo(this.input, data, () => feed.end());
     } catch (e) {
-        if (this.resource) {
+        /* istanbul ignore next */
+        if (this.resource) { // node  version < 14
             handle.destroy(this.resource);
         }
         handle.close();

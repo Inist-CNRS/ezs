@@ -67,14 +67,14 @@ const config = {};
 const handles = {};
 
 // see https://github.com/sequelize/sequelize-pool/blob/master/docs/interfaces/FactoryOptions.md
-const factory = (command, args, opts) => {
+const factory = (command, args, opts, conf) => {
     const create = () => new Promise((resolve, reject) => {
         let spawned = false;
         const child = spawn(
             command,
             args,
             {
-                ...config,
+                ...conf,
                 stdio: ['pipe', 'pipe', process.stderr],
                 detached: false,
             },
@@ -108,10 +108,10 @@ const factory = (command, args, opts) => {
 
 const uid = (...args) => args.map((x) => String(x)).join('');
 
-const startup = (concurrency, command, args) => new Promise((resolve) => {
+const startup = (concurrency, command, args, conf) => new Promise((resolve) => {
     const key = uid(command, args);
     if (!handles[key]) {
-        handles[key] = new Pool(factory(command, args, { concurrency }));
+        handles[key] = new Pool(factory(command, args, { concurrency }, { ...config, ...conf }));
     }
     return resolve(handles[key]);
 });
