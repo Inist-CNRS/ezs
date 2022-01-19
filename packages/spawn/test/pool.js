@@ -1,3 +1,4 @@
+import { satisfies } from 'semver';
 import pool from '../src/pool';
 
 pool.config.cwd = __dirname;
@@ -42,15 +43,17 @@ describe('pool', () => {
         return Promise.reject(new Error('error is the expected behavior'));
     });
 
-    test('break the command', async () => {
-        const handle = await pool.startup(1, './cmd.py', [], { timeout: 1 });
-        handle.fillup();
-        await timeout(10);
-        try {
-            await handle.acquire();
-        } catch (e) {
-            return Promise.resolve(true);
-        }
-        return Promise.reject(new Error('error is the expected behavior'));
-    });
+    if (satisfies(process.versions.node, '>=14.0.0')) {
+        test('break the command', async () => {
+            const handle = await pool.startup(1, './cmd.py', [], { timeout: 1 });
+            handle.fillup();
+            await timeout(10);
+            try {
+                await handle.acquire();
+            } catch (e) {
+                return Promise.resolve(true);
+            }
+            return Promise.reject(new Error('error is the expected behavior'));
+        });
+    }
 });
