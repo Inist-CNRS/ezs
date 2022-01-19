@@ -1,0 +1,46 @@
+{
+    "name": "@ezs/spawn",
+    "version": "1.0.0",
+    "description": "...",
+    "directories": {
+        "test": "test"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Inist-CNRS/ezs.git"
+    },
+    "keywords": [
+        "ezs"
+    ],
+    "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Inist-CNRS/ezs/issues"
+    },
+    "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/spawn#readme",
+    "dependencies": {
+        "lodash.clone": "^4.5.0",
+        "lodash.get": "^4.4.2",
+        "lodash.set": "^4.3.2",
+        "semver": "7.3.5",
+        "stream-iterate": "^1.2.0"
+    },
+    "main": "./lib/index.js",
+    "scripts": {
+        "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-spawn.md --section=usage  && cp ../../docs/plugin-spawn.md ./README.md",
+        "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
+        "build": "babel --root-mode upward src --out-dir lib",
+        "prepublish": "npm run build",
+        "pretest": "npm run build",
+        "preversion": "npm run doc"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "devDependencies": {
+        "@ezs/core": "1.26.3"
+    },
+    "peerDependencies": {
+        "@ezs/core": "*"
+    }
+}
