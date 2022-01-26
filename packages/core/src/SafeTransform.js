@@ -1,4 +1,4 @@
-import { Transform } from 'stream';
+import { Transform } from 'readable-stream';
 
 // extends Transform to pass error to the next stream in pipe
 export default class SafeTransform extends Transform {
