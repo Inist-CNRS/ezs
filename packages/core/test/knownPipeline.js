@@ -320,7 +320,6 @@ describe(' through server(s)', () => {
             const output = [];
             const req = http.request(options, (res) => {
                 res.setEncoding('utf8');
-                res.on('error', done);
                 res.on('data', (chunk) => {
                     output.push(chunk);
                     if (output.length >= 100) {
@@ -360,7 +359,6 @@ describe(' through server(s)', () => {
             const output = [];
             const req = http.request(options, (res) => {
                 res.setEncoding('utf8');
-                res.on('error', done);
                 res.on('data', (chunk) => {
                     output.push(chunk);
                     if (output.length >= 100) {

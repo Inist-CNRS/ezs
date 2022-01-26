@@ -1,4 +1,4 @@
-import { PassThrough } from 'stream';
+import { PassThrough } from 'readable-stream';
 import writeTo from 'stream-write';
 import globalModules from 'global-modules';
 import { resolve } from 'path';
