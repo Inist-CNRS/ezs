@@ -47,7 +47,7 @@
     "global-modules": "2.0.0",
     "http-shutdown": "1.2.2",
     "load-json-file": "6.2.0",
-    "lodash": "4.17.19",
+    "lodash": "4.17.21",
     "lru-cache": "5.1.1",
     "merge2": "1.4.1",
     "node-dir": "0.1.17",
