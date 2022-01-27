@@ -1,4 +1,3 @@
-import ezs from '@ezs/core';
 import { PassThrough } from 'stream';
 import os from 'os';
 import queue from 'async.queue';
@@ -12,7 +11,7 @@ const worker = (stream) => (data, done) => {
     writeTo(stream, data, () => done());
 };
 
-const getAndWriteQueries = (data, options, feed) => new Promise(
+const getAndWriteQueries = (ezs, data, options, feed) => new Promise(
     (resolve, reject) => {
         if (!Array.isArray(data)) {
             return reject(new Error('unexpected data. Should be an array.'));
@@ -43,7 +42,7 @@ const getAndWriteQueries = (data, options, feed) => new Promise(
     },
 );
 
-const getAndWriteIdentifiers = (data, options, feed) => new Promise(
+const getAndWriteIdentifiers = (ezs, data, options, feed) => new Promise(
     (resolve, reject) => {
         if (!Array.isArray(data)) {
             return reject(new Error('unexpected data. Should be an array.'));
@@ -115,8 +114,9 @@ async function ISTEX(data, feed) {
         field,
         sid,
     };
-    await getAndWriteQueries(queries, options, feed);
-    await getAndWriteIdentifiers(identifiers, options, feed);
+    const { ezs } = this;
+    await getAndWriteQueries(ezs, queries, options, feed);
+    await getAndWriteIdentifiers(ezs, identifiers, options, feed);
     feed.end();
 }
 

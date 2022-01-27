@@ -13,6 +13,14 @@ describe('NUMBER', () => {
         expect(valueToNumber(1234)).toBe(1234);
     });
 
+    it('should return 12.34', () => {
+        expect(valueToNumber('12.34')).toBe(12.34);
+    });
+
+    it('should return 12,34', () => {
+        expect(valueToNumber('12,34')).toBe(12.34);
+    });
+
     it('should return 0 if value is null', () => {
         expect(valueToNumber(null)).toBe(0);
     });

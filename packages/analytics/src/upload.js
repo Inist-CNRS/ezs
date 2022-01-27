@@ -1,6 +1,5 @@
 import { unlink } from 'fs';
 import debug from 'debug';
-import writeTo from 'stream-write';
 import tempy from 'tempy';
 
 /**
@@ -59,5 +58,5 @@ export default async function upload(data, feed) {
         const cbk = () => debug('ezs')('[upload] unlink file.', tmpfile);
         return setTimeout(() => unlink(tmpfile, cbk), cleanupDelay * 1000);
     }
-    return writeTo(this.input, data, () => feed.end());
+    return this.ezs.writeTo(this.input, data, () => feed.end());
 }
