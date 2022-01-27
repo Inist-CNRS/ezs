@@ -1,6 +1,6 @@
 {
   "name": "@ezs/libpostal",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Libpostal statements for EZS",
   "repository": {
     "type": "git",

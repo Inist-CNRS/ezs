@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.10](https://github.com/Inist-CNRS/ezs/compare/@ezs/transformers@1.3.9...@ezs/transformers@1.3.10) (2022-01-27)
+
+
+### Bug Fixes
+
+* 🐛 improve NUMBER transtype operation ([b33dd88](https://github.com/Inist-CNRS/ezs/commit/b33dd887ea96e36f63ee55d12f18c22894223e5b))
+
+
+
+
+
 ## [1.3.9](https://github.com/Inist-CNRS/ezs/compare/@ezs/transformers@1.3.8...@ezs/transformers@1.3.9) (2021-11-25)
 
 **Note:** Version bump only for package @ezs/transformers

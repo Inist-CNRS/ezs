@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.15](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.16.14...@ezs/analytics@1.16.15) (2022-01-27)
+
+
+### Bug Fixes
+
+* 🐛 improve NUMBER transtype operation ([b33dd88](https://github.com/Inist-CNRS/ezs/commit/b33dd887ea96e36f63ee55d12f18c22894223e5b))
+
+
+
+
+
 ## [1.16.14](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.16.13...@ezs/analytics@1.16.14) (2022-01-06)
 
 

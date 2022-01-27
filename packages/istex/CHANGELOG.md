@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.7](https://github.com/Inist-CNRS/ezs/compare/@ezs/istex@1.4.6...@ezs/istex@1.4.7) (2022-01-27)
+
+
+### Bug Fixes
+
+* 🐛 improve NUMBER transtype operation ([b33dd88](https://github.com/Inist-CNRS/ezs/commit/b33dd887ea96e36f63ee55d12f18c22894223e5b))
+
+
+
+
+
 ## [1.4.6](https://github.com/Inist-CNRS/ezs/compare/@ezs/istex@1.4.5...@ezs/istex@1.4.6) (2021-10-29)
 
 **Note:** Version bump only for package @ezs/istex
