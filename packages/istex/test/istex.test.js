@@ -37,7 +37,7 @@ describe('ISTEX', () => {
                 result.push(chunk);
             })
             .on('end', () => {
-                assert.equal(result.length, 6);
+                assert.equal(result.length, 8);
                 assert(result[0]);
                 assert.equal(result[0].id, result[3].id);
                 done();
