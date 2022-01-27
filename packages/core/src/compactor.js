@@ -1,4 +1,4 @@
-import { PassThrough } from 'stream';
+import { PassThrough } from 'readable-stream';
 import debug from 'debug';
 
 const resolve = (name) => {

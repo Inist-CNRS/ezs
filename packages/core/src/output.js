@@ -1,4 +1,4 @@
-import { Transform } from 'stream';
+import { Transform } from 'readable-stream';
 
 // we do not use SafeTranform,
 // because Output should be used to send data to

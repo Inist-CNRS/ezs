@@ -1,4 +1,4 @@
-import { PassThrough } from 'stream';
+import { PassThrough } from 'readable-stream';
 import http from 'http';
 import debug from 'debug';
 import Parameter from './parameter';

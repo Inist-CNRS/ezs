@@ -19,14 +19,14 @@
   },
   "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/storage#readme",
   "dependencies": {
-    "date-diff": "^0.2.1",
-    "lodash.get": "^4.4.2",
-    "make-dir": "^3.0.2",
-    "nanoid": "^2.1.8",
-    "nanoid-dictionary": "^2.0.0",
-    "node-lmdb": "^0.8.0",
-    "node-object-hash": "^2.0.0",
-    "path-exists": "^4.0.0"
+    "date-diff": "0.2.1",
+    "lodash.get": "4.4.2",
+    "make-dir": "3.1.0",
+    "nanoid": "2.1.8",
+    "nanoid-dictionary": "2.0.0",
+    "node-lmdb": "0.9.6",
+    "node-object-hash": "2.3.10",
+    "path-exists": "4.0.0"
   },
   "main": "./lib/index.js",
   "scripts": {
@@ -41,6 +41,6 @@
     "access": "public"
   },
   "peerDependencies": {
-    "@ezs/core": "*"
+    "@ezs/core": "1.27.0"
   }
 }

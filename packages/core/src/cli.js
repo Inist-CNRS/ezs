@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { realpathSync, createReadStream } from 'fs';
-import { PassThrough } from 'stream';
+import { PassThrough } from 'readable-stream';
 import yargs from 'yargs';
 import debug from 'debug';
 import ezs from '.';

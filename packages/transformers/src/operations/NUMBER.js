@@ -1,7 +1,8 @@
 import { transformer } from './transformer';
 
 export const valueToNumber = value => {
-    const number = Number(value);
+
+    const number = typeof value === 'number' ? value : Number(String(value).replace(/,/, '.'));
 
     return Number.isNaN(number) ? 0 : number;
 };

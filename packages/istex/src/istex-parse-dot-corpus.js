@@ -1,10 +1,3 @@
-import ezs from '@ezs/core';
-import { PassThrough } from 'stream';
-import { writeTo } from './utils';
-import istex from './istex';
-
-ezs.use(istex);
-
 /**
  * Parse a `.corpus` file content, and execute the action contained in the
  * `.corpus` file.
@@ -38,27 +31,16 @@ function ISTEXParseDotCorpus(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
+    if (!data) {
+        return feed.send(new Error('Empty content'));
+    }
     const metadata = this.ezs.metaString(data);
-    const input = new PassThrough({ objectMode: true });
-    const output = input
-        .pipe(ezs('delegate', { script: data }))
-        .pipe(ezs.catch((e) => feed.write(e)))
-        .on('data', (chunk) => {
-            feed.write({ ...metadata, ...chunk });
-        })
-        .on('error', (e) => {
-            feed.stop(e);
-        });
-    const handle = new Promise(
-        (resolve) => output.on('end', resolve),
-    );
-    writeTo(input, metadata, () => {
-        input.end(() => {
-            handle.then(() => {
-                feed.end();
-            });
-        });
-    });
+    const input = this.ezs('delegate', { script: data })
+        .on('data', (chunk) => feed.write({ ...metadata, ...chunk }))
+        .on('error', (e) => feed.stop(e))
+        .on('end', () => feed.end());
+    input.write(data);
+    input.end();
 }
 export default {
     ISTEXParseDotCorpus,

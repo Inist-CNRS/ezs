@@ -229,9 +229,7 @@ describe('URLStream', () => {
             .pipe(ezs('URLStream'))
             .pipe(ezs.catch())
             .on('error', (e) => {
-                expect(() => {
-                    throw e.sourceError;
-                }).toThrow('Invalid URL: [object Object]');
+                expect(e.message).toEqual(expect.stringContaining('Invalid URL'));
                 done();
             })
             .on('end', () => {

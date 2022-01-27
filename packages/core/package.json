@@ -1,67 +1,68 @@
 {
-    "name": "@ezs/core",
-    "version": "1.27.0",
-    "description": "A wrapper to build Stream transformers with functional style",
-    "directories": {
-        "test": "test"
-    },
-    "main": "./lib/index.js",
-    "bin": {
-        "ezs": "./bin/ezs"
-    },
-    "scripts": {
-        "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-core.md --section=usage && cp ../../docs/plugin-core.md ./README.md",
-        "lint": "eslint --ext=.js ./test/*.js ./src/*.js ./src/statements/*.js",
-        "build": "babel --root-mode upward src --out-dir lib",
-        "prepublish": "npm run build",
-        "postversion": "git push && git push --tags",
-        "#pretest": "npm run build"
-    },
-    "publishConfig": {
-        "access": "public"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/Inist-CNRS/ezs.git"
-    },
-    "keywords": [
-        "stream",
-        "transformer"
-    ],
-    "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/Inist-CNRS/ezs/issues"
-    },
-    "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/core#readme",
-    "dependencies": {
-        "app-module-path": "~2.2.0",
-        "autocast": "~0.0.4",
-        "concurrent-queue": "~7.0.2",
-        "connect": "^3.7.0",
-        "debug": "~4.1.1",
-        "deep-object-diff": "~1.1.0",
-        "end-of-stream": "^1.4.4",
-        "filename-regex": "~2.0.1",
-        "filtrex": "~1.0.0",
-        "global-modules": "~2.0.0",
-        "http-shutdown": "~1.2.2",
-        "load-json-file": "^6.2.0",
-        "lodash": "~4.17.19",
-        "lru-cache": "^5.1.1",
-        "merge2": "~1.4.1",
-        "node-dir": "~0.1.17",
-        "object-sizeof": "^1.6.1",
-        "once": "^1.4.0",
-        "p-wait-for": "^3.1.0",
-        "path-exists": "^4.0.0",
-        "prom-client": "^14.0.0",
-        "stream-write": "~1.0.1",
-        "validatorjs": "~3.18.1",
-        "yargs": "~15.4.1"
-    },
-    "engines": {
-        "node": ">=10 <=14"
-    },
-    "gitHead": "bc1be6636627b450c72d59ec404c43d87d7a42aa"
+  "name": "@ezs/core",
+  "version": "1.27.0",
+  "description": "A wrapper to build Stream transformers with functional style",
+  "directories": {
+    "test": "test"
+  },
+  "main": "./lib/index.js",
+  "bin": {
+    "ezs": "./bin/ezs"
+  },
+  "scripts": {
+    "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-core.md --section=usage && cp ../../docs/plugin-core.md ./README.md",
+    "lint": "eslint --ext=.js ./test/*.js ./src/*.js ./src/statements/*.js",
+    "build": "babel --root-mode upward src --out-dir lib",
+    "prepublish": "npm run build",
+    "postversion": "git push && git push --tags",
+    "#pretest": "npm run build"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Inist-CNRS/ezs.git"
+  },
+  "keywords": [
+    "stream",
+    "transformer"
+  ],
+  "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Inist-CNRS/ezs/issues"
+  },
+  "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/core#readme",
+  "dependencies": {
+    "app-module-path": "2.2.0",
+    "autocast": "0.0.4",
+    "concurrent-queue": "7.0.2",
+    "connect": "3.7.0",
+    "debug": "4.3.2",
+    "deep-object-diff": "1.1.0",
+    "end-of-stream": "1.4.4",
+    "filename-regex": "2.0.1",
+    "filtrex": "1.0.0",
+    "global-modules": "2.0.0",
+    "http-shutdown": "1.2.2",
+    "load-json-file": "6.2.0",
+    "lodash": "4.17.19",
+    "lru-cache": "5.1.1",
+    "merge2": "1.4.1",
+    "node-dir": "0.1.17",
+    "object-sizeof": "1.6.1",
+    "once": "1.4.0",
+    "p-wait-for": "3.1.0",
+    "path-exists": "4.0.0",
+    "prom-client": "14.0.0",
+    "readable-stream": "3.6.0",
+    "stream-write": "1.0.1",
+    "validatorjs": "3.18.1",
+    "yargs": "15.4.1"
+  },
+  "engines": {
+    "node": ">=10 <=16"
+  },
+  "gitHead": "bc1be6636627b450c72d59ec404c43d87d7a42aa"
 }

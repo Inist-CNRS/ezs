@@ -32,11 +32,8 @@
   "publishConfig": {
     "access": "public"
   },
-  "devDependencies": {
-    "@ezs/core": "1.27.0"
-  },
   "peerDependencies": {
     "@cymen/node-postal": "2.0.5",
-    "@ezs/core": "*"
+    "@ezs/core": "1.27.0"
   }
 }

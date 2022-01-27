@@ -59,6 +59,7 @@ describe('ISTEXParseDotCorpus', () => {
             .pipe(ezs('ISTEXParseDotCorpus'))
             // .pipe(ezs('debug'))
             .pipe(ezs.catch(e => e)) // catch errors in chunks and throw a error, which breaking the pipeline
+            .on('error', done)
             .on('data', (chunk) => {
                 result.push(chunk);
             })
@@ -67,8 +68,7 @@ describe('ISTEXParseDotCorpus', () => {
                 assert(result[0]);
                 assert.equal(result[0].publisher, 'CNRS');
                 done();
-            })
-            .on('error', console.error);
+            });
     });
 
     it('should return error on parse empty corpus', (done) => {
@@ -76,12 +76,14 @@ describe('ISTEXParseDotCorpus', () => {
             '',
         ])
             .pipe(ezs('ISTEXParseDotCorpus'))
-            // .pipe(ezs('debug'))
-            .pipe(ezs.catch(e => e))
+            .pipe(ezs.catch()) // catch errors in chunks and throw a error, which breaking the pipeline
             .on('error', (e) => {
                 assert(e instanceof Error);
-                assert(e.message.includes('Invalid parmeter for delegate'));
+                assert(e.message.includes('Empty content'));
                 done();
+            })
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
             });
     });
 });

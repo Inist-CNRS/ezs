@@ -1,7 +1,8 @@
 import { join, basename, dirname } from 'path';
 import debug from 'debug';
 import sizeof from 'object-sizeof';
-import { PassThrough, pipeline } from 'stream';
+import { PassThrough } from 'readable-stream';
+import { pipeline } from 'stream';
 import once from 'once';
 import _ from 'lodash';
 import { metricsHandle } from './metrics';
@@ -143,7 +144,7 @@ const knownPipeline = (ezs) => (request, response, next) => {
         })
         .once('close', () => {
             if (emptyStream) {
-                transformedStream.destroy(new Error('No Content'));
+                //transformedStream.destroy(new Error('No Content'));
             }
         })
         .once('end', () => {
