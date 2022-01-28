@@ -1,5 +1,6 @@
 import fs from 'fs';
 import from from 'from';
+import { PassThrough } from 'stream';
 import ezs from '../../core/src';
 import statements from '../src';
 
@@ -690,3 +691,78 @@ test('with a script that loses some items', (done) => {
             done();
         });
 });
+
+test('with sub script and brute forece write', (done) => {
+    ezs.use(statements);
+    const input = [
+        { a: 1, b: 'a' },
+        { a: 2, b: 'b' },
+        { a: 3, b: 'c' },
+        { a: 4, b: 'd' },
+        { a: 5, b: 'e' },
+        { a: 6, b: 'f' },
+    ];
+    const script = `
+            [use]
+            plugin = basics
+            plugin = analytics
+
+            [replace]
+            path = id
+            value = get('a')
+            path = value
+            value = get('b')
+
+            [validate]
+            path = id
+            rule = required
+
+            path = value
+            rule = required
+
+            [expand]
+            size = 100
+            path = value
+
+            [expand/assign]
+            path = value
+            value = get('value').toUpper()
+
+            [replace]
+            path = a
+            value = get('id')
+            path = b
+            value = get('value')
+        `;
+
+    const func = () => new Promise((resolve, reject) => {
+        const output = [];
+        const strm = new PassThrough({ objectMode: true });
+        strm
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                expect(output.length).toEqual(6);
+                expect(output[0].b).toEqual('A');
+                expect(output[1].b).toEqual('B');
+                expect(output[2].b).toEqual('C');
+                expect(output[3].b).toEqual('D');
+                expect(output[4].b).toEqual('E');
+                expect(output[5].b).toEqual('F');
+                expect(env.executed).toEqual(false);
+                resolve();
+            })
+            .on('error', (e) => reject(e));
+
+        // brute force write ! (no back pressure control)
+        for (const entry of input) {
+            strm.write(entry);
+        }
+        strm.end();
+    });
+
+    Promise.all(Array(100).fill(true).map(() => func())).catch(console.error).finally(done);
+}, 60000);

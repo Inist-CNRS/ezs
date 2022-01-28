@@ -120,14 +120,16 @@ export default async function expand(data, feed) {
                     .on('end', () => each(
                         Object.keys(this.stack[bufferID]),
                         async (cur, next) => {
+                            let obj;
                             try {
-                                const obj = await this.store.get(cur);
-                                if (obj === null) {
-                                    throw new Error('id has been lost');
-                                }
-                                feed.write(obj);
+                                obj = await this.store.get(cur);
                             } catch (e) {
                                 feed.write(e);
+                            }
+                            if (obj === null) {
+                                throw new Error('id has been lost');
+                            } else {
+                                feed.write(obj);
                             }
                             next();
                         },
