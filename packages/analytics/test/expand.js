@@ -6,6 +6,8 @@ import statements from '../src';
 
 ezs.addPath(__dirname);
 
+ezs.use(require('./locals'));
+
 test('with script (all values) #1', (done) => {
     ezs.use(statements);
     const input = [
@@ -691,9 +693,8 @@ test('with a script that loses some items', (done) => {
             done();
         });
 });
-
-test('with sub script and brute forece write', (done) => {
-    ezs.use(statements);
+describe('with sub script and brute force write', () => {
+    const size = 50;
     const input = [
         { a: 1, b: 'a' },
         { a: 2, b: 'b' },
@@ -702,7 +703,32 @@ test('with sub script and brute forece write', (done) => {
         { a: 5, b: 'e' },
         { a: 6, b: 'f' },
     ];
-    const script = `
+
+    const func = (script) => new Promise((resolve, reject) => {
+        const output = [];
+        const strm = new PassThrough({ objectMode: true });
+        strm
+            .pipe(ezs('delegate', { script }))
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                resolve(output);
+            })
+            .on('error', (e) => {
+                reject(e)
+            });
+
+        // brute force write ! (no back pressure control)
+        for (const entry of input) {
+            strm.write(entry);
+        }
+        strm.end();
+    });
+
+    test('with no error', (done) => {
+        ezs.use(statements);
+        const script = `
             [use]
             plugin = basics
             plugin = analytics
@@ -735,34 +761,209 @@ test('with sub script and brute forece write', (done) => {
             value = get('value')
         `;
 
-    const func = () => new Promise((resolve, reject) => {
-        const output = [];
-        const strm = new PassThrough({ objectMode: true });
-        strm
-            .pipe(ezs('delegate', { script }))
-            .pipe(ezs.catch())
-            .on('data', (chunk) => {
-                output.push(chunk);
+        Promise.all(Array(size).fill(true).map(() => func(script)))
+            .then((r) => {
+                expect(r.length).toBe(size);
+                expect(r[0][0].b).toEqual('A');
+                expect(r[0][1].b).toEqual('B');
+                expect(r[0][2].b).toEqual('C');
+                expect(r[0][3].b).toEqual('D');
+                expect(r[0][4].b).toEqual('E');
+                expect(r[0][5].b).toEqual('F');
+                done();
             })
-            .on('end', () => {
-                expect(output.length).toEqual(6);
-                expect(output[0].b).toEqual('A');
-                expect(output[1].b).toEqual('B');
-                expect(output[2].b).toEqual('C');
-                expect(output[3].b).toEqual('D');
-                expect(output[4].b).toEqual('E');
-                expect(output[5].b).toEqual('F');
-                expect(env.executed).toEqual(false);
-                resolve();
-            })
-            .on('error', (e) => reject(e));
+            .catch(done);
+    }, 60000);
 
-        // brute force write ! (no back pressure control)
-        for (const entry of input) {
-            strm.write(entry);
-        }
-        strm.end();
+    test('stopped with erratic error', (done) => {
+        ezs.use(statements);
+        const script = `
+            [use]
+            plugin = basics
+            plugin = analytics
+
+            [replace]
+            path = id
+            value = get('a')
+            path = value
+            value = get('b')
+
+            [validate]
+            path = id
+            rule = required
+
+            path = value
+            rule = required
+
+            [expand]
+            size = 100
+            path = value
+
+            [expand/assign]
+            path = value
+            value = get('value').toUpper()
+
+            [expand/erraticError]
+            stop = true
+
+            [replace]
+            path = a
+            value = get('id')
+            path = b
+            value = get('value')
+        `;
+
+        Promise.all(Array(size).fill(true).map(() => func(script)))
+            .then(() => done(new Error('Error is the right behavior')))
+            .catch((e) => {
+                expect(e.message).toEqual(expect.stringContaining('Erratic Error'));
+                done();
+            });
     });
 
-    Promise.all(Array(100).fill(true).map(() => func())).catch(console.error).finally(done);
-}, 60000);
+
+    test('corrupted with erratic error', (done) => {
+        ezs.use(statements);
+        const script = `
+            [use]
+            plugin = basics
+            plugin = analytics
+
+            [replace]
+            path = id
+            value = get('a')
+            path = value
+            value = get('b')
+
+            [validate]
+            path = id
+            rule = required
+
+            path = value
+            rule = required
+
+            [expand]
+            size = 100
+            path = value
+
+            [expand/assign]
+            path = value
+            value = get('value').toUpper()
+
+            [expand/erraticError]
+            stop = false
+
+            [replace]
+            path = a
+            value = get('id')
+            path = b
+            value = get('value')
+        `;
+
+        Promise.all(Array(size).fill(true).map(() => func(script)))
+            .then(() => {
+                // expand extract error because a error in sub pipeline cannot be rejectied in the main pipeline (no id)
+                done(new Error('Error is the right behavior'));
+            })
+            .catch((e) => {
+                expect(e.message).toEqual(expect.stringContaining('Erratic Error'));
+                done();
+            });
+    });
+
+    test('improper with erratic error', (done) => {
+        ezs.use(statements);
+        const script = `
+            [use]
+            plugin = basics
+            plugin = analytics
+
+            [replace]
+            path = id
+            value = get('a')
+            path = value
+            value = get('b')
+
+            [validate]
+            path = id
+            rule = required
+
+            path = value
+            rule = required
+
+            [expand]
+            size = 100
+            path = value
+
+            [expand/assign]
+            path = value
+            value = get('value').toUpper()
+
+            [erraticError]
+            stop = false
+
+            [replace]
+            path = a
+            value = get('id')
+            path = b
+            value = get('value')
+        `;
+
+        Promise.all(Array(size).fill(true).map(() => func(script)))
+            .then((r) => {
+                expect(r.length).toBe(size);
+
+                const check = r
+                    .reduce((cur, prev) => prev.concat(cur), [])
+                    .some(x => (x instanceof Error));
+                expect(check).toBeTruthy();
+                done();
+            })
+            .catch(done);
+    });
+    test('improper with erratic error', (done) => {
+        ezs.use(statements);
+        const script = `
+            [use]
+            plugin = basics
+            plugin = analytics
+
+            [replace]
+            path = id
+            value = get('a')
+            path = value
+            value = get('b')
+
+            [validate]
+            path = id
+            rule = required
+
+            path = value
+            rule = required
+
+            [expand]
+            size = 100
+            path = value
+
+            [expand/assign]
+            path = value
+            value = get('value').toUpper()
+
+            [erraticError]
+            stop = true
+
+            [replace]
+            path = a
+            value = get('id')
+            path = b
+            value = get('value')
+        `;
+
+        Promise.all(Array(size).fill(true).map(() => func(script)))
+            .then(() => done(new Error('Error is the right behavior')))
+            .catch((e) => {
+                expect(e.message).toEqual(expect.stringContaining('Erratic Error'));
+                done();
+            });
+    });
+});
