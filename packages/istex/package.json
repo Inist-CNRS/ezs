@@ -43,7 +43,7 @@
     "@istex/istex-exchange": "1.2.1",
     "archiver": "3.1.1",
     "async.queue": "0.5.2",
-    "dot-prop": "5.1.0",
+    "dot-prop": "5.1.1",
     "fetch-with-proxy": "3.0.1",
     "get-stream": "5.1.0",
     "highland": "2.13.5",
