@@ -141,6 +141,9 @@ export default class Engine extends SafeTransform {
             }
         };
         const push = (data) => {
+            if (this._readableState.ended) {
+                return warn(new Error('No back pressure control ?'));
+            }
             if (data instanceof Error) {
                 debug('ezs')(`Ignoring error at item #${currentIndex}`);
                 return this.push(createErrorWith(data, currentIndex, this.funcName, chunk));

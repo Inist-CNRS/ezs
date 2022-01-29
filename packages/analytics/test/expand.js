@@ -1,9 +1,12 @@
 import fs from 'fs';
 import from from 'from';
+import { PassThrough } from 'stream';
 import ezs from '../../core/src';
 import statements from '../src';
 
 ezs.addPath(__dirname);
+
+ezs.use(require('./locals'));
 
 test('with script (all values) #1', (done) => {
     ezs.use(statements);
@@ -689,4 +692,338 @@ test('with a script that loses some items', (done) => {
             expect(env.executed).toEqual(false);
             done();
         });
+});
+describe('with sub script and brute force write', () => {
+    const size = 50;
+    const input = [
+        { a: 1, b: 'a' },
+        { a: 2, b: 'b' },
+        { a: 3, b: 'c' },
+        { a: 4, b: 'd' },
+        { a: 5, b: 'e' },
+        { a: 6, b: 'f' },
+        { a: 7, b: 'g' },
+        { a: 8, b: 'h' },
+        { a: 9, b: 'i' },
+        { a: 10, b: 'j' },
+    ];
+
+    const func = (script) => new Promise((resolve, reject) => {
+        const output = [];
+        const strm = new PassThrough({ objectMode: true });
+        try  {
+            strm
+                .pipe(ezs('delegate', { script }))
+                .on('data', (chunk) => {
+                    output.push(chunk);
+                })
+                .on('end', () => {
+                    resolve(output);
+                })
+                .on('error', (e) => {
+                    reject(e);
+                });
+            // brute force write ! (no back pressure control)
+            for (const entry of input) {
+                strm.write(entry);
+            }
+            strm.end();
+        } catch(e) {
+            reject(e);
+        }
+    });
+
+    beforeAll(() => jest.setTimeout(60000));
+    afterAll(() => jest.setTimeout(5000));
+
+    test('no error', (done) => {
+        ezs.use(statements);
+        const script = `
+            [use]
+            plugin = basics
+            plugin = analytics
+
+            [replace]
+            path = id
+            value = get('a')
+            path = value
+            value = get('b')
+
+            [validate]
+            path = id
+            rule = required
+
+            path = value
+            rule = required
+
+            [expand]
+            size = 100
+            path = value
+
+            [expand/assign]
+            path = value
+            value = get('value').toUpper()
+
+            [replace]
+            path = a
+            value = get('id')
+            path = b
+            value = get('value')
+        `;
+
+        Promise.all(Array(size).fill(true).map(() => func(script)))
+            .then((r) => {
+                expect(r.length).toBe(size);
+                expect(r[0].length).toBe(input.length);
+                expect(r[0][0].b).toEqual('A');
+                expect(r[0][1].b).toEqual('B');
+                expect(r[0][2].b).toEqual('C');
+                expect(r[0][3].b).toEqual('D');
+                expect(r[0][4].b).toEqual('E');
+                expect(r[0][5].b).toEqual('F');
+                done();
+            })
+            .catch(done);
+    });
+
+    test('erratic fatal error in depth', (done) => {
+        ezs.use(statements);
+        const script = `
+            [use]
+            plugin = basics
+            plugin = analytics
+
+            [replace]
+            path = id
+            value = get('a')
+            path = value
+            value = get('b')
+
+            [validate]
+            path = id
+            rule = required
+
+            path = value
+            rule = required
+
+            [expand]
+            size = 100
+            path = value
+
+            [expand/assign]
+            path = value
+            value = get('value').toUpper()
+
+            [expand/erraticError]
+            stop = true
+
+            [replace]
+            path = a
+            value = get('id')
+            path = b
+            value = get('value')
+        `;
+
+        Promise.all(Array(size).fill(true).map(() => func(script)))
+            .then(() => done(new Error('Error is the right behavior')))
+            .catch((e) => {
+                expect(e.message).toEqual(expect.stringContaining('Erratic Error'));
+                done();
+            });
+    });
+
+
+    test('erratic error in depth', (done) => {
+        ezs.use(statements);
+        const script = `
+            [use]
+            plugin = basics
+            plugin = analytics
+
+            [replace]
+            path = id
+            value = get('a')
+            path = value
+            value = get('b')
+
+            [validate]
+            path = id
+            rule = required
+
+            path = value
+            rule = required
+
+            [expand]
+            size = 100
+            path = value
+
+            [expand/assign]
+            path = value
+            value = get('value').toUpper()
+
+            [expand/erraticError]
+            stop = false
+
+            [replace]
+            path = a
+            value = get('id')
+            path = b
+            value = get('value')
+        `;
+
+        Promise.all(Array(size).fill(true).map(() => func(script)))
+            .then(() => {
+                // expand extract error because a error in sub pipeline cannot be rejectied in the main pipeline (no id)
+                done(new Error('Error is the right behavior'));
+            })
+            .catch((e) => {
+                expect(e.message).toEqual(expect.stringContaining('Erratic Error'));
+                done();
+            });
+    });
+
+    test('erratic error on top', (done) => {
+        ezs.use(statements);
+        const script = `
+            [use]
+            plugin = basics
+            plugin = analytics
+
+            [replace]
+            path = id
+            value = get('a')
+            path = value
+            value = get('b')
+
+            [validate]
+            path = id
+            rule = required
+
+            path = value
+            rule = required
+
+            [expand]
+            size = 100
+            path = value
+
+            [expand/assign]
+            path = value
+            value = get('value').toUpper()
+
+            [erraticError]
+            stop = false
+
+            [replace]
+            path = a
+            value = get('id')
+            path = b
+            value = get('value')
+        `;
+
+        Promise.all(Array(size).fill(true).map(() => func(script)))
+            .then((r) => {
+                expect(r.length).toBe(size);
+                expect(r[0].length).toBe(input.length);
+
+                const check = r
+                    .reduce((cur, prev) => prev.concat(cur), [])
+                    .some(x => (x instanceof Error));
+                expect(check).toBeTruthy();
+                done();
+            })
+            .catch(done);
+    });
+
+    test('truncated in depth', (done) => {
+        ezs.use(statements);
+        const script = `
+            [use]
+            plugin = basics
+            plugin = analytics
+
+            [replace]
+            path = id
+            value = get('a')
+            path = value
+            value = get('b')
+
+            [validate]
+            path = id
+            rule = required
+
+            path = value
+            rule = required
+
+            [expand]
+            size = 100
+            path = value
+
+            [expand/assign]
+            path = value
+            value = get('value').toUpper()
+
+            [expand/truncate]
+            length = 3
+
+            [replace]
+            path = a
+            value = get('id')
+            path = b
+            value = get('value')
+        `;
+        func(script)
+            .then(() => {
+                done(new Error('Error is the right behavior'));
+            })
+            .catch((e) => {
+                expect(e.message).toEqual(expect.stringContaining('No back pressure control ?'));
+                done();
+            });
+    });
+
+    test('truncated on top', (done) => {
+        ezs.use(statements);
+        const script = `
+            [use]
+            plugin = basics
+            plugin = analytics
+
+            [replace]
+            path = id
+            value = get('a')
+            path = value
+            value = get('b')
+
+            [validate]
+            path = id
+            rule = required
+
+            path = value
+            rule = required
+
+            [expand]
+            size = 100
+            path = value
+
+            [expand/assign]
+            path = value
+            value = get('value').toUpper()
+
+            [truncate]
+            length = 3
+
+            [replace]
+            path = a
+            value = get('id')
+            path = b
+            value = get('value')func(script)
+        `;
+        Promise.all(Array(size).fill(true).map(() => func(script)))
+            .then((r) => {
+                expect(r.length).toBe(size);
+                expect(r[0].length).toBe(3);
+                done();
+            })
+            .catch(done);
+    });
 });
