@@ -702,6 +702,10 @@ describe('with sub script and brute force write', () => {
         { a: 4, b: 'd' },
         { a: 5, b: 'e' },
         { a: 6, b: 'f' },
+        { a: 7, b: 'g' },
+        { a: 8, b: 'h' },
+        { a: 9, b: 'i' },
+        { a: 10, b: 'j' },
     ];
 
     const func = (script) => new Promise((resolve, reject) => {
@@ -716,7 +720,7 @@ describe('with sub script and brute force write', () => {
                 resolve(output);
             })
             .on('error', (e) => {
-                reject(e)
+                reject(e);
             });
 
         // brute force write ! (no back pressure control)
@@ -725,6 +729,9 @@ describe('with sub script and brute force write', () => {
         }
         strm.end();
     });
+
+    beforeAll(() => jest.setTimeout(60000));
+    afterAll(() => jest.setTimeout(5000));
 
     test('with no error', (done) => {
         ezs.use(statements);
@@ -764,6 +771,7 @@ describe('with sub script and brute force write', () => {
         Promise.all(Array(size).fill(true).map(() => func(script)))
             .then((r) => {
                 expect(r.length).toBe(size);
+                expect(r[0].length).toBe(input.length);
                 expect(r[0][0].b).toEqual('A');
                 expect(r[0][1].b).toEqual('B');
                 expect(r[0][2].b).toEqual('C');
@@ -773,7 +781,7 @@ describe('with sub script and brute force write', () => {
                 done();
             })
             .catch(done);
-    }, 60000);
+    });
 
     test('stopped with erratic error', (done) => {
         ezs.use(statements);
@@ -912,6 +920,7 @@ describe('with sub script and brute force write', () => {
         Promise.all(Array(size).fill(true).map(() => func(script)))
             .then((r) => {
                 expect(r.length).toBe(size);
+                expect(r[0].length).toBe(input.length);
 
                 const check = r
                     .reduce((cur, prev) => prev.concat(cur), [])
