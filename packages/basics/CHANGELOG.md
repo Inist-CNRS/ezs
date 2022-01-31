@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.15.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.15.3...@ezs/basics@1.15.4) (2022-01-31)
+
+
+### Bug Fixes
+
+* npm dependencies ([36c7ebe](https://github.com/Inist-CNRS/ezs/commit/36c7ebea03e82e9d177f7480f587511360e3dace))
+
+
+
+
+
 ## [1.15.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.15.2...@ezs/basics@1.15.3) (2022-01-31)
 
 **Note:** Version bump only for package @ezs/basics

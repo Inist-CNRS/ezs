@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.10](https://github.com/Inist-CNRS/ezs/compare/@ezs/sparql@1.1.9...@ezs/sparql@1.1.10) (2022-01-31)
+
+**Note:** Version bump only for package @ezs/sparql
+
+
+
+
+
 ## [1.1.9](https://github.com/Inist-CNRS/ezs/compare/@ezs/sparql@1.1.8...@ezs/sparql@1.1.9) (2022-01-27)
 
 **Note:** Version bump only for package @ezs/sparql

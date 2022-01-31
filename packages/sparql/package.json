@@ -1,7 +1,7 @@
 {
   "name": "@ezs/sparql",
   "description": "SPARQL module for ezs",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "bugs": "https://github.com/Inist-CNRS/ezs/issues",
   "contributors": [
     {

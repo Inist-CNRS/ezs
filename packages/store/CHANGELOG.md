@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.8](https://github.com/Inist-CNRS/ezs/compare/@ezs/store@1.3.7...@ezs/store@1.3.8) (2022-01-31)
+
+
+### Bug Fixes
+
+* avoid to delete before cleaning ([2656ffe](https://github.com/Inist-CNRS/ezs/commit/2656ffed9a89bd7dd88d4d92d48eb54b6f5e0e26))
+
+
+
+
+
 ## [1.3.7](https://github.com/Inist-CNRS/ezs/compare/@ezs/store@1.3.6...@ezs/store@1.3.7) (2022-01-27)
 
 **Note:** Version bump only for package @ezs/store
