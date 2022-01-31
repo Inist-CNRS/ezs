@@ -1,23 +1,9 @@
 {
   "name": "@ezs/spawn",
-  "version": "1.1.3",
   "description": "...",
-  "directories": {
-    "test": "test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Inist-CNRS/ezs.git"
-  },
-  "keywords": [
-    "ezs"
-  ],
+  "version": "1.1.3",
   "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Inist-CNRS/ezs/issues"
-  },
-  "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/spawn#readme",
+  "bugs": "https://github.com/Inist-CNRS/ezs/issues",
   "dependencies": {
     "lodash.clone": "4.5.0",
     "lodash.get": "4.4.2",
@@ -25,22 +11,31 @@
     "semver": "7.3.5",
     "stream-iterate": "1.2.0"
   },
+  "devDependencies": {
+    "@ezs/core": "1.27.2"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/spawn#readme",
+  "keywords": [
+    "ezs"
+  ],
+  "license": "MIT",
   "main": "./lib/index.js",
-  "scripts": {
-    "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-spawn.md --section=usage  && cp ../../docs/plugin-spawn.md ./README.md",
-    "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
-    "build": "babel --root-mode upward src --out-dir lib",
-    "prepublish": "npm run build",
-    "pretest": "npm run build",
-    "preversion": "npm run doc"
+  "peerDependencies": {
+    "@ezs/core": "1.27.2"
   },
   "publishConfig": {
     "access": "public"
   },
-  "devDependencies": {
-    "@ezs/core": "1.27.2"
-  },
-  "peerDependencies": {
-    "@ezs/core": "1.27.0"
+  "repository": "Inist-CNRS/ezs.git",
+  "scripts": {
+    "build": "babel --root-mode upward src --out-dir lib",
+    "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-spawn.md --section=usage  && cp ../../docs/plugin-spawn.md ./README.md",
+    "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
+    "prepublish": "npm run build",
+    "pretest": "npm run build",
+    "preversion": "npm run doc"
   }
 }

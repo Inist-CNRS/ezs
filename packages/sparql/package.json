@@ -1,26 +1,8 @@
 {
   "name": "@ezs/sparql",
-  "version": "1.1.9",
   "description": "SPARQL module for ezs",
-  "main": "./lib/index.js",
-  "scripts": {
-    "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
-    "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-sparql.md --section=usage && cp ../../docs/plugin-sparql.md ./README.md",
-    "build": "babel --root-mode upward src --out-dir lib",
-    "prepublish": "npm run build",
-    "preversion": "npm run doc"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Inist-CNRS/ezs.git"
-  },
-  "keywords": [
-    "ezs",
-    "sparql"
-  ],
+  "version": "1.1.9",
+  "bugs": "https://github.com/Inist-CNRS/ezs/issues",
   "contributors": [
     {
       "name": "Antoine Pinot",
@@ -31,14 +13,27 @@
       "url": "https://github.com/parmentf"
     }
   ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Inist-CNRS/ezs/issues"
-  },
-  "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/sparql#readme",
   "dependencies": {
     "fetch-with-proxy": "3.0.1",
     "isomorphic-fetch": "2.2.1"
   },
-  "gitHead": "bc1be6636627b450c72d59ec404c43d87d7a42aa"
+  "gitHead": "bc1be6636627b450c72d59ec404c43d87d7a42aa",
+  "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/sparql#readme",
+  "keywords": [
+    "ezs",
+    "sparql"
+  ],
+  "license": "MIT",
+  "main": "./lib/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "Inist-CNRS/ezs.git",
+  "scripts": {
+    "build": "babel --root-mode upward src --out-dir lib",
+    "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-sparql.md --section=usage && cp ../../docs/plugin-sparql.md ./README.md",
+    "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
+    "prepublish": "npm run build",
+    "preversion": "npm run doc"
+  }
 }

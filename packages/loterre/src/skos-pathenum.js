@@ -78,19 +78,17 @@ async function SKOSPathEnum(data, feed) {
             this.store.reset();
         }
         if (this.isLast()) {
-            return this.store.cast()
+            const stream = this.store.cast()
                 .pipe(this.ezs(getBroaderAndNarrower, {
                     path: this.getParam('path', 'skos$broader'),
                     uri: this.getParam('uri', 'rdf$about'),
                     label: this.getParam('label', 'skos$prefLabel'),
                     recursion: this.getParam('recursion', false),
-                }, this.store))
-                .on('data', (chunk) => {
-                    feed.write(chunk);
-                }).on('end', () => {
-                    this.store.close();
-                    feed.close();
-                });
+                }, this.store));
+            return feed.flow(stream).finally(() => {
+                this.store.close();
+                feed.close();
+            });
         }
         await this.store.add(data.rdf$about, data);
         feed.end();
