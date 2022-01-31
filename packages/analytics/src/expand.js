@@ -127,7 +127,7 @@ export default async function expand(data, feed) {
                                 feed.write(e);
                             }
                             if (obj === null) {
-                                throw new Error('id has been lost');
+                                feed.write(new Error('id has been lost'));
                             } else {
                                 feed.write(obj);
                             }

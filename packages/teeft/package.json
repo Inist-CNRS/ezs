@@ -1,37 +1,9 @@
 {
   "name": "@ezs/teeft",
-  "version": "2.1.2",
   "description": "ezs statements for teeft",
-  "publishConfig": {
-    "access": "public"
-  },
-  "main": "lib/index.js",
-  "scripts": {
-    "build": "babel src --out-dir lib",
-    "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-teeft.md --section=usage && cp ../../docs/plugin-teeft.md ./README.md",
-    "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
-    "prepublish": "npm run build",
-    "pretest": "npm run build",
-    "preversion": "npm run doc"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Inist-CNRS/ezs.git"
-  },
-  "keywords": [
-    "teeft",
-    "term",
-    "extraction",
-    "nlp",
-    "ezs",
-    "stream"
-  ],
+  "version": "2.1.2",
   "author": "François Parmentier <francois.parmentier@gmail.com>",
-  "license": "CECILL-2.1",
-  "bugs": {
-    "url": "https://github.com/Inist-CNRS/ezs/issues"
-  },
-  "homepage": "https://github.com/Inist-CNRS/ezs/packages/teeft#readme",
+  "bugs": "https://github.com/Inist-CNRS/ezs/issues",
   "dependencies": {
     "fs-readfile-promise": "3.0.1",
     "glob": "7.2.0",
@@ -39,7 +11,30 @@
     "ramda": "0.27.1",
     "talisman": "1.1.4"
   },
+  "homepage": "https://github.com/Inist-CNRS/ezs/packages/teeft#readme",
+  "keywords": [
+    "extraction",
+    "ezs",
+    "nlp",
+    "stream",
+    "teeft",
+    "term"
+  ],
+  "license": "CECILL-2.1",
+  "main": "lib/index.js",
   "peerDependencies": {
-    "@ezs/core": "1.27.0"
+    "@ezs/core": "1.27.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "Inist-CNRS/ezs.git",
+  "scripts": {
+    "build": "babel src --out-dir lib",
+    "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-teeft.md --section=usage && cp ../../docs/plugin-teeft.md ./README.md",
+    "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
+    "prepublish": "npm run build",
+    "pretest": "npm run build",
+    "preversion": "npm run doc"
   }
 }

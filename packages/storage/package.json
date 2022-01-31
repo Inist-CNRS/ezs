@@ -1,23 +1,9 @@
 {
   "name": "@ezs/storage",
-  "version": "1.5.5",
   "description": "Storage statements for EZS",
-  "directories": {
-    "test": "test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Inist-CNRS/ezs.git"
-  },
-  "keywords": [
-    "ezs"
-  ],
+  "version": "1.5.5",
   "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Inist-CNRS/ezs/issues"
-  },
-  "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/storage#readme",
+  "bugs": "https://github.com/Inist-CNRS/ezs/issues",
   "dependencies": {
     "date-diff": "0.2.1",
     "lodash.get": "4.4.2",
@@ -28,19 +14,28 @@
     "node-object-hash": "2.3.10",
     "path-exists": "4.0.0"
   },
+  "directories": {
+    "test": "test"
+  },
+  "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/storage#readme",
+  "keywords": [
+    "ezs"
+  ],
+  "license": "MIT",
   "main": "./lib/index.js",
-  "scripts": {
-    "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-storage.md --section=usage  && cp ../../docs/plugin-storage.md ./README.md",
-    "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
-    "build": "babel --root-mode upward src --out-dir lib",
-    "prepublish": "npm run build",
-    "pretest": "npm run build",
-    "preversion": "npm run doc"
+  "peerDependencies": {
+    "@ezs/core": "1.27.2"
   },
   "publishConfig": {
     "access": "public"
   },
-  "peerDependencies": {
-    "@ezs/core": "1.27.0"
+  "repository": "Inist-CNRS/ezs.git",
+  "scripts": {
+    "build": "babel --root-mode upward src --out-dir lib",
+    "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-storage.md --section=usage  && cp ../../docs/plugin-storage.md ./README.md",
+    "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
+    "prepublish": "npm run build",
+    "pretest": "npm run build",
+    "preversion": "npm run doc"
   }
 }

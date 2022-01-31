@@ -1,45 +1,18 @@
 {
   "name": "@ezs/core",
-  "version": "1.27.2",
   "description": "A wrapper to build Stream transformers with functional style",
-  "directories": {
-    "test": "test"
-  },
-  "main": "./lib/index.js",
+  "version": "1.27.2",
+  "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
   "bin": {
     "ezs": "./bin/ezs"
   },
-  "scripts": {
-    "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-core.md --section=usage && cp ../../docs/plugin-core.md ./README.md",
-    "lint": "eslint --ext=.js ./test/*.js ./src/*.js ./src/statements/*.js",
-    "build": "babel --root-mode upward src --out-dir lib",
-    "prepublish": "npm run build",
-    "postversion": "git push && git push --tags",
-    "#pretest": "npm run build"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Inist-CNRS/ezs.git"
-  },
-  "keywords": [
-    "stream",
-    "transformer"
-  ],
-  "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Inist-CNRS/ezs/issues"
-  },
-  "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/core#readme",
+  "bugs": "https://github.com/Inist-CNRS/ezs/issues",
   "dependencies": {
     "app-module-path": "2.2.0",
     "autocast": "0.0.4",
     "concurrent-queue": "7.0.2",
     "connect": "3.7.0",
-    "debug": "4.3.2",
+    "debug": "4.3.3",
     "deep-object-diff": "1.1.0",
     "end-of-stream": "1.4.4",
     "filename-regex": "2.0.1",
@@ -61,8 +34,30 @@
     "validatorjs": "3.18.1",
     "yargs": "15.4.1"
   },
+  "directories": {
+    "test": "test"
+  },
   "engines": {
     "node": ">=10 <=16"
   },
-  "gitHead": "bc1be6636627b450c72d59ec404c43d87d7a42aa"
+  "gitHead": "bc1be6636627b450c72d59ec404c43d87d7a42aa",
+  "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/core#readme",
+  "keywords": [
+    "stream",
+    "transformer"
+  ],
+  "license": "MIT",
+  "main": "./lib/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "Inist-CNRS/ezs.git",
+  "scripts": {
+    "#pretest": "npm run build",
+    "build": "babel --root-mode upward src --out-dir lib",
+    "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-core.md --section=usage && cp ../../docs/plugin-core.md ./README.md",
+    "lint": "eslint --ext=.js ./test/*.js ./src/*.js ./src/statements/*.js",
+    "postversion": "git push && git push --tags",
+    "prepublish": "npm run build"
+  }
 }

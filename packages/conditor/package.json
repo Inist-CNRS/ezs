@@ -1,42 +1,15 @@
 {
   "name": "@ezs/conditor",
-  "version": "2.4.3",
   "description": "ezs statements for Conditor",
-  "publishConfig": {
-    "access": "public"
-  },
-  "main": "lib/index.js",
+  "version": "2.4.3",
+  "author": "François Parmentier <francois.parmentier@gmail.com>",
   "bin": {
     "affAlign": "./bin/affAlign.js",
     "compareRnsr": "./bin/compareRnsr.js",
     "findIdsInAddresses": "./bin/findIdsInAddresses.js",
     "prepareRnsrJson": "./bin/prepareRnsrJson.js"
   },
-  "scripts": {
-    "build": "babel src --out-dir lib",
-    "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-conditor.md --section=usage && cp ../../docs/plugin-conditor.md ./README.md",
-    "lint": "eslint --ext=.js ./test/*.js ./src/*.js ./bin/*.js",
-    "prepublish": "npm run build",
-    "pretest": "npm run build",
-    "preversion": "npm run doc"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Inist-CNRS/ezs.git"
-  },
-  "keywords": [
-    "conditor",
-    "affiliations",
-    "alignment",
-    "ezs",
-    "stream"
-  ],
-  "author": "François Parmentier <francois.parmentier@gmail.com>",
-  "license": "CECILL-2.1",
-  "bugs": {
-    "url": "https://github.com/Inist-CNRS/ezs/issues"
-  },
-  "homepage": "https://github.com/Inist-CNRS/ezs/packages/conditor#readme",
+  "bugs": "https://github.com/Inist-CNRS/ezs/issues",
   "dependencies": {
     "csv-string": "3.2.0",
     "dotenv": "8.2.0",
@@ -48,8 +21,30 @@
     "ramda": "0.27.1",
     "unidecode": "0.1.8"
   },
+  "gitHead": "bc1be6636627b450c72d59ec404c43d87d7a42aa",
+  "homepage": "https://github.com/Inist-CNRS/ezs/packages/conditor#readme",
+  "keywords": [
+    "affiliations",
+    "alignment",
+    "conditor",
+    "ezs",
+    "stream"
+  ],
+  "license": "CECILL-2.1",
+  "main": "lib/index.js",
   "peerDependencies": {
-    "@ezs/core": "1.27.0"
+    "@ezs/core": "1.27.2"
   },
-  "gitHead": "bc1be6636627b450c72d59ec404c43d87d7a42aa"
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "Inist-CNRS/ezs.git",
+  "scripts": {
+    "build": "babel src --out-dir lib",
+    "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-conditor.md --section=usage && cp ../../docs/plugin-conditor.md ./README.md",
+    "lint": "eslint --ext=.js ./test/*.js ./src/*.js ./bin/*.js",
+    "prepublish": "npm run build",
+    "pretest": "npm run build",
+    "preversion": "npm run doc"
+  }
 }
