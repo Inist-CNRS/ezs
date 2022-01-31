@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.27.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.27.1...@ezs/core@1.27.2) (2022-01-31)
+
+
+### Bug Fixes
+
+* 🐛 add warning for back pressure control ([beb67f8](https://github.com/Inist-CNRS/ezs/commit/beb67f837ac4589221d0a2bf4192f7e3ca9b25d3))
+
+
+
+
+
 ## [1.27.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.27.0...@ezs/core@1.27.1) (2022-01-27)
 
 **Note:** Version bump only for package @ezs/core

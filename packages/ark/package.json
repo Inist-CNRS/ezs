@@ -1,6 +1,6 @@
 {
   "name": "@ezs/ark",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "ARK dedicated statements for EZS",
   "directories": {
     "test": "test"

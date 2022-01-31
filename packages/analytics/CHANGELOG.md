@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.16](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.16.15...@ezs/analytics@1.16.16) (2022-01-31)
+
+
+### Bug Fixes
+
+* 🐛 add warning for back pressure control ([beb67f8](https://github.com/Inist-CNRS/ezs/commit/beb67f837ac4589221d0a2bf4192f7e3ca9b25d3))
+
+
+
+
+
 ## [1.16.15](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.16.14...@ezs/analytics@1.16.15) (2022-01-27)
 
 

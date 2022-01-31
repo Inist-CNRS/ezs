@@ -1,6 +1,6 @@
 {
   "name": "@ezs/analytics",
-  "version": "1.16.15",
+  "version": "1.16.16",
   "description": "Analytics statements for EZS",
   "directories": {
     "test": "test"
@@ -49,6 +49,6 @@
   },
   "gitHead": "bc1be6636627b450c72d59ec404c43d87d7a42aa",
   "devDependencies": {
-    "@ezs/core": "1.27.1"
+    "@ezs/core": "1.27.2"
   }
 }
