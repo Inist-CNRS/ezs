@@ -694,7 +694,7 @@ test('with a script that loses some items', (done) => {
         });
 });
 describe('with sub script and brute force write', () => {
-    const size = 50;
+    const size = 100;
     const input = [
         { a: 1, b: 'a' },
         { a: 2, b: 'b' },
