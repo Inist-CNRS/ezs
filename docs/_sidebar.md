@@ -25,6 +25,8 @@
   - [ark](plugin-ark.md)
   - [teeft](plugin-teeft.md)
   - [libpostal](plugin-libpostal.md)
+  - [spawn](plugin-spawn.md)
+  - [xslt](plugin-xslt.md)
 
 - Exemples
 

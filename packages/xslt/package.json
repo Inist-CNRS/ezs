@@ -1,0 +1,35 @@
+{
+  "name": "@ezs/xslt",
+  "description": "EZS Statements to use XSL Processor",
+  "version": "1.1.4",
+  "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
+  "bugs": "https://github.com/Inist-CNRS/ezs/issues",
+  "dependencies": { },
+  "devDependencies": {
+    "@ezs/core": "1.27.3"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/xslt#readme",
+  "keywords": [
+    "ezs"
+  ],
+  "license": "MIT",
+  "main": "./lib/index.js",
+  "peerDependencies": {
+    "@ezs/core": "1.27.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "Inist-CNRS/ezs.git",
+  "scripts": {
+    "build": "babel --root-mode upward src --out-dir lib",
+    "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-xslt.md --section=usage  && cp ../../docs/plugin-xslt.md ./README.md",
+    "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
+    "prepublish": "npm run build",
+    "pretest": "npm run build",
+    "preversion": "npm run doc"
+  }
+}
