@@ -52,16 +52,21 @@ import ezs from '@ezs/core':
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
 process.stdin
-  .pipe(ezs((input, output) => {
-    console.log(input.toString());
-    output.end();
+  .pipe(ezs((data, feed, ctx) => {
+        if (ctx.isLast()) {
+            return feed.close();
+        }
+        console.log(input.toString());
+        feed.end();
    }))
   ;
 ```
 
-> Si l'usage des **arrow functions** est possible, il n'est pas recommandé.
->
-> `@ezs` utilise le scope de chaque fonction pour proposer plusieurs _helpers_
-> qui permettent de traiter finement les différents moments d'une exécution au
-> fil de l'eau (premier appel, dernier appel, etc.). Voir le [fonctionnement
-> d’une instruction](coding-statement.md)
+Dans l'exemple ci-avant :
+
+  -  `data` contient une valeur en transit dans le pipeline. Cette valeur dépend de ce qui circule dans le flux de données (un buffer, un objet, une chaîne de caractère, un nombre, une date, etc.).
+  -  `feed` est un objet qui propose plusieurs _helpers_ pour contrôler le flux de données (envoyer au suivant, arrêter, gérer une erreur, brancher un sous pipeline)
+  - `ctx` est un *scope* qui propose plusieurs _helpers_ permettant d’identifier les différents moments d'une exécution au  fil de l'eau (premier appel, dernier appel, etc.).
+
+Pour aller plus loin, voir le [fonctionnement d’une instruction](coding-statement.md)
+

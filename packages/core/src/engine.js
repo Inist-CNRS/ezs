@@ -161,7 +161,7 @@ export default class Engine extends SafeTransform {
         const feed = new Feed(push, done, warn, wait);
         try {
             this.chunk = chunk;
-            return Promise.resolve(this.func.call(this.scope, chunk, feed, currentIndex)).catch((e) => {
+            return Promise.resolve(this.func.call(this.scope, chunk, feed, this.scope)).catch((e) => {
                 debug('ezs')(`Async error thrown at item #${currentIndex}, pipeline is broken`);
                 this.emit('error', createErrorWith(e, currentIndex, this.funcName, chunk));
                 done();
