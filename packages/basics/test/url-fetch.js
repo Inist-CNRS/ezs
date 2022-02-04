@@ -40,6 +40,9 @@ httpbin
     .post('/status/503')
     .reply(503);
 
+httpbin
+    .post('/status/404')
+    .reply(404);
 
 describe('URLFetch', () => {
     test('#1', (done) => {
@@ -179,6 +182,32 @@ describe('URLFetch', () => {
                 expect(output.length).toBe(3);
                 expect(output).toStrictEqual(input);
                 done();
+            });
+    });
+    test('#3ter', (done) => {
+        ezs.use(statements);
+        const input = [
+            { a: 'a' },
+            { a: 'b' },
+            { a: 'c' },
+        ];
+        const script = `
+            [URLFetch]
+            url = get('a').replace(/(.*)/, 'https://httpbin.org/status/404')
+            json = true
+
+            [exchange]
+            value = get('args')
+        `;
+        from(input)
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', (e) => {
+                expect(e.message).toMatch('Bad Request');
+                done();
+            })
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
             });
     });
     test('#4', (done) => {
