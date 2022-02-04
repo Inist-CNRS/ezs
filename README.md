@@ -21,6 +21,7 @@ Repository containing all @ezs packages (monorepo)
 - [@ezs/teeft](./packages/teeft#readme) [![npm version](https://img.shields.io/npm/v/@ezs/teeft)](https://npm.im/@ezs/teeft)
 - [@ezs/libpostal](./packages/libpostal#readme) [![npm version](https://img.shields.io/npm/v/@ezs/libpostal)](https://npm.im/@ezs/libpostal)
 - [@ezs/spawn](./packages/spawn#readme) [![npm version](https://img.shields.io/npm/v/@ezs/spawn)](https://npm.im/@ezs/spawn)
+- [@ezs/xslt](./packages/xslt#readme) [![npm version](https://img.shields.io/npm/v/@ezs/xslt)](https://npm.im/@ezs/spawn)
 
 ## History
 
