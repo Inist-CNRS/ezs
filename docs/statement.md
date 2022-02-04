@@ -48,15 +48,32 @@ separator = ,
 Il est possible de définir une fonction juste avant son usage.
 
 ```js
-function print(data, feed) {
+// avec une fonction classique
+function print1(data, feed) {
     if (this.isLast()) {
         return feed.send(data);
     }
-    const message = this.getParam('message', 'Print :');
+    const message = this.getParam('message', 'Print 1 :');
     console.log(message, data);
     return feed.send(data);
 }
+
+// avec une fonction fléchée
+const print2 = (data, feed, ctx) => {
+    if (ctx.isLast()) {
+        return feed.send(data);
+    }
+    const message = ctx.getParam('message', 'Print 1 :');
+    console.log(message, data);
+    return feed.send(data);
+};
+
 process.stdin
-    .pipe(ezs(print, { message: 'Le contenu est' }))
+    .pipe(ezs(print1, { message: 'Le contenu #1 est' }))
+    .pipe(ezs(print2, { message: 'Le contenu #2 est' }))
+    .on('error', (e) => {
+        // ezs ne casse pas le pipeline, si erreur il y a dans une instrucion ezs
+        // elle sera attrapée après le pipe de la dernière instruction
+    })
     .pipe(process.stdout);
 ```

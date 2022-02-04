@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import debug from 'debug';
 
 /**
