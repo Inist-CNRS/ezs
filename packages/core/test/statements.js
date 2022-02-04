@@ -830,6 +830,10 @@ describe('statements', () => {
             value = get('b').upperCase().prepend('<').append('>')
             path = d
             value = env('STATEMENTS_TEST_VAR')
+
+            [assign]
+            path = b
+            value = get('b').prepend().append()
             `;
             from([
                 { a: 1, b: 'a' },
