@@ -1,11 +1,11 @@
 {
   "name": "@ezs/xslt",
   "description": "EZS Statements to use XSL Processor",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
   "bugs": "https://github.com/Inist-CNRS/ezs/issues",
   "devDependencies": {
-    "@ezs/core": "1.27.3"
+    "@ezs/core": "1.27.4"
   },
   "directories": {
     "test": "test"
