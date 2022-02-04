@@ -36,6 +36,7 @@ export default function URLConnect(data, feed) {
             method: 'POST',
             body: this.input.pipe(ezs('dump')).pipe(ezs.toBuffer()),
             timeout,
+            headers,
             signal: controller.signal,
         })
             .then(({ body, status, statusText }) => {
@@ -52,6 +53,9 @@ export default function URLConnect(data, feed) {
                 controller.abort();
                 this.whenFinish = Promise.resolve(true);
                 if (!noerror) {
+                    debug('ezs')(
+                        `Break item #${this.getIndex()} [URLConnect] <${e}>`,
+                    );
                     feed.stop(e);
                 } else {
                     debug('ezs')(

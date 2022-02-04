@@ -264,4 +264,25 @@ describe('swing through file(s)', () => {
                 done();
             });
     });
+    it('with invalid statement ter', (done) => {
+        const commands = [
+            {
+            },
+        ];
+        from([
+            { a: 1, b: 9 },
+            { a: 2, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+        ])
+            .pipe(ezs('swing', {
+                commands,
+            }))
+            .pipe(ezs.catch())
+            .on('error', (error) => {
+                assert.ok(error instanceof Error);
+                done();
+            });
+    });
 });

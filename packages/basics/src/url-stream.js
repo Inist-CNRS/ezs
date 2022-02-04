@@ -80,9 +80,9 @@ export default async function URLStream(data, feed) {
     const noerror = Boolean(this.getParam('noerror', false));
     const timeout = Number(this.getParam('timeout')) || 1000;
     const headers = parseHeaders([]
-            .concat(this.getParam('header'))
-            .filter(Boolean)
-            .join('\n'));
+        .concat(this.getParam('header'))
+        .filter(Boolean)
+        .join('\n'));
     const cURL = new URL(url || data);
     const controller = new AbortController();
     if (url) {
@@ -90,11 +90,11 @@ export default async function URLStream(data, feed) {
     }
     try {
         const response = await fetch(cURL.href, {
-            headers,
             timeout,
+            headers,
             signal: controller.signal,
         });
-        if (response.status !== 200) {
+        if (!response.ok) {
             const msg = `Received status code ${response.status} (${response.statusText})`;
             throw new Error(msg);
         }
@@ -106,9 +106,10 @@ export default async function URLStream(data, feed) {
     } catch (e) {
         controller.abort();
         if (noerror) {
+            debug('ezs')(`Ignore item #${this.getIndex()} [URLStream] <${e}>`);
             return feed.send(data);
         }
-        debug('ezs')(`Ignore item #${this.getIndex()} [URLConnect] <${e}>`);
+        debug('ezs')(`Break item #${this.getIndex()} [URLStream] <${e}>`);
         return feed.send(e);
     }
 }

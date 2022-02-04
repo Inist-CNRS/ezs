@@ -54,6 +54,10 @@ export default async function URLFetch(data, feed) {
     }
     try {
         const response = await fetch(url, parameters);
+        if (!response.ok) {
+            const msg = `Received status code ${response.status} (${response.statusText})`;
+            throw new Error(msg);
+        }
         const func = json ? 'json' : 'text';
         const value = await response[func]();
         if (target && typeof target === 'string' && typeof data === 'object') {
@@ -65,9 +69,10 @@ export default async function URLFetch(data, feed) {
     } catch (e) {
         controller.abort();
         if (noerror) {
+            debug('ezs')(`Ignore item #${this.getIndex()} [URLFetch] <${e}>`);
             return feed.send(data);
         }
-        debug('ezs')(`Ignore item #${this.getIndex()} [URLConnect] <${e}>`);
+        debug('ezs')(`Break item #${this.getIndex()} [URLFetch] <${e}>`);
         return feed.send(e);
     }
 }
