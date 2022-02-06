@@ -23,7 +23,7 @@ import TXTZip from './txt-zip';
 import ZIPExtract from './zip-extract';
 import INIString from './ini-string';
 
-export default {
+const funcs = {
     BUFObject,
     OBJCount,
     OBJNamespaces,
@@ -55,3 +55,7 @@ export default {
     split: TXTParse.TXTParse,
     segmenter: TXTParse.TXTParse,
 };
+
+export default funcs;
+
+module.exports = funcs;

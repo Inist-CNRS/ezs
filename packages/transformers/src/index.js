@@ -64,7 +64,7 @@ import $URLENCODE from './dollar-urlencode';
 import $MAPPING from './dollar-mapping';
 import $VALUE from './dollar-value';
 
-export default {
+const funcs = {
     $ARRAY,
     $BOOLEAN,
     $CAPITALIZE,
@@ -97,6 +97,10 @@ export default {
     $MAPPING,
     $TRUNCATE_WORDS,
 };
+
+export default funcs;
+
+module.exports = funcs;
 
 export const transformers = {
     COLUMN,

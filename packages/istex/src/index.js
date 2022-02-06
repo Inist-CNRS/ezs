@@ -11,10 +11,10 @@ import ISTEXUniq from './uniq';
 import ISTEXScroll from './scroll';
 import ISTEXUnzip from './unzip';
 import ISTEXFacet from './facet';
-import ISTEXExchange from './istex-exchange'
-import ISTEXToKbart from './istex-toKbart'
+import ISTEXExchange from './istex-exchange';
+import ISTEXToKbart from './istex-toKbart';
 
-export default {
+const funcs = {
     ISTEX,
     ISTEXResult,
     ISTEXFetch,
@@ -31,3 +31,7 @@ export default {
     ISTEXExchange,
     ISTEXToKbart
 };
+
+export default funcs;
+
+module.exports = funcs;

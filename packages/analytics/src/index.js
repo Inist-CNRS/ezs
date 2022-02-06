@@ -36,7 +36,7 @@ import bufferize from './bufferize';
 import buffers from './buffers';
 import upload from './upload';
 
-export default {
+const funcs = {
     count,
     distinct,
     graph,
@@ -75,3 +75,7 @@ export default {
     buffers,
     upload,
 };
+
+export default funcs;
+
+module.exports = funcs;

@@ -21,21 +21,23 @@ npm install @ezs/analytics
 Chaque paquet @ezs propose des instructions qui peuvent être associées pour
 transformer des données au fil de l'eau.
 
-Voici un simple programme NodeJS qui compte le nombre de lignes d’un fichier
-texte :
+Voici un simple programme NodeJS qui retourne les 2 premières lignes d’un fichier texte :
 
 ```js
-import ezs from '@ezs/core':
-import basics from '@ezs/basics':
+import ezs from '@ezs/core';
+import ezsBasics from '@ezs/basics';
+import ezsAnalytics from '@ezs/analytics';
 
-ezs.use(basics);
+ezs.use(ezsAnalytics);                 // register all statements from one package
 
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
 process.stdin
-  .pipe(ezs('TXTParse'))
-  .pipe(ezs('OBJCount'))
+  .pipe(ezs(ezsBasics.TXTParse))        // use only one statement from 
+  .pipe(ezs('slice', { size: 2 }))      // from ezsAnalytics package
+  .pipe(ezs('dump'))                    // from core package
   .pipe(process.stdout);
+
 ```
 
 ## Exécuter une instruction locale
@@ -49,7 +51,6 @@ Le programme suivant affiche chaque `chunk` dans la console.
 ```js
 import ezs from '@ezs/core':
 
-process.stdin.resume();
 process.stdin.setEncoding('utf8');
 process.stdin
   .pipe(ezs((data, feed, ctx) => {
@@ -58,8 +59,8 @@ process.stdin
         }
         console.log(input.toString());
         feed.end();
-   }))
-  ;
+   }));
+process.stdin.resume();
 ```
 
 Dans l'exemple ci-avant :

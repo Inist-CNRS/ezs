@@ -1,5 +1,9 @@
 import exec from './exec';
 
-export default {
+const funcs = {
     exec,
 };
+
+export default funcs;
+
+module.exports = funcs;
