@@ -33,4 +33,23 @@ describe('load named function', () => {
         }
     });
 
+    it('invalid statement #1', (done) => {
+        try {
+            ezs.use({ fake: false });
+        } catch(error) {
+            assert.ok(error instanceof Error);
+            done();
+        }
+    });
+
+    it('invalid statement #2', (done) => {
+        try {
+            ezs.use('fake');
+        } catch(error) {
+            assert.ok(error instanceof Error);
+            done();
+        }
+    });
+
+
 });
