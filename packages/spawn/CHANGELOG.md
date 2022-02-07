@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/spawn@1.1.5...@ezs/spawn@1.2.0) (2022-02-07)
+
+
+### Features
+
+* 🎸 module.exports for all packages ([086a289](https://github.com/Inist-CNRS/ezs/commit/086a289ccbaa5c72ee7bc6652ab3c6c6b5578138))
+
+
+
+
+
 ## [1.1.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/spawn@1.1.4...@ezs/spawn@1.1.5) (2022-02-04)
 
 **Note:** Version bump only for package @ezs/spawn

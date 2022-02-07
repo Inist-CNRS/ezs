@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/xslt@1.2.1...@ezs/xslt@1.3.0) (2022-02-07)
+
+
+### Features
+
+* 🎸 module.exports for all packages ([086a289](https://github.com/Inist-CNRS/ezs/commit/086a289ccbaa5c72ee7bc6652ab3c6c6b5578138))
+
+
+
+
+
 ## [1.2.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/xslt@1.2.0...@ezs/xslt@1.2.1) (2022-02-04)
 
 **Note:** Version bump only for package @ezs/xslt

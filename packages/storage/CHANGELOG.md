@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@1.5.6...@ezs/storage@1.6.0) (2022-02-07)
+
+
+### Features
+
+* 🎸 module.exports for all packages ([086a289](https://github.com/Inist-CNRS/ezs/commit/086a289ccbaa5c72ee7bc6652ab3c6c6b5578138))
+
+
+
+
+
 ## [1.5.6](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@1.5.5...@ezs/storage@1.5.6) (2022-01-31)
 
 **Note:** Version bump only for package @ezs/storage
