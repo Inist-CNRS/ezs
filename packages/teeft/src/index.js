@@ -13,7 +13,7 @@ import TeeftSumUpFrequencies from './sum-up-frequencies';
 import TeeftTokenize from './tokenize';
 import TeeftToLowerCase from './to-lower-case';
 
-export default {
+const funcs = {
     TeeftExtractTerms,
     TeeftFilterMonoFreq,
     TeeftFilterMultiSpec,
@@ -29,3 +29,7 @@ export default {
     TeeftTokenize,
     TeeftToLowerCase,
 };
+
+export default funcs;
+
+module.exports = funcs;

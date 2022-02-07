@@ -31,7 +31,7 @@ import buildContext from './buildContext';
 import aggregateQuery from './aggregateQuery';
 import LodexJoinQuery from './joinQuery';
 
-export default {
+const funcs = {
     flattenPatch,
     objects2columns,
     convertJsonLdToNQuads,
@@ -80,3 +80,7 @@ export default {
     LodexInjectCountFrom: injectCountFrom.injectCountFrom,
     LodexAggregateQuery: aggregateQuery.aggregateQuery,
 };
+
+export default funcs;
+
+module.exports = funcs;

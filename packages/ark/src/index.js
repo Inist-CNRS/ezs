@@ -1,5 +1,9 @@
 import generateARK from './generateARK';
 
-export default {
+const funcs = {
     generateARK,
 };
+
+export default funcs;
+
+module.exports = funcs;

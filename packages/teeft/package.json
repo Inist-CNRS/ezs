@@ -23,7 +23,7 @@
   "license": "CECILL-2.1",
   "main": "lib/index.js",
   "peerDependencies": {
-    "@ezs/core": "1.27.2"
+    "@ezs/core": "*"
   },
   "publishConfig": {
     "access": "public"

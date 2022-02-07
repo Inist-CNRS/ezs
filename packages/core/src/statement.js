@@ -4,10 +4,6 @@ import transit from './statements/transit';
 
 const pluginsList = {};
 
-function all() {
-    return Object.keys(pluginsList);
-}
-
 function load(ezs, name) {
     const before1 = Object.keys(pluginsList);
     const fileName = useFile(ezs, name);
@@ -91,7 +87,6 @@ function exists(ezs, pluginName) {
 export default {
     get,
     set,
-    all,
     load,
     exists,
 };

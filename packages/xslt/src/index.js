@@ -1,7 +1,11 @@
 import xslt from './xslt';
 import fop from './fop';
 
-export default {
+const funcs = {
     xslt,
     fop,
 };
+
+export default funcs;
+
+module.exports = funcs;

@@ -3,8 +3,12 @@ import SPARQLQuery from './query';
 import SPARQLToDistinct from './toDistinct';
 
 
-export default {
+const funcs = {
     SPARQLDecodeQuery,
     SPARQLQuery,
     SPARQLToDistinct,
 };
+
+export default funcs;
+
+module.exports = funcs;

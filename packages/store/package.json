@@ -27,7 +27,7 @@
   "license": "MIT",
   "main": "./lib/store.js",
   "peerDependencies": {
-    "@ezs/core": "1.27.2"
+    "@ezs/core": "*"
   },
   "publishConfig": {
     "access": "public"
