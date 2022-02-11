@@ -52,6 +52,7 @@
     "access": "public"
   },
   "repository": "Inist-CNRS/ezs.git",
+  "runkitExampleFilename": "./examples/runkit-example.js",
   "scripts": {
     "#pretest": "npm run build",
     "build": "babel --root-mode upward src --out-dir lib",
