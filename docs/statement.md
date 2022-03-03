@@ -18,8 +18,8 @@ elles sont directement utilisables une fois le plugin installé et déclaré.
 ### dans un programme nodejs
 
 ```js
-import ezs from '@ezs/core':
-import basics from '@ezs/basics':
+import ezs from '@ezs/core';
+import basics from '@ezs/basics';
 
 ezs.use(basics);
 
