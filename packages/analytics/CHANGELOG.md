@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.18.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.17.0...@ezs/analytics@1.18.0) (2022-03-20)
+
+
+### Features
+
+* 🎸 add [throttle] ([29a4040](https://github.com/Inist-CNRS/ezs/commit/29a404042c7db01cdc68a99b0cfb820d055f7814))
+
+
+
+
+
 # [1.17.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.16.18...@ezs/analytics@1.17.0) (2022-02-07)
 
 
