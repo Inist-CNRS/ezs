@@ -114,7 +114,7 @@ describe('combine', () => {
         `;
 
         from(input)
-                .pipe(ezs('combine', { path: 'b', script, default: 'n/a' }))
+            .pipe(ezs('combine', { path: 'b', script, default: 'n/a' }))
             .pipe(ezs.catch())
             .on('error', done)
             .on('data', (chunk) => {
@@ -243,6 +243,23 @@ describe('combine', () => {
                 assert.equal(output[4].b.value, 'ee');
                 assert.equal(output[5].b.value, 'ff');
                 done();
+            });
+    });
+    test('with 2 files with the same name', (done) => {
+        ezs.use(statements);
+        const input = [{ a: 1 }];
+        const output = [];
+
+        from(input)
+            .pipe(ezs('delegate', { file: './a/combine.ini' }))
+            .pipe(ezs('delegate', { file: './b/combine.ini' }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                expect(output).toBe([{ a: 'b' }]);
             });
     });
 });
