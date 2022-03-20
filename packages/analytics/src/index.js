@@ -35,6 +35,7 @@ import files from './files';
 import bufferize from './bufferize';
 import buffers from './buffers';
 import upload from './upload';
+import throttle from './throttle';
 
 const funcs = {
     count,
@@ -74,6 +75,7 @@ const funcs = {
     bufferize,
     buffers,
     upload,
+    throttle,
 };
 
 export default funcs;

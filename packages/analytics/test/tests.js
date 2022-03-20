@@ -1282,4 +1282,81 @@ describe('test', () => {
                 done();
             });
     });
+
+    it('throttle #1', (done) => {
+        ezs.use(statements);
+        const res = [];
+        from([
+            { a: 'x', b: 3 },
+            { a: 't', b: 2 },
+        ])
+            .pipe(ezs('throttle'))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.length, 2);
+                assert.equal(res[0].b, 3);
+                assert.equal(res[1].b, 2);
+                done();
+            });
+    });
+    it('throttle #2', (done) => {
+        ezs.use(statements);
+        const res = [];
+        from([
+            { a: 'x', b: 3 },
+            { a: 't', b: 2 },
+        ])
+            .pipe(ezs('throttle', { bySecond: 0 }))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.length, 2);
+                assert.equal(res[0].b, 3);
+                assert.equal(res[1].b, 2);
+                done();
+            });
+    });
+    it('throttle #3', (done) => {
+        ezs.use(statements);
+        const res = [];
+        from([
+            { a: 'x', b: 3 },
+            { a: 't', b: 2 },
+        ])
+            .pipe(ezs('throttle', { bySecond: 2 }))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.length, 2);
+                assert.equal(res[0].b, 3);
+                assert.equal(res[1].b, 2);
+                done();
+            });
+    });
+    it('throttle #4', (done) => {
+        ezs.use(statements);
+        const res = [];
+        from([
+            { a: 'x', b: 3 },
+            { a: 't', b: 2 },
+        ])
+            .pipe(ezs('throttle', { bySecond: 3 }))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.length, 2);
+                assert.equal(res[0].b, 3);
+                assert.equal(res[1].b, 2);
+                done();
+            });
+    });
 });
