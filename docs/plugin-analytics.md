@@ -50,6 +50,7 @@ npm install @ezs/analytics
 -   [sort](#sort)
 -   [statistics](#statistics)
 -   [summing](#summing)
+-   [throttle](#throttle)
 -   [tune](#tune)
 -   [upload](#upload)
 -   [value](#value)
@@ -1708,6 +1709,42 @@ Output:
 
 -   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### throttle
+
+Take `Object` and return the same object
+
+```json
+[{
+         { id: 'x', value: 2 },
+         { id: 't', value: 2 },
+}]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[throttle]
+bySecond = 2
+```
+
+Output:
+
+```json
+[
+         { id: 'x', value: 2 },
+         { id: 't', value: 2 },
+]
+```
+
+#### Parameters
+
+-   `bySecond` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Number of object by second (optional, default `1`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
