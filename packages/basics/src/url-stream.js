@@ -2,8 +2,10 @@ import debug from 'debug';
 import { URL, URLSearchParams } from 'url';
 import AbortController from 'node-abort-controller';
 import JSONStream from 'JSONStream';
-import fetch from 'fetch-with-proxy';
 import parseHeaders from 'parse-headers';
+import retry from 'async-retry';
+import request from './request';
+
 
 
 /**
@@ -69,6 +71,7 @@ import parseHeaders from 'parse-headers';
  * @param {String} [path="*"] choose the path to split JSON result
  * @param {Number} [timeout=1000] Timeout in milliseconds
  * @param {Boolean} [noerror=false] Ignore all errors, the target field will remain undefined
+ * @param {Number} [retries=5] The maximum amount of times to retry the connection
  * @returns {Object}
  */
 export default async function URLStream(data, feed) {
@@ -77,6 +80,7 @@ export default async function URLStream(data, feed) {
     }
     const url = this.getParam('url');
     const path = this.getParam('path', '*');
+    const retries = Number(this.getParam('retries', 5));
     const noerror = Boolean(this.getParam('noerror', false));
     const timeout = Number(this.getParam('timeout')) || 1000;
     const headers = parseHeaders([]
@@ -85,25 +89,18 @@ export default async function URLStream(data, feed) {
         .join('\n'));
     const cURL = new URL(url || data);
     const controller = new AbortController();
+    const parameters = {
+        timeout,
+        headers,
+        signal: controller.signal,
+    };
+    const options = {
+        retries,
+    };
     if (url) {
         cURL.search = new URLSearchParams(data);
     }
-    try {
-        const response = await fetch(cURL.href, {
-            timeout,
-            headers,
-            signal: controller.signal,
-        });
-        if (!response.ok) {
-            const msg = `Received status code ${response.status} (${response.statusText})`;
-            throw new Error(msg);
-        }
-        const output = path
-            ? response.body.pipe(JSONStream.parse(path))
-            : response.body;
-        output.once('error', () => controller.abort());
-        await feed.flow(output);
-    } catch (e) {
+    const onError = (e) => {
         controller.abort();
         if (noerror) {
             debug('ezs')(`Ignore item #${this.getIndex()} [URLStream] <${e}>`);
@@ -111,5 +108,15 @@ export default async function URLStream(data, feed) {
         }
         debug('ezs')(`Break item #${this.getIndex()} [URLStream] <${e}>`);
         return feed.send(e);
+    };
+    try {
+        const response = await retry(request(cURL.href, parameters), options);
+        const output = path
+            ? response.body.pipe(JSONStream.parse(path))
+            : response.body;
+        output.once('error', onError);
+        await feed.flow(output);
+    } catch (e) {
+        onError(e);
     }
 }

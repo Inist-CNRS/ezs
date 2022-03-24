@@ -135,6 +135,7 @@ describe('URLStream', () => {
         from(input)
             .pipe(ezs('URLStream', {
                 url: 'https://httpbin.org/status/400',
+                retries: 1
             }))
             .pipe(ezs.catch())
             .on('error', (e) => {
@@ -162,6 +163,7 @@ describe('URLStream', () => {
             .pipe(ezs('URLStream', {
                 url: 'https://httpbin.org/status/400',
                 noerror: true,
+                retries: 1
             }))
             .pipe(ezs.catch())
             .on('error', () => {
@@ -184,7 +186,10 @@ describe('URLStream', () => {
             { a: 'c' },
         ];
         from(input)
-            .pipe(ezs('URLStream', { url: 'http://unknow' }))
+            .pipe(ezs('URLStream', { 
+                url: 'http://unknow',
+                retries: 1,
+            }))
             .pipe(ezs.catch())
             .on('error', (e) => {
                 expect(() => {

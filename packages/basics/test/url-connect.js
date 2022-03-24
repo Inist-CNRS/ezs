@@ -34,6 +34,27 @@ describe('URLConnect', () => {
                 done();
             });
     });
+    test('#1bis', (done) => {
+        ezs.use(statements);
+        const size = 100;
+        const input = Array(size).fill(true);
+        const output = [];
+        from(input)
+            .pipe(ezs('URLConnect', {
+                url: 'http://127.0.0.1:33331/transit.ini',
+                timeout: 5000,
+            }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                expect(output.length).toBe(size);
+                done();
+            });
+    }, 10000);
+
     test('#2', (done) => {
         ezs.use(statements);
         const input = [1, 2, 3, 4, 5];
@@ -62,6 +83,7 @@ describe('URLConnect', () => {
         from(input)
             .pipe(ezs('URLConnect', {
                 url: 'http://127.0.0.1:33331/nofound.ini',
+                retries: 1,
             }))
             .pipe(ezs.catch())
             .on('error', (e) => {
@@ -81,6 +103,7 @@ describe('URLConnect', () => {
         from(input)
             .pipe(ezs('URLConnect', {
                 url: 'http://127.0.0.1:33331/nofound.ini',
+                retries: 1,
                 noerror: true,
             }))
             .pipe(ezs.catch())
@@ -101,6 +124,7 @@ describe('URLConnect', () => {
         from(input)
             .pipe(ezs('URLConnect', {
                 url: 'http://127.0.0.1:33331/tocsv.ini',
+                retries: 1,
                 json: true,
             }))
             .pipe(ezs.catch())
@@ -124,6 +148,7 @@ describe('URLConnect', () => {
             .pipe(ezs('URLConnect', {
                 url: 'http://127.0.0.1:11111/',
                 json: true,
+                retries: 2,
             }))
             .pipe(ezs.catch())
             .on('error', (e) => {
@@ -135,5 +160,5 @@ describe('URLConnect', () => {
             .on('end', () => {
                 done(new Error('Error is the right behavior'));
             });
-    });
+    }, 10000);
 });
