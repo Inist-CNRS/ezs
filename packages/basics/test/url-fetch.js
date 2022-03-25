@@ -193,7 +193,7 @@ describe('URLFetch', () => {
                 expect(output).toStrictEqual(input);
                 done();
             });
-    });
+    }, 10000);
     test('#3ter', (done) => {
         ezs.use(statements);
         const input = [
