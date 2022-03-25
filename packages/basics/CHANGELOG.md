@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.17.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.16.0...@ezs/basics@1.17.0) (2022-03-25)
+
+
+### Features
+
+* 🎸 add retry feature ([166c913](https://github.com/Inist-CNRS/ezs/commit/166c913302b4d305ea34d3b84f9b8be6b5188cbb))
+
+
+
+
+
 # [1.16.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.15.5...@ezs/basics@1.16.0) (2022-02-07)
 
 
