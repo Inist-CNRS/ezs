@@ -1,4 +1,5 @@
 import from from 'from';
+import semver from 'semver';
 import ezs from '../../core/src';
 import statements from '../src';
 
@@ -118,29 +119,31 @@ describe('URLConnect', () => {
                 done();
             });
     });
-    test('#4', (done) => {
-        ezs.use(statements);
-        const input = ['1a', '2a', '3a', '4a', '5a'];
-        from(input)
-            .pipe(ezs('URLConnect', {
-                url: 'http://127.0.0.1:33331/tocsv.ini',
-                retries: 1,
-                json: true,
-            }))
-            .pipe(ezs.catch())
-            .on('error', (e) => {
-                expect(() => {
-                    throw e.sourceError;
-                }).toThrow("Invalid JSON (Unexpected \"\\r\" at position 3 in state STOP)");
-                done();
-            })
-            .on('data', () => {
-                done(new Error('Error is the right behavior'));
-            })
-            .on('end', () => {
-                done(new Error('Error is the right behavior'));
-            });
-    });
+    if (semver.gte(process.version, '14.0.0')) {
+        test('#4', (done) => {
+            ezs.use(statements);
+            const input = ['1a', '2a', '3a', '4a', '5a'];
+            from(input)
+                .pipe(ezs('URLConnect', {
+                    url: 'http://127.0.0.1:33331/tocsv.ini',
+                    retries: 1,
+                    json: true,
+                }))
+                .pipe(ezs.catch())
+                .on('error', (e) => {
+                    expect(() => {
+                        throw e.sourceError;
+                    }).toThrow("Invalid JSON (Unexpected \"\\r\" at position 3 in state STOP)");
+                    done();
+                })
+                .on('data', () => {
+                    done(new Error('Error is the right behavior'));
+                })
+                .on('end', () => {
+                    done(new Error('Error is the right behavior'));
+                });
+        });
+    }
     test('#5', (done) => {
         ezs.use(statements);
         const input = ['1a', '2a', '3a', '4a', '5a'];
