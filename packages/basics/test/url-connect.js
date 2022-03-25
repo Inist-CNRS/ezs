@@ -1,4 +1,5 @@
 import from from 'from';
+import semver from 'semver';
 import ezs from '../../core/src';
 import statements from '../src';
 
@@ -34,6 +35,27 @@ describe('URLConnect', () => {
                 done();
             });
     });
+    test('#1bis', (done) => {
+        ezs.use(statements);
+        const size = 100;
+        const input = Array(size).fill(true);
+        const output = [];
+        from(input)
+            .pipe(ezs('URLConnect', {
+                url: 'http://127.0.0.1:33331/transit.ini',
+                timeout: 5000,
+            }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                expect(output.length).toBe(size);
+                done();
+            });
+    }, 10000);
+
     test('#2', (done) => {
         ezs.use(statements);
         const input = [1, 2, 3, 4, 5];
@@ -62,6 +84,7 @@ describe('URLConnect', () => {
         from(input)
             .pipe(ezs('URLConnect', {
                 url: 'http://127.0.0.1:33331/nofound.ini',
+                retries: 1,
             }))
             .pipe(ezs.catch())
             .on('error', (e) => {
@@ -81,6 +104,7 @@ describe('URLConnect', () => {
         from(input)
             .pipe(ezs('URLConnect', {
                 url: 'http://127.0.0.1:33331/nofound.ini',
+                retries: 1,
                 noerror: true,
             }))
             .pipe(ezs.catch())
@@ -95,28 +119,31 @@ describe('URLConnect', () => {
                 done();
             });
     });
-    test('#4', (done) => {
-        ezs.use(statements);
-        const input = ['1a', '2a', '3a', '4a', '5a'];
-        from(input)
-            .pipe(ezs('URLConnect', {
-                url: 'http://127.0.0.1:33331/tocsv.ini',
-                json: true,
-            }))
-            .pipe(ezs.catch())
-            .on('error', (e) => {
-                expect(() => {
-                    throw e.sourceError;
-                }).toThrow("Invalid JSON (Unexpected \"\\r\" at position 3 in state STOP)");
-                done();
-            })
-            .on('data', () => {
-                done(new Error('Error is the right behavior'));
-            })
-            .on('end', () => {
-                done(new Error('Error is the right behavior'));
-            });
-    });
+    if (semver.gte(process.version, '14.0.0')) {
+        test('#4', (done) => {
+            ezs.use(statements);
+            const input = ['1a', '2a', '3a', '4a', '5a'];
+            from(input)
+                .pipe(ezs('URLConnect', {
+                    url: 'http://127.0.0.1:33331/tocsv.ini',
+                    retries: 1,
+                    json: true,
+                }))
+                .pipe(ezs.catch())
+                .on('error', (e) => {
+                    expect(() => {
+                        throw e.sourceError;
+                    }).toThrow("Invalid JSON (Unexpected \"\\r\" at position 3 in state STOP)");
+                    done();
+                })
+                .on('data', () => {
+                    done(new Error('Error is the right behavior'));
+                })
+                .on('end', () => {
+                    done(new Error('Error is the right behavior'));
+                });
+        });
+    }
     test('#5', (done) => {
         ezs.use(statements);
         const input = ['1a', '2a', '3a', '4a', '5a'];
@@ -124,6 +151,7 @@ describe('URLConnect', () => {
             .pipe(ezs('URLConnect', {
                 url: 'http://127.0.0.1:11111/',
                 json: true,
+                retries: 2,
             }))
             .pipe(ezs.catch())
             .on('error', (e) => {
@@ -135,5 +163,5 @@ describe('URLConnect', () => {
             .on('end', () => {
                 done(new Error('Error is the right behavior'));
             });
-    });
+    }, 10000);
 });

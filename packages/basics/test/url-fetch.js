@@ -44,6 +44,11 @@ httpbin
     .post('/status/404')
     .reply(404);
 
+httpbin
+    .get('/status/404')
+    .reply(404);
+
+
 describe('URLFetch', () => {
     test('#1', (done) => {
         ezs.use(statements);
@@ -57,6 +62,7 @@ describe('URLFetch', () => {
             [URLFetch]
             url = get('a').replace(/(.*)/, 'https://httpbin.org/get?a=$1')
             json = true
+            retries = 1
             target = x
 
             [exchange]
@@ -87,6 +93,7 @@ describe('URLFetch', () => {
             [URLFetch]
             url = get('a').replace(/(.*)/, 'https://httpbin.org/get?a=$1')
             json = true
+            retries = 1
 
             [exchange]
             value = get('args')
@@ -116,6 +123,7 @@ describe('URLFetch', () => {
             [URLFetch]
             url = get('a').replace(/(.*)/, 'https://httpbin.org/get?a=$1')
             json = false
+            retries = 1
             target = r
         `;
         from(input)
@@ -143,6 +151,7 @@ describe('URLFetch', () => {
             [URLFetch]
             url = get('a').replace(/(.*)/, 'https://httpbin.org/status/400')
             json = true
+            retries = 1
 
             [exchange]
             value = get('args')
@@ -170,6 +179,7 @@ describe('URLFetch', () => {
             [URLFetch]
             url = get('a').replace(/(.*)/, 'https://httpbin.org/status/503')
             noerror = true
+            retries = 1
         `;
         from(input)
             .pipe(ezs('delegate', { script }))
@@ -183,7 +193,7 @@ describe('URLFetch', () => {
                 expect(output).toStrictEqual(input);
                 done();
             });
-    });
+    }, 10000);
     test('#3ter', (done) => {
         ezs.use(statements);
         const input = [
@@ -191,23 +201,25 @@ describe('URLFetch', () => {
             { a: 'b' },
             { a: 'c' },
         ];
+        const output = [];
         const script = `
             [URLFetch]
             url = get('a').replace(/(.*)/, 'https://httpbin.org/status/404')
             json = true
+            retries = 1
 
             [exchange]
             value = get('args')
         `;
         from(input)
             .pipe(ezs('delegate', { script }))
-            .pipe(ezs.catch())
-            .on('error', (e) => {
-                expect(e.message).toMatch('Bad Request');
-                done();
+            .on('data', (e) => {
+                output.push(e);
             })
             .on('end', () => {
-                done(new Error('Error is the right behavior'));
+                expect(output.length).toBe(3);
+                expect(output[1].message).toEqual(expect.stringContaining('Not Found'));
+                done();
             });
     });
     test('#4', (done) => {
@@ -217,14 +229,15 @@ describe('URLFetch', () => {
             { a: 'b' },
             { a: 'c' },
         ];
+        const output = [];
         from(input)
-            .pipe(ezs('URLFetch', { url: 'http://unknow' }))
+            .pipe(ezs('URLFetch', { url: 'http://127.0.0.1:11111/', retries: 1, timeout: 2000 }))
             .on('data', (e) => {
-                expect(() => {
-                    throw e.sourceError;
-                }).toThrow('http://unknow/');
+                output.push(e);
             })
             .on('end', () => {
+                expect(output.length).toBe(3);
+                expect(output[0].message).toEqual(expect.stringContaining('ECONNREFUSED'));
                 done();
             });
     }, 6000);

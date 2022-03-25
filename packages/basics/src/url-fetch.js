@@ -2,8 +2,10 @@ import debug from 'debug';
 import get from 'lodash.get';
 import set from 'lodash.set';
 import AbortController from 'node-abort-controller';
-import fetch from 'fetch-with-proxy';
 import parseHeaders from 'parse-headers';
+import retry from 'async-retry';
+import request from './request';
+
 
 /**
  * Add a new field to an `Object`, with the returned content of URL.
@@ -18,6 +20,7 @@ import parseHeaders from 'parse-headers';
  * @param {Number} [timeout=1000] timeout in milliseconds
  * @param {String} [mimetype="application/json"] mimetype for value of path  (if presents)
  * @param {Boolean} [noerror=false] ignore all errors, the target field will remain undefined
+ * @param {Number} [retries=5] The maximum amount of times to retry the connection
  * @returns {Object}
  */
 export default async function URLFetch(data, feed) {
@@ -28,6 +31,7 @@ export default async function URLFetch(data, feed) {
     const path = this.getParam('path');
     const target = this.getParam('target');
     const json = Boolean(this.getParam('json', false));
+    const retries = Number(this.getParam('retries', 5));
     const noerror = Boolean(this.getParam('noerror', false));
     const timeout = Number(this.getParam('timeout')) || 1000;
     const headers = parseHeaders([]
@@ -43,6 +47,9 @@ export default async function URLFetch(data, feed) {
         headers,
         signal: controller.signal,
     };
+    const options = {
+        retries,
+    };
     if (body) {
         set(parameters, 'method', 'POST');
         set(
@@ -53,11 +60,7 @@ export default async function URLFetch(data, feed) {
         set(parameters, 'headers.content-type', mimetype);
     }
     try {
-        const response = await fetch(url, parameters);
-        if (!response.ok) {
-            const msg = `Received status code ${response.status} (${response.statusText})`;
-            throw new Error(msg);
-        }
+        const response = await retry(request(url, parameters), options);
         const func = json ? 'json' : 'text';
         const value = await response[func]();
         if (target && typeof target === 'string' && typeof data === 'object') {
