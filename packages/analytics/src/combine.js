@@ -64,13 +64,13 @@ function sha1(input, salt) {
  * @param {String} [script] the external pipeline is described in a string of characters
  * @param {String} [commands] the external pipeline is described in a object
  * @param {String} [command] the external pipeline is described in a URL-like command
- * @param {String} [persistent=false] The internal database will be reused until it is deleted
- * @param {String} [cache] Use a specific ezs statement to run commands (advanced)
+ * @param {String} [cacheName] Enable cache, with dedicated name
  * @returns {Object}
  */
 export default function combine(data, feed) {
     const { ezs } = this;
-    const persistent = Boolean(this.getParam('persistent', false));
+    const cacheName = this.getParam('cacheName');
+    const persistent = Boolean(cacheName);
     let whenReady = Promise.resolve(true);
     if (this.isFirst()) {
         debug('ezs')('[combine] with sub pipeline.');
@@ -86,20 +86,14 @@ export default function combine(data, feed) {
             append: this.getParam('append'),
         });
         if (persistent) {
-            this.store = createPersistentStore(ezs, sha1(commands, primer), location);
+            this.store = createPersistentStore(ezs, `combine${cacheName}`, location);
         } else {
             this.store = createStore(ezs, 'combine', location);
         }
         if (persistent && !this.store.isCreated()) {
             whenReady = Promise.resolve(true);
         } else {
-            const cache = this.getParam('cache');
-            let statements;
-            if (cache) {
-                statements = [ezs(cache, { commands }, this.getEnv())];
-            } else {
-                statements = ezs.compileCommands(commands, this.getEnv());
-            }
+            const statements = ezs.compileCommands(commands, this.getEnv());
             const output = ezs.createPipeline(input, statements)
                 .pipe(ezs(saveIn, null, this.store))
                 .pipe(ezs.catch())
