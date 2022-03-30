@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.18.1...@ezs/analytics@1.18.2) (2022-03-30)
+
+
+### Bug Fixes
+
+* 🐛 [combine] cache works like [expand] ([bb5db12](https://github.com/Inist-CNRS/ezs/commit/bb5db12bfd35612f7a4beb2b2206e8a87d77b62e))
+
+
+
+
+
 ## [1.18.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.18.0...@ezs/analytics@1.18.1) (2022-03-25)
 
 **Note:** Version bump only for package @ezs/analytics
