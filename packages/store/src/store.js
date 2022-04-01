@@ -37,10 +37,25 @@ class Store {
             makeDir.sync(this.directory);
         }
         debug('ezs')(`DB from ${this.directory}`, (this.created ? 'was created' : 'already exists'));
-        if (!handle[this.directory]) {
-            handle[this.directory] = levelup(leveldown(this.directory));
-        }
-        this.db = handle[this.directory];
+        this.ready = new Promise((resolve, reject) => {
+            if (!handle[this.directory]) {
+                levelup(leveldown(this.directory), {}, (err, db) => {
+                    if (err) {
+                        return reject(err);
+                    }
+                    handle[this.directory] = db;
+                    this.handle = db;
+                    return resolve(true);
+                });
+            } else {
+                this.handle = handle[this.directory];
+                return resolve(true);
+            }
+        });
+        this.hdb = (cb) => this.ready.then(() => {
+            if (!this.handle) return cb(new Error('Store was closed'));
+            return cb(null, this.handle);
+        }).catch(cb);
     }
 
     isCreated() {
@@ -53,14 +68,19 @@ class Store {
 
     get(key) {
         return new Promise((resolve, reject) => {
-            this.db.get(encodeKey(key), (err, value) => {
-                if (err) {
-                    if (err.notFound) {
-                        return resolve(null);
-                    }
-                    return reject(err);
+            this.hdb((fail, db) => {
+                if (fail) {
+                    return reject(fail);
                 }
-                return resolve(decodeValue(value));
+                return db.get(encodeKey(key), (err, value) => {
+                    if (err) {
+                        if (err.notFound) {
+                            return resolve(null);
+                        }
+                        return reject(err);
+                    }
+                    return resolve(decodeValue(value));
+                });
             });
         });
     }
@@ -68,18 +88,23 @@ class Store {
     cut(key1) {
         return new Promise((resolve, reject) => {
             const key2 = encodeKey(key1);
-            this.db.get(key2, (err1, value) => {
-                if (err1) {
-                    if (err1.notFound) {
-                        return resolve(null);
-                    }
-                    return reject(err1);
+            this.hdb((fail, db) => {
+                if (fail) {
+                    return reject(fail);
                 }
-                return this.db.del(key2, (err2) => {
-                    if (err2) {
-                        console.error('WARNING', err2);
+                return db.get(key2, (err1, value) => {
+                    if (err1) {
+                        if (err1.notFound) {
+                            return resolve(null);
+                        }
+                        return reject(err1);
                     }
-                    return resolve(decodeValue(value));
+                    return db.del(key2, (err2) => {
+                        if (err2) {
+                            console.error('WARNING', err2);
+                        }
+                        return resolve(decodeValue(value));
+                    });
                 });
             });
         });
@@ -88,33 +113,13 @@ class Store {
 
     put(key, value) {
         return new Promise((resolve, reject) => {
-            this.db.put(encodeKey(key), encodeValue(value), (err) => {
-                if (err) {
-                    return reject(err);
+            this.hdb((fail, db) => {
+                if (fail) {
+                    return reject(fail);
                 }
-                return resolve(true);
-            });
-        });
-    }
-
-    add(key, value) {
-        return new Promise((resolve, reject) => {
-            this.db.get(encodeKey(key), (err, vv) => {
-                let vvalue = vv;
-                if (err) {
-                    vvalue = null;
-                }
-                if (vvalue) {
-                    return this.db.put(encodeKey(key), encodeValue(decodeValue(vvalue).concat(value)), (err2) => {
-                        if (err2) {
-                            return reject(err2);
-                        }
-                        return resolve(true);
-                    });
-                }
-                return this.db.put(encodeKey(key), encodeValue([value]), (err2) => {
-                    if (err2) {
-                        return reject(err2);
+                return db.put(encodeKey(key), encodeValue(value), (err) => {
+                    if (err) {
+                        return reject(err);
                     }
                     return resolve(true);
                 });
@@ -122,36 +127,78 @@ class Store {
         });
     }
 
-    stream() {
-        return this.cast();
+    add(key, value) {
+        return new Promise((resolve, reject) => {
+            this.hdb((fail, db) => {
+                if (fail) {
+                    return reject(fail);
+                }
+                return db.get(encodeKey(key), (err, vv) => {
+                    let vvalue = vv;
+                    if (err) {
+                        vvalue = null;
+                    }
+                    if (vvalue) {
+                        return db.put(encodeKey(key), encodeValue(decodeValue(vvalue).concat(value)), (err2) => {
+                            if (err2) {
+                                return reject(err2);
+                            }
+                            return resolve(true);
+                        });
+                    }
+                    return db.put(encodeKey(key), encodeValue([value]), (err2) => {
+                        if (err2) {
+                            return reject(err2);
+                        }
+                        return resolve(true);
+                    });
+                });
+            });
+        });
     }
 
-    empty() {
-        return this.cast().on('end', () => this.reset());
+    async empty() {
+        const stream = await this.cast();
+        return stream
+            .on('end', async () => {
+                await this.handle.clear();
+            });
     }
 
     cast() {
-        return this.db.createReadStream().pipe(this.ezs(decodeObject));
+        return new Promise((resolve, reject) => {
+            this.hdb((fail, db) => {
+                if (fail) {
+                    return reject(fail);
+                }
+                return resolve(db.createReadStream().pipe(this.ezs(decodeObject)));
+            });
+        });
     }
 
     reset() {
         return new Promise((resolve, reject) => {
-            this.db.clear(null, (err) => {
-                if (err) {
-                    return reject(err);
+            this.hdb((fail, db) => {
+                if (fail) {
+                    return reject(fail);
                 }
-                return resolve(true);
+                return db.clear(null, (err) => {
+                    if (err) {
+                        return reject(err);
+                    }
+                    return resolve(true);
+                });
             });
         });
     }
 
     async close() {
         delete handle[this.directory];
-        if (!this.db.isOperational()) {
+        if (!this.handle) {
             return del([this.directory], { force: true });
         }
-        await this.db.clear();
-        await this.db.close();
+        await this.handle.clear();
+        await this.handle.close();
         await del([this.directory], { force: true });
         return true;
     }

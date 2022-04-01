@@ -37,13 +37,14 @@ import { createStore } from '@ezs/store';
  * @param {String} [value=value] path to use for value
  * @returns {Object}
  */
-export default function reducing(data, feed) {
+export default async function reducing(data, feed) {
     if (!this.store) {
         const location = this.getParam('location');
         this.store = createStore(this.ezs, 'reducing', location);
     }
     if (this.isLast()) {
-        this.store.empty()
+        const stream = await this.store.empty();
+        stream
             .on('data', (item) => feed.write(item))
             .on('end', () => {
                 this.store.close();

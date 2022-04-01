@@ -123,7 +123,7 @@ const calculating = (values) => {
  * @param {String} [target=_statistics] path of statistics in output object
  * @returns {Object}
  */
-export default function statistics(data, feed) {
+export default async function statistics(data, feed) {
     const path = this.getParam('path', 'value');
     const target = this.getParam('target', '_statistics');
     const fields = Array.isArray(path) ? path : [path];
@@ -155,7 +155,8 @@ export default function statistics(data, feed) {
             };
             return obj;
         }, {});
-        this.store.empty()
+        const stream = await this.store.empty();
+        stream
             .on('data', ({ value }) => {
                 const localValues = value.hashValues.reduce((obj, item) => {
                     const sample = this.stack[item.key].hash[item.hashValue];

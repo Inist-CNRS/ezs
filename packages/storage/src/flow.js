@@ -22,8 +22,8 @@ export default async function flow(data, feed) {
         this.store.close();
         return feed.close();
     }
-
-    return this.store.stream()
+    const stream = await this.store.cast();
+    return stream
         .pipe(this.ezs('extract', { path: 'value' }))
         .pipe(this.ezs(statement, { length }))
         .on('data', (item) => feed.write(item))

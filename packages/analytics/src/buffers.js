@@ -35,7 +35,7 @@ import { createStoreWithID } from '@ezs/store';
  * @param {String} [from] the store id
  * @returns {Object}
  */
-export default function buffers(data, feed) {
+export default async function buffers(data, feed) {
     if (this.isLast()) {
         feed.close();
         return;
@@ -46,16 +46,11 @@ export default function buffers(data, feed) {
     const statement = length === -1 ? 'transit' : 'truncate';
     const bufferID = String(data);
     const store = createStoreWithID(ezs, bufferID, location);
-    store.stream()
+    const stream = await store.cast();
+    const output = stream
         .pipe(ezs('extract', { path: 'value' }))
         .pipe(ezs(statement, { length }))
-        .on('data', (item) => feed.write(item))
-        .on('error', (e) => {
-            this.store.close();
-            feed.stop(e);
-        })
-        .on('end', () => {
-            feed.end();
-            store.close();
-        });
+        .on('error', () => store.close())
+        .on('end', () => store.close());
+    await feed.flow(output);
 }

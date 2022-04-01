@@ -13,7 +13,7 @@ ezs.use(ezsLocal);
 
 describe('SKOSPathEnum', () => {
     beforeEach(() => {
-        jest.setTimeout(10000);
+        //        jest.setTimeout(10000);
     });
 
     test('from file : data-sample.skos', (done) => {

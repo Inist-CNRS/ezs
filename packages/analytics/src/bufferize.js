@@ -39,20 +39,17 @@ import { createStore } from '@ezs/store';
  */
 export default async function bufferize(data, feed) {
     const { ezs } = this;
-    if (this.isFirst()) {
+    if (!this.store) {
         const location = this.getParam('location');
         this.store = createStore(ezs, 'bufferize', location);
-        this.store.reset();
+        await this.store.reset();
     }
     if (this.isLast()) {
-        return this.store.stream()
+        const stream = await this.store.cast();
+        const output = stream
             .pipe(this.ezs('extract', { path: 'value' }))
-            .on('data', (item) => feed.write(item))
-            .on('error', (e) => {
-                this.store.close();
-                feed.stop(e);
-            })
-            .on('end', () => feed.close());
+            .once('end', ()=>feed.close());
+        return feed.flow(output);
     }
     const path = this.getParam('path', 'bufferID');
     const key = this.getIndex().toString().padStart(20, '0');
