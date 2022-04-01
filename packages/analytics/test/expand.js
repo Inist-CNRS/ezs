@@ -1076,5 +1076,5 @@ test('deep script', (done) => {
             expect(output[5].b[0]).toEqual('a');
             done();
         });
-});
+}, 10000);
 
