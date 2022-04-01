@@ -46,7 +46,10 @@ export default async function bufferize(data, feed) {
     }
     if (this.isLast()) {
         const stream = await this.store.cast();
-        return feed.flow(stream.pipe(this.ezs('extract', { path: 'value' })));
+        const output = stream
+            .pipe(this.ezs('extract', { path: 'value' }))
+            .once('end', ()=>feed.close());
+        return feed.flow(output);
     }
     const path = this.getParam('path', 'bufferID');
     const key = this.getIndex().toString().padStart(20, '0');

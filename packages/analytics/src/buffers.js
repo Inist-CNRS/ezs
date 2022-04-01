@@ -52,5 +52,5 @@ export default async function buffers(data, feed) {
         .pipe(ezs(statement, { length }))
         .on('error', () => store.close())
         .on('end', () => store.close());
-    feed.flow(output);
+    await feed.flow(output);
 }
