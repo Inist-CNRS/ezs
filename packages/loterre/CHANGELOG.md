@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/loterre@1.3.0...@ezs/loterre@1.3.1) (2022-04-01)
+
+
+### Bug Fixes
+
+* erratic error with store ([a26febc](https://github.com/Inist-CNRS/ezs/commit/a26febc4fe7bc0a66a7d32781dc6ef175f707f0a))
+
+
+
+
+
 # [1.3.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/loterre@1.2.14...@ezs/loterre@1.3.0) (2022-02-07)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@1.6.1...@ezs/storage@1.6.2) (2022-04-01)
+
+
+### Bug Fixes
+
+* erratic error with store ([a26febc](https://github.com/Inist-CNRS/ezs/commit/a26febc4fe7bc0a66a7d32781dc6ef175f707f0a))
+
+
+
+
+
 ## [1.6.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@1.6.0...@ezs/storage@1.6.1) (2022-03-25)
 
 **Note:** Version bump only for package @ezs/storage
