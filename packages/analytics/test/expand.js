@@ -682,14 +682,12 @@ test('with a script that loses some items', (done) => {
             output.push(chunk);
         })
         .on('end', () => {
-            expect(output.length).toEqual(6);
+            expect(output.length).toEqual(5);
             expect(output[0].b).toEqual('A');
             expect(output[1].b).toEqual('B');
-            expect(output[2].b).toEqual('c');
-            expect(output[3].b).toEqual('D');
-            expect(output[4].b).toEqual('E');
-            expect(output[5].b).toEqual('F');
-            expect(env.executed).toEqual(false);
+            expect(output[2].b).toEqual('D');
+            expect(output[3].b).toEqual('E');
+            expect(output[4].b).toEqual('F');
             done();
         });
 });
@@ -872,14 +870,12 @@ describe('with sub script and brute force write', () => {
         `;
 
         Promise.all(Array(size).fill(true).map(() => func(script)))
-            .then(() => {
-                // expand extract error because a error in sub pipeline cannot be rejectied in the main pipeline (no id)
-                done(new Error('Error is the right behavior'));
-            })
-            .catch((e) => {
+            .then((r) => {
+                const e = r.map(x => x.filter(y => (y instanceof Error)).pop()).filter(Boolean).pop();
                 expect(e.message).toEqual(expect.stringContaining('Erratic Error'));
                 done();
-            });
+            })
+            .catch(done);
     });
 
     test('erratic error on top', (done) => {
@@ -940,7 +936,6 @@ describe('with sub script and brute force write', () => {
             [use]
             plugin = basics
             plugin = analytics
-
             [replace]
             path = id
             value = get('a')
@@ -972,13 +967,15 @@ describe('with sub script and brute force write', () => {
             value = get('value')
         `;
         func(script)
-            .then(() => {
-                done(new Error('Error is the right behavior'));
-            })
-            .catch((e) => {
-                expect(e.message).toEqual(expect.stringContaining('No back pressure control ?'));
+            .then((r) => {
+                expect(r[0].b).toEqual('A');
+                expect(r[1].b).toEqual('B');
+                expect(r[2].b).toEqual('C');
+                expect(r[3].b).toEqual('d');
+                expect(r[4].b).toEqual('e');
                 done();
-            });
+            })
+            .catch(done);
     });
 
     test('truncated on top', (done) => {
@@ -1027,3 +1024,57 @@ describe('with sub script and brute force write', () => {
             .catch(done);
     });
 });
+test('deep script', (done) => {
+    ezs.use(statements);
+    ezs.use(statements);
+    const input = Array(30).fill(true).map((i, index) => ({ a: index, b: ['a', 'b', 'c', 'd', 'e', 'f'] }));
+    const output = [];
+    const script = `
+            [use]
+            plugin = basics
+            plugin = analytics
+
+            [replace]
+            path = id
+            value = get('a')
+            path = value
+            value = get('b')
+
+            [expand]
+            path = value
+
+            [expand/expand]
+            path = value
+
+            [expand/expand/exploding]
+
+            [expand/expand/expand]
+            path = value
+            size = 5
+
+            [expand/expand/expand/transit]
+
+            [expand/expand/aggregate]
+
+            [replace]
+            path = a
+            value = get('id')
+            path = b
+            value = get('value')
+
+        `;
+    from(input)
+        .pipe(ezs('delegate', { script }))
+        .pipe(ezs.catch())
+        .on('error', done)
+        .on('data', (chunk) => {
+            output.push(chunk);
+        })
+        .on('end', () => {
+            expect(output.length).toEqual(30);
+            expect(output[0].a).toEqual(0);
+            expect(output[5].b[0]).toEqual('a');
+            done();
+        });
+});
+
