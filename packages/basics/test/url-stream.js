@@ -35,6 +35,9 @@ httpbin
 httpbin
     .get('/status/400?a=c')
     .reply(400);
+httpbin
+    .get('/status/400')
+    .reply(400);
 
 describe('URLStream', () => {
     let server;
@@ -186,7 +189,7 @@ describe('URLStream', () => {
             { a: 'c' },
         ];
         from(input)
-            .pipe(ezs('URLStream', { 
+            .pipe(ezs('URLStream', {
                 url: 'http://unknow',
                 retries: 1,
             }))

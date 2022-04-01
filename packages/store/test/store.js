@@ -15,8 +15,8 @@ describe('Store', () => {
             store.add(3, 'C'),
         ]);
         const output = [];
-        store
-            .cast()
+        const stream = await store.cast();
+        stream
             .on('data', (chunk) => {
                 output.push(chunk);
             })
@@ -39,8 +39,8 @@ describe('Store', () => {
             store.add(3, 'C'),
         ]);
         const output = [];
-        store
-            .cast()
+        const stream = await store.cast();
+        stream
             .on('data', (chunk) => {
                 output.push(chunk);
             })
@@ -62,8 +62,8 @@ describe('Store', () => {
             store.add(3, 'C'),
         ]);
         const output = [];
-        store
-            .stream()
+        const stream = await store.cast();
+        stream
             .on('data', (chunk) => {
                 output.push(chunk);
             })
@@ -103,8 +103,8 @@ describe('Store', () => {
             store.add(3, 'C'),
         ]);
         const output = [];
-        store
-            .empty()
+        const stream = await store.empty();
+        stream
             .on('data', (chunk) => {
                 output.push(chunk);
             })
@@ -129,8 +129,8 @@ describe('Store', () => {
         await store.add(1, 'A');
         await store.add(1, 'R');
         const output = [];
-        store
-            .cast()
+        const stream = await store.cast();
+        stream
             .on('data', (chunk) => {
                 output.push(chunk);
             })
@@ -156,8 +156,8 @@ describe('Store', () => {
         await store.put(1, 'A');
         await store.put(1, 'R');
         const output = [];
-        store
-            .cast()
+        const stream = await store.cast();
+        stream
             .on('data', (chunk) => {
                 output.push(chunk);
             })
@@ -212,8 +212,8 @@ describe('Store', () => {
         expect(k4).toBeNull();
 
         const output = [];
-        store
-            .cast()
+        const stream = await store.cast();
+        stream
             .on('data', (chunk) => {
                 output.push(chunk);
             })

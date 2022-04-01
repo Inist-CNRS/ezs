@@ -58,7 +58,7 @@ import { createStore } from '@ezs/store';
  * @param {Number} [default=0] default value for missing object
  * @returns {Object}
  */
-export default function distribute(data, feed) {
+export default async function distribute(data, feed) {
     const id = get(data, this.getParam('id', 'id')) || this.getIndex();
     const value = get(data, this.getParam('value', 'value'));
 
@@ -83,7 +83,8 @@ export default function distribute(data, feed) {
             j += 1;
         }
         let x = 0;
-        this.store.empty()
+        const stream = await this.store.empty();
+        stream
             .on('data', (item) => {
                 const key = parseInt(item.id, 10);
                 const idx = ruler.indexOf(key);

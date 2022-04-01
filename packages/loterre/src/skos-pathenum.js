@@ -75,20 +75,23 @@ async function SKOSPathEnum(data, feed) {
     try {
         if (!this.store) {
             this.store = createStore(this.ezs, 'skos_pathenum_store');
-            this.store.reset();
+            await this.store.reset();
         }
         if (this.isLast()) {
-            const stream = this.store.cast()
+            const stream = await this.store.cast();
+            const output = stream
                 .pipe(this.ezs(getBroaderAndNarrower, {
                     path: this.getParam('path', 'skos$broader'),
                     uri: this.getParam('uri', 'rdf$about'),
                     label: this.getParam('label', 'skos$prefLabel'),
                     recursion: this.getParam('recursion', false),
-                }, this.store));
-            return feed.flow(stream).finally(() => {
-                this.store.close();
-                feed.close();
-            });
+                }, this.store))
+                .on('end', () => {
+                    feed.close();
+                    this.store.close();
+                });
+            ;
+            return feed.flow(output);
         }
         await this.store.add(data.rdf$about, data);
         feed.end();
