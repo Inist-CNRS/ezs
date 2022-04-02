@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.18.3...@ezs/analytics@1.18.4) (2022-04-02)
+
+
+### Bug Fixes
+
+* 🐛 erratic error ([cf15306](https://github.com/Inist-CNRS/ezs/commit/cf15306531070939295ff8fa922795e1fd7a2fb2))
+
+
+
+
+
 ## [1.18.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.18.2...@ezs/analytics@1.18.3) (2022-04-01)
 
 

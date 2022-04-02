@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/store@1.4.1...@ezs/store@1.4.2) (2022-04-02)
+
+
+### Bug Fixes
+
+* 🐛 erratic error ([cf15306](https://github.com/Inist-CNRS/ezs/commit/cf15306531070939295ff8fa922795e1fd7a2fb2))
+
+
+
+
+
 ## [1.4.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/store@1.4.0...@ezs/store@1.4.1) (2022-04-01)
 
 

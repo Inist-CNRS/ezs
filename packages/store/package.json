@@ -1,7 +1,7 @@
 {
   "name": "@ezs/store",
   "description": "Internal store for EZS",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
   "bugs": "https://github.com/Inist-CNRS/ezs/issues",
   "dependencies": {
