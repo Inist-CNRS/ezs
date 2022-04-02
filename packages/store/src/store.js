@@ -54,6 +54,7 @@ class Store {
         });
         this.hdb = (cb) => this.ready.then(() => {
             if (!this.handle) return cb(new Error('Store was closed'));
+            if (!this.handle.isOperational()) return cb(new Error('Store is not operational'));
             return cb(null, this.handle);
         }).catch(cb);
     }
@@ -95,6 +96,7 @@ class Store {
                 return db.get(key2, (err1, value) => {
                     if (err1) {
                         if (err1.notFound) {
+                            console.error('WARNING', err1);
                             return resolve(null);
                         }
                         return reject(err1);
@@ -193,6 +195,7 @@ class Store {
     }
 
     async close() {
+        debug('ezs')(`DB from ${this.directory} is closing`);
         delete handle[this.directory];
         if (!this.handle) {
             return del([this.directory], { force: true });

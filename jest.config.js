@@ -23,4 +23,5 @@ module.exports = {
     transformIgnorePatterns: [
         '/node_modules/(?!quick-lru)'
     ],
+    testTimeout: 8000,
 };

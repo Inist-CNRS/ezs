@@ -29,9 +29,40 @@ async function mergeWith(data, feed) {
         set(obj, path, value);
         return feed.send(obj);
     } catch (e) {
-        return feed.send(e);
+        return feed.stop(e);
     }
 }
+
+async function drainWith(data, feed) {
+    if (this.isLast()) {
+        const {
+            store,
+            stack,
+            bufferID,
+        } = this.getEnv();
+
+        return each(
+            Object.keys(stack[bufferID]),
+            async (cur, next) => {
+                let obj;
+                try {
+                    obj = await store.get(cur);
+                } catch (e) {
+                    feed.write(e);
+                }
+                if (obj === null) {
+                    feed.stop(new Error(`Unable to find ${cur} in the store ${store.id()}`));
+                } else {
+                    feed.write(obj);
+                }
+                next();
+            },
+            () => feed.close(),
+        );
+    }
+    return feed.send(data);
+}
+
 
 /**
  * Takes an `Object` and substitute a field with the corresponding value found in a external pipeline
@@ -87,7 +118,8 @@ export default async function expand(data, feed) {
         if (!this.store) {
             const location = this.getParam('location');
             this.store = createStore(ezs, 'expand', location);
-            this.store.reset();
+            await this.store.reset();
+            this.flows = [];
         }
         if (!this.createStatements) {
             const commands = ezs.createCommands({
@@ -116,24 +148,12 @@ export default async function expand(data, feed) {
                         stack: this.stack,
                         bufferID,
                     }))
-                    .pipe(ezs.catch())
-                    .on('end', () => each(
-                        Object.keys(this.stack[bufferID]),
-                        async (cur, next) => {
-                            let obj;
-                            try {
-                                obj = await this.store.get(cur);
-                            } catch (e) {
-                                feed.write(e);
-                            }
-                            if (obj === null) {
-                                feed.write(new Error('id has been lost'));
-                            } else {
-                                feed.write(obj);
-                            }
-                            next();
-                        },
-                    ));
+                    .pipe(ezs(drainWith, { path }, {
+                        store: this.store,
+                        cache: this.cache,
+                        stack: this.stack,
+                        bufferID,
+                    }));
                 const input = Array.from(this.buffer);
                 this.buffer = [];
                 this.bufferID += 1;
@@ -155,10 +175,11 @@ export default async function expand(data, feed) {
         if (this.isLast()) {
             if (this.buffer && this.buffer.length > 0) {
                 const strm = this.buffer2stream(this.bufferID);
-                strm.once('end', () => this.store.close());
-                return feed.flow(strm);
+                this.flows.push(feed.flow(strm));
             }
-            this.store.close();
+            await Promise.all(this.flows);
+            await this.store.close();
+
             return feed.close();
         }
         const value = get(data, path);
@@ -181,7 +202,7 @@ export default async function expand(data, feed) {
         this.buffer.push(core(id, value));
         if (this.buffer.length >= size) {
             const strm = this.buffer2stream(this.bufferID);
-            return feed.flow(strm);
+            return this.flows.push(feed.flow(strm));
         }
         return feed.end();
     } catch (e) {
