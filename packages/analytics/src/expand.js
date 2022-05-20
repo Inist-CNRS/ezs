@@ -10,13 +10,20 @@ import pathExists from 'path-exists';
 import core from './core';
 
 async function cacheGet(cachePath, cacheKey) {
-    const cacheObject = await cacache.get(cachePath, cacheKey);
-    return JSON.parse(cacheObject.data.toString());
+    const cacheObject = await cacache.get.info(cachePath, cacheKey);
+    if (!cacheObject) {
+        return null;
+    }
+    const cacheData = await cacache.get.byDigest(cachePath, cacheObject.integrity);
+    return JSON.parse(cacheData.toString());
 }
 
 async function cachePut(cachePath, cacheKey, cacheValue) {
-    const integity = await cacache.put(cachePath, cacheKey, JSON.stringify(cacheValue));
-    return integity;
+    if (cacheValue) {
+        const integity = await cacache.put(cachePath, cacheKey, JSON.stringify(cacheValue));
+        return integity;
+    }
+    return false;
 }
 
 async function mergeWith(data, feed) {
@@ -38,7 +45,7 @@ async function mergeWith(data, feed) {
         }
         const source = get(obj, path);
         if (cachePath && source) {
-            await cachePut(source, value);
+            await cachePut(cachePath, source, value);
         }
         delete stack[bufferID][id];
         set(obj, path, value);
@@ -150,8 +157,8 @@ export default async function expand(data, feed) {
         if (cacheName && !this.cachePath) {
             const location = this.getParam('location');
             this.cachePath = resolvePath(location || tmpdir(), 'memory', `expand${cacheName}`);
-            if (!pathExists.sync(this.directory)) {
-                makeDir.sync(this.directory);
+            if (!pathExists.sync(this.cachePath)) {
+                makeDir.sync(this.cachePath);
             }
         }
 
