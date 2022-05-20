@@ -1,4 +1,4 @@
-import fs from 'fs';
+import pathExists from 'path-exists';
 import { tmpdir } from 'os';
 import mkdirp from 'mkdirp';
 import ezs from '../../core/src';
@@ -230,9 +230,10 @@ describe('Store', () => {
         mkdirp.sync(`${location}/store`);
         const store = createPersistentStore(ezs, 'test_storeX', location);
         expect(store.persistent).toEqual(true);
+        expect(pathExists.sync(`${location}/store/persistent/test_storeX`)).toEqual(true);
         await store.close();
-        expect(fs.existsSync(`${location}/store/persistent/test_storeX`)).toEqual(true);
-        done()
+        expect(pathExists.sync(`${location}/store/persistent/test_storeX`)).toEqual(true);
+        done();
     });
     it('persistentStore  #1', async (done) => {
         const location = `${tmpdir()}/toto`;
@@ -240,8 +241,9 @@ describe('Store', () => {
         const store = createStore(ezs, 'test_storeY', location);
         expect(store.persistent).toEqual(false);
         await store.close();
-        expect(fs.existsSync(`${location}/store/persistent/test_storeY`)).toEqual(false);
-        done()
+
+        expect(pathExists.sync(`${location}/store/persistent/test_storeY`)).toEqual(false);
+        done();
     });
 
 });
