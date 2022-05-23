@@ -31,6 +31,7 @@ class Store {
         this.ezs = ezs;
         this.identifier = identifier;
         this.created = false;
+        this.persistent = (identifier.indexOf('persistent') === 0);
         this.directory = path.resolve(location || tmpdir(), 'store', identifier);
         if (!pathExists.sync(this.directory)) {
             this.created = true;
@@ -194,15 +195,29 @@ class Store {
         });
     }
 
+    connect() {
+        return new Promise((resolve, reject) => {
+            this.hdb((fail, db) => {
+                if (fail) {
+                    return reject(fail);
+                }
+                return resolve(db);
+            });
+        });
+    }
+
     async close() {
+        const db = await this.connect();
         debug('ezs')(`DB from ${this.directory} is closing`);
         delete handle[this.directory];
-        if (!this.handle) {
-            return del([this.directory], { force: true });
+        if (!this.persistent) {
+            debug('ezs')(`DB from ${this.directory} is clearing`);
+            await db.clear();
+            await db.close();
+            await del([this.directory], { force: true });
+        } else {
+            await this.handle.close();
         }
-        await this.handle.clear();
-        await this.handle.close();
-        await del([this.directory], { force: true });
         return true;
     }
 }
@@ -211,7 +226,7 @@ export function createStore(ezs, domain, location) {
     return new Store(ezs, `${domain}/${uuid()}/${process.pid}`, location);
 }
 export function createPersistentStore(ezs, domain, location) {
-    return new Store(ezs, `persistent/${domain}/${process.pid}`, location);
+    return new Store(ezs, `persistent/${domain}`, location);
 }
 export function createStoreWithID(ezs, identifier, location) {
     return new Store(ezs, identifier, location);
