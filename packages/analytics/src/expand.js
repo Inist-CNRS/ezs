@@ -1,8 +1,30 @@
+import { resolve  as resolvePath } from 'path';
+import { tmpdir } from 'os';
 import get from 'lodash.get';
 import set from 'lodash.set';
-import { createPersistentStore, createStore } from '@ezs/store';
+import { createStore } from '@ezs/store';
+import cacache from 'cacache';
 import each from 'async-each-series';
+import makeDir from 'make-dir';
+import pathExists from 'path-exists';
 import core from './core';
+
+async function cacheGet(cachePath, cacheKey) {
+    const cacheObject = await cacache.get.info(cachePath, cacheKey);
+    if (!cacheObject) {
+        return null;
+    }
+    const cacheData = await cacache.get.byDigest(cachePath, cacheObject.integrity);
+    return JSON.parse(cacheData.toString());
+}
+
+async function cachePut(cachePath, cacheKey, cacheValue) {
+    if (cacheValue) {
+        const integity = await cacache.put(cachePath, cacheKey, JSON.stringify(cacheValue));
+        return integity;
+    }
+    return false;
+}
 
 async function mergeWith(data, feed) {
     if (this.isLast()) {
@@ -10,7 +32,7 @@ async function mergeWith(data, feed) {
     }
     const {
         store,
-        cache,
+        cachePath,
         stack,
         bufferID,
     } = this.getEnv();
@@ -22,8 +44,8 @@ async function mergeWith(data, feed) {
             throw new Error('id was corrupted');
         }
         const source = get(obj, path);
-        if (cache && source) {
-            await cache.put(source, value);
+        if (cachePath && source) {
+            await cachePut(cachePath, source, value);
         }
         delete stack[bufferID][id];
         set(obj, path, value);
@@ -132,9 +154,12 @@ export default async function expand(data, feed) {
             });
             this.createStatements = () => ezs.compileCommands(commands, this.getEnv());
         }
-        if (cacheName && !this.cache) {
+        if (cacheName && !this.cachePath) {
             const location = this.getParam('location');
-            this.cache = createPersistentStore(ezs, `expand${cacheName}`, location);
+            this.cachePath = resolvePath(location || tmpdir(), 'memory', `expand${cacheName}`);
+            if (!pathExists.sync(this.cachePath)) {
+                makeDir.sync(this.cachePath);
+            }
         }
 
         if (!this.buffer2stream) {
@@ -144,13 +169,13 @@ export default async function expand(data, feed) {
                 const output = ezs.createPipeline(stream, statements)
                     .pipe(ezs(mergeWith, { path }, {
                         store: this.store,
-                        cache: this.cache,
+                        cachePath: this.cachePath,
                         stack: this.stack,
                         bufferID,
                     }))
                     .pipe(ezs(drainWith, { path }, {
                         store: this.store,
-                        cache: this.cache,
+                        cachePath: this.cachePath,
                         stack: this.stack,
                         bufferID,
                     }));
@@ -186,8 +211,8 @@ export default async function expand(data, feed) {
         if (!value || value.length === 0) {
             return feed.send(data);
         }
-        if (this.cache) {
-            const cachedValue = await this.cache.get(value);
+        if (this.cachePath) {
+            const cachedValue = await cacheGet(this.cachePath, value);
             if (cachedValue !== null) {
                 set(data, path, cachedValue);
                 return feed.send(data);
