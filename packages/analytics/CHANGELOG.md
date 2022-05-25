@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.6](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.18.5...@ezs/analytics@1.18.6) (2022-05-25)
+
+
+### Bug Fixes
+
+* better test ([2a05c34](https://github.com/Inist-CNRS/ezs/commit/2a05c347ffdff98c7740c611eb62562cce2eafbe))
+
+
+
+
+
 ## [1.18.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.18.4...@ezs/analytics@1.18.5) (2022-05-24)
 
 **Note:** Version bump only for package @ezs/analytics
