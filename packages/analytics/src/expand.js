@@ -213,7 +213,7 @@ export default async function expand(data, feed) {
         }
         if (this.cachePath) {
             const cachedValue = await cacheGet(this.cachePath, value);
-            if (cachedValue !== null) {
+            if (cachedValue) {
                 set(data, path, cachedValue);
                 return feed.send(data);
             }
