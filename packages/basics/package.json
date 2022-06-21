@@ -22,7 +22,7 @@
     "micromatch": "4.0.4",
     "node-abort-controller": "1.1.0",
     "parse-headers": "2.0.4",
-    "path-exists": "5.0.0",
+    "path-exists": "4.0.0",
     "stream-write": "1.0.1",
     "tmp-filepath": "2.0.0",
     "unzipper": "0.10.11",
