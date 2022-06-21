@@ -37,7 +37,7 @@ import { depleteString } from './strings';
  */
 export default async function getRnsr(data, feed) {
     if (this.isFirst()) {
-        const rnsrYear = this.getParam('year', 2020);
+        const rnsrYear = this.getParam('year', 2021);
         this.RNSR = await getRnsrYear(rnsrYear);
     }
     if (this.isLast()) {

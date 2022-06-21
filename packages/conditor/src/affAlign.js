@@ -120,7 +120,7 @@ const getYear = pipe(slice(0, 4), Number);
  */
 export default async function affAlign(data, feed) {
     if (this.isFirst()) {
-        const rnsrYear = this.getParam('year', 2020);
+        const rnsrYear = this.getParam('year', 2021);
         RNSR = await getRnsrYear(rnsrYear);
     }
     if (this.isLast()) {
