@@ -115,7 +115,7 @@ const getYear = pipe(slice(0, 4), Number);
  * ```
  *
  * @export
- * @param {number} [year] Year of the RNSR to use instead of the last one
+ * @param {number} [year=2021] Year of the RNSR to use instead of the last one
  * @name affAlign
  */
 export default async function affAlign(data, feed) {

@@ -32,7 +32,7 @@ import { depleteString } from './strings';
  * ```
  *
  * @export
- * @param {number} [year] Year of the RNSR to use instead of the last one
+ * @param {number} [year=2021] Year of the RNSR to use instead of the last one
  * @name getRnsr
  */
 export default async function getRnsr(data, feed) {
