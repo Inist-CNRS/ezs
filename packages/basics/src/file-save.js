@@ -1,10 +1,8 @@
-import { createWriteStream } from 'fs';
-import { lstat } from 'fs/promises';
+import { createWriteStream, lstat } from 'fs';
 import path from 'path';
 import { tmpdir } from 'os';
 import pathExists from 'path-exists';
 import makeDir from 'make-dir';
-import debug from 'debug';
 import writeTo from 'stream-write';
 
 
@@ -56,9 +54,10 @@ export default async function FILESave(data, feed) {
     }
     if (this.isLast()) {
         this.handle.close();
-        const stat = await lstat(this.filename);
-        feed.write({ filename: this.filename, ...stat });
-        return feed.close();
+        return lstat(this.filename, (err, stat) => {
+            feed.write({ filename: this.filename, ...stat });
+            return feed.close();
+        });
     }
     writeTo(this.handle, Buffer.from(String(data)), () => feed.end());
 }
