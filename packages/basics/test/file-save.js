@@ -50,3 +50,26 @@ describe('FILESave #2', () => {
             });
     });
 });
+
+describe('FILESave #1bis', () => {
+    const identifier = Date.now();
+    const filename = `/tmp/${identifier}`;
+    const filenamegz = `/tmp/${identifier}.gz`;
+    it('should return stat', (done) => {
+        const output = [];
+        from([1])
+            .pipe(ezs('FILESave', { identifier, location: '/tmp', compress: true }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                expect(output.length).toBe(1);
+                expect(output[0]).toStrictEqual(
+                    { filename: filenamegz, ...fs.statSync(filenamegz) },
+                );
+                fs.unlink(filenamegz, done);
+            });
+    });
+});
