@@ -103,7 +103,7 @@ Output:
 
 #### Parameters
 
--   `year` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Year of the RNSR to use instead of the last one
+-   `year` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Year of the RNSR to use instead of the last one (optional, default `2021`)
 
 ### compareRnsr
 
@@ -222,4 +222,4 @@ Output:
 
 #### Parameters
 
--   `year` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Year of the RNSR to use instead of the last one
+-   `year` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Year of the RNSR to use instead of the last one (optional, default `2021`)

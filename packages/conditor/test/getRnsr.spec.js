@@ -22,35 +22,35 @@ describe('getRnsr', () => {
     it('should return an error when data is not an object', (done) => {
         from(['aha'])
             .pipe(ezs('getRnsr'))
-            .pipe(ezs.catch((e) => done()))
+            .pipe(ezs.catch(() => done()))
             .on('data', () => done('Should not work'));
     });
 
     it('should return an error when data has no id', (done) => {
         from([{ value: 0 }])
             .pipe(ezs('getRnsr'))
-            .pipe(ezs.catch((e) => done()))
+            .pipe(ezs.catch(() => done()))
             .on('data', () => done('Should not work'));
     });
 
     it('should return an error when data has no value', (done) => {
         from([{ id: 0 }])
             .pipe(ezs('getRnsr'))
-            .pipe(ezs.catch((e) => done()))
+            .pipe(ezs.catch(() => done()))
             .on('data', () => done('Should not work'));
     });
 
     it('should return an error when data.value is not an object', (done) => {
         from([{ id: 0, value: 1 }])
             .pipe(ezs('getRnsr'))
-            .pipe(ezs.catch((e) => done()))
+            .pipe(ezs.catch(() => done()))
             .on('data', () => done('Should not work'));
     });
 
     it('should return an error when data.value has no address field', (done) => {
         from([{ id: 0, value: {} }])
             .pipe(ezs('getRnsr'))
-            .pipe(ezs.catch((e) => done()))
+            .pipe(ezs.catch(() => done()))
             .on('data', () => done('Should not work'));
     });
 
@@ -315,6 +315,32 @@ describe('getRnsr', () => {
         }));
         from(input)
             .pipe(ezs('getRnsr', { year: 2020 }))
+            .on('data', (data) => {
+                res = [...res, data];
+            })
+            .on('end', () => {
+                expect(res.length).toBe(input.length);
+                res.forEach((r) => {
+                    expect(r.value).toEqual(
+                        expect.arrayContaining(expected[r.id].value),
+                    );
+                });
+                done();
+            });
+    });
+
+    it('should return all correct identifier(s) - using RNSR 2021', (done) => {
+        let res = [];
+        const input = examples
+            .map((ex, i) => ({ id: i, value: { year: ex[2], address: ex[0] } }))
+            .filter((ex) => [1, 2, 3, 12, 15, 17, 18, 21].includes(ex.id)); // keep correct cases
+
+        const expected = examples.map((ex, i) => ({
+            id: i,
+            value: ex[1].split(','),
+        }));
+        from(input)
+            .pipe(ezs('getRnsr', { year: 2021 }))
             .on('data', (data) => {
                 res = [...res, data];
             })
