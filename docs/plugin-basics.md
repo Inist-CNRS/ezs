@@ -18,6 +18,7 @@ npm install @ezs/basics
 -   [CSVObject](#csvobject)
 -   [CSVParse](#csvparse)
 -   [CSVString](#csvstring)
+-   [FILESave](#filesave)
 -   [INIString](#inistring)
 -   [JSONParse](#jsonparse)
 -   [JSONString](#jsonstring)
@@ -188,6 +189,43 @@ a;b;c
 -   `header` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** first line contains key name (optional, default `true`)
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+### FILESave
+
+Take data, convert it to buffer and append it to file
+
+##### Example
+
+Input:
+
+```json
+[
+  {"a": "a"},
+  {"a": "b"},
+  {"a": "c" }
+]
+```
+
+Script:
+
+```ini
+[FILESave]
+location = /tmp
+identifier = toto
+```
+
+Output:
+
+```json
+["/tmp/truc.json"]
+```
+
+#### Parameters
+
+-   `location` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Directory location (optional, default `TMPDIR`)
+-   `identifier` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** File name
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### INIString
 
