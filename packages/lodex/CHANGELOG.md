@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.15.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.15.0...@ezs/lodex@1.15.1) (2022-06-21)
+
+**Note:** Version bump only for package @ezs/lodex
+
+
+
+
+
 # [1.15.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.14.11...@ezs/lodex@1.15.0) (2022-02-07)
 
 

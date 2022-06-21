@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/store@1.4.3...@ezs/store@1.4.4) (2022-06-21)
+
+**Note:** Version bump only for package @ezs/store
+
+
+
+
+
 ## [1.4.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/store@1.4.2...@ezs/store@1.4.3) (2022-05-24)
 
 **Note:** Version bump only for package @ezs/store

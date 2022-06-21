@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.7](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.18.6...@ezs/analytics@1.18.7) (2022-06-21)
+
+
+### Bug Fixes
+
+* 🐛 increase timeout ([3fc5fcd](https://github.com/Inist-CNRS/ezs/commit/3fc5fcdf347ae8d167694e5185679e28cc95f854))
+
+
+
+
+
 ## [1.18.6](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.18.5...@ezs/analytics@1.18.6) (2022-05-25)
 
 
