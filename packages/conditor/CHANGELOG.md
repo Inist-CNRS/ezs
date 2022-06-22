@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.7.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.6.1...@ezs/conditor@2.7.0) (2022-06-22)
+
+
+### Features
+
+* 🎸 add [CORHALFetch]x ([a1c8e59](https://github.com/Inist-CNRS/ezs/commit/a1c8e59dc863d36e839fc157e41ebea6a850e17b))
+
+
+
+
+
 ## [2.6.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.6.0...@ezs/conditor@2.6.1) (2022-06-21)
 
 **Note:** Version bump only for package @ezs/conditor
