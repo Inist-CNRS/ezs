@@ -217,13 +217,14 @@ identifier = toto
 Output:
 
 ```json
-["/tmp/truc.json"]
+[{ filename: "/tmp/toto", size: XXX, ... }]
 ```
 
 #### Parameters
 
 -   `location` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Directory location (optional, default `TMPDIR`)
--   `identifier` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** File name
+-   `identifier` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** File name
+-   `compress` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Enable gzip compression (optional, default `false`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 

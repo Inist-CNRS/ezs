@@ -40,7 +40,8 @@ import writeTo from 'stream-write';
  *
  * @name FILESave
  * @param {String} [location=TMPDIR] Directory location
- * @param {Number} [identifier] File name
+ * @param {String} [identifier] File name
+ * @param {Boolean} [compress=false] Enable gzip compression
  * @returns {Object}
  */
 export default async function FILESave(data, feed) {
