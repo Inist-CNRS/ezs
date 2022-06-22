@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.19.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.18.0...@ezs/basics@1.19.0) (2022-06-22)
+
+
+### Features
+
+* 🎸 file save gz ([33df6cd](https://github.com/Inist-CNRS/ezs/commit/33df6cdc40af50c10511cca1449c5edb3a6878f2))
+
+
+
+
+
 # [1.18.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.17.1...@ezs/basics@1.18.0) (2022-06-21)
 
 
