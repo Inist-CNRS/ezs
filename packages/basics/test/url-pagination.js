@@ -3,14 +3,14 @@ import nock from 'nock';
 import ezs from '../../core/src';
 import statements from '../src';
 
-const httpbin = nock('https://registry.npmjs.com').persist(true);
-httpbin
+const registry_npmjs_com = nock('https://registry.npmjs.com').persist(true);
+registry_npmjs_com
     .get('/-/v1/search?text=ezs')
     .reply(200, {
         total: 23,
     });
 
-httpbin
+registry_npmjs_com
     .get('/-/v1/search?text=nested')
     .reply(200, {
         result: {
@@ -18,22 +18,41 @@ httpbin
         }
     });
 
-httpbin
+registry_npmjs_com
     .get('/-/v1/search?text=noresult')
     .reply(200, {
         total: 0,
     });
 
-httpbin
+registry_npmjs_com
     .get('/-/v1/search?text=empty')
     .reply(200, {
     });
 
-httpbin
+registry_npmjs_com
     .get('/-/v1/search?text=ten')
     .reply(200, {
         total: 10,
     });
+const httpbin = nock('https://httpbin.org').persist(true);
+httpbin
+    .post('/status/400')
+    .reply(400);
+
+httpbin
+    .post('/status/503')
+    .reply(503);
+
+httpbin
+    .post('/status/404')
+    .reply(404);
+
+httpbin
+    .get('/status/404')
+    .reply(404);
+
+
+
 
 describe('URLPagination', () => {
     test('#1', (done) => {
@@ -43,8 +62,10 @@ describe('URLPagination', () => {
         ];
         const output = [];
         const script = `
-            [URLPagination]
+            [URLRequest]
             url = https://registry.npmjs.com/-/v1/search
+            [URLPagination]
+            total = get('total')
         `;
         from(input)
             .pipe(ezs('delegate', { script }))
@@ -67,8 +88,11 @@ describe('URLPagination', () => {
         ];
         const output = [];
         const script = `
-            [URLPagination]
+            [URLRequest]
             url = https://registry.npmjs.com/-/v1/search
+
+            [URLPagination]
+            total = get('total')
             maxPages = 2
         `;
         from(input)
@@ -92,9 +116,11 @@ describe('URLPagination', () => {
         ];
         const output = [];
         const script = `
-            [URLPagination]
+            [URLRequest]
             url = https://registry.npmjs.com/-/v1/search
-            path = result.total
+
+            [URLPagination]
+            total = get('result.total')
         `;
         from(input)
             .pipe(ezs('delegate', { script }))
@@ -116,14 +142,17 @@ describe('URLPagination', () => {
             { text: 'noresult' },
         ];
         const script = `
-            [URLPagination]
+            [URLRequest]
             url = https://registry.npmjs.com/-/v1/search
+
+            [URLPagination]
+            total = get('total')
         `;
         from(input)
             .pipe(ezs('delegate', { script }))
             .pipe(ezs.catch())
             .on('error', (e) => {
-                expect(e.message).toMatch('No result.');
+                expect(e.message).toEqual(expect.stringContaining('No result.'));
                 done();
             })
             .on('end', () => {
@@ -137,20 +166,57 @@ describe('URLPagination', () => {
             { text: 'empty' },
         ];
         const script = `
-            [URLPagination]
+            [URLRequest]
             url = https://registry.npmjs.com/-/v1/search
+            [URLPagination]
+            total = get('total')
         `;
         from(input)
             .pipe(ezs('delegate', { script }))
             .pipe(ezs.catch())
             .on('error', (e) => {
-                expect(e.message).toMatch('Unexpected response.');
-                done();
+                try {
+                    expect(e.message).toEqual(expect.stringContaining('Unexpected response.'));
+                    done();
+                } catch (err) {
+                    done(err);
+                }
             })
             .on('end', () => {
                 done(new Error('Error is the right behavior'));
             });
     });
+
+
+    test('#5', (done) => {
+        ezs.use(statements);
+        const input = [
+            {  },
+        ];
+        const script = `
+            [URLRequest]
+            url = https://httpbin.org/status/404
+            retries = 1
+
+            [URLPagination]
+            total = get('total')
+        `;
+        from(input)
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', (e) => {
+                try {
+                    expect(e.message).toEqual(expect.stringContaining('Not Found'));
+                    done();
+                } catch (err) {
+                    done(err);
+                }
+            })
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+            });
+    });
+
 
 
 });

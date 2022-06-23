@@ -1,15 +1,5 @@
-import debug from 'debug';
-import { URL, URLSearchParams } from 'url';
-import AbortController from 'node-abort-controller';
-import get from 'lodash.get';
-import parseHeaders from 'parse-headers';
-import retry from 'async-retry';
-import request from './request';
-
-
-
 /**
- * Take `Object` as parameters of URL, throw each chunk from the result
+ * Take `Object` and multiple it to make it one object per page
  *
  *
  * Input:
@@ -21,9 +11,11 @@ import request from './request';
  * Script:
  *
  * ```ini
- * [URLPagination]
+ * [URLRequest]
  * url = https://api.search.net
- * path = total
+ *
+ * [URLPagination]
+ * total = get('total')
  * ```
  *
  * Output:
@@ -60,101 +52,39 @@ import request from './request';
  *  ]
  * ```
  *
- * #### Example with URLs
- *
- * Input:
- *
- * ```json
- * [
- *   "https://httpbin.org/get?a=a",
- *   "https://httpbin.org/get?a=b",
- *   "https://httpbin.org/get?a=c"
- * ]
- * ```
- *
- * Script:
- *
- * ```ini
- * [URLPagination]
- * path = .args
- * ```
- *
- * Output:
- *
- * ```json
- * [{"a": "a"}, {"a": "b"}, {"a": "c" }]
- * ```
  *
  * @name URLPagination
- * @param {String} [url] URL to fetch (by default input string is taken)
- * @param {String} [path=total] choose the path to find the number of result
- * @param {Number} [timeout=1000] Timeout in milliseconds
- * @param {Boolean} [noerror=false] Ignore all errors, the target field will remain undefined
- * @param {Number} [retries=5] The maximum amount of times to retry the connection
+ * @param {Number} [total=0] total to use for the pagination
+ * @param {Number} [limit=10] limit to use to pagination
+ * @param {Number} [maxPages=1000] maxPages to use to pagination
  * @returns {Object}
  */
-export default async function URLPagination(data, feed) {
+export default function URLPagination(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
-    const url = this.getParam('url');
-    const path = this.getParam('path', 'total');
+    const total = Number(this.getParam('total', 0));
     const limit = Number(this.getParam('limit', 10));
     const maxPages = Number(this.getParam('maxPages', 1000));
-    const retries = Number(this.getParam('retries', 5));
-    const noerror = Boolean(this.getParam('noerror', false));
-    const timeout = Number(this.getParam('timeout')) || 1000;
-    const headers = parseHeaders([]
-        .concat(this.getParam('header'))
-        .filter(Boolean)
-        .join('\n'));
-    const cURL = new URL(url || data);
-    const controller = new AbortController();
-    const parameters = {
-        timeout,
-        headers,
-        signal: controller.signal,
-    };
-    const options = {
-        retries,
-    };
-    cURL.search = new URLSearchParams(data);
-    const onError = (e) => {
-        controller.abort();
-        if (noerror) {
-            debug('ezs')(`Ignore item #${this.getIndex()} [URLPagination] <${e}>`);
-            return feed.send(data);
-        }
-        debug('ezs')(`Break item #${this.getIndex()} [URLPagination] <${e}>`);
-        return feed.send(e);
-    };
-    try {
-        const response = await retry(request(cURL.href, parameters), options);
-        const json = await response.json();
-        const total = get(json, path);
-        if (total === 0) {
-            return onError(new Error('No result.'));
-        }
-        if (total === undefined) {
-            return onError(new Error('Unexpected response.'));
-        }
-        let totalPages = Math.ceil(total / limit);
-        if (totalPages > maxPages) {
-            totalPages = maxPages;
-        }
-
-        for (let pageNumber = 1; pageNumber <= totalPages; pageNumber += 1) {
-            feed.write({
-                ...data,
-                offset: ((pageNumber - 1) * limit),
-                pageNumber,
-                totalPages,
-                maxPages,
-                limit,
-            });
-        }
-        feed.end();
-    } catch (e) {
-        onError(e);
+    if (total === 0) {
+        return feed.send(new Error('No result.'));
     }
+    if (Number.isNaN(total)) {
+        return feed.send(new Error('Unexpected response.'));
+    }
+    let totalPages = Math.ceil(total / limit);
+    if (totalPages > maxPages) {
+        totalPages = maxPages;
+    }
+    for (let pageNumber = 1; pageNumber <= totalPages; pageNumber += 1) {
+        feed.write({
+            ...data,
+            offset: ((pageNumber - 1) * limit),
+            pageNumber,
+            totalPages,
+            maxPages,
+            limit,
+        });
+    }
+    feed.end();
 }
