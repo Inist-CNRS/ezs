@@ -16,7 +16,7 @@ import JSONParse from './json-parse';
 import JSONString from './json-string';
 import URLFetch from './url-fetch';
 import URLParse from './url-parse';
-import URLPager from './url-pager';
+import URLPagination from './url-pagination';
 import URLString from './url-string';
 import URLStream from './url-stream';
 import URLConnect from './url-connect';
@@ -43,7 +43,7 @@ const funcs = {
     JSONParse,
     JSONString,
     URLFetch,
-    URLPager,
+    URLPagination,
     URLParse,
     URLString,
     URLStream,

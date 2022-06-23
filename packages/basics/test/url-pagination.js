@@ -35,7 +35,7 @@ httpbin
         total: 10,
     });
 
-describe('URLPager', () => {
+describe('URLPagination', () => {
     test('#1', (done) => {
         ezs.use(statements);
         const input = [
@@ -43,7 +43,7 @@ describe('URLPager', () => {
         ];
         const output = [];
         const script = `
-            [URLPager]
+            [URLPagination]
             url = https://registry.npmjs.com/-/v1/search
         `;
         from(input)
@@ -67,7 +67,7 @@ describe('URLPager', () => {
         ];
         const output = [];
         const script = `
-            [URLPager]
+            [URLPagination]
             url = https://registry.npmjs.com/-/v1/search
             maxPages = 2
         `;
@@ -92,7 +92,7 @@ describe('URLPager', () => {
         ];
         const output = [];
         const script = `
-            [URLPager]
+            [URLPagination]
             url = https://registry.npmjs.com/-/v1/search
             path = result.total
         `;
@@ -116,7 +116,7 @@ describe('URLPager', () => {
             { text: 'noresult' },
         ];
         const script = `
-            [URLPager]
+            [URLPagination]
             url = https://registry.npmjs.com/-/v1/search
         `;
         from(input)
@@ -137,7 +137,7 @@ describe('URLPager', () => {
             { text: 'empty' },
         ];
         const script = `
-            [URLPager]
+            [URLPagination]
             url = https://registry.npmjs.com/-/v1/search
         `;
         from(input)

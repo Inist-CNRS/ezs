@@ -21,7 +21,7 @@ import request from './request';
  * Script:
  *
  * ```ini
- * [URLPager]
+ * [URLPagination]
  * url = https://api.search.net
  * path = total
  * ```
@@ -75,7 +75,7 @@ import request from './request';
  * Script:
  *
  * ```ini
- * [URLPager]
+ * [URLPagination]
  * path = .args
  * ```
  *
@@ -85,7 +85,7 @@ import request from './request';
  * [{"a": "a"}, {"a": "b"}, {"a": "c" }]
  * ```
  *
- * @name URLPager
+ * @name URLPagination
  * @param {String} [url] URL to fetch (by default input string is taken)
  * @param {String} [path=total] choose the path to find the number of result
  * @param {Number} [timeout=1000] Timeout in milliseconds
@@ -93,7 +93,7 @@ import request from './request';
  * @param {Number} [retries=5] The maximum amount of times to retry the connection
  * @returns {Object}
  */
-export default async function URLPager(data, feed) {
+export default async function URLPagination(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
@@ -122,10 +122,10 @@ export default async function URLPager(data, feed) {
     const onError = (e) => {
         controller.abort();
         if (noerror) {
-            debug('ezs')(`Ignore item #${this.getIndex()} [URLPager] <${e}>`);
+            debug('ezs')(`Ignore item #${this.getIndex()} [URLPagination] <${e}>`);
             return feed.send(data);
         }
-        debug('ezs')(`Break item #${this.getIndex()} [URLPager] <${e}>`);
+        debug('ezs')(`Break item #${this.getIndex()} [URLPagination] <${e}>`);
         return feed.send(e);
     };
     try {
