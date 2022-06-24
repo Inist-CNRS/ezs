@@ -32,7 +32,9 @@ npm install @ezs/basics
 -   [TXTZip](#txtzip)
 -   [URLConnect](#urlconnect)
 -   [URLFetch](#urlfetch)
+-   [URLPagination](#urlpagination)
 -   [URLParse](#urlparse)
+-   [URLRequest](#urlrequest)
 -   [URLStream](#urlstream)
 -   [URLString](#urlstring)
 -   [XMLConvert](#xmlconvert)
@@ -610,6 +612,68 @@ Or if no target is specified, the output will be the returned content of URL.
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
+### URLPagination
+
+Take `Object` and multiple it to make it one object per page
+
+Input:
+
+```json
+[{"q": "a"}]
+```
+
+Script:
+
+```ini
+[URLRequest]
+url = https://api.search.net
+
+[URLPagination]
+total = get('total')
+```
+
+Output:
+
+```json
+[
+     {
+         "q": "a",
+         "total": 22
+         "offset": 0,
+         "pageNumber": 1,
+         "totalPages", 3,
+         "maxPages": 1000,
+         "limit": 10
+     },
+     {
+         "q": "a",
+         "total": 22
+         "offset": 10,
+         "pageNumber": 2,
+         "totalPages", 3,
+         "maxPages": 1000,
+         "limit": 10
+     },
+     {
+         "q": "a",
+         "total": 22
+         "offset": 20,
+         "pageNumber": 3,
+         "totalPages", 3,
+         "maxPages": 1000,
+         "limit": 10
+     }
+ ]
+```
+
+#### Parameters
+
+-   `total` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** total to use for the pagination (optional, default `0`)
+-   `limit` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** limit to use to pagination (optional, default `10`)
+-   `maxPages` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** maxPages to use to pagination (optional, default `1000`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
 ### URLParse
 
 Take an URL `String`, parse it and return `Object`.
@@ -634,6 +698,43 @@ See:
 
 -   [URLString](#urlstring)
 -   <https://nodejs.org/api/url.html>
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### URLRequest
+
+Take `Object` as parameters of URL, throw each chunk from the result
+
+Input:
+
+```json
+[{"q": "a"}]
+```
+
+Script:
+
+```ini
+[URLRequest]
+url = https://api.search.net
+```
+
+Output:
+
+```json
+[
+     {
+         "result": "a" 
+     }
+ ]
+```
+
+#### Parameters
+
+-   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fetch
+-   `json` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** parse result as json (optional, default `true`)
+-   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (optional, default `1000`)
+-   `noerror` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Ignore all errors, the target field will remain undefined (optional, default `false`)
+-   `retries` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** The maximum amount of times to retry the connection (optional, default `5`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
