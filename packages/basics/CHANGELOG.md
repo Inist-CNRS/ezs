@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.20.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.19.0...@ezs/basics@1.20.0) (2022-06-24)
+
+
+### Features
+
+* 🎸 add [URLPager] ([59dcbdc](https://github.com/Inist-CNRS/ezs/commit/59dcbdca0c33eaf2ebf5a195de153cec802d1bc1))
+
+
+
+
+
 # [1.19.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.18.0...@ezs/basics@1.19.0) (2022-06-22)
 
 
