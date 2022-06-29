@@ -26,6 +26,7 @@ import time from './time';
 import ignore from './ignore';
 import exchange from './exchange';
 import swing from './swing';
+import loop from './loop';
 
 export default {
     extract,
@@ -56,4 +57,5 @@ export default {
     ignore,
     exchange,
     swing,
+    loop,
 };
