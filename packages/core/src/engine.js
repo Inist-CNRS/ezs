@@ -72,9 +72,9 @@ export default class Engine extends SafeTransform {
         this.scope.getCumulativeTime = () => nano2sec(hrtime.bigint() - this.stime);
         this.scope.getCumulativeTimeMS = () => nano2sec(hrtime.bigint() - this.stime) * 1000;
         this.scope.getCounter = () => counter;
-        this.scope.getParam = (name, defval) => {
+        this.scope.getParam = (name, defval, chunk) => {
             if (this.params[name] !== undefined) {
-                return this.shell.run(this.params[name], this.chunk);
+                return this.shell.run(this.params[name], chunk || this.chunk);
             }
             return defval;
         };
