@@ -1,19 +1,31 @@
 function loopFunc(data, feed) {
+    const { ezs } = this;
     if (this.isLast()) {
         return feed.close();
     }
-    const { input, that } = this.getEnv();
-    const reverse = Boolean(this.getParam('reverse', false));
+    const { commands, getEnv, getParam } = this.getEnv();
+
+    const depth = this.getParam('depth');
+    const maxDepth = this.getParam('maxDepth');
+    const reverse = this.getParam('reverse');
     const tests = []
-        .concat(that.getParam('test', true, data)) // tricky !
+        .concat(getParam('test', false, data))
         .map((i) => Boolean(i))
         .map((i) => (reverse ? !i : i));
-    feed.write(data);
+    const input = ezs.createStream(ezs.objectMode());
+    const statements = ezs.compileCommands(commands, getEnv());
+    const output = ezs.createPipeline(input, statements)
+        .pipe(ezs(loopFunc, { reverse, depth: depth + 1, maxDepth }, this.getEnv()))
+        .pipe(ezs.catch((e) => feed.write(e))); // avoid to break pipeline at each error
 
+    feed.write(data);
+    if (depth >= maxDepth) {
+        return feed.stop(new Error(`maxDepth (${maxDepth}) limit has been reached`));
+    }
     if (tests.every((test) => test)) {
         input.write(data);
-        feed.end();
-        //        ezs.writeTo(, data, () => feed.end());
+        input.end();
+        return feed.flow(output);
     }
     return feed.end();
 }
@@ -29,7 +41,6 @@ function loopFunc(data, feed) {
  * @param {String} [script] the external pipeline is described in a string of characters
  * @param {String} [commands] the external pipeline is described in an object
  * @param {String} [command] the external pipeline is described in an URL-like command
- * @param {String} [cache] Use a specific ezs statement to run commands (advanced)
  * @returns {Object}
  */
 export default function loop(data, feed) {
@@ -45,28 +56,33 @@ export default function loop(data, feed) {
         prepend: this.getParam('prepend'),
         append: this.getParam('append'),
     });
+    const maxDepth = Number(this.getParam('maxDepth', 100000));
     const reverse = Boolean(this.getParam('reverse', false));
     const tests = []
         .concat(this.getParam('test', false))
         .map((i) => Boolean(i))
         .map((i) => (reverse ? !i : i));
-    const cache = this.getParam('cache');
-    let statements;
-    if (cache) {
-        statements = [ezs(cache, { commands }, this.getEnv())];
-    } else {
-        statements = ezs.compileCommands(commands, this.getEnv());
-    }
+    const statements = ezs.compileCommands(commands, this.getEnv());
     const input = ezs.createStream(ezs.objectMode());
     const output = ezs.createPipeline(input, statements)
-        .pipe(ezs(loopFunc, { reverse }, { input, that: this }))
-        .pipe(ezs.catch((e) => feed.write(e))); // avoid to break pipeline at each error
+        .pipe(ezs(loopFunc, {
+            reverse,
+            depth: 1,
+            maxDepth,
+        }, {
+            commands,
+            getEnv: this.getEnv,
+            getParam: this.getParam,
+        }))
+        .pipe(ezs.catch((e) => feed.stop(e)));
 
     feed.write(data);
     if (tests.every((test) => test)) {
-        ezs.writeTo(input, data, () => feed.end());
+        input.write(data);
+        input.end();
         return feed.flow(output);
     }
+    input.end();
     return feed.end();
 
 }

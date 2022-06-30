@@ -75,16 +75,23 @@ describe('one loop for ', () => {
             });
     });
 });
-describe('2 loops ', () => {
-    const script = `
+describe('X loops ', () => {
+    const scriptX2 = `
             [assign]
             path = a
             value = fix(self.b < 2 ? 'loop' : 'break')
             path = b
             value = fix(2)
         `;
+    const scriptX99 = `
+            [assign]
+            path = a
+            value = fix(self.b < 100 ? 'loop' : 'break')
+            path = b
+            value = get('b').add(1)
+        `;
 
-    it('two loop for one item', (done) => {
+    it('2 loops for one item', (done) => {
         let res = 0;
         from([
             { a: 1, b: 1 },
@@ -95,9 +102,8 @@ describe('2 loops ', () => {
         ])
             .pipe(ezs('loop', {
                 test: new Expression("get('a').isEqual('loop')"),
-                script,
+                script: scriptX2,
             }))
-            .pipe(ezs('debug'))
             .pipe(ezs.catch())
             .on('error', (err) => {
                 throw err;
@@ -111,6 +117,55 @@ describe('2 loops ', () => {
                 done();
             });
     });
+    it('100 loops for one item', (done) => {
+        let res = 0;
+        from([
+            { a: 1, b: 1 },
+            { a: 'loop', b: 1 },
+            { a: 1, b: 1 },
+            { a: 1, b: 1 },
+            { a: 1, b: 1 },
+        ])
+            .pipe(ezs('loop', {
+                test: new Expression("get('a').isEqual('loop')"),
+                script: scriptX99,
+            }))
+            .pipe(ezs.catch())
+            .on('error', (err) => {
+                throw err;
+            })
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res += 1;
+            })
+            .on('end', () => {
+                assert.equal(105, res);
+                done();
+            });
+    });
+    it('100 loops for one item with maxDepth = 50', (done) => {
+        let res = 0;
+        from([
+            { a: 1, b: 1 },
+            { a: 'loop', b: 1 },
+            { a: 1, b: 1 },
+            { a: 1, b: 1 },
+            { a: 1, b: 1 },
+        ])
+            .pipe(ezs('loop', {
+                test: new Expression("get('a').isEqual('loop')"),
+                script: scriptX99,
+                maxDepth: 50,
+            }))
+            .pipe(ezs.catch())
+            .on('data', (chunk) => {
+                res += 1;
+            })
+            .on('error', (error) => {
+                assert.ok(error instanceof Error);
+                done();
+            });
+    });
 });
 describe('reverse test ', () => {
     const script = `
@@ -120,7 +175,7 @@ describe('reverse test ', () => {
             path = b
             value = true
         `;
-    it('two loop for one item', (done) => {
+    it('two loops for one item', (done) => {
         let res = 0;
         from([
             { a: 1, b: 1 },
@@ -134,7 +189,6 @@ describe('reverse test ', () => {
                 test: new Expression("has('b')"),
                 script,
             }))
-            .pipe(ezs('debug'))
             .pipe(ezs.catch())
             .on('error', (err) => {
                 throw err;
