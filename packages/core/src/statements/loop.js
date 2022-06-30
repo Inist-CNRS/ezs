@@ -30,13 +30,14 @@ function loopFunc(data, feed) {
     return feed.end();
 }
 /**
- * Delegate processing to an external pipeline, throw each chunk from the result.
+ * Loop on external pipeline, until test will be true
  *
  * > **Note**: works like {@link delegate}, but each chunk use its own external pipeline
  *
  * @name loop
  * @param {String} [test] if test is true
- * @param {String} [reverse=false] reverse the test
+ * @param {Boolean} [reverse=false] to reverse the test
+ * @param {Number} [maxDepth=100000] to limit the number of loops
  * @param {String} [file] the external pipeline is described in a file
  * @param {String} [script] the external pipeline is described in a string of characters
  * @param {String} [commands] the external pipeline is described in an object

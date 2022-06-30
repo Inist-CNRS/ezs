@@ -26,6 +26,7 @@ npm install @ezs/core
 -   [group](#group)
 -   [ignore](#ignore)
 -   [keep](#keep)
+-   [loop](#loop)
 -   [pack](#pack)
 -   [parallel](#parallel)
 -   [remove](#remove)
@@ -466,6 +467,24 @@ Output:
 #### Parameters
 
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to keep
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### loop
+
+Loop on external pipeline, until test will be true
+
+> **Note**: works like [delegate](#delegate), but each chunk use its own external pipeline
+
+#### Parameters
+
+-   `test` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** if test is true
+-   `reverse` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** to reverse the test (optional, default `false`)
+-   `maxDepth` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** to limit the number of loops (optional, default `100000`)
+-   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
+-   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
+-   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in an object
+-   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in an URL-like command
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
