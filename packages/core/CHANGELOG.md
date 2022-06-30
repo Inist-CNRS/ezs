@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.29.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.28.3...@ezs/core@1.29.0) (2022-06-30)
+
+
+### Bug Fixes
+
+* 🐛 looping looks good ([378b024](https://github.com/Inist-CNRS/ezs/commit/378b024aac1f73e6b21f31054441257d02c83d41))
+
+
+### Features
+
+* 🎸 add [loop] ([cb190ac](https://github.com/Inist-CNRS/ezs/commit/cb190ac3da58b322096e4c3b6452b9d037384828))
+
+
+
+
+
 ## [1.28.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.28.2...@ezs/core@1.28.3) (2022-06-21)
 
 **Note:** Version bump only for package @ezs/core
