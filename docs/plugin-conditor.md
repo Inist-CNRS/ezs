@@ -57,6 +57,7 @@ Sachant qu'on appauvrit (casse, accents, tiret, apostrophe) tous les champs.
 -   [conditorScroll](#conditorscroll)
 -   [CORHALFetch](#corhalfetch)
 -   [getRnsr](#getrnsr)
+-   [getRnsrInfo](#getrnsrinfo)
 
 ### affAlign
 
@@ -252,6 +253,82 @@ Output:
 
 ```json
 [{ "id": 1, "value": ["200619958X"] }]
+```
+
+#### Parameters
+
+-   `year` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Year of the RNSR to use instead of the last one (optional, default `2021`)
+
+### getRnsrInfo
+
+Find the RNSR information matching the `address` and the publication `year`
+of an article.
+
+Get objects with an `id` field and a `value` field.
+
+The `value` field is an object containing `address` and `year`.
+
+Returns an object with `id` and `value` fields. The `value` is an array of
+RNSR information objects (if any).
+
+Input:
+
+```json
+[{
+  "id": 1,
+  "value": {
+    "address": "Laboratoire des Sciences du Climat et de l'Environnement (LSCE), IPSL, CEA/CNRS/UVSQ Gif sur Yvette France",
+    "year": "2019"
+  }
+}]
+```
+
+Output:
+
+```json
+[{
+    "an_fermeture": "",
+    "annee_creation": "2014",
+    "code_postal": "75015",
+    "etabAssoc": [{
+        "etab": {
+            "libelle": "Centre national de la recherche scientifique",
+            "libelleAppauvri": "centre national de la recherche scientifique",
+            "sigle": "CNRS",
+            "sigleAppauvri": "cnrs"
+        },
+        "label": "UMR",
+        "labelAppauvri": "umr",
+        "numero": "8253"
+    }, {
+        "etab": {
+            "libelle": "Institut national de la sante et de la recherche medicale",
+            "libelleAppauvri": "institut national de la sante et de la recherche medicale",
+            "sigle": "INSERM",
+            "sigleAppauvri": "inserm"
+        },
+        "label": "U",
+        "labelAppauvri": "u",
+        "numero": "1151"
+    }, {
+        "etab": {
+            "libelle": "Université Paris Cité",
+            "libelleAppauvri": "universite paris cite",
+            "sigle": "U PARIS Cité",
+            "sigleAppauvri": "u paris cite"
+        },
+        "label": "UM",
+        "labelAppauvri": "um",
+        "numero": "111"
+    }],
+    "intitule": "Institut Necker Enfants Malades - Centre de médecine moléculaire",
+    "intituleAppauvri": "institut necker enfants malades   centre de medecine moleculaire",
+    "num_nat_struct": "201420755D",
+    "sigle": "INEM",
+    "sigleAppauvri": "inem",
+    "ville_postale": "PARIS",
+    "ville_postale_appauvrie": "paris"
+}]
 ```
 
 #### Parameters
