@@ -2,6 +2,7 @@ import affAlign from './affAlign';
 import compareRnsr from './compareRnsr';
 import conditorScroll from './scroll';
 import getRnsr from './getRnsr';
+import getRnsrInfo from './getRnsrInfo';
 import CORHALFetch from './corhal-fetch';
 
 const funcs = {
@@ -9,6 +10,7 @@ const funcs = {
     compareRnsr,
     conditorScroll,
     getRnsr,
+    getRnsrInfo,
     CORHALFetch,
 };
 
