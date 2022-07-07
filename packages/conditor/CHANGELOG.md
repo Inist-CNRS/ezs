@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.8.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.7.0...@ezs/conditor@2.8.0) (2022-07-07)
+
+
+### Features
+
+* **conditor:** Add getRnsrInfo statement ([ee7271f](https://github.com/Inist-CNRS/ezs/commit/ee7271f5d7a80465b54ba276b30f3f0e00e8b435))
+
+
+
+
+
 # [2.7.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.6.1...@ezs/conditor@2.7.0) (2022-06-22)
 
 
