@@ -29,7 +29,10 @@ export default async function URLFetch(data, feed) {
     }
     const url = this.getParam('url');
     const path = this.getParam('path');
-    const target = this.getParam('target');
+    const target = []
+        .concat(this.getParam('target'))
+        .filter(Boolean)
+        .shift();
     const json = Boolean(this.getParam('json', false));
     const retries = Number(this.getParam('retries', 5));
     const noerror = Boolean(this.getParam('noerror', false));
@@ -63,8 +66,8 @@ export default async function URLFetch(data, feed) {
         const response = await retry(request(url, parameters), options);
         const func = json ? 'json' : 'text';
         const value = await response[func]();
-        if (target && typeof target === 'string' && typeof data === 'object') {
-            const result = { ...data };
+        if (target) {
+            const result = typeof data === 'object' ? { ...data } : { input: data };
             set(result, target, value);
             return feed.send(result);
         }

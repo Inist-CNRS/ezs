@@ -26,6 +26,13 @@ httpbin
         },
     });
 httpbin
+    .get('/get?a=')
+    .reply(200, {
+        args: {
+            a: '',
+        },
+    });
+httpbin
     .post('/post/1')
     .reply(200, (uri, requestBody) => requestBody);
 httpbin
@@ -137,6 +144,33 @@ describe('URLFetch', () => {
             .on('end', () => {
                 expect(output.length).toBe(3);
                 expect(output).toStrictEqual(input);
+                done();
+            });
+    });
+    test('#2ter', (done) => {
+        ezs.use(statements);
+        const input = [
+            'a',
+        ];
+        const output = [];
+        const script = `
+            [URLFetch]
+            url = https://httpbin.org/get?a=
+            json = false
+            retries = 1
+            target = r
+        `;
+        from(input)
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                const j = JSON.parse(chunk.r);
+                output.push(j.args);
+            })
+            .on('end', () => {
+                expect(output.length).toBe(1);
+                expect(output[0].a).toStrictEqual('');
                 done();
             });
     });

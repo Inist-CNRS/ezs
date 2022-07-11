@@ -34,6 +34,15 @@ registry_npmjs_com
     .reply(200, {
         total: 10,
     });
+
+registry_npmjs_com
+    .get('/-/v1/search?text=timeout')
+    .delayConnection(0)
+    .delayBody(1000)
+    .reply(200, {
+        total: 10,
+    });
+
 const httpbin = nock('https://httpbin.org').persist(true);
 httpbin
     .post('/status/400')
@@ -136,6 +145,65 @@ describe('URLPagination', () => {
             });
     });
 
+    test('#2bis', (done) => {
+        ezs.use(statements);
+        const input = [
+            { text: 'nested' },
+        ];
+        const output = [];
+        const script = `
+            [exchange]
+            value = fix('https://registry.npmjs.com/-/v1/search?text=nested')
+
+            [URLRequest]
+
+            [URLPagination]
+            total = get('result.total')
+        `;
+        from(input)
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                expect(output.length).toBe(3);
+                expect(output[0].pageNumber).toStrictEqual(1);
+                done();
+            });
+    });
+
+    test('#2ter', (done) => {
+        ezs.use(statements);
+        const input = [
+            { text: 'nested' },
+        ];
+        const output = [];
+        const script = `
+            [exchange]
+            value = fix('https://registry.npmjs.com/-/v1/search?text=nested')
+
+            [URLRequest]
+            target = toto
+
+            [URLPagination]
+            total = get('toto.result.total')
+        `;
+        from(input)
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                expect(output.length).toBe(3);
+                expect(output[0].pageNumber).toStrictEqual(1);
+                done();
+            });
+    });
+
     test('#3', (done) => {
         ezs.use(statements);
         const input = [
@@ -152,8 +220,12 @@ describe('URLPagination', () => {
             .pipe(ezs('delegate', { script }))
             .pipe(ezs.catch())
             .on('error', (e) => {
-                expect(e.message).toEqual(expect.stringContaining('No result.'));
-                done();
+                try {
+                    expect(e.message).toEqual(expect.stringContaining('No result.'));
+                    done();
+                } catch (err) {
+                    done(err);
+                }
             })
             .on('end', () => {
                 done(new Error('Error is the right behavior'));
@@ -217,6 +289,33 @@ describe('URLPagination', () => {
             });
     });
 
+    test('#6', (done) => {
+        ezs.use(statements);
+        const input = [
+            { text: 'timeout' },
+        ];
+        const script = `
+            [URLRequest]
+            url = https://registry.npmjs.com/-/v1/search
+            timeout = 100
 
-
+            [URLPagination]
+            total = get('total')
+        `;
+        from(input)
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', (e) => {
+                try {
+                    expect(e.message).toEqual(expect.stringContaining('Response timeout'));
+                    expect(e.message).toEqual(expect.stringContaining('over 100ms'));
+                    done();
+                } catch (err) {
+                    done(err);
+                }
+            })
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+            });
+    });
 });
