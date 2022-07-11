@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.21.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.20.0...@ezs/basics@1.21.0) (2022-07-11)
+
+
+### Features
+
+* 🎸 add target option to URLRequest ([3861c5e](https://github.com/Inist-CNRS/ezs/commit/3861c5e10b4dcfd060b49fa9b23f2bcf98d8c942))
+
+
+
+
+
 # [1.20.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.19.0...@ezs/basics@1.20.0) (2022-06-24)
 
 
