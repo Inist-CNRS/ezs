@@ -2,8 +2,12 @@ import fetch from 'fetch-with-proxy';
 
 const request = (url, parameters) => async () => {
     const response = await fetch(url, parameters);
+
     if (!response.ok) {
-        throw new Error(response.statusText);
+        const err = new Error(response.statusText);
+        const text = await response.text();
+        err.responseText = text;
+        throw err;
     }
     return response;
 };

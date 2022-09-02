@@ -25,6 +25,7 @@ import TXTZip from './txt-zip';
 import ZIPExtract from './zip-extract';
 import INIString from './ini-string';
 import FILESave from './file-save';
+import FILELoad from './file-load';
 
 const funcs = {
     BUFObject,
@@ -54,6 +55,7 @@ const funcs = {
     ZIPExtract,
     INIString,
     FILESave,
+    FILELoad,
     // aliases
     bufferify: BUFObject.BUFObject,
     concat: TXTConcat.TXTConcat,
