@@ -384,8 +384,25 @@ const env = {
     executed: false,
 };
 const cacheName = Date.now();
+const cacheScript = `
+    [use]
+    plugin = analytics
 
-test.skip('combine with cache with script #1', (done) => {
+    [env]
+    path = executed
+    value = fix(true)
+
+    [replace]
+    path = value
+    value = fix({id:'a', value:'aa'},{id:'b', value:'bb'},{id:'c', value:'cc'},{id:'d', value:'dd'},{id:'e', value:'ee'},{id:'f', value:'ff'})
+
+    [exploding]
+    [value]
+`;
+
+
+
+test('combine with internal cache with script #1', (done) => {
     ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
@@ -396,24 +413,8 @@ test.skip('combine with cache with script #1', (done) => {
         { a: 6, b: 'f' },
     ];
     const output = [];
-    const script = `
-            [use]
-            plugin = analytics
-
-            [env]
-            path = executed
-            value = fix(true)
-
-            [replace]
-            path = value
-            value = fix({id:'a', value:'aa'},{id:'b', value:'bb'},{id:'c', value:'cc'},{id:'d', value:'dd'},{id:'e', value:'ee'},{id:'f', value:'ff'})
-
-            [exploding]
-            [value]
-        `;
-
     from(input)
-        .pipe(ezs('combine', { path: 'b', script, cacheName }, env))
+        .pipe(ezs('combine', { path: 'b', script: cacheScript }, env))
         .pipe(ezs.catch())
         .on('error', done)
         .on('data', (chunk) => {
@@ -433,7 +434,7 @@ test.skip('combine with cache with script #1', (done) => {
         });
 });
 
-test.skip('combine with cache with script #2', (done) => {
+test('combine with internal cache with script #2', (done) => {
     ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
@@ -444,24 +445,8 @@ test.skip('combine with cache with script #2', (done) => {
         { a: 6, b: 'f' },
     ];
     const output = [];
-    const script = `
-            [use]
-            plugin = analytics
-
-            [env]
-            path = executed
-            value = fix(true)
-
-            [replace]
-            path = value
-            value = fix({id:'a', value:'aa'},{id:'b', value:'bb'},{id:'c', value:'cc'},{id:'d', value:'dd'},{id:'e', value:'ee'},{id:'f', value:'ff'})
-
-            [exploding]
-            [value]
-        `;
-
     from(input)
-        .pipe(ezs('combine', { path: 'b', script, cacheName }, env))
+        .pipe(ezs('combine', { path: 'b', script: cacheScript }, env))
         .pipe(ezs.catch())
         .on('error', done)
         .on('data', (chunk) => {
