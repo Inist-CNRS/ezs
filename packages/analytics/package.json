@@ -1,7 +1,7 @@
 {
   "name": "@ezs/analytics",
   "description": "Analytics statements for EZS",
-  "version": "1.18.8",
+  "version": "1.19.0",
   "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
   "bugs": "https://github.com/Inist-CNRS/ezs/issues",
   "dependencies": {
@@ -22,7 +22,7 @@
     "tempy": "1.0.1"
   },
   "devDependencies": {
-    "@ezs/core": "1.29.0"
+    "@ezs/core": "1.29.1"
   },
   "directories": {
     "test": "test"
