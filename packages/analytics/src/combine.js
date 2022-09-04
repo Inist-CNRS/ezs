@@ -88,15 +88,17 @@ export default function combine(data, feed) {
             append: this.getParam('append'),
         });
         this.databaseID = hashCoerce.hash({ primer, commands });
-        const statements = ezs.compileCommands(commands, this.getEnv());
-        const output = ezs.createPipeline(input, statements)
-            .pipe(ezs(saveIn, null, this.databaseID))
-            .pipe(ezs.catch())
-            .on('data', (d) => assert(d)) // WARNING: The data must be consumed, otherwise the "end" event has not been triggered
-            .on('error', (e) => feed.stop(e));
-        whenReady = new Promise((resolve) => output.on('end', resolve));
-        input.write(primer);
-        input.end();
+        if (!database[this.databaseID]) {
+            const statements = ezs.compileCommands(commands, this.getEnv());
+            const output = ezs.createPipeline(input, statements)
+                .pipe(ezs(saveIn, null, this.databaseID))
+                .pipe(ezs.catch())
+                .on('data', (d) => assert(d)) // WARNING: The data must be consumed, otherwise the "end" event has not been triggered
+                .on('error', (e) => feed.stop(e));
+            whenReady = new Promise((resolve) => output.on('end', resolve));
+            input.write(primer);
+            input.end();
+        }
     }
     if (this.isLast()) {
         return feed.close();
