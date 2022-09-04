@@ -330,7 +330,7 @@ describe('dispatch through server(s)', () => {
                     done();
                 }
             });
-    });
+    }, 16000);
 
     it('with an unknowed statement', (done) => {
         const commands = [
