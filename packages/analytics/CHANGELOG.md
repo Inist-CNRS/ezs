@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.19.0...@ezs/analytics@1.19.1) (2022-09-04)
+
+
+### Bug Fixes
+
+* 🐛 enable memoize ([b571fca](https://github.com/Inist-CNRS/ezs/commit/b571fca2c2ab3fa309d29372256359545e2a0763))
+
+
+
+
+
 # [1.19.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.18.8...@ezs/analytics@1.19.0) (2022-09-04)
 
 
