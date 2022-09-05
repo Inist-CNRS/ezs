@@ -18,6 +18,7 @@ npm install @ezs/basics
 -   [CSVObject](#csvobject)
 -   [CSVParse](#csvparse)
 -   [CSVString](#csvstring)
+-   [FILELoad](#fileload)
 -   [FILESave](#filesave)
 -   [INIString](#inistring)
 -   [JSONParse](#jsonparse)
@@ -191,6 +192,41 @@ a;b;c
 -   `header` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** first line contains key name (optional, default `true`)
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+### FILELoad
+
+Take `Object` containing filename et throw content by chunk
+
+```json
+[ fi1e1.csv, file2.csv ]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+plugin = basics
+
+[FILELoad]
+location = /tmp
+[CSVParse]
+```
+
+Output:
+
+```json
+[
+(...)
+]
+```
+
+#### Parameters
+
+-   `location` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Directory location (optional, default `TMPDIR`)
+-   `compress` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Enable gzip compression (optional, default `false`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### FILESave
 
