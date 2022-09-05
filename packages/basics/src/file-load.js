@@ -18,6 +18,7 @@ import { tmpdir } from 'os';
  * plugin = basics
  *
  * [FILELoad]
+ * location = /tmp
  * [CSVParse]
  *
  * ```
@@ -32,7 +33,6 @@ import { tmpdir } from 'os';
  *
  * @name FILELoad
  * @param {String} [location=TMPDIR] Directory location
- * @param {String} [identifier] File name
  * @param {Boolean} [compress=false] Enable gzip compression
  * @returns {Object}
  */
@@ -43,21 +43,19 @@ export default function FILELoad(data, feed) {
     }
     const cwd = process.cwd();
     const tpd = tmpdir();
-    const identifier = String(this.getParam('identifier'));
     const location = this.getParam('location', tpd);
     const compress = this.getParam('compress', false);
-    const locations = this.ezs.getPath().concat(location);
+    const locations = [cwd, tpd, location];
     const file = locations
         .filter(Boolean)
         .map((dir) => resolve(dir, String(data).trim()))
-        .filter((fil) => ((fil.indexOf(cwd) === 0 || fil.indexOf(tpd) === 0) && existsSync(fil)))
+        .filter((fil) => existsSync(fil))
         .shift();
     if (!file) {
         feed.end();
         return;
     }
     if (compress) {
-        this.filename = resolve(location, `${identifier}.gz`);
         feed.flow(createReadStream(file).pipe(createGunzip()));
         return;
     }
