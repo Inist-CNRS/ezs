@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.30.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.29.1...@ezs/core@1.30.0) (2022-09-06)
+
+
+### Bug Fixes
+
+* 🐛 use promise ([9851782](https://github.com/Inist-CNRS/ezs/commit/9851782c8a2c5ab8ece85eb8a88ca883be09d227))
+
+
+### Features
+
+* 🎸 add [map] ([da4cf8f](https://github.com/Inist-CNRS/ezs/commit/da4cf8fa2d6b11bf65273131e5b32f8364b2fe4a))
+
+
+
+
+
 ## [1.29.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.29.0...@ezs/core@1.29.1) (2022-09-04)
 
 **Note:** Version bump only for package @ezs/core
