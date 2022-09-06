@@ -17,6 +17,7 @@
     "end-of-stream": "1.4.4",
     "filename-regex": "2.0.1",
     "filtrex": "1.0.0",
+    "from": "0.1.7",
     "global-modules": "2.0.0",
     "http-shutdown": "1.2.2",
     "load-json-file": "6.2.0",
@@ -30,6 +31,7 @@
     "path-exists": "4.0.0",
     "prom-client": "14.0.0",
     "readable-stream": "3.6.0",
+    "stream-to-array": "2.3.0",
     "stream-write": "1.0.1",
     "validatorjs": "3.18.1",
     "yargs": "15.4.1"

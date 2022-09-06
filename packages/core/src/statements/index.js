@@ -27,6 +27,7 @@ import ignore from './ignore';
 import exchange from './exchange';
 import swing from './swing';
 import loop from './loop';
+import map from './map';
 
 export default {
     extract,
@@ -58,4 +59,5 @@ export default {
     exchange,
     swing,
     loop,
+    map,
 };
