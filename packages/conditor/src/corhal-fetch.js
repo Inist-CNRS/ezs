@@ -4,6 +4,8 @@ import { URL, URLSearchParams } from 'url';
 import AbortController from 'node-abort-controller';
 import retry from 'async-retry';
 import fetch from 'fetch-with-proxy';
+import writeTo from 'stream-write';
+import each from 'async-each-series';
 
 const request = (url, parameters) => async () => {
     const response = await fetch(url, parameters);
@@ -12,6 +14,12 @@ const request = (url, parameters) => async () => {
     }
     return response;
 };
+
+const write = (output, notices) => new Promise((resolve, reject) => each(
+    notices,
+    (notice, next) => writeTo(output, notice, next),
+    (err) => (err ? reject(err) : resolve(true)),
+));
 
 /**
  * Take `String` as URL, throw each chunk from the result
@@ -48,6 +56,7 @@ export default async function CORHALFetch(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
+    const { ezs } = this;
     const url = String(this.getParam('url', 'https://corhal-api.inist.fr'));
     const retries = Number(this.getParam('retries', 5));
     const timeout = Number(this.getParam('timeout')) || 1000;
@@ -60,28 +69,30 @@ export default async function CORHALFetch(data, feed) {
     };
     const options = {
         retries,
+        minTimeout: timeout,
     };
     const onError = (e) => {
         controller.abort();
         debug('ezs')(`Break item #${this.getIndex()} [CORHALFetch] <${e}>`);
-        return feed.send(e);
+        return feed.stop(e);
     };
-    try {
-        const response = await retry(request(cURL.href, parameters), options);
-        const totalCount = Number(response.headers.get('x-total-count'));
-        const max = Math.max(10_000_000, totalCount);
-        let notices = await response.json();
-        let resultCount = notices.length;
-        let afterKeyToken = response.headers.get('after-key-token');
-        while (afterKeyToken && resultCount < max) {
-            notices.forEach((notice) => feed.write(notice));
+    const loop = async (stream, arr, afterKeyToken) => {
+        await write(stream, arr);
+        if (afterKeyToken) {
             const href = `${url}/after/${afterKeyToken}`;
             const responseBis = await retry(request(href, parameters), options);
-            notices = await responseBis.json();
-            resultCount += notices.length;
-            afterKeyToken = responseBis.headers.get('after-key-token');
+            const noticesBis = await responseBis.json();
+            const afterKeyTokenBis = responseBis.headers.get('after-key-token');
+            loop(stream, noticesBis, afterKeyTokenBis);
         }
-        feed.end();
+    };
+    try {
+        const output = ezs.createStream(ezs.objectMode());
+        const response = await retry(request(cURL.href, parameters), options);
+        const afterKeyToken = response.headers.get('after-key-token');
+        const notices = await response.json();
+        await loop(output, notices, afterKeyToken);
+        return feed.flow(output);
     } catch (e) {
         onError(e);
     }
