@@ -5,8 +5,7 @@ import { tmpdir } from 'os';
 import pathExists from 'path-exists';
 import makeDir from 'make-dir';
 import writeTo from 'stream-write';
-
-
+import debug from 'debug';
 
 
 /**
@@ -44,34 +43,41 @@ import writeTo from 'stream-write';
  * @param {Boolean} [compress=false] Enable gzip compression
  * @returns {Object}
  */
-export default async function FILESave(data, feed) {
-    if (!this.handle) {
+export default function FILESave(data, feed) {
+    const buf = Buffer.from(String(data));
+    if (this.isFirst()) {
         const identifier = String(this.getParam('identifier'));
         const location = this.getParam('location', tmpdir());
         const compress = this.getParam('compress', false);
         if (!pathExists.sync(location)) {
             makeDir.sync(location);
         }
-
-        if (compress) {
-            this.filename = path.resolve(location, `${identifier}.gz`);
-            this.handle = createGzip();
-            this.handleEnd = this.handle.pipe(createWriteStream(this.filename));
-
-        } else {
-            this.filename = path.resolve(location, identifier);
-            this.handle = createWriteStream(this.filename);
-            this.handleEnd = this.handle;
-        }
-    }
-    if (this.isLast()) {
-        this.handleEnd.on('close', () => {
-            lstat(this.filename, (err, stat) => {
-                feed.write({ filename: this.filename, ...stat });
-                return feed.close();
+        const name = compress ? `${identifier}.gz` : identifier;
+        const filename = path.resolve(location, name);
+        this.input = compress ? createGzip() : createWriteStream(filename);
+        this.whenFinish = new Promise((resolve, reject) => {
+            const output = compress ? this.input.pipe(createWriteStream(filename)) : this.input;
+            output.once('error', (err) => {
+                debug('ezs')(`WARNING: ${filename} not saved. ${err}`);
+                reject(err);
+            });
+            output.once('close', () => {
+                debug('ezs')(`${filename} saved.`);
+                lstat(filename, (err, stat) => {
+                    if (err) {
+                        return reject(err);
+                    }
+                    return resolve({ filename, ...stat });
+                });
             });
         });
-        return this.handle.end();
     }
-    writeTo(this.handle, Buffer.from(String(data)), () => feed.end());
+    if (this.isLast()) {
+        this.input.end();
+        return this.whenFinish
+            .then((stats) => feed.write(stats))
+            .catch((err) => feed.stop(err))
+            .finally(() => feed.close());
+    }
+    writeTo(this.input, buf, () => feed.end());
 }

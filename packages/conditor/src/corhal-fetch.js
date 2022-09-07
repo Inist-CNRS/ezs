@@ -69,7 +69,6 @@ export default async function CORHALFetch(data, feed) {
     };
     const options = {
         retries,
-        minTimeout: timeout,
     };
     const onError = (e) => {
         controller.abort();
@@ -77,13 +76,17 @@ export default async function CORHALFetch(data, feed) {
         return feed.stop(e);
     };
     const loop = async (stream, arr, afterKeyToken) => {
-        await write(stream, arr);
+        if (arr.length > 0) {
+            await write(stream, arr);
+        }
         if (afterKeyToken) {
             const href = `${url}/after/${afterKeyToken}`;
             const responseBis = await retry(request(href, parameters), options);
             const noticesBis = await responseBis.json();
             const afterKeyTokenBis = responseBis.headers.get('after-key-token');
             loop(stream, noticesBis, afterKeyTokenBis);
+        } else { 
+            stream.end();
         }
     };
     try {
@@ -92,7 +95,7 @@ export default async function CORHALFetch(data, feed) {
         const afterKeyToken = response.headers.get('after-key-token');
         const notices = await response.json();
         await loop(output, notices, afterKeyToken);
-        return feed.flow(output);
+        await feed.flow(output);
     } catch (e) {
         onError(e);
     }

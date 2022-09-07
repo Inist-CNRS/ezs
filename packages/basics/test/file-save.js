@@ -12,7 +12,11 @@ describe('FILESave #1', () => {
     it('should return stat', (done) => {
         const output = [];
         from([1])
-            .pipe(ezs('FILESave', { identifier, location: '/tmp' }))
+            .pipe(ezs('FILESave', {
+                identifier,
+                location: '/tmp',
+                compress: false,
+            }))
             .pipe(ezs.catch())
             .on('error', done)
             .on('data', (chunk) => {
@@ -74,6 +78,37 @@ describe('FILESave #1bis', () => {
     });
 });
 
+describe('FILESave (delegated)', () => {
+    const identifier = Date.now();
+    const filename = `/tmp/${identifier}`;
+    const script = `
+        [FILESave]
+        location = /tmp
+        identifier = ${identifier}
+    `;
+
+    it('should return stat', (done) => {
+        const output = [];
+        from([1])
+            .pipe(ezs('delegate', {
+                script,
+            }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                expect(output.length).toBe(1);
+                expect(output[0].size).toBe(1);
+                expect(output[0]).toStrictEqual(
+                    { filename, ...fs.statSync(filename) },
+                );
+                fs.unlink(filename, done);
+            });
+    });
+});
+
 describe('FILESave #1ter', () => {
     const identifier = Date.now();
     const filenamegz = `/tmp/${identifier}.gz`;
@@ -94,7 +129,6 @@ describe('FILESave #1ter', () => {
         const output = [];
         from([1])
             .pipe(ezs('delegate', { script }))
-            .pipe(ezs('debug', { script }))
             .pipe(ezs.catch())
             .on('error', done)
             .on('data', (chunk) => {
