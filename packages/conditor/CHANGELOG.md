@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.8.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.8.1...@ezs/conditor@2.8.2) (2022-09-07)
+
+
+### Bug Fixes
+
+* 🐛 stop loop (and refactoring) ([2c162aa](https://github.com/Inist-CNRS/ezs/commit/2c162aa64a4603f79c5bdddbca8b58272278f745))
+
+
+
+
+
 ## [2.8.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.8.0...@ezs/conditor@2.8.1) (2022-09-06)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.22.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.22.0...@ezs/basics@1.22.1) (2022-09-07)
+
+
+### Bug Fixes
+
+* 🐛 stop loop (and refactoring) ([2c162aa](https://github.com/Inist-CNRS/ezs/commit/2c162aa64a4603f79c5bdddbca8b58272278f745))
+
+
+
+
+
 # [1.22.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.21.0...@ezs/basics@1.22.0) (2022-09-05)
 
 
