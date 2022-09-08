@@ -119,9 +119,10 @@ export default class Engine extends SafeTransform {
     }
 
     isReady() {
-        return (!this._readableState.ended
+        return ((!this._readableState.ended
             && (this._readableState.length < this._readableState.highWaterMark
-                || this._readableState.length === 0));
+                || this._readableState.length === 0))
+            || this.nullWasSent);
     }
 
     execWith(chunk, done) {
