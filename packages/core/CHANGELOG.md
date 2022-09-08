@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.30.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.30.0...@ezs/core@1.30.1) (2022-09-08)
+
+
+### Bug Fixes
+
+* 🐛 fix deadlock ([9835fc4](https://github.com/Inist-CNRS/ezs/commit/9835fc472dbec5b016228b15230af0f6bbe60bae))
+
+
+
+
+
 # [1.30.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.29.1...@ezs/core@1.30.0) (2022-09-06)
 
 
