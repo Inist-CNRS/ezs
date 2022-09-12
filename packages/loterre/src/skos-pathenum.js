@@ -91,7 +91,8 @@ async function SKOSPathEnum(data, feed) {
                     this.store.close();
                 });
             ;
-            return feed.flow(output);
+            await feed.flow(output);
+            return;
         }
         await this.store.add(data.rdf$about, data);
         feed.end();

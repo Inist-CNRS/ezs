@@ -56,7 +56,7 @@ export const createFunction = () => async function LodexAggregateQuery(data, fee
         .skip(Number(skip))
         .limit(Number(limit))
         .pipe(ezs('assign', { path, value }));
-    feed.flow(stream);
+    await feed.flow(stream);
 };
 
 export default {

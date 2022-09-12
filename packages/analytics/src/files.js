@@ -34,7 +34,7 @@ import { resolve } from 'path';
  * @param {String} [location=.] path location to find files
  * @returns {Object}
  */
-export default function files(data, feed) {
+export default async function files(data, feed) {
     if (this.isLast()) {
         feed.close();
         return;
@@ -50,5 +50,5 @@ export default function files(data, feed) {
         feed.end();
         return;
     }
-    feed.flow(createReadStream(file));
+    await feed.flow(createReadStream(file));
 }

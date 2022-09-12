@@ -11,7 +11,7 @@
  * @param {String} [cache] Use a specific ezs statement to run commands (advanced)
  * @returns {Object}
  */
-export default function spawn(data, feed) {
+export default async function spawn(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
@@ -35,5 +35,5 @@ export default function spawn(data, feed) {
     const output = ezs.createPipeline(input, statements)
         .pipe(ezs.catch((e) => feed.write(e))); // avoid to break pipeline at each error
     ezs.writeTo(input, data, () => input.end());
-    return feed.flow(output);
+    await feed.flow(output);
 }
