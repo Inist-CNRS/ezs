@@ -123,5 +123,5 @@ export default async function LodexJoinQuery(data, feed) {
             output.send(input);
         }));
 
-    feed.flow(stream);
+    await feed.flow(stream);
 }

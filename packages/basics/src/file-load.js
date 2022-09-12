@@ -36,7 +36,7 @@ import { tmpdir } from 'os';
  * @param {Boolean} [compress=false] Enable gzip compression
  * @returns {Object}
  */
-export default function FILELoad(data, feed) {
+export default async function FILELoad(data, feed) {
     if (this.isLast()) {
         feed.close();
         return;
@@ -55,9 +55,7 @@ export default function FILELoad(data, feed) {
         feed.end();
         return;
     }
-    if (compress) {
-        feed.flow(createReadStream(file).pipe(createGunzip()));
-        return;
-    }
-    feed.flow(createReadStream(file));
+    const stream = compress ? createReadStream(file).pipe(createGunzip()) : createReadStream(file);
+    await feed.flow(stream);
+    return;
 }

@@ -112,7 +112,7 @@ export const createFunction = () => async function LodexReduceQuery(data, feed) 
         .skip(Number(skip))
         .limit(Number(limit))
         .pipe(ezs('assign', { path, value }));
-    feed.flow(stream);
+    await feed.flow(stream);
 };
 
 export default {

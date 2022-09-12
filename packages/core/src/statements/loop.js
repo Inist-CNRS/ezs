@@ -1,4 +1,4 @@
-function loopFunc(data, feed) {
+async function loopFunc(data, feed) {
     const { ezs } = this;
     if (this.isLast()) {
         return feed.close();
@@ -25,7 +25,8 @@ function loopFunc(data, feed) {
     if (tests.every((test) => test)) {
         input.write(data);
         input.end();
-        return feed.flow(output);
+        await feed.flow(output);
+        return;
     }
     return feed.end();
 }
