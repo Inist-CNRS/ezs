@@ -86,9 +86,9 @@ async function SKOSPathEnum(data, feed) {
                     label: this.getParam('label', 'skos$prefLabel'),
                     recursion: this.getParam('recursion', false),
                 }, this.store))
-                .on('end', () => {
+                .on('end', async () => {
+                    await this.store.close();
                     feed.close();
-                    this.store.close();
                 });
             ;
             await feed.flow(output);

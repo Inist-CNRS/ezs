@@ -46,13 +46,13 @@ export default async function reducing(data, feed) {
         const stream = await this.store.empty();
         stream
             .on('data', (item) => feed.write(item))
-            .on('end', () => {
-                this.store.close();
+            .on('end', async () => {
+                await this.store.close();
                 feed.close();
             });
     } else {
         const id = get(data, this.getParam('id', 'id')) || this.getIndex();
         const value = get(data, this.getParam('value', 'value'));
-        this.store.add(id, value).then(() => feed.end());
+        await this.store.add(id, value).then(() => feed.end());
     }
 }

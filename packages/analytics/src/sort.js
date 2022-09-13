@@ -74,7 +74,7 @@ export default async function sort(data, feed) {
             },
             Promise.resolve(),
         );
-        this.store.close();
+        await this.store.close();
         feed.close();
     } else {
         const path = this.getParam('path', 'id');
@@ -86,6 +86,6 @@ export default async function sort(data, feed) {
         const idx = this.getIndex().toString().padStart(20, '0');
         const hash = normalize(key).concat('~').concat(idx).replace(/\s/g, '~');
         this.table.push(hash);
-        this.store.put(hash, data).then(() => feed.end());
+        await this.store.put(hash, data).then(() => feed.end());
     }
 }
