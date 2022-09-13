@@ -17,8 +17,6 @@ npm install @ezs/analytics
 #### Table of Contents
 
 -   [aggregate](#aggregate)
--   [bufferize](#bufferize)
--   [buffers](#buffers)
 -   [combine](#combine)
 -   [count](#count)
 -   [distance](#distance)
@@ -27,7 +25,6 @@ npm install @ezs/analytics
 -   [drop](#drop)
 -   [expand](#expand)
 -   [exploding](#exploding)
--   [files](#files)
 -   [filter](#filter)
 -   [graph](#graph)
 -   [greater](#greater)
@@ -50,9 +47,7 @@ npm install @ezs/analytics
 -   [sort](#sort)
 -   [statistics](#statistics)
 -   [summing](#summing)
--   [throttle](#throttle)
 -   [tune](#tune)
--   [upload](#upload)
 -   [value](#value)
 
 ### aggregate
@@ -91,81 +86,6 @@ Output:
 
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (if not found 1 is the default value) (optional, default `value`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### bufferize
-
-Takes all `Objects` and bufferize them in a store
-
-```json
-[
-          { year: 2000, dept: 54 },
-          { year: 2001, dept: 55 },
-          { year: 2003, dept: 54 },
-]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[bufferize]
-path = bufferID
-```
-
-Output:
-
-```json
- [
-          { year: 2000, dept: 54, bufferID: 'AEERRFFF' },
-          { year: 2001, dept: 55, bufferID: 'AEERRFFF' },
-          { year: 2003, dept: 54, bufferID: 'AEERRFFF' },
- ]
-```
-
-#### Parameters
-
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the path to insert the bufferID (optional, default `bufferID`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### buffers
-
-Takes all `Objects` from a store
-
-```json
-[
-     'AEERRFFF',
-     'DFERGGGV',
-]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[buffers]
-from = store/13455666/ddd
-```
-
-Output:
-
-```json
- [
-          { year: 2000, dept: 54, bufferID: 'AEERRFFF' },
-          { year: 2001, dept: 55, bufferID: 'AEERRFFF' },
-          { annee: 2003, bufferID: 'DFERGGGV' },
- ]
-```
-
-#### Parameters
-
--   `from` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the store id
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -585,41 +505,6 @@ Output:
 
 -   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `"id"`)
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `"value"`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### files
-
-Take `Object` containing filename et throw content by chunk
-
-Note : files must be under the working directory of the Node.js process.
-
-```json
-[ fi1e1.csv, file2.csv ]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-plugin = basics
-
-[files]
-[CSVParse]
-```
-
-Output:
-
-```json
-[
-(...)
-]
-```
-
-#### Parameters
-
--   `location` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path location to find files (optional, default `.`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -1710,42 +1595,6 @@ Output:
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### throttle
-
-Take `Object` and return the same object
-
-```json
-[{
-         { id: 'x', value: 2 },
-         { id: 't', value: 2 },
-}]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[throttle]
-bySecond = 2
-```
-
-Output:
-
-```json
-[
-         { id: 'x', value: 2 },
-         { id: 't', value: 2 },
-]
-```
-
-#### Parameters
-
--   `bySecond` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Number of object by second (optional, default `1`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
 ### tune
 
 Take all `Object` and sort them with selected field
@@ -1774,46 +1623,6 @@ Output:
 #### Parameters
 
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for the sort key (optional, default `id`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### upload
-
-save all objects in a temporary file
-For non Buffer chunks, each object is transformed into a
-string of characters in a raw way (no separator)
-
-```json
-[
-          { year: 2000, dept: 54 },
-          { year: 2001, dept: 55 },
-          { year: 2003, dept: 54 },
-]
-```
-
-Script:
-
-```ini
-[use]
-plugin = analytics
-
-[upload]
-cleanupDelay = 5
-```
-
-Output:
-
-```json
- [
-          { id: '/tmp/31234qdE33334dZE', value:3 },
- ]
-```
-
-#### Parameters
-
--   `extension` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** set the file extension (optional, default `bin`)
--   `prefix` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** set the file prefix (optional, default `upload`)
--   `cleanupDelay` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** TTL in seconds, before cleanup the file (EZS_DELAY) (optional, default `3600`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 

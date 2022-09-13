@@ -36,6 +36,7 @@ npm install @ezs/core
 -   [shuffle](#shuffle)
 -   [spawn](#spawn)
 -   [swing](#swing)
+-   [throttle](#throttle)
 -   [time](#time)
 -   [tracer](#tracer)
 -   [transit](#transit)
@@ -752,6 +753,42 @@ Delegate processing to an external pipeline under specifics conditions
 -   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in an object
 -   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in an URL-like
     command
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### throttle
+
+Take `Object` and return the same object
+
+```json
+[{
+         { id: 'x', value: 2 },
+         { id: 't', value: 2 },
+}]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[throttle]
+bySecond = 2
+```
+
+Output:
+
+```json
+[
+         { id: 'x', value: 2 },
+         { id: 't', value: 2 },
+]
+```
+
+#### Parameters
+
+-   `bySecond` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Number of object by second (optional, default `1`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
