@@ -1,5 +1,4 @@
 import Store from './store';
-import { validKey } from './identify';
 
 /**
  * With a `String`, containing a URI throw all the documents that match
@@ -17,10 +16,6 @@ export default async function load(data, feed) {
         this.store.close();
         return feed.close();
     }
-    if (!validKey(data)) {
-        return feed.end();
-    }
-
     const value = await this.store.get(data);
     return feed.send(value);
 }

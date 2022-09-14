@@ -24,6 +24,8 @@
     "lodash": "4.17.21",
     "lru-cache": "5.1.1",
     "merge2": "1.4.1",
+    "nanoid": "2.1.8",
+    "nanoid-dictionary": "2.0.0",
     "node-dir": "0.1.17",
     "object-sizeof": "1.6.1",
     "once": "1.4.0",
