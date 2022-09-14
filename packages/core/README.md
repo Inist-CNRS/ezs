@@ -779,7 +779,7 @@ bySecond = 2
 
 Output:
 
-```json
+```js
 [
          { id: 'x', value: 2 },
          { id: 't', value: 2 },
