@@ -53,6 +53,7 @@ export default async function reducing(data, feed) {
     } else {
         const id = get(data, this.getParam('id', 'id')) || this.getIndex();
         const value = get(data, this.getParam('value', 'value'));
-        await this.store.add(id, value).then(() => feed.end());
+        await this.store.add(id, value)
+        feed.end();
     }
 }
