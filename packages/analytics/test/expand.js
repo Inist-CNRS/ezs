@@ -246,38 +246,6 @@ test('with no script', (done) => {
             done(new Error('Error is the right behavior'));
         });
 });
-test('with wrong location ', (done) => {
-    ezs.use(statements);
-    const input = [
-        { a: 1, b: 'a' },
-        { a: 2, b: 'b' },
-        { a: 3, b: 'c' },
-        { a: 4, b: 'd' },
-        { a: 5, b: 'e' },
-        { a: 6, b: 'f' },
-    ];
-    const script = `
-            [use]
-            plugin = analytics
-
-            [assign]
-            path = value
-            value = get('value').toUpper()
-        `;
-    from(input)
-        .pipe(ezs('expand', { path: 'b', script, location: '/no/where' }))
-        .pipe(ezs.catch())
-        .on('error', (e) => {
-            expect(e.message).toEqual(expect.stringContaining('EACCES: permission denied'));
-            done();
-        })
-        .on('data', () => {
-            done(new Error('Error is the right behavior'));
-        })
-        .on('end', () => {
-            done(new Error('Error is the right behavior'));
-        });
-});
 
 test('with no path', (done) => {
     ezs.use(statements);
@@ -423,7 +391,7 @@ test('with a script that loses the identifier', (done) => {
         .pipe(ezs('expand', { path: 'b', script }))
         .pipe(ezs.catch())
         .on('error', (e) => {
-            expect(e.message).toEqual(expect.stringContaining('key cannot be `null`'));
+            expect(e.message).toEqual(expect.stringContaining('id was corrupted'));
             done();
         })
         .on('end', () => {
