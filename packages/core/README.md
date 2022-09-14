@@ -760,7 +760,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Take `Object` and return the same object
 
-```json
+```js
 [{
          { id: 'x', value: 2 },
          { id: 't', value: 2 },
