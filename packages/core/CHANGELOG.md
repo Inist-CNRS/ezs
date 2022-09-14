@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.30.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.30.1...@ezs/core@1.30.2) (2022-09-14)
+
+
+### Bug Fixes
+
+* 🐛 feed.flow return a Promise ([e73f140](https://github.com/Inist-CNRS/ezs/commit/e73f14042eb60b464c9e021345e479d24ba0ec81))
+
+
+
+
+
 ## [1.30.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.30.0...@ezs/core@1.30.1) (2022-09-08)
 
 

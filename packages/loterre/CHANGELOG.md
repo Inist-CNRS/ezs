@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/loterre@1.3.4...@ezs/loterre@1.3.5) (2022-09-14)
+
+
+### Bug Fixes
+
+* 🐛 feed.flow return a Promise ([e73f140](https://github.com/Inist-CNRS/ezs/commit/e73f14042eb60b464c9e021345e479d24ba0ec81))
+
+
+
+
+
 ## [1.3.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/loterre@1.3.3...@ezs/loterre@1.3.4) (2022-06-21)
 
 **Note:** Version bump only for package @ezs/loterre

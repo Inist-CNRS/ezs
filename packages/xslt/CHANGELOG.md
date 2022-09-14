@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.8](https://github.com/Inist-CNRS/ezs/compare/@ezs/xslt@1.3.7...@ezs/xslt@1.3.8) (2022-09-14)
+
+**Note:** Version bump only for package @ezs/xslt
+
+
+
+
+
 ## [1.3.7](https://github.com/Inist-CNRS/ezs/compare/@ezs/xslt@1.3.6...@ezs/xslt@1.3.7) (2022-09-08)
 
 **Note:** Version bump only for package @ezs/xslt
