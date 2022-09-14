@@ -86,6 +86,7 @@ export default async function sort(data, feed) {
         const idx = this.getIndex().toString().padStart(20, '0');
         const hash = normalize(key).concat('~').concat(idx).replace(/\s/g, '~');
         this.table.push(hash);
-        await this.store.put(hash, data).then(() => feed.end());
+        await this.store.put(hash, data);
+        feed.end();
     }
 }
