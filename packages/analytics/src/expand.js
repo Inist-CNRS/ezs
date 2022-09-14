@@ -2,7 +2,6 @@ import { resolve  as resolvePath } from 'path';
 import { tmpdir } from 'os';
 import get from 'lodash.get';
 import set from 'lodash.set';
-import { createStore } from '@ezs/store';
 import cacache from 'cacache';
 import each from 'async-each-series';
 import makeDir from 'make-dir';
@@ -39,8 +38,9 @@ async function mergeWith(data, feed) {
     const { id, value } = data;
     const path = this.getParam('path');
     try {
-        const obj = await store.cut(id);
-        if (obj === null) {
+        const obj = store[id];
+        delete store[id];
+        if (obj === undefined || obj === null) {
             throw new Error('id was corrupted');
         }
         const source = get(obj, path);
@@ -51,7 +51,8 @@ async function mergeWith(data, feed) {
         set(obj, path, value);
         return feed.send(obj);
     } catch (e) {
-        return feed.stop(e);
+        // avoid to break the pipe
+        return feed.send(e);
     }
 }
 
@@ -68,12 +69,13 @@ async function drainWith(data, feed) {
             async (cur, next) => {
                 let obj;
                 try {
-                    obj = await store.get(cur);
+                    obj = store[cur];
+                    delete store[cur];
                 } catch (e) {
                     feed.write(e);
                 }
-                if (obj === null) {
-                    feed.stop(new Error(`Unable to find ${cur} in the store ${store.id()}`));
+                if (obj === undefined || obj === null) {
+                    feed.stop(new Error(`Unable to find ${cur} in the store`));
                 } else {
                     feed.write(obj);
                 }
@@ -138,9 +140,7 @@ export default async function expand(data, feed) {
         const cacheName = this.getParam('cacheName');
 
         if (!this.store) {
-            const location = this.getParam('location');
-            this.store = createStore(ezs, 'expand', location);
-            await this.store.reset();
+            this.store = {}
             this.flows = [];
         }
         if (!this.createStatements) {
@@ -203,8 +203,7 @@ export default async function expand(data, feed) {
                 this.flows.push(feed.flow(strm));
             }
             await Promise.all(this.flows);
-            await this.store.close();
-
+            delete this.store;
             return feed.close();
         }
         const value = get(data, path);
@@ -221,7 +220,7 @@ export default async function expand(data, feed) {
         const id = this.getIndex().toString().padStart(20, '0');
         const size = Number(this.getParam('size', 1));
 
-        await this.store.put(id, data);
+        this.store[id] = data;
 
         this.stack[this.bufferID][id] = true;
         this.buffer.push(core(id, value));
@@ -232,7 +231,7 @@ export default async function expand(data, feed) {
         return feed.end();
     } catch (e) {
         if (this.store) {
-            this.store.close();
+            delete this.store;
         }
         return feed.stop(e);
     }
