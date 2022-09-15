@@ -14,56 +14,6 @@ const data = [
     { a: 5, b: 'e' },
     { a: 6, b: 'f', uri: 'uid:/ezs-V9neThkw-e' },
 ];
-describe('identify', () => {
-    it('with no uri #1', (done) => {
-        const input = [...data];
-        const output = [];
-        from(input)
-            .pipe(ezs('keep', { path: ['a', 'b'] }))
-            .pipe(ezs('identify'))
-            .pipe(ezs('extract', { path: 'uri' }))
-            .on('data', (chunk) => {
-                output.push(chunk);
-            })
-            .on('end', () => {
-                assert.equal(output.length, 6);
-                assert.equal(output[0].indexOf('uid:'), 0);
-                done();
-            });
-    });
-    it('with no uri #2', (done) => {
-        const input = [...data];
-        const output = [];
-        from(input)
-            .pipe(ezs('keep', { path: ['a', 'b'] }))
-            .pipe(ezs('identify', { path: ['_id', 'id'] }))
-            .pipe(ezs('extract', { path: '_id' }))
-            .on('data', (chunk) => {
-                output.push(chunk);
-            })
-            .on('end', () => {
-                assert.equal(output.length, 6);
-                assert.equal(output[0].indexOf('uid:'), 0);
-                done();
-            });
-    });
-    it('with no uri #3', (done) => {
-        const input = [...data];
-        const output = [];
-        from(input)
-            .pipe(ezs('keep', { path: ['a', 'b'] }))
-            .pipe(ezs('identify', { scheme: 'toto' }))
-            .pipe(ezs('extract', { path: 'uri' }))
-            .on('data', (chunk) => {
-                output.push(chunk);
-            })
-            .on('end', () => {
-                assert.equal(output.length, 6);
-                assert.equal(output[0].indexOf('toto:'), 0);
-                done();
-            });
-    });
-});
 
 describe('save', () => {
     it('with object', (done) => {

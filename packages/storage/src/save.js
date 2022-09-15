@@ -1,7 +1,6 @@
 import { hostname } from 'os';
 import get from 'lodash.get';
 import Store from './store';
-import { validKey } from './identify';
 
 /**
  * Take `Object`, to save it into a store and throw an URL
@@ -31,9 +30,6 @@ export default async function save(data, feed) {
     if (this.isLast()) {
         this.store.close();
         return feed.close();
-    }
-    if (!validKey(uri)) {
-        return feed.end();
     }
     await this.store.put(uri, data);
 

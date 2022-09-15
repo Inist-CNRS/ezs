@@ -28,6 +28,7 @@ import exchange from './exchange';
 import swing from './swing';
 import loop from './loop';
 import map from './map';
+import identify from './identify';
 import throttle from './throttle';
 
 export default {
@@ -61,5 +62,6 @@ export default {
     swing,
     loop,
     map,
+    identify,
     throttle,
 };

@@ -1,5 +1,4 @@
-import get from 'lodash.get';
-import set from 'lodash.set';
+import _ from 'lodash';
 import generate from 'nanoid/async/generate';
 import nolookalikes from 'nanoid-dictionary/nolookalikes';
 
@@ -44,14 +43,14 @@ export default async function identify(data, feed) {
     const scheme = this.getParam('scheme', 'uid');
     const pathName = this.getParam('path', 'uri');
     const path = Array.isArray(pathName) ? pathName.shift() : pathName;
-    const uri = get(data, path);
+    const uri = _.get(data, path);
     if (this.isLast()) {
         return feed.close();
     }
     if (!validKey(uri)) {
         const identifier = await generate(nolookalikes, 8);
         const checksum = ncda(identifier, nolookalikes);
-        set(data, path, `${scheme}:/${identifier}${checksum}`);
+        _.set(data, path, `${scheme}:/${identifier}${checksum}`);
     }
     return feed.send(data);
 }

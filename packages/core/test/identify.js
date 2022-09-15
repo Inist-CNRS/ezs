@@ -1,8 +1,70 @@
-import ezs from '../../core/src';
-import statements from '../src';
-import { ncda, validKey } from '../src/identify';
+import assert from 'assert';
+import from from 'from';
+import ezs from '../src';
+import statements from '../src/statements';
+import { ncda, validKey } from '../src/statements/identify';
 
 ezs.use(statements);
+
+const data = [
+    { a: 1, b: 'a' },
+    { a: 2, b: 'b' },
+    { a: 3, b: 'c', uri: 'uid:/ezs-5KB8aAA4-p' },
+    { a: 4, b: 'd' },
+    { a: 5, b: 'e' },
+    { a: 6, b: 'f', uri: 'uid:/ezs-V9neThkw-e' },
+];
+
+describe('[identify]', () => {
+    it('with no uri #1', (done) => {
+        const input = [...data];
+        const output = [];
+        from(input)
+            .pipe(ezs('keep', { path: ['a', 'b'] }))
+            .pipe(ezs('identify'))
+            .pipe(ezs('extract', { path: 'uri' }))
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(output.length, 6);
+                assert.equal(output[0].indexOf('uid:'), 0);
+                done();
+            });
+    });
+    it('with no uri #2', (done) => {
+        const input = [...data];
+        const output = [];
+        from(input)
+            .pipe(ezs('keep', { path: ['a', 'b'] }))
+            .pipe(ezs('identify', { path: ['_id', 'id'] }))
+            .pipe(ezs('extract', { path: '_id' }))
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(output.length, 6);
+                assert.equal(output[0].indexOf('uid:'), 0);
+                done();
+            });
+    });
+    it('with no uri #3', (done) => {
+        const input = [...data];
+        const output = [];
+        from(input)
+            .pipe(ezs('keep', { path: ['a', 'b'] }))
+            .pipe(ezs('identify', { scheme: 'toto' }))
+            .pipe(ezs('extract', { path: 'uri' }))
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(output.length, 6);
+                assert.equal(output[0].indexOf('toto:'), 0);
+                done();
+            });
+    });
+});
 
 describe('validKey', () => {
     test('with null', () => {
