@@ -633,12 +633,13 @@ test('with a script that loses some items', (done) => {
             output.push(chunk);
         })
         .on('end', () => {
-            expect(output.length).toEqual(5);
+            expect(output.length).toEqual(6);
             expect(output[0].b).toEqual('A');
             expect(output[1].b).toEqual('B');
             expect(output[2].b).toEqual('D');
-            expect(output[3].b).toEqual('E');
-            expect(output[4].b).toEqual('F');
+            expect(output[3].b).toEqual('c');
+            expect(output[4].b).toEqual('E');
+            expect(output[5].b).toEqual('F');
             done();
         });
 });
