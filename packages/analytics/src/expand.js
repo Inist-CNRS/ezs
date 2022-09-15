@@ -1,9 +1,9 @@
 import { resolve  as resolvePath } from 'path';
+import from from 'from';
 import { tmpdir } from 'os';
 import get from 'lodash.get';
 import set from 'lodash.set';
 import cacache from 'cacache';
-import each from 'async-each-series';
 import makeDir from 'make-dir';
 import pathExists from 'path-exists';
 import core from './core';
@@ -37,6 +37,7 @@ async function mergeWith(data, feed) {
     const path = this.getParam('path');
     try {
         const obj = store[id];
+
         delete store[id];
         if (obj === undefined || obj === null) {
             throw new Error('id was corrupted');
@@ -58,25 +59,12 @@ async function drainWith(data, feed) {
         const {
             store,
         } = this.getEnv();
-        return each(
-            Object.keys(store),
-            async (cur, next) => {
-                let obj;
-                try {
-                    obj = store[cur];
-                    delete store[cur];
-                } catch (e) {
-                    feed.write(e);
-                }
-                if (obj === undefined || obj === null) {
-                    feed.stop(new Error(`Unable to find ${cur} in the store`));
-                } else {
-                    feed.write(obj);
-                }
-                next();
-            },
-            () => feed.close(),
-        );
+        Object.keys(store).forEach((id) => {
+            const obj = store[id];
+            feed.write(obj);
+            delete store[id];
+        });
+        return feed.close();
     }
     return feed.send(data);
 }
@@ -128,6 +116,124 @@ async function drainWith(data, feed) {
  * @returns {Object}
  */
 export default async function expand(data, feed) {
+    const { ezs } = this;
+    const size = Number(this.getParam('size', 1));
+    const path = this.getParam('path');
+    const cacheName = this.getParam('cacheName');
+
+    if (this.isFirst()) {
+        this.store = {};
+        this.buffer = [];
+        if (cacheName && !this.cachePath) {
+            const location = this.getParam('location');
+            this.cachePath = resolvePath(location || tmpdir(), 'memory', `expand${cacheName}`);
+            if (!pathExists.sync(this.cachePath)) {
+                makeDir.sync(this.cachePath);
+            }
+        }
+    }
+    if (this.isLast()) {
+        if (this.buffer && this.buffer.length > 0) {
+            const check = this.buffer.length;
+            let count = 0;
+            const input = from(this.buffer);
+            const commands = ezs.createCommands({
+                file: this.getParam('file'),
+                script: this.getParam('script'),
+                command: this.getParam('command'),
+                commands: this.getParam('commands'),
+                prepend: this.getParam('prepend'),
+                append: this.getParam('append'),
+            });
+            const statements = ezs.compileCommands(commands, this.getEnv());
+            const output = ezs.createPipeline(input, statements)
+                .pipe(ezs(mergeWith, { path }, {
+                    store: this.store,
+                    cachePath: this.cachePath,
+                }))
+                .pipe(ezs(drainWith, { path }, {
+                    store: this.store,
+                    cachePath: this.cachePath,
+                }))
+                .pipe(ezs.catch((e) => feed.write(e))) // avoid to break pipeline at each error
+                .on('data', () => {
+                    count += 1;
+                })
+                .on('end', () => {
+                    if (count < check) {
+                        Object.keys(this.store).forEach((x) => {
+                            const obj = this.store[x];
+                            feed.write(obj);
+                            delete this.store[x];
+                        });
+                    }
+                });
+            await feed.flow(output);
+            this.buffer = [];
+        }
+        return feed.close();
+    }
+
+    // no path
+    const value = get(data, path);
+    if (!value || value.length === 0) {
+        return feed.send(data);
+    }
+
+    // value in cache
+    if (this.cachePath) {
+        const cachedValue = await cacheGet(this.cachePath, value);
+        if (cachedValue) {
+            set(data, path, cachedValue);
+            return feed.send(data);
+        }
+    }
+
+    // normal case
+    const id = this.getIndex().toString().padStart(20, '0');
+    this.store[id] = data;
+    this.buffer.push(core(id, value));
+
+    // new bucket
+    if (this.buffer.length >= size) {
+        const check = this.buffer.length;
+        let count = 0;
+        const input = from(this.buffer);
+        const commands = ezs.createCommands({
+            file: this.getParam('file'),
+            script: this.getParam('script'),
+            command: this.getParam('command'),
+            commands: this.getParam('commands'),
+            prepend: this.getParam('prepend'),
+            append: this.getParam('append'),
+        });
+        const statements = ezs.compileCommands(commands, this.getEnv());
+        const output = ezs.createPipeline(input, statements)
+            .pipe(ezs(mergeWith, { path }, {
+                store: this.store,
+                cachePath: this.cachePath,
+            }))
+            .pipe(ezs.catch((e) => feed.write(e)))  // avoid to break pipeline at each error
+            .on('data', () => {
+                count += 1;
+            })
+            .on('end', () => {
+                if (count < check) {
+                    Object.keys(this.store).forEach((x) => {
+                        const obj = this.store[x];
+                        feed.write(obj);
+                        delete this.store[x];
+                    });
+                }
+            });
+        await feed.flow(output);
+        this.buffer = [];
+        return true;
+    }
+    return feed.end();
+}
+/*
+{
     try {
         const { ezs } = this;
         const path = this.getParam('path');
@@ -221,3 +327,4 @@ export default async function expand(data, feed) {
         return feed.stop(e);
     }
 }
+*/

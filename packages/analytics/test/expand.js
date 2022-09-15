@@ -156,6 +156,43 @@ test('with script (less values)', (done) => {
             done();
         });
 });
+test('with script (drop values)', (done) => {
+    ezs.use(statements);
+    const input = [
+        { a: 1, b: 'a' },
+        { a: 2, b: 'b' },
+        { a: 3, c: 'c' },
+        { a: 4, b: 'd' },
+        { a: 5, c: 'x' },
+        { a: 6, b: 'f' },
+    ];
+    const output = [];
+    const script = `
+            [use]
+            plugin = analytics
+
+            [drop]
+            path = value
+            test = x
+
+            [assign]
+            path = value
+            value = get('value').append('!')
+        `;
+    from(input)
+        .pipe(ezs('expand', { path: 'b', size:10, script }))
+        .pipe(ezs.catch())
+        .on('error', done)
+        .on('data', (chunk) => {
+            output.push(chunk);
+        })
+        .on('end', () => {
+            expect(output.length).toEqual(6);
+            const res = output.map(x => x.b).filter(Boolean);
+            expect(res).toEqual(expect.arrayContaining(['a!', 'b!', 'd!', 'f!']));
+            done();
+        });
+});
 test('with file', (done) => {
     ezs.use(statements);
     const input = [
@@ -636,13 +673,56 @@ test('with a script that loses some items', (done) => {
             expect(output.length).toEqual(6);
             expect(output[0].b).toEqual('A');
             expect(output[1].b).toEqual('B');
-            expect(output[2].b).toEqual('D');
-            expect(output[3].b).toEqual('c');
+            expect(output[2].b).toEqual('c');
+            expect(output[3].b).toEqual('D');
             expect(output[4].b).toEqual('E');
             expect(output[5].b).toEqual('F');
             done();
         });
 });
+
+test('with a script that loses all items', (done) => {
+    ezs.use(statements);
+    const output = [];
+    const input = [
+        { a: 1, b: 'c' },
+        { a: 2, b: 'c' },
+        { a: 3, b: 'c' },
+        { a: 4, b: 'c' },
+        { a: 5, b: 'c' },
+        { a: 6, b: 'c' },
+    ];
+    const script = `
+            [use]
+            plugin = analytics
+
+            [drop]
+            if = c
+
+            [assign]
+            path = value
+            value = get('value').toUpper()
+        `;
+
+    from(input)
+        .pipe(ezs('expand', { path: 'b', script }))
+        .pipe(ezs.catch())
+        .on('error', done)
+        .on('data', (chunk) => {
+            output.push(chunk);
+        })
+        .on('end', () => {
+            expect(output.length).toEqual(6);
+            expect(output[0].b).toEqual('c');
+            expect(output[1].b).toEqual('c');
+            expect(output[2].b).toEqual('c');
+            expect(output[3].b).toEqual('c');
+            expect(output[4].b).toEqual('c');
+            expect(output[5].b).toEqual('c');
+            done();
+        });
+});
+
 describe('with sub script and brute force write', () => {
     const size = 100;
     const input = [
