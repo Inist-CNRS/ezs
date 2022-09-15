@@ -217,7 +217,7 @@ export default async function expand(data, feed) {
             .on('data', () => {
                 count += 1;
             })
-            .on('end', () => {
+            .once('end', () => {
                 if (count < check) {
                     Object.keys(this.store).forEach((x) => {
                         const obj = this.store[x];
@@ -232,99 +232,3 @@ export default async function expand(data, feed) {
     }
     return feed.end();
 }
-/*
-{
-    try {
-        const { ezs } = this;
-        const path = this.getParam('path');
-        const cacheName = this.getParam('cacheName');
-
-        if (!this.store) {
-            this.store = {}
-            this.flows = [];
-        }
-        if (!this.createStatements) {
-            const commands = ezs.createCommands({
-                file: this.getParam('file'),
-                script: this.getParam('script'),
-                command: this.getParam('command'),
-                commands: this.getParam('commands'),
-                prepend: this.getParam('prepend'),
-                append: this.getParam('append'),
-            });
-            this.createStatements = () => ezs.compileCommands(commands, this.getEnv());
-        }
-        if (cacheName && !this.cachePath) {
-            const location = this.getParam('location');
-            this.cachePath = resolvePath(location || tmpdir(), 'memory', `expand${cacheName}`);
-            if (!pathExists.sync(this.cachePath)) {
-                makeDir.sync(this.cachePath);
-            }
-        }
-
-        if (!this.buffer2stream) {
-            this.buffer2stream = () => {
-                const statements = this.createStatements();
-                const stream = ezs.createStream(ezs.objectMode());
-                const output = ezs.createPipeline(stream, statements)
-                    .pipe(ezs(mergeWith, { path }, {
-                        store: this.store,
-                        cachePath: this.cachePath,
-                    }))
-                    .pipe(ezs(drainWith, { path }, {
-                        store: this.store,
-                        cachePath: this.cachePath,
-                    }))
-                ;
-                const input = Array.from(this.buffer);
-                this.buffer = [];
-
-                each(input, (cur, next) => ezs.writeTo(stream, cur, next), () => stream.end());
-                return output;
-            };
-        }
-        if (!this.buffer) {
-            this.buffer = [];
-        }
-
-        // Processing
-
-        if (this.isLast()) {
-            if (this.buffer && this.buffer.length > 0) {
-                const strm = this.buffer2stream();
-                this.flows.push(feed.flow(strm));
-            }
-            await Promise.all(this.flows);
-            delete this.store;
-            return feed.close();
-        }
-        const value = get(data, path);
-        if (!value || value.length === 0) {
-            return feed.send(data);
-        }
-        if (this.cachePath) {
-            const cachedValue = await cacheGet(this.cachePath, value);
-            if (cachedValue) {
-                set(data, path, cachedValue);
-                return feed.send(data);
-            }
-        }
-        const id = this.getIndex().toString().padStart(20, '0');
-        const size = Number(this.getParam('size', 1));
-
-        this.store[id] = data;
-
-        this.buffer.push(core(id, value));
-        if (this.buffer.length >= size) {
-            const strm = this.buffer2stream();
-            return this.flows.push(feed.flow(strm));
-        }
-        return feed.end();
-    } catch (e) {
-        if (this.store) {
-            delete this.store;
-        }
-        return feed.stop(e);
-    }
-}
-*/
