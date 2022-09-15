@@ -32,7 +32,7 @@
  * @param {Number} [bySecond=1] Number of object by second
  * @returns {Object}
  */
-export default function reducing(data, feed) {
+export default function throttle(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }

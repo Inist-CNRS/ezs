@@ -199,11 +199,11 @@ test('with error script', (done) => {
     ];
     const script = `
             [use]
-            plugin = analytics
+            plugin = basics
 
             [exchange]
             value = forbidden
-            [files]
+            [FILELoad]
             location = ${__dirname}
         `;
     const filename = `${__dirname}/forbidden`;

@@ -225,9 +225,3 @@ class Store {
 export function createStore(ezs, domain, location) {
     return new Store(ezs, `${domain}/${uuid()}/${process.pid}`, location);
 }
-export function createPersistentStore(ezs, domain, location) {
-    return new Store(ezs, `persistent/${domain}`, location);
-}
-export function createStoreWithID(ezs, identifier, location) {
-    return new Store(ezs, identifier, location);
-}
