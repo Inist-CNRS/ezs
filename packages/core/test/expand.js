@@ -1,15 +1,13 @@
 import fs from 'fs';
 import from from 'from';
 import { PassThrough } from 'stream';
-import ezs from '../../core/src';
-import statements from '../src';
+import ezs from '../src';
 
 ezs.addPath(__dirname);
 
 ezs.use(require('./locals'));
 
 test('with script (all values) #1', (done) => {
-    ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
         { a: 2, b: 'b' },
@@ -46,7 +44,6 @@ test('with script (all values) #1', (done) => {
         });
 });
 test('with script (all values) #2', (done) => {
-    ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
         { a: 2, b: 'b' },
@@ -83,7 +80,6 @@ test('with script (all values) #2', (done) => {
         });
 });
 test('with script (all values) #2', (done) => {
-    ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
         { a: 2, b: 'b' },
@@ -120,7 +116,6 @@ test('with script (all values) #2', (done) => {
         });
 });
 test('with script (less values)', (done) => {
-    ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
         { a: 2, b: 'b' },
@@ -157,7 +152,6 @@ test('with script (less values)', (done) => {
         });
 });
 test('with script (drop values)', (done) => {
-    ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
         { a: 2, b: 'b' },
@@ -194,7 +188,6 @@ test('with script (drop values)', (done) => {
         });
 });
 test('with file', (done) => {
-    ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
         { a: 2, b: 'b' },
@@ -225,7 +218,6 @@ test('with file', (done) => {
         });
 });
 test('with error script', (done) => {
-    ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
         { a: 2, b: 'b' },
@@ -260,7 +252,6 @@ test('with error script', (done) => {
         });
 });
 test('with no script', (done) => {
-    ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
         { a: 2, b: 'b' },
@@ -285,7 +276,6 @@ test('with no script', (done) => {
 });
 
 test('with no path', (done) => {
-    ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
         { a: 2, b: 'b' },
@@ -317,7 +307,6 @@ test('with no path', (done) => {
         });
 });
 test('with no value #1', (done) => {
-    ezs.use(statements);
     const input = [
         { a: 1, b: [] },
         { a: 2, b: 'b' },
@@ -354,7 +343,6 @@ test('with no value #1', (done) => {
         });
 });
 test('with bad path', (done) => {
-    ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
         { a: 2, b: 'b' },
@@ -380,7 +368,6 @@ test('with bad path', (done) => {
         });
 });
 test('with bad path #2', (done) => {
-    ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
         { a: 2, c: 'b' },
@@ -406,7 +393,6 @@ test('with bad path #2', (done) => {
         });
 });
 test('with a script that loses the identifier', (done) => {
-    ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
         { a: 2, b: 'b' },
@@ -436,7 +422,6 @@ test('with a script that loses the identifier', (done) => {
         });
 });
 test('with a script that break the identifier #1', (done) => {
-    ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
         { a: 2, b: 'b' },
@@ -470,7 +455,6 @@ test('with a script that break the identifier #1', (done) => {
         });
 });
 test('with a script that break the identifier #2', (done) => {
-    ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
         { a: 2, b: 'b' },
@@ -507,7 +491,6 @@ test('with a script that break the identifier #2', (done) => {
         });
 });
 test('with a buggy script', (done) => {
-    ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
         { a: 2, b: 'b' },
@@ -539,7 +522,6 @@ test('with a buggy script', (done) => {
         });
 });
 test('with no script', (done) => {
-    ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
         { a: 2, b: 'b' },
@@ -571,7 +553,6 @@ const env = {
 const cacheName = Date.now();
 
 test('with script (all values) with cache', (done) => {
-    ezs.use(statements);
     const output1 = [];
     const output2 = [];
     const script = `
@@ -640,7 +621,6 @@ test('with script (all values) with cache', (done) => {
 });
 
 test('with a script that loses some items', (done) => {
-    ezs.use(statements);
     const output = [];
     const input = [
         { a: 1, b: 'a' },
@@ -682,7 +662,6 @@ test('with a script that loses some items', (done) => {
 });
 
 test('with a script that loses all items', (done) => {
-    ezs.use(statements);
     const output = [];
     const input = [
         { a: 1, b: 'c' },
@@ -767,7 +746,6 @@ describe('with sub script and brute force write', () => {
     afterAll(() => jest.setTimeout(5000));
 
     test('no error', (done) => {
-        ezs.use(statements);
         const script = `
             [use]
             plugin = basics
@@ -817,7 +795,6 @@ describe('with sub script and brute force write', () => {
     });
 
     test('erratic fatal error in depth', (done) => {
-        ezs.use(statements);
         const script = `
             [use]
             plugin = basics
@@ -864,7 +841,6 @@ describe('with sub script and brute force write', () => {
 
 
     test('erratic error in depth', (done) => {
-        ezs.use(statements);
         const script = `
             [use]
             plugin = basics
@@ -911,7 +887,6 @@ describe('with sub script and brute force write', () => {
     });
 
     test('erratic error on top', (done) => {
-        ezs.use(statements);
         const script = `
             [use]
             plugin = basics
@@ -963,7 +938,6 @@ describe('with sub script and brute force write', () => {
     });
 
     test('truncated in depth', (done) => {
-        ezs.use(statements);
         const script = `
             [use]
             plugin = basics
@@ -1011,7 +985,6 @@ describe('with sub script and brute force write', () => {
     });
 
     test('truncated on top', (done) => {
-        ezs.use(statements);
         const script = `
             [use]
             plugin = basics
@@ -1057,8 +1030,6 @@ describe('with sub script and brute force write', () => {
     });
 });
 test('deep script', (done) => {
-    ezs.use(statements);
-    ezs.use(statements);
     const input = Array(30).fill(true).map((i, index) => ({ a: index, b: ['a', 'b', 'c', 'd', 'e', 'f'] }));
     const output = [];
     const script = `

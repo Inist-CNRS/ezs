@@ -29,8 +29,6 @@ import multiply from './mulitply';
 import distance from './distance';
 import aggregate from './aggregate';
 import statistics from './statistics';
-import combine from './combine';
-import expand from './expand';
 
 const funcs = {
     count,
@@ -64,8 +62,6 @@ const funcs = {
     distance,
     aggregate,
     statistics,
-    combine,
-    expand,
 };
 
 export default funcs;

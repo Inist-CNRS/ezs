@@ -1,14 +1,12 @@
 import assert from 'assert';
 import fs from 'fs';
 import from from 'from';
-import ezs from '../../core/src';
-import statements from '../src';
+import ezs from '../src';
 
 ezs.addPath(__dirname);
 
 describe('combine', () => {
     test('with script #1', (done) => {
-        ezs.use(statements);
         const input = [
             { a: 1, b: 'a' },
             { a: 2, b: 'b' },
@@ -51,7 +49,6 @@ describe('combine', () => {
             });
     });
     test('with script #1bis', (done) => {
-        ezs.use(statements);
         const input = [
             { a: 1, b: 'a' },
             { a: 2, b: 'x' },
@@ -93,7 +90,6 @@ describe('combine', () => {
     });
 
     test('with script #1ter', (done) => {
-        ezs.use(statements);
         const input = [
             { a: 1, b: 'a' },
             { a: 2, b: 'x' },
@@ -135,7 +131,6 @@ describe('combine', () => {
     });
 
     test('with script #2', (done) => {
-        ezs.use(statements);
         const input = [
             { a: 1, b: ['a'] },
             { a: 2, b: ['b', 'a'] },
@@ -176,7 +171,6 @@ describe('combine', () => {
             });
     });
     test('with script #3', (done) => {
-        ezs.use(statements);
         const input = [
             { a: 1, b: 'a' },
             { a: 2, b: 'x' },
@@ -217,7 +211,6 @@ describe('combine', () => {
             });
     });
     test('with file', (done) => {
-        ezs.use(statements);
         const input = [
             { a: 1, b: 'a' },
             { a: 2, b: 'b' },
@@ -250,7 +243,6 @@ describe('combine', () => {
 });
 describe('no combine', () => {
     test('with script', (done) => {
-        ezs.use(statements);
         const input = [
             { a: 1, b: 'a' },
             { a: 2, b: 'b' },
@@ -291,7 +283,6 @@ describe('no combine', () => {
             });
     });
     test('with error script', (done) => {
-        ezs.use(statements);
         const input = [
             { a: 1, b: 'a' },
             { a: 2, b: 'b' },
@@ -323,7 +314,6 @@ describe('no combine', () => {
             });
     });
     test('with no in script', (done) => {
-        ezs.use(statements);
         const input = [
             { a: 1, b: 'a' },
             { a: 2, b: 'b' },
@@ -343,7 +333,6 @@ describe('no combine', () => {
             });
     });
     test.skip('with wrong location', (done) => {
-        ezs.use(statements);
         const input = [
             { a: 1, b: 'a' },
             { a: 2, b: 'b' },
@@ -403,7 +392,6 @@ const cacheScript = `
 
 
 test('combine with internal cache with script #1', (done) => {
-    ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
         { a: 2, b: 'b' },
@@ -435,7 +423,6 @@ test('combine with internal cache with script #1', (done) => {
 });
 
 test('combine with internal cache with script #2', (done) => {
-    ezs.use(statements);
     const input = [
         { a: 1, b: 'a' },
         { a: 2, b: 'b' },
