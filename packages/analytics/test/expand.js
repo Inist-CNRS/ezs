@@ -199,11 +199,11 @@ test('with error script', (done) => {
     ];
     const script = `
             [use]
-            plugin = analytics
+            plugin = basics
 
             [exchange]
             value = forbidden
-            [files]
+            [FILELoad]
             location = ${__dirname}
         `;
     const filename = `${__dirname}/forbidden`;
@@ -237,38 +237,6 @@ test('with no script', (done) => {
         .pipe(ezs.catch())
         .on('error', (e) => {
             expect(e.message).toEqual(expect.stringContaining('Invalid parmeter'));
-            done();
-        })
-        .on('data', () => {
-            done(new Error('Error is the right behavior'));
-        })
-        .on('end', () => {
-            done(new Error('Error is the right behavior'));
-        });
-});
-test('with wrong location ', (done) => {
-    ezs.use(statements);
-    const input = [
-        { a: 1, b: 'a' },
-        { a: 2, b: 'b' },
-        { a: 3, b: 'c' },
-        { a: 4, b: 'd' },
-        { a: 5, b: 'e' },
-        { a: 6, b: 'f' },
-    ];
-    const script = `
-            [use]
-            plugin = analytics
-
-            [assign]
-            path = value
-            value = get('value').toUpper()
-        `;
-    from(input)
-        .pipe(ezs('expand', { path: 'b', script, location: '/no/where' }))
-        .pipe(ezs.catch())
-        .on('error', (e) => {
-            expect(e.message).toEqual(expect.stringContaining('EACCES: permission denied'));
             done();
         })
         .on('data', () => {
@@ -423,7 +391,7 @@ test('with a script that loses the identifier', (done) => {
         .pipe(ezs('expand', { path: 'b', script }))
         .pipe(ezs.catch())
         .on('error', (e) => {
-            expect(e.message).toEqual(expect.stringContaining('key cannot be `null`'));
+            expect(e.message).toEqual(expect.stringContaining('id was corrupted'));
             done();
         })
         .on('end', () => {
@@ -665,12 +633,13 @@ test('with a script that loses some items', (done) => {
             output.push(chunk);
         })
         .on('end', () => {
-            expect(output.length).toEqual(5);
+            expect(output.length).toEqual(6);
             expect(output[0].b).toEqual('A');
             expect(output[1].b).toEqual('B');
             expect(output[2].b).toEqual('D');
-            expect(output[3].b).toEqual('E');
-            expect(output[4].b).toEqual('F');
+            expect(output[3].b).toEqual('c');
+            expect(output[4].b).toEqual('E');
+            expect(output[5].b).toEqual('F');
             done();
         });
 });

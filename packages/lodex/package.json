@@ -1,7 +1,7 @@
 {
   "name": "@ezs/lodex",
   "description": "ezs dedicated statements for Lodex",
-  "version": "1.15.1",
+  "version": "1.15.2",
   "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
   "bugs": "https://github.com/Inist-CNRS/ezs/issues",
   "dependencies": {

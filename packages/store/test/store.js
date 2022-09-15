@@ -2,7 +2,7 @@ import pathExists from 'path-exists';
 import { tmpdir } from 'os';
 import mkdirp from 'mkdirp';
 import ezs from '../../core/src';
-import { createStore, createStoreWithID, createPersistentStore } from '../src/store';
+import { createStore } from '../src/store';
 
 describe('Store', () => {
     it('add distinct values #0', async (done) => {
@@ -96,8 +96,7 @@ describe('Store', () => {
     });
 
     it('add distinct values #4', async (done) => {
-        const store = createStoreWithID(ezs, 'test_store4');
-        expect(store.id()).toEqual('test_store4');
+        const store = createStore(ezs, 'test_store4');
         await Promise.all([
             store.add(1, 'A'),
             store.add(2, 'B'),
@@ -224,26 +223,4 @@ describe('Store', () => {
                 done();
             });
     });
-
-    it('persistentStore  #0', async (done) => {
-        const location = `${tmpdir()}/toto`;
-        mkdirp.sync(`${location}/store`);
-        const store = createPersistentStore(ezs, 'test_storeX', location);
-        expect(store.persistent).toEqual(true);
-        expect(pathExists.sync(`${location}/store/persistent/test_storeX`)).toEqual(true);
-        await store.close();
-        expect(pathExists.sync(`${location}/store/persistent/test_storeX`)).toEqual(true);
-        done();
-    });
-    it('persistentStore  #1', async (done) => {
-        const location = `${tmpdir()}/toto`;
-        mkdirp.sync(`${location}/store`);
-        const store = createStore(ezs, 'test_storeY', location);
-        expect(store.persistent).toEqual(false);
-        await store.close();
-
-        expect(pathExists.sync(`${location}/store/persistent/test_storeY`)).toEqual(false);
-        done();
-    });
-
 });

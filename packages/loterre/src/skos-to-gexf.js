@@ -60,7 +60,7 @@ async function SKOSToGexf(data, feed) {
         this.storeNode.reset();
     }
     if (this.isLast()) {
-        this.store.close();
+        await this.store.close();
         const nodes = { nodes: [] };
         this.storeNode.cast().on('data', (chunk) => {
             const attrs = {
@@ -69,9 +69,9 @@ async function SKOSToGexf(data, feed) {
             };
             const node = { name: 'node', attrs };
             nodes.nodes.push(node);
-        }).on('end', () => {
+        }).on('end', async () => {
             feed.write(nodes);
-            this.storeNode.close();
+            await this.storeNode.close();
             feed.close();
         });
     } else {

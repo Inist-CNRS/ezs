@@ -101,12 +101,12 @@ export default async function distribute(data, feed) {
                     x += 1;
                 }
             })
-            .on('end', () => {
+            .on('end', async () => {
                 for (let l = x; l < ruler.length; l += 1) {
                     const newobj = core(ruler[l], defval);
                     feed.write(newobj);
                 }
-                this.store.close();
+                await this.store.close();
                 feed.close();
             });
     } else {
@@ -124,6 +124,6 @@ export default async function distribute(data, feed) {
         if (idt < this.min) {
             this.min = idt;
         }
-        this.store.put(key, core(idt, value)).then(() => feed.end());
+        await this.store.put(key, core(idt, value)).then(() => feed.end());
     }
 }

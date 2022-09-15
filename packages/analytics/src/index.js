@@ -31,11 +31,6 @@ import aggregate from './aggregate';
 import statistics from './statistics';
 import combine from './combine';
 import expand from './expand';
-import files from './files';
-import bufferize from './bufferize';
-import buffers from './buffers';
-import upload from './upload';
-import throttle from './throttle';
 
 const funcs = {
     count,
@@ -71,11 +66,6 @@ const funcs = {
     statistics,
     combine,
     expand,
-    files,
-    bufferize,
-    buffers,
-    upload,
-    throttle,
 };
 
 export default funcs;

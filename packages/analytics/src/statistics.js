@@ -173,8 +173,8 @@ export default async function statistics(data, feed) {
                 set(value.data, target, localValues);
                 feed.write(value.data);
             })
-            .on('end', () => {
-                this.store.close();
+            .on('end', async () => {
+                await this.store.close();
                 feed.close();
             });
         return;
