@@ -1,7 +1,7 @@
 {
   "name": "@ezs/spawn",
   "description": "...",
-  "version": "1.2.8",
+  "version": "1.2.9",
   "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
   "bugs": "https://github.com/Inist-CNRS/ezs/issues",
   "dependencies": {
@@ -12,7 +12,7 @@
     "stream-iterate": "1.2.0"
   },
   "devDependencies": {
-    "@ezs/core": "1.30.2"
+    "@ezs/core": "2.0.0"
   },
   "directories": {
     "test": "test"

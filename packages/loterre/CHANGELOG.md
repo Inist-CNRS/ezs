@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/loterre@1.3.5...@ezs/loterre@2.0.0) (2022-09-16)
+
+
+### Code Refactoring
+
+* 💡 store.close() ([34fa4c3](https://github.com/Inist-CNRS/ezs/commit/34fa4c3b9af943c7523f5dc8926567e2401ee669))
+
+
+### BREAKING CHANGES
+
+* 🧨 drop [files] [uplaod] [buffers] [bufferize]
+
+
+
+
+
 ## [1.3.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/loterre@1.3.4...@ezs/loterre@1.3.5) (2022-09-14)
 
 

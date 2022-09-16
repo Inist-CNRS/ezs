@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.30.2...@ezs/core@2.0.0) (2022-09-16)
+
+
+### Code Refactoring
+
+* 💡 store.close() ([34fa4c3](https://github.com/Inist-CNRS/ezs/commit/34fa4c3b9af943c7523f5dc8926567e2401ee669))
+
+
+### Features
+
+* 🎸 move [expand] & [combine] to core ([1b97856](https://github.com/Inist-CNRS/ezs/commit/1b97856bbff4008388253dad273653d52af1c87f))
+* 🎸 move [identify] to core ([dea845c](https://github.com/Inist-CNRS/ezs/commit/dea845ccd16575edeab62df709ba2756e332f5c1))
+
+
+### BREAKING CHANGES
+
+* 🧨 drop [files] [uplaod] [buffers] [bufferize]
+
+
+
+
+
 ## [1.30.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@1.30.1...@ezs/core@1.30.2) (2022-09-14)
 
 

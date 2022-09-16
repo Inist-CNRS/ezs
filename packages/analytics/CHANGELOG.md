@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.19.5...@ezs/analytics@2.0.0) (2022-09-16)
+
+
+### Bug Fixes
+
+* 🐛 empty sub pipeline ([68bef49](https://github.com/Inist-CNRS/ezs/commit/68bef49f66ff2b4558df44803aafabcba7b108c5))
+* new name ([e7c3da5](https://github.com/Inist-CNRS/ezs/commit/e7c3da541b06fa643330a8ea562f4d140a8e532f))
+* new name ([f9a3db5](https://github.com/Inist-CNRS/ezs/commit/f9a3db5e00969ffb65479181169b7c84824b3934))
+
+
+### Code Refactoring
+
+* 💡 store.close() ([34fa4c3](https://github.com/Inist-CNRS/ezs/commit/34fa4c3b9af943c7523f5dc8926567e2401ee669))
+
+
+### Features
+
+* 🎸 move [expand] & [combine] to core ([1b97856](https://github.com/Inist-CNRS/ezs/commit/1b97856bbff4008388253dad273653d52af1c87f))
+
+
+### BREAKING CHANGES
+
+* 🧨 drop [files] [uplaod] [buffers] [bufferize]
+
+
+
+
+
 ## [1.19.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@1.19.4...@ezs/analytics@1.19.5) (2022-09-15)
 
 

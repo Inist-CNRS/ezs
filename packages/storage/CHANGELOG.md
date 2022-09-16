@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@1.6.3...@ezs/storage@1.7.0) (2022-09-16)
+
+
+### Features
+
+* 🎸 move [identify] to core ([dea845c](https://github.com/Inist-CNRS/ezs/commit/dea845ccd16575edeab62df709ba2756e332f5c1))
+
+
+
+
+
 ## [1.6.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@1.6.2...@ezs/storage@1.6.3) (2022-06-21)
 
 **Note:** Version bump only for package @ezs/storage
