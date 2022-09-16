@@ -18,7 +18,6 @@ npm install @ezs/storage
 
 -   [boost](#boost)
 -   [flow](#flow)
--   [identify](#identify)
 -   [load](#load)
 -   [save](#save)
 
@@ -53,19 +52,6 @@ Take an `Object` and replace it with all the objects of the same domain containe
 -   `length` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** limit the number of output objects
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### identify
-
-Take `Object`, and compute & add an identifier
-
-#### Parameters
-
--   `data`  
--   `feed`  
--   `scheme` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** scheme prefix (optional, default `uid`)
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path containing the object Identifier (optional, default `uri`)
-
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ### load
 

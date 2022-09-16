@@ -24,6 +24,7 @@ npm install @ezs/core
 -   [exchange](#exchange)
 -   [extract](#extract)
 -   [group](#group)
+-   [identify](#identify)
 -   [ignore](#ignore)
 -   [keep](#keep)
 -   [loop](#loop)
@@ -375,6 +376,19 @@ Output:
 #### Parameters
 
 -   `length` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Size of each partition
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+### identify
+
+Take `Object`, and compute & add an identifier
+
+#### Parameters
+
+-   `data`  
+-   `feed`  
+-   `scheme` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** scheme prefix (optional, default `uid`)
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path containing the object Identifier (optional, default `uri`)
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
@@ -760,7 +774,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Take `Object` and return the same object
 
-```js
+```json
 [{
          { id: 'x', value: 2 },
          { id: 't', value: 2 },
@@ -779,7 +793,7 @@ bySecond = 2
 
 Output:
 
-```js
+```json
 [
          { id: 'x', value: 2 },
          { id: 't', value: 2 },
