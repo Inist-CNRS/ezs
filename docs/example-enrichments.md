@@ -67,22 +67,18 @@ plugin = analytics
 path = address.cities_enriched
 value = get('address.cities')
 
-[expand]
+[map]
 path = address.cities_enriched
-size = 1
 
-[expand/exploding]
-
-[expand/expand]
+[map/expand]
 path = value
 size = 100
 
-[expand/expand/URLConnect]
+[map/expand/URLConnect]
 url = https://webservice.url
 timeout = 1000
 noerror = true
 
-[expand/aggregate]
 ```
 
 ## Sous chemin valeur unique dans valeur multiple
@@ -93,12 +89,12 @@ noerror = true
 { 
   "cities": [
   { 
-    "nom": "Nancy", 
-    "dept": 54 
+    "nom": "Nancy",
+    "dept": 54
   },
   { 
-    "nom": "Paris", 
-    "dept": 75 
+    "nom": "Paris",
+    "dept": 75
   }
   ]
 }
@@ -114,26 +110,22 @@ contenu. Charge au web service de savoir les traiter.
 plugin = basics
 plugin = analytics
 
-[expand]
+[map]
 path = cities
-size = 1
 
-[expand/exploding]
-
-[expand/assign]
+[map/assign]
 path = value.nom_enriched
 value = get('value.nom')
 
-[expand/expand]
+[map/expand]
 path = value.nom_enriched
 size = 100
 
-[expand/expand/URLConnect]
+[map/expand/URLConnect]
 url = https://webservice.url
 timeout = 1000
 noerror = true
 
-[expand/aggregate]
 ```
 
 ## Sous chemin avec valeur multiple dans valeur multiple
@@ -165,35 +157,85 @@ que soit leur contenu. Charge au web service de savoir les traiter.
 plugin = basics
 plugin = analytics
 
-[expand]
+[map]
 path = cities
-size = 1
 
-[expand/exploding]
-
-[expand/assign]
+[map/assign]
 path = value.quartier_enriched
 value = get('value.quartier')
 
-[expand/expand]
+[map/expand]
 path = value.quartier_enriched
 size = 100
 
-[expand/expand/exploding]
+[map/expand/exploding]
 
-[expand/expand/expand]
+[map/expand/expand]
 path = value
 size = 100
 
-[expand/expand/expand/URLConnect]
+[map/expand/expand/URLConnect]
 url = https://webservice.url
 timeout = 1000
 noerror = true
 
-[expand/expand/aggregate]
+[map/expand/aggregate]
 
-[expand/aggregate]
 ```
+
+## Sous chemin avec valeur multiple (objet dans valeur multiple
+
+### Données
+
+```json
+{ 
+  "villes": [
+  { 
+    "nom": "Nancy",
+    "quartiers": [
+        { id: 1, nom: "Boudonville" },
+        { id: 2, nom: "Scarpone" },
+        { id: 3, nom: "Libération" }
+    ]
+   },
+  { 
+    "nom": "Paris",
+    "quartiers": [
+        { id: 1, nom: "Saint-Germain" },
+        { id: 2, nom: "Halles" },
+        { id: 3, nom: "Palais-Royal" }
+    ]
+  }
+  ]
+}
+```
+
+Tous les éléments `nom` de chaque champ `quartier` sont envoyés au web service quel
+que soit leur contenu. Charge au web service de savoir les traiter.
+
+### Configuration
+
+```ini
+[map]
+path = villes
+
+[map/map]
+path = quartiers
+
+[map/map/assign]
+path = nom_enriched
+value = get('nom')
+
+[map/map/expand]
+path = nom_enriched
+size = 10
+
+[map/map/expand/URLConnect]
+url = https://webservice.url
+retries = 3
+timeout = 3000
+```
+
 
 ## Notes
 

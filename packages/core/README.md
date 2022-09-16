@@ -15,6 +15,7 @@ npm install @ezs/core
 #### Table of Contents
 
 -   [assign](#assign)
+-   [combine](#combine)
 -   [concat](#concat)
 -   [debug](#debug)
 -   [delegate](#delegate)
@@ -22,6 +23,7 @@ npm install @ezs/core
 -   [dump](#dump)
 -   [env](#env)
 -   [exchange](#exchange)
+-   [expand](#expand)
 -   [extract](#extract)
 -   [group](#group)
 -   [identify](#identify)
@@ -107,6 +109,52 @@ Output:
 
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of the new field
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value of the new field
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### combine
+
+Takes an `Object` and substitute a field with the corresponding value found in a external pipeline
+the internal pipeline must produce a stream of special object (id, value)
+
+```json
+[
+          { year: 2000, dept: 54 },
+          { year: 2001, dept: 55 },
+          { year: 2003, dept: 54 },
+]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[combine]
+path = dept
+file = ./departement.ini
+```
+
+Output:
+
+```json
+ [
+          { year: 2000, dept: { id: 54, value: 'Meurthe et moselle' } },
+          { year: 2001, dept: { id: 55, value: 'Meuse' } },
+          { year: 2003, dept: { id: 54, value: 'Meurthe et moselle' } },
+ ]
+```
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the path to substitute
+-   `default` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value if no substitution (otherwise value stay unchanged)
+-   `primer` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Data to send to the external pipeline (optional, default `n/a`)
+-   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
+-   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
+-   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
+-   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -290,6 +338,53 @@ Output:
 #### Parameters
 
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value to replace input object
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### expand
+
+Takes an `Object` and substitute a field with the corresponding value found in a external pipeline
+the internal pipeline receive a special object { id, value } id is the item identifier & value is the item path value
+The internal pipeline can expand value with another
+
+```json
+[
+          { year: 2000, dept: 54 },
+          { year: 2001, dept: 55 },
+          { year: 2003, dept: 54 },
+]
+```
+
+Script:
+
+```ini
+[use]
+plugin = analytics
+
+[expand]
+path = dept
+file = ./departement.ini
+```
+
+Output:
+
+```json
+ [
+          { year: 2000, dept: { id: 54, value: 'Meurthe et moselle' } },
+          { year: 2001, dept: { id: 55, value: 'Meuse' } },
+          { year: 2003, dept: { id: 54, value: 'Meurthe et moselle' } },
+ ]
+```
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the path to substitute
+-   `size` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** How many chunk for sending to the external pipeline (optional, default `1`)
+-   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
+-   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
+-   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
+-   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
+-   `cacheName` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Enable cache, with dedicated name
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 

@@ -38,7 +38,6 @@ describe('combine', () => {
             .on('end', () => {
 
                 assert.equal(output.length, 6);
-                console.log(output, output[0], output[0]);
                 assert.equal(output[0].b.value, 'aa');
                 assert.equal(output[1].b.value, 'bb');
                 assert.equal(output[2].b.value, 'cc');
