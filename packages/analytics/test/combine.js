@@ -304,7 +304,7 @@ describe('no combine', () => {
             [use]
             plugin = analytics
 
-            [files]
+            [FILELoad]
             location = ${__dirname}
         `;
         const filename = `${__dirname}/forbidden`;
