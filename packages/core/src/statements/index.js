@@ -30,6 +30,8 @@ import loop from './loop';
 import map from './map';
 import identify from './identify';
 import throttle from './throttle';
+import combine from './combine';
+import expand from './expand';
 
 export default {
     extract,
@@ -64,4 +66,6 @@ export default {
     map,
     identify,
     throttle,
+    expand,
+    combine,
 };

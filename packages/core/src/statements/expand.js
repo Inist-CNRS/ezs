@@ -1,12 +1,12 @@
 import { resolve  as resolvePath } from 'path';
 import from from 'from';
 import { tmpdir } from 'os';
-import get from 'lodash.get';
-import set from 'lodash.set';
+import _ from 'lodash';
 import cacache from 'cacache';
 import makeDir from 'make-dir';
 import pathExists from 'path-exists';
-import core from './core';
+
+const core = (id, value) => ({ id, value });
 
 async function cacheGet(cachePath, cacheKey) {
     const cacheObject = await cacache.get.info(cachePath, cacheKey);
@@ -42,31 +42,16 @@ async function mergeWith(data, feed) {
         if (obj === undefined || obj === null) {
             throw new Error('id was corrupted');
         }
-        const source = get(obj, path);
+        const source = _.get(obj, path);
         if (cachePath && source) {
             await cachePut(cachePath, source, value);
         }
-        set(obj, path, value);
+        _.set(obj, path, value);
         return feed.send(obj);
     } catch (e) {
         // avoid to break the pipe
         return feed.send(e);
     }
-}
-
-async function drainWith(data, feed) {
-    if (this.isLast()) {
-        const {
-            store,
-        } = this.getEnv();
-        Object.keys(store).forEach((id) => {
-            const obj = store[id];
-            feed.write(obj);
-            delete store[id];
-        });
-        return feed.close();
-    }
-    return feed.send(data);
 }
 
 
@@ -151,10 +136,6 @@ export default async function expand(data, feed) {
                     store: this.store,
                     cachePath: this.cachePath,
                 }))
-                .pipe(ezs(drainWith, { path }, {
-                    store: this.store,
-                    cachePath: this.cachePath,
-                }))
                 .pipe(ezs.catch((e) => feed.write(e))) // avoid to break pipeline at each error
                 .on('data', () => {
                     count += 1;
@@ -175,7 +156,7 @@ export default async function expand(data, feed) {
     }
 
     // no path
-    const value = get(data, path);
+    const value = _.get(data, path);
     if (!value || value.length === 0) {
         return feed.send(data);
     }
@@ -184,7 +165,7 @@ export default async function expand(data, feed) {
     if (this.cachePath) {
         const cachedValue = await cacheGet(this.cachePath, value);
         if (cachedValue) {
-            set(data, path, cachedValue);
+            _.set(data, path, cachedValue);
             return feed.send(data);
         }
     }

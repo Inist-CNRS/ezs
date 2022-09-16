@@ -1,11 +1,10 @@
-import get from 'lodash.get';
-import set from 'lodash.set';
+import _ from 'lodash';
 import debug from 'debug';
 import assert from 'assert';
 import hasher from 'node-object-hash';
-import core from './core';
 
 const hashCoerce = hasher({ sort: false, coerce: true });
+const core = (id, value) => ({ id, value });
 
 const database = {};
 
@@ -107,7 +106,7 @@ export default function combine(data, feed) {
         .then(() => {
             const defval = this.getParam('default', null);
             const path = this.getParam('path');
-            const pathVal = get(data, path);
+            const pathVal = _.get(data, path);
             const keys = [].concat(pathVal).filter(Boolean);
             if (keys.length === 0) {
                 return feed.send(data);
@@ -119,22 +118,22 @@ export default function combine(data, feed) {
                 return core(key, database[this.databaseID][key]);
             });
             if (values.length && Array.isArray(pathVal)) {
-                set(data, path, values);
+                _.set(data, path, values);
             } else if (values.length && !Array.isArray(pathVal)) {
                 const val = values.shift();
                 if (val !== null) {
-                    set(data, path, val);
+                    _.set(data, path, val);
                 } else if (defval !== null) {
-                    const orig = get(data, path);
-                    set(data, path, { id: orig, value: defval });
+                    const orig = _.get(data, path);
+                    _.set(data, path, { id: orig, value: defval });
                 } else {
-                    const orig = get(data, path);
-                    set(data, path, { id: orig, value: orig });
+                    const orig = _.get(data, path);
+                    _.set(data, path, { id: orig, value: orig });
                 }
             } else if (Array.isArray(pathVal)) {
-                set(data, path, pathVal.map((id) => ({ id })));
+                _.set(data, path, pathVal.map((id) => ({ id })));
             } else {
-                set(data, path, { id: pathVal });
+                _.set(data, path, { id: pathVal });
             }
             return feed.send(data);
         })
