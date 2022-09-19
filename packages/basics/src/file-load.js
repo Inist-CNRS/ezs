@@ -43,9 +43,8 @@ export default async function FILELoad(data, feed) {
     }
     const cwd = process.cwd();
     const tpd = tmpdir();
-    const location = this.getParam('location', tpd);
     const compress = this.getParam('compress', false);
-    const locations = [cwd, tpd, location];
+    const locations = this.ezs.getPath().concat(cwd, tpd, this.getParam('location'));
     const file = locations
         .filter(Boolean)
         .map((dir) => resolve(dir, String(data).trim()))

@@ -88,6 +88,7 @@ export default function combine(data, feed) {
         });
         this.databaseID = hashCoerce.hash({ primer, commands });
         if (!database[this.databaseID]) {
+            database[this.databaseID] = {};
             const statements = ezs.compileCommands(commands, this.getEnv());
             const output = ezs.createPipeline(input, statements)
                 .pipe(ezs(saveIn, null, this.databaseID))
