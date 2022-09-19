@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.22.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.22.2...@ezs/basics@1.22.3) (2022-09-19)
+
+
+### Bug Fixes
+
+* 🐛 locations like [files] ([42fb184](https://github.com/Inist-CNRS/ezs/commit/42fb184bba3534bf2123a12d276d89f6809d09a7))
+
+
+
+
+
 ## [1.22.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.22.1...@ezs/basics@1.22.2) (2022-09-14)
 
 
