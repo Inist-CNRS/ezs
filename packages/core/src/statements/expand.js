@@ -6,7 +6,12 @@ import cacache from 'cacache';
 import makeDir from 'make-dir';
 import pathExists from 'path-exists';
 
-const core = (id, value) => ({ id, value });
+const core = (id, value, token) => {
+    if (token) {
+        return { id, value, token };
+    }
+    return { id, value };
+};
 
 async function cacheGet(cachePath, cacheKey) {
     const cacheObject = await cacache.get.info(cachePath, cacheKey);
@@ -98,6 +103,7 @@ async function mergeWith(data, feed) {
  * @param {String} [commands] the external pipeline is described in a object
  * @param {String} [command] the external pipeline is described in a URL-like command
  * @param {String} [cacheName] Enable cache, with dedicated name
+ * @param {String} [token] add token values in the subpipeline (optional)
  * @returns {Object}
  */
 export default async function expand(data, feed) {
@@ -173,7 +179,7 @@ export default async function expand(data, feed) {
     // normal case
     const id = this.getIndex().toString().padStart(20, '0');
     this.store[id] = data;
-    this.buffer.push(core(id, value));
+    this.buffer.push(core(id, value, this.getParam('token')));
 
     // new bucket
     if (this.buffer.length >= size) {
