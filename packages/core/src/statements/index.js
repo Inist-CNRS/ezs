@@ -32,6 +32,7 @@ import identify from './identify';
 import throttle from './throttle';
 import combine from './combine';
 import expand from './expand';
+import overturn from './overturn';
 
 export default {
     extract,
@@ -68,4 +69,5 @@ export default {
     throttle,
     expand,
     combine,
+    overturn,
 };
