@@ -1,7 +1,6 @@
 import { resolve  as resolvePath } from 'path';
 import generate from 'nanoid/async/generate';
 import nolookalikes from 'nanoid-dictionary/nolookalikes';
-import from from 'from';
 import { tmpdir } from 'os';
 import _ from 'lodash';
 import cacache from 'cacache';
@@ -79,12 +78,12 @@ import pathExists from 'path-exists';
  * @name overturn
  * @param {String} [path] the path to overturn
  * @param {Number} [size=1] How many chunk for sending to the external pipeline
- * @param {String} [file] the external pipeline is described in a file
- * @param {String} [script] the external pipeline is described in a string of characters
- * @param {String} [commands] the external pipeline is described in a object
- * @param {String} [command] the external pipeline is described in a URL-like command
- * @returns {Object}
- */
+* @param {String} [file] the external pipeline is described in a file
+* @param {String} [script] the external pipeline is described in a string of characters
+* @param {String} [commands] the external pipeline is described in a object
+* @param {String} [command] the external pipeline is described in a URL-like command
+* @returns {Object}
+*/
 export default async function overturn(data, feed) {
     const { ezs } = this;
     const size = Number(this.getParam('size', 1));
@@ -100,6 +99,7 @@ export default async function overturn(data, feed) {
             prepend: this.getParam('prepend'),
             append: this.getParam('append'),
         });
+
         this.bufferID = await generate(nolookalikes, 10);
         this.cachePath = resolvePath(location, 'memory', 'overturn');
         if (!pathExists.sync(this.cachePath)) {
@@ -117,12 +117,14 @@ export default async function overturn(data, feed) {
                     location,
                 }, this.getEnv()))
                 .pipe(ezs('pack'))
+                .pipe(ezs.catch((e) => true)) // ignore all errors at the first call
+                .once('error', reject)
                 .pipe(cacache.put.stream(
                     this.cachePath,
                     this.bufferID,
                 ))
                 .on('data', () => {})
-                .once('error', () => reject())
+                .once('error', reject)
                 .once('end', () => resolve())
             ;
         });
