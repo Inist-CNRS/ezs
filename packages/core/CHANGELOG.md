@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@2.0.1...@ezs/core@2.1.0) (2022-09-21)
+
+
+### Features
+
+* 🎸 add [overturn] ([54e3052](https://github.com/Inist-CNRS/ezs/commit/54e30528cd1c7014becce96d96eb1273f10c961a))
+
+
+
+
+
 ## [2.0.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@2.0.0...@ezs/core@2.0.1) (2022-09-19)
 
 
