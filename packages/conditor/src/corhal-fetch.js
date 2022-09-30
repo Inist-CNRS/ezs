@@ -81,11 +81,16 @@ export default async function CORHALFetch(data, feed) {
         }
         if (afterKeyToken) {
             const href = `${url}/after/${afterKeyToken}`;
-            const responseBis = await retry(request(href, parameters), options);
-            const noticesBis = await responseBis.json();
-            const afterKeyTokenBis = responseBis.headers.get('after-key-token');
-            loop(stream, noticesBis, afterKeyTokenBis);
-        } else { 
+            try {
+                const responseBis = await retry(request(href, parameters), options);
+                const noticesBis = await responseBis.json();
+                const afterKeyTokenBis = responseBis.headers.get('after-key-token');
+                loop(stream, noticesBis, afterKeyTokenBis);
+            } catch(e) {
+                console.error(`Error with ${href}`, e.message);
+                stream.end();
+            }
+        } else {
             stream.end();
         }
     };
