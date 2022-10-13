@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.9.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.8.3...@ezs/conditor@2.9.0) (2022-10-13)
+
+
+### Bug Fixes
+
+* 🐛 works ([cc60564](https://github.com/Inist-CNRS/ezs/commit/cc60564ea84fca86c6121f10440421e5f828e26d))
+
+
+### Features
+
+* 🎸 add wos fetch ([6f5dd2c](https://github.com/Inist-CNRS/ezs/commit/6f5dd2cf93cda3f5c7b64223779d6a7b2ff55482))
+
+
+
+
+
 ## [2.8.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.8.2...@ezs/conditor@2.8.3) (2022-09-30)
 
 
