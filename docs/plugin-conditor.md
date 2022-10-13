@@ -58,6 +58,7 @@ Sachant qu'on appauvrit (casse, accents, tiret, apostrophe) tous les champs.
 -   [CORHALFetch](#corhalfetch)
 -   [getRnsr](#getrnsr)
 -   [getRnsrInfo](#getrnsrinfo)
+-   [WOSFetch](#wosfetch)
 
 ### affAlign
 
@@ -334,3 +335,37 @@ Output:
 #### Parameters
 
 -   `year` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Year of the RNSR to use instead of the last one (optional, default `2021`)
+
+### WOSFetch
+
+Take `String` as URL, throw each chunk from the result
+
+Input:
+
+```json
+[
+  { q: "toto" },
+]
+```
+
+Script:
+
+```ini
+[WOSFetch]
+token = SDQedaeaazedsqsd
+```
+
+Output:
+
+```json
+[{...}, {"a": "b"}, {"a": "c" }]
+```
+
+#### Parameters
+
+-   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** corhal api url (optional, default `https://wos-api.clarivate.com/api/wos`)
+-   `token` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** WOS API TOKEN
+-   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (optional, default `1000`)
+-   `retries` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** The maximum amount of times to retry the connection (optional, default `5`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
