@@ -7,13 +7,9 @@ async function mongoDatabase(connectionStringURI) {
             connectionStringURI,
             {
                 useNewUrlParser: true,
-                poolSize: 10,
                 useUnifiedTopology: true,
             },
         );
-    }
-    if (handles[connectionStringURI].isConnected()) {
-        return handles[connectionStringURI].db();
     }
     const client = await handles[connectionStringURI].connect();
     return client.db();

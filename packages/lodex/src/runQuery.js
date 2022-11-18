@@ -47,7 +47,7 @@ export const createFunction = () => async function LodexRunQuery(data, feed) {
     let cursor = collection.find(filter, fields.length > 0 ? projection : null);
 
     if (sortOn) {
-        cursor = cursor.sort(`versions.${sortOn}`, sortOrder === 'desc' ? -1 : 1);
+        cursor = cursor.sort(`versions.${sortOn}`, sortOrder === 'desc' ? -1 : 1).allowDiskUse();
     }
 
     const total = await cursor.count();
@@ -63,6 +63,7 @@ export const createFunction = () => async function LodexRunQuery(data, feed) {
     const stream = cursor
         .skip(Number(skip))
         .limit(Number(limit))
+        .stream()
         .pipe(ezs('assign', { path, value }));
     await feed.flow(stream);
 };

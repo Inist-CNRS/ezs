@@ -41,11 +41,10 @@ export const createFunction = () => async function LodexAggregateQuery(data, fee
     const db = await mongoDatabase(connectionStringURI);
     const collection = db.collection(collectionName);
     const cursor = collection.aggregate([{ $match: filter }].concat(stages));
-    const isFilled = await cursor.hasNext();
-    if (!isFilled) {
-        return feed.send({ total: 0 });
-    }
     const count = await collection.aggregate([{ $match: filter }, { $count: 'value' }]).toArray();
+    if (count.length === 0) {
+        return feed.send({ total: 0 }); 
+    }
     const path = ['total'];
     const value = [(count[0] ? count[0].value : 0)];
     if (referer) {
@@ -55,6 +54,7 @@ export const createFunction = () => async function LodexAggregateQuery(data, fee
     const stream = cursor
         .skip(Number(skip))
         .limit(Number(limit))
+        .stream()
         .pipe(ezs('assign', { path, value }));
     await feed.flow(stream);
 };

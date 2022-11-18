@@ -792,7 +792,7 @@ describe('mongo queries', () => {
                 .on('error', (e) => {
                     expect(() => {
                         throw e.sourceError;
-                    }).toThrow('Invalid connection string');
+                    }).toThrow('Invalid scheme');
                     done();
                 })
                 .on('end', () => {

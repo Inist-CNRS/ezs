@@ -43,6 +43,7 @@ export async function LodexGetCharacteristics(data, feed) {
     cursor
         .limit(1)
         .sort({ publicationDate: -1 })
+        .stream()
         .on('data', (characteristics) => {
             if (typeof characteristics === 'object') {
                 feed.write({ characteristics });
