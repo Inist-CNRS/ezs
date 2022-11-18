@@ -21,6 +21,7 @@ export async function LodexGetFields(data, feed) {
 
     cursor
         .sort({ position: 1, cover: 1 })
+        .stream()
         .on('data', (data2) => {
             if (typeof data2 === 'object') {
                 feed.write({ fields: data2 });
