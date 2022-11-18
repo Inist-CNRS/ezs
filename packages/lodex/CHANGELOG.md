@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.16.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.15.2...@ezs/lodex@1.16.0) (2022-11-18)
+
+
+### Bug Fixes
+
+* migration to 4 ([de34112](https://github.com/Inist-CNRS/ezs/commit/de341122e9abb9683ce4808dcbbc1002a48b7cdf))
+
+
+### Features
+
+* use mongo client 4.x ([34fe0a2](https://github.com/Inist-CNRS/ezs/commit/34fe0a2fcb886b9a96d7ff83785192307199cedd))
+
+
+
+
+
 ## [1.15.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.15.1...@ezs/lodex@1.15.2) (2022-09-14)
 
 
