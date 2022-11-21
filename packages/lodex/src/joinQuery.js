@@ -36,8 +36,8 @@ export default async function LodexJoinQuery(data, feed) {
     const filter = this.getParam('filter', data.filter || {});
 
     const collectionName = this.getParam('collection', data.collection || 'publishedDataset');
-    const limit = this.getParam('limit', data.limit || 1000000);
-    const skip = this.getParam('skip', data.skip || 0);
+    const limit = Number(this.getParam('limit', data.limit || 1000000));
+    const skip = Number(this.getParam('skip', data.skip || 0));
     const connectionStringURI = this.getParam(
         'connectionStringURI', data.connectionStringURI || '',
     );
@@ -101,8 +101,8 @@ export default async function LodexJoinQuery(data, feed) {
     }
 
     const stream = findCursor
-        .skip(Number(skip))
-        .limit(Number(limit))
+        .skip(skip)
+        .limit(limit)
         .stream()
         .pipe(ezs('assign',
             {

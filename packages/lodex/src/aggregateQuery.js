@@ -32,8 +32,8 @@ export const createFunction = () => async function LodexAggregateQuery(data, fee
 
     filter.removedAt = { $exists: false }; // Ignore removed resources
     const collectionName = this.getParam('collection', data.collection || 'publishedDataset');
-    const limit = this.getParam('limit', data.limit || 1000000);
-    const skip = this.getParam('skip', data.skip || 0);
+    const limit = Number(this.getParam('limit', data.limit || 1000000));
+    const skip = Number(this.getParam('skip', data.skip || 0));
     const connectionStringURI = this.getParam(
         'connectionStringURI',
         data.connectionStringURI || '',
@@ -43,7 +43,7 @@ export const createFunction = () => async function LodexAggregateQuery(data, fee
     const cursor = collection.aggregate([{ $match: filter }].concat(stages));
     const count = await collection.aggregate([{ $match: filter }, { $count: 'value' }]).toArray();
     if (count.length === 0) {
-        return feed.send({ total: 0 }); 
+        return feed.send({ total: 0 });
     }
     const path = ['total'];
     const value = [(count[0] ? count[0].value : 0)];
@@ -52,8 +52,8 @@ export const createFunction = () => async function LodexAggregateQuery(data, fee
         value.push(referer);
     }
     const stream = cursor
-        .skip(Number(skip))
-        .limit(Number(limit))
+        .skip(skip)
+        .limit(limit)
         .stream()
         .pipe(ezs('assign', { path, value }));
     await feed.flow(stream);
