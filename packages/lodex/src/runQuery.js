@@ -32,11 +32,11 @@ export const createFunction = () => async function LodexRunQuery(data, feed) {
         'field',
         data.field || data.$field || 'uri',
     );
-    const collectionName = this.getParam('collection', data.collection || 'publishedDataset');
+    const collectionName = String(this.getParam('collection', data.collection || 'publishedDataset'));
     const fds = Array.isArray(field) ? field : [field];
     const fields = fds.filter(Boolean);
-    const limit = this.getParam('limit', data.limit || 1000000);
-    const skip = this.getParam('skip', data.skip || 0);
+    const limit = Number(this.getParam('limit', data.limit || 1000000));
+    const skip = Number(this.getParam('skip', data.skip || 0));
     const projection = zipObject(fields, Array(fields.length).fill(true));
     const connectionStringURI = this.getParam(
         'connectionStringURI',
@@ -60,9 +60,10 @@ export const createFunction = () => async function LodexRunQuery(data, feed) {
         path.push('referer');
         value.push(referer);
     }
+
     const stream = cursor
-        .skip(Number(skip))
-        .limit(Number(limit))
+        .skip(skip)
+        .limit(limit)
         .stream()
         .pipe(ezs('assign', { path, value }));
     await feed.flow(stream);

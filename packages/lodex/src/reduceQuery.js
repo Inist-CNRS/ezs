@@ -38,8 +38,8 @@ export const createFunction = () => async function LodexReduceQuery(data, feed) 
     const minValue = this.getParam('minValue', data.minValue);
     const maxValue = this.getParam('maxValue', data.maxValue);
     const orderBy = this.getParam('orderBy', data.orderBy);
-    const limit = this.getParam('maxSize', data.maxSize || 1000000);
-    const skip = this.getParam('skip', data.skip || 0);
+    const limit = Number(this.getParam('maxSize', data.maxSize || 1000000));
+    const skip = Number(this.getParam('skip', data.skip || 0));
 
     const reducer = this.getParam('reducer');
     if (!reducer) {
@@ -109,8 +109,8 @@ export const createFunction = () => async function LodexReduceQuery(data, feed) 
     }
     const stream = cursor
         .sort(sort)
-        .skip(Number(skip))
-        .limit(Number(limit))
+        .skip(skip)
+        .limit(limit)
         .stream()
         .pipe(ezs('assign', { path, value }));
     await feed.flow(stream);
