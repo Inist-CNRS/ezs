@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@2.1.0...@ezs/core@2.1.1) (2022-11-28)
+
+
+### Bug Fixes
+
+* [expand] losing some batches ([bf29c38](https://github.com/Inist-CNRS/ezs/commit/bf29c382d79bc65f0524831447935fdbe120dd37))
+* losing some batches ([4e21668](https://github.com/Inist-CNRS/ezs/commit/4e21668c4db451a214b15f3777f921ca6f1a97ec))
+
+
+
+
+
 # [2.1.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@2.0.1...@ezs/core@2.1.0) (2022-09-21)
 
 
