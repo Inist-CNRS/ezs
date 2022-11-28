@@ -114,7 +114,9 @@ export default async function expand(data, feed) {
 
     if (this.isFirst()) {
         this.store = {};
-        this.buffer = [];
+        this.buffer = [[]];
+        this.bufferIndex = 0;
+        this.bufferPromises = [[]];
         if (cacheName && !this.cachePath) {
             const location = this.getParam('location');
             this.cachePath = resolvePath(location || tmpdir(), 'memory', `expand${cacheName}`);
@@ -124,10 +126,8 @@ export default async function expand(data, feed) {
         }
     }
     if (this.isLast()) {
-        if (this.buffer && this.buffer.length > 0) {
-            const check = this.buffer.length;
-            let count = 0;
-            const input = from(this.buffer);
+        if (this.buffer[this.bufferIndex] && this.buffer[this.bufferIndex].length > 0) {
+            const input = from(this.buffer[this.bufferIndex]);
             const commands = ezs.createCommands({
                 file: this.getParam('file'),
                 script: this.getParam('script'),
@@ -143,21 +143,13 @@ export default async function expand(data, feed) {
                     cachePath: this.cachePath,
                 }))
                 .pipe(ezs.catch((e) => feed.write(e))) // avoid to break pipeline at each error
-                .on('data', () => {
-                    count += 1;
-                })
-                .on('end', () => {
-                    if (count < check) {
-                        Object.keys(this.store).forEach((x) => {
-                            const obj = this.store[x];
-                            feed.write(obj);
-                            delete this.store[x];
-                        });
-                    }
+                .once('end', () => {
+                    delete this.buffer[this.bufferIndex];
                 });
-            await feed.flow(output);
-            this.buffer = [];
+            this.bufferPromises[this.bufferIndex] = await feed.flow(output);
         }
+        await Promise.all(this.bufferPromises);
+        Object.keys(this.store).forEach(key => feed.write(this.store[key]));
         return feed.close();
     }
 
@@ -179,13 +171,14 @@ export default async function expand(data, feed) {
     // normal case
     const id = this.getIndex().toString().padStart(20, '0');
     this.store[id] = data;
-    this.buffer.push(core(id, value, this.getParam('token')));
+    this.buffer[this.bufferIndex].push(core(id, value, this.getParam('token')));
 
     // new bucket
-    if (this.buffer.length >= size) {
-        const check = this.buffer.length;
-        let count = 0;
-        const input = from(this.buffer);
+    if (this.buffer[this.bufferIndex].length >= size) {
+        const index = this.bufferIndex;
+        this.bufferIndex += 1;
+        this.buffer[this.bufferIndex] = [];
+        const input = from(this.buffer[index]);
         const commands = ezs.createCommands({
             file: this.getParam('file'),
             script: this.getParam('script'),
@@ -201,20 +194,10 @@ export default async function expand(data, feed) {
                 cachePath: this.cachePath,
             }))
             .pipe(ezs.catch((e) => feed.write(e)))  // avoid to break pipeline at each error
-            .on('data', () => {
-                count += 1;
-            })
             .once('end', () => {
-                if (count < check) {
-                    Object.keys(this.store).forEach((x) => {
-                        const obj = this.store[x];
-                        feed.write(obj);
-                        delete this.store[x];
-                    });
-                }
+                delete this.buffer[index];
             });
-        await feed.flow(output);
-        this.buffer = [];
+        this.bufferPromises[index] = await feed.flow(output);
         return true;
     }
     return feed.end();
