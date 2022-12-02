@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.22.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.22.3...@ezs/basics@1.22.4) (2022-12-02)
+
+
+### Bug Fixes
+
+* on retry, input stream was lost ([1b710f1](https://github.com/Inist-CNRS/ezs/commit/1b710f19d1dd163bcaf3580f0d23def6f948423a))
+
+
+
+
+
 ## [1.22.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.22.2...@ezs/basics@1.22.3) (2022-09-19)
 
 
