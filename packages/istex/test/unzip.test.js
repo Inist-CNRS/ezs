@@ -139,4 +139,20 @@ describe('ISTEXUnzip', () => {
                 done();
             });
     });
+
+    it('should get the unique element from unique_compressed.zip', (done) => {
+        const result = [];
+        fs.createReadStream('./packages/istex/examples/data/unique_compressed.zip')
+            .pipe(ezs('ISTEXUnzip'))
+        // .pipe(ezs('debug'))
+            .on('data', (chunk) => {
+                result.push(chunk);
+            })
+            .on('error', done)
+            .on('end', () => {
+                assert.equal(result.length, 1);
+                done();
+            });
+    });
+
 });
