@@ -619,6 +619,11 @@ The output will be the returned content of URL.
 
 Useful to send JSON data to an API and get results.
 
+Warning :
+if retries === 1,  it will directly use the stream
+to connect to the server otherwise the stream will be fully
+read to be buffered and sent to the server (n times)
+
 #### Parameters
 
 -   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fetch
