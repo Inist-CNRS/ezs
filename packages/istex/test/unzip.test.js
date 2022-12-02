@@ -140,7 +140,7 @@ describe('ISTEXUnzip', () => {
             });
     });
 
-    it('should the unique element from unique_compressed.zip', (done) => {
+    it('should get the unique element from unique_compressed.zip', (done) => {
         const result = [];
         fs.createReadStream('./packages/istex/examples/data/unique_compressed.zip')
             .pipe(ezs('ISTEXUnzip'))
