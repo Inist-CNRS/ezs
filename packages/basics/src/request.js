@@ -1,6 +1,7 @@
 import fetch from 'fetch-with-proxy';
 
 const request = (url, parameters) => async () => {
+
     const response = await fetch(url, parameters);
 
     if (!response.ok) {

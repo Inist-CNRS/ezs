@@ -4,6 +4,7 @@ import writeTo from 'stream-write';
 import AbortController from 'node-abort-controller';
 import parseHeaders from 'parse-headers';
 import retry from 'async-retry';
+import getStream from 'get-stream';
 import request from './request';
 
 /**
@@ -12,6 +13,11 @@ import request from './request';
  * The output will be the returned content of URL.
  *
  * Useful to send JSON data to an API and get results.
+ *
+ * Warning :
+ * if retries === 1,  it will directly use the stream
+ * to connect to the server otherwise the stream will be fully
+ * read to be buffered and sent to the server (n times)
  *
  * @name URLConnect
  * @param {String} [url] URL to fetch
@@ -39,8 +45,14 @@ export default async function URLConnect(data, feed) {
         this.whenFinish = feed.flow(output);
 
         writeTo(this.input, data, () => feed.end());
-
-        const bodyIn = this.input.pipe(ezs('dump')).pipe(ezs.toBuffer());
+        const streamIn = this.input.pipe(ezs('dump'));
+        let bodyIn;
+        if (retries === 1) {
+            bodyIn = streamIn.pipe(ezs.toBuffer());
+        } else {
+            bodyIn = await getStream(streamIn);
+            headers['Content-Type'] = 'application/json';
+        }
         const parameters = {
             method: 'POST',
             body: bodyIn,
