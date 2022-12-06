@@ -24,7 +24,7 @@
     "inist-ark": "2.1.3",
     "is-stream": "2.0.0",
     "isomorphic-fetch": "2.2.1",
-    "qs": "6.9.1",
+    "qs": "6.9.7",
     "ramda": "0.27.1",
     "unzipper": "0.10.11",
     "write": "2.0.0"
