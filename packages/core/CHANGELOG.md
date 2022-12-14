@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@2.1.2...@ezs/core@2.1.3) (2022-12-14)
+
+
+### Bug Fixes
+
+* 🐛 DELAY env vars more explicit ([c162be8](https://github.com/Inist-CNRS/ezs/commit/c162be8509d8f1ec7a37a63048a7138bd9573406))
+
+
+
+
+
 ## [2.1.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@2.1.1...@ezs/core@2.1.2) (2022-12-02)
 
 **Note:** Version bump only for package @ezs/core
