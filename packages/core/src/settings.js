@@ -9,14 +9,15 @@ const cacheEnable = Boolean(autocast(process.env.EZS_CACHE));
 const tracerEnable = Boolean(autocast(process.env.EZS_TRACER));
 const metricsEnable = Boolean(autocast(process.env.EZS_METRICS));
 const nShards = Number(process.env.EZS_NSHARDS || 16);
-const cacheDelay = Number(process.env.EZS_DELAY || 3600);
+const cacheDelay = Number(process.env.EZS_CACHE_DELAY || 3600);
+const continueDelay = Number(process.env.EZS_CONTINUE_DELAY || 5);
 const settings = {
     highWaterMark: {
         object: nShards,
         bytes: (nShards * 1024),
     },
     response: {
-        checkInterval: 5000,
+        checkInterval: (continueDelay * 1000),
     },
     concurrency,
     encoding,
