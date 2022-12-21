@@ -4,7 +4,9 @@ import _ from 'lodash';
 
 /**
  * Take `Object`, print it (with its number), and throw the same object.
- * if level equal debug, all others ezs debug traces will be print
+ * with debug level, every object will be stringify for printed and
+ * all others ezs debug traces will be print
+ * with error and log level, every objects will be inspected (indented and colorized)
  *
  * @name debug
  * @param {String} [level=log] console level : log or error or debug
@@ -33,7 +35,7 @@ export default function debug(data, feed) {
     }
     const logOpts = { showHidden: false, depth: 3, colors: true };
     const logTitle = text.concat('#').concat(this.getIndex()).concat(' ->');
-    const logDetails = util.inspect(output, logOpts);
+    const logDetails = ['error', 'log'].indexOf(level) !== -1 ? util.inspect(output, logOpts) : JSON.stringify(output);
     // eslint-disable-next-line
     const logFunc = ['error', 'log'].indexOf(level) !== -1 ? console[level] : debugGlobal('ezs');
     logFunc(logTitle, logDetails);
