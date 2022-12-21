@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.22.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.22.4...@ezs/basics@1.22.5) (2022-12-21)
+
+
+### Bug Fixes
+
+* 🐛 timeout and retry error ([efa2cfa](https://github.com/Inist-CNRS/ezs/commit/efa2cfaab4b827700d8e89d1bc59cfb266237ec2))
+
+
+
+
+
 ## [1.22.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.22.3...@ezs/basics@1.22.4) (2022-12-02)
 
 
