@@ -5,7 +5,7 @@ import AbortController from 'node-abort-controller';
 import parseHeaders from 'parse-headers';
 import retry from 'async-retry';
 import getStream from 'get-stream';
-import request from './request';
+import fetch from 'fetch-with-proxy';
 
 /**
  * Take an `Object` and send it to an URL.
@@ -39,7 +39,6 @@ export default async function URLConnect(data, feed) {
             .concat(this.getParam('header'))
             .filter(Boolean)
             .join('\n'));
-        const controller = new AbortController();
         this.input = ezs.createStream(ezs.objectMode());
         const output = ezs.createStream(ezs.objectMode());
         this.whenFinish = feed.flow(output);
@@ -56,15 +55,63 @@ export default async function URLConnect(data, feed) {
         const parameters = {
             method: 'POST',
             body: bodyIn,
-            timeout,
             headers,
-            signal: controller.signal,
         };
-        const options = {
-            retries,
-        };
-        const onError = (e) => {
-            controller.abort();
+        try {
+            await retry(
+                async (bail, numberOfTimes) => {
+                    if (numberOfTimes > 1) {
+                        debug('ezs')(`Attempts to reconnect (${numberOfTimes})`);
+                    }
+                    const controller = new AbortController();
+                    const timeoutHandle = setTimeout(() => {
+                        debug('ezs')(`The maximum time allowed to start sending data has been reached (${timeout} msec).`);
+                        controller.abort();
+                    }, timeout);
+
+                    const response = await fetch(url, {
+                        ...parameters,
+                        signal: controller.signal,
+                    });
+
+                    if (!response.ok) {
+                        const err = new Error(response.statusText);
+                        const text = await response.text();
+                        err.responseText = text;
+                        throw err;
+                    }
+
+                    if (retries === 1) {
+                        const bodyOut = json ? response.body.pipe(JSONStream.parse('*')) : response.body;
+                        bodyOut.once('data', () => {
+                            clearTimeout(timeoutHandle);
+                        });
+                        bodyOut.once('error', (e) => {
+                            output.emit('error', e);
+                            clearTimeout(timeoutHandle);
+                        });
+                        bodyOut.pipe(output);
+                    } else {
+                        const bodyOutRaw = await getStream(response.body);
+                        if (json) {
+                            try {
+                                const bodyOut = JSON.parse(bodyOutRaw);
+                                bodyOut.forEach(item => output.write(item));
+                            } catch (ee) {
+                                throw ee;
+                            }
+                        } else {
+                            output.write(bodyOutRaw);
+                        }
+                        output.end();
+                    }
+                },
+                {
+                    retries,
+                }
+            );
+        }
+        catch (e) {
             if (!noerror) {
                 debug('ezs')(
                     `Break item #${this.getIndex()} [URLConnect] <${e}>`,
@@ -77,20 +124,13 @@ export default async function URLConnect(data, feed) {
             }
             output.end();
         };
-        try {
-            const response = await retry(request(url, parameters), options);
-            const bodyOut = json ? response.body.pipe(JSONStream.parse('*')) : response.body;
-            bodyOut.once('error', onError);
-            bodyOut.pipe(output);
-        }
-        catch (e) {
-            onError(e);
-        };
         return;
     }
     if (this.isLast()) {
         this.input.end();
-        this.whenFinish.finally(() => feed.close());
+        this.whenFinish.finally(() => {
+            feed.close();
+        });
         return;
     }
     writeTo(this.input, data, () => feed.end());
