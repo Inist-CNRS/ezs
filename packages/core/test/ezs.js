@@ -1,6 +1,5 @@
 import assert from 'assert';
 import Dir from 'path';
-import debug from 'debug';
 import from from 'from';
 import fs from 'fs';
 import { Readable, PassThrough } from 'stream';
@@ -8,8 +7,6 @@ import ezs from '../src';
 import Expression from '../src/expression';
 
 ezs.use(require('./locals'));
-
-debug.enable('ezs');
 
 class Decade extends Readable {
     constructor() {
@@ -66,6 +63,10 @@ describe('Build a pipeline', () => {
             .pipe(ezs('tracer'))
             .pipe(ezs('debug', {
                 text: 'Debug message ',
+                level: 'debug',
+            }))
+            .pipe(ezs('debug', {
+                disable: true,
             }))
             .on('data', (chunk) => {
                 res += chunk;
@@ -874,7 +875,7 @@ describe('Build a pipeline', () => {
                 value: expr,
             }))
             .pipe(ezs('shift'))
-            // eslint-disable-next-line
+        // eslint-disable-next-line
             .on('error', console.error) // Error [ERR_STREAM_PUSH_AFTER_EOF]: stream.push() after EOF
             .on('data', (chunk) => {
                 assert.strictEqual(chunk.a, 1);
