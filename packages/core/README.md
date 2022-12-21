@@ -211,12 +211,14 @@ Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 ### debug
 
 Take `Object`, print it (with its number), and throw the same object.
+if level equal debug, all others ezs debug traces will be print
 
 #### Parameters
 
--   `level` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** console level : log or error (optional, default `log`)
+-   `level` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** console level : log or error or debug (optional, default `log`)
 -   `text` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** text before the dump (optional, default `valueOf`)
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to print
+-   `disable` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** disable all debug trace (global and local) (optional, default `false`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
