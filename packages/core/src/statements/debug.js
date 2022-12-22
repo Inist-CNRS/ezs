@@ -4,15 +4,20 @@ import _ from 'lodash';
 
 /**
  * Take `Object`, print it (with its number), and throw the same object.
- * with debug level, every object will be stringify for printed and
- * all others ezs debug traces will be print
- * with error and log level, every objects will be inspected (indented and colorized)
+ *
+ * with ezs debug enabled:
+ * every object will be stringify for printed and all others ezs debug traces will be print
+ *
+ * with ezs debug disabled:
+ * every objects will be inspected (indented and colorized) and print on stderr (error level) or stdout (log level)
+ *
+ * if ezs parameter is set, every object are not log (it's a global action)
  *
  * @name debug
  * @param {String} [level=error] console level : log or error or silent
  * @param {String} [text=valueOf] text before the dump
  * @param {String} [path] path of field to print
- * @param {Boolean} [ezs=false] enable or disable ezs debug trace
+ * @param {Boolean} [ezs] enable or disable ezs global debug traces
  * @returns {Object}
  */
 export default function debug(data, feed) {
@@ -34,7 +39,7 @@ export default function debug(data, feed) {
         return feed.send(data);
     }
     const logTitle = text.concat('#').concat(this.getIndex()).concat(' ->');
-    if (debugGlobal.enabled('ezs')) {
+    if (debugGlobal.enabled('ezs') && mode === null) {
         debugGlobal('ezs')(logTitle, JSON.stringify(output));
         return feed.send(data);
     }

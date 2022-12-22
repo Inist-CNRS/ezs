@@ -66,6 +66,9 @@ describe('Build a pipeline', () => {
                 ezs: true,
             }))
             .pipe(ezs('debug', {
+                text: 'Debug message',
+            }))
+            .pipe(ezs('debug', {
                 text: 'Debug message (ezs = false)',
                 ezs: false,
             }))
