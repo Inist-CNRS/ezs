@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.8](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@2.1.7...@ezs/core@2.1.8) (2022-12-22)
+
+
+### Bug Fixes
+
+* 🐛 debug again and again ([d1fe2c0](https://github.com/Inist-CNRS/ezs/commit/d1fe2c0d2282b25dbe74dcbfa56d83d39d116228))
+
+
+
+
+
 ## [2.1.7](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@2.1.6...@ezs/core@2.1.7) (2022-12-22)
 
 
