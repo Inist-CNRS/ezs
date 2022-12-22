@@ -9,10 +9,10 @@ import _ from 'lodash';
  * with error and log level, every objects will be inspected (indented and colorized)
  *
  * @name debug
- * @param {String} [level=log] console level : log or error or debug
+ * @param {String} [level=error] console level : log or error or silent
  * @param {String} [text=valueOf] text before the dump
  * @param {String} [path] path of field to print
- * @param {Boolean} [disable=false] disable all debug trace (global and local)
+ * @param {Boolean} [ezs=false] enable or disable ezs debug trace
  * @returns {Object}
  */
 export default function debug(data, feed) {
@@ -24,20 +24,26 @@ export default function debug(data, feed) {
     const path = this.getParam('path', []);
     const keys = Array.isArray(path) ? path : [path];
     const output = keys.length === 0 ? data : _.pick(data, keys);
-    const disable = Boolean(this.getParam('disable', false));
+    const mode = this.getParam('ezs', null);
 
-    if (disable) {
+    if (mode !== null && Boolean(mode) === true && debugGlobal.enabled('ezs') === false) {
+        debugGlobal.enable('ezs');
+    }
+    if (mode !== null && Boolean(mode) === false && debugGlobal.enabled('ezs') === true) {
         debugGlobal.enable('-ezs');
         return feed.send(data);
     }
-    if (level === 'debug' && !debugGlobal.enabled('ezs')) {
-        debugGlobal.enable('ezs');
-    }
-    const logOpts = { showHidden: false, depth: 3, colors: true };
     const logTitle = text.concat('#').concat(this.getIndex()).concat(' ->');
-    const logDetails = ['error', 'log'].indexOf(level) !== -1 ? util.inspect(output, logOpts) : JSON.stringify(output);
+    if (debugGlobal.enabled('ezs')) {
+        debugGlobal('ezs')(logTitle, JSON.stringify(output));
+        return feed.send(data);
+    }
     // eslint-disable-next-line
-    const logFunc = ['error', 'log'].indexOf(level) !== -1 ? console[level] : debugGlobal('ezs');
-    logFunc(logTitle, logDetails);
+    const logFunc = console[level];
+    if (typeof logFunc === 'function') {
+        const logOpts = { showHidden: false, depth: 3, colors: true };
+        const logDetails = util.inspect(output, logOpts);
+        logFunc(logTitle, logDetails);
+    }
     return feed.send(data);
 }

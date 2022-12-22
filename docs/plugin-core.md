@@ -12,13 +12,13 @@ npm install @ezs/core
 
 Plusieurs instructions permettent de créer des sous flux (sub pipeline), à partir d'un fichier d’instructions ou d'instructions imbriquées. Si elles s'utilisent toutes de la même manière (avec les mêmes paramètres) centaines peuvent apparaître comme similaires mais leur fonctionnement est différent :
 
--   [delegate] &#x3A; 1 sous flux pour tous les éléments
--   [swing] &#x3A; 1 sous flux pour tous les éléments filtrés selon une condition
--   [spaw] &#x3A; 1 sous flux par élément
--   [loop] &#x3A; 1 sous flux par élément
--   [expand] &#x3A; 1 sous flux pour N éléments (N = size), seul le champ sélectionné est envoyé dans le pipeline
--   [combine] &#x3A; 1 sous flux pour tous les éléments, seul le champ sélectionné est comparé avec le résultat du sous flux
--   [singleton] &#x3A; 1 sous flux pour le premier élément
+-   [delegate] : 1 sous flux pour tous les éléments
+-   [swing] : 1 sous flux pour tous les éléments filtrés selon une condition
+-   [spaw] : 1 sous flux par élément
+-   [loop] : 1 sous flux par élément
+-   [expand] : 1 sous flux pour N éléments (N = size), seul le champ sélectionné est envoyé dans le pipeline
+-   [combine] : 1 sous flux pour tous les éléments, seul le champ sélectionné est comparé avec le résultat du sous flux
+-   [singleton] : 1 sous flux pour le premier élément
 
 ## usage
 
@@ -217,10 +217,10 @@ with error and log level, every objects will be inspected (indented and colorize
 
 #### Parameters
 
--   `level` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** console level : log or error or debug (optional, default `log`)
+-   `level` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** console level : log or error or silent (optional, default `error`)
 -   `text` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** text before the dump (optional, default `valueOf`)
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to print
--   `disable` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** disable all debug trace (global and local) (optional, default `false`)
+-   `ezs` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** enable or disable ezs debug trace (optional, default `false`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 

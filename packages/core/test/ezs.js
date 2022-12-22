@@ -62,11 +62,23 @@ describe('Build a pipeline', () => {
             }))
             .pipe(ezs('tracer'))
             .pipe(ezs('debug', {
-                text: 'Debug message ',
-                level: 'debug',
+                text: 'Debug message (ezs = true)',
+                ezs: true,
             }))
             .pipe(ezs('debug', {
-                disable: true,
+                text: 'Debug message (ezs = false)',
+                ezs: false,
+            }))
+            .pipe(ezs('debug', {
+                text: 'Debug message (level = log)',
+                level: 'log',
+            }))
+            .pipe(ezs('debug', {
+                text: 'Debug message (level = error)',
+            }))
+            .pipe(ezs('debug', {
+                text: 'Debug message (level = silent)',
+                level: 'silent',
             }))
             .on('data', (chunk) => {
                 res += chunk;
