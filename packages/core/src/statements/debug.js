@@ -31,11 +31,13 @@ export default function debug(data, feed) {
     const output = keys.length === 0 ? data : _.pick(data, keys);
     const mode = this.getParam('ezs', null);
 
-    if (mode !== null && Boolean(mode) === true && debugGlobal.enabled('ezs') === false) {
-        debugGlobal.enable('ezs');
-    }
-    if (mode !== null && Boolean(mode) === false && debugGlobal.enabled('ezs') === true) {
-        debugGlobal.enable('-ezs');
+    if (mode !== null) {
+        if (Boolean(mode) === true && debugGlobal.enabled('ezs') === false) {
+            debugGlobal.enable('ezs');
+        }
+        if (Boolean(mode) === false && debugGlobal.enabled('ezs') === true) {
+            debugGlobal.enable('-ezs');
+        }
         return feed.send(data);
     }
     const logTitle = text.concat('#').concat(this.getIndex()).concat(' ->');
