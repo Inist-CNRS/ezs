@@ -39,8 +39,10 @@ export default function debug(data, feed) {
         return feed.send(data);
     }
     const logTitle = text.concat('#').concat(this.getIndex()).concat(' ->');
-    if (debugGlobal.enabled('ezs') && mode === null) {
-        debugGlobal('ezs')(logTitle, JSON.stringify(output));
+    if (debugGlobal.enabled('ezs')) {
+        if (mode === null) {
+            debugGlobal('ezs')(logTitle, JSON.stringify(output));
+        }
         return feed.send(data);
     }
     // eslint-disable-next-line
