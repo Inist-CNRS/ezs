@@ -25,6 +25,7 @@ import flatten, { unflatten } from 'flat';
  *
  * @name OBJFlatten
  * @param {String} [separator="/"] choose a character to flatten keys
+ * @param {Boolean} [reverse=false] unflatten instead of flatten keys
  * @param {Boolean} [safe=false] preserve arrays and their contents,
  * @returns {Object}
  */
