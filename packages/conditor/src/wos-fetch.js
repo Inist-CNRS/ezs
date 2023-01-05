@@ -8,7 +8,8 @@ import fetch from 'fetch-with-proxy';
 import writeTo from 'stream-write';
 import each from 'async-each-series';
 
-const request = (url, parameters) => async () => {
+const request = (url, parameters) => async (bail, attempt) => {
+    debug('ezs')(`Request #${attempt} to ${url}`);
     const response = await fetch(url, parameters);
     if (!response.ok) {
         const { code, message } = await response.json();
@@ -64,6 +65,7 @@ export default async function WOSFetch(data, feed) {
     const { ezs } = this;
     const url = String(this.getParam('url', 'https://wos-api.clarivate.com/api/wos'));
     const token = String(this.getParam('token'));
+    const step = Number(this.getParam('step', 10));
     const retries = Number(this.getParam('retries', 5));
     const timeout = Number(this.getParam('timeout')) || 1000;
     const cURL = new URL(url);
@@ -103,12 +105,12 @@ export default async function WOSFetch(data, feed) {
         if (QueryID) {
             const cURLBis = new URL(`${url}/query/${QueryID}`);
             const dataBis = { ...data };
-            dataBis.count = 100;
+            dataBis.count = step;
             dataBis.firstRecord = firstRecord;
             if (firstRecord > RecordsFound) {
                 return stream.end();
             }
-            firstRecord += 100; // for the next loop
+            firstRecord += step; // for the next loop
             cURLBis.search = new URLSearchParams(dataBis);
             try {
                 await wait(reqPerSec);
@@ -132,6 +134,7 @@ export default async function WOSFetch(data, feed) {
         const amtPerYear = response.headers.get('x-rec-amtperyear-remaining');
         const QueryID = get(jsonResponse, 'QueryResult.QueryID');
         const RecordsFound = get(jsonResponse, 'QueryResult.RecordsFound');
+        debug('ezs')(`Query #${QueryID} should download ${RecordsFound} notices (Allowed downloads remaining : ${amtPerYear})`);
         await loop(output, [], reqPerSec, amtPerYear, QueryID, RecordsFound);
         await feed.flow(output);
     } catch (e) {
