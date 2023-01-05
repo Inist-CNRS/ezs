@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.10.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.9.0...@ezs/conditor@2.10.0) (2023-01-05)
+
+
+### Features
+
+* 🎸 allow to choose step parameter ([61138b6](https://github.com/Inist-CNRS/ezs/commit/61138b605786f6a5764ae5fed2f1ac1f87f7008e))
+
+
+
+
+
 # [2.9.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.8.3...@ezs/conditor@2.9.0) (2022-10-13)
 
 
