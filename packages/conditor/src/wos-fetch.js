@@ -12,8 +12,8 @@ const request = (url, parameters) => async (bail, attempt) => {
     debug('ezs')(`Request #${attempt} to ${url}`);
     const response = await fetch(url, parameters);
     if (!response.ok) {
-        const { code, message } = await response.json();
-        throw new Error(`${code} - ${message}`);
+        const { message } = await response.json();
+        throw new Error(`${response.status} ${response.statusText} - ${message}`);
     }
     return response;
 };
@@ -98,32 +98,37 @@ export default async function WOSFetch(data, feed) {
             try {
                 await write(stream, Records);
             } catch (e) {
-                console.error(`Write Error`, e.message);
-                return stream.end();
+                console.error('Write Error', e.message);
+                throw new Error(e);
             }
         }
-        if (QueryID) {
-            const cURLBis = new URL(`${url}/query/${QueryID}`);
-            const dataBis = { ...data };
-            dataBis.count = step;
-            dataBis.firstRecord = firstRecord;
-            if (firstRecord > RecordsFound) {
+        if (!QueryID) {
+            throw new Error('QueryID was lost');
+        }
+        const cURLBis = new URL(`${url}/query/${QueryID}`);
+        try {
+            const RecordsBis = await retry(async (bail, attempt) => {
+                const dataBis = { ...data };
+                const randomStep = Math.floor(Math.random() * step) + 1;
+                dataBis.count = randomStep;
+                dataBis.firstRecord = firstRecord;
+                if (firstRecord > RecordsFound) {
+                    return [];
+                }
+                firstRecord += randomStep; // for the next loop
+                cURLBis.search = new URLSearchParams(dataBis);
+                await wait(reqPerSec);
+                const responseBis = await request(cURLBis.href, parameters)(bail, attempt);
+                const jsonResponseBis = await responseBis.json();
+                return get(jsonResponseBis, 'Records.records.REC', []);
+            }, options);
+            if (!RecordsBis || RecordsBis.length === 0) {
                 return stream.end();
             }
-            firstRecord += step; // for the next loop
-            cURLBis.search = new URLSearchParams(dataBis);
-            try {
-                await wait(reqPerSec);
-                const responseBis = await retry(request(cURLBis.href, parameters), options);
-                const jsonResponseBis = await responseBis.json();
-                const RecordsBis = get(jsonResponseBis, 'Records.records.REC');
-                loop(stream, RecordsBis, reqPerSec, amtPerYear, QueryID, RecordsFound);
-            } catch (e) {
-                console.error(`Error with ${cURLBis.href}`, e.message);
-                stream.end();
-            }
-        } else {
-            return stream.end();
+            await loop(stream, RecordsBis, reqPerSec, amtPerYear, QueryID, RecordsFound);
+        } catch (e) {
+            console.error(`Error with ${cURLBis.href}`, e.message);
+            throw new Error(e);
         }
     };
     try {
