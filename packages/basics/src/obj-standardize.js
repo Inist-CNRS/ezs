@@ -2,6 +2,33 @@ import tmpFilepath from 'tmp-filepath';
 import fs from 'fs';
 import writeTo from 'stream-write';
 
+function normalize(data, feed) {
+    if (this.isLast()) {
+        return feed.close();
+    }
+    const struct = this.getEnv();
+    const vv = {};
+    struct.forEach((k) => {
+        if (!data[k]) {
+            vv[k] = '';
+        } else {
+            vv[k] = data[k];
+        }
+    });
+    return feed.send(vv);
+}
+
+function cleanup(data, feed) {
+    if (this.isLast()) {
+        const filename = this.getParam('filename');
+        if (filename) {
+            return fs.unlink(filename, () => feed.close());
+        }
+        return feed.close();
+    }
+    return feed.send(data);
+}
+
 function OBJStandardize(data, feed) {
     const self = this;
     const { ezs } = this;
@@ -21,36 +48,21 @@ function OBJStandardize(data, feed) {
 
     if (self.isLast()) {
         self.tmpInput.end();
-        self.tmpHandle.then(() => {
-            fs.createReadStream(self.tmpFile)
-                .pipe(ezs.uncompress())
-                .pipe(ezs('unpack'))
-                .on('error', (e) => {
-                    throw e;
-                })
-                .on('data', (d) => {
-                    const vv = {};
-                    self.struct.forEach((k) => {
-                        if (!d[k]) {
-                            vv[k] = '';
-                        } else {
-                            vv[k] = d[k];
-                        }
-                    });
-                    feed.write(vv);
-                })
-                .on('end', () => {
-                    fs.unlink(self.tmpFile, () => feed.close());
-                });
-        });
-    } else {
-        Object.keys(data).forEach((k) => {
-            if (self.struct.indexOf(k) === -1) {
-                self.struct.push(k);
-            }
-        });
-        writeTo(self.tmpInput, data, () => feed.end());
+        return self.tmpHandle
+            .then(() => feed.flow(
+                fs.createReadStream(self.tmpFile)
+                    .pipe(ezs.uncompress())
+                    .pipe(ezs('unpack'))
+                    .pipe(ezs(normalize, {}, self.struct))
+                    .pipe(ezs(cleanup, { filename: self.tmpFile }))))
+            .catch(e => feed.stop(e));
     }
+    Object.keys(data).forEach((k) => {
+        if (self.struct.indexOf(k) === -1) {
+            self.struct.push(k);
+        }
+    });
+    writeTo(self.tmpInput, data, () => feed.end());
 }
 
 /**
