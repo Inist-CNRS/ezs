@@ -1,3 +1,4 @@
+import  { createHash } from 'crypto';
 import _ from 'lodash';
 import generate from 'nanoid/async/generate';
 import nolookalikes from 'nanoid-dictionary/nolookalikes';
@@ -7,6 +8,7 @@ export const validKey = (input) =>
     typeof input === 'string' &&
     input.search(/\w+:(\/?\/?)[^\s]+/g) >= 0;
 
+const sha = (input) => Promise.resolve(createHash('sha256').update(JSON.stringify(input)).digest('hex'));
 //
 // JS implentation of NCDA
 // see http://search.cpan.org/~jak/Noid/noid#NOID_CHECK_DIGIT_ALGORITHM
@@ -35,7 +37,7 @@ export function ncda(input, alphabet = []) {
 /**
  * Take `Object`, and compute & add an identifier
  *
- * @param {String} [scheme = uid] scheme prefix
+ * @param {String} [scheme = uid] scheme to use (uid or sha)
  * @param {String} [path = uri] path containing the object Identifier
  * @returns {String}
  */
@@ -48,9 +50,16 @@ export default async function identify(data, feed) {
         return feed.close();
     }
     if (!validKey(uri)) {
-        const identifier = await generate(nolookalikes, 8);
-        const checksum = ncda(identifier, nolookalikes);
-        _.set(data, path, `${scheme}:/${identifier}${checksum}`);
+        let identifier;
+        if (scheme === 'uid') {
+            identifier = await generate(nolookalikes, 8);
+        } else if (scheme === 'sha') {
+            identifier = await sha(uri);
+        }
+        if (identifier) {
+            const checksum = ncda(identifier, nolookalikes);
+            _.set(data, path, `${scheme}:/${identifier}${checksum}`);
+        }
     }
     return feed.send(data);
 }

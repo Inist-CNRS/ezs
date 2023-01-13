@@ -936,4 +936,25 @@ describe('statements', () => {
                 done();
             });
     });
+
+    it('identify #1', (done) => {
+        const res = [];
+        from([
+            { a: 'x', b: 3 },
+            { a: 't', b: 2 },
+        ])
+            .pipe(ezs('identify', { path: 'a', scheme: 'sha' }))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.length, 2);
+                assert.notEqual(res[0].a, res[1].a);
+                assert.equal(res[0].b, 3);
+                assert.equal(res[1].b, 2);
+                assert.equal(res[0].a.split(':').shift(), 'sha');
+                done();
+            });
+    });
 });
