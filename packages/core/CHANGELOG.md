@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@2.1.9...@ezs/core@2.2.0) (2023-01-13)
+
+
+### Features
+
+* 🎸 support sha ([5ed40ee](https://github.com/Inist-CNRS/ezs/commit/5ed40eee646ff07018dba0cd87ce5915fd06f953))
+
+
+
+
+
 ## [2.1.9](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@2.1.8...@ezs/core@2.1.9) (2023-01-05)
 
 **Note:** Version bump only for package @ezs/core
