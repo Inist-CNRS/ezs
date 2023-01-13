@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.22.7](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.22.6...@ezs/basics@1.22.7) (2023-01-13)
+
+
+### Bug Fixes
+
+* 🐛 backpresure control ([70c4a07](https://github.com/Inist-CNRS/ezs/commit/70c4a07010c0b1927bb57c95b3c5113e8aaa7552))
+
+
+
+
+
 ## [1.22.6](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.22.5...@ezs/basics@1.22.6) (2023-01-05)
 
 **Note:** Version bump only for package @ezs/basics
