@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/transformers@1.4.1...@ezs/transformers@1.4.2) (2023-01-19)
+
+
+### Bug Fixes
+
+* 🐛 DEFAULT map array like others transformersx ([fd3c22c](https://github.com/Inist-CNRS/ezs/commit/fd3c22cc9d5bfcc5bb1fb322215a059e8f7b5ac7))
+* 🐛 lodex not yet support module.exports ([44bbff2](https://github.com/Inist-CNRS/ezs/commit/44bbff242222d9049985c110b9d8e330704d7880))
+
+
+
+
+
 ## [1.4.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/transformers@1.4.0...@ezs/transformers@1.4.1) (2022-06-21)
 
 **Note:** Version bump only for package @ezs/transformers
