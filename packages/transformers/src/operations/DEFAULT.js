@@ -1,9 +1,16 @@
 import { rawTransformerWithArg } from './transformer';
 
+const isEmpty = (value) => (String(value).trim() === '' || value === null || value === undefined);
+
+
 export const defval = (value, alternative) => {
     if (Array.isArray(value) && value.length === 0) {
         return [alternative];
-    } else if (value === '' || value === null || value === undefined) {
+    }
+    if (Array.isArray(value)) {
+        return value.map(x => isEmpty(x) ? alternative: x);
+    }
+    if (isEmpty(value)) {
         return alternative;
     }
     return value;
