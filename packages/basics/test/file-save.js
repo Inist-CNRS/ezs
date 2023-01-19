@@ -32,6 +32,64 @@ describe('FILESave #1', () => {
             });
     });
 });
+describe('FILESave #1bis', () => {
+    const identifier = Date.now();
+    const filename = `/tmp/${identifier}`;
+    it('should return stat', (done) => {
+        const output = [];
+        from([1])
+            .pipe(ezs('FILESave', {
+                identifier,
+                location: '/tmp',
+                compress: false,
+                jsonl: true,
+            }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                expect(output.length).toBe(1);
+                expect(output[0].size).toBe(2);
+                expect(output[0]).toStrictEqual(
+                    { filename, ...fs.statSync(filename) },
+                );
+                fs.unlink(filename, done);
+            });
+    });
+});
+
+describe('FILESave #1ter', () => {
+    const identifier = Date.now();
+    const filename = `/tmp/${identifier}`;
+    it('should return stat', (done) => {
+        const output = [];
+        from([1])
+            .pipe(ezs('FILESave', {
+                identifier,
+                location: '/tmp',
+                compress: false,
+                jsonl: false,
+                content: 1
+            }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                expect(output.length).toBe(1);
+                expect(output[0].size).toBe(1);
+                expect(output[0]).toStrictEqual(
+                    { filename, ...fs.statSync(filename) },
+                );
+                fs.unlink(filename, done);
+            });
+    });
+});
+
+
 describe('FILESave #2', () => {
     const identifier = Date.now();
     const filename = `/tmp/toto/${identifier}`;
