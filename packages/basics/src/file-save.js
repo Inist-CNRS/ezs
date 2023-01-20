@@ -7,7 +7,8 @@ import makeDir from 'make-dir';
 import writeTo from 'stream-write';
 import debug from 'debug';
 
-
+const eol = '\n';
+const toJSONL = (line) => JSON.stringify(line).concat(eol);
 /**
  * Take data, convert it to buffer and append it to file
  *
@@ -40,11 +41,12 @@ import debug from 'debug';
  * @name FILESave
  * @param {String} [location=TMPDIR] Directory location
  * @param {String} [identifier] File name
+ * @param {String} [content] Content to save instead of using input object
+ * @param {Boolean} [jsonl=false] Save as json line
  * @param {Boolean} [compress=false] Enable gzip compression
  * @returns {Object}
  */
 export default function FILESave(data, feed) {
-    const buf = Buffer.from(String(data));
     if (this.isFirst()) {
         const identifier = String(this.getParam('identifier'));
         const location = this.getParam('location', tmpdir());
@@ -79,5 +81,9 @@ export default function FILESave(data, feed) {
             .catch((err) => feed.stop(err))
             .finally(() => feed.close());
     }
+    const jsonl = Boolean(this.getParam('jsonl', false));
+    const bufContent = this.getParam('content', data);
+    const bufFunc = jsonl ? toJSONL : String;
+    const buf = Buffer.from(bufFunc(bufContent));
     writeTo(this.input, buf, () => feed.end());
 }
