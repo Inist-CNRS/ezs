@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.3.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@2.2.1...@ezs/core@2.3.0) (2023-01-25)
+
+
+### Bug Fixes
+
+* add missing file ([8a687e8](https://github.com/Inist-CNRS/ezs/commit/8a687e8820a02e1398c5ec1b9321506ad37e2aa9))
+* missing package ([1082dd8](https://github.com/Inist-CNRS/ezs/commit/1082dd8e9e8dbdbc10be796bfb48beb8f219377f))
+
+
+### Features
+
+* 🎸 add [pop] ([9f1235a](https://github.com/Inist-CNRS/ezs/commit/9f1235adc6da35b760c17da9f2531034687f04ad))
+
+
+
+
+
 ## [2.2.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@2.2.0...@ezs/core@2.2.1) (2023-01-20)
 
 **Note:** Version bump only for package @ezs/core
