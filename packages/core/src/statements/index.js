@@ -2,6 +2,7 @@ import extract from './extract';
 import assign from './assign';
 import replace from './replace';
 import shift from './shift';
+import pop from './pop';
 import keep from './keep';
 import debug from './debug';
 import concat from './concat';
@@ -39,6 +40,7 @@ export default {
     assign,
     replace,
     shift,
+    pop,
     keep,
     debug,
     concat,

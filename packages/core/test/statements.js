@@ -260,6 +260,37 @@ describe('statements', () => {
                 done();
             });
     });
+    it('pop#1', (done) => {
+        const data = [
+            'aa',
+            'bb',
+            'cc',
+            'dd',
+            'ee',
+            'ff',
+        ];
+        from(data)
+            .pipe(ezs('pop'))
+            .on('data', (chunk) => {
+                assert.equal(chunk, 'ff');
+            })
+            .on('end', () => {
+                done();
+            });
+    });
+    it('pop#2', (done) => {
+        const data = [ ];
+        const out = [ ];
+        from(data)
+            .pipe(ezs('shift'))
+            .on('data', (chunk) => {
+                out.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(out.length, 0);
+                done();
+            });
+    });
 
     it('unpack#1', (done) => {
         const res = [];
