@@ -11,11 +11,6 @@
     "@babel/plugin-transform-modules-commonjs": "7.13.8",
     "@babel/preset-env": "7.13.15",
     "@babel/register": "7.13.14",
-    "@lerna-lite/cli": "1.14.2",
-    "@lerna-lite/list": "1.14.2",
-    "@lerna-lite/publish": "1.14.2",
-    "@lerna-lite/run": "1.14.2",
-    "@lerna-lite/version": "1.14.2",
     "@shelf/jest-mongodb": "1.2.4",
     "@types/jest": "26.0.22",
     "@types/ramda": "0.27.40",
@@ -34,11 +29,12 @@
     "from": "0.1.7",
     "git-cz": "4.7.6",
     "jest": "26.6.3",
+    "lerna": "4.0.0",
     "nock": "13.0.11",
     "node-fetch": "2.6.7",
     "prettier": "2.3.2",
-    "semver": "7.3.5",
-    "sleepjs": "3.0.1"
+    "sleepjs": "3.0.1",
+    "semver": "7.3.5"
   },
   "scripts": {
     "release:version": "lerna version --exact --conventional-commits",
