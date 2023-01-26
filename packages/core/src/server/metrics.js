@@ -118,11 +118,7 @@ export const ezsStreamDurationMicroseconds = new Histogram({
 
 let collected = false;
 export const metrics = () => (request, response, next) => {
-    const {
-        metricsEnable,
-    } = settings;
-
-    if (!metricsEnable) {
+    if (!settings.metricsEnable) {
         return next();
     }
     if (!collected) {

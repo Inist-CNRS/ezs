@@ -1,10 +1,14 @@
 import debug from 'debug';
+import settings from '../settings';
 import {
     getState,
 } from './metrics';
 
 
 const serverHealth =  () => (request, response, next) => {
+    if (!settings.metricsEnable) {
+        return next();
+    }
     if (!request.methodMatch(['GET', 'OPTIONS', 'HEAD']) || !request.routeMatch(['/live', '/ready'])) {
         return next();
     }
