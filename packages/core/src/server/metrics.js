@@ -7,9 +7,48 @@ import {
     AggregatorRegistry,
     collectDefaultMetrics,
 } from 'prom-client';
+import getStream from 'get-stream';
 import settings from '../settings';
 
+const metricsRootServer = {
+    hostname: '0.0.0.0',
+    port: settings.port + 1,
+    path: '/',
+    method: 'GET',
+    headers: {
+        'Content-Type': 'text/plain',
+    }
+};
 
+
+
+export const ezsServerState = new Gauge({
+    name: 'ezs_server_state',
+    help: 'Number of different states for each server',
+    labelNames: ['pid'],
+});
+
+const states = ['Starting', 'Started', 'Stopping', 'Stopped'];
+export const changeState = (stateLabel) => {
+    const stateIndex = states.indexOf(stateLabel);
+    ezsServerState.labels(process.pid).set(stateIndex);
+};
+
+export const getSlashMetricsStream = () => new Promise((resolve, reject) => {
+    http.request(metricsRootServer, resolve).on('error', reject).end();
+});
+
+export const getState = async () => {
+    try {
+        const metricsStream = await getSlashMetricsStream();
+        const metricsString = await getStream(metricsStream);
+        return metricsString;
+    } catch(e) {
+        console.error(e);
+        return '';
+    }
+}
+changeState('Starting');
 
 export const aggregatorRegistry = new AggregatorRegistry();
 
@@ -80,7 +119,6 @@ export const ezsStreamDurationMicroseconds = new Histogram({
 let collected = false;
 export const metrics = () => (request, response, next) => {
     const {
-        port,
         metricsEnable,
     } = settings;
 
@@ -107,17 +145,7 @@ export const metrics = () => (request, response, next) => {
         }).catch(next);
     }
 
-    const options = {
-        hostname: '0.0.0.0',
-        port: port + 1,
-        path: '/',
-        method: 'GET',
-        headers: {
-            'Content-Type': 'text/plain',
-        }
-    };
-
-    request.pipe(http.request(options, (source) => source.pipe(response)));
+    request.pipe(http.request(metricsRootServer, (source) => source.pipe(response)));
     return true;
 };
 

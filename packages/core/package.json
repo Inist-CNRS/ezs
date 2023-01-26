@@ -19,6 +19,7 @@
     "filename-regex": "2.0.1",
     "filtrex": "1.0.0",
     "from": "0.1.7",
+    "get-stream": "6.0.1",
     "global-modules": "2.0.0",
     "http-shutdown": "1.2.2",
     "load-json-file": "6.2.0",
