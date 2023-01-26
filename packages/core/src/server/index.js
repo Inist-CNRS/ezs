@@ -8,6 +8,7 @@ import debug from 'debug';
 import knownPipeline from './knownPipeline';
 import unknownPipeline from './unknownPipeline';
 import serverInformation from './serverInformation';
+import serverHealth from './serverHealth';
 import errorHandler from './errorHandler';
 import settings from '../settings';
 import { RX_FILENAME } from '../constants';
@@ -17,6 +18,7 @@ import {
     httpConnectionOpen,
     httpRequestDurationMicroseconds,
     aggregatorRegistry,
+    changeState,
 } from './metrics';
 
 function isPipeline() {
@@ -26,6 +28,10 @@ function isPipeline() {
 
 function methodMatch(values) {
     return (values.indexOf(this.method) !== -1);
+}
+
+function routeMatch(values) {
+    return (values.indexOf(this.pathName) !== -1);
 }
 
 const signals = ['SIGINT', 'SIGTERM'];
@@ -38,12 +44,14 @@ function createServer(ezs, serverPort, serverPath, workerId) {
         request.serverPath = serverPath;
         request.urlParsed = parse(request.url, true);
         request.pathName = request.urlParsed.pathname;
+        request.routeMatch = routeMatch;
         request.methodMatch = methodMatch;
         request.isPipeline = isPipeline;
         const stopTimer = httpRequestDurationMicroseconds.startTimer();
         eos(response, () => stopTimer());
         next();
     });
+    app.use(serverHealth(ezs));
     app.use(metrics(ezs));
     app.use(serverInformation(ezs));
     app.use(unknownPipeline(ezs));
@@ -73,9 +81,12 @@ function createServer(ezs, serverPort, serverPath, workerId) {
         });
     });
     signals.forEach((signal) => process.on(signal, () => {
-        debug('ezs')(`Signal received, stoping server with PID ${process.pid}`);
+        changeState('Stopping');
+        debug('ezs')(`Signal received, stopping server with PID ${process.pid}`);
         server.shutdown(() => process.exit(0));
     }));
+    process.on('beforeExit', () => changeState('Stopped'));
+    changeState('Started');
     debug('ezs')(`Server starting with PID ${process.pid} and listening on port ${serverPort}`);
     return server;
 }
