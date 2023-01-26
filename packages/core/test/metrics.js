@@ -73,6 +73,18 @@ describe(' through server(s)', () => {
         });
     });
 
+    describe('health check #1', () => {
+        it('call /ready', (done) => {
+            fetch('http://127.0.0.1:33340/ready ')
+                .then((res) => res.json())
+                .then((json) => {
+                    assert(json.statusCode, 200);
+                    done();
+                });
+        });
+    });
+
+
 
 });
 
