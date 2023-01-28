@@ -384,8 +384,37 @@ describe('test', () => {
                 done();
             });
     });
-
     it('OBJStandardize #3', (done) => {
+        const output = [];
+        from([
+            {
+                a: 1,
+                b: 2,
+            },
+            {
+                a: false,
+                b: null,
+            },
+            {
+                a: 0,
+            },
+        ])
+            .pipe(ezs('OBJStandardize'))
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                assert(output[0].a === 1);
+                assert(output[0].b === 2);
+                assert(output[1].a === false);
+                assert(output[1].b === '');
+                assert(output[2].a === 0);
+                assert(output[2].b === '');
+                done();
+            });
+    });
+
+    it('OBJStandardize #4', (done) => {
         from([])
             .pipe(ezs('OBJStandardize'))
             .on('data', () => {
