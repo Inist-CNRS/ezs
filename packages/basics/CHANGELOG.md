@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.23.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.23.0...@ezs/basics@1.23.1) (2023-01-28)
+
+
+### Bug Fixes
+
+* 🐛 improve security in file access ([6942a8e](https://github.com/Inist-CNRS/ezs/commit/6942a8e039a05d820d8643fa0908287a0a6aefda))
+* 🐛 objstandarize lost boolean values ([dca4714](https://github.com/Inist-CNRS/ezs/commit/dca4714c984214f422f9ed8951575de66af0f0ce))
+
+
+### Reverts
+
+* Revert "chore: 🤖 use lerna exec instead bootstrap" ([56375ee](https://github.com/Inist-CNRS/ezs/commit/56375ee2bd7e9f69f61da3993ab569ca1c16c547))
+
+
+
+
+
 # [1.23.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.22.7...@ezs/basics@1.23.0) (2023-01-20)
 
 

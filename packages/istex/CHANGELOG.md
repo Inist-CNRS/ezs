@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.6](https://github.com/Inist-CNRS/ezs/compare/@ezs/istex@1.5.5...@ezs/istex@1.5.6) (2023-01-28)
+
+
+### Reverts
+
+* Revert "chore: 🤖 use lerna exec instead bootstrap" ([56375ee](https://github.com/Inist-CNRS/ezs/commit/56375ee2bd7e9f69f61da3993ab569ca1c16c547))
+
+
+
+
+
 ## [1.5.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/istex@1.5.4...@ezs/istex@1.5.5) (2023-01-25)
 
 **Note:** Version bump only for package @ezs/istex
