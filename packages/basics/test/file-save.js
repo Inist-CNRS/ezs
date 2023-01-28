@@ -199,3 +199,30 @@ describe('FILESave #1ter', () => {
             });
     });
 });
+
+
+describe('FILESave errors', () => {
+    test('write to unauthorized files ', (done) => {
+        from([1])
+            .pipe(ezs('FILESave', { location: '/etc/', identifier: 'passwd'}))
+            .pipe(ezs.catch())
+            .on('error', () => {
+                done();
+            })
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+            });
+    });
+    test('write to unauthorized directory', (done) => {
+        from([1])
+            .pipe(ezs('FILESave', { location: '/home', identifier: 'xxxx'}))
+            .pipe(ezs.catch())
+            .on('error', () => {
+                done();
+            })
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+            });
+    });
+
+});

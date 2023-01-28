@@ -1,7 +1,8 @@
 import { createGunzip } from 'zlib';
-import { existsSync, createReadStream } from 'fs';
-import { resolve } from 'path';
+import { existsSync, createReadStream, accessSync, constants } from 'fs';
+import { resolve, dirname, normalize } from 'path';
 import { tmpdir } from 'os';
+import higherPath from 'higher-path';
 
 /**
  * Take `Object` containing filename et throw content by chunk
@@ -41,20 +42,21 @@ export default async function FILELoad(data, feed) {
         feed.close();
         return;
     }
-    const cwd = process.cwd();
-    const tpd = tmpdir();
     const compress = this.getParam('compress', false);
-    const locations = this.ezs.getPath().concat(cwd, tpd, this.getParam('location'));
-    const file = locations
+    const location = normalize(this.getParam('location', '/'));
+    const locations = [higherPath(tmpdir(), location), higherPath(process.cwd(), location)];
+    const filename = locations
         .filter(Boolean)
         .map((dir) => resolve(dir, String(data).trim()))
         .filter((fil) => existsSync(fil))
         .shift();
-    if (!file) {
-        feed.end();
+    if (!filename) {
+        feed.stop(new Error('File location check failed.'));
         return;
     }
-    const stream = compress ? createReadStream(file).pipe(createGunzip()) : createReadStream(file);
+    accessSync(dirname(filename), constants.R_OK | constants.W_OK);
+    accessSync(filename, constants.R_OK | constants.W_OK);
+    const stream = compress ? createReadStream(filename).pipe(createGunzip()) : createReadStream(filename);
     await feed.flow(stream);
     return;
 }
