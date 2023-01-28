@@ -177,7 +177,7 @@ const collectAll = async (ezs, request) => {
 };
 
 const serverInformation =  (ezs) => (request, response, next) => {
-    if (!request.methodMatch(['GET', 'OPTIONS', 'HEAD']) || request.pathName !== '/') {
+    if (!request.methodMatch(['GET', 'OPTIONS', 'HEAD']) || !request.routeMatch(['/'])) {
         return next();
     }
     request.catched = true;

@@ -36,6 +36,9 @@
     "sleepjs": "3.0.1",
     "semver": "7.3.5"
   },
+  "optionalDependencies": { 
+      "fsevents": "2.1.2"
+  },
   "scripts": {
     "release:version": "lerna version --exact --conventional-commits",
     "release:publish": "lerna publish from-package",
