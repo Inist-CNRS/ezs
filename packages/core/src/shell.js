@@ -9,7 +9,7 @@ const generateCode = (expressionValue) => {
     js.push(expressionValue.replace(/([)]\s*->\s*)/g, ').'));
     js.push('.value();');
     const code = js.join('');
-    const script = new vm.Script(code);
+    const script = new vm.Script(code, {filename: 'Lodash'});
     return script;
 };
 

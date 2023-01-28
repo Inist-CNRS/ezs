@@ -1,4 +1,4 @@
-import { createWriteStream, lstat } from 'fs';
+import { createWriteStream, lstat, accessSync, constants } from 'fs';
 import { createGzip } from 'zlib';
 import path from 'path';
 import { tmpdir } from 'os';
@@ -49,11 +49,16 @@ const toJSONL = (line) => JSON.stringify(line).concat(eol);
 export default function FILESave(data, feed) {
     if (this.isFirst()) {
         const identifier = String(this.getParam('identifier'));
-        const location = this.getParam('location', tmpdir());
+        const location = path.normalize(this.getParam('location', tmpdir()));
         const compress = this.getParam('compress', false);
+        if (location.indexOf(tmpdir()) !== 0 && location.indexOf(process.cwd()) !== 0) {
+            feed.stop(new Error('File location check failed.'));
+            return;
+        }
         if (!pathExists.sync(location)) {
             makeDir.sync(location);
         }
+        accessSync(location, constants.R_OK | constants.W_OK);
         const name = compress ? `${identifier}.gz` : identifier;
         const filename = path.resolve(location, name);
         this.input = compress ? createGzip() : createWriteStream(filename);

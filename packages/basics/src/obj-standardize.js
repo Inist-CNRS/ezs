@@ -9,7 +9,7 @@ function normalize(data, feed) {
     const struct = this.getEnv();
     const vv = {};
     struct.forEach((k) => {
-        if (!data[k]) {
+        if (data[k] === undefined || data[k] === null) {
             vv[k] = '';
         } else {
             vv[k] = data[k];

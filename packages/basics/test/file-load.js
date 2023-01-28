@@ -42,17 +42,15 @@ describe('FILELoad', () => {
             .pipe(ezs('FILELoad', { location: __dirname }))
             .pipe(ezs('JSONParse'))
             .pipe(ezs.catch())
-            .on('error', done)
-            .on('data', (chunk) => {
-                output.push(chunk);
+            .on('error', () => {
+                done();
             })
             .on('end', () => {
-                assert.equal(output.length, 0);
-                done();
+                done(new Error('Error is the right behavior'));
             });
     });
 
-    test('with not authorized file', (done) => {
+    test('with not authorized file #1', (done) => {
         ezs.use(statements);
         ezs.use(basics);
         fs.writeFileSync(`${__dirname}/forbidden`, 'secret', { mode: 0o333 });
@@ -62,6 +60,43 @@ describe('FILELoad', () => {
         from(input)
             .pipe(ezs('FILELoad', { location: __dirname }))
             .pipe(ezs('JSONParse'))
+            .pipe(ezs.catch())
+            .on('error', () => {
+                done();
+            })
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+            });
+    });
+
+    test('with not authorized file #2', (done) => {
+        ezs.use(statements);
+        ezs.use(basics);
+        const input = [
+            'passwd',
+        ];
+        from(input)
+            .pipe(ezs('FILELoad', { location: '/etc' }))
+            .pipe(ezs('TXTParse'))
+            .pipe(ezs.catch())
+            .on('error', () => {
+                done();
+            })
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+            });
+    });
+
+    test('with not authorized file #3', (done) => {
+        ezs.use(statements);
+        ezs.use(basics);
+        const input = [
+            '.profile',
+        ];
+        from(input)
+            .pipe(ezs('FILELoad', { location: process.env.HOME }))
+            .pipe(ezs('TXTParse'))
+            .pipe(ezs('debug'))
             .pipe(ezs.catch())
             .on('error', () => {
                 done();
