@@ -1,12 +1,12 @@
 import save from './save';
 import load from './load';
-import flow from './flow';
+import cast from './cast';
 import boost from './boost';
 
 const funcs = {
     save,
     load,
-    flow,
+    cast,
     boost,
 };
 

@@ -58,7 +58,7 @@ export default class Store {
             const ekey = encodeKey(key);
             try {
                 const val = decodeValue(txn.getString(this.dbi(), ekey));
-                txn.abort();
+                txn.commit();
                 resolve(val);
             } catch (e) {
                 txn.abort();
@@ -73,12 +73,12 @@ export default class Store {
             const ekey = encodeKey(key);
             try {
                 txn.putString(this.dbi(), ekey, encodeValue(value));
+                txn.commit();
+                resolve(true);
             } catch (e) {
                 txn.abort();
                 reject(e);
             }
-            txn.commit();
-            resolve(true);
         });
     }
 
