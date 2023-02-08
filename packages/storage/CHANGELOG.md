@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@1.7.0...@ezs/storage@2.0.0) (2023-02-08)
+
+
+### Code Refactoring
+
+* 💡 all storage plugin ([23bced2](https://github.com/Inist-CNRS/ezs/commit/23bced24cca5d380852e21630802d24ccd1d7567))
+
+
+### Reverts
+
+* Revert "chore: 🤖 use lerna exec instead bootstrap" ([56375ee](https://github.com/Inist-CNRS/ezs/commit/56375ee2bd7e9f69f61da3993ab569ca1c16c547))
+
+
+### BREAKING CHANGES
+
+* 🧨 new plugin
+
+
+
+
+
 # [1.7.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@1.6.3...@ezs/storage@1.7.0) (2022-09-16)
 
 
