@@ -17,7 +17,7 @@ npm install @ezs/storage
 #### Table of Contents
 
 -   [boost](#boost)
--   [flow](#flow)
+-   [cast](#cast)
 -   [load](#load)
 -   [save](#save)
 
@@ -38,7 +38,7 @@ Takes an `Object` delegate processing to an external pipeline and cache the resu
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### flow
+### cast
 
 Take an `Object` and replace it with all the objects of the same domain contained in the store.
 
@@ -49,7 +49,7 @@ Take an `Object` and replace it with all the objects of the same domain containe
 -   `data`  
 -   `feed`  
 -   `domain` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** domain ID (same for all objects) (optional, default `ezs`)
--   `length` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** limit the number of output objects
+-   `clean` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** clean all stored object after cast them (optional, default `false`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -61,7 +61,9 @@ With a `String`, containing a URI throw all the documents that match
 
 -   `data`  
 -   `feed`  
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path containing the object Identifier (optional, default `uri`)
 -   `domain` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** domain ID (that should contains the uri input) (optional, default `ezs`)
+-   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** choose the key to set
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
