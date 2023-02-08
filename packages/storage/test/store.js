@@ -235,3 +235,12 @@ describe('With shared store #2', () => {
         alldone,
     ));
 });
+
+describe('With simple store', () => {
+    const store = new Store(ezs, 'test_storeX');
+    it('put and get values', async (done) => {
+        expect(await store.put(1, 'A')).toEqual(true);
+        expect(await store.get(1)).toEqual('A');
+        done();
+    });
+});

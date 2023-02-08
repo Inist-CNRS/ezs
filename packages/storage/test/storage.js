@@ -1,5 +1,6 @@
 import assert from 'assert';
 import from from 'from';
+import getStream from 'get-stream';
 import ezs from '../../core/src';
 import statements from '../src';
 
@@ -9,118 +10,144 @@ const identifiers = [];
 const data = [
     { a: 1, b: 'a' },
     { a: 2, b: 'b' },
-    { a: 3, b: 'c', uri: 'uid:/ezs-5KB8aAA4-p' },
+    { a: 3, b: 'c' },
     { a: 4, b: 'd' },
     { a: 5, b: 'e' },
-    { a: 6, b: 'f', uri: 'uid:/ezs-V9neThkw-e' },
+    { a: 6, b: 'f' },
 ];
 
-describe('save', () => {
-    it('with object', (done) => {
+describe('storage:', () => {
+    it('save and load #1', (done) => {
         const input = [...data];
+        const output = [];
+        const script = `
+
+        [save]
+        path = a
+        domain = test1
+        reset = true
+
+        [replace]
+        path = a
+        value = get('a')
+
+        [load]
+        path = a
+        domain = test1
+        `;
         from(input)
-            .pipe(ezs('identify'))
-            .pipe(ezs('save', { domain: 'test', reset: true, host: false }))
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', done)
             .on('data', (chunk) => {
-                identifiers.push(chunk);
+                output.push(chunk);
             })
             .on('end', () => {
-                assert.equal(identifiers.length, 6);
-                assert.equal(identifiers[0].indexOf('uid:'), 0);
+                expect(output).toEqual(input);
                 done();
             });
     });
 
-    it('with invalid object', (done) => {
-        const input = [
-            { a: 1 },
-            { a: 1 },
-            { a: 1 },
-        ];
-        const result = [];
-        from(input)
-            .pipe(ezs('save', {
-                domain: ['test2', 'test4'], // only the first
-                reset: true,
-                host: false,
-                path: ['uri', 'id'], // only the first
-            }))
-            .on('data', (chunk) => {
-                result.push(chunk);
-            })
-            .on('end', () => {
-                assert.equal(result.length, 0);
-                done();
-            });
-    });
-
-    it('with object to get URL', (done) => {
+    it('save and load #2', (done) => {
         const input = [...data];
-        const result = [];
-        from(input)
-            .pipe(ezs('identify'))
-            .pipe(ezs('save', { domain: 'test3', reset: true }))
-            .on('data', (chunk) => {
-                result.push(chunk);
-            })
-            .on('end', () => {
-                assert.equal(result.length, 6);
-                expect(result[0]).toMatch(':31976');
-                expect(result[1]).toMatch(':31976');
-                expect(result[2]).toMatch(':31976');
-                done();
-            });
-    });
-});
-describe('load', () => {
-    it('with uid #1', (done) => {
-        const input = [...identifiers];
         const output = [];
+        const script = `
+
+        [save]
+        path = a
+        path = to ignore
+        domain = test2
+        domain = to ignore
+        reset = true
+
+        [replace]
+        path = a
+        value = get('a')
+
+        [load]
+        path = a
+        path = to ignore
+        domain = test2
+        domain = to ignore
+        target = c
+
+        [exchange]
+        value = get('c')
+        `;
         from(input)
-            .pipe(ezs('load', { domain: 'test' }))
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', done)
             .on('data', (chunk) => {
                 output.push(chunk);
             })
             .on('end', () => {
-                expect(output.length).toEqual(6);
-                expect(output[0]).toEqual(data[0]);
-                done();
-            });
-    });
-    it('with uid #2', (done) => {
-        const input = [...identifiers];
-        const output = [];
-        from(input)
-            .pipe(ezs('load', { domain: 'test' }))
-            .on('data', (chunk) => {
-                output.push(chunk);
-            })
-            .on('end', () => {
-                expect(output.length).toEqual(6);
-                expect(output[0]).toEqual(data[0]);
-                done();
-            });
-    });
-    it('with uid #3', (done) => {
-        const input = [...identifiers];
-        const output = [];
-        from(input)
-            .pipe(ezs('load', { domain: 'test' }))
-            .on('data', (chunk) => {
-                output.push(chunk);
-            })
-            .on('end', () => {
-                expect(output.length).toEqual(6);
-                expect(output[0]).toEqual(data[0]);
+                expect(output).toEqual(input);
                 done();
             });
     });
 
-    it('with invalid uri', (done) => {
-        const input = [1, 2, 3, 4];
+
+    it('save without uid (ignored)', (done) => {
+        const input = [...data];
         const output = [];
+        const script = `
+
+        [save]
+        path = x
+        domain = test
+
+        `;
         from(input)
-            .pipe(ezs('load', { domain: 'test2' }))
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                expect(output).toEqual(input);
+                done();
+            });
+    });
+
+    it('load without uid (ignored)', (done) => {
+        const input = [...data];
+        const output = [];
+        const script = `
+
+        [load]
+        path = x
+        domain = test
+
+        `;
+        from(input)
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                expect(output).toEqual(input);
+                done();
+            });
+    });
+
+    it('load with unknown uid (empty)', (done) => {
+        const input = [...data];
+        const output = [];
+        const script = `
+
+        [load]
+        path = b
+        domain = test
+
+        `;
+        from(input)
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', done)
             .on('data', (chunk) => {
                 output.push(chunk);
             })
@@ -129,58 +156,68 @@ describe('load', () => {
                 done();
             });
     });
-});
-describe('flow', () => {
-    it('with no options', (done) => {
-        const input = [{ }];
-        const output = [];
-        from(input)
-            .pipe(ezs('flow', { domain: 'test' }))
-            .on('data', (chunk) => {
-                output.push(chunk);
-            })
-            .on('end', () => {
-                expect(output.length).toEqual(6);
-                expect(output.sort((x, y) => x.a - y.a).shift()).toEqual(data[0]);
-                done();
-            });
-    });
-    it('with options', (done) => {
-        const input = [{ }];
-        const output = [];
-        from(input)
-            .pipe(ezs('flow', { domain: 'test', length: 2 }))
-            .on('data', (chunk) => {
-                output.push(chunk);
-            })
-            .on('end', () => {
-                expect(output.length).toEqual(2);
-                done();
-            });
-    });
-    it('save & flow', (done) => {
+
+    it('save and cast', (done) => {
         const input = [...data];
-        const ids = [];
         const output = [];
+        const script = `
+
+        [save]
+        path = a
+        domain = test3
+        reset = true
+
+        [pop]
+
+        [cast]
+        domain = test1
+        `;
         from(input)
-            .pipe(ezs('identify'))
-            .pipe(ezs('save', { domain: 'test2', reset: true, host: false }))
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', done)
             .on('data', (chunk) => {
-                ids.push(chunk);
+                output.push(chunk);
             })
             .on('end', () => {
-                assert.equal(ids.length, 6);
-                assert.equal(ids[0].indexOf('uid:'), 0);
-                from(['GO'])
-                    .pipe(ezs('flow', { domain: 'test2' }))
-                    .on('data', (chunk) => {
-                        output.push(chunk);
-                    })
-                    .on('end', () => {
-                        expect(output.length).toEqual(6);
-                        expect(output.sort((x, y) => x.a - y.a).shift()).toEqual(input[0]);
-                        done();
-                    });
+                expect(output).toEqual(input);
+                done();
             });
     });
+
+    it('save and clean', (done) => {
+        const input = [...data];
+        const output = [];
+        const script = `
+
+        [save]
+        path = a
+        domain = test3
+        reset = true
+
+        [pop]
+
+        [cast]
+        domain = test3
+        domain = to ignore
+        clean = true
+
+
+        `;
+        from(input)
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', async () => {
+                expect(output).toEqual(input);
+                const output2 = await getStream(from(['GO']).pipe(ezs('cast', {domain: 'test3'})));
+                expect(output2.length).toEqual(0);
+                done();
+            });
+    });
+
+
 });

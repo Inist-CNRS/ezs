@@ -1,4 +1,3 @@
-import { hostname } from 'os';
 import get from 'lodash.get';
 import Store from './store';
 
@@ -13,8 +12,6 @@ import Store from './store';
 export default async function save(data, feed) {
     const { ezs } = this;
     const location = this.getParam('location');
-    const protocol = this.getParam('protocol', 'http:');
-    const host = this.getParam('host', `${hostname()}:${ezs.settings.port}`);
     const reset = Boolean(this.getParam('reset', false));
     const pathName = this.getParam('path', 'uri');
     const path = Array.isArray(pathName) ? pathName.shift() : pathName;
@@ -31,10 +28,12 @@ export default async function save(data, feed) {
         this.store.close();
         return feed.close();
     }
-    await this.store.put(uri, data);
-
-    if (protocol && host) {
-        return feed.send(`${protocol}//${host}/${uri}`);
+    if (uri) {
+        try {
+            const ret = await this.store.put(uri, data);
+        } catch(e) {
+            return feed.stop(e);
+        }
     }
-    return feed.send(uri);
+    return feed.send(data);
 }

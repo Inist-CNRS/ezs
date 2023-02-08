@@ -6,27 +6,21 @@ import Store from './store';
  * > Warning: order is not guaranteed
  *
  * @param {String} [domain=ezs] domain ID (same for all objects)
- * @param {Number} [length] limit the number of output objects
+ * @param {String} [clean=false] clean all stored object after cast them
  * @returns {Object}
  */
-export default async function flow(data, feed) {
+export default async function cast(data, feed) {
     const location = this.getParam('location');
-    const length = Number(this.getParam('length', -1));
-    const statement = length === -1 ? 'transit' : 'truncate';
+    const clean = Boolean(this.getParam('clean', false));
+    const func = clean ? 'empty' : 'cast';
     const domainName = this.getParam('domain', 'ezs');
     const domain = Array.isArray(domainName) ? domainName.shift() : domainName;
     if (!this.store) {
         this.store = new Store(this.ezs, domain, location);
     }
     if (this.isLast()) {
-        this.store.close();
         return feed.close();
     }
-    const stream = await this.store.cast();
-    return stream
-        .pipe(this.ezs('extract', { path: 'value' }))
-        .pipe(this.ezs(statement, { length }))
-        .on('data', (item) => feed.write(item))
-        .on('error', (e) => feed.stop(e))
-        .on('end', () => feed.end());
+    const stream = await this.store[func]();
+    feed.flow(stream.pipe(this.ezs('extract', { path: 'value' })));
 }
