@@ -19,6 +19,14 @@ function createURI(data, feed) {
     });
 }
 
+function grepURI(data, feed) {
+    if (this.isLast()) {
+        return feed.close();
+    }
+    return feed.send(data.uri);
+}
+
+
 const computeHash = (commands, environment, chunk) => {
     const commandsHash = hashCoerce.hash(commands);
     // environment can be a special object, for example req.query => [Object: null prototype] {}
@@ -83,7 +91,7 @@ export default async function boost(data, feed) {
             this.emit('cache:connected', uniqHash);
             const cacheGetInput = ezs.createStream(ezs.objectMode());
 
-            cacheGetInput.pipe(ezs('storage:flow', { domain: uniqHash }))
+            cacheGetInput.pipe(ezs('storage:cast', { domain: uniqHash }))
                 .pipe(ezs('extract', { path: 'value.0' }))
                 .pipe(ezs.catch())
                 .on('error', (e) => feed.stop(e))
@@ -104,6 +112,7 @@ export default async function boost(data, feed) {
             .on('data', (d) => feed.write(d))
             .pipe(ezs(createURI))
             .pipe(ezs('storage:save', { domain: uniqHash, reset: true }))
+            .pipe(ezs(grepURI))
             .pipe(ezs.catch());
         this.whenFinish = new Promise((cacheSaved, cacheCrashed) => {
             cacheSetOutput.on('error', (error) => {
