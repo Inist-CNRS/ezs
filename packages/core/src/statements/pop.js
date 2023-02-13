@@ -39,7 +39,7 @@
  * @see shift
  * @returns {Object}
  */
-export default function shift(data, feed) {
+export default function pop(data, feed) {
     if (this.isLast()) {
         if (this.lastOne) {
             feed.write(this.lastOne);
