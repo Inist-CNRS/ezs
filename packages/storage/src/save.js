@@ -19,7 +19,7 @@ export default async function save(data, feed) {
     const domainName = this.getParam('domain', 'ezs');
     const domain = Array.isArray(domainName) ? domainName.shift() : domainName;
     if (!this.store) {
-        this.store = new Store(this.ezs, domain, location);
+        this.store = new Store(ezs, domain, location);
     }
     if (this.isFirst() && reset === true) {
         this.store.reset();
@@ -30,8 +30,9 @@ export default async function save(data, feed) {
     }
     if (uri) {
         try {
-            const ret = await this.store.put(uri, data);
+            const ret = await this.store.put(uri, data); // data
         } catch(e) {
+            console.error('>>>', e, uri, uri.length, JSON.stringify(data).length);
             return feed.stop(e);
         }
     }
