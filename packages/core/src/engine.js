@@ -159,7 +159,7 @@ export default class Engine extends SafeTransform {
             await pWaitFor(() => (this.isReady()), { interval: 20 });
             return this.resume();
         };
-        const feed = new Feed(push, done, warn, wait);
+        const feed = new Feed(this.ezs, push, done, warn, wait);
         try {
             this.chunk = chunk;
             return Promise.resolve(this.func.call(this.scope, chunk, feed, this.scope)).catch((e) => {
