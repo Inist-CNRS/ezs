@@ -28,13 +28,15 @@ export default async function save(data, feed) {
         this.store.close();
         return feed.close();
     }
-    if (uri) {
-        try {
-            const ret = await this.store.put(uri, data); // data
-        } catch(e) {
-            console.error('>>>', e, uri, uri.length, JSON.stringify(data).length);
-            return feed.stop(e);
-        }
+    if (!uri) {
+        console.warn(`WARNING: uri was empty, [save] item #${this.getIndex()} was ignored`);
+        return feed.send(data);
     }
-    return feed.send(data);
+    try {
+        await this.store.put(uri, data);
+        return feed.send(data);
+    } catch(e) {
+        console.warn(`WARNING: Fail to save uri (${uri}), item #${this.getIndex()} was ignored`, e);
+        return feed.send(data);
+    }
 }
