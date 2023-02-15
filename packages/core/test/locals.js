@@ -52,6 +52,12 @@ function slow(data, feed) {
     }, time2sleep);
 }
 
+function noclose(data, feed) {
+    if (!this.isLast()) {
+        return feed.send(data);
+    }
+}
+
 function bad(data, feed) {
     if (this.isLast()) {
         return feed.close();
@@ -222,6 +228,7 @@ module.exports = {
     decrement,
     stepper,
     slow,
+    noclose,
     aie,
     bad,
     accu,

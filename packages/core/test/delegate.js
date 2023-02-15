@@ -600,6 +600,37 @@ describe('delegate through file(s)', () => {
             });
     });
 
+    it('with endless statement', (done) => {
+        ezs.settings.feed.timeout = (15 * 1000);
+        const commands = [
+            {
+                name: 'noclose',
+            },
+        ];
+        from([
+            { a: 1, b: 9 },
+            { a: 2, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+        ])
+            .pipe(ezs('delegate', {
+                path: 'b',
+                value: 9,
+                commands,
+            }))
+            .pipe(ezs.catch())
+            .on('error', (e) => {
+                try {
+                    expect(e.message).toEqual(expect.stringContaining('The pipe has not received any data'));
+                    done();
+                } catch(ee) {
+                    done(ee);
+                }
+            });
+    }, 30000);
+
+
     it('with self reference in the shell', (done) => {
         const script = `
 

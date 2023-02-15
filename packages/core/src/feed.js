@@ -20,7 +20,7 @@ export default class Feed {
     }
 
     flow(stream, done) {
-        const { timeout } = this.ezs.settings.feed;
+        const { timeout = 60 } = this.ezs.settings.feed;
         const timer = retimer(() => {
             this.stop(new Error(`The pipe has not received any data for ${timeout} milliseconds`));
             return stream.end();
