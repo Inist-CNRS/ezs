@@ -11,6 +11,7 @@ const metricsEnable = Boolean(autocast(process.env.EZS_METRICS));
 const nShards = Number(process.env.EZS_NSHARDS || 16);
 const cacheDelay = Number(process.env.EZS_CACHE_DELAY || 3600);
 const continueDelay = Number(process.env.EZS_CONTINUE_DELAY || 5);
+const pipelineDelay = Number(process.env.EZS_PIPELINE_DELAY || 300);
 const settings = {
     highWaterMark: {
         object: nShards,
@@ -33,6 +34,9 @@ const settings = {
     },
     queue: {
         concurrency: nShards,
+    },
+    feed: {
+        timeout: (pipelineDelay * 1000)
     },
     delegate: String(process.env.EZS_DELEGATE || 'delegate'),
     title: String(process.env.EZS_TITLE

@@ -1,7 +1,9 @@
 import once from 'once';
+import retimer from 'retimer';
 
 export default class Feed {
-    constructor(push, done, error, wait) {
+    constructor(ezs, push, done, error, wait) {
+        this.ezs = ezs;
         this.push = push;
         this.done = once(done);
         this.error = once(error);
@@ -18,7 +20,14 @@ export default class Feed {
     }
 
     flow(stream, done) {
+        const { timeout } = this.ezs.settings.feed;
+        const timer = retimer(() => {
+            this.stop(new Error(`The pipe has not received any data for ${timeout} milliseconds.`));
+            return stream.end();
+        }, timeout);
+
         stream.on('data', async (data) => {
+            timer.reschedule(timeout);
             if (!this.push(data)) {
                 stream.pause();
                 await this.wait();
@@ -26,12 +35,14 @@ export default class Feed {
             }
         });
         stream.once('error', (e) => {
+            timer.clear();
             if (done instanceof Function) {
                 return done(e);
             }
             return this.stop(e);
         });
         stream.once('end', () => {
+            timer.clear();
             if (done instanceof Function) {
                 return done();
             }
