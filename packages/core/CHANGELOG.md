@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.4.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@2.3.2...@ezs/core@2.4.0) (2023-02-15)
+
+
+### Bug Fixes
+
+* 🐛 increase default value ([9728772](https://github.com/Inist-CNRS/ezs/commit/9728772c1c5b24c8677f82b77a452cdc13814364))
+* wrong function name ([0cfd336](https://github.com/Inist-CNRS/ezs/commit/0cfd336588d8cac9c7c10d96442cc72ac71d21c2))
+
+
+### Features
+
+* 🎸 add timeout on sub pipeline ([57e0707](https://github.com/Inist-CNRS/ezs/commit/57e07070ba21cb3cb105887277d9466645997dbe))
+
+
+
+
+
 ## [2.3.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@2.3.1...@ezs/core@2.3.2) (2023-02-08)
 
 **Note:** Version bump only for package @ezs/core
