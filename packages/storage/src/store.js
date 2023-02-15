@@ -5,24 +5,24 @@ import makeDir from 'make-dir';
 import { open } from 'lmdb';
 import debug from 'debug';
 
-let handle;
+const handles = {};
 const lmdbEnv = (location) => {
-    if (handle) {
-        return handle;
+    if (handles[location]) {
+        return handles[location];
     }
     const path = join(location || tmpdir(), 'lmdb');
     debug('ezs')('Open lmdb in ', path);
     if (!pathExists.sync(path)) {
         makeDir.sync(path);
     }
-    handle = open({
+    handles[location] = open({
         path,
         compression: true,
-        commitDelay: 1000,
+        commitDelay: 3000,
         noSync: true,
         noMemInit: true,
     });
-    return handle;
+    return handles[location];
 };
 
 export default class Store {
@@ -40,13 +40,14 @@ export default class Store {
     open() {
         this.handle = this.env()
             .openDB(this.domain, {
-                keyEncoding: 'binary',
-                //                encoding: 'binary',
                 compression: true,
             });
     }
 
     dbi() {
+        if (!this.handle) {
+            this.open();
+        }
         return this.handle;
     }
 
