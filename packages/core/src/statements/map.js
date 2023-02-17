@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import from from 'from';
-import toArray from 'stream-to-array';
 
 /**
  * From an array field delegate processing of each items to an external pipeline
@@ -17,7 +16,6 @@ import toArray from 'stream-to-array';
  */
 export default function map(data, feed) {
     if (this.isLast()) {
-        console.error('close>>>');
         return feed.close();
     }
     const { ezs } = this;
@@ -50,7 +48,6 @@ export default function map(data, feed) {
         })
         .on('end', () => {
             _.set(data, path, newValue);
-            console.error('fin>>>');
             return feed.send(data);
         });
 }
