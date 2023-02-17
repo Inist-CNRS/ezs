@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@2.4.0...@ezs/core@2.4.1) (2023-02-17)
+
+
+### Bug Fixes
+
+* 🐛 avoid to ignore errors in pipeline ([8ec4703](https://github.com/Inist-CNRS/ezs/commit/8ec4703c5b35329cc125e6b2ff914402f00609a3))
+* 🐛 timeout never closed ([0c8597a](https://github.com/Inist-CNRS/ezs/commit/0c8597a11db0c3689a34888a1fd3e7807cc975db))
+
+
+
+
+
 # [2.4.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@2.3.2...@ezs/core@2.4.0) (2023-02-15)
 
 
