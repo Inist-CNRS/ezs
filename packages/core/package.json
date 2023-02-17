@@ -37,7 +37,6 @@
     "prom-client": "14.0.0",
     "readable-stream": "3.6.0",
     "retimer": "^3.0.0",
-    "stream-to-array": "2.3.0",
     "stream-write": "1.0.1",
     "validatorjs": "3.18.1",
     "yargs": "15.4.1"
