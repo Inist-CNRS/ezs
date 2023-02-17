@@ -93,6 +93,7 @@ export default async function URLConnect(data, feed) {
                         bodyOut.pipe(output);
                     } else {
                         const bodyOutRaw = await getStream(response.body);
+                        clearTimeout(timeoutHandle);
                         if (json) {
                             try {
                                 const bodyOut = JSON.parse(bodyOutRaw);
