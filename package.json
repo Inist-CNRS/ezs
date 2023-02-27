@@ -56,8 +56,5 @@
     "commitizen": {
       "path": "git-cz"
     }
-  },
-  "dependencies": {
-    "wtfnode": "0.9.1"
   }
 }
