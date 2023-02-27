@@ -32,6 +32,7 @@ export default function swing(data, feed) {
         const statements = ezs.compileCommands(commands, this.getEnv());
         const output = ezs.createPipeline(this.input, statements)
             .pipe(ezs.catch((e) => feed.write(e))); // avoid to break pipeline at each error
+        feed.timeout = 0; // special case : test could be never true all the time, and so the feed will never receive any data
         this.whenFinish = feed.flow(output);
     }
     if (this.isLast()) {

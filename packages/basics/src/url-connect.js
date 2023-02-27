@@ -1,4 +1,5 @@
 import JSONStream from 'JSONStream';
+import from from 'from';
 import debug from 'debug';
 import writeTo from 'stream-write';
 import AbortController from 'node-abort-controller';
@@ -53,6 +54,7 @@ export default async function URLConnect(data, feed) {
             headers['Content-Type'] = 'application/json';
         }
         const parameters = {
+            timeout,
             method: 'POST',
             body: bodyIn,
             headers,
@@ -64,11 +66,6 @@ export default async function URLConnect(data, feed) {
                         debug('ezs')(`Attempts to reconnect (${numberOfTimes})`);
                     }
                     const controller = new AbortController();
-                    const timeoutHandle = setTimeout(() => {
-                        debug('ezs')(`The maximum time allowed to start sending data has been reached (${timeout} msec).`);
-                        controller.abort();
-                    }, timeout);
-
                     const response = await fetch(url, {
                         ...parameters,
                         signal: controller.signal,
@@ -83,28 +80,15 @@ export default async function URLConnect(data, feed) {
 
                     if (retries === 1) {
                         const bodyOut = json ? response.body.pipe(JSONStream.parse('*')) : response.body;
-                        bodyOut.once('data', () => {
-                            clearTimeout(timeoutHandle);
-                        });
                         bodyOut.once('error', (e) => {
+                            controller.abort();
                             output.emit('error', e);
-                            clearTimeout(timeoutHandle);
                         });
                         bodyOut.pipe(output);
                     } else {
                         const bodyOutRaw = await getStream(response.body);
-                        clearTimeout(timeoutHandle);
-                        if (json) {
-                            try {
-                                const bodyOut = JSON.parse(bodyOutRaw);
-                                bodyOut.forEach(item => output.write(item));
-                            } catch (ee) {
-                                throw ee;
-                            }
-                        } else {
-                            output.write(bodyOutRaw);
-                        }
-                        output.end();
+                        const bodyOutArray = JSON.parse(bodyOutRaw);
+                        from(bodyOutArray).pipe(output);
                     }
                 },
                 {

@@ -285,4 +285,32 @@ describe('swing through file(s)', () => {
                 done();
             });
     });
+
+    it('with false', (done) => {
+        let res = 0;
+        from([
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+        ])
+            .pipe(ezs('swing', {
+                test: false,
+                script,
+            }))
+            .pipe(ezs.catch())
+            .on('error', (err) => {
+                throw err;
+            })
+            .on('data', (chunk) => {
+                res += chunk.a;
+            })
+            .on('end', () => {
+                assert.equal(5, res);
+                done();
+            });
+    });
+
+
 });

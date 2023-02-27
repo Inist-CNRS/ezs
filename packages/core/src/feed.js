@@ -9,6 +9,7 @@ export default class Feed {
         this.error = once(error);
         this.seal = once(() => { push(null); done(); });
         this.wait = wait;
+        this.timeout = Number(this.ezs.settings.feed.timeout);
     }
 
     write(something) {
@@ -19,15 +20,18 @@ export default class Feed {
         }
     }
 
-    flow(stream, done) {
-        const { timeout } = this.ezs.settings.feed;
-        const timer = retimer(() => {
-            this.stop(new Error(`The pipe has not received any data for ${timeout} milliseconds.`));
-            return stream.end();
-        }, timeout);
+    flow(stream) {
+        if (this.timeout > 0) {
+            this.timer = retimer(() => {
+                this.stop(new Error(`The pipe has not received any data for ${this.timeout} milliseconds.`));
+                return stream.end();
+            }, this.timeout);
+        }
 
         stream.on('data', async (data) => {
-            timer.reschedule(timeout);
+            if (this.timer) {
+                this.timer.reschedule(this.timeout);
+            }
             if (!this.push(data)) {
                 stream.pause();
                 await this.wait();
@@ -35,16 +39,14 @@ export default class Feed {
             }
         });
         stream.once('error', (e) => {
-            timer.clear();
-            if (done instanceof Function) {
-                return done(e);
+            if (this.timer) {
+                this.timer.clear();
             }
             return this.stop(e);
         });
         stream.once('end', () => {
-            timer.clear();
-            if (done instanceof Function) {
-                return done();
+            if (this.timer) {
+                this.timer.clear();
             }
             return this.end();
         });
