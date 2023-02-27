@@ -21,13 +21,17 @@ export default class Feed {
     }
 
     flow(stream) {
-        const timer = retimer(() => {
-            this.stop(new Error(`The pipe has not received any data for ${this.timeout} milliseconds.`));
-            return stream.end();
-        }, this.timeout);
+        if (this.timeout > 0) {
+            this.timer = retimer(() => {
+                this.stop(new Error(`The pipe has not received any data for ${this.timeout} milliseconds.`));
+                return stream.end();
+            }, this.timeout);
+        }
 
         stream.on('data', async (data) => {
-            timer.reschedule(this.timeout);
+            if (this.timer) {
+                this.timer.reschedule(this.timeout);
+            }
             if (!this.push(data)) {
                 stream.pause();
                 await this.wait();
@@ -35,11 +39,15 @@ export default class Feed {
             }
         });
         stream.once('error', (e) => {
-            timer.clear();
+            if (this.timer) {
+                this.timer.clear();
+            }
             return this.stop(e);
         });
         stream.once('end', () => {
-            timer.clear();
+            if (this.timer) {
+                this.timer.clear();
+            }
             return this.end();
         });
         return new Promise((resolve) => stream.once('end', resolve));
