@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@2.4.1...@ezs/core@2.4.2) (2023-02-27)
+
+
+### Bug Fixes
+
+* 🐛 [swing] could never be true ([35c48ca](https://github.com/Inist-CNRS/ezs/commit/35c48ca3f2be5796b5e14391b306b28fd9d5c697))
+* 🐛 fetch timeout vs feed timeout ([163e0bf](https://github.com/Inist-CNRS/ezs/commit/163e0bf81df5f3d8ef7d2fedc6b8bf95ec2c8534))
+
+
+
+
+
 ## [2.4.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@2.4.0...@ezs/core@2.4.1) (2023-02-17)
 
 

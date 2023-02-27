@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.23.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.23.2...@ezs/basics@1.23.3) (2023-02-27)
+
+
+### Bug Fixes
+
+* 🐛 fetch timeout vs feed timeout ([163e0bf](https://github.com/Inist-CNRS/ezs/commit/163e0bf81df5f3d8ef7d2fedc6b8bf95ec2c8534))
+
+
+
+
+
 ## [1.23.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.23.1...@ezs/basics@1.23.2) (2023-02-17)
 
 
