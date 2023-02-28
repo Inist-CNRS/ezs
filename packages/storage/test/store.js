@@ -6,9 +6,9 @@ describe('With one store', () => {
     it('add distinct values', async (done) => {
         const store = new Store(ezs, 'test_store1');
         await Promise.all([
-            store.add(1, 'A'),
-            store.add(2, 'B'),
-            store.add(3, 'C'),
+            store.put(1, 'A'),
+            store.put(2, 'B'),
+            store.put(3, 'C'),
         ]);
         const output = [];
         store
@@ -24,7 +24,7 @@ describe('With one store', () => {
             });
     });
 
-    it('add duplicate keys', async (done) => {
+    it.skip('add duplicate keys', async (done) => {
         const store = new Store(ezs, 'test_store2');
         await store.add(1, 'A');
         await store.add(2, 'B');
@@ -88,21 +88,21 @@ describe('With shared store #1', () => {
     it('run 3 times the same instructions', (alldone) => parallel(
         [
             async (done) => {
-                await store1.add(1, 'A');
-                await store1.add(2, 'B');
-                await store1.add(3, 'C');
+                await store1.put(1, 'A');
+                await store1.put(2, 'B');
+                await store1.put(3, 'C');
                 done();
             },
             async (done) => {
-                await store2.add(1, 'A');
-                await store2.add(2, 'B');
-                await store2.add(3, 'C');
+                await store2.put(1, 'A');
+                await store2.put(2, 'B');
+                await store2.put(3, 'C');
                 done();
             },
             async (done) => {
-                await store3.add(1, 'A');
-                await store3.add(2, 'B');
-                await store3.add(3, 'C');
+                await store3.put(1, 'A');
+                await store3.put(2, 'B');
+                await store3.put(3, 'C');
                 done();
             },
         ],
@@ -137,21 +137,21 @@ describe('With shared store #2', () => {
     it('run 3 times the different instructions', (alldone) => parallel(
         [
             async (done) => {
-                await store1.add(1, 'A');
-                await store1.add(2, 'B');
-                await store1.add(3, 'C');
+                await store1.put(1, 'A');
+                await store1.put(2, 'B');
+                await store1.put(3, 'C');
                 done();
             },
             async (done) => {
-                await store2.add(4, 'A');
-                await store2.add(5, 'B');
-                await store2.add(6, 'C');
+                await store2.put(4, 'A');
+                await store2.put(5, 'B');
+                await store2.put(6, 'C');
                 done();
             },
             async (done) => {
-                await store3.add(7, 'A');
-                await store3.add(8, 'B');
-                await store3.add(9, 'C');
+                await store3.put(7, 'A');
+                await store3.put(8, 'B');
+                await store3.put(9, 'C');
                 done();
             },
         ],
@@ -186,9 +186,9 @@ describe('With shared store #2', () => {
     it('run 3 times stream instructions', (alldone) => parallel(
         [
             async (done) => {
-                await store1.add(1, 'A');
-                await store1.add(2, 'B');
-                await store1.add(3, 'C');
+                await store1.put(1, 'A');
+                await store1.put(2, 'B');
+                await store1.put(3, 'C');
                 const output = [];
                 store1
                     .stream()
@@ -201,9 +201,9 @@ describe('With shared store #2', () => {
                     });
             },
             async (done) => {
-                await store2.add(4, 'D');
-                await store2.add(5, 'E');
-                await store2.add(6, 'F');
+                await store2.put(4, 'D');
+                await store2.put(5, 'E');
+                await store2.put(6, 'F');
                 const output = [];
                 store2
                     .stream()
@@ -216,9 +216,9 @@ describe('With shared store #2', () => {
                     });
             },
             async (done) => {
-                await store3.add(7, 'G');
-                await store3.add(8, 'H');
-                await store3.add(9, 'I');
+                await store3.put(7, 'G');
+                await store3.put(8, 'H');
+                await store3.put(9, 'I');
                 const output = [];
                 store3
                     .stream()

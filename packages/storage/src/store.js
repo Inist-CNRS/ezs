@@ -59,10 +59,6 @@ export default class Store {
         return this.dbi().put(key, value);
     }
 
-    add(key, value) {
-        return this.dbi().put(key, value);
-    }
-
     stream() {
         return this.cast();
     }
