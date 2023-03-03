@@ -1,6 +1,7 @@
+const semver = require('semver');
 const { defaults } = require('jest-config');
 
-module.exports = {
+const options = {
     ...defaults,
     testMatch: [
         '**/test?(s)/**/*.[jt]s?(x)',
@@ -25,3 +26,10 @@ module.exports = {
     ],
     testTimeout: 8000,
 };
+
+if (semver.lt(process.version, '14.0.0')) {
+    // lmdb package require node 14 (optional chaining)
+    options.testPathIgnorePatterns.push('storage/test');
+}
+
+module.exports = options;
