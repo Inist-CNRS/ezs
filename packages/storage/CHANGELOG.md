@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@2.0.0...@ezs/storage@2.0.1) (2023-03-03)
+
+
+### Bug Fixes
+
+* 🐛 edge cases ([07cfac0](https://github.com/Inist-CNRS/ezs/commit/07cfac06ce630451caf05987d37225ae5f22882d))
+
+
+### Reverts
+
+* Revert "@ezs/storage could be use wit node 12" ([224b9eb](https://github.com/Inist-CNRS/ezs/commit/224b9eb522d71df059742bf67a8a0fbdcdd8929a))
+* Revert "refactor: 💡 new lmdb api" ([c83162c](https://github.com/Inist-CNRS/ezs/commit/c83162cd660037d5d4af6e7f67abd581d9ae8898))
+
+
+
+
+
 # [2.0.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@1.7.0...@ezs/storage@2.0.0) (2023-02-08)
 
 

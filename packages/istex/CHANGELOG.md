@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.7](https://github.com/Inist-CNRS/ezs/compare/@ezs/istex@1.5.6...@ezs/istex@1.5.7) (2023-03-03)
+
+**Note:** Version bump only for package @ezs/istex
+
+
+
+
+
 ## [1.5.6](https://github.com/Inist-CNRS/ezs/compare/@ezs/istex@1.5.5...@ezs/istex@1.5.6) (2023-01-28)
 
 
