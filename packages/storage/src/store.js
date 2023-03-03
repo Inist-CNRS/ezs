@@ -1,32 +1,28 @@
-import { tmpdir, totalmem, cpus } from 'os';
+import { tmpdir } from 'os';
+import { join } from 'path';
 import pathExists from 'path-exists';
 import makeDir from 'make-dir';
-import lmdb from 'node-lmdb';
+import { open } from 'lmdb';
 import debug from 'debug';
 
-const maxDbs = cpus().length * 10;
-const mapSize = totalmem() / 2;
-const encodeKey = (k) => JSON.stringify(k);
-const decodeKey = (k) => JSON.parse(String(k));
-const encodeValue = (v) => JSON.stringify(v);
-const decodeValue = (v) => JSON.parse(String(v));
-let handle;
+const handles = {};
 const lmdbEnv = (location) => {
-    if (handle) {
-        return handle;
+    if (handles[location]) {
+        return handles[location];
     }
-    const path = location || tmpdir();
+    const path = join(location || tmpdir(), 'lmdb');
     debug('ezs')('Open lmdb in ', path);
     if (!pathExists.sync(path)) {
         makeDir.sync(path);
     }
-    handle = new lmdb.Env();
-    handle.open({
+    handles[location] = open({
         path,
-        mapSize,
-        maxDbs,
+        compression: true,
+        commitDelay: 3000,
+        noSync: true,
+        noMemInit: true,
     });
-    return handle;
+    return handles[location];
 };
 
 export default class Store {
@@ -42,64 +38,25 @@ export default class Store {
     }
 
     open() {
-        this.handle = this.env().openDbi({
-            name: this.domain,
-            create: true,
-        });
+        this.handle = this.env()
+            .openDB(this.domain, {
+                compression: true,
+            });
     }
 
     dbi() {
+        if (!this.handle) {
+            this.open();
+        }
         return this.handle;
     }
 
     get(key) {
-        return new Promise((resolve, reject) => {
-            const txn = this.env().beginTxn({ readOnly: true });
-            const ekey = encodeKey(key);
-            try {
-                const val = decodeValue(txn.getString(this.dbi(), ekey));
-                txn.commit();
-                resolve(val);
-            } catch (e) {
-                txn.abort();
-                reject(e);
-            }
-        });
+        return Promise.resolve(this.dbi().get(key));
     }
 
     put(key, value) {
-        return new Promise((resolve, reject) => {
-            const txn = this.env().beginTxn();
-            const ekey = encodeKey(key);
-            try {
-                txn.putString(this.dbi(), ekey, encodeValue(value));
-                txn.commit();
-                resolve(true);
-            } catch (e) {
-                txn.abort();
-                reject(e);
-            }
-        });
-    }
-
-    add(key, value) {
-        return new Promise((resolve, reject) => {
-            const txn = this.env().beginTxn();
-            const ekey = encodeKey(key);
-            const vvalue = decodeValue(txn.getString(this.dbi(), ekey));
-            try {
-                if (vvalue) {
-                    txn.putString(this.dbi(), ekey, encodeValue(vvalue.concat(value)));
-                } else {
-                    txn.putString(this.dbi(), ekey, encodeValue([value]));
-                }
-            } catch (e) {
-                txn.abort();
-                reject(e);
-            }
-            txn.commit();
-            resolve(true);
-        });
+        return this.dbi().put(key, value);
     }
 
     stream() {
@@ -111,36 +68,18 @@ export default class Store {
     }
 
     cast() {
-        const flow = this.ezs.createStream(this.ezs.objectMode());
-
+        const stream = this.ezs.createStream(this.ezs.objectMode());
         process.nextTick(() => {
-            const txn = this.env().beginTxn({ readOnly: true });
-            const cursor = new lmdb.Cursor(txn, this.dbi());
-            const walker = (found, done) => {
-                if (found) {
-                    const id = decodeKey(found);
-                    const value = decodeValue(txn.getString(this.dbi(), found));
-                    this.ezs.writeTo(flow, { id, value }, (err, writable) => {
-                        if (err || writable === false) {
-                            return done();
-                        }
-                        return walker(cursor.goToNext(), done);
-                    });
-                } else {
-                    done();
-                }
-            };
-            walker(cursor.goToFirst(), () => {
-                flow.end();
-                txn.abort();
+            this.dbi().getRange().forEach(({ key:id, value }) => {
+                stream.write({ id, value });
             });
+            stream.end();
         });
-        return flow;
+        return stream;
     }
 
     reset() {
-        this.dbi().drop();
-        this.open();
+        return this.dbi().clearAsync();
     }
 
     close() {

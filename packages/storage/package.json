@@ -6,6 +6,7 @@
   "bugs": "https://github.com/Inist-CNRS/ezs/issues",
   "dependencies": {
     "date-diff": "0.2.1",
+    "lmdb": "^2.7.9",
     "lodash.get": "4.4.2",
     "make-dir": "3.1.0",
     "nanoid": "2.1.8",
@@ -37,5 +38,8 @@
     "prepublish": "npm run build",
     "pretest": "npm run build",
     "preversion": "npm run doc"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   }
 }

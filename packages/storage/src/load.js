@@ -30,6 +30,7 @@ export default async function load(data, feed) {
         return feed.close();
     }
     if (!uri) {
+        console.warn(`WARNING: uri was empty, [load] item #${this.getIndex()} was ignored`);
         return feed.send(data);
     }
     try {
@@ -40,6 +41,7 @@ export default async function load(data, feed) {
         }
         return feed.send(value);
     } catch(e) {
-        return feed.stop(e);
+        console.warn(`WARNING: Fail to load uri (${uri}), item #${this.getIndex()} was ignored`, e);
+        return feed.send(data);
     }
 }

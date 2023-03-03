@@ -19,7 +19,7 @@ export default async function save(data, feed) {
     const domainName = this.getParam('domain', 'ezs');
     const domain = Array.isArray(domainName) ? domainName.shift() : domainName;
     if (!this.store) {
-        this.store = new Store(this.ezs, domain, location);
+        this.store = new Store(ezs, domain, location);
     }
     if (this.isFirst() && reset === true) {
         this.store.reset();
@@ -28,12 +28,15 @@ export default async function save(data, feed) {
         this.store.close();
         return feed.close();
     }
-    if (uri) {
-        try {
-            const ret = await this.store.put(uri, data);
-        } catch(e) {
-            return feed.stop(e);
-        }
+    if (!uri) {
+        console.warn(`WARNING: uri was empty, [save] item #${this.getIndex()} was ignored`);
+        return feed.send(data);
     }
-    return feed.send(data);
+    try {
+        await this.store.put(uri, data);
+        return feed.send(data);
+    } catch(e) {
+        console.warn(`WARNING: Fail to save uri (${uri}), item #${this.getIndex()} was ignored`, e);
+        return feed.send(data);
+    }
 }
