@@ -45,7 +45,7 @@
     "test": "test"
   },
   "engines": {
-    "node": ">=10 <=16"
+    "node": ">=10 <=18"
   },
   "gitHead": "bc1be6636627b450c72d59ec404c43d87d7a42aa",
   "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/core#readme",
