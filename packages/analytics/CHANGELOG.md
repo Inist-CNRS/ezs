@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.20](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@2.0.19...@ezs/analytics@2.0.20) (2023-03-07)
+
+**Note:** Version bump only for package @ezs/analytics
+
+
+
+
+
 ## [2.0.19](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@2.0.18...@ezs/analytics@2.0.19) (2023-02-27)
 
 **Note:** Version bump only for package @ezs/analytics
