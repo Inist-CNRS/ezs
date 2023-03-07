@@ -20,9 +20,6 @@
     "path-exists": "4.0.0",
     "tempy": "1.0.1"
   },
-  "devDependencies": {
-    "@ezs/core": "2.4.3"
-  },
   "directories": {
     "test": "test"
   },

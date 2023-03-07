@@ -11,9 +11,6 @@
     "semver": "7.3.5",
     "stream-iterate": "1.2.0"
   },
-  "devDependencies": {
-    "@ezs/core": "2.4.3"
-  },
   "directories": {
     "test": "test"
   },
