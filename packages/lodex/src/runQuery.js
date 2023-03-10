@@ -65,6 +65,7 @@ export const createFunction = () => async function LodexRunQuery(data, feed) {
         .skip(skip)
         .limit(limit)
         .stream()
+        .on('error', (e) => feed.stop(e))
         .pipe(ezs('assign', { path, value }));
     await feed.flow(stream);
 };
