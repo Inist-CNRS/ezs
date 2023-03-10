@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.16.2...@ezs/lodex@1.16.3) (2023-03-10)
+
+
+### Bug Fixes
+
+* 🐛 catch mongo error from stream() ([417075f](https://github.com/Inist-CNRS/ezs/commit/417075f995405f59964137ccbf6dc0d8133da1ab))
+
+
+### Reverts
+
+* Revert "chore: 🤖 use lerna exec instead bootstrap" ([56375ee](https://github.com/Inist-CNRS/ezs/commit/56375ee2bd7e9f69f61da3993ab569ca1c16c547))
+
+
+
+
+
 ## [1.16.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.16.1...@ezs/lodex@1.16.2) (2023-01-05)
 
 **Note:** Version bump only for package @ezs/lodex
