@@ -31,8 +31,10 @@ export default function map(data, feed) {
         this.createStatements = () => ezs.compileCommands(commands, this.getEnv());
     }
     const path = this.getParam('path');
-    const value = _.get(data, path);
-    if (!value || !Array.isArray(value) || value.length === 0) {
+    const value= []
+        .concat(_.get(data, path))
+        .filter(Boolean);
+    if (!value.length === 0) {
         return feed.send(data);
     }
     const newValue = [];
