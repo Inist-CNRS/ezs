@@ -6,7 +6,7 @@ import nolookalikes from 'nanoid-dictionary/nolookalikes';
 export const validKey = (input) =>
     Boolean(input) &&
     typeof input === 'string' &&
-    input.search(/\w+:(\/?\/?)[^\s]+/g) >= 0;
+    input.search(/^[a-z]+:(\/?\/?)[^\s]+$/g) === 0;
 
 const sha = (input) => Promise.resolve(createHash('sha256').update(JSON.stringify(input)).digest('hex'));
 //

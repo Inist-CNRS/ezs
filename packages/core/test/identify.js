@@ -69,6 +69,9 @@ describe('[identify]', () => {
         from([
             { a: 'x', b: 3 },
             { a: 't', b: 2 },
+            { a: 'toto:/abracadabra', b: 2 },
+            { a: 'doi:/10.1111/j.1564-9121.2012.00150.x(ISSN)', b: 3 },
+            { a: 'hal$hal-03517406~crossref$10.46298/lmcs-18(1:1)2022', b: 4 },
         ])
             .pipe(ezs('identify', { path: 'a', scheme: 'sha' }))
             .on('data', (chunk) => {
@@ -76,11 +79,14 @@ describe('[identify]', () => {
                 res.push(chunk);
             })
             .on('end', () => {
-                assert.equal(res.length, 2);
+                assert.equal(res.length, 5);
                 assert.notEqual(res[0].a, res[1].a);
                 assert.equal(res[0].b, 3);
                 assert.equal(res[1].b, 2);
+                assert.equal(res[2].a, 'toto:/abracadabra');
+                assert.equal(res[3].a, 'doi:/10.1111/j.1564-9121.2012.00150.x(ISSN)');
                 assert.equal(res[0].a.split(':').shift(), 'sha');
+                assert.equal(res[4].a.split(':').shift(), 'sha');
                 done();
             });
     });
@@ -113,6 +119,9 @@ describe('validKey', () => {
     });
     test('with ark', () => {
         expect(validKey('ark:/67375/6H6-05FM5LNG-3')).toBe(true);
+    });
+    test('with ark', () => {
+        expect(validKey('un identifiant:1')).toBe(false);
     });
 });
 
