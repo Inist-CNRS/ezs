@@ -122,7 +122,7 @@ test('overturn all values #3', (done) => {
             output.push(chunk);
         })
         .on('end', () => {
-          expect(output.length).toEqual(7);
+            expect(output.length).toEqual(7);
             expect(output[0].d).toEqual(false);
             expect(output[1].b).toEqual('aaaa');
             expect(output[2].b).toEqual('bbbb');
@@ -204,8 +204,7 @@ test('with a buggy script', (done) => {
         .on('data', (chunk) => {
             output.push(chunk);
         })
-    .on('error', (e) => {
-      console.log('e', e.message);
+        .on('error', (e) => {
             expect(e.message).toEqual(expect.stringContaining('BADVAL is not defined'));
             expect(output.length).toEqual(0);
             done();

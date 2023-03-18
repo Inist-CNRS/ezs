@@ -34,6 +34,7 @@ import throttle from './throttle';
 import combine from './combine';
 import expand from './expand';
 import overturn from './overturn';
+import fork from './fork';
 
 export default {
     extract,
@@ -72,4 +73,5 @@ export default {
     expand,
     combine,
     overturn,
+    fork,
 };
