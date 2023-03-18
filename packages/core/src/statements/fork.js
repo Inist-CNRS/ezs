@@ -33,10 +33,12 @@ export default function fork(data, feed) {
         catch(e) {
             return feed.stop(e);
         }
-        output.pipe(ezs.catch((e) => feed.write(e))); // avoid to break pipeline at each error
-        output.on('data', () => true);
-        output.once('error', (e) => feed.stop(e));
-        this.whenFinish = new Promise((resolve) => output.once('end', resolve));
+        this.whenFinish = new Promise((resolve) => output
+            .pipe(ezs.catch((e) => feed.write(e))) // avoid to break pipeline at each error
+            .once('error', (e) => feed.stop(e))
+            .once('end', resolve)
+            .on('data', () => true)
+        );
     }
     if (this.isLast()) {
         debug('ezs')(`${this.getIndex()} chunks have been delegated`);
