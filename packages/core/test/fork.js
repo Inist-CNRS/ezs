@@ -1,4 +1,3 @@
-var wtf = require('wtfnode');
 import assert from 'assert';
 import from from 'from';
 import ezs from '../src';
@@ -106,7 +105,7 @@ describe('fork)', () => {
         ])
             .pipe(ezs('fork', {
                 script,
-            }, wtf))
+            }))
             .pipe(ezs.catch())
             .on('error', (e) => {
                 expect(e.message).toEqual(expect.stringContaining('fake'));
