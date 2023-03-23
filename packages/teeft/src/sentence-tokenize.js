@@ -2,7 +2,7 @@ const sentencesCutter = (input) => {
     if (!input || input.trim() === '') {
         return [];
     }
-    const regex = /(["'‘“'"[({⟨][^.?!]+[.?!]["'’”'"\])}⟩]|[^.?!]+[.?!\s]+)\s?/g;
+    const regex = /(["'‘“'"[({⟨]([A-Z]\.)?[^.?!]+[.?!]["'’”'"\])}⟩]|([A-Z]\.)?[^.?!]+[.?!\s]+)\s?/g;
     const tokens = input.match(regex);
 
     if (!tokens) {

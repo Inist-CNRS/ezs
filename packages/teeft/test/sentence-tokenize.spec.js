@@ -113,4 +113,28 @@ describe('sentence-tokenize', () => {
                 done();
             });
     });
+
+    it('should work with repeated species name', (done) => {
+        let res = [];
+        from([{
+            path: '/path/1',
+            content: 'Canis Lupus est une espèce animale. ' +
+                     'C. Lupus réfère au même animal, et dans la deuxième phrase (qui va jusqu\'ici).',
+        }])
+            .pipe(ezs('TeeftSentenceTokenize'))
+            // .pipe(ezs('debug'))
+            .on('data', (chunk) => {
+                res = res.concat(chunk);
+            })
+            .on('end', () => {
+                expect(res).toEqual([{
+                    path: '/path/1',
+                    sentences: [
+                        'Canis Lupus est une espèce animale.',
+                        'C. Lupus réfère au même animal, et dans la deuxième phrase (qui va jusqu\'ici).',
+                    ],
+                }]);
+                done();
+            });
+    });
 });
