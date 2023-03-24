@@ -1,7 +1,14 @@
+import { StringDecoder } from 'string_decoder';
+
 function TXTParse(data, feed) {
+    if (!this.decoder) {
+        this.decoder = new StringDecoder('utf8');
+    }
     if (this.isLast()) {
+        this.decoder.end();
         return feed.end();
     }
+
     this.remainder = this.remainder || '';
 
     let separator;
@@ -14,7 +21,7 @@ function TXTParse(data, feed) {
 
     let lines;
     if (Buffer.isBuffer(data)) {
-        lines = data.toString().split(separator);
+        lines = this.decoder.write(data).split(separator);
     } else if (typeof data === 'string') {
         lines = data.split(separator);
     } else {
