@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.23.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.23.4...@ezs/basics@1.23.5) (2023-03-24)
+
+
+### Bug Fixes
+
+* 🐛 multi bytes in txtconcat ([7c705fa](https://github.com/Inist-CNRS/ezs/commit/7c705facc1378fae709bbae6a2b416b059e81731))
+
+
+
+
+
 ## [1.23.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.23.3...@ezs/basics@1.23.4) (2023-03-24)
 
 
