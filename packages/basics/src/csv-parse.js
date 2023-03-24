@@ -1,18 +1,25 @@
 import CSV from 'csv-string';
 import writeTo from 'stream-write';
+import { StringDecoder } from 'string_decoder';
 
 function CSVParse(data, feed) {
     const separator = this.getParam('separator');
     const quote = this.getParam('quote');
-    if (!this.handle) {
-        this.handle = CSV.createStream({ separator, quote });
-        this.handle.on('data', (obj) => feed.write(obj));
+    if (!this.decoder) {
+        this.decoder = new StringDecoder('utf8');
+        this.input = CSV.createStream({ separator, quote });
+        this.whenFinish = feed.flow(this.input);
     }
-    if (!this.isLast()) {
-        writeTo(this.handle, data, () => feed.end());
-    } else {
-        this.handle.end(() => feed.close());
+    if (this.isLast()) {
+        this.decoder.end();
+        this.whenFinish.finally(() => feed.close());
+        return this.input.end();
     }
+    writeTo(
+        this.input,
+        Buffer.isBuffer(data) ? this.decoder.write(data) : data,
+        () => feed.end(),
+    );
 }
 
 /**
