@@ -1,12 +1,19 @@
+import { StringDecoder } from 'string_decoder';
+
 function TXTConcat(data, feed) {
+
+    if (!this.decoder) {
+        this.decoder = new StringDecoder('utf8');
+    }
     if (this.buffer === undefined) {
         this.buffer = '';
     }
     if (this.isLast()) {
+        this.decoder.end();
         feed.send(this.buffer);
         feed.close();
     } else {
-        this.buffer = this.buffer.concat(data);
+        this.buffer = this.buffer.concat(Buffer.isBuffer(data) ? this.decoder.write(data) : data);
         feed.end();
     }
 }
