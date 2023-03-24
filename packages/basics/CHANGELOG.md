@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.23.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.23.3...@ezs/basics@1.23.4) (2023-03-24)
+
+
+### Bug Fixes
+
+* 🐛 CSV.stream not support multi-byte utf8 characters ([1e15c9c](https://github.com/Inist-CNRS/ezs/commit/1e15c9c9061f8927d67bec36577e7c0d5bb15d8e))
+
+
+
+
+
 ## [1.23.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.23.2...@ezs/basics@1.23.3) (2023-02-27)
 
 

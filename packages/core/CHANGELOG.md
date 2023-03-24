@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.5.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@2.4.3...@ezs/core@2.5.0) (2023-03-24)
+
+
+### Bug Fixes
+
+* 🐛 fix tests ([155fb77](https://github.com/Inist-CNRS/ezs/commit/155fb77e2ba1bd0ebdd38b65ca7119e7a1775f87))
+* 🐛 map use all values as an array ([c8268e3](https://github.com/Inist-CNRS/ezs/commit/c8268e3ea1a7efbd8ca841ec20d3bd352a2faaf5))
+* 🐛 useless code ([8b90913](https://github.com/Inist-CNRS/ezs/commit/8b90913eeea83aee17ca54856c76194eeab76945))
+* 🐛 valid id is too loose ([86cc6d7](https://github.com/Inist-CNRS/ezs/commit/86cc6d77c8697d26a79ab14fc148806ca3f20454))
+
+
+### Features
+
+* 🎸 add [fork] ([651aeda](https://github.com/Inist-CNRS/ezs/commit/651aedadd4210bd3c93e2d609dd42fde718511fc))
+
+
+
+
+
 ## [2.4.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@2.4.2...@ezs/core@2.4.3) (2023-03-07)
 
 **Note:** Version bump only for package @ezs/core
