@@ -69,6 +69,19 @@ describe('TXTSentences', () => {
             });
     });
 
+    it('should generate two sentences with other endings', (done) => {
+        let res = [];
+        from(['Is it? It is!'])
+            .pipe(ezs('TXTSentences'))
+            .on('data', (data) => {
+                res = [...res, data];
+            })
+            .on('end', () => {
+                expect(res).toStrictEqual(['Is it?', 'It is!']);
+                done();
+            });
+    });
+
     it('should not split initials in the middle of a sentence', (done) => {
         let res = [];
         from(['My name is Bond, J. Bond.'])
