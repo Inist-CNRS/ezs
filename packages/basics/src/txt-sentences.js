@@ -4,7 +4,7 @@ const UPPER_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const SENTENCE_INIT = '  ';
 const SENTENCE_ENDING = '.?!';
 
-/**
+/*
  * Segment sentences from `str` into an array
  * @param {string} str
  * @returns {string[]}
@@ -12,7 +12,7 @@ const SENTENCE_ENDING = '.?!';
 const segmentSentences = (str) => {
     const characters = str.split('');
     const sentences = characters.reduce(
-        /**
+        /*
          * @param {string[]} prevSentences
          * @param {string} character
          * @return {string[]}
@@ -71,13 +71,13 @@ const TXTSentences = (data, feed, ctx) => {
  * Input:
  *
  * ```json
- * ["First sentence. Second sentence."]
+ * "First sentence? Second sentence. My name is Bond, J. Bond."
  * ```
  *
  * Output:
  *
  * ```json
- * ["First sentence.", "Second sentence."]
+ * ["First sentence?", "Second sentence.", "My name is Bond, J. Bond."]
  * ```
  *
  * @name TXTSentences
