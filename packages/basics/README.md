@@ -30,6 +30,7 @@ npm install @ezs/basics
 -   [TXTConcat](#txtconcat)
 -   [TXTObject](#txtobject)
 -   [TXTParse](#txtparse)
+-   [TXTSentences](#txtsentences)
 -   [TXTZip](#txtzip)
 -   [URLConnect](#urlconnect)
 -   [URLFetch](#urlfetch)
@@ -598,6 +599,24 @@ Output:
 #### Parameters
 
 -   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose character which trigger the split (optional, default `"\n"`)
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+### TXTSentences
+
+Take a `String` and split it into an array of sentences.
+
+Input:
+
+```json
+"First sentence? Second sentence. My name is Bond, J. Bond."
+```
+
+Output:
+
+```json
+["First sentence?", "Second sentence.", "My name is Bond, J. Bond."]
+```
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
