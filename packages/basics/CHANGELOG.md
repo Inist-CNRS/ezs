@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.24.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.23.5...@ezs/basics@1.24.0) (2023-03-28)
+
+
+### Features
+
+* **basics:** Add TXTSentences ([c66abb5](https://github.com/Inist-CNRS/ezs/commit/c66abb5f242afcff57f98a7fa8eff918a7d60098))
+
+
+
+
+
 ## [1.23.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.23.4...@ezs/basics@1.23.5) (2023-03-24)
 
 

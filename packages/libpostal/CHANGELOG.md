@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/libpostal@0.2.1...@ezs/libpostal@0.2.2) (2023-03-28)
+
+
+### Reverts
+
+* Revert "chore: 🤖 use lerna exec instead bootstrap" ([56375ee](https://github.com/Inist-CNRS/ezs/commit/56375ee2bd7e9f69f61da3993ab569ca1c16c547))
+
+
+
+
+
 ## [0.2.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/libpostal@0.2.0...@ezs/libpostal@0.2.1) (2022-06-21)
 
 **Note:** Version bump only for package @ezs/libpostal
