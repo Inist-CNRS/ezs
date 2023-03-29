@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.24.0...@ezs/basics@2.0.0) (2023-03-29)
+
+
+### Features
+
+* **basics:** Make TXTSentences pass some tests ([95bd41f](https://github.com/Inist-CNRS/ezs/commit/95bd41f836e5ee2f71c8413142df9ac4dd9ec84b))
+* **basics:** Make TXTSentences work with arrays too ([24c3f76](https://github.com/Inist-CNRS/ezs/commit/24c3f76be73a518791e59b7e78c4d1151af8edd6))
+
+
+### BREAKING CHANGES
+
+* **basics:** TXTSentences xxpected structure is now an object, with a value key.
+
+
+
+
+
 # [1.24.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.23.5...@ezs/basics@1.24.0) (2023-03-28)
 
 
