@@ -1,4 +1,4 @@
-import { StringDecoder } from 'string_decoder';
+import get from 'lodash.get';
 
 const UPPER_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const SENTENCE_INIT = '  ';
@@ -11,57 +11,65 @@ const SENTENCE_ENDING = '.?!';
  */
 const segmentSentences = (str) => {
     const characters = str.split('');
-    const sentences = characters.reduce(
-        /*
-         * @param {string[]} prevSentences
-         * @param {string} character
-         * @return {string[]}
-         */
-        (prevSentences, character) => {
-            const currentSentence = prevSentences.slice(-1)[0];
-            const [char1, char2] = currentSentence.slice(-2);
-            if (SENTENCE_ENDING.includes(character)) {
-                if (character !== '.') {
-                    return [...prevSentences.slice(0, -1), currentSentence + character, SENTENCE_INIT];
+    const sentences = characters
+        .reduce(
+            /*
+             * @param {string[]} prevSentences
+             * @param {string} character
+             * @return {string[]}
+             */
+            (prevSentences, character) => {
+                const currentSentence = prevSentences.slice(-1)[0];
+                const [char1, char2] = currentSentence.slice(-2);
+                if (SENTENCE_ENDING.includes(character)) {
+                    if (character !== '.') {
+                        return [
+                            ...prevSentences.slice(0, -1),
+                            currentSentence + character,
+                            SENTENCE_INIT,
+                        ];
+                    }
+                    if (char1 !== ' ') {
+                        return [
+                            ...prevSentences.slice(0, -1),
+                            currentSentence + character,
+                            SENTENCE_INIT,
+                        ];
+                    }
+                    if (!UPPER_LETTERS.includes(char2)) {
+                        return [
+                            ...prevSentences.slice(0, -1),
+                            currentSentence + character,
+                            SENTENCE_INIT,
+                        ];
+                    }
                 }
-                if (char1 !== ' ') {
-                    return [...prevSentences.slice(0, -1), currentSentence + character, SENTENCE_INIT];
-                }
-                if (!UPPER_LETTERS.includes(char2)) {
-                    return [...prevSentences.slice(0, -1), currentSentence + character, SENTENCE_INIT];
-                }
-            }
-            return [...prevSentences.slice(0, -1), currentSentence + character];
-        }
-        , [SENTENCE_INIT])
-        .map(sentence => sentence.trimStart());
+                return [
+                    ...prevSentences.slice(0, -1),
+                    currentSentence + character,
+                ];
+            },
+            [SENTENCE_INIT]
+        )
+        .filter(sentence => sentence !== SENTENCE_INIT)
+        .map((sentence) => sentence.trimStart());
     return sentences;
 };
 
 const TXTSentences = (data, feed, ctx) => {
-    if (!ctx.decoder) {
-        ctx.decoder = new StringDecoder('utf8');
-    }
     if (ctx.isLast()) {
-        ctx.decoder.end();
-        return feed.end();
+        return feed.close();
     }
-
-    ctx.remainder = ctx.remainder ?? '';
+    const path = ctx.getParam('path', 'value');
+    const value = get(data, path);
 
     let str;
-    if (Buffer.isBuffer(data)) {
-        str = ctx.decoder.write(data);
-    } else if (typeof data === 'string') {
-        str = data;
+    if (typeof value === 'string') {
+        str = value;
     }
-    const lines = str ? segmentSentences(str) : [];
+    const sentences = str ? segmentSentences(str) : [];
 
-    lines.unshift(ctx.remainder + lines.shift());
-    ctx.remainder = lines.pop();
-    lines.forEach((line) => {
-        feed.write(line);
-    });
+    feed.write({ ...data, [path]: sentences });
     return feed.end();
 };
 
@@ -71,16 +79,17 @@ const TXTSentences = (data, feed, ctx) => {
  * Input:
  *
  * ```json
- * "First sentence? Second sentence. My name is Bond, J. Bond."
+ * { "id": 1, "value": "First sentence? Second sentence. My name is Bond, J. Bond." }
  * ```
  *
  * Output:
  *
  * ```json
- * ["First sentence?", "Second sentence.", "My name is Bond, J. Bond."]
+ * { "id": 1, "value": ["First sentence?", "Second sentence.", "My name is Bond, J. Bond."] }
  * ```
  *
  * @name TXTSentences
+ * @param {String} [path="value"] path of the field to segment
  * @returns {String}
  */
 export default {
