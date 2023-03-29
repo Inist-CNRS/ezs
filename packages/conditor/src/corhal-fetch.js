@@ -63,10 +63,6 @@ export default async function CORHALFetch(data, feed) {
     const cURL = new URL(`${url}/mergedDocuments`);
     cURL.search = new URLSearchParams(data);
     const controller = new AbortController();
-    const parameters = {
-        timeout,
-        signal: controller.signal,
-    };
     const options = {
         retries,
     };
@@ -80,13 +76,24 @@ export default async function CORHALFetch(data, feed) {
             await write(stream, arr);
         }
         if (afterKeyToken) {
-            const href = `${url}/after/${afterKeyToken}`;
+            const href = `${url}/after`;
             try {
-                const responseBis = await retry(request(href, parameters), options);
+                const responseBis = await retry(request(
+                    href,
+                    {
+                        method: 'POST',
+                        timeout,
+                        signal: controller.signal,
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ afterKeyToken: String(afterKeyToken).trim() }),
+                    },
+                ), options);
                 const noticesBis = await responseBis.json();
                 const afterKeyTokenBis = responseBis.headers.get('after-key-token');
                 loop(stream, noticesBis, afterKeyTokenBis);
-            } catch(e) {
+            } catch (e) {
                 console.error(`Error with ${href}`, e.message);
                 stream.end();
             }
@@ -96,7 +103,14 @@ export default async function CORHALFetch(data, feed) {
     };
     try {
         const output = ezs.createStream(ezs.objectMode());
-        const response = await retry(request(cURL.href, parameters), options);
+        const response = await retry(
+            request(cURL.href,
+                {
+                    timeout,
+                    signal: controller.signal,
+                }),
+            options,
+        );
         const afterKeyToken = response.headers.get('after-key-token');
         const notices = await response.json();
         await loop(output, notices, afterKeyToken);
