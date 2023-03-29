@@ -609,16 +609,20 @@ Take a `String` and split it into an array of sentences.
 Input:
 
 ```json
-"First sentence? Second sentence. My name is Bond, J. Bond."
+{ "id": 1, "value": "First sentence? Second sentence. My name is Bond, J. Bond." }
 ```
 
 Output:
 
 ```json
-["First sentence?", "Second sentence.", "My name is Bond, J. Bond."]
+{ "id": 1, "value": ["First sentence?", "Second sentence.", "My name is Bond, J. Bond."] }
 ```
 
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to segment (optional, default `"value"`)
+
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** 
 
 ### TXTZip
 

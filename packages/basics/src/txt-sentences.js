@@ -89,7 +89,7 @@ const TXTSentences = (data, feed, ctx) => {
  *
  * @name TXTSentences
  * @param {String} [path="value"] path of the field to segment
- * @returns {String}
+ * @returns {String[]}
  */
 export default {
     TXTSentences,
