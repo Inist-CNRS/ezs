@@ -10,7 +10,7 @@ const SENTENCE_ENDING = '.?!';
  * @returns {string[]}
  */
 const segmentSentences = (str) => {
-    const characters = str.split('');
+    const characters = Array.from(str);
     const sentences = characters
         .reduce(
             /*
@@ -51,7 +51,7 @@ const segmentSentences = (str) => {
             },
             [SENTENCE_INIT]
         )
-        .filter(sentence => sentence !== SENTENCE_INIT)
+        .filter((sentence) => sentence !== SENTENCE_INIT)
         .map((sentence) => sentence.trimStart());
     return sentences;
 };
@@ -63,10 +63,9 @@ const TXTSentences = (data, feed, ctx) => {
     const path = ctx.getParam('path', 'value');
     const value = get(data, path);
 
-    let str;
-    if (typeof value === 'string') {
-        str = value;
-    }
+    const str = Array.isArray(value)
+        ? value.map((item) => (typeof item === 'string' ? item : '')).join(' ')
+        : value;
     const sentences = str ? segmentSentences(str) : [];
 
     feed.write({ ...data, [path]: sentences });
