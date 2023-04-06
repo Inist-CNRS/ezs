@@ -61,7 +61,7 @@ export default async function CORHALFetch(data, feed) {
     const retries = Number(this.getParam('retries', 5));
     const timeout = Number(this.getParam('timeout')) || 1000;
     const cURL = new URL(`${url}/mergedDocuments`);
-    cURL.search = new URLSearchParams(data);
+    cURL.search = new URLSearchParams({ ...data, envelope:true });
     const controller = new AbortController();
     const parameters = {
         timeout,
@@ -80,12 +80,21 @@ export default async function CORHALFetch(data, feed) {
             await write(stream, arr);
         }
         if (afterKeyToken) {
-            const href = `${url}/after/${afterKeyToken}`;
+            const cURLBis = new URL(`${url}/after/`);
+            cURLBis.search = new URLSearchParams({ envelope:true });
             try {
-                const responseBis = await retry(request(href, parameters), options);
-                const noticesBis = await responseBis.json();
-                const afterKeyTokenBis = responseBis.headers.get('after-key-token');
-                loop(stream, noticesBis, afterKeyTokenBis);
+                const parametersBis = {
+                    timeout,
+                    signal: controller.signal,
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({  afterKeyToken }),
+                };
+                const responseBis = await retry(request(cURLBis.href, parametersBis), options);
+                const { headers:headersBis, body:noticesBis } = await responseBis.json();
+                loop(stream, noticesBis, headersBis['after-key-token']);
             } catch(e) {
                 console.error(`Error with ${href}`, e.message);
                 stream.end();
@@ -97,9 +106,8 @@ export default async function CORHALFetch(data, feed) {
     try {
         const output = ezs.createStream(ezs.objectMode());
         const response = await retry(request(cURL.href, parameters), options);
-        const afterKeyToken = response.headers.get('after-key-token');
-        const notices = await response.json();
-        await loop(output, notices, afterKeyToken);
+        const { headers, body:notices } = await response.json();
+        await loop(output, notices, headers['after-key-token']);
         await feed.flow(output);
     } catch (e) {
         onError(e);
