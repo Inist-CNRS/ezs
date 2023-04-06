@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.10.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.10.4...@ezs/conditor@2.10.5) (2023-04-06)
+
+
+### Bug Fixes
+
+* use POST & envelope for very large tokens ([da93abe](https://github.com/Inist-CNRS/ezs/commit/da93abe21e93f54f1e22b1d2090fc0daa3025a25))
+
+
+
+
+
 ## [2.10.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.10.3...@ezs/conditor@2.10.4) (2023-03-28)
 
 **Note:** Version bump only for package @ezs/conditor
