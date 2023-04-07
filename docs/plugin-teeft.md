@@ -3,7 +3,7 @@
 ## Présentation
 
 Ce plugin propose une série d'instructions pour extraire des mots-clés d'un
-texte français, ou en anglais en utilisant l'algorithme Teeft.
+texte français ou anglais en utilisant l'algorithme Teeft.
 
 C'est le paquet officiel qui fait suite à l'expérimentation
 [ezs-teeftfr](https://github.com/istex/node-ezs-teeftfr).
