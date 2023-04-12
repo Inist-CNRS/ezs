@@ -1,6 +1,11 @@
 import get from 'lodash.get';
 import { transform } from 'inflection';
 
+
+const transformer = (transformations) =>
+    (str) =>
+        (str && typeof str === 'string') ? transform( str, transformations) : str;
+
 const TXTInflection = (data, feed, ctx) => {
     if (ctx.isLast()) {
         return feed.close();
@@ -8,11 +13,8 @@ const TXTInflection = (data, feed, ctx) => {
     const transformations = [].concat(ctx.getParam('transform', [])).filter(Boolean);
     const path = ctx.getParam('path', 'value');
     const value = get(data, path, '');
-
-    const str = Array.isArray(value)
-        ? value.map((item) => (typeof item === 'string' ? item : '')).join(' ')
-        : value;
-    const result = str ? transform( str, transformations) : value;
+    const process = transformer(transformations);
+    const  result = Array.isArray(value) ? value.map((item) => process(item)) : process(value);
 
     feed.write({ ...data, [path]: result });
     return feed.end();

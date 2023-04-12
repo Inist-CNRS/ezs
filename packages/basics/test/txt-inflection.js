@@ -92,4 +92,20 @@ describe('TXTInflection', () => {
             });
     });
 
+    it('should transfrom #3', (done) => {
+        let res = [];
+        from([{ term: ['apples', 'sciences' ]}])
+            .pipe(ezs('TXTInflection', { path: 'term', transform: ['singularize', 'humanize'] }))
+            .on('data', (data) => {
+                res = [...res, data];
+            })
+            .on('end', () => {
+                expect(res).toStrictEqual([
+                    { term: ['Apple', 'Science' ] },
+                ]);
+                done();
+            });
+    });
+
+
 });
