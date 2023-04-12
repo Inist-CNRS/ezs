@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.0.0...@ezs/basics@2.1.0) (2023-04-12)
+
+
+### Bug Fixes
+
+* 🐛 improve coverage ([1173137](https://github.com/Inist-CNRS/ezs/commit/1173137e5a2cd6f1f6bfda8ad2a89720ae991e91))
+* 🐛 missing files ([cd091ac](https://github.com/Inist-CNRS/ezs/commit/cd091acd91a6b0042e6c0e1b9cfef87e64126007))
+
+
+### Features
+
+* 🎸 add [TXTInflection] ([880b2bc](https://github.com/Inist-CNRS/ezs/commit/880b2bc4795f8bfb51fe11803cebfe38d2097487))
+
+
+
+
+
 # [2.0.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@1.24.0...@ezs/basics@2.0.0) (2023-03-29)
 
 
