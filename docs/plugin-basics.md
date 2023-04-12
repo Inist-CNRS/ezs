@@ -28,6 +28,7 @@ npm install @ezs/basics
 -   [OBJNamespaces](#objnamespaces)
 -   [OBJStandardize](#objstandardize)
 -   [TXTConcat](#txtconcat)
+-   [TXTInflection](#txtinflection)
 -   [TXTObject](#txtobject)
 -   [TXTParse](#txtparse)
 -   [TXTSentences](#txtsentences)
@@ -556,6 +557,43 @@ Output:
 -   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+### TXTInflection
+
+-   **See: <https://www.npmjs.com/package/inflection>
+    **
+
+Take a `String` and inflect it with or more transformers from this list
+ pluralize, singularize, camelize, underscore, humanize, capitalize,
+ dasherize, titleize, demodulize, tableize, classify, foreign_key, ordinalize
+
+Input:
+
+```json
+{ "id": 1, "value": "all job" }
+```
+
+Script:
+
+```ini
+[TXTInflection]
+transform = pluralize
+transform = capitalize
+transform = dasherize
+```
+
+Output:
+
+```json
+{ "id": 1, "value": "All-jobs" }
+```
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to segment (optional, default `"value"`)
+-   `transform` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** name of a transformer
+
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** 
 
 ### TXTObject
 
