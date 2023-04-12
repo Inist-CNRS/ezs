@@ -7,6 +7,7 @@ import TXTConcat from './txt-concat';
 import TXTObject from './txt-object';
 import TXTParse from './txt-parse';
 import TXTSentences from './txt-sentences';
+import TXTInflection from './txt-inflection';
 import XMLParse from './xml-parse';
 import XMLString from './xml-string';
 import XMLConvert from './xml-convert';
@@ -38,6 +39,7 @@ const funcs = {
     TXTObject,
     TXTConcat,
     TXTSentences,
+    TXTInflection,
     XMLParse,
     XMLString,
     XMLConvert,
