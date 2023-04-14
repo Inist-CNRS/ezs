@@ -129,6 +129,54 @@ tags = ADJ
   }, ...
  ] }, ... ]
 
+[TeeftRemoveShortTerms]
+
+--> [  { path, terms:  [
+  {
+    term: "monoterm",
+    tag: [ "tag", ...],
+    frequency,
+    length
+  },
+  {
+    term: "multiterm",
+    frequency,
+    length
+  }, ...
+ ] }, ... ]
+
+[TeeftRemoveLongTerms]
+
+--> [  { path, terms:  [
+  {
+    term: "monoterm",
+    tag: [ "tag", ...],
+    frequency,
+    length
+  },
+  {
+    term: "multiterm",
+    frequency,
+    length
+  }, ...
+ ] }, ... ]
+
+[TeeftRemoveWeirdTerms]
+
+--> [  { path, terms:  [
+  {
+    term: "monoterm",
+    tag: [ "tag", ...],
+    frequency,
+    length
+  },
+  {
+    term: "multiterm",
+    frequency,
+    length
+  }, ...
+ ] }, ... ]
+
 [TeeftSumUpFrequencies]
 
 --> [  { path, terms:  [
