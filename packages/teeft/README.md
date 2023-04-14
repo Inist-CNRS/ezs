@@ -217,7 +217,10 @@ indent = true
 -   [TeeftGetFilesContent](#teeftgetfilescontent)
 -   [TeeftListFiles](#teeftlistfiles)
 -   [TeeftNaturalTag](#teeftnaturaltag)
+-   [TeeftRemoveLongTerms](#teeftremovelongterms)
 -   [TeeftRemoveNumbers](#teeftremovenumbers)
+-   [TeeftRemoveShortTerms](#teeftremoveshortterms)
+-   [TeeftRemoveWeirdTerms](#teeftremoveweirdterms)
 -   [TeeftSentenceTokenize](#teeftsentencetokenize)
 -   [TeeftSpecificity](#teeftspecificity)
 -   [TeeftStopWords](#teeftstopwords)
@@ -360,12 +363,91 @@ Yield an array of documents (objects:
  }]
 ```
 
+### TeeftRemoveLongTerms
+
+Remove long terms from documents (longer than 50 characters).
+Documents must have a `terms` key, containing an array of objects with a
+`term` key of type string..
+
+Yields an array of documents with the same structure.
+
+Input:
+
+```json
+[{
+  "path": "/path/to/file.txt",
+  "terms": [{ "term": "this very long term should really be removed 678901" },
+            { "term": "abcd" }]
+}]
+```
+
+Output:
+
+```json
+[{
+  "path": "/path/to/file.txt",
+  "terms": [{ "term": "abcd" }]
+}]
+```
+
 ### TeeftRemoveNumbers
 
 Remove numbers from the terms of documents (objects `{ path, terms: [{ term,
 ...}] }`).
 
 Yields an array of documents with the same structure.
+
+### TeeftRemoveShortTerms
+
+Remove short terms from documents (shorter than 3 characters).
+Documents must have a `terms` key, containing an array of objects with a
+`term` key of type string..
+
+Yields an array of documents with the same structure.
+
+Input:
+
+```json
+[{
+  "path": "/path/to/file.txt",
+  "terms": [{ "term": "a" }, { "term": "abcd" }]
+}]
+```
+
+Output:
+
+```json
+[{
+  "path": "/path/to/file.txt",
+  "terms": [{ "term": "abcd" }]
+}]
+```
+
+### TeeftRemoveWeirdTerms
+
+Remove terms with too much non-alphanumeric characters.
+Documents must have a `terms` key, containing an array of objects with a
+`term` key of type string..
+
+Yields an array of documents with the same structure.
+
+Input:
+
+```json
+[{
+  "path": "/path/to/file.txt",
+  "terms": [{ "term": "αβɣδ" }, { "term": "abcd" }]
+}]
+```
+
+Output:
+
+```json
+[{
+  "path": "/path/to/file.txt",
+  "terms": [{ "term": "abcd" }]
+}]
+```
 
 ### TeeftSentenceTokenize
 
