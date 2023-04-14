@@ -5,7 +5,10 @@ import TeeftFilterTags from './filter-tags';
 import TeeftGetFilesContent from './get-files-content';
 import TeeftListFiles from './list-files';
 import TeeftNaturalTag from './natural-tag';
+import TeeftRemoveLongTerms from './remove-long-terms';
 import TeeftRemoveNumbers from './remove-numbers';
+import TeeftRemoveShortTerms from './remove-short-terms';
+import TeeftRemoveWeirdTerms from './remove-weird-terms';
 import TeeftSentenceTokenize from './sentence-tokenize';
 import TeeftSpecificity from './specificity';
 import TeeftStopWords from './stop-words';
@@ -21,7 +24,10 @@ const funcs = {
     TeeftGetFilesContent,
     TeeftListFiles,
     TeeftNaturalTag,
+    TeeftRemoveLongTerms,
     TeeftRemoveNumbers,
+    TeeftRemoveShortTerms,
+    TeeftRemoveWeirdTerms,
     TeeftSentenceTokenize,
     TeeftSpecificity,
     TeeftStopWords,
