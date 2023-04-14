@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.3.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/teeft@2.2.3...@ezs/teeft@2.3.0) (2023-04-14)
+
+
+### Features
+
+* **@ezs/teeft:** Add remove-short- remove-long- remove-weird-terms ([dc2db54](https://github.com/Inist-CNRS/ezs/commit/dc2db54525c8ce374c9d90b124d40aa176ad7c04))
+
+
+
+
+
 ## [2.2.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/teeft@2.2.2...@ezs/teeft@2.2.3) (2023-03-28)
 
 

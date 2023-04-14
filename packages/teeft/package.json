@@ -1,7 +1,7 @@
 {
   "name": "@ezs/teeft",
   "description": "ezs statements for teeft",
-  "version": "2.2.3",
+  "version": "2.3.0",
   "author": "François Parmentier <francois.parmentier@gmail.com>",
   "bugs": "https://github.com/Inist-CNRS/ezs/issues",
   "dependencies": {
