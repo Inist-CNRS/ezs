@@ -125,6 +125,48 @@ describe('exec', () => {
                 done();
             });
     });
+    test('cmd.sh (concurrency = 0)', (done) => {
+        ezs.use(statements);
+        const input = [
+            { a: 1, b: 'a' },
+            { a: 2, b: 'b' },
+            { a: 3, b: 'c' },
+            { a: 4, b: 'd' },
+            { a: 5, b: 'e' },
+            { a: 6, b: 'f' },
+        ];
+        const output = [];
+        const script = `
+
+            [exec]
+            path = b
+            command = ./cmd.sh
+            concurrency = 0
+            [replace]
+            path = a
+            value = get('A')
+            path = b
+            value = get('B')
+
+        `;
+        from(input)
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                expect(output.length).toEqual(6);
+                expect(output[0].b).toEqual('A');
+                expect(output[1].b).toEqual('B');
+                expect(output[2].b).toEqual('C');
+                expect(output[3].b).toEqual('D');
+                expect(output[4].b).toEqual('E');
+                expect(output[5].b).toEqual('F');
+                done();
+            });
+    });
     test('cmd.py', (done) => {
         ezs.use(statements);
         const input = [

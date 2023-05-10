@@ -5,6 +5,8 @@ class Pool {
     constructor(template) {
         this.template = template;
         this.size = Number(this.template.concurrency);
+        this.autoFill = this.size > 0;
+        this.size = this.autoFill ? this.size : 1;
         this.queue = [];
         this.closed = false;
         this.promises = [];
@@ -29,7 +31,9 @@ class Pool {
         if (promise === undefined) {
             return Promise.reject(new Error('Broken pool ?'));
         }
-        this.fillup();
+        if (this.autoFill) {
+            this.fillup();
+        }
 
         try {
             const resource = await promise;
