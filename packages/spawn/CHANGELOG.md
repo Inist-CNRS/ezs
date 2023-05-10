@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/spawn@1.2.31...@ezs/spawn@1.3.0) (2023-05-10)
+
+
+### Features
+
+* allow concurrency to be fix to 0 (no concurrency) ([614bc9d](https://github.com/Inist-CNRS/ezs/commit/614bc9ddb2bb10dab75bc8a95106ae913cd46ab0))
+
+
+
+
+
 ## [1.2.31](https://github.com/Inist-CNRS/ezs/compare/@ezs/spawn@1.2.30...@ezs/spawn@1.2.31) (2023-03-28)
 
 **Note:** Version bump only for package @ezs/spawn
