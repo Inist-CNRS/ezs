@@ -1,5 +1,8 @@
 ### usage
 
 ```bash
-ezs ./async.ini < input.json > output.json
-```
+
+cat input.json |ezs ./webhook.ini|jq .
+
+ ```
+
