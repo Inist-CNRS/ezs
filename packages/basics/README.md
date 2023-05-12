@@ -23,6 +23,7 @@ npm install @ezs/basics
 -   [INIString](#inistring)
 -   [JSONParse](#jsonparse)
 -   [JSONString](#jsonstring)
+-   [OBJColumns](#objcolumns)
 -   [OBJCount](#objcount)
 -   [OBJFlatten](#objflatten)
 -   [OBJNamespaces](#objnamespaces)
@@ -392,6 +393,38 @@ Output:
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
+### OBJColumns
+
+Take an `Object` and flatten it to get only one level of keys.
+
+<caption>Input:</caption>
+
+```json
+[{
+  "foo": {
+    "hello": "world"
+  },
+  "bar": "anything else",
+  "baz": 1
+}]
+```
+
+<caption>Output:</caption>
+
+```json
+[{
+  "foo": "{\"hello\":\"world\"}",
+  "bar": "anything else",
+  "baz": 1
+}]
+```
+
+#### Parameters
+
+-   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
 ### OBJCount
 
 Count how many objects are received, and yield the total.
@@ -695,6 +728,7 @@ read to be buffered and sent to the server (n times)
 -   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (optional, default `1000`)
 -   `noerror` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Ignore all errors (optional, default `false`)
 -   `retries` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** The maximum amount of times to retry the connection (optional, default `5`)
+-   `encoder` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The statement to encode each chunk to a string (optional, default `dump`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
