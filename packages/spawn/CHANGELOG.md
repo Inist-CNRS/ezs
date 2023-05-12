@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/spawn@1.3.0...@ezs/spawn@1.3.1) (2023-05-12)
+
+**Note:** Version bump only for package @ezs/spawn
+
+
+
+
+
 # [1.3.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/spawn@1.2.31...@ezs/spawn@1.3.0) (2023-05-10)
 
 
