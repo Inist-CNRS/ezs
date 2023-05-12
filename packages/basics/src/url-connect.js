@@ -26,6 +26,7 @@ import fetch from 'fetch-with-proxy';
  * @param {Number} [timeout=1000] Timeout in milliseconds
  * @param {Boolean} [noerror=false] Ignore all errors
  * @param {Number} [retries=5] The maximum amount of times to retry the connection
+ * @param {String} [encoder=dump] The statement to encode each chunk to a string
  * @returns {Object}
  */
 export default async function URLConnect(data, feed) {
@@ -33,6 +34,7 @@ export default async function URLConnect(data, feed) {
     const retries = Number(this.getParam('retries', 5));
     const noerror = Boolean(this.getParam('noerror', false));
     const json = this.getParam('json', true);
+    const encoder = this.getParam('encoder', 'dump');
     const { ezs } = this;
     if (this.isFirst()) {
         const timeout = Number(this.getParam('timeout')) || 1000;
@@ -45,7 +47,7 @@ export default async function URLConnect(data, feed) {
         this.whenFinish = feed.flow(output);
 
         writeTo(this.input, data, () => feed.end());
-        const streamIn = this.input.pipe(ezs('dump'));
+        const streamIn = this.input.pipe(ezs(encoder));
         let bodyIn;
         if (retries === 1) {
             bodyIn = streamIn.pipe(ezs.toBuffer());
