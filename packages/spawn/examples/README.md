@@ -2,7 +2,8 @@
 
 ```bash
 
-cat input.json |ezs ./webhook.ini|jq .
+ezs -d  . &
+cat input.json |curl --data-binary @- "http://localhost:31976/webhook"|jq .
 
  ```
 

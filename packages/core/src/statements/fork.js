@@ -7,6 +7,7 @@ import _ from 'lodash';
  * > **Note**: but each chunk is sent to the same external pipeline.
  *
  * @name fork
+ * @param {Boolean} [standalone=false] The current pipeline will be able to end without waiting for the end of the external pipeline
  * @param {String} [file] the external pipeline is described in a file
  * @param {String} [script] the external pipeline is described in a string of characters
  * @param {String} [commands] the external pipeline is described in a object
@@ -15,6 +16,11 @@ import _ from 'lodash';
  */
 export default function fork(data, feed) {
     const { ezs } = this;
+    const standalone = Number([]
+        .concat(this.getParam('standalone', false))
+        .filter(Boolean)
+        .shift());
+
     if (this.isFirst()) {
         let output;
         try {
@@ -42,8 +48,16 @@ export default function fork(data, feed) {
     }
     if (this.isLast()) {
         debug('ezs')(`${this.getIndex()} chunks have been delegated`);
-        this.whenFinish.finally(() => feed.close());
-        return this.input.end();
+        this.input.end();
+        if (standalone) {
+            Promise.race([
+                this.whenFinish,
+                Promise.resolve(true),
+            ]).finally(() => feed.close());
+        } else {
+            this.whenFinish.finally(() => feed.close());
+        }
+        return true;
     }
     return ezs.writeTo(this.input, _.clone(data), () => feed.send(data));
 }
