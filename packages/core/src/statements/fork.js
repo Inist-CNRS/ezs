@@ -7,6 +7,7 @@ import _ from 'lodash';
  * > **Note**: but each chunk is sent to the same external pipeline.
  *
  * @name fork
+ * @param {Boolean} [standalone=false] The current pipeline will be able to end without waiting for the end of the external pipeline
  * @param {String} [file] the external pipeline is described in a file
  * @param {String} [script] the external pipeline is described in a string of characters
  * @param {String} [commands] the external pipeline is described in a object
