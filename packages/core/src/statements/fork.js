@@ -17,7 +17,7 @@ import _ from 'lodash';
 export default function fork(data, feed) {
     const { ezs } = this;
     const standalone = Number([]
-        .concat(this.getParam('standalone', ezs.settings.concurrency))
+        .concat(this.getParam('standalone', false))
         .filter(Boolean)
         .shift());
 

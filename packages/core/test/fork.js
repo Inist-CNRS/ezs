@@ -227,4 +227,39 @@ describe('fork)', () => {
             });
     });
 
+
+    it('#5 (standalone)', (done) => {
+        let res = 0;
+        const script = `
+            [slow]
+            time = 10
+            [assign]
+            path = a
+            value = 99
+        `;
+        from([
+            { a: 1, b: 9 },
+            { a: 2, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+        ])
+            .pipe(ezs('fork', {
+                script,
+                standalone: true,
+            }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res += chunk.a;
+            })
+            .on('end', () => {
+                assert.equal(6, res);
+                done();
+            });
+    });
+
+
+
 });
