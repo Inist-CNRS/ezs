@@ -15,6 +15,11 @@ import _ from 'lodash';
  */
 export default function fork(data, feed) {
     const { ezs } = this;
+    const standalone = Number([]
+        .concat(this.getParam('standalone', ezs.settings.concurrency))
+        .filter(Boolean)
+        .shift());
+
     if (this.isFirst()) {
         let output;
         try {
@@ -42,8 +47,16 @@ export default function fork(data, feed) {
     }
     if (this.isLast()) {
         debug('ezs')(`${this.getIndex()} chunks have been delegated`);
-        this.whenFinish.finally(() => feed.close());
-        return this.input.end();
+        this.input.end();
+        if (standalone) {
+            Promise.race([
+                this.whenFinish,
+                Promise.resolve(true),
+            ]).finally(() => feed.close());
+        } else {
+            this.whenFinish.finally(() => feed.close());
+        }
+        return true;
     }
     return ezs.writeTo(this.input, _.clone(data), () => feed.send(data));
 }
