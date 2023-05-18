@@ -6,7 +6,6 @@ import statements from '../src';
 
 ezs.use(statements);
 
-const identifiers = [];
 const data = [
     { a: 1, b: 'a' },
     { a: 2, b: 'b' },
@@ -142,6 +141,7 @@ describe('storage:', () => {
         [load]
         path = b
         domain = test
+        [debug]
 
         `;
         from(input)

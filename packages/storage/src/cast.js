@@ -1,4 +1,4 @@
-import Store from './store';
+import store from './store';
 
 /**
  * Take an `Object` and replace it with all the objects of the same domain contained in the store.
@@ -16,11 +16,11 @@ export default async function cast(data, feed) {
     const domainName = this.getParam('domain', 'ezs');
     const domain = Array.isArray(domainName) ? domainName.shift() : domainName;
     if (!this.store) {
-        this.store = new Store(this.ezs, domain, location);
+        this.store = await store(this.ezs, domain, location);
     }
     if (this.isLast()) {
         return feed.close();
     }
     const stream = await this.store[func]();
-    feed.flow(stream.pipe(this.ezs('extract', { path: 'value' })));
+    return feed.flow(stream.pipe(this.ezs('extract', { path: 'value' })));
 }

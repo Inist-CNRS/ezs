@@ -1,6 +1,6 @@
 import get from 'lodash.get';
 import set from 'lodash.set';
-import Store from './store';
+import store from './store';
 
 /**
  * With a `String`, containing a URI throw all the documents that match
@@ -23,10 +23,10 @@ export default async function load(data, feed) {
         .shift();
 
     if (!this.store) {
-        this.store = new Store(this.ezs, domain, location);
+        this.store = await store(this.ezs, domain, location);
     }
     if (this.isLast()) {
-        this.store.close();
+        await this.store.close();
         return feed.close();
     }
     if (!uri) {

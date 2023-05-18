@@ -6,57 +6,38 @@ import { open } from 'lmdb';
 import debug from 'debug';
 
 const handles = {};
-const lmdbEnv = (location) => {
+const singleton = (location) => {
     if (handles[location]) {
         return handles[location];
     }
-    const path = join(location || tmpdir(), 'lmdb');
-    debug('ezs')('Open lmdb in ', path);
+    const path = join(location || tmpdir(), 'leveldb');
+    debug('ezs')('Open store in ', path);
     if (!pathExists.sync(path)) {
         makeDir.sync(path);
     }
-    handles[location] = open({
-        path,
-        compression: true,
-        commitDelay: 3000,
-        noSync: true,
-        noMemInit: true,
-    });
+
+    handles[location] = path;
+
     return handles[location];
 };
 
-export default class Store {
-    constructor(ezs, domain, location) {
+
+class AbstractStore {
+    constructor(ezs, sdb) {
         this.ezs = ezs;
-        this.domain = domain;
-        this.location = location;
-        this.open();
-    }
-
-    env() {
-        return lmdbEnv(this.location);
-    }
-
-    open() {
-        this.handle = this.env()
-            .openDB(this.domain, {
-                compression: true,
-            });
-    }
-
-    dbi() {
-        if (!this.handle) {
-            this.open();
-        }
-        return this.handle;
+        this.handle = sdb;
     }
 
     get(key) {
-        return Promise.resolve(this.dbi().get(key));
+        const k = JSON.stringify(key);
+        const value = this.handle[k] ? this.handle[k] : null;
+        return Promise.resolve(JSON.parse(value));
     }
 
     put(key, value) {
-        return this.dbi().put(key, value);
+        const k = JSON.stringify(key);
+        this.handle[k] = JSON.stringify(value);
+        return Promise.resolve(true);
     }
 
     stream() {
@@ -70,8 +51,11 @@ export default class Store {
     cast() {
         const stream = this.ezs.createStream(this.ezs.objectMode());
         process.nextTick(() => {
-            this.dbi().getRange().forEach(({ key:id, value }) => {
-                stream.write({ id, value });
+            Object.keys(this.handle).forEach(key  => {
+                stream.write({
+                    id: JSON.parse(key),
+                    value: JSON.parse(this.handle[key]),
+                });
             });
             stream.end();
         });
@@ -79,10 +63,27 @@ export default class Store {
     }
 
     reset() {
-        return this.dbi().clearAsync();
+        Object.keys(this.handle).forEach(key  => {
+            delete this.handle[key];
+        });
     }
 
     close() {
-        this.dbi().close();
+        delete this.handle;
+        return Promise.resolve(true);
     }
+}
+
+
+const memory = {};
+export default async function store(ezs, domain, location) {
+
+    const path = singleton(location);
+    if (!memory[path]) {
+        memory[path] = {};
+    }
+    if (!memory[path][domain]) {
+        memory[path][domain] = {};
+    }
+    return new AbstractStore(ezs, memory[path][domain]);
 }

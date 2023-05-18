@@ -1,10 +1,10 @@
 import parallel from 'array-parallel';
 import ezs from '../../core/src';
-import Store from '../src/store';
+import storeFactory from '../src/store';
 
 describe('With one store', () => {
     it('add distinct values', async (done) => {
-        const store = new Store(ezs, 'test_store1');
+        const store = await storeFactory(ezs, 'test_store1');
         await Promise.all([
             store.put(1, 'A'),
             store.put(2, 'B'),
@@ -25,7 +25,7 @@ describe('With one store', () => {
     });
 
     it.skip('add duplicate keys', async (done) => {
-        const store = new Store(ezs, 'test_store2');
+        const store = await storeFactory(ezs, 'test_store2');
         await store.add(1, 'A');
         await store.add(2, 'B');
         await store.add(2, 'X');
@@ -51,7 +51,7 @@ describe('With one store', () => {
     });
 
     it('put duplicate keys', async (done) => {
-        const store = new Store(ezs, 'test_store2bis');
+        const store = await storeFactory(ezs, 'test_store2bis');
         await store.put(1, 'A');
         await store.put(2, 'B');
         await store.put(2, 'X');
@@ -80,166 +80,171 @@ describe('With one store', () => {
 });
 
 describe('With shared store #1', () => {
-    const store1 = new Store(ezs, 'test_store3');
-    const store2 = new Store(ezs, 'test_store3');
-    const store3 = new Store(ezs, 'test_store3');
-    const store4 = new Store(ezs, 'test_store3');
 
-    it('run 3 times the same instructions', (alldone) => parallel(
-        [
-            async (done) => {
-                await store1.put(1, 'A');
-                await store1.put(2, 'B');
-                await store1.put(3, 'C');
-                done();
+    it('run 3 times the same instructions', async (alldone) => {
+        const store1 = await storeFactory(ezs, 'test_store3');
+        const store2 = await storeFactory(ezs, 'test_store3');
+        const store3 = await storeFactory(ezs, 'test_store3');
+        const store4 = await storeFactory(ezs, 'test_store3');
+        parallel(
+            [
+                async (done) => {
+                    await store1.put(1, 'A');
+                    await store1.put(2, 'B');
+                    await store1.put(3, 'C');
+                    done();
+                },
+                async (done) => {
+                    await store2.put(1, 'A');
+                    await store2.put(2, 'B');
+                    await store2.put(3, 'C');
+                    done();
+                },
+                async (done) => {
+                    await store3.put(1, 'A');
+                    await store3.put(2, 'B');
+                    await store3.put(3, 'C');
+                    done();
+                },
+            ],
+            this,
+            () => {
+                const output = [];
+                store4
+                    .empty()
+                    .on('data', (chunk) => {
+                        output.push(chunk);
+                    })
+                    .on('end', () => {
+                        expect(output.length).toEqual(3);
+                        expect(output[0].id).toEqual(1);
+                        expect(output[0].value[0]).toEqual('A');
+                        expect(output[1].id).toEqual(2);
+                        expect(output[1].value[0]).toEqual('B');
+                        expect(output[2].id).toEqual(3);
+                        expect(output[2].value[0]).toEqual('C');
+                        alldone();
+                    });
             },
-            async (done) => {
-                await store2.put(1, 'A');
-                await store2.put(2, 'B');
-                await store2.put(3, 'C');
-                done();
-            },
-            async (done) => {
-                await store3.put(1, 'A');
-                await store3.put(2, 'B');
-                await store3.put(3, 'C');
-                done();
-            },
-        ],
-        this,
-        () => {
-            const output = [];
-            store4
-                .empty()
-                .on('data', (chunk) => {
-                    output.push(chunk);
-                })
-                .on('end', () => {
-                    expect(output.length).toEqual(3);
-                    expect(output[0].id).toEqual(1);
-                    expect(output[0].value[0]).toEqual('A');
-                    expect(output[1].id).toEqual(2);
-                    expect(output[1].value[0]).toEqual('B');
-                    expect(output[2].id).toEqual(3);
-                    expect(output[2].value[0]).toEqual('C');
-                    alldone();
-                });
-        },
-    ));
+        );
+    });
 });
 
 describe('With shared store #2', () => {
-    const store1 = new Store(ezs, 'test_store4');
-    const store2 = new Store(ezs, 'test_store4');
-    const store3 = new Store(ezs, 'test_store4');
-    const store4 = new Store(ezs, 'test_store4');
-
-    it('run 3 times the different instructions', (alldone) => parallel(
-        [
-            async (done) => {
-                await store1.put(1, 'A');
-                await store1.put(2, 'B');
-                await store1.put(3, 'C');
-                done();
+    it('run 3 times the different instructions', async (alldone) => {
+        const store1 = await storeFactory(ezs, 'test_store4');
+        const store2 = await storeFactory(ezs, 'test_store4');
+        const store3 = await storeFactory(ezs, 'test_store4');
+        const store4 = await storeFactory(ezs, 'test_store4');
+        parallel(
+            [
+                async (done) => {
+                    await store1.put(1, 'A');
+                    await store1.put(2, 'B');
+                    await store1.put(3, 'C');
+                    done();
+                },
+                async (done) => {
+                    await store2.put(4, 'A');
+                    await store2.put(5, 'B');
+                    await store2.put(6, 'C');
+                    done();
+                },
+                async (done) => {
+                    await store3.put(7, 'A');
+                    await store3.put(8, 'B');
+                    await store3.put(9, 'C');
+                    done();
+                },
+            ],
+            this,
+            () => {
+                const output = [];
+                store4
+                    .empty()
+                    .on('data', (chunk) => {
+                        output.push(chunk);
+                    })
+                    .on('end', () => {
+                        expect(output.length).toEqual(9);
+                        expect(output[0].id).toEqual(1);
+                        expect(output[0].value[0]).toEqual('A');
+                        expect(output[3].id).toEqual(4);
+                        expect(output[3].value[0]).toEqual('A');
+                        expect(output[6].id).toEqual(7);
+                        expect(output[6].value[0]).toEqual('A');
+                        alldone();
+                    });
             },
-            async (done) => {
-                await store2.put(4, 'A');
-                await store2.put(5, 'B');
-                await store2.put(6, 'C');
-                done();
-            },
-            async (done) => {
-                await store3.put(7, 'A');
-                await store3.put(8, 'B');
-                await store3.put(9, 'C');
-                done();
-            },
-        ],
-        this,
-        () => {
-            const output = [];
-            store4
-                .empty()
-                .on('data', (chunk) => {
-                    output.push(chunk);
-                })
-                .on('end', () => {
-                    expect(output.length).toEqual(9);
-                    expect(output[0].id).toEqual(1);
-                    expect(output[0].value[0]).toEqual('A');
-                    expect(output[3].id).toEqual(4);
-                    expect(output[3].value[0]).toEqual('A');
-                    expect(output[6].id).toEqual(7);
-                    expect(output[6].value[0]).toEqual('A');
-                    alldone();
-                });
-        },
-    ));
+        );
+    });
 });
 
 
 describe('With shared store #2', () => {
-    const store1 = new Store(ezs, 'test_store5');
-    const store2 = new Store(ezs, 'test_store5');
-    const store3 = new Store(ezs, 'test_store5');
 
-    it('run 3 times stream instructions', (alldone) => parallel(
-        [
-            async (done) => {
-                await store1.put(1, 'A');
-                await store1.put(2, 'B');
-                await store1.put(3, 'C');
-                const output = [];
-                store1
-                    .stream()
-                    .on('data', (chunk) => {
-                        output.push(chunk.value[0]);
-                    })
-                    .on('end', () => {
-                        expect(output).toEqual(expect.arrayContaining(['A', 'B', 'C']));
-                        done();
-                    });
-            },
-            async (done) => {
-                await store2.put(4, 'D');
-                await store2.put(5, 'E');
-                await store2.put(6, 'F');
-                const output = [];
-                store2
-                    .stream()
-                    .on('data', (chunk) => {
-                        output.push(chunk.value[0]);
-                    })
-                    .on('end', () => {
-                        expect(output).toEqual(expect.arrayContaining(['D', 'E', 'F']));
-                        done();
-                    });
-            },
-            async (done) => {
-                await store3.put(7, 'G');
-                await store3.put(8, 'H');
-                await store3.put(9, 'I');
-                const output = [];
-                store3
-                    .stream()
-                    .on('data', (chunk) => {
-                        output.push(chunk.value[0]);
-                    })
-                    .on('end', () => {
-                        expect(output).toEqual(expect.arrayContaining(['G', 'H', 'I']));
-                        done();
-                    });
-            },
-        ],
-        this,
-        alldone,
-    ));
+    it('run 3 times stream instructions', async (alldone) => {
+        const store1 = await storeFactory(ezs, 'test_store5');
+        const store2 = await storeFactory(ezs, 'test_store5');
+        const store3 = await storeFactory(ezs, 'test_store5');
+        parallel(
+            [
+                async (done) => {
+                    await store1.put(1, 'A');
+                    await store1.put(2, 'B');
+                    await store1.put(3, 'C');
+                    const output = [];
+                    store1
+                        .stream()
+                        .on('data', (chunk) => {
+                            output.push(chunk.value[0]);
+                        })
+                        .on('end', () => {
+                            expect(output).toEqual(expect.arrayContaining(['A', 'B', 'C']));
+                            done();
+                        });
+                },
+                async (done) => {
+                    await store2.put(4, 'D');
+                    await store2.put(5, 'E');
+                    await store2.put(6, 'F');
+                    const output = [];
+                    store2
+                        .stream()
+                        .on('data', (chunk) => {
+                            output.push(chunk.value[0]);
+                        })
+                        .on('end', () => {
+                            expect(output).toEqual(expect.arrayContaining(['D', 'E', 'F']));
+                            done();
+                        });
+                },
+                async (done) => {
+                    await store3.put(7, 'G');
+                    await store3.put(8, 'H');
+                    await store3.put(9, 'I');
+                    const output = [];
+                    store3
+                        .stream()
+                        .on('data', (chunk) => {
+                            output.push(chunk.value[0]);
+                        })
+                        .on('end', () => {
+                            expect(output).toEqual(expect.arrayContaining(['G', 'H', 'I']));
+                            done();
+                        });
+                },
+            ],
+            this,
+            alldone,
+        );
+    });
 });
 
 describe('With simple store', () => {
-    const store = new Store(ezs, 'test_storeX');
     it('put and get values', async (done) => {
-        expect(await store.put(1, 'A')).toEqual(true);
+        const store = await storeFactory(ezs, 'test_storeX');
+        await store.put(1, 'A');
         expect(await store.get(1)).toEqual('A');
         done();
     });

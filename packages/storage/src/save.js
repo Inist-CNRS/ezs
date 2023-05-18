@@ -1,5 +1,5 @@
 import get from 'lodash.get';
-import Store from './store';
+import store from './store';
 
 /**
  * Take `Object`, to save it into a store and throw an URL
@@ -19,13 +19,13 @@ export default async function save(data, feed) {
     const domainName = this.getParam('domain', 'ezs');
     const domain = Array.isArray(domainName) ? domainName.shift() : domainName;
     if (!this.store) {
-        this.store = new Store(ezs, domain, location);
+        this.store = await store(ezs, domain, location);
     }
     if (this.isFirst() && reset === true) {
         this.store.reset();
     }
     if (this.isLast()) {
-        this.store.close();
+        await this.store.close();
         return feed.close();
     }
     if (!uri) {
