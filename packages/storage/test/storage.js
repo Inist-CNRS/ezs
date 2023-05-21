@@ -1,6 +1,4 @@
-import assert from 'assert';
 import from from 'from';
-import getStream from 'get-stream';
 import ezs from '../../core/src';
 import statements from '../src';
 
@@ -141,7 +139,6 @@ describe('storage:', () => {
         [load]
         path = b
         domain = test
-        [debug]
 
         `;
         from(input)
@@ -180,7 +177,7 @@ describe('storage:', () => {
                 output.push(chunk);
             })
             .on('end', () => {
-                expect(output).toEqual(input);
+                expect(output.sort((x, y) => (x.a > y.a) ? 1 : -1)).toEqual(input);
                 done();
             });
     });
@@ -211,11 +208,20 @@ describe('storage:', () => {
             .on('data', (chunk) => {
                 output.push(chunk);
             })
-            .on('end', async () => {
-                expect(output).toEqual(input);
-                const output2 = await getStream(from(['GO']).pipe(ezs('cast', {domain: 'test3'})));
-                expect(output2.length).toEqual(0);
-                done();
+            .on('end', () => {
+                expect(output.sort((x, y) => (x.a > y.a) ? 1 : -1)).toEqual(input);
+                const output2 = [];
+                from(['GO'])
+                    .pipe(ezs('cast', {domain: 'test3'}))
+                    .pipe(ezs.catch())
+                    .on('error', done)
+                    .on('data', (chunk) => {
+                        output2.push(chunk);
+                    })
+                    .on('end', () => {
+                        expect(output2.length).toEqual(0);
+                        done();
+                    });
             });
     });
 

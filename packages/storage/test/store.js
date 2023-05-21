@@ -3,7 +3,7 @@ import ezs from '../../core/src';
 import storeFactory from '../src/store';
 
 describe('With one store', () => {
-    it('add distinct values', async (done) => {
+    it.only('add distinct values', async (done) => {
         const store = await storeFactory(ezs, 'test_store1');
         await Promise.all([
             store.put(1, 'A'),

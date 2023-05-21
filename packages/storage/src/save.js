@@ -22,7 +22,7 @@ export default async function save(data, feed) {
         this.store = await store(ezs, domain, location);
     }
     if (this.isFirst() && reset === true) {
-        this.store.reset();
+        await this.store.reset();
     }
     if (this.isLast()) {
         await this.store.close();

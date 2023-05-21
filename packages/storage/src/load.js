@@ -41,6 +41,13 @@ export default async function load(data, feed) {
         }
         return feed.send(value);
     } catch(e) {
+        if (e.code === 'ENOENT') {
+            if (target) {
+                set(data, target, undefined);
+                return feed.send(data);
+            }
+            return feed.end();
+        }
         console.warn(`WARNING: Fail to load uri (${uri}), item #${this.getIndex()} was ignored`, e);
         return feed.send(data);
     }

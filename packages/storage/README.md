@@ -16,27 +16,9 @@ npm install @ezs/storage
 
 #### Table of Contents
 
--   [boost](#boost)
 -   [cast](#cast)
 -   [load](#load)
 -   [save](#save)
-
-### boost
-
-Takes an `Object` delegate processing to an external pipeline and cache the result
-
-#### Parameters
-
--   `data`  
--   `feed`  
--   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
--   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
--   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in an object
--   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
--   `key` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the cache key form the stream, in not provided, it's computed with the first chunk
--   `cleanupDelay` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Frequency (seconds) to cleanup the cache (EZS_DELAY) (optional, default `3600`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### cast
 
