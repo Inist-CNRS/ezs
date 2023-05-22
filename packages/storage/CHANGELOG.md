@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@2.0.2...@ezs/storage@3.0.0) (2023-05-22)
+
+
+### Features
+
+* 🎸 change store engine ([10494c9](https://github.com/Inist-CNRS/ezs/commit/10494c93d2ac021dcd8c5b7929b4045f6b8b0835))
+
+
+### BREAKING CHANGES
+
+* 🧨 possibly
+
+
+
+
+
 ## [2.0.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@2.0.1...@ezs/storage@2.0.2) (2023-03-28)
 
 **Note:** Version bump only for package @ezs/storage
