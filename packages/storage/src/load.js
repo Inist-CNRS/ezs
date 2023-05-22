@@ -1,6 +1,6 @@
 import get from 'lodash.get';
 import set from 'lodash.set';
-import Store from './store';
+import store from './store';
 
 /**
  * With a `String`, containing a URI throw all the documents that match
@@ -21,19 +21,18 @@ export default async function load(data, feed) {
         .concat(this.getParam('target'))
         .filter(Boolean)
         .shift();
-
-    if (!this.store) {
-        this.store = new Store(this.ezs, domain, location);
-    }
-    if (this.isLast()) {
-        this.store.close();
-        return feed.close();
-    }
-    if (!uri) {
-        console.warn(`WARNING: uri was empty, [load] item #${this.getIndex()} was ignored`);
-        return feed.send(data);
-    }
     try {
+        if (!this.store) {
+            this.store = await store(this.ezs, domain, location);
+        }
+        if (this.isLast()) {
+            await this.store.close();
+            return feed.close();
+        }
+        if (!uri) {
+            console.warn(`WARNING: uri was empty, [load] item #${this.getIndex()} was ignored`);
+            return feed.send(data);
+        }
         const value = await this.store.get(uri);
         if (target) {
             set(data, target, value);
@@ -41,7 +40,14 @@ export default async function load(data, feed) {
         }
         return feed.send(value);
     } catch(e) {
-        console.warn(`WARNING: Fail to load uri (${uri}), item #${this.getIndex()} was ignored`, e);
-        return feed.send(data);
+        if (e.code === 'ENOENT') {
+            console.warn(`WARNING: uri not found (${uri}), item #${this.getIndex()} was ignored`, e);
+            if (target) {
+                set(data, target, undefined);
+                return feed.send(data);
+            }
+            return feed.end();
+        }
+        return feed.stop(e);
     }
 }

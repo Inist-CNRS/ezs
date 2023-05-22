@@ -1,12 +1,9 @@
-import assert from 'assert';
 import from from 'from';
-import getStream from 'get-stream';
 import ezs from '../../core/src';
 import statements from '../src';
 
 ezs.use(statements);
 
-const identifiers = [];
 const data = [
     { a: 1, b: 'a' },
     { a: 2, b: 'b' },
@@ -83,6 +80,44 @@ describe('storage:', () => {
             })
             .on('end', () => {
                 expect(output).toEqual(input);
+                done();
+            });
+    });
+
+    it('save and load #2bis (not found)', (done) => {
+        const input = [...data];
+        const output = [];
+        const script = `
+
+        [save]
+        path = a
+        path = to ignore
+        domain = test2b
+        domain = to ignore
+        reset = true
+
+        [replace]
+        path = a
+        value = get('a').append('~')
+
+        [load]
+        path = a
+        domain = test2b
+        target = c
+
+        [remove]
+        test = get('c').isEmpty()
+
+        `;
+        from(input)
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                expect(output.length).toEqual(0);
                 done();
             });
     });
@@ -180,7 +215,7 @@ describe('storage:', () => {
                 output.push(chunk);
             })
             .on('end', () => {
-                expect(output).toEqual(input);
+                expect(output.sort((x, y) => (x.a > y.a) ? 1 : -1)).toEqual(input);
                 done();
             });
     });
@@ -211,13 +246,91 @@ describe('storage:', () => {
             .on('data', (chunk) => {
                 output.push(chunk);
             })
-            .on('end', async () => {
-                expect(output).toEqual(input);
-                const output2 = await getStream(from(['GO']).pipe(ezs('cast', {domain: 'test3'})));
-                expect(output2.length).toEqual(0);
-                done();
+            .on('end', () => {
+                expect(output.sort((x, y) => (x.a > y.a) ? 1 : -1)).toEqual(input);
+                const output2 = [];
+                from(['GO'])
+                    .pipe(ezs('cast', {domain: 'test3'}))
+                    .pipe(ezs.catch())
+                    .on('error', done)
+                    .on('data', (chunk) => {
+                        output2.push(chunk);
+                    })
+                    .on('end', () => {
+                        expect(output2.length).toEqual(0);
+                        done();
+                    });
             });
     });
 
+    it('fordiden cast', (done) => {
+        const input = [...data];
+        const script = `
+
+        [cast]
+        domain = fake
+        location = /etc
+        clean = true
+
+        `;
+        from(input)
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', (e) => {
+                expect(e.message).toEqual(expect.stringContaining('permission denied'));
+                done();
+            })
+            .on('data', () => true)
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+            });
+    });
+
+    it('fordiden save', (done) => {
+        const input = [...data];
+        const script = `
+
+        [save]
+        domain = fake
+        location = /etc
+        clean = true
+
+        `;
+        from(input)
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', (e) => {
+                expect(e.message).toEqual(expect.stringContaining('permission denied'));
+                done();
+            })
+            .on('data', () => true)
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+            });
+    });
+
+    it('fordiden load ', (done) => {
+        const input = [...data];
+        const script = `
+
+        [load]
+        domain = fake
+        location = /etc
+        clean = true
+        path = a
+
+        `;
+        from(input)
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', (e) => {
+                expect(e.message).toEqual(expect.stringContaining('permission denied'));
+                done();
+            })
+            .on('data', () => true)
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+            });
+    });
 
 });

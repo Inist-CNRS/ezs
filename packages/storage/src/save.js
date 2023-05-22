@@ -1,5 +1,5 @@
 import get from 'lodash.get';
-import Store from './store';
+import store from './store';
 
 /**
  * Take `Object`, to save it into a store and throw an URL
@@ -18,25 +18,25 @@ export default async function save(data, feed) {
     const uri = get(data, path);
     const domainName = this.getParam('domain', 'ezs');
     const domain = Array.isArray(domainName) ? domainName.shift() : domainName;
-    if (!this.store) {
-        this.store = new Store(ezs, domain, location);
-    }
-    if (this.isFirst() && reset === true) {
-        this.store.reset();
-    }
-    if (this.isLast()) {
-        this.store.close();
-        return feed.close();
-    }
-    if (!uri) {
-        console.warn(`WARNING: uri was empty, [save] item #${this.getIndex()} was ignored`);
-        return feed.send(data);
-    }
     try {
+        if (!this.store) {
+            this.store = await store(ezs, domain, location);
+        }
+        if (this.isLast()) {
+            await this.store.close();
+            return feed.close();
+        }
+
+        if (this.isFirst() && reset === true) {
+            await this.store.reset();
+        }
+        if (!uri) {
+            console.warn(`WARNING: uri was empty, [save] item #${this.getIndex()} was ignored`);
+            return feed.send(data);
+        }
         await this.store.put(uri, data);
         return feed.send(data);
     } catch(e) {
-        console.warn(`WARNING: Fail to save uri (${uri}), item #${this.getIndex()} was ignored`, e);
-        return feed.send(data);
+        return feed.stop(e);
     }
 }

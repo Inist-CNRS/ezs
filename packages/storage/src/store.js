@@ -2,61 +2,22 @@ import { tmpdir } from 'os';
 import { join } from 'path';
 import pathExists from 'path-exists';
 import makeDir from 'make-dir';
-import { open } from 'lmdb';
-import debug from 'debug';
+import cacache from 'cacache';
 
-const handles = {};
-const lmdbEnv = (location) => {
-    if (handles[location]) {
-        return handles[location];
-    }
-    const path = join(location || tmpdir(), 'lmdb');
-    debug('ezs')('Open lmdb in ', path);
-    if (!pathExists.sync(path)) {
-        makeDir.sync(path);
-    }
-    handles[location] = open({
-        path,
-        compression: true,
-        commitDelay: 3000,
-        noSync: true,
-        noMemInit: true,
-    });
-    return handles[location];
-};
-
-export default class Store {
-    constructor(ezs, domain, location) {
+class AbstractStore {
+    constructor(ezs, handle) {
         this.ezs = ezs;
-        this.domain = domain;
-        this.location = location;
-        this.open();
-    }
-
-    env() {
-        return lmdbEnv(this.location);
-    }
-
-    open() {
-        this.handle = this.env()
-            .openDB(this.domain, {
-                compression: true,
-            });
-    }
-
-    dbi() {
-        if (!this.handle) {
-            this.open();
-        }
-        return this.handle;
+        this.handle = handle;
     }
 
     get(key) {
-        return Promise.resolve(this.dbi().get(key));
+        const k = JSON.stringify(key);
+        return cacache.get(this.handle, k).then(({ data }) => JSON.parse(String(data)));
     }
 
     put(key, value) {
-        return this.dbi().put(key, value);
+        const k = JSON.stringify(key);
+        return cacache.put(this.handle, k, JSON.stringify(value));
     }
 
     stream() {
@@ -64,25 +25,49 @@ export default class Store {
     }
 
     empty() {
-        return this.cast().on('end', () => this.reset());
+        return this.cast().pipe(this.ezs(async (data, feed, ctx) => {
+            if (ctx.isLast()) {
+                await this.reset();
+                return feed.close();
+            }
+            return feed.send(data);
+        }));
     }
 
     cast() {
-        const stream = this.ezs.createStream(this.ezs.objectMode());
-        process.nextTick(() => {
-            this.dbi().getRange().forEach(({ key:id, value }) => {
-                stream.write({ id, value });
-            });
-            stream.end();
-        });
-        return stream;
+        return cacache.ls.stream(this.handle).pipe(this.ezs( async (data, feed, ctx) => {
+            if (ctx.isLast()) {
+                return feed.close();
+            }
+            const { key, integrity } = data;
+            try {
+                const value = await cacache.get.byDigest(this.handle, integrity);
+                return feed.send({
+                    id: JSON.parse(key),
+                    value: JSON.parse(value),
+                });
+            }
+            catch (e) {
+                return feed.end();
+            }
+        }));
     }
 
     reset() {
-        return this.dbi().clearAsync();
+        return cacache.rm.all(this.handle);
     }
 
     close() {
-        this.dbi().close();
+        delete this.handle;
+        return Promise.resolve(true);
     }
+}
+
+export default async function store(ezs, domain, location) {
+
+    const path = join(location || tmpdir(), 'db', domain);
+    if (!pathExists.sync(path)) {
+        makeDir.sync(path);
+    }
+    return new AbstractStore(ezs, path);
 }
