@@ -225,5 +225,74 @@ describe('storage:', () => {
             });
     });
 
+    it('fordiden cast', (done) => {
+        const input = [...data];
+        const script = `
+
+        [cast]
+        domain = fake
+        location = /etc
+        clean = true
+
+        `;
+        from(input)
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', (e) => {
+                expect(e.message).toEqual(expect.stringContaining('permission denied'));
+                done();
+            })
+            .on('data', () => true)
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+            });
+    });
+
+    it('fordiden save', (done) => {
+        const input = [...data];
+        const script = `
+
+        [save]
+        domain = fake
+        location = /etc
+        clean = true
+
+        `;
+        from(input)
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', (e) => {
+                expect(e.message).toEqual(expect.stringContaining('permission denied'));
+                done();
+            })
+            .on('data', () => true)
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+            });
+    });
+
+    it('fordiden load ', (done) => {
+        const input = [...data];
+        const script = `
+
+        [load]
+        domain = fake
+        location = /etc
+        clean = true
+        path = a
+
+        `;
+        from(input)
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', (e) => {
+                expect(e.message).toEqual(expect.stringContaining('permission denied'));
+                done();
+            })
+            .on('data', () => true)
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+            });
+    });
 
 });

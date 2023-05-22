@@ -26,7 +26,6 @@ export default async function cast(data, feed) {
         return feed.flow(stream.pipe(this.ezs('extract', { path: 'value' })));
     }
     catch (e) {
-        console.warn(`WARNING: Fail to cast ${domain}),item #${this.getIndex()} was ignored`, e);
-        return feed.end();
+        return feed.stop(e);
     }
 }
