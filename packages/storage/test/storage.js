@@ -84,6 +84,44 @@ describe('storage:', () => {
             });
     });
 
+    it('save and load #2bis (not found)', (done) => {
+        const input = [...data];
+        const output = [];
+        const script = `
+
+        [save]
+        path = a
+        path = to ignore
+        domain = test2b
+        domain = to ignore
+        reset = true
+
+        [replace]
+        path = a
+        value = get('a').append('~')
+
+        [load]
+        path = a
+        domain = test2b
+        target = c
+
+        [remove]
+        test = get('c').isEmpty()
+
+        `;
+        from(input)
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                expect(output.length).toEqual(0);
+                done();
+            });
+    });
+
 
     it('save without uid (ignored)', (done) => {
         const input = [...data];
