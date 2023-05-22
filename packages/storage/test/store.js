@@ -3,7 +3,7 @@ import ezs from '../../core/src';
 import storeFactory from '../src/store';
 
 describe('With one store', () => {
-    it.only('add distinct values', async (done) => {
+    it('add distinct values', async (done) => {
         const store = await storeFactory(ezs, 'test_store1');
         await Promise.all([
             store.put(1, 'A'),
@@ -17,9 +17,10 @@ describe('With one store', () => {
                 output.push(chunk);
             })
             .on('end', () => {
+                const outputSorted = output.sort((x, y) => (x.id > y.id) ? 1 : -1);
                 expect(output.length).toEqual(3);
-                expect(output[0].id).toEqual(1);
-                expect(output[0].value[0]).toEqual('A');
+                expect(outputSorted[0].id).toEqual(1);
+                expect(outputSorted[0].value[0]).toEqual('A');
                 done();
             });
     });
@@ -41,11 +42,12 @@ describe('With one store', () => {
                 output.push(chunk);
             })
             .on('end', () => {
+                const outputSorted = output.sort((x, y) => (x.id > y.id) ? 1 : -1);
                 expect(output.length).toEqual(3);
-                expect(output[0].id).toEqual(1);
-                expect(output[0].value.length).toEqual(4);
-                expect(output[1].value.length).toEqual(3);
-                expect(output[2].value.length).toEqual(1);
+                expect(outputSorted[0].id).toEqual(1);
+                expect(outputSorted[0].value.length).toEqual(4);
+                expect(outputSorted[1].value.length).toEqual(3);
+                expect(outputSorted[2].value.length).toEqual(1);
                 done();
             });
     });
@@ -67,13 +69,14 @@ describe('With one store', () => {
                 output.push(chunk);
             })
             .on('end', () => {
+                const outputSorted = output.sort((x, y) => (x.id > y.id) ? 1 : -1);
                 expect(output.length).toEqual(3);
-                expect(output[0].id).toEqual(1);
-                expect(output[0].value).toEqual('R');
-                expect(output[1].value.length).toEqual(1);
-                expect(output[1].value).toEqual('D');
-                expect(output[2].value.length).toEqual(1);
-                expect(output[2].value).toEqual('C');
+                expect(outputSorted[0].id).toEqual(1);
+                expect(outputSorted[0].value).toEqual('R');
+                expect(outputSorted[1].value.length).toEqual(1);
+                expect(outputSorted[1].value).toEqual('D');
+                expect(outputSorted[2].value.length).toEqual(1);
+                expect(outputSorted[2].value).toEqual('C');
                 done();
             });
     });
@@ -116,13 +119,14 @@ describe('With shared store #1', () => {
                         output.push(chunk);
                     })
                     .on('end', () => {
+                        const outputSorted = output.sort((x, y) => (x.id > y.id) ? 1 : -1);
                         expect(output.length).toEqual(3);
-                        expect(output[0].id).toEqual(1);
-                        expect(output[0].value[0]).toEqual('A');
-                        expect(output[1].id).toEqual(2);
-                        expect(output[1].value[0]).toEqual('B');
-                        expect(output[2].id).toEqual(3);
-                        expect(output[2].value[0]).toEqual('C');
+                        expect(outputSorted[0].id).toEqual(1);
+                        expect(outputSorted[0].value[0]).toEqual('A');
+                        expect(outputSorted[1].id).toEqual(2);
+                        expect(outputSorted[1].value[0]).toEqual('B');
+                        expect(outputSorted[2].id).toEqual(3);
+                        expect(outputSorted[2].value[0]).toEqual('C');
                         alldone();
                     });
             },
@@ -166,13 +170,14 @@ describe('With shared store #2', () => {
                         output.push(chunk);
                     })
                     .on('end', () => {
+                        const outputSorted = output.sort((x, y) => (x.id > y.id) ? 1 : -1);
                         expect(output.length).toEqual(9);
-                        expect(output[0].id).toEqual(1);
-                        expect(output[0].value[0]).toEqual('A');
-                        expect(output[3].id).toEqual(4);
-                        expect(output[3].value[0]).toEqual('A');
-                        expect(output[6].id).toEqual(7);
-                        expect(output[6].value[0]).toEqual('A');
+                        expect(outputSorted[0].id).toEqual(1);
+                        expect(outputSorted[0].value[0]).toEqual('A');
+                        expect(outputSorted[3].id).toEqual(4);
+                        expect(outputSorted[3].value[0]).toEqual('A');
+                        expect(outputSorted[6].id).toEqual(7);
+                        expect(outputSorted[6].value[0]).toEqual('A');
                         alldone();
                     });
             },
