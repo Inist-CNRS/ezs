@@ -99,6 +99,7 @@ describe('URLConnect', () => {
                 json: false,
                 timeout: 'fakevalue', // for test
             }))
+            .pipe(ezs('JSONParse'))
             .pipe(ezs.catch())
             .on('error',done)
             .on('data', (chunk) => {
