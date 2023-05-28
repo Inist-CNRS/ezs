@@ -88,9 +88,13 @@ export default async function URLConnect(data, feed) {
                         });
                         bodyOut.pipe(output);
                     } else {
-                        const bodyOutRaw = await getStream(response.body);
-                        const bodyOutArray = JSON.parse(bodyOutRaw);
-                        from(bodyOutArray).pipe(output);
+                        if (json) {
+                            const bodyOutRaw = await getStream(response.body);
+                            const bodyOutArray = JSON.parse(bodyOutRaw);
+                            from(bodyOutArray).pipe(output);
+                        } else {
+                            response.body.pipe(output);
+                        }
                     }
                 },
                 {
