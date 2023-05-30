@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.1.1...@ezs/basics@2.1.2) (2023-05-30)
+
+
+### Bug Fixes
+
+* 🐛 retry without json parse ([90e17b5](https://github.com/Inist-CNRS/ezs/commit/90e17b5ea2cbf60f18a9ecbf29b338b1395e318e))
+
+
+
+
+
 ## [2.1.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.1.0...@ezs/basics@2.1.1) (2023-05-12)
 
 **Note:** Version bump only for package @ezs/basics
