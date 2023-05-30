@@ -23,7 +23,6 @@ npm install @ezs/basics
 -   [INIString](#inistring)
 -   [JSONParse](#jsonparse)
 -   [JSONString](#jsonstring)
--   [OBJColumns](#objcolumns)
 -   [OBJCount](#objcount)
 -   [OBJFlatten](#objflatten)
 -   [OBJNamespaces](#objnamespaces)
@@ -392,38 +391,6 @@ Output:
 -   `indent` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** indent JSON (optional, default `false`)
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-### OBJColumns
-
-Take an `Object` and flatten it to get only one level of keys.
-
-<caption>Input:</caption>
-
-```json
-[{
-  "foo": {
-    "hello": "world"
-  },
-  "bar": "anything else",
-  "baz": 1
-}]
-```
-
-<caption>Output:</caption>
-
-```json
-[{
-  "foo": "{\"hello\":\"world\"}",
-  "bar": "anything else",
-  "baz": 1
-}]
-```
-
-#### Parameters
-
--   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### OBJCount
 
