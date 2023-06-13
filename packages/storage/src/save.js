@@ -7,6 +7,7 @@ import store from './store';
  * @param {String} [path=uri] path containing the object Identifier
  * @param {String} [domain=ezs] domain ID (same for all objects)
  * @param {Boolean} [reset=false] if the store already exists, you will erase all previous content
+ * @param {Boolean} [score=false] if the object has already been saved, the current object will replace it if its score is higher
  * @returns {Object}
  */
 export default async function save(data, feed) {
@@ -18,6 +19,7 @@ export default async function save(data, feed) {
     const uri = get(data, path);
     const domainName = this.getParam('domain', 'ezs');
     const domain = Array.isArray(domainName) ? domainName.shift() : domainName;
+    const score = this.getParam('score', false);
     try {
         if (!this.store) {
             this.store = await store(ezs, domain, location);
@@ -34,7 +36,7 @@ export default async function save(data, feed) {
             console.warn(`WARNING: uri was empty, [save] item #${this.getIndex()} was ignored`);
             return feed.send(data);
         }
-        await this.store.put(uri, data);
+        await this.store.put(uri, data, score);
         return feed.send(data);
     } catch(e) {
         return feed.stop(e);
