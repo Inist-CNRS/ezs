@@ -22,7 +22,10 @@ class AbstractStore {
             return cacache.put(this.handle, k, v);
         }
         const alreadyExist = await cacache.get.info(this.handle, k);
-        if (!alreadyExist || alreadyExist.metadata.score < score) {
+        if (!alreadyExist ||
+            !alreadyExist.metadata ||
+            !alreadyExist.metadata.score ||
+            alreadyExist.metadata.score < score) {
             const o = {
                 metadata: {
                     score,
