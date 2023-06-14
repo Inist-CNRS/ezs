@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@3.0.0...@ezs/storage@3.1.0) (2023-06-14)
+
+
+### Features
+
+* 🎸 add a note to keep the most relevant element ([1d867a9](https://github.com/Inist-CNRS/ezs/commit/1d867a963d06a5ba9bd64a46a92173f4544b32b9))
+
+
+
+
+
 # [3.0.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@2.0.2...@ezs/storage@3.0.0) (2023-05-22)
 
 

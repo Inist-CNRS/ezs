@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@2.5.4...@ezs/core@3.0.0) (2023-06-14)
+
+
+### Features
+
+* 🎸 add a note to keep the most relevant element ([1d867a9](https://github.com/Inist-CNRS/ezs/commit/1d867a963d06a5ba9bd64a46a92173f4544b32b9))
+* 🎸 change store engine ([10494c9](https://github.com/Inist-CNRS/ezs/commit/10494c93d2ac021dcd8c5b7929b4045f6b8b0835))
+
+
+### BREAKING CHANGES
+
+* 🧨 possibly
+
+
+
+
+
 ## [2.5.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@2.5.3...@ezs/core@2.5.4) (2023-05-16)
 
 **Note:** Version bump only for package @ezs/core
