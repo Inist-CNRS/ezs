@@ -3,7 +3,7 @@ import ezs from '../../core/src';
 import storeFactory from '../src/store';
 
 describe('With one store', () => {
-    it('add distinct values', async (done) => {
+    it('put distinct values', async (done) => {
         const store = await storeFactory(ezs, 'test_store1');
         await Promise.all([
             store.put(1, 'A'),
@@ -25,16 +25,14 @@ describe('With one store', () => {
             });
     });
 
-    it.skip('add duplicate keys', async (done) => {
+    it('put duplicate keys', async (done) => {
         const store = await storeFactory(ezs, 'test_store2');
-        await store.add(1, 'A');
-        await store.add(2, 'B');
-        await store.add(2, 'X');
-        await store.add(2, 'D');
-        await store.add(3, 'C');
-        await store.add(1, 'A');
-        await store.add(1, 'A');
-        await store.add(1, 'R');
+        await store.put(1, 'A', 1);
+        await store.put(2, 'B', 2);
+        await store.put(2, 'C', 3); // <=
+        await store.put(3, 'D', 4);
+        await store.put(3, 'F', 6); // <=
+        await store.put(3, 'E', 5);
         const output = [];
         store
             .empty()
@@ -44,10 +42,9 @@ describe('With one store', () => {
             .on('end', () => {
                 const outputSorted = output.sort((x, y) => (x.id > y.id) ? 1 : -1);
                 expect(output.length).toEqual(3);
-                expect(outputSorted[0].id).toEqual(1);
-                expect(outputSorted[0].value.length).toEqual(4);
-                expect(outputSorted[1].value.length).toEqual(3);
-                expect(outputSorted[2].value.length).toEqual(1);
+                expect(outputSorted[0].value).toEqual('A');
+                expect(outputSorted[1].value).toEqual('C');
+                expect(outputSorted[2].value).toEqual('F');
                 done();
             });
     });

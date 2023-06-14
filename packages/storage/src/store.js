@@ -15,9 +15,25 @@ class AbstractStore {
         return cacache.get(this.handle, k).then(({ data }) => JSON.parse(String(data)));
     }
 
-    put(key, value) {
+    async put(key, value, score) {
         const k = JSON.stringify(key);
-        return cacache.put(this.handle, k, JSON.stringify(value));
+        const v = JSON.stringify(value);
+        if (!score) {
+            return cacache.put(this.handle, k, v);
+        }
+        const alreadyExist = await cacache.get.info(this.handle, k);
+        if (!alreadyExist ||
+            !alreadyExist.metadata ||
+            !alreadyExist.metadata.score ||
+            alreadyExist.metadata.score < score) {
+            const o = {
+                metadata: {
+                    score,
+                }
+            };
+            return cacache.put(this.handle, k, v, o);
+        }
+        return Promise.resolve(true);
     }
 
     stream() {
