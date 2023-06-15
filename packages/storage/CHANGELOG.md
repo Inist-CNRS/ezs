@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@3.1.0...@ezs/storage@3.2.0) (2023-06-15)
+
+
+### Features
+
+* 🎸 introduce lru with store.js ([1f97b45](https://github.com/Inist-CNRS/ezs/commit/1f97b45948c6bec1e043cc0fea2fc1c48171ad98))
+
+
+
+
+
 # [3.1.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@3.0.0...@ezs/storage@3.1.0) (2023-06-14)
 
 
