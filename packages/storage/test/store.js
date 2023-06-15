@@ -247,7 +247,22 @@ describe('With simple store', () => {
     it('put and get values', async (done) => {
         const store = await storeFactory(ezs, 'test_storeX');
         await store.put(1, 'A');
+        //  call #1
+        expect(await store.get(1)).toEqual('A');
+        // call #2 (no cache)
         expect(await store.get(1)).toEqual('A');
         done();
     });
+    it('put and get values (with cache)', async (done) => {
+        ezs.settings.cacheEnable = true;
+        const store = await storeFactory(ezs, 'test_storeX');
+        ezs.settings.cacheEnable = false;
+        await store.put(1, 'A');
+        //  call #1
+        expect(await store.get(1)).toEqual('A');
+        // call #2 (with cache)
+        expect(await store.get(1)).toEqual('A');
+        done();
+    });
+
 });

@@ -2,17 +2,24 @@ import { tmpdir } from 'os';
 import { join } from 'path';
 import pathExists from 'path-exists';
 import makeDir from 'make-dir';
+import LRU from 'lru-cache';
 import cacache from 'cacache';
 
 class AbstractStore {
     constructor(ezs, handle) {
         this.ezs = ezs;
         this.handle = handle;
+        if (ezs.settings.cacheEnable) {
+            this.cache = new LRU(ezs.settings.cache);
+        } else {
+            this.cache = false;
+        }
     }
 
     get(key) {
         const k = JSON.stringify(key);
-        return cacache.get(this.handle, k).then(({ data }) => JSON.parse(String(data)));
+        const o = { memoize: this.cache };
+        return cacache.get(this.handle, k, o).then(({ data }) => JSON.parse(String(data)));
     }
 
     async put(key, value, score) {
