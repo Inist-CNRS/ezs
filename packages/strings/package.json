@@ -24,9 +24,6 @@
     "type": "git",
     "url": "git+https://github.com/Inist-CNRS/ezs.git"
   },
-  "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
-  },
   "bugs": {
     "url": "https://github.com/Inist-CNRS/ezs/issues"
   },
@@ -35,5 +32,12 @@
   },
   "dependencies": {
     "lodash": "4.17.21"
+  },
+  "scripts": {
+    "build": "babel src --out-dir lib",
+    "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-strings.md --section=usage && cp ../../docs/plugin-strings.md ./README.md",
+    "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
+    "prepublish": "npm run build",
+    "preversion": "npm run doc"
   }
 }
