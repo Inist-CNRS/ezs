@@ -6,8 +6,8 @@ import { get, set } from 'lodash';
  * prefix and suffix can be added to the final result.
  *
  * @param {string} string - The string to be encoded.
- * @param {Record<string, string>} mapping - An object where keys are characters
- *                              to be replaced and values are their replacements.
+ * @param {string[]} from - An array of characters to replace.
+ * @param {string[]} to - An array of characters to replace with.
  * @param {string} before - An optional string to be added to the beginning of
  *                          each replaced character.
  * @param {string} after - An optional string to be added to the end of each
@@ -15,17 +15,15 @@ import { get, set } from 'lodash';
  * @return {string} The encoded string with optional prefix and/or suffix.
  * @private
  */
-const encodeString = (string, mapping, before = '', after = '') => {
-    let encoded = string;
-    // eslint-disable-next-line guard-for-in, no-restricted-syntax
-    for (const key in mapping) {
-        encoded = encoded.replace(RegExp(key, 'g'), before + mapping[key] + after);
-    }
+const encodeString = (string, from = [], to = [], before = '', after = '') => {
+    const encoded = from.reduce(
+        (str, f, i) => str.replace(RegExp(f, 'g'), before + to[i] + after),
+        string
+    );
     return encoded;
 };
 
-
-/**
+/*
  * Encodes a given string using a provided mapping, replacing characters with
  * their mapping, and optional prefix and suffix.
  *
@@ -87,9 +85,8 @@ export default function encode (data, feed, ctx) {
         return feed.close();
     }
 
-    const mapping = from.reduce((acc, cur, i) => ({ ...acc, [cur]: to[i] }), {});
     const value = get(data, path);
-    const newValue = encodeString(value, mapping, before, after);
+    const newValue = encodeString(value, from, to, before, after);
     const newData = set(data, path, newValue);
     return feed.send(newData);
 }
