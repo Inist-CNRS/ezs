@@ -15,7 +15,7 @@ import { get, set } from 'lodash';
  * @return {string} The encoded string with optional prefix and/or suffix.
  * @private
  */
-const encodeString = (string, from = [], to = [], before = '', after = '') => {
+const encodeString = (string, from, to, before, after) => {
     const encoded = from.reduce(
         (str, f, i) => str.replace(RegExp(f, 'g'), before + to[i] + after),
         string
@@ -75,7 +75,7 @@ const encodeString = (string, from = [], to = [], before = '', after = '') => {
  * @returns
  */
 export default function encode (data, feed, ctx) {
-    const path = ctx.getParam('path', []);
+    const path = ctx.getParam('path', '');
     const before = ctx.getParam('before', '');
     const after = ctx.getParam('after', '');
     const from = ctx.getParam('from', []);
@@ -85,8 +85,8 @@ export default function encode (data, feed, ctx) {
         return feed.close();
     }
 
-    const value = get(data, path);
+    const value = path ? get(data, path) : data;
     const newValue = encodeString(value, from, to, before, after);
-    const newData = set(data, path, newValue);
+    const newData = path ? set(data, path, newValue) : newValue;
     return feed.send(newData);
 }
