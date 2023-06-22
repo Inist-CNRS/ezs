@@ -23,6 +23,7 @@
   - [storage](plugin-storage.md)
   - [transformers](plugin-transformers.md)
   - [ark](plugin-ark.md)
+  - [strings](plugin-strings.md)
   - [teeft](plugin-teeft.md)
   - [libpostal](plugin-libpostal.md)
   - [spawn](plugin-spawn.md)
