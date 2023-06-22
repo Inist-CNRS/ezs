@@ -77,6 +77,10 @@ export default function encodeStatement (data, feed, ctx) {
         return feed.close();
     }
 
+    if (from.length !== to.length) {
+        return feed.send(new Error('from and to must have the same length'));
+    }
+
     const newData = encodeString(data, path, from, to, prefix, suffix);
     return feed.send(newData);
 }

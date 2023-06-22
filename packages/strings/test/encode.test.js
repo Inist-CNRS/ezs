@@ -37,4 +37,20 @@ describe('encode', () => {
                 done();
             });
     });
+
+    it('should return an error when from and to have not the same length', (done) => {
+        let res = [];
+        from(['Flow control based 5 MW wind turbine'])
+            .pipe(ezs('encode', { from: ['1', '5'], to: ['five']}))
+            .on('data', (data) => {
+                res = res.concat(data);
+            })
+            .on('error', done)
+            .on('end', () => {
+                expect(res).toHaveLength(1);
+                expect(res[0]).toHaveProperty('message');
+                expect(res[0].message).toMatch(/Error: from and to must have the same length/);
+                done();
+            });
+    });
 });
