@@ -1,6 +1,8 @@
+import decode from './decode';
 import encode from './encode';
 
 const funcs = {
+    decode,
     encode,
 };
 
