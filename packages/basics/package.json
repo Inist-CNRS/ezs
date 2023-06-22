@@ -5,7 +5,6 @@
   "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
   "bugs": "https://github.com/Inist-CNRS/ezs/issues",
   "dependencies": {
-    "JSONStream": "1.3.5",
     "async-retry": "1.3.3",
     "better-https-proxy-agent": "1.0.9",
     "csv-string": "3.2.0",
@@ -16,6 +15,7 @@
     "get-stream": "6.0.1",
     "higher-path": "1.0.0",
     "inflection": "2.0.1",
+    "JSONStream": "1.3.5",
     "lodash.escaperegexp": "4.1.2",
     "lodash.get": "4.4.2",
     "lodash.mapkeys": "4.6.0",
@@ -28,6 +28,7 @@
     "parse-headers": "2.0.4",
     "path-exists": "4.0.0",
     "stream-write": "1.0.1",
+    "tar-stream": "3.1.4",
     "tmp-filepath": "2.0.0",
     "unzipper": "0.10.11",
     "xml-mapping": "1.7.2",
