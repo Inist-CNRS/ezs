@@ -6,24 +6,27 @@
 
 Repository containing all @ezs packages (monorepo)
 
+The standard package is [@ezs/core](./packages/core#readme), which contains its binary.
+
+[@ezs/core](./packages/core#readme) [![npm version](https://img.shields.io/npm/v/@ezs/core)](https://npm.im/@ezs/core)
+
 ## Packages
 
-- [@ezs/core](./packages/core#readme) [![npm version](https://img.shields.io/npm/v/@ezs/core)](https://npm.im/@ezs/core)
-- [@ezs/basics](./packages/basics#readme) [![npm version](https://img.shields.io/npm/v/@ezs/basics)](https://npm.im/@ezs/basics)
 - [@ezs/analytics](./packages/analytics#readme) [![npm version](https://img.shields.io/npm/v/@ezs/analytics)](https://npm.im/@ezs/analytics)
-- [@ezs/sparql](./packages/sparql#readme) [![npm version](https://img.shields.io/npm/v/@ezs/sparql)](https://npm.im/@ezs/sparql)
-- [@ezs/istex](./packages/istex#readme) [![npm version](https://img.shields.io/npm/v/@ezs/istex)](https://npm.im/@ezs/istex)
+- [@ezs/basics](./packages/basics#readme) [![npm version](https://img.shields.io/npm/v/@ezs/basics)](https://npm.im/@ezs/basics)
 - [@ezs/booster](./packages/booster#readme) [![npm version](https://img.shields.io/npm/v/@ezs/booster)](https://npm.im/@ezs/booster)
-- [@ezs/lodex](./packages/lodex#readme) [![npm version](https://img.shields.io/npm/v/@ezs/lodex)](https://npm.im/@ezs/lodex)
 - [@ezs/conditor](./packages/conditor#readme) [![npm version](https://img.shields.io/npm/v/@ezs/conditor)](https://npm.im/@ezs/conditor)
-- [@ezs/storage](./packages/storage#readme) [![npm version](https://img.shields.io/npm/v/@ezs/storage)](https://npm.im/@ezs/storage)
-- [@ezs/loterre](./packages/loterre#readme) [![npm version](https://img.shields.io/npm/v/@ezs/loterre)](https://npm.im/@ezs/loterre)
-- [@ezs/transformers](./packages/transformers#readme) [![npm version](https://img.shields.io/npm/v/@ezs/transformers)](https://npm.im/@ezs/transformers)
-- [@ezs/teeft](./packages/teeft#readme) [![npm version](https://img.shields.io/npm/v/@ezs/teeft)](https://npm.im/@ezs/teeft)
+- [@ezs/istex](./packages/istex#readme) [![npm version](https://img.shields.io/npm/v/@ezs/istex)](https://npm.im/@ezs/istex)
 - [@ezs/libpostal](./packages/libpostal#readme) [![npm version](https://img.shields.io/npm/v/@ezs/libpostal)](https://npm.im/@ezs/libpostal)
+- [@ezs/lodex](./packages/lodex#readme) [![npm version](https://img.shields.io/npm/v/@ezs/lodex)](https://npm.im/@ezs/lodex)
+- [@ezs/loterre](./packages/loterre#readme) [![npm version](https://img.shields.io/npm/v/@ezs/loterre)](https://npm.im/@ezs/loterre)
+- [@ezs/sparql](./packages/sparql#readme) [![npm version](https://img.shields.io/npm/v/@ezs/sparql)](https://npm.im/@ezs/sparql)
 - [@ezs/spawn](./packages/spawn#readme) [![npm version](https://img.shields.io/npm/v/@ezs/spawn)](https://npm.im/@ezs/spawn)
-- [@ezs/xslt](./packages/xslt#readme) [![npm version](https://img.shields.io/npm/v/@ezs/xslt)](https://npm.im/@ezs/xslt)
+- [@ezs/storage](./packages/storage#readme) [![npm version](https://img.shields.io/npm/v/@ezs/storage)](https://npm.im/@ezs/storage)
 - [@ezs/strings](./packages/strings#readme) [![npm version](https://img.shields.io/npm/v/@ezs/strings)](https://npm.im/@ezs/strings)
+- [@ezs/teeft](./packages/teeft#readme) [![npm version](https://img.shields.io/npm/v/@ezs/teeft)](https://npm.im/@ezs/teeft)
+- [@ezs/transformers](./packages/transformers#readme) [![npm version](https://img.shields.io/npm/v/@ezs/transformers)](https://npm.im/@ezs/transformers)
+- [@ezs/xslt](./packages/xslt#readme) [![npm version](https://img.shields.io/npm/v/@ezs/xslt)](https://npm.im/@ezs/xslt)
 
 ## History
 
