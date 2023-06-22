@@ -64,7 +64,6 @@ const sentencesStatement = (data, feed, ctx) => {
     }
     const path = ctx.getParam('path', '');
     const value = path ? get(data, path) : data;
-    console.log({value, data, path});
     const str = Array.isArray(value)
         ? value.map((item) => (typeof item === 'string' ? item : '')).join(' ')
         : value;
@@ -88,6 +87,9 @@ const sentencesStatement = (data, feed, ctx) => {
  * ```json
  * { "id": 1, "value": ["First sentence?", "Second sentence.", "My name is Bond, J. Bond."] }
  * ```
+ *
+ * > 📗 When the path is not given, the input data is considered as a string,
+ * > allowing to apply `inflection` on a string stream.
  *
  * @name sentences
  * @param {string} [path=""] path of the field to segment
