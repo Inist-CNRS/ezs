@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/spawn@1.3.3...@ezs/spawn@1.4.0) (2023-06-22)
+
+
+### Features
+
+* 🎸 add tar-extract ([a471aca](https://github.com/Inist-CNRS/ezs/commit/a471aca64b7ab08d92237917264a23080a2c3072))
+
+
+
+
+
 ## [1.3.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/spawn@1.3.2...@ezs/spawn@1.3.3) (2023-06-14)
 
 **Note:** Version bump only for package @ezs/spawn
