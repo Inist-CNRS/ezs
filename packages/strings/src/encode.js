@@ -17,7 +17,10 @@ import { get, set } from 'lodash';
  */
 const encodeString = (string, from, to, before, after) => {
     const encoded = from.reduce(
-        (str, f, i) => str.replace(RegExp(f, 'g'), before + to[i] + after),
+        (str, fromI, i) => str.replace(
+            RegExp(fromI, 'g'),
+            before + to[i] + after
+        ),
         string
     );
     return encoded;
