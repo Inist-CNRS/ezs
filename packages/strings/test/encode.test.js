@@ -157,8 +157,70 @@ describe('encode', () => {
             .on('error', done)
             .on('end', () => {
                 expect(res).toHaveLength(2);
-                expect(res[0]).toBe('Flow control based <five> MW wind turbine');
+                expect(res[0]).toBe(
+                    'Flow control based <five> MW wind turbine'
+                );
                 expect(res[1]).toBe('Motion Characteristics of <one><zero> MW');
+                done();
+            });
+    });
+
+    it('should work with digits instead of strings from', (done) => {
+        let res = [];
+        from(['Flow control based 5 MW wind turbine'])
+            .pipe(ezs('encode', { from: [5], to: ['five'] }))
+            .on('data', (data) => {
+                res = res.concat(data);
+            })
+            .on('error', done)
+            .on('end', () => {
+                expect(res).toHaveLength(1);
+                expect(res[0]).toBe('Flow control based five MW wind turbine');
+                done();
+            });
+    });
+
+    it('should work with digits instead of strings to', (done) => {
+        let res = [];
+        from(['Flow control based five MW wind turbine'])
+            .pipe(ezs('encode', { to: [5], from: ['five'] }))
+            .on('data', (data) => {
+                res = res.concat(data);
+            })
+            .on('error', done)
+            .on('end', () => {
+                expect(res).toHaveLength(1);
+                expect(res[0]).toBe('Flow control based 5 MW wind turbine');
+                done();
+            });
+    });
+
+    it('should have a side effect', (done) => {
+        let res = [];
+        from(['Flow control based 1 MW wind turbine'])
+            .pipe(ezs('encode', { from: [1, 2, 3, 4, 5], to: [2, 3, 4, 5, 6] }))
+            .on('data', (data) => {
+                res = res.concat(data);
+            })
+            .on('error', done)
+            .on('end', () => {
+                expect(res).toHaveLength(1);
+                expect(res[0]).toBe('Flow control based 6 MW wind turbine');
+                done();
+            });
+    });
+
+    it('should work with strings, not only characters', (done) => {
+        let res = [];
+        from(['Flow control based 10 MW wind turbine'])
+            .pipe(ezs('encode', { from: ['10'], to: ['ten'] }))
+            .on('data', (data) => {
+                res = res.concat(data);
+            })
+            .on('error', done)
+            .on('end', () => {
+                expect(res).toHaveLength(1);
+                expect(res[0]).toBe('Flow control based ten MW wind turbine');
                 done();
             });
     });
