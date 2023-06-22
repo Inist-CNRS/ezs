@@ -5,31 +5,6 @@ import { get, set } from 'lodash';
  * match keys in the mapping with their corresponding values. Optionally, a
  * prefix and suffix can be added to the final result.
  *
- * @param {string} string - The string to be encoded.
- * @param {string[]} from - An array of characters to replace.
- * @param {string[]} to - An array of characters to replace with.
- * @param {string} before - An optional string to be added to the beginning of
- *                          each replaced character.
- * @param {string} after - An optional string to be added to the end of each
- *                         replaced character.
- * @return {string} The encoded string with optional prefix and/or suffix.
- * @private
- */
-const encodeString = (string, from, to, before, after) => {
-    const encoded = from.reduce(
-        (str, fromI, i) => str.replace(
-            RegExp(fromI, 'g'),
-            before + to[i] + after
-        ),
-        string
-    );
-    return encoded;
-};
-
-/*
- * Encodes a given string using a provided mapping, replacing characters with
- * their mapping, and optional prefix and suffix.
- *
  * Input:
  *
  * ```json
@@ -53,7 +28,7 @@ const encodeString = (string, from, to, before, after) => {
  * from = 0
  * to = zero
  * prefix = inf
- * suffi = sup
+ * suffix = sup
  * ```
  *
  * Output:
@@ -69,18 +44,32 @@ const encodeString = (string, from, to, before, after) => {
  * ```
  *
  * @name encode
- * @param {string} path the path of the string to encode
- * @param {string[]} from the characters to encode
- * @param {string[]} to the characters to put in place
- * @param {string} before the prefix to add
- * @param {string} after the suffix to add
+ * @param {string} path - The path of the string to be encoded, within data.
+ * @param {string[]} from - An array of characters to replace.
+ * @param {string[]} to - An array of characters to replace with.
+ * @param {string} prefix - An optional string to be added to the beginning of
+ *                          each replaced character.
+ * @param {string} suffix - An optional string to be added to the end of each
+ *                         replaced character.
  * @exports
- * @returns
  */
-export default function encode (data, feed, ctx) {
+const encodeString = (data, path, from, to, prefix, suffix) => {
+    const string = path ? get(data, path) : data;
+    const encoded = from.reduce(
+        (str, fromI, i) => str.replace(
+            RegExp(fromI, 'g'),
+            prefix + to[i] + suffix
+        ),
+        string
+    );
+    const newData = path ? set(data, path, encoded) : encoded;
+    return newData;
+};
+
+export default function encodeStatement (data, feed, ctx) {
     const path = ctx.getParam('path', '');
-    const before = ctx.getParam('before', '');
-    const after = ctx.getParam('after', '');
+    const prefix = ctx.getParam('prefix', '');
+    const suffix = ctx.getParam('suffix', '');
     const from = ctx.getParam('from', []);
     const to = ctx.getParam('to', []);
 
@@ -88,8 +77,6 @@ export default function encode (data, feed, ctx) {
         return feed.close();
     }
 
-    const value = path ? get(data, path) : data;
-    const newValue = encodeString(value, from, to, before, after);
-    const newData = path ? set(data, path, newValue) : newValue;
+    const newData = encodeString(data, path, from, to, prefix, suffix);
     return feed.send(newData);
 }
