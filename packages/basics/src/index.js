@@ -25,6 +25,7 @@ import URLStream from './url-stream';
 import URLConnect from './url-connect';
 import TXTZip from './txt-zip';
 import ZIPExtract from './zip-extract';
+import TARExtract from './tar-extract';
 import INIString from './ini-string';
 import FILESave from './file-save';
 import FILELoad from './file-load';
@@ -57,6 +58,7 @@ const funcs = {
     URLConnect,
     TXTZip,
     ZIPExtract,
+    TARExtract,
     INIString,
     FILESave,
     FILELoad,

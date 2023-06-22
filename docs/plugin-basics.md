@@ -27,6 +27,7 @@ npm install @ezs/basics
 -   [OBJFlatten](#objflatten)
 -   [OBJNamespaces](#objnamespaces)
 -   [OBJStandardize](#objstandardize)
+-   [TARExtract](#tarextract)
 -   [TXTConcat](#txtconcat)
 -   [TXTInflection](#txtinflection)
 -   [TXTObject](#txtobject)
@@ -535,6 +536,27 @@ Output:
 -   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### TARExtract
+
+Take the content of a tar file, extract some files.
+The JSON object is sent to the output stream for each file.
+It returns to the output stream
+
+```json
+{
+   "id": "file name",
+   "value": "file contents"
+}
+```
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Regex to select the files to extract (optional, default `"**\/*.json"`)
+-   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Parse as JSON the content of each file (optional, default `true`)
+-   `compress` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Enable gzip compression (optional, default `false`)
+
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)}>** 
 
 ### TXTConcat
 
