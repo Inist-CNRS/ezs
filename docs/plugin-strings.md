@@ -24,6 +24,8 @@ plugin = @ezs/strings
 
 -   [decode](#decode)
 -   [encode](#encode)
+-   [inflection](#inflection)
+-   [sentences](#sentences)
 
 ### decode
 
@@ -147,3 +149,66 @@ Output:
                              replaced substring. (optional, default `""`)
 -   `suffix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** A string to be added to the end of each
                             replaced substring. (optional, default `""`)
+
+### inflection
+
+-   **See: <https://www.npmjs.com/package/inflection>
+    **
+
+Take a `String` and inflect it with or more transformers from this list
+ pluralize, singularize, camelize, underscore, humanize, capitalize,
+ dasherize, titleize, demodulize, tableize, classify, foreign_key, ordinalize
+
+Input:
+
+```json
+{ "id": 1, "value": "all job" }
+```
+
+Script:
+
+```ini
+[inflection]
+path = value
+transform = pluralize
+transform = capitalize
+transform = dasherize
+```
+
+Output:
+
+```json
+{ "id": 1, "value": "All-jobs" }
+```
+
+> 📗 When the path is not given, the input data is considered as a string,
+> allowing to apply `inflection` on a string stream.
+
+#### Parameters
+
+-   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to segment (optional, default `""`)
+-   `transform` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** name of a transformer
+
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** 
+
+### sentences
+
+Take a `String` and split it into an array of sentences.
+
+Input:
+
+```json
+{ "id": 1, "value": "First sentence? Second sentence. My name is Bond, J. Bond." }
+```
+
+Output:
+
+```json
+{ "id": 1, "value": ["First sentence?", "Second sentence.", "My name is Bond, J. Bond."] }
+```
+
+#### Parameters
+
+-   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to segment (optional, default `""`)
+
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** 
