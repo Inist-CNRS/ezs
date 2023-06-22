@@ -21,6 +21,7 @@ import { get, set } from 'lodash';
  *
  * ```ini
  * [encode]
+ * path = value
  * from = 1
  * to = one
  * from = 5
@@ -43,14 +44,20 @@ import { get, set } from 'lodash';
  * }]
  * ```
  *
+ * > ⚠ The replacements are made in the order of the `from` array. This means
+ * > that if 1 is replaced with 2, and next 2 replaced with 3, a 1 is eventually
+ * > replaced with 3.
+ *
+ * > ⚠ You must give as much `from` as `to`.
+ *
  * @name encode
  * @param {string} path - The path of the string to be encoded, within data.
- * @param {string[]} from - An array of characters to replace.
- * @param {string[]} to - An array of characters to replace with.
- * @param {string} prefix - An optional string to be added to the beginning of
- *                          each replaced character.
- * @param {string} suffix - An optional string to be added to the end of each
- *                         replaced character.
+ * @param {string[]} from - An array of strings to replace.
+ * @param {string[]} to - An array of strings to replace with.
+ * @param {string} [prefix=""] - A string to be added to the beginning of each
+ *                          replaced substring.
+ * @param {string} [suffix=""] - A string to be added to the end of each
+ *                         replaced substring.
  * @exports
  */
 const encodeString = (data, path, from, to, prefix, suffix) => {

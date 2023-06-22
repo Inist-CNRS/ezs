@@ -39,6 +39,7 @@ Script:
 
 ```ini
 [encode]
+path = value
 from = 1
 to = one
 from = 5
@@ -61,12 +62,18 @@ Output:
 }]
 ```
 
+> ⚠ The replacements are made in the order of the `from` array. This means
+> that if 1 is replaced with 2, and next 2 replaced with 3, a 1 is eventually
+> replaced with 3.
+>
+> ⚠ You must give as much `from` as `to`.
+
 #### Parameters
 
 -   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The path of the string to be encoded, within data.
--   `from` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** An array of characters to replace.
--   `to` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** An array of characters to replace with.
--   `prefix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** An optional string to be added to the beginning of
-                             each replaced character.
--   `suffix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** An optional string to be added to the end of each
-                            replaced character.
+-   `from` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** An array of strings to replace.
+-   `to` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** An array of strings to replace with.
+-   `prefix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** A string to be added to the beginning of each
+                             replaced substring. (optional, default `""`)
+-   `suffix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** A string to be added to the end of each
+                            replaced substring. (optional, default `""`)
