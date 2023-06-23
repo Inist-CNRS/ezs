@@ -12,20 +12,21 @@
 
 - Plugins
 
-  - [core](plugin-core.md)
-  - [basics](plugin-basics.md)
   - [analytics](plugin-analytics.md)
-  - [sparql](plugin-sparql.md)
-  - [istex](plugin-istex.md)
-  - [lodex](plugin-lodex.md)
-  - [conditor](plugin-conditor.md)
-  - [loterre](plugin-loterre.md)
-  - [storage](plugin-storage.md)
-  - [transformers](plugin-transformers.md)
   - [ark](plugin-ark.md)
-  - [teeft](plugin-teeft.md)
+  - [basics](plugin-basics.md)
+  - [conditor](plugin-conditor.md)
+  - [core](plugin-core.md)
+  - [istex](plugin-istex.md)
   - [libpostal](plugin-libpostal.md)
+  - [lodex](plugin-lodex.md)
+  - [loterre](plugin-loterre.md)
+  - [sparql](plugin-sparql.md)
   - [spawn](plugin-spawn.md)
+  - [storage](plugin-storage.md)
+  - [strings](plugin-strings.md)
+  - [teeft](plugin-teeft.md)
+  - [transformers](plugin-transformers.md)
   - [xslt](plugin-xslt.md)
 
 - Exemples

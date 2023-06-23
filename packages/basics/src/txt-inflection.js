@@ -48,7 +48,9 @@ const TXTInflection = (data, feed, ctx) => {
  * @param {String} [path="value"] path of the field to segment
  * @param {String} [transform] name of a transformer
  * @returns {String[]}
+ * @deprecated
  * @see https://www.npmjs.com/package/inflection
+ * @see https://inist-cnrs.github.io/ezs/#/plugin-strings?id=inflection
  */
 export default {
     TXTInflection,

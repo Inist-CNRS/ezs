@@ -71,9 +71,11 @@ npm test
 ## Use lerna
 
 Use [lerna](https://lerna.js.org/) to
-[create](https://github.com/lerna/lerna/tree/master/commands/create) a new
-package, [add](https://github.com/lerna/lerna/tree/master/commands/add) a
+[create](https://github.com/lerna/lerna/tree/v4.0.0/commands/create) a new
+package, [add](https://github.com/lerna/lerna/tree/v4.0.0/commands/add) a
 dependency to a new package.
+
+Ex: `npx lerna create @ezs/package`.
 
 Each time you use a package-specific lerna command, don't forget to precise
 which package is targeted, with the `--scope=@ezs/package` option.
@@ -81,7 +83,7 @@ which package is targeted, with the `--scope=@ezs/package` option.
 ## Install
 
 To install the dependencies of the packages, use
-[bootstrap](https://github.com/lerna/lerna/tree/master/commands/bootstrap).
+[bootstrap](https://github.com/lerna/lerna/tree/v4.0.0/commands/bootstrap).
 
 ```bash
 npx lerna bootstrap

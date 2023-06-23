@@ -4,19 +4,21 @@ const UPPER_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const SENTENCE_INIT = '  ';
 const SENTENCE_ENDING = '.?!';
 
-/*
+/**
  * Segment sentences from `str` into an array
  * @param {string} str
  * @returns {string[]}
+ * @private
  */
 const segmentSentences = (str) => {
     const characters = Array.from(str);
     const sentences = characters
         .reduce(
-            /*
+            /**
              * @param {string[]} prevSentences
              * @param {string} character
              * @return {string[]}
+             * @private
              */
             (prevSentences, character) => {
                 const currentSentence = prevSentences.slice(-1)[0];
@@ -56,19 +58,18 @@ const segmentSentences = (str) => {
     return sentences;
 };
 
-const TXTSentences = (data, feed, ctx) => {
+const sentencesStatement = (data, feed, ctx) => {
     if (ctx.isLast()) {
         return feed.close();
     }
-    const path = ctx.getParam('path', 'value');
-    const value = get(data, path);
-
+    const path = ctx.getParam('path', '');
+    const value = path ? get(data, path) : data;
     const str = Array.isArray(value)
         ? value.map((item) => (typeof item === 'string' ? item : '')).join(' ')
         : value;
     const sentences = str ? segmentSentences(str) : [];
 
-    feed.write({ ...data, [path]: sentences });
+    feed.write(path ? { ...data, [path]: sentences }: sentences);
     return feed.end();
 };
 
@@ -87,12 +88,13 @@ const TXTSentences = (data, feed, ctx) => {
  * { "id": 1, "value": ["First sentence?", "Second sentence.", "My name is Bond, J. Bond."] }
  * ```
  *
- * @name TXTSentences
- * @param {String} [path="value"] path of the field to segment
- * @returns {String[]}
- * @deprecated
- * @see https://inist-cnrs.github.io/ezs/#/plugin-strings?id=sentences
+ * > 📗 When the path is not given, the input data is considered as a string,
+ * > allowing to apply `inflection` on a string stream.
+ *
+ * @name sentences
+ * @param {string} [path=""] path of the field to segment
+ * @returns {string[]}
  */
 export default {
-    TXTSentences,
+    sentences: sentencesStatement,
 };
