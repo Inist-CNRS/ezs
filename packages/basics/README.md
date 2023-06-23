@@ -667,9 +667,6 @@ Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### TXTSentences
 
--   **See: <https://inist-cnrs.github.io/ezs/#/plugin-strings?id=sentences>
-    **
-
 Take a `String` and split it into an array of sentences.
 
 Input:
@@ -692,7 +689,7 @@ Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Gl
 
 **Meta**
 
--   **deprecated**: This is deprecated.
+-   **deprecated**: see <https://inist-cnrs.github.io/ezs/#/plugin-strings?id=sentences>
 
 
 ### TXTZip
