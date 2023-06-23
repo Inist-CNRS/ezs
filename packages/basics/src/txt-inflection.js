@@ -49,8 +49,8 @@ const TXTInflection = (data, feed, ctx) => {
  * @param {String} [transform] name of a transformer
  * @returns {String[]}
  * @deprecated
- * @see https://www.npmjs.com/package/inflection
- * @see https://inist-cnrs.github.io/ezs/#/plugin-strings?id=inflection
+ * see https://inist-cnrs.github.io/ezs/#/plugin-strings?id=inflection
+ * see https://www.npmjs.com/package/inflection
  */
 export default {
     TXTInflection,

@@ -13,7 +13,7 @@ npm install @ezs/strings
 
 ```ini
 [use]
-plugin = @ezs/strings
+plugin = strings
 ```
 
 ## usage
@@ -28,9 +28,6 @@ plugin = @ezs/strings
 -   [sentences](#sentences)
 
 ### decode
-
--   **See: encode
-    **
 
 Decodes a given string using a provided mapping, replacing strings that
 match values (to)in the mapping with their corresponding keys (from). Optionally, a
@@ -79,15 +76,15 @@ Output:
 
 > ⚠ You must give as much `from` as `to`.
 
+See `encode`.
+
 #### Parameters
 
 -   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The path of the string to be decoded, within data.
 -   `from` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** An array of strings to replace with.
 -   `to` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** An array of strings to be replaced.
--   `prefix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** A string to be removed from the beginning of each
-                             replaced substring. (optional, default `""`)
--   `suffix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** A string to be removed from the end of each
-                            replaced substring. (optional, default `""`)
+-   `prefix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** A string to be removed from the beginning of each replaced substring. (optional, default `""`)
+-   `suffix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** A string to be removed from the end of each replaced substring. (optional, default `""`)
 
 ### encode
 
@@ -140,20 +137,17 @@ Output:
 >
 > ⚠ You must give as much `from` as `to`.
 
+See `decode` to invert the processus.
+
 #### Parameters
 
 -   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The path of the string to be encoded, within data.
 -   `from` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** An array of strings to replace.
 -   `to` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** An array of strings to replace with.
--   `prefix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** A string to be added to the beginning of each
-                             replaced substring. (optional, default `""`)
--   `suffix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** A string to be added to the end of each
-                            replaced substring. (optional, default `""`)
+-   `prefix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** A string to be added to the beginning of each replaced substring. (optional, default `""`)
+-   `suffix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** A string to be added to the end of each replaced substring. (optional, default `""`)
 
 ### inflection
-
--   **See: <https://www.npmjs.com/package/inflection>
-    **
 
 Take a `String` and inflect it with or more transformers from this list
  pluralize, singularize, camelize, underscore, humanize, capitalize,
@@ -184,6 +178,8 @@ Output:
 > 📗 When the path is not given, the input data is considered as a string,
 > allowing to apply `inflection` on a string stream.
 
+see <https://www.npmjs.com/package/inflection>
+
 #### Parameters
 
 -   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to segment (optional, default `""`)
@@ -206,6 +202,9 @@ Output:
 ```json
 { "id": 1, "value": ["First sentence?", "Second sentence.", "My name is Bond, J. Bond."] }
 ```
+
+> 📗 When the path is not given, the input data is considered as a string,
+> allowing to apply `inflection` on a string stream.
 
 #### Parameters
 

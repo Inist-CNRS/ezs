@@ -582,9 +582,6 @@ Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### TXTInflection
 
--   **See: <https://www.npmjs.com/package/inflection>
-    **
-
 Take a `String` and inflect it with or more transformers from this list
  pluralize, singularize, camelize, underscore, humanize, capitalize,
  dasherize, titleize, demodulize, tableize, classify, foreign_key, ordinalize
@@ -616,6 +613,12 @@ Output:
 -   `transform` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** name of a transformer
 
 Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** 
+
+**Meta**
+
+-   **deprecated**: see <https://inist-cnrs.github.io/ezs/#/plugin-strings?id=inflection>
+    see <https://www.npmjs.com/package/inflection>
+
 
 ### TXTObject
 
@@ -664,6 +667,9 @@ Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### TXTSentences
 
+-   **See: <https://inist-cnrs.github.io/ezs/#/plugin-strings?id=sentences>
+    **
+
 Take a `String` and split it into an array of sentences.
 
 Input:
@@ -683,6 +689,11 @@ Output:
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to segment (optional, default `"value"`)
 
 Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** 
+
+**Meta**
+
+-   **deprecated**: This is deprecated.
+
 
 ### TXTZip
 

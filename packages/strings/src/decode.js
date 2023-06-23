@@ -49,16 +49,15 @@ import set from 'lodash.set';
  *
  * > ⚠ You must give as much `from` as `to`.
  *
+ * See `encode`.
+ *
  * @name decode
  * @param {string} path - The path of the string to be decoded, within data.
  * @param {string[]} from - An array of strings to replace with.
  * @param {string[]} to - An array of strings to be replaced.
- * @param {string} [prefix=""] - A string to be removed from the beginning of each
- *                          replaced substring.
- * @param {string} [suffix=""] - A string to be removed from the end of each
- *                         replaced substring.
+ * @param {string} [prefix=""] - A string to be removed from the beginning of each replaced substring.
+ * @param {string} [suffix=""] - A string to be removed from the end of each replaced substring.
  * @exports
- * @see encode
  */
 const decodeString = (data, path, from, to, prefix, suffix) => {
     const string = path ? get(data, path) : data;
