@@ -1,7 +1,7 @@
 {
   "name": "@ezs/basics",
   "description": "Basics statements for EZS",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
   "bugs": "https://github.com/Inist-CNRS/ezs/issues",
   "dependencies": {

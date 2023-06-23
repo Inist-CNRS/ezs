@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.3.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.2.0...@ezs/basics@2.3.0) (2023-06-23)
+
+
+### Features
+
+* **strings:** Add inflection and sentences statements ([67ba36c](https://github.com/Inist-CNRS/ezs/commit/67ba36c8ba68c1798f5430a087172fed45d2b3c0))
+
+
+
+
+
 # [2.2.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.1.3...@ezs/basics@2.2.0) (2023-06-22)
 
 
