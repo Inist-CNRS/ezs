@@ -1,4 +1,4 @@
-# basics
+# ark
 
 Ce plugin propose une série d'instructions pour utiliser, générer des identifiants ARK
 

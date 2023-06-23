@@ -91,7 +91,7 @@ const TXTSentences = (data, feed, ctx) => {
  * @param {String} [path="value"] path of the field to segment
  * @returns {String[]}
  * @deprecated
- * @see https://inist-cnrs.github.io/ezs/#/plugin-strings?id=sentences
+ * see https://inist-cnrs.github.io/ezs/#/plugin-strings?id=sentences
  */
 export default {
     TXTSentences,

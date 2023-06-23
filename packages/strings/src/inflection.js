@@ -52,11 +52,12 @@ const inflection = (data, feed, ctx) => {
  * > 📗 When the path is not given, the input data is considered as a string,
  * > allowing to apply `inflection` on a string stream.
  *
+ * see https://www.npmjs.com/package/inflection
+ *
  * @name inflection
  * @param {string} [path=""] path of the field to segment
  * @param {string} [transform] name of a transformer
  * @returns {string[]}
- * @see https://www.npmjs.com/package/inflection
  */
 export default {
     inflection,
