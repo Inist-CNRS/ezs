@@ -8,7 +8,7 @@
     "lodash.clone": "4.5.0",
     "lodash.get": "4.4.2",
     "lodash.set": "4.3.2",
-    "semver": "7.3.5",
+    "semver": "7.5.2",
     "stream-iterate": "1.2.0"
   },
   "directories": {
