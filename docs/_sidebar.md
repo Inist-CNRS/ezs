@@ -19,7 +19,6 @@
   - [core](plugin-core.md)
   - [istex](plugin-istex.md)
   - [libpostal](plugin-libpostal.md)
-  - [lodex](plugin-lodex.md)
   - [loterre](plugin-loterre.md)
   - [sparql](plugin-sparql.md)
   - [spawn](plugin-spawn.md)
