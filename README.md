@@ -18,14 +18,12 @@ The standard package is [@ezs/core](./packages/core#readme), which contains its 
 - [@ezs/conditor](./packages/conditor#readme) [![npm version](https://img.shields.io/npm/v/@ezs/conditor)](https://npm.im/@ezs/conditor)
 - [@ezs/istex](./packages/istex#readme) [![npm version](https://img.shields.io/npm/v/@ezs/istex)](https://npm.im/@ezs/istex)
 - [@ezs/libpostal](./packages/libpostal#readme) [![npm version](https://img.shields.io/npm/v/@ezs/libpostal)](https://npm.im/@ezs/libpostal)
-- [@ezs/lodex](./packages/lodex#readme) [![npm version](https://img.shields.io/npm/v/@ezs/lodex)](https://npm.im/@ezs/lodex)
 - [@ezs/loterre](./packages/loterre#readme) [![npm version](https://img.shields.io/npm/v/@ezs/loterre)](https://npm.im/@ezs/loterre)
 - [@ezs/sparql](./packages/sparql#readme) [![npm version](https://img.shields.io/npm/v/@ezs/sparql)](https://npm.im/@ezs/sparql)
 - [@ezs/spawn](./packages/spawn#readme) [![npm version](https://img.shields.io/npm/v/@ezs/spawn)](https://npm.im/@ezs/spawn)
 - [@ezs/storage](./packages/storage#readme) [![npm version](https://img.shields.io/npm/v/@ezs/storage)](https://npm.im/@ezs/storage)
 - [@ezs/strings](./packages/strings#readme) [![npm version](https://img.shields.io/npm/v/@ezs/strings)](https://npm.im/@ezs/strings)
 - [@ezs/teeft](./packages/teeft#readme) [![npm version](https://img.shields.io/npm/v/@ezs/teeft)](https://npm.im/@ezs/teeft)
-- [@ezs/transformers](./packages/transformers#readme) [![npm version](https://img.shields.io/npm/v/@ezs/transformers)](https://npm.im/@ezs/transformers)
 - [@ezs/xslt](./packages/xslt#readme) [![npm version](https://img.shields.io/npm/v/@ezs/xslt)](https://npm.im/@ezs/xslt)
 
 ## History
