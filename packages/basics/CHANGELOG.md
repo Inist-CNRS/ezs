@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.4.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.3.0...@ezs/basics@2.4.0) (2023-07-17)
+
+
+### Features
+
+* 🎸 add [TARDump] ([d3ff2a9](https://github.com/Inist-CNRS/ezs/commit/d3ff2a99650fc7c9eacd2c1ad015d9907addeebb))
+
+
+
+
+
 # [2.3.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.2.0...@ezs/basics@2.3.0) (2023-06-23)
 
 
