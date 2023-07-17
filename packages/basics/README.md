@@ -27,6 +27,7 @@ npm install @ezs/basics
 -   [OBJFlatten](#objflatten)
 -   [OBJNamespaces](#objnamespaces)
 -   [OBJStandardize](#objstandardize)
+-   [TARDump](#tardump)
 -   [TARExtract](#tarextract)
 -   [TXTConcat](#txtconcat)
 -   [TXTInflection](#txtinflection)
@@ -536,6 +537,22 @@ Output:
 -   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### TARDump
+
+Take all recevied objects and build a tar file
+
+```json
+{
+}
+```
+
+#### Parameters
+
+-   `manifest` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Location path to store files in the tarball
+-   `location` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Location path to store files in the tarball (optional, default `data`)
+-   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Parse as JSON the content of each file (optional, default `true`)
+-   `compress` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Enable gzip compression (optional, default `false`)
 
 ### TARExtract
 

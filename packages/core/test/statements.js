@@ -340,6 +340,25 @@ describe('statements', () => {
                 done();
             });
     });
+    it('unpack#4', (done) => {
+        const input = [
+            '"aaa"\nbbb"\n"ccc"\n',
+            '"ddd"\n"eee"\n"fff"',
+        ];
+        from(input)
+            .pipe(ezs('unpack'))
+            .pipe(ezs.catch())
+            .on('error', (e) => {
+                expect(e.message).toEqual(expect.stringContaining('SyntaxError'));
+                done();
+            })
+            .on('data', (item) => {
+                assert.equal(item, 'aaa');
+            })
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+            });
+    });
     it('truncate#1', (done) => {
         const res = [];
         from(['aa', 'bb', 'cc', 'dd', 'ee'])
