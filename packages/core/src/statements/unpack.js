@@ -1,3 +1,5 @@
+import debug from 'debug';
+
 const eol = '\n';
 
 /**
@@ -28,7 +30,13 @@ export default function unpack(data, feed) {
     }
     this.remainder = lines.pop();
     lines.filter(Boolean).forEach((line) => {
-        feed.write(JSON.parse(line));
+        try {
+            const lineParsed = JSON.parse(line);
+            return feed.write(lineParsed);
+        } catch(e) {
+            debug('ezs')(`[unpack] Syntax error at #${this.getIndex()+1} with <line>${line}</line>`);
+            return feed.stop(e);
+        }
     });
     return feed.end();
 }
