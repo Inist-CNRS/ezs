@@ -6,10 +6,10 @@
 ezs -d  . &
 
 # Send data for batch processing
-cat input.tar.gz |curl --data-binary @- "http://localhost:31976/process" > output.json
+cat input.tar.gz |curl --data-binary @-  -H "X-Hook: https://webhook.site/dce2fefa-9a72-4f76-96e5-059405a04f6c" "http://localhost:31976/process" > output.json
 
 # When the corpus is processed, get the result
-cat output.json |curl --data-binary @- "http://localhost:31976/retrieve"
+cat output.json |curl --data-binary @- "http://localhost:31976/retrieve" > output.tar.gz
 
  ```
 

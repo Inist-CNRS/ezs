@@ -75,14 +75,15 @@ const knownPipeline = (ezs) => (request, response, next) => {
         metricsEnable,
     } = settings;
     const execMode = server ? 'dispatch' : delegate;
-    const statements = files.map((file) => ezs(execMode, { file, server }, query));
+    const environment = { ...query, headers };
+    const statements = files.map((file) => ezs(execMode, { file, server }, environment));
     const prepend2Pipeline = ezs.parseCommand(onlyOne(prepend));
     if (prepend2Pipeline) {
-        statements.unshift(ezs.createCommand(prepend2Pipeline, query));
+        statements.unshift(ezs.createCommand(prepend2Pipeline, environment));
     }
     const append2Pipeline = ezs.parseCommand(onlyOne(append));
     if (append2Pipeline) {
-        statements.push(ezs.createCommand(append2Pipeline, query));
+        statements.push(ezs.createCommand(append2Pipeline, environment));
     }
     if (tracerEnable) {
         statements.unshift(ezs('tracer', { print: '-', last: '>' }));

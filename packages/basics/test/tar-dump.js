@@ -111,6 +111,36 @@ describe('TARDump', () => {
             });
     });
 
+    it('should dump and extract few objects with manifest', (done) => {
+        const result = [];
+        const script = `
+        [TARDump]
+        compress = true
+        manifest = fix({ title: 'example', description: 'none'})
+        manifest = fix({ version: '1.0'})
+        manifest = fix(1)
+
+        [TARExtract]
+        compress = true
+        path = manifest.json
+        `;
+        from(input)
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (obj) => {
+                console.log(obj);
+                assert.equal(obj.description, 'none');
+                assert.equal(obj.version, '1.0');
+                assert.equal(obj.itemsCounter, 3);
+                result.push(obj);
+            })
+            .on('end', () => {
+                assert.equal(result.length, 1);
+                done();
+            });
+    });
+
 
 
 });

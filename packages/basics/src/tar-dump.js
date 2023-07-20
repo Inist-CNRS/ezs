@@ -22,13 +22,21 @@ export default function TARDump(data, feed) {
     if (!this.pack) {
         this.pack = tar.pack();
         const compress = this.getParam('compress', false);
-        const d = new Date();
-        const manifest = merge({ created: d.toUTCString() }, [].concat(this.getParam('manifest', [])).filter(Boolean));
-        this.pack.entry({ name: 'manifest.json' }, JSON.stringify(manifest, null, '  '));
+        this.created = new Date();
         const stream = compress ? this.pack.pipe(createGzip()) : this.pack;
         feed.flow(stream).finally(() => feed.close());
     }
     if (this.isLast()) {
+        const updated = new Date();
+        const metadata = {
+            'creationDate': this.created.toUTCString(),
+            'updateDate': updated.toUTCString(),
+            'itemsCounter': this.getIndex() - 1,
+            'processingMSTime': this.getCumulativeTimeMS(),
+        };
+        const manifestArray = [metadata].concat(this.getParam('manifest', [])).filter(Boolean);
+        const manifest = merge(...manifestArray);
+        this.pack.entry({ name: 'manifest.json' }, JSON.stringify(manifest, null, '  '));
         this.pack.finalize();
         return;
     }
