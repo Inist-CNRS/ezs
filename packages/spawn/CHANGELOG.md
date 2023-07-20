@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/spawn@1.4.2...@ezs/spawn@1.4.3) (2023-07-20)
+
+
+### Bug Fixes
+
+* 🐛 manifest.json ([559cda8](https://github.com/Inist-CNRS/ezs/commit/559cda8372c65c3c1cfb5a0dcfee404ece4a79d6))
+
+
+
+
+
 ## [1.4.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/spawn@1.4.1...@ezs/spawn@1.4.2) (2023-07-17)
 
 **Note:** Version bump only for package @ezs/spawn

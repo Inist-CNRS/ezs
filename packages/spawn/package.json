@@ -1,7 +1,7 @@
 {
   "name": "@ezs/spawn",
   "description": "...",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
   "bugs": "https://github.com/Inist-CNRS/ezs/issues",
   "dependencies": {
