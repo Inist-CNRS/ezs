@@ -7,7 +7,7 @@
       "conventionalCommits": true
     },
     "version": {
-      "allowBranch": "master"
+      "allowBranch": "fix-ezs-lodex"
     }
   },
   "packages": [
