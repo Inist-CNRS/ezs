@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.6](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.16.5...@ezs/lodex@1.16.6) (2023-08-16)
+
+
+### Bug Fixes
+
+* 🐛 allow skip parameter ([4f5b38d](https://github.com/Inist-CNRS/ezs/commit/4f5b38d0ab5379bd94a02fabda05125d0d611709))
+
+
+
+
+
 ## [1.16.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/lodex@1.16.4...@ezs/lodex@1.16.5) (2023-07-17)
 
 **Note:** Version bump only for package @ezs/lodex
