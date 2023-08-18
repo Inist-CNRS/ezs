@@ -129,7 +129,6 @@ describe('TARDump', () => {
             .pipe(ezs.catch())
             .on('error', done)
             .on('data', (obj) => {
-                console.log(obj);
                 assert.equal(obj.description, 'none');
                 assert.equal(obj.version, '1.0');
                 assert.equal(obj.itemsCounter, 3);
@@ -140,6 +139,39 @@ describe('TARDump', () => {
                 done();
             });
     });
+
+    it('should dump and extract text', (done) => {
+        const result = [];
+        const script = `
+        [exchange]
+        value = get('c')
+        [TARDump]
+        json = false
+        extension = txt
+
+        [TARExtract]
+        path = **/*.txt
+        json = false
+
+        [exchange]
+        value = get('value')
+        `;
+        from(input)
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (obj) => {
+                result.push(obj);
+            })
+            .on('end', () => {
+                assert.equal(result.length, 3);
+                assert.equal(result[0], 'un');
+                assert.equal(result[1], 'deux');
+                assert.equal(result[2], 'trois');
+                done();
+            });
+    });
+
 
 
 
