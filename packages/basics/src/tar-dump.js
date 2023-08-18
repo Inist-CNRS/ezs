@@ -15,7 +15,8 @@ const eol = '\n';
  * @name TARDump
  * @param {String} [manifest] Location path to store files in the tarball
  * @param {String} [location=data] Location path to store files in the tarball
- * @param {String} [json=true] Parse as JSON the content of each file
+ * @param {String} [json=true] Convert to JSON the content of each chunk
+ * @param {String} [extension=json] Choose extension fo each file
  * @param {Boolean} [compress=false] Enable gzip compression
  */
 export default function TARDump(data, feed) {
@@ -40,9 +41,11 @@ export default function TARDump(data, feed) {
         this.pack.finalize();
         return;
     }
+    const json = this.getParam('json', true);
+    const extension = this.getParam('extension', 'json');
     const id = this.getIndex().toString().padStart(10, '0');
-    const value = JSON.stringify(data).concat(eol);
+    const value = json ? JSON.stringify(data).concat(eol) : data;
     const location = this.getParam('location', 'data');
-    this.pack.entry({ name: `${location}/f${id}.json` }, value);
+    this.pack.entry({ name: `${location}/f${id}.${extension}` }, value);
     feed.end();
 }
