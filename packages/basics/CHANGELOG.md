@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.5.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.4.1...@ezs/basics@2.5.0) (2023-08-18)
+
+
+### Features
+
+* 🎸 support text files ([2ba8571](https://github.com/Inist-CNRS/ezs/commit/2ba8571dbd651849ab12c4c08627ff29019e3c7f))
+
+
+
+
+
 ## [2.4.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.4.0...@ezs/basics@2.4.1) (2023-07-20)
 
 
