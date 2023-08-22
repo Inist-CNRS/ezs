@@ -1,6 +1,6 @@
 {
   "name": "@ezs/spawn",
-  "description": "...",
+  "description": "Statements to launch natives commands",
   "version": "1.4.4",
   "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
   "bugs": "https://github.com/Inist-CNRS/ezs/issues",
