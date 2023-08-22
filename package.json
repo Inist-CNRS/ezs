@@ -56,5 +56,8 @@
     "commitizen": {
       "path": "git-cz"
     }
+  },
+  "dependencies": {
+    "npm": "7.24.2"
   }
 }
