@@ -46,7 +46,7 @@
   },
   "repository": "Inist-CNRS/ezs.git",
   "scripts": {
-    "build": "babel src --out-dir lib",
+    "build": "babel --root-mode upward src --out-dir lib",
     "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-conditor.md --section=usage && cp ../../docs/plugin-conditor.md ./README.md",
     "lint": "eslint --ext=.js ./test/*.js ./src/*.js ./bin/*.js",
     "prepublish": "npm run build",
