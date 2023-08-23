@@ -26,17 +26,10 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Cache node modules
-      uses: actions/cache@v2
-      with:
-        path: ~/.npm
-        key: npm-deps-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: npm-deps-
+        cache: 'yarn'
 
-    - name: npm install
-      run: |
-        npm ci
-        npm test
+    - name: Testing all packages
+      run: yarn test
 
     - name: Coveralls Parallel
       uses: coverallsapp/github-action@master
