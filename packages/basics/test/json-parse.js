@@ -5,7 +5,7 @@ import ezsBasics from '../src';
 ezs.use(ezsBasics);
 
 describe('JSONParse', () => {
-    it('should return a value (jsonstream)', (done) => {
+    it('should return a value ', (done) => {
         from(['{ "a": 1 }'])
             .pipe(ezs('JSONParse'))
             .on('data', (data) => {
@@ -15,9 +15,9 @@ describe('JSONParse', () => {
                 done();
             });
     });
-    it('should return a value (yajs)', (done) => {
+    it('should return a value ', (done) => {
         from(['{ "a": 1 }'])
-            .pipe(ezs('JSONParse', { legacy: false, separator: "$.a" }))
+            .pipe(ezs('JSONParse', { separator: '*.a' }))
             .on('data', (data) => {
                 expect(data).toBe(1);
             })
@@ -26,7 +26,7 @@ describe('JSONParse', () => {
             });
     });
 
-    it('should return two values (jsonstream)', (done) => {
+    it('should return two values ', (done) => {
         let res = [];
         const input = '{ "a": 1 }{ "a": 2 }';
         from(input.split(''))
@@ -41,12 +41,12 @@ describe('JSONParse', () => {
             });
     });
 
-    it('should return two values (yajs)', (done) => {
+    it('should return two values ', (done) => {
         let res = [];
         const input = '{ "a": 1 }{ "a": 2 }';
         from(input.split(''))
             .pipe(ezs.toBuffer())
-            .pipe(ezs('JSONParse', { legacy: false, separator: '$.a' }))
+            .pipe(ezs('JSONParse', { separator: '.a' }))
             .on('error', done)
             .on('data', (data) => {
                 expect(typeof data).toBe('number');
@@ -58,12 +58,12 @@ describe('JSONParse', () => {
             });
     });
 
-    it('should return two objects (jsonstream)', (done) => {
+    it('should return two objects ', (done) => {
         const res = [];
         const input = '[{ "a": 1 },{ "a": 2 }]';
         from(input.split(''))
             .pipe(ezs.toBuffer())
-            .pipe(ezs('JSONParse', { legacy: true, separator: '*' }))
+            .pipe(ezs('JSONParse', { separator: '*' }))
             .on('error', done)
             .on('data', (data) => {
                 res.push(data);
@@ -76,12 +76,12 @@ describe('JSONParse', () => {
             });
     });
 
-    it('should return two objects (yajs)', (done) => {
+    it('should return two objects ', (done) => {
         const res = [];
         const input = '[{ "a": 1 },{ "a": 2 }]';
         from(input.split(''))
             .pipe(ezs.toBuffer())
-            .pipe(ezs('JSONParse', { legacy: false, separator: '$' }))
+            .pipe(ezs('JSONParse', { separator: '*' }))
             .on('error', done)
             .on('data', (data) => {
                 res.push(data);
@@ -95,7 +95,7 @@ describe('JSONParse', () => {
     });
 
 
-    it('should use the separator (jsonstream)', (done) => {
+    it('should use the separator ', (done) => {
         let res = [];
         from(['{ "a": 1, "b": 3 }', '{ "a": 2, "b": 4 }'])
             .pipe(ezs('JSONParse', { separator: 'b' }))
