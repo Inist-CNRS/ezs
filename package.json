@@ -45,7 +45,7 @@
     "release:publish": "lerna publish from-package",
     "commit": "git status && npx git-cz -a",
     "build": "lerna run build",
-    "bootstrap": "yarn install --ignore-engines",
+    "bootstrap": "yarn install --ignore-engines && yarn run build",
     "doc": "lerna run doc",
     "lint": "lerna run --no-bail lint",
     "pretest": "npm run bootstrap",
