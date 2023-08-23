@@ -2,6 +2,7 @@ import http from 'http';
 import from from 'from';
 import semver from 'semver';
 import ezs from '../../core/src';
+import ezsAnalytics from '../../analytics/src';
 import statements from '../src';
 
 ezs.addPath(__dirname);
@@ -428,7 +429,8 @@ describe('URLConnect error and retry', () => {
         });
     });
     describe('deep', () => {
-                const getScript = (timeout, retries, mode, port = 44441) => `
+        ezs.use(ezsAnalytics);
+        const getScript = (timeout, retries, mode, port = 44441) => `
 [use]
 plugin = analytics
 
