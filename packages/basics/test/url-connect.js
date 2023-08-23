@@ -207,7 +207,7 @@ describe('URLConnect', () => {
                 .pipe(ezs.catch())
                 .on('error', (e) => {
                     try {
-                        expect(e.message).toEqual(expect.stringContaining("in JSON at position"));
+                        expect(e.message).toEqual(expect.stringContaining('JSON at position'));
                         done();
                     } catch(ee) {
                         done(ee);
