@@ -30,6 +30,62 @@ describe('network', () => {
             });
     });
 
+    it('segment #3', (done) => {
+        ezs.use(statements);
+        const res = [];
+        from([
+            {
+                id: 'doc#1',
+                value: [
+                    1,
+                    2,
+                    3,
+                    4,
+                ],
+            },
+            {
+                id: 'doc#2',
+                value: [
+                    4,
+                    5,
+                    6,
+                ],
+            },
+            {
+                id: 'doc#3',
+                value: 6,
+                valueBis: 7,
+            },
+            {
+                id: 'doc#4',
+                value: [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                ],
+            },
+        ])
+            .pipe(ezs('segment', { path: ['value', 'valueBis'], identifier: 'id' }))
+            .pipe(ezs('reducing'))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(6, res.length);
+                assert.equal(1, res[0].id[0]);
+                assert.equal(2, res[0].id[1]);
+                assert.equal(2, res[0].value.length);
+                assert.equal(2, res[5].value.length);
+                done();
+            });
+    });
+
+
     it('segment #1', (done) => {
         ezs.use(statements);
         const res = [];
