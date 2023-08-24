@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.5.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.5.0...@ezs/basics@2.5.1) (2023-08-24)
+
+
+### Bug Fixes
+
+* 🐛 FILESave and direct buffer input ([d4c14ee](https://github.com/Inist-CNRS/ezs/commit/d4c14ee229f6699f43592b87b01b2fc9baf83c70))
+* 🐛 remove buggy option ([3782390](https://github.com/Inist-CNRS/ezs/commit/378239008ed74d2aace22ecb3f3010e66f5af76a))
+
+
+
+
+
 # [2.5.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.4.1...@ezs/basics@2.5.0) (2023-08-18)
 
 
