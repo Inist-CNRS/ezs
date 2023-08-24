@@ -115,7 +115,6 @@ describe('FILESave #2', () => {
 
 describe('FILESave #1bis', () => {
     const identifier = Date.now();
-    const filename = `/tmp/${identifier}`;
     const filenamegz = `/tmp/${identifier}.gz`;
     it('should return stat', (done) => {
         const output = [];
@@ -167,7 +166,7 @@ describe('FILESave (delegated)', () => {
     });
 });
 
-describe('FILESave #1ter', () => {
+describe('FILESave #2', () => {
     const identifier = Date.now();
     const filenamegz = `/tmp/${identifier}.gz`;
     const script = `
@@ -199,6 +198,49 @@ describe('FILESave #1ter', () => {
             });
     });
 });
+
+describe('FILESave #2bis', () => {
+    const identifier = Date.now();
+    const filenamegz = `/tmp/${identifier}`;
+    const script = `
+        [TARDump]
+        compress = true
+
+        [FILESave]
+        identifier = ${identifier}
+        location = /tmp
+        compress = false
+
+        [exchange]
+        value = get('filename')
+
+        [FILELoad]
+        compress = false
+        location = /tmp
+
+        [TARExtract]
+        path = data/*.json
+        compress = true
+        `;
+
+    it('should return the same', (done) => {
+        const output = [];
+        from(['a'])
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                expect(output.length).toBe(1);
+                expect(output[0]).toStrictEqual('a');
+                fs.unlink(filenamegz, done);
+            });
+    });
+});
+
+
 
 
 describe('FILESave errors', () => {
