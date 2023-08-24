@@ -80,6 +80,7 @@ import core from './core';
  * @name segment
  * @param {String} [path=value] path
  * @param {Boolean} [aggregate=true] aggregate all values for all paths (or not)
+ * @param {Boolean} [identifier=false] path to use to set value result field (if not set or not exists, 1 is use as a default value)
  * @returns {Object}
  */
 export default function segment(data, feed) {
@@ -88,6 +89,7 @@ export default function segment(data, feed) {
         return;
     }
     const aggr = this.getParam('aggregate', true);
+    const idt = this.getParam('identifier', false);
     const path = this.getParam('path', 'value');
     const fields = Array.isArray(path) ? path : [path];
 
@@ -98,19 +100,20 @@ export default function segment(data, feed) {
         .map((item) => (Array.isArray(item) ? item : [item]));
 
     const values = valuesOrig[0] && Array.isArray(valuesOrig[0][0]) ? flatten(valuesOrig) : valuesOrig;
+    const weight = idt === false ? 1 : get(data, idt, 1);
 
     if (aggr) {
         values.reduce((pre, cur) => pre.concat(cur), [])
             .reduce((pre, cur) => {
                 if (pre) {
-                    feed.write(core([pre, cur], 1));
+                    feed.write(core([pre, cur], weight));
                 }
                 return cur;
             }, false);
     } else {
         values.map((item) => item.reduce((pre, cur) => {
             if (pre) {
-                feed.write(core([pre, cur], 1));
+                feed.write(core([pre, cur], weight));
             }
             return cur;
         }, false));
