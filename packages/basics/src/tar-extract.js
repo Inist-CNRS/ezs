@@ -34,21 +34,28 @@ export default function TARExtract(data, feed) {
         this.whenEnd = new Promise((resolve, reject) => {
             extract.on('entry', async (header, stream, next) => {
                 if (micromatch.isMatch(header.name, filesPatern)) {
-                    const contentRaw = await getStream(stream);
-                    if (json) {
-                        const contentJson = JSON.parse(contentRaw);
+                    try {
+                        const contentRaw = await getStream(stream);
+                        if (json) {
+                            const contentJson = JSON.parse(contentRaw);
+                            return writeTo(
+                                this.output,
+                                contentJson,
+                                () => next(),
+                            );
+                        }
                         return writeTo(
                             this.output,
-                            contentJson,
+                            { id: header.name, value: contentRaw },
                             () => next(),
                         );
+                    } catch (e) {
+                        console.warn(`WARNING: file was ignored (${header.name})`, e);
+                        stream.resume();
+                        return next();
                     }
-                    return writeTo(
-                        this.output,
-                        { id: header.name, value: contentRaw },
-                        () => next(),
-                    );
                 }
+                stream.resume();
                 return next();
             });
             extract.on('error', reject);
