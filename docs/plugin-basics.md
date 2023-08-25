@@ -367,7 +367,6 @@ Output:
 #### Parameters
 
 -   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to split at every JSONPath found (optional, default `"*"`)
--   `legacy` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** use legacy or newer parser (separator should be different) (optional, default `true`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
