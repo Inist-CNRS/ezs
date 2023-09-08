@@ -35,8 +35,5 @@
     "prepublish": "npm run build",
     "pretest": "npm run build",
     "preversion": "npm run doc"
-  },
-  "engines": {
-    "node": ">=14.0.0"
   }
 }
