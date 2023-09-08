@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@2.1.0...@ezs/analytics@2.2.0) (2023-09-08)
+
+
+### Features
+
+* 🎸 add identifier parameter to [graph] ([961e201](https://github.com/Inist-CNRS/ezs/commit/961e20157816b3792ff6ee692e8fd5a6b437968c))
+
+
+
+
+
 # [2.1.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@2.0.23...@ezs/analytics@2.1.0) (2023-08-25)
 
 
