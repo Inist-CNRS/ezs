@@ -80,7 +80,7 @@ import core from './core';
  * @name segment
  * @param {String} [path=value] path
  * @param {Boolean} [aggregate=true] aggregate all values for all paths (or not)
- * @param {Boolean} [identifier=false] path to use to set value result field (if not set or not exists, 1 is use as a default value)
+ * @param {String} [identifier=false] path to use to set value result field (if not set or not exists, 1 is use as a default value)
  * @returns {Object}
  */
 export default function segment(data, feed) {

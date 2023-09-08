@@ -38,6 +38,7 @@ import core from './core';
  *
  * @name graph
  * @param {String} path
+ * @param {String} [identifier=false] path to use to set value result field (if not set or not exists, 1 is use as a default value)
  * @returns {Object}
  */
 export default function graph(data, feed) {
