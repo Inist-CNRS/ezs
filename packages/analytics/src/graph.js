@@ -38,6 +38,7 @@ import core from './core';
  *
  * @name graph
  * @param {String} path
+ * @param {String} [identifier=false] path to use to set value result field (if not set or not exists, 1 is use as a default value)
  * @returns {Object}
  */
 export default function graph(data, feed) {
@@ -45,22 +46,21 @@ export default function graph(data, feed) {
         feed.close();
         return;
     }
-    let fields = this.getParam('path', []);
-    if (!Array.isArray(fields)) {
-        fields = [fields];
-    }
-
-    const values = fields
+    const path = this.getParam('path', []);
+    const idt = this.getParam('identifier', false);
+    const weight = idt === false ? 1 : get(data, idt, 1);
+    const values = [].concat(path)
         .map((key) => get(data, key))
         .filter((x) => x)
         .map((item) => (item instanceof Array ? item : [item]))
         .reduce((pre, cur) => pre.concat(cur), [])
+        .filter(Boolean)
         .sort();
 
     values.forEach(
         (v, i) => values
             .slice(i + 1)
-            .forEach((w) => feed.write(core([v, w], 1))),
+            .forEach((w) => feed.write(core([v, w], weight))),
     );
     feed.end();
 }
