@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/libpostal@0.2.2...@ezs/libpostal@0.2.3) (2023-09-08)
+
+**Note:** Version bump only for package @ezs/libpostal
+
+
+
+
+
 ## [0.2.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/libpostal@0.2.1...@ezs/libpostal@0.2.2) (2023-03-28)
 
 

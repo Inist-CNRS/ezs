@@ -1,7 +1,7 @@
 {
   "name": "@ezs/conditor",
   "description": "ezs statements for Conditor",
-  "version": "2.10.6",
+  "version": "2.10.7",
   "author": "François Parmentier <francois.parmentier@gmail.com>",
   "bin": {
     "affAlign": "./bin/affAlign.js",

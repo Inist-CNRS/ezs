@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.6](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.0.5...@ezs/core@3.0.6) (2023-09-08)
+
+**Note:** Version bump only for package @ezs/core
+
+
+
+
+
 ## [3.0.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.0.4...@ezs/core@3.0.5) (2023-08-18)
 
 **Note:** Version bump only for package @ezs/core
