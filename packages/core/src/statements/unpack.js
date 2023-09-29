@@ -16,9 +16,9 @@ export default function unpack(data, feed) {
         this.remainder = '';
     }
     if (this.isLast()) {
-        this.remainder += this.decoder.end();
-        if (this.remainder) {
-            feed.write(JSON.parse(this.remainder));
+        const lastchunk = [this.remainder, this.decoder.end()].filter(Boolean).join('');
+        if (lastchunk) {
+            feed.write(JSON.parse(lastchunk));
         }
         return feed.close();
     }

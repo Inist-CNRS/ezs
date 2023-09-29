@@ -49,7 +49,7 @@ export default function concat(data, feed) {
         feed.send(beginWith.concat(this.buffer.filter(Boolean).join(joinWith)).concat(endWith));
         return feed.close();
     }
-    let value = Buffer.isBuffer(data) ? this.decoder.write(data) : data;
+    const value = Buffer.isBuffer(data) ? this.decoder.write(data) : data;
     this.buffer.push(value);
     return feed.end();
 }
