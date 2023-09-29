@@ -11,9 +11,13 @@ function CSVParse(data, feed) {
         this.whenFinish = feed.flow(this.input);
     }
     if (this.isLast()) {
-        this.decoder.end();
+        writeTo(
+            this.input,
+            this.decoder.end(),
+            () => this.input.end(),
+        );
         this.whenFinish.finally(() => feed.close());
-        return this.input.end();
+        return ;
     }
     writeTo(
         this.input,
