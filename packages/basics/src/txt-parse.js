@@ -3,14 +3,16 @@ import { StringDecoder } from 'string_decoder';
 function TXTParse(data, feed) {
     if (!this.decoder) {
         this.decoder = new StringDecoder('utf8');
+        this.remainder = '';
+        this.counter = 0;
     }
     if (this.isLast()) {
-        this.decoder.end();
+        this.remainder += this.decoder.end();
+        if (this.remainder && this.counter > 1) {
+            feed.write(this.remainder);
+        }
         return feed.end();
     }
-
-    this.remainder = this.remainder || '';
-
     let separator;
     try {
         const val = '"'.concat(this.getParam('separator', '\n')).concat('"');
@@ -32,6 +34,7 @@ function TXTParse(data, feed) {
     lines.forEach((line) => {
         feed.write(line);
     });
+    this.counter += lines.length;
     feed.end();
 }
 

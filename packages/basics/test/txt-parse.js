@@ -81,6 +81,28 @@ describe('TXTParse', () => {
                 done();
             });
     });
+    it('should generate with a separator parameter and multi bytes char', (done) => {
+        let res = [];
+        from([
+            'a*b*',
+            Buffer.from([0xE2]),
+            Buffer.from([0x82]),
+            Buffer.from([0xAC]),
+            '*',
+            Buffer.from([0xC2]),
+            Buffer.from([0xA2]),
+        ])
+            .pipe(ezs('TXTParse', { separator: '*' }))
+            .on('data', (data) => {
+                res = [...res, data];
+            })
+            .on('end', () => {
+                expect(res).toStrictEqual(['a', 'b', '€', '¢']);
+                done();
+            });
+    });
+
+
 
     it('should not generate with a tab separator', (done) => {
         let res = [];
