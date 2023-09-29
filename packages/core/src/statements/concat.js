@@ -1,3 +1,4 @@
+import { StringDecoder } from 'string_decoder';
 /**
  * Take all `String`, concat them and throw just one.
  *
@@ -33,20 +34,23 @@
  * @returns {String}
  */
 export default function concat(data, feed) {
+    if (!this.decoder) {
+        this.decoder = new StringDecoder('utf8');
+    }
     const beginWith = this.getParam('beginWith', '');
     const joinWith = this.getParam('joinWith', '');
     const endWith = this.getParam('endWith', '');
 
     if (this.buffer === undefined) {
-        this.buffer = beginWith;
+        this.buffer = [];
     }
     if (this.isLast()) {
-        feed.send(this.buffer.concat(endWith));
+        this.buffer.push(this.decoder.end());
+        feed.send(beginWith.concat(this.buffer.filter(Boolean).join(joinWith)).concat(endWith));
         return feed.close();
     }
-    if (!this.isFirst()) {
-        this.buffer = this.buffer.concat(joinWith);
-    }
-    this.buffer = this.buffer.concat(data);
+    let value = Buffer.isBuffer(data) ? this.decoder.write(data) : data;
+    this.buffer.push(value);
     return feed.end();
 }
+

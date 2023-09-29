@@ -1,4 +1,6 @@
 import debug from 'debug';
+import { StringDecoder } from 'string_decoder';
+
 
 const eol = '\n';
 
@@ -9,17 +11,21 @@ const eol = '\n';
  * @returns {object}
  */
 export default function unpack(data, feed) {
+    if (!this.decoder) {
+        this.decoder = new StringDecoder('utf8');
+        this.remainder = '';
+    }
     if (this.isLast()) {
+        this.remainder += this.decoder.end();
         if (this.remainder) {
             feed.write(JSON.parse(this.remainder));
         }
         return feed.close();
     }
-    this.remainder = this.remainder || '';
 
     let lines;
     if (Buffer.isBuffer(data)) {
-        lines = data.toString().split(eol);
+        lines = this.decoder.write(data).split(eol);
     } else if (typeof data === 'string') {
         lines = data.split(eol);
     } else {
