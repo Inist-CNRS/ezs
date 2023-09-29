@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.7](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.0.6...@ezs/core@3.0.7) (2023-09-29)
+
+
+### Bug Fixes
+
+* 🐛 missing string decoder ([e9461e1](https://github.com/Inist-CNRS/ezs/commit/e9461e17a9125a681a1988d5f0ecf007abb4f5ef))
+
+
+
+
+
 ## [3.0.6](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.0.5...@ezs/core@3.0.6) (2023-09-08)
 
 **Note:** Version bump only for package @ezs/core

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.5.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.5.4...@ezs/basics@2.5.5) (2023-09-29)
+
+
+### Bug Fixes
+
+* 🐛 missing string decoder ([b50f1a2](https://github.com/Inist-CNRS/ezs/commit/b50f1a2963c3266a0294dad862cbff34e501f3c2))
+
+
+
+
+
 ## [2.5.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.5.3...@ezs/basics@2.5.4) (2023-09-08)
 
 **Note:** Version bump only for package @ezs/basics
