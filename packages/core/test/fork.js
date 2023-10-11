@@ -262,4 +262,94 @@ describe('fork)', () => {
 
 
 
+    it.only('#6 (trap & standalone)', (done) => {
+        const script = `
+            [aie]
+        `;
+        const env = {
+            trap: false,
+        }
+        from([
+            { a: 1, b: 9 },
+            { a: 2, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+        ])
+            .pipe(ezs('fork', {
+                script,
+                standalone: true,
+                logger: './trap.ini',
+            },
+                env,
+            ))
+            .pipe(ezs.catch())
+            .on('error', (e) => {
+                try {
+                    expect(e.message).toEqual(expect.stringContaining('aie'));
+                    setTimeout(
+                        () => { 
+                            expect(env.trap).toEqual(true);
+                            done();
+                        }, 
+                        500,
+                    );
+                } catch(ee) {
+                    done(ee);
+                }
+            })
+            .on('data', () => true)
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+            });
+    });
+
+    it.only('#7 (trap)', (done) => {
+        const script = `
+            [boum]
+        `;
+        const env = {
+            trap: false,
+        }
+        from([
+            { a: 1, b: 9 },
+            { a: 2, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+        ])
+            .pipe(ezs('fork', {
+                script,
+                standalone: true,
+                logger: './trap.ini',
+            },
+                env,
+            ))
+            .pipe(ezs.catch())
+            .on('error', (e) => {
+                try {
+                    expect(e.message).toEqual(expect.stringContaining('Boom!'));
+                    setTimeout(
+                        () => { 
+                            expect(env.trap).toEqual(true);
+                            done();
+                        }, 
+                        500,
+                    );
+                } catch(ee) {
+                    done(ee);
+                }
+            })
+            .on('data', () => true)
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+            });
+    });
+
+
+
+
+
+
+
 });

@@ -43,6 +43,7 @@ async function loopFunc(data, feed) {
  * @param {String} [script] the external pipeline is described in a string of characters
  * @param {String} [commands] the external pipeline is described in an object
  * @param {String} [command] the external pipeline is described in an URL-like command
+ * @param {String} [logger] A dedicaded pipeline described in a file to trap or log errors 
  * @returns {Object}
  */
 export default function loop(data, feed) {
@@ -66,7 +67,8 @@ export default function loop(data, feed) {
         .map((i) => (reverse ? !i : i));
     const statements = ezs.compileCommands(commands, this.getEnv());
     const input = ezs.createStream(ezs.objectMode());
-    const output = ezs.createPipeline(input, statements)
+    const logger = ezs.createTrap(this.getParam('logger'), this.getEnv());
+    const output = ezs.createPipeline(input, statements, logger)
         .pipe(ezs(loopFunc, {
             reverse,
             depth: 1,
