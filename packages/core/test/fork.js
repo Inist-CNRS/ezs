@@ -288,10 +288,10 @@ describe('fork)', () => {
                 try {
                     expect(e.message).toEqual(expect.stringContaining('aie'));
                     setTimeout(
-                        () => { 
+                        () => {
                             expect(env.trap).toEqual(true);
                             done();
-                        }, 
+                        },
                         500,
                     );
                 } catch(ee) {
@@ -328,12 +328,12 @@ describe('fork)', () => {
             .pipe(ezs.catch())
             .on('error', (e) => {
                 try {
-                    expect(e.message).toEqual(expect.stringContaining('Boom!'));
+                    expect(e.message).toEqual(expect.stringContaining('Boum!'));
                     setTimeout(
-                        () => { 
+                        () => {
                             expect(env.trap).toEqual(true);
                             done();
-                        }, 
+                        },
                         500,
                     );
                 } catch(ee) {

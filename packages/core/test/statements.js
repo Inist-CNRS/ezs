@@ -520,7 +520,7 @@ describe('statements', () => {
             new Error(2),
         ])
             .pipe(ezs('dump'))
-            .pipe(ezs.catch(() => false))
+            .pipe(ezs.catch(() => true))
             .on('data', (chunk) => {
                 res.push(chunk);
             })
@@ -535,7 +535,7 @@ describe('statements', () => {
             new Error(1),
             new Error(2),
         ])
-            .pipe(ezs.catch(() => false))
+            .pipe(ezs.catch(() => true))
             .pipe(ezs('dump'))
             .on('data', (chunk) => {
                 res.push(chunk);
@@ -553,7 +553,7 @@ describe('statements', () => {
             new Error(2),
         ])
             .pipe(ezs('dump'))
-            .pipe(ezs.catch(() => false))
+            .pipe(ezs.catch(() => true))
             .on('data', (chunk) => {
                 res.push(chunk);
             })
@@ -569,7 +569,7 @@ describe('statements', () => {
             1,
             new Error(2),
         ])
-            .pipe(ezs.catch(() => false))
+            .pipe(ezs.catch(() => true))
             .pipe(ezs('dump'))
             .on('data', (chunk) => {
                 res.push(chunk);
