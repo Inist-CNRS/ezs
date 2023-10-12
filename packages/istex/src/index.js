@@ -9,6 +9,7 @@ import ISTEXParseDotCorpus from './istex-parse-dot-corpus';
 import ISTEXTriplify from './istex-triplify';
 import ISTEXUniq from './uniq';
 import ISTEXScroll from './scroll';
+import ISTEXUntar from './untar';
 import ISTEXUnzip from './unzip';
 import ISTEXFacet from './facet';
 import ISTEXExchange from './istex-exchange';
@@ -26,6 +27,7 @@ const funcs = {
     ISTEXTriplify,
     ISTEXUniq,
     ISTEXScroll,
+    ISTEXUntar,
     ISTEXUnzip,
     ISTEXFacet,
     ISTEXExchange,

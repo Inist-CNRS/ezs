@@ -2853,6 +2853,13 @@
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-2.0.1.tgz#20f18294f797f2209b5f65c8e3b5c8e8261d127c"
   integrity sha512-Hl219/BT5fLAaz6NDkSuhzasy49dwQS/DSdu4MdggFB8zcXv7vflBI3xp7FEmkmdDkBUI2bPUNeMttp2knYdxw==
 
+"@types/tar-stream@3.1.1":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@types/tar-stream/-/tar-stream-3.1.1.tgz#a0d936ec27c732e5287a84055b849637ee609974"
+  integrity sha512-/1E+a09mAFQwhlEHqiS3LuNWIBiyrn0HqUWZk2IyGzodu9zkXbaT5vl94iGlZGnG2IONVFZd84SFhns3MhhAQQ==
+  dependencies:
+    "@types/node" "*"
+
 "@types/tmp@^0.2.0":
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/@types/tmp/-/tmp-0.2.3.tgz#908bfb113419fd6a42273674c00994d40902c165"
