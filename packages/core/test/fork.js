@@ -371,13 +371,52 @@ describe('fork)', () => {
                 env,
             ))
             .pipe(ezs.catch())
-            .on('error', (e) => {
-                done(e);
-            })
+            .on('error', done)
             .on('data', () => true)
             .on('end', () => true)
         ;
     });
+
+    it('#7 (wrong trap & standalone)', (done) => {
+        const script = `
+            [slow]
+            time = 100
+            [boum]
+        `;
+        const env = {
+            trap: false,
+        };
+        // attendre que l'erreur dans le "fork" tombe dans le piége
+        setTimeout(
+            () => {
+                expect(env.trap).toEqual(false);
+                done();
+            },
+            1000,
+        );
+        from([
+            { a: 1, b: 9 },
+            { a: 2, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+        ])
+            .pipe(ezs(
+                'fork', {
+                    script,
+                    standalone: true,
+                    logger: './badtrap.ini',
+                },
+                env,
+            ))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', () => true)
+            .on('end', () => true)
+        ;
+    });
+
+
 
 
 

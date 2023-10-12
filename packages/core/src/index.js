@@ -148,7 +148,9 @@ ezs.createTrap = (file, env) => {
     }
     const input = ezs.createStream(ezs.objectMode());
     ezs.createPipeline(input, ezs.compileCommands(ezs.createCommands({ file }), env))
-        .once('error', () => true)
+        .once('error', (e) => {
+            console.warn(`WARNING: the trap failed, ${file} stopped at ${e.message}`);
+        })
         .once('end', () => true)
         .on('data', () => true);
     return input;
