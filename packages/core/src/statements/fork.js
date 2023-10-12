@@ -49,8 +49,8 @@ export default function fork(data, feed) {
             this.whenFinish = new Promise((resolve) => output
                 .pipe(ezs.catch((e) => feed.write(e))) // avoid to break pipeline at each error
                 .once('error', (e) => feed.stop(e))
-                .once('end', resolve)
                 .on('data', () => true)
+                .once('end', resolve)
             );
         }
     }
