@@ -152,7 +152,9 @@ export default class Engine extends SafeTransform {
                 debug('ezs')(`Ignoring error at item #${currentIndex}`);
                 return this.push(createErrorWith(data, currentIndex, this.funcName, chunk));
             }
-            return this.push(data);
+            if (!this.errorWasSent) {
+                return this.push(data);
+            }
         };
         const wait = async () => {
             this.pause();

@@ -10,6 +10,7 @@ import debug from 'debug';
  * @param {String} [script] the external pipeline is described in a string of characters
  * @param {String} [commands] the external pipeline is described in a object
  * @param {String} [command] the external pipeline is described in a URL-like command
+ * @param {String} [logger] A dedicaded pipeline described in a file to trap or log errors
  * @returns {Object}
  */
 export default function delegate(data, feed) {
@@ -25,7 +26,8 @@ export default function delegate(data, feed) {
             append: this.getParam('append'),
         });
         const statements = ezs.compileCommands(commands, this.getEnv());
-        const output = ezs.createPipeline(this.input, statements)
+        const logger = ezs.createTrap(this.getParam('logger'), this.getEnv());
+        const output = ezs.createPipeline(this.input, statements, logger)
             .pipe(ezs.catch((e) => feed.write(e))); // avoid to break pipeline at each error
         this.whenFinish = feed.flow(output);
     }

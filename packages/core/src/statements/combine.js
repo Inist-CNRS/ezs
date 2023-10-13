@@ -69,6 +69,7 @@ async function saveIn(data, feed) {
  * @param {String} [script] the external pipeline is described in a string of characters
  * @param {String} [commands] the external pipeline is described in a object
  * @param {String} [command] the external pipeline is described in a URL-like command
+ * @param {String} [logger] A dedicaded pipeline described in a file to trap or log errors
  * @returns {Object}
  */
 export default function combine(data, feed) {
@@ -90,7 +91,8 @@ export default function combine(data, feed) {
         if (!database[this.databaseID]) {
             database[this.databaseID] = {};
             const statements = ezs.compileCommands(commands, this.getEnv());
-            const output = ezs.createPipeline(input, statements)
+            const logger = ezs.createTrap(this.getParam('logger'), this.getEnv());
+            const output = ezs.createPipeline(input, statements, logger)
                 .pipe(ezs(saveIn, null, this.databaseID))
                 .pipe(ezs.catch())
                 .on('data', (d) => assert(d)) // WARNING: The data must be consumed, otherwise the "end" event has not been triggered

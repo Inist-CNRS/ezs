@@ -12,6 +12,7 @@ import _ from 'lodash';
  * @param {String} [script] the external pipeline is described in a string of characters
  * @param {String} [commands] the external pipeline is described in a object
  * @param {String} [command] the external pipeline is described in a URL-like command
+ * @param {String} [logger] A dedicaded pipeline described in a file to trap or log errors
  * @returns {Object}
  */
 export default function fork(data, feed) {
@@ -34,26 +35,30 @@ export default function fork(data, feed) {
                 append: this.getParam('append'),
             });
             const statements = ezs.compileCommands(commands, this.getEnv());
-            output = ezs.createPipeline(this.input, statements);
+            const logger = ezs.createTrap(this.getParam('logger'), this.getEnv());
+            output = ezs.createPipeline(this.input, statements, logger);
         }
         catch(e) {
             return feed.stop(e);
         }
-        this.whenFinish = new Promise((resolve) => output
-            .pipe(ezs.catch((e) => feed.write(e))) // avoid to break pipeline at each error
-            .once('error', (e) => feed.stop(e))
-            .once('end', resolve)
-            .on('data', () => true)
-        );
+        if (standalone) {
+            output
+                .on('data', () => true)
+                .once('end', () => true);
+        } else {
+            this.whenFinish = new Promise((resolve) => output
+                .pipe(ezs.catch((e) => feed.write(e))) // avoid to break pipeline at each error
+                .once('error', (e) => feed.stop(e))
+                .on('data', () => true)
+                .once('end', resolve)
+            );
+        }
     }
     if (this.isLast()) {
         debug('ezs')(`${this.getIndex()} chunks have been delegated`);
         this.input.end();
         if (standalone) {
-            Promise.race([
-                this.whenFinish,
-                Promise.resolve(true),
-            ]).finally(() => feed.close());
+            feed.close();
         } else {
             this.whenFinish.finally(() => feed.close());
         }

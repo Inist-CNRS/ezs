@@ -100,6 +100,8 @@ describe('fork)', () => {
     });
 
     it('#2 (standalone)', (done) => {
+        // en mode standalone, l'erreur ne peut plus être renvoyée dans le flux principal
+        // elle est ignorée
         const script = `
             [boum]
         `;
@@ -115,14 +117,9 @@ describe('fork)', () => {
                 standalone: true,
             }))
             .pipe(ezs.catch())
-            .on('error', (e) => {
-                expect(e.message).toEqual(expect.stringContaining('boum'));
-                done();
-            })
+            .on('error', done)
             .on('data', () => true)
-            .on('end', () => {
-                done(new Error('Error is the right behavior'));
-            });
+            .on('end', done);
     });
 
     it('#3', (done) => {
@@ -151,6 +148,8 @@ describe('fork)', () => {
     });
 
     it('#3 (standalone)', (done) => {
+        // en mode standalone, l'erreur ne peut plus être renvoyée dans le flux principal
+        // elle est ignorée
         const script = `
             [aie]
         `;
@@ -166,14 +165,9 @@ describe('fork)', () => {
                 standalone: true,
             }))
             .pipe(ezs.catch())
-            .on('error', (e) => {
-                expect(e.message).toEqual(expect.stringContaining('aie!'));
-                done();
-            })
+            .on('error', done)
             .on('data', () => true)
-            .on('end', () => {
-                done(new Error('Error is the right behavior'));
-            });
+            .on('end', () => done());
     });
 
     it('#4', (done) => {
@@ -259,6 +253,174 @@ describe('fork)', () => {
                 done();
             });
     });
+
+
+
+    it('#6 (trap)', (done) => {
+        const script = `
+            [aie]
+        `;
+        const env = {
+            trap: false,
+        };
+        from([
+            { a: 1, b: 9 },
+            { a: 2, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+        ])
+            .pipe(ezs(
+                'fork',
+                {
+                    script,
+                    logger: './trap.ini',
+                },
+                env,
+            ))
+            .pipe(ezs.catch())
+            .on('error', (e) => {
+                expect(e.message).toEqual(expect.stringContaining('aie'));
+                // attendre que l'erreur dans le "fork" tombe dans le piége
+                setTimeout(
+                    () => {
+                        expect(env.trap).toEqual(true);
+                        expect(env.message).toEqual(expect.stringContaining('aie'));
+                        done();
+                    },
+                    500,
+                );
+            })
+            .on('data', () => true)
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+            });
+    });
+
+
+    it('#6 (trap & standalone)', (done) => {
+        const script = `
+            [aie]
+        `;
+        const env = {
+            trap: false,
+        };
+        // attendre que l'erreur dans le "fork" tombe dans le piége
+        setTimeout(
+            () => {
+                expect(env.trap).toEqual(true);
+                expect(env.message).toEqual(expect.stringContaining('aie'));
+                done();
+            },
+            500,
+        );
+
+        from([
+            { a: 1, b: 9 },
+            { a: 2, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+        ])
+            .pipe(ezs(
+                'fork',
+                {
+                    script,
+                    standalone: true,
+                    logger: './trap.ini',
+                },
+                env,
+            ))
+            .pipe(ezs.catch())
+            .on('error', (e) => done(e))
+            .on('data', () => true)
+            .on('end', () => true);
+    });
+
+    it('#7 (trap & standalone)', (done) => {
+        const script = `
+            [slow]
+            time = 100
+            [boum]
+        `;
+        const env = {
+            trap: false,
+        };
+        // attendre que l'erreur dans le "fork" tombe dans le piége
+        setTimeout(
+            () => {
+                expect(env.trap).toEqual(true);
+                expect(env.message).toEqual(expect.stringContaining('Boum!'));
+                done();
+            },
+            1000,
+        );
+        from([
+            { a: 1, b: 9 },
+            { a: 2, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+        ])
+            .pipe(ezs(
+                'fork', {
+                    script,
+                    standalone: true,
+                    logger: './trap.ini',
+                },
+                env,
+            ))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', () => true)
+            .on('end', () => true)
+        ;
+    });
+
+    it('#7 (wrong trap & standalone)', (done) => {
+        const script = `
+            [slow]
+            time = 100
+            [boum]
+        `;
+        const env = {
+            trap: false,
+        };
+        // attendre que l'erreur dans le "fork" tombe dans le piége
+        setTimeout(
+            () => {
+                expect(env.trap).toEqual(false);
+                done();
+            },
+            1000,
+        );
+        from([
+            { a: 1, b: 9 },
+            { a: 2, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+        ])
+            .pipe(ezs(
+                'fork', {
+                    script,
+                    standalone: true,
+                    logger: './badtrap.ini',
+                },
+                env,
+            ))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', () => true)
+            .on('end', () => true)
+        ;
+    });
+
+
+
+
+
+
 
 
 

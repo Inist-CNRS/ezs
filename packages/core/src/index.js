@@ -106,13 +106,55 @@ ezs.createCommands = (params) => {
     return commands;
 };
 ezs.writeTo = writeTo;
-ezs.createPipeline = (input, commands) => commands.reduce((amont, aval) => amont.pipe(aval), input);
+ezs.createPipeline = (input, commands, trap) => {
+    const output = commands.reduce((amont, aval) => amont.pipe(aval), input);
+    if (!trap || !trap.write) {
+        return output;
+    }
+    return output
+        .pipe(ezs.catch((e) => {
+            trap.write({
+                type: 'Run-time warning',
+                scope: 'data',
+                message: e.message.split('\n').shift(),
+                messageFull: e.message,
+                sourceError: e.sourceError,
+                sourceChunk: e.sourceChunk,
+            });
+            return false; // do not catch the error
+        }))
+        .once('error', (e) => {
+            trap.write({
+                type: 'Fatal run-time error',
+                scope: 'statements',
+                message: e.message,
+                sourceError: e.sourceError,
+                sourceChunk: e.sourceChunk,
+            });
+            trap.end();
+        })
+        .once('end', () => {
+            trap.end();
+        });
+};
 ezs.compress = (options) => compressStream(ezs, options);
 ezs.uncompress = (options) => uncompressStream(ezs, options);
 ezs.createStream = (options) => new PassThrough(options);
 ezs.createServer = (port, path) => Server.createServer(ezs, port, path);
 ezs.createCluster = (port, path) => Server.createCluster(ezs, port, path);
-
+ezs.createTrap = (file, env) => {
+    if (!file) {
+        return;
+    }
+    const input = ezs.createStream(ezs.objectMode());
+    ezs.createPipeline(input, ezs.compileCommands(ezs.createCommands({ file }), env))
+        .once('error', (e) => {
+            console.warn(`WARNING: the trap failed, ${file} stopped at ${e.message}`);
+        })
+        .once('end', () => true)
+        .on('data', () => true);
+    return input;
+};
 ezs.use(Statements);
 
 module.exports = ezs;
