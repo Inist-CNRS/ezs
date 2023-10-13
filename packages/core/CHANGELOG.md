@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.0.7...@ezs/core@3.1.0) (2023-10-13)
+
+
+### Bug Fixes
+
+* 🐛 avoid to write in closed stream ([27df67a](https://github.com/Inist-CNRS/ezs/commit/27df67ab9ac74eb0f8d5193cead5c8ea898dae88))
+* 🐛 best errors control in standalone mode ([8e74dfc](https://github.com/Inist-CNRS/ezs/commit/8e74dfc696eb557d0777877734b6a31378c2d0b3))
+
+
+### Features
+
+* 🎸 add trap system for externals pipelines ([3e71a4d](https://github.com/Inist-CNRS/ezs/commit/3e71a4dd6de90dfd46ff97d6bad64ac15da97a46))
+
+
+
+
+
 ## [3.0.7](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.0.6...@ezs/core@3.0.7) (2023-09-29)
 
 
