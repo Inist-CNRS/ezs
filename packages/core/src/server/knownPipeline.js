@@ -57,6 +57,7 @@ const knownPipeline = (ezs) => (request, response, next) => {
     response.setHeader('Access-Control-Allow-Origin', '*');
     response.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     response.setHeader('Access-Control-Allow-Headers', '*');
+    response.setHeader('Access-Control-Expose-Headers', '*');
     response.setHeader('Content-Encoding', contentEncoding);
     response.setHeader('Content-Disposition', contentDisposition);
     response.setHeader('Content-Type', contentType);
