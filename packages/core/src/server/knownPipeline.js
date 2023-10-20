@@ -11,7 +11,7 @@ import { isFile } from '../file';
 import settings from '../settings';
 
 
-const dispositionFrom = ({ extension }) => (extension ? `dump.${extension}` : 'inline');
+const dispositionFrom = ({ extension }) => (extension ? `attachment; filename="dump.${extension}"` : 'inline');
 
 const encodingFrom = (headers) => (headers
     && headers['accept-encoding']
