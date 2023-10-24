@@ -56,7 +56,7 @@ function createServer(ezs, serverPort, serverPath, workerId) {
         next();
     });
     app.use((error, request, response, next) => {
-        errorHandler(request, response)(error, 500);
+        errorHandler(request, response)(error, 400);
         next();
     });
     const server = controlServer(http.createServer(app));

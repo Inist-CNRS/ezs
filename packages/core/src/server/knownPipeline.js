@@ -142,7 +142,7 @@ const knownPipeline = (ezs) => (request, response, next) => {
         })
         .on('error', (e) => {
             request.unpipe(rawStream);
-            triggerError(e);
+            triggerError(e, 500);
         })
         .once('close', () => {
             if (emptyStream) {
