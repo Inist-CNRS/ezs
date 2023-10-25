@@ -127,7 +127,8 @@ ezs.createPipeline = (input, commands, trap) => {
             trap.write({
                 type: 'Fatal run-time error',
                 scope: 'statements',
-                message: e.message,
+                message: e.message.split('\n').shift(),
+                messageFull: e.message,
                 sourceError: e.sourceError,
                 sourceChunk: e.sourceChunk,
             });
