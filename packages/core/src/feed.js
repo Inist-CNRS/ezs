@@ -16,6 +16,11 @@ export default class Feed {
         if (something === null) {
             this.seal();
         } else if (something !== undefined) {
+            if (something instanceof Error) {
+                something.type = 'Data corruption error';
+                something.scope = 'data';
+                something.date = new Date();
+            }
             this.push(something);
         }
     }
@@ -67,6 +72,9 @@ export default class Feed {
     }
 
     stop(withError) {
+        withError.type = 'Fatal run-time error';
+        withError.scope = 'statements';
+        withError.date = new Date();
         this.error(withError);
         this.seal();
     }

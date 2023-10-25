@@ -33,6 +33,15 @@ function createErrorWith(error, index, funcName, chunk) {
     const err = Error(msg);
     err.sourceError = error;
     err.sourceChunk = JSON.stringify(chunk);
+    err.toJSON = () => ({
+        type: error.type || 'Standard error',
+        scope: error.scope || 'code',
+        date: error.date || new Date(),
+        message: msg.split('\n').shift(),
+        func: funcName,
+        index,
+        chunk,
+    });
     Error.captureStackTrace(err, createErrorWith);
     debug('ezs')('Caught an', err);
     return err;
