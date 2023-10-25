@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.1.3...@ezs/core@3.2.0) (2023-10-25)
+
+
+### Bug Fixes
+
+* 🐛 json error bodyresponse ([4ad1789](https://github.com/Inist-CNRS/ezs/commit/4ad17899d12bac30d8ec4c25d01da63301ef7165))
+
+
+### Features
+
+* 🎸 improve error message display ([66ea68a](https://github.com/Inist-CNRS/ezs/commit/66ea68a383840a837df6da516bae02aa538ee9dd))
+
+
+
+
+
 ## [3.1.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.1.2...@ezs/core@3.1.3) (2023-10-25)
 
 
