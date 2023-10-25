@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.1.2...@ezs/core@3.1.3) (2023-10-25)
+
+
+### Bug Fixes
+
+* 🐛 error status code ([dea909f](https://github.com/Inist-CNRS/ezs/commit/dea909f2beba600ea27387510ab33a44174e0f6a))
+
+
+
+
+
 ## [3.1.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.1.1...@ezs/core@3.1.2) (2023-10-20)
 
 
