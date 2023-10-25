@@ -23,8 +23,11 @@ const typeFrom = ({ mimeType }) => (mimeType || 'application/json');
 const onlyOne = (item) => (Array.isArray(item) ? item.shift() : item);
 
 const knownPipeline = (ezs) => (request, response, next) => {
-
-    if (request.catched || !request.methodMatch(['POST', 'OPTIONS', 'HEAD']) || request.serverPath === false || !request.isPipeline()) {
+    if (request.catched
+      || !request.methodMatch(['POST', 'OPTIONS', 'HEAD'])
+      || request.serverPath === false
+      || !request.isPipeline()
+    ) {
         return next();
     }
     request.catched = true;
@@ -120,7 +123,7 @@ const knownPipeline = (ezs) => (request, response, next) => {
             decodedStream.destroy();
             transformedStream.destroy();
             responseStarted();
-            next(e);
+            triggerError(e, 400);
         });
 
     pipeline(
@@ -130,7 +133,7 @@ const knownPipeline = (ezs) => (request, response, next) => {
         response,
         (e) => {
             responseStarted();
-            next(e);
+            triggerError(e, 500);
         }
     );
 
@@ -142,7 +145,7 @@ const knownPipeline = (ezs) => (request, response, next) => {
         })
         .on('error', (e) => {
             request.unpipe(rawStream);
-            triggerError(e);
+            triggerError(e, 500);
         })
         .once('close', () => {
             if (emptyStream) {
