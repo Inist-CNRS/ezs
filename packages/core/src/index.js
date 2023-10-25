@@ -3,6 +3,7 @@ import writeTo from 'stream-write';
 import globalModules from 'global-modules';
 import { resolve } from 'path';
 import LRU from 'lru-cache';
+import _ from 'lodash';
 import Engine from './engine';
 import Script, { parseCommand } from './script';
 import File from './file';
@@ -113,25 +114,11 @@ ezs.createPipeline = (input, commands, trap) => {
     }
     return output
         .pipe(ezs.catch((e) => {
-            trap.write({
-                type: 'Run-time warning',
-                scope: 'data',
-                message: e.message.split('\n').shift(),
-                messageFull: e.message,
-                sourceError: e.sourceError,
-                sourceChunk: e.sourceChunk,
-            });
+            trap.write(e.toJSON()); // see engine.js createErrorWith
             return false; // do not catch the error
         }))
         .once('error', (e) => {
-            trap.write({
-                type: 'Fatal run-time error',
-                scope: 'statements',
-                message: e.message.split('\n').shift(),
-                messageFull: e.message,
-                sourceError: e.sourceError,
-                sourceChunk: e.sourceChunk,
-            });
+            trap.write(e.toJSON()); // see engine.js createErrorWith
             trap.end();
         })
         .once('end', () => {
