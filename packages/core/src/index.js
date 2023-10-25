@@ -3,7 +3,6 @@ import writeTo from 'stream-write';
 import globalModules from 'global-modules';
 import { resolve } from 'path';
 import LRU from 'lru-cache';
-import _ from 'lodash';
 import Engine from './engine';
 import Script, { parseCommand } from './script';
 import File from './file';
