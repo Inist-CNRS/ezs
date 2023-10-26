@@ -1,5 +1,4 @@
 import debug from 'debug';
-import Parameter from '../parameter';
 import { httpRequestErrorTotal }  from './metrics';
 
 const errorHandler = (request, response) => (error, code = 400) => {
@@ -9,10 +8,10 @@ const errorHandler = (request, response) => (error, code = 400) => {
         return response.end();
     }
     const bodyResponse = JSON.stringify(error);
-    response.setHeader('Content-Type', 'application/json');
-    response.setHeader('Content-Length', bodyResponse.length);
-    response.setHeader('Content-Disposition', 'inline');
-    response.writeHead(code, { 'X-Error': Parameter.encode(error.toString()) });
+    response.writeHead(code, {
+        'Content-Type': 'application/json',
+        'Content-Length': bodyResponse.length,
+    });
     return response.end(bodyResponse);
 };
 
