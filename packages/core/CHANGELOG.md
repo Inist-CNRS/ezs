@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.2.0...@ezs/core@3.2.1) (2023-10-26)
+
+
+### Bug Fixes
+
+* 🐛 attempts to fix lost body with proxy ([671030d](https://github.com/Inist-CNRS/ezs/commit/671030da34a32752bca1e551579fa559f1182588))
+
+
+
+
+
 # [3.2.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.1.3...@ezs/core@3.2.0) (2023-10-25)
 
 
