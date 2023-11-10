@@ -87,7 +87,11 @@ describe(' through server(s)', () => {
                 const stream = from(input);
                 fetch('http://127.0.0.1:33333/buggy1.ini', { method: 'POST', body: stream })
                     .then((res) => {
-                        assert(res.headers.has('x-error'));
+                        assert(!res.ok);
+                        return res.json();
+                    })
+                    .then((json) => {
+                        assert.equal(json.scope, 'statements');
                         done();
                     })
                     .catch(done);
@@ -98,7 +102,11 @@ describe(' through server(s)', () => {
                 const stream = from(input);
                 fetch('http://127.0.0.1:33333/buggy2.ini', { method: 'POST', body: stream })
                     .then((res) => {
-                        assert(res.headers.has('x-error'));
+                        assert(!res.ok);
+                        return res.json();
+                    })
+                    .then((json) => {
+                        assert.equal(json.scope, 'data');
                         done();
                     })
                     .catch(done);
@@ -109,7 +117,11 @@ describe(' through server(s)', () => {
                 const stream = from(input);
                 fetch('http://127.0.0.1:33333/buggy3.ini', { method: 'POST', body: stream })
                     .then((res) => {
-                        assert(res.headers.has('x-error'));
+                        assert(!res.ok);
+                        return res.json();
+                    })
+                    .then((json) => {
+                        assert.equal(json.scope, 'statements');
                         done();
                     })
                     .catch(done);
