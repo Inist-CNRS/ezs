@@ -116,24 +116,30 @@ const knownPipeline = (ezs) => (request, response, next) => {
         .pipe(ezs('truncate', { length: request.headers['content-length'] }))
         .pipe(ezs.uncompress(request.headers));
 
+    const outputStream = new PassThrough();
+    outputStream.pipe(response);
     const transformedStream = ezs.createPipeline(decodedStream, statements)
         .pipe(ezs.catch((e) => e))
         .on('error', (e) => {
+            outputStream.unpipe(response);
+            responseStarted();
+            triggerError(e, 400);
             rawStream.destroy();
             decodedStream.destroy();
             transformedStream.destroy();
-            responseStarted();
-            triggerError(e, 400);
         });
 
     pipeline(
         transformedStream,
         ezs.toBuffer(),
         ezs.compress(response.getHeaders()),
-        response,
+        outputStream,
         (e) => {
-            responseStarted();
-            triggerError(e, 500);
+            if (e) {
+                outputStream.unpipe(response);
+                responseStarted();
+                triggerError(e, 500);
+            }
         }
     );
 
