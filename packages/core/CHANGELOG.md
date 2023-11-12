@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.2.1...@ezs/core@3.2.2) (2023-11-12)
+
+
+### Bug Fixes
+
+* 🐛 invalid header with error ([7ee5869](https://github.com/Inist-CNRS/ezs/commit/7ee5869729504ed116d84f3e7781c5d88264487c))
+
+
+
+
+
 ## [3.2.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.2.0...@ezs/core@3.2.1) (2023-10-26)
 
 
