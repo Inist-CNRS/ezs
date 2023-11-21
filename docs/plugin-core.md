@@ -12,13 +12,13 @@ npm install @ezs/core
 
 Plusieurs instructions permettent de créer des sous flux (sub pipeline), à partir d'un fichier d’instructions ou d'instructions imbriquées. Si elles s'utilisent toutes de la même manière (avec les mêmes paramètres) centaines peuvent apparaître comme similaires mais leur fonctionnement est différent :
 
--   [delegate] &#x3A; 1 sous flux pour tous les éléments
--   [swing] &#x3A; 1 sous flux pour tous les éléments filtrés selon une condition
--   [spaw] &#x3A; 1 sous flux par élément
--   [loop] &#x3A; 1 sous flux par élément
--   [expand] &#x3A; 1 sous flux pour N éléments (N = size), seul le champ sélectionné est envoyé dans le pipeline
--   [combine] &#x3A; 1 sous flux pour tous les éléments, seul le champ sélectionné est comparé avec le résultat du sous flux
--   [singleton] &#x3A; 1 sous flux pour le premier élément
+-   [delegate] : 1 sous flux pour tous les éléments
+-   [swing] : 1 sous flux pour tous les éléments filtrés selon une condition
+-   [spaw] : 1 sous flux par élément
+-   [loop] : 1 sous flux par élément
+-   [expand] : 1 sous flux pour N éléments (N = size), seul le champ sélectionné est envoyé dans le pipeline
+-   [combine] : 1 sous flux pour tous les éléments, seul le champ sélectionné est comparé avec le résultat du sous flux
+-   [singleton] : 1 sous flux pour le premier élément
 
 ## usage
 
@@ -44,6 +44,7 @@ Plusieurs instructions permettent de créer des sous flux (sub pipeline), à par
 -   [keep](#keep)
 -   [loop](#loop)
 -   [map](#map)
+-   [metrics](#metrics)
 -   [overturn](#overturn)
 -   [pack](#pack)
 -   [parallel](#parallel)
@@ -661,6 +662,28 @@ From an array field delegate processing of each items to an external pipeline
 -   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in an object
 -   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in an URL-like command
 -   `logger` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** A dedicaded pipeline described in a file to trap or log errors
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### metrics
+
+-   **See: ../server/knownPipeline.js
+    **
+
+Take `Object`, and throw the same object.
+
+This statement will only be used if :
+
+-   EZS_METRICS is enabled
+-   ezs is running in server mode
+
+WARNING: avoid setting bucket to "input" or "output", as these labels are used by ezs.
+If you do, you risk distorting the associated metrics.
+
+#### Parameters
+
+-   `pathName` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to identify the script (optional, default `auto`)
+-   `bucket` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to identify the moment of measurement (optional, default `unknow`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
