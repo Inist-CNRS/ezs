@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.2.2...@ezs/core@3.3.0) (2023-11-21)
+
+
+### Features
+
+* 🎸 enable [metrics] for all ([98cb0c3](https://github.com/Inist-CNRS/ezs/commit/98cb0c32eea6dbe17c765e077c4f1c1ab1ab1d4f))
+
+
+
+
+
 ## [3.2.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.2.1...@ezs/core@3.2.2) (2023-11-12)
 
 
