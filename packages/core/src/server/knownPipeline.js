@@ -94,8 +94,9 @@ const knownPipeline = (ezs) => (request, response, next) => {
         statements.push(ezs('tracer', { print: '.', last: '!' }));
     }
     if (metricsEnable) {
-        statements.unshift(ezs(metricsHandle, { pathName: request.pathName, bucket: 'input' }));
-        statements.push(ezs(metricsHandle, { pathName: request.pathName, bucket: 'output' }));
+        ezs.use({metrics: metricsHandle(request.pathName)});
+        statements.unshift(ezs('metrics', { bucket: 'input' }));
+        statements.push(ezs('metrics', { bucket: 'output' }));
     }
 
     const rawStream = new PassThrough();
