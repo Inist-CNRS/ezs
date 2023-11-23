@@ -25,7 +25,7 @@ function decreaseCounter() {
     counter -= 1;
 }
 
-function createErrorWith(error, index, funcName, chunk) {
+function createErrorWith(error, index, funcName, funcParams, chunk) {
     const stk = String(error.stack).split('\n');
     const prefix = `item #${index} `;
     const erm = stk.shift().replace(prefix, '');
@@ -39,6 +39,8 @@ function createErrorWith(error, index, funcName, chunk) {
         date: error.date || new Date(),
         message: msg.split('\n').shift(),
         func: funcName,
+        params: funcParams,
+        traceback: stk.slice(0,10),
         index,
         chunk,
     });
@@ -147,7 +149,7 @@ export default class Engine extends SafeTransform {
         const warn = (error) => {
             if (!this.errorWasSent) {
                 this.errorWasSent = true;
-                this.emit('error', createErrorWith(error, currentIndex, this.funcName, chunk));
+                this.emit('error', createErrorWith(error, currentIndex, this.funcName, this.params, chunk));
             }
         };
         const push = (data) => {
@@ -159,7 +161,7 @@ export default class Engine extends SafeTransform {
             }
             if (data instanceof Error) {
                 debug('ezs')(`Ignoring error at item #${currentIndex}`);
-                return this.push(createErrorWith(data, currentIndex, this.funcName, chunk));
+                return this.push(createErrorWith(data, currentIndex, this.funcName, this.params, chunk));
             }
             if (!this.errorWasSent) {
                 return this.push(data);
@@ -175,12 +177,12 @@ export default class Engine extends SafeTransform {
             this.chunk = chunk;
             return Promise.resolve(this.func.call(this.scope, chunk, feed, this.scope)).catch((e) => {
                 debug('ezs')(`Async error thrown at item #${currentIndex}, pipeline is broken`);
-                this.emit('error', createErrorWith(e, currentIndex, this.funcName, chunk));
+                this.emit('error', createErrorWith(e, currentIndex, this.funcName, this.params, chunk));
                 done();
             });
         } catch (e) {
             debug('ezs')(`Sync error thrown at item #${currentIndex}, pipeline carries errors`);
-            this.push(createErrorWith(e, currentIndex, this.funcName, chunk));
+            this.push(createErrorWith(e, currentIndex, this.funcName, this.params, chunk));
             return done();
         }
     }
