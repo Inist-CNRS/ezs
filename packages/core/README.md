@@ -12,13 +12,13 @@ npm install @ezs/core
 
 Plusieurs instructions permettent de créer des sous flux (sub pipeline), à partir d'un fichier d’instructions ou d'instructions imbriquées. Si elles s'utilisent toutes de la même manière (avec les mêmes paramètres) centaines peuvent apparaître comme similaires mais leur fonctionnement est différent :
 
--   [delegate] : 1 sous flux pour tous les éléments
--   [swing] : 1 sous flux pour tous les éléments filtrés selon une condition
--   [spaw] : 1 sous flux par élément
--   [loop] : 1 sous flux par élément
--   [expand] : 1 sous flux pour N éléments (N = size), seul le champ sélectionné est envoyé dans le pipeline
--   [combine] : 1 sous flux pour tous les éléments, seul le champ sélectionné est comparé avec le résultat du sous flux
--   [singleton] : 1 sous flux pour le premier élément
+-   [delegate] &#x3A; 1 sous flux pour tous les éléments
+-   [swing] &#x3A; 1 sous flux pour tous les éléments filtrés selon une condition
+-   [spaw] &#x3A; 1 sous flux par élément
+-   [loop] &#x3A; 1 sous flux par élément
+-   [expand] &#x3A; 1 sous flux pour N éléments (N = size), seul le champ sélectionné est envoyé dans le pipeline
+-   [combine] &#x3A; 1 sous flux pour tous les éléments, seul le champ sélectionné est comparé avec le résultat du sous flux
+-   [singleton] &#x3A; 1 sous flux pour le premier élément
 
 ## usage
 
@@ -40,6 +40,7 @@ Plusieurs instructions permettent de créer des sous flux (sub pipeline), à par
 -   [fork](#fork)
 -   [group](#group)
 -   [identify](#identify)
+-   [identify](#identify-1)
 -   [ignore](#ignore)
 -   [keep](#keep)
 -   [loop](#loop)
@@ -521,6 +522,19 @@ Output:
 -   `length` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Size of each partition
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+### identify
+
+Take `Object`, and check that the object identifier has not already been used previously
+
+#### Parameters
+
+-   `data`  
+-   `feed`  
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path containing the object Identifier (optional, default `uri`)
+-   `ignore` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Just ignore duplicate object (optional, default `false`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### identify
 
