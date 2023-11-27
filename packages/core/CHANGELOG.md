@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.4.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.3.1...@ezs/core@3.4.0) (2023-11-27)
+
+
+### Features
+
+* 🎸 add [dedupe] ([86c06f2](https://github.com/Inist-CNRS/ezs/commit/86c06f297a0eaa2216352f255137b2cff0eabf28))
+
+
+
+
+
 ## [3.3.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.3.0...@ezs/core@3.3.1) (2023-11-23)
 
 
