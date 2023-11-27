@@ -6,7 +6,7 @@ import _ from 'lodash';
  * @param {Boolean} [ignore = false] Just ignore duplicate object
  * @returns {Object}
  */
-export default async function identify(data, feed) {
+export default async function dedupe(data, feed) {
     const pathName = this.getParam('path', 'uri');
     const ignore = Boolean(this.getParam('ignore', false));
     const path = Array.isArray(pathName) ? pathName.shift() : pathName;

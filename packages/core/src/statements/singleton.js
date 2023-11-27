@@ -4,7 +4,7 @@ import { addedDiff } from 'deep-object-diff';
 /**
  * Takes only the first  `Object` delegate processing to a external pipeline
  *
- * @name parallel
+ * @name singleton
  * @param {String} [file] the external pipeline is described in a file
  * @param {String} [script] the external pipeline is described in a string of characters
  * @param {String} [commands] the external pipeline is described in a object
