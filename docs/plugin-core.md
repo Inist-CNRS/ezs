@@ -12,13 +12,13 @@ npm install @ezs/core
 
 Plusieurs instructions permettent de créer des sous flux (sub pipeline), à partir d'un fichier d’instructions ou d'instructions imbriquées. Si elles s'utilisent toutes de la même manière (avec les mêmes paramètres) centaines peuvent apparaître comme similaires mais leur fonctionnement est différent :
 
--   [delegate] &#x3A; 1 sous flux pour tous les éléments
--   [swing] &#x3A; 1 sous flux pour tous les éléments filtrés selon une condition
--   [spaw] &#x3A; 1 sous flux par élément
--   [loop] &#x3A; 1 sous flux par élément
--   [expand] &#x3A; 1 sous flux pour N éléments (N = size), seul le champ sélectionné est envoyé dans le pipeline
--   [combine] &#x3A; 1 sous flux pour tous les éléments, seul le champ sélectionné est comparé avec le résultat du sous flux
--   [singleton] &#x3A; 1 sous flux pour le premier élément
+-   [delegate] : 1 sous flux pour tous les éléments
+-   [swing] : 1 sous flux pour tous les éléments filtrés selon une condition
+-   [spaw] : 1 sous flux par élément
+-   [loop] : 1 sous flux par élément
+-   [expand] : 1 sous flux pour N éléments (N = size), seul le champ sélectionné est envoyé dans le pipeline
+-   [combine] : 1 sous flux pour tous les éléments, seul le champ sélectionné est comparé avec le résultat du sous flux
+-   [singleton] : 1 sous flux pour le premier élément
 
 ## usage
 
@@ -30,6 +30,7 @@ Plusieurs instructions permettent de créer des sous flux (sub pipeline), à par
 -   [combine](#combine)
 -   [concat](#concat)
 -   [debug](#debug)
+-   [dedupe](#dedupe)
 -   [delegate](#delegate)
 -   [dispatch](#dispatch)
 -   [dump](#dump)
@@ -40,7 +41,6 @@ Plusieurs instructions permettent de créer des sous flux (sub pipeline), à par
 -   [fork](#fork)
 -   [group](#group)
 -   [identify](#identify)
--   [identify](#identify-1)
 -   [ignore](#ignore)
 -   [keep](#keep)
 -   [loop](#loop)
@@ -49,12 +49,12 @@ Plusieurs instructions permettent de créer des sous flux (sub pipeline), à par
 -   [overturn](#overturn)
 -   [pack](#pack)
 -   [parallel](#parallel)
--   [parallel](#parallel-1)
 -   [pop](#pop)
 -   [remove](#remove)
 -   [replace](#replace)
 -   [shift](#shift)
 -   [shuffle](#shuffle)
+-   [singleton](#singleton)
 -   [spawn](#spawn)
 -   [swing](#swing)
 -   [throttle](#throttle)
@@ -233,6 +233,19 @@ if ezs parameter is set, every object are not log (it's a global action)
 -   `text` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** text before the dump (optional, default `valueOf`)
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to print
 -   `ezs` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** enable or disable ezs global debug traces
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### dedupe
+
+Take `Object`, and check that the object identifier has not already been used previously
+
+#### Parameters
+
+-   `data`  
+-   `feed`  
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path containing the object Identifier (optional, default `uri`)
+-   `ignore` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Just ignore duplicate object (optional, default `false`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -525,19 +538,6 @@ Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### identify
 
-Take `Object`, and check that the object identifier has not already been used previously
-
-#### Parameters
-
--   `data`  
--   `feed`  
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path containing the object Identifier (optional, default `uri`)
--   `ignore` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Just ignore duplicate object (optional, default `false`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### identify
-
 Take `Object`, and compute & add an identifier
 
 #### Parameters
@@ -799,20 +799,6 @@ Takes an `Object` delegate processing to X internal pipelines
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### parallel
-
-Takes only the first  `Object` delegate processing to a external pipeline
-
-#### Parameters
-
--   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
--   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
--   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
--   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
--   `logger` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** A dedicaded pipeline described in a file to trap or log errors
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
 ### pop
 
 -   **See: shift
@@ -1048,6 +1034,20 @@ Output:
 #### Parameters
 
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to shuffle
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### singleton
+
+Takes only the first  `Object` delegate processing to a external pipeline
+
+#### Parameters
+
+-   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
+-   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
+-   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
+-   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
+-   `logger` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** A dedicaded pipeline described in a file to trap or log errors
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
