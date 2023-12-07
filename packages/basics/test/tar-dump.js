@@ -174,5 +174,87 @@ describe('TARDump', () => {
 
 
 
+    it('should dump and extract additionalFiles (1)', (done) => {
+        const result = [];
+        const script = `
+        [TARDump]
+        json = true
+        extension = json
+        additionalFile = ${__dirname}/transit.ini
 
+        [TARExtract]
+        path = **/*.ini
+        json = false
+
+        [exchange]
+        value = get('value')
+        `;
+        from(input)
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (obj) => {
+                result.push(obj);
+            })
+            .on('end', () => {
+                assert.equal(result.length, 1);
+                assert.match(result[0], /\[transit\]/);
+                done();
+            });
+    });
+
+    it('should dump and extract additionalFiles (2)', (done) => {
+        const result = [];
+        const script = `
+        [TARDump]
+        json = true
+        extension = json
+        additionalFile = ${__dirname}/transit.ini
+        additionalFile = ${__dirname}/tocsv.ini
+
+        [TARExtract]
+        path = **/*.ini
+        json = false
+
+        [exchange]
+        value = get('value')
+        `;
+        from(input)
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (obj) => {
+                result.push(obj);
+            })
+            .on('end', () => {
+                assert.equal(result.length, 2);
+                assert.notEqual(result[0], result[1]);
+                assert.match(result[0], /\[transit\]/);
+                assert.match(result[1], /\[transit\]/);
+                done();
+            });
+    });
+
+
+    it('should dump wrong additionalFiles', (done) => {
+        const result = [];
+        const script = `
+        [TARDump]
+        json = true
+        extension = json
+        additionalFile = ${__dirname}/transit.ini
+        additionalFile = ${__dirname}/toto.ini
+        `;
+        from(input)
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', (e) => {
+                expect(e.message).toEqual(expect.stringContaining('no such file or directory'));
+                done();
+            })
+            .on('data', () => true)
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+            });
+    });
 });
