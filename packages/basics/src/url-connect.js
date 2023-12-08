@@ -22,6 +22,7 @@ import fetch from 'fetch-with-proxy';
  *
  * @name URLConnect
  * @param {String} [url] URL to fetch
+ * @param {String} [streaming=false] Direct connection to the Object Stream server (disables the retries setting)
  * @param {String} [json=false] Parse as JSON the content of URL
  * @param {Number} [timeout=1000] Timeout in milliseconds
  * @param {Boolean} [noerror=false] Ignore all errors
@@ -31,6 +32,7 @@ import fetch from 'fetch-with-proxy';
  */
 export default async function URLConnect(data, feed) {
     const url = this.getParam('url');
+    const streaming = Boolean(this.getParam('streaming', false));
     const retries = Number(this.getParam('retries', 5));
     const noerror = Boolean(this.getParam('noerror', false));
     const json = this.getParam('json', true);
@@ -49,7 +51,7 @@ export default async function URLConnect(data, feed) {
         writeTo(this.input, data, () => feed.end());
         const streamIn = this.input.pipe(ezs(encoder));
         let bodyIn;
-        if (retries === 1) {
+        if (streaming) {
             bodyIn = streamIn.pipe(ezs.toBuffer());
         } else {
             bodyIn = await getStream(streamIn);
@@ -98,7 +100,7 @@ export default async function URLConnect(data, feed) {
                     }
                 },
                 {
-                    retries,
+                    retries: streaming ? 0 : retries,
                 }
             );
         }

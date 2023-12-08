@@ -77,7 +77,7 @@ describe('URLConnect', () => {
             .pipe(ezs('URLConnect', {
                 url: 'http://127.0.0.1:33331/transit.ini',
                 timeout: 5000,
-                retries: 1, // use stream
+                streaming: true
             }))
             .pipe(ezs.catch())
             .on('error', done)
@@ -118,7 +118,7 @@ describe('URLConnect', () => {
         from(input)
             .pipe(ezs('URLConnect', {
                 url: 'http://127.0.0.1:33331/nofound.ini',
-                retries: 1,
+                streaming: true
             }))
             .pipe(ezs.catch())
             .on('error', (e) => {
@@ -157,7 +157,7 @@ describe('URLConnect', () => {
         from(input)
             .pipe(ezs('URLConnect', {
                 url: 'http://127.0.0.1:33331/nofound.ini',
-                retries: 1,
+                streaming: true,
                 noerror: true,
             }))
             .pipe(ezs.catch())
@@ -226,13 +226,13 @@ describe('URLConnect', () => {
             from(input)
                 .pipe(ezs('URLConnect', {
                     url: 'http://127.0.0.1:33331/tocsv.ini',
-                    retries: 1,
+                    streaming: true,
                     json: true,
                 }))
                 .pipe(ezs.catch())
                 .on('error', (e) => {
                     try {
-                        expect(e.message).toEqual(expect.stringContaining("Invalid JSON (Unexpected \"\\r\" at position 3 in state STOP)"));
+                        expect(e.message).toEqual(expect.stringContaining("SyntaxError: Unexpected token ; in JSON at position 1"));
                         done();
                     } catch(ee) {
                         done(ee);
@@ -364,7 +364,7 @@ describe('URLConnect error and retry', () => {
                 .pipe(ezs('URLConnect', {
                     url: 'http://127.0.0.1:44441/',
                     json: true,
-                    retries: 1,
+                    streaming: true,
                     timeout: 100,
                     header: 'x-timeout:all',
                 }))
@@ -430,7 +430,7 @@ describe('URLConnect error and retry', () => {
     });
     describe('deep', () => {
         ezs.use(ezsAnalytics);
-        const getScript = (timeout, retries, mode, port = 44441) => `
+        const getScript = (timeout, streaming, mode, retries = 2, port = 44441) => `
 [use]
 plugin = analytics
 
@@ -456,6 +456,7 @@ size = 2
 url = http://127.0.0.1:${port}
 json = true
 timeout = ${timeout}
+streaming = ${streaming}
 retries = ${retries}
 noerror = false
 header = x-timeout:${mode}
@@ -489,7 +490,7 @@ header = x-timeout:${mode}
             const output = [];
             ezs.use(statements);
             from(input)
-                .pipe(ezs('delegate', { script: getScript(500, 1, 'none') }))
+                .pipe(ezs('delegate', { script: getScript(500, true, 'none') }))
                 .pipe(ezs.catch())
                 .on('error', done)
                 .on('data', (chunk) => {
@@ -506,7 +507,7 @@ header = x-timeout:${mode}
             const output = [];
             ezs.use(statements);
             from(input)
-                .pipe(ezs('delegate', { script: getScript(500, 2, 'none') }))
+                .pipe(ezs('delegate', { script: getScript(500, false, 'none') }))
                 .pipe(ezs.catch())
                 .on('error', done)
                 .on('data', (chunk) => {
@@ -522,7 +523,7 @@ header = x-timeout:${mode}
         test('one retry, timeout errors every time', (done) => {
             ezs.use(statements);
             from(input)
-                .pipe(ezs('delegate', { script: getScript(500, 1, 'all') }))
+                .pipe(ezs('delegate', { script: getScript(500, true, 'all') }))
                 .pipe(ezs.catch())
                 .on('error', (e) => {
                     try {
@@ -541,7 +542,7 @@ header = x-timeout:${mode}
         test('two retry, timeout errors every time', (done) => {
             ezs.use(statements);
             from(input)
-                .pipe(ezs('delegate', { script: getScript(500, 2, 'all') }))
+                .pipe(ezs('delegate', { script: getScript(500, false, 'all') }))
                 .pipe(ezs.catch())
                 .on('error', (e) => {
                     try {
@@ -561,7 +562,7 @@ header = x-timeout:${mode}
             const output = [];
             ezs.use(statements);
             from(input)
-                .pipe(ezs('delegate', { script: getScript(900, 1, 'once') }))
+                .pipe(ezs('delegate', { script: getScript(900, true, 'once') }))
                 .pipe(ezs.catch())
                 .pipe(ezs.catch())
                 .on('error', done)
@@ -579,7 +580,7 @@ header = x-timeout:${mode}
             const output = [];
             ezs.use(statements);
             from(input)
-                .pipe(ezs('delegate', { script: getScript(900, 2, 'once') }))
+                .pipe(ezs('delegate', { script: getScript(900, false, 'once') }))
                 .pipe(ezs.catch())
                 .pipe(ezs.catch())
                 .on('error', done)
@@ -596,7 +597,7 @@ header = x-timeout:${mode}
         test('one retry, connect errors every time', (done) => {
             ezs.use(statements);
             from(input)
-                .pipe(ezs('delegate', { script: getScript(500, 2, 'all', '11111') }))
+                .pipe(ezs('delegate', { script: getScript(500, false, 'all', 2, '11111') }))
                 .pipe(ezs.catch())
                 .on('error', (e) => {
                     try {
@@ -616,7 +617,7 @@ header = x-timeout:${mode}
             const output = [];
             ezs.use(statements);
             from(input)
-                .pipe(ezs('delegate', { script: getScript(100, 5, 'erratic') }))
+                .pipe(ezs('delegate', { script: getScript(100, false, 'erratic', 5) }))
                 .pipe(ezs.catch())
                 .on('error', done)
                 .on('data', (chunk) => {
@@ -630,11 +631,11 @@ header = x-timeout:${mode}
         }, 30000);
 
         describe('slow connexion', () => {
-            test('base line, retry 1', (done) => {
+            test('base line, streaming', (done) => {
                 const output = [];
                 ezs.use(statements);
                 from(input)
-                    .pipe(ezs('delegate', { script: getScript(100, 1, 'slow') }))
+                    .pipe(ezs('delegate', { script: getScript(100, true, 'slow') }))
                     .pipe(ezs.catch())
                     .on('data', (chunk) => {
                         output.push(chunk);
@@ -649,7 +650,7 @@ header = x-timeout:${mode}
                 const output = [];
                 ezs.use(statements);
                 from(input)
-                    .pipe(ezs('delegate', { script: getScript(100, 5, 'slow') }))
+                    .pipe(ezs('delegate', { script: getScript(100, true, 'slow', 5) }))
                     .pipe(ezs.catch())
                     .on('data', (chunk) => {
                         output.push(chunk);
@@ -660,12 +661,12 @@ header = x-timeout:${mode}
                         done();
                     });
             }, 30000);
-            test('feed expire, retry 1', (done) => {
+            test('feed expire, streaming', (done) => {
                 const output = [];
                 ezs.use(statements);
                 ezs.settings.feed.timeout = 10;
                 from(input)
-                    .pipe(ezs('delegate', { script: getScript(100, 1, 'slow') }))
+                    .pipe(ezs('delegate', { script: getScript(100, true, 'slow') }))
                     .pipe(ezs.catch())
                     .on('error', (e) => {
                         try {
@@ -691,7 +692,7 @@ header = x-timeout:${mode}
                 ezs.use(statements);
                 ezs.settings.feed.timeout = 10;
                 from(input)
-                    .pipe(ezs('delegate', { script: getScript(100, 5, 'slow') }))
+                    .pipe(ezs('delegate', { script: getScript(100, false, 'slow', 5) }))
                     .pipe(ezs.catch())
                     .on('error', (e) => {
                         try {
