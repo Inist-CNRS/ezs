@@ -15,11 +15,6 @@ import fetch from 'fetch-with-proxy';
  *
  * Useful to send JSON data to an API and get results.
  *
- * Warning :
- * if retries === 1,  it will directly use the stream
- * to connect to the server otherwise the stream will be fully
- * read to be buffered and sent to the server (n times)
- *
  * @name URLConnect
  * @param {String} [url] URL to fetch
  * @param {String} [streaming=false] Direct connection to the Object Stream server (disables the retries setting)
@@ -82,22 +77,20 @@ export default async function URLConnect(data, feed) {
                         throw err;
                     }
 
-                    if (retries === 1) {
+                    if (streaming) {
                         const bodyOut = json ? response.body.pipe(JSONStream.parse('*')) : response.body;
                         bodyOut.once('error', (e) => {
                             controller.abort();
                             output.emit('error', e);
                         });
-                        bodyOut.pipe(output);
-                    } else {
-                        if (json) {
-                            const bodyOutRaw = await getStream(response.body);
-                            const bodyOutArray = JSON.parse(bodyOutRaw);
-                            from(bodyOutArray).pipe(output);
-                        } else {
-                            response.body.pipe(output);
-                        }
+                        return bodyOut.pipe(output);
                     }
+                    if (json) {
+                        const bodyOutRaw = await getStream(response.body);
+                        const bodyOutArray = JSON.parse(bodyOutRaw);
+                        return from(bodyOutArray).pipe(output);
+                    }
+                    return response.body.pipe(output);
                 },
                 {
                     retries: streaming ? 0 : retries,
