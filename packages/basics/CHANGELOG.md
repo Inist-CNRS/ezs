@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.5.6](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.5.5...@ezs/basics@2.5.6) (2023-12-08)
+
+**Note:** Version bump only for package @ezs/basics
+
+
+
+
+
 ## [2.5.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.5.4...@ezs/basics@2.5.5) (2023-09-29)
 
 
