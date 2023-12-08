@@ -552,6 +552,7 @@ Take all recevied objects and build a tar file
 -   `location` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Location path to store files in the tarball (optional, default `data`)
 -   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Convert to JSON the content of each chunk (optional, default `true`)
 -   `extension` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Choose extension fo each file (optional, default `json`)
+-   `additionalFile` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Path to an additional file that will be add to tarball
 -   `compress` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Enable gzip compression (optional, default `false`)
 
 ### TARExtract
