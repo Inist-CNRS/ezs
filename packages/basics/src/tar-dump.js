@@ -1,9 +1,12 @@
 import { basename, resolve } from 'path';
-import { readFile } from 'fs/promises';
+import { promisify } from 'util';
+import { readFile } from 'fs';
 import tar from 'tar-stream';
 import { createGzip } from 'zlib';
 import merge from 'lodash.merge';
 
+// Avoid importing from fs/promise to be compatible with node 12
+const readFilePromise = promisify(readFile);
 const eol = '\n';
 
 /**
@@ -50,7 +53,7 @@ export default function TARDump(data, feed) {
                 .shift()
             )
             .filter(Boolean)
-            .map(fullfilename => readFile(fullfilename)
+            .map(fullfilename => readFilePromise(fullfilename)
                 .then((fileContent) => this.pack.entry({ name: basename(fullfilename) }, fileContent)));
 
         Promise.all(additionalFiles)
