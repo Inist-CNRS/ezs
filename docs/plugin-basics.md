@@ -731,14 +731,10 @@ The output will be the returned content of URL.
 
 Useful to send JSON data to an API and get results.
 
-Warning :
-if retries === 1,  it will directly use the stream
-to connect to the server otherwise the stream will be fully
-read to be buffered and sent to the server (n times)
-
 #### Parameters
 
 -   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fetch
+-   `streaming` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Direct connection to the Object Stream server (disables the retries setting) (optional, default `false`)
 -   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Parse as JSON the content of URL (optional, default `false`)
 -   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (optional, default `1000`)
 -   `noerror` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Ignore all errors (optional, default `false`)
