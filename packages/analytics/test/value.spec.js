@@ -5,19 +5,19 @@ import value from '../src/value';
 
 ezs.addPath(__dirname);
 
-const runEzs = (ezsRuntime, dataSet, path) => new Promise((resolve) => {
-    const result = [];
-    from(dataSet)
-        .pipe(ezsRuntime('value', { path }))
-        .on('data', (chunk) => {
-            result.push(chunk);
-        })
-        .on('end', () => {
-            resolve(result);
-        });
-});
-
 describe('value', () => {
+    const runEzs = (ezsRuntime, dataSet, path) => new Promise((resolve) => {
+        const result = [];
+        from(dataSet)
+            .pipe(ezsRuntime('value', { path }))
+            .on('data', (chunk) => {
+                result.push(chunk);
+            })
+            .on('end', () => {
+                resolve(result);
+            });
+    });
+
     describe('simple data', () => {
         const simpleData =  [
             {
