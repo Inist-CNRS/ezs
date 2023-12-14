@@ -119,8 +119,8 @@ describe('tune', () => {
                     });
             }));
 
-            assert.equal(res[0].id, '1.1');
-            assert.equal(res[1].id, '2.2');
+            assert.equal(res[0].id, '1,1');
+            assert.equal(res[1].id, '2,2');
 
             assert.equal(res[0].value, arrayData[0]);
             assert.equal(res[1].value, arrayData[1]);
