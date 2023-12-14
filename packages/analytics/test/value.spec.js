@@ -37,8 +37,8 @@ describe('value', () => {
 
             assert.equal(result.length, 2);
 
-            assert.equal(result, 1);
-            assert.equal(result, 2);
+            assert.equal(result[0], 1);
+            assert.equal(result[1], 2);
         });
 
         it('should extract the value (path = value)', async () => {
@@ -47,8 +47,8 @@ describe('value', () => {
 
             assert.equal(result.length, 2);
 
-            assert.equal(result, 1);
-            assert.equal(result, 2);
+            assert.equal(result[0], 1);
+            assert.equal(result[1], 2);
         });
     });
 
@@ -70,8 +70,8 @@ describe('value', () => {
 
             assert.equal(result.length, 2);
 
-            assert.equal(result, 1);
-            assert.equal(result, 2);
+            assert.equal(result[0], 1);
+            assert.equal(result[1], 2);
         });
 
         it('should extract the value (path = value)', async () => {
@@ -80,8 +80,8 @@ describe('value', () => {
 
             assert.equal(result.length, 2);
 
-            assert.equal(result, [1, 1]);
-            assert.equal(result, [2, 2]);
+            assert.equal(result[0], [1, 1]);
+            assert.equal(result[1], [2, 2]);
         });
     });
 
@@ -107,8 +107,8 @@ describe('value', () => {
 
             assert.equal(result.length, 2);
 
-            assert.equal(result, 1);
-            assert.equal(result, 2);
+            assert.equal(result[0], 1);
+            assert.equal(result[1], 2);
         });
 
         it('should extract the value (path = value)', async () => {
@@ -117,8 +117,8 @@ describe('value', () => {
 
             assert.equal(result.length, 2);
 
-            assert.equal(result, { a: 1 });
-            assert.equal(result, { a: 2 });
+            assert.equal(result[0], { a: 1 });
+            assert.equal(result[1], { a: 2 });
         });
     });
 
@@ -164,8 +164,8 @@ describe('value', () => {
 
             assert.equal(result.length, 2);
 
-            assert.equal(result, 1);
-            assert.equal(result, 2);
+            assert.equal(result[0], 1);
+            assert.equal(result[1], 2);
         });
 
         it('should extract the value (path = value)', async () => {
@@ -174,7 +174,7 @@ describe('value', () => {
 
             assert.equal(result.length, 2);
 
-            assert.equal(result, {
+            assert.equal(result[0], {
                 a: 1,
                 b: {
                     a: '1',
@@ -187,7 +187,7 @@ describe('value', () => {
                 c: [1, 2],
                 d: [1.0002, 0.0057, 1000.100056]
             });
-            assert.equal(result, {
+            assert.equal(result[1], {
                 a: 2,
                 b: {
                     a: '2',
