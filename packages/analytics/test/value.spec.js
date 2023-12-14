@@ -10,7 +10,6 @@ const runEzs = (ezsRuntime, dataSet, path) => new Promise((resolve) => {
     from(dataSet)
         .pipe(ezsRuntime('value', { path }))
         .on('data', (chunk) => {
-            assert(typeof chunk === 'object');
             result.push(chunk);
         })
         .on('end', () => {
@@ -35,20 +34,20 @@ describe('value', () => {
             ezs.use({ value });
             const result = await runEzs(ezs, simpleData, 'id');
 
-            assert.equal(result.length, 2);
+            assert.deepStrictEqual(result.length, 2);
 
-            assert.equal(result[0], 1);
-            assert.equal(result[1], 2);
+            assert.deepStrictEqual(result[0], 1);
+            assert.deepStrictEqual(result[1], 2);
         });
 
         it('should extract the value (path = value)', async () => {
             ezs.use({ value });
             const result = await runEzs(ezs, simpleData, 'value');
 
-            assert.equal(result.length, 2);
+            assert.deepStrictEqual(result.length, 2);
 
-            assert.equal(result[0], 1);
-            assert.equal(result[1], 2);
+            assert.deepStrictEqual(result[0], 1);
+            assert.deepStrictEqual(result[1], 2);
         });
     });
 
@@ -68,20 +67,20 @@ describe('value', () => {
             ezs.use({ value });
             const result = await runEzs(ezs, arrayData, 'id');
 
-            assert.equal(result.length, 2);
+            assert.deepStrictEqual(result.length, 2);
 
-            assert.equal(result[0], 1);
-            assert.equal(result[1], 2);
+            assert.deepStrictEqual(result[0], 1);
+            assert.deepStrictEqual(result[1], 2);
         });
 
         it('should extract the value (path = value)', async () => {
             ezs.use({ value });
             const result = await runEzs(ezs, arrayData, 'value');
 
-            assert.equal(result.length, 2);
+            assert.deepStrictEqual(result.length, 2);
 
-            assert.equal(result[0], [1, 1]);
-            assert.equal(result[1], [2, 2]);
+            assert.deepStrictEqual(result[0], [1, 1]);
+            assert.deepStrictEqual(result[1], [2, 2]);
         });
     });
 
@@ -105,20 +104,20 @@ describe('value', () => {
             ezs.use({ value });
             const result = await runEzs(ezs, objectData, 'id');
 
-            assert.equal(result.length, 2);
+            assert.deepStrictEqual(result.length, 2);
 
-            assert.equal(result[0], 1);
-            assert.equal(result[1], 2);
+            assert.deepStrictEqual(result[0], 1);
+            assert.deepStrictEqual(result[1], 2);
         });
 
         it('should extract the value (path = value)', async () => {
             ezs.use({ value });
             const result = await runEzs(ezs, objectData, 'value');
 
-            assert.equal(result.length, 2);
+            assert.deepStrictEqual(result.length, 2);
 
-            assert.equal(result[0], { a: 1 });
-            assert.equal(result[1], { a: 2 });
+            assert.deepStrictEqual(result[0], { a: 1 });
+            assert.deepStrictEqual(result[1], { a: 2 });
         });
     });
 
@@ -162,19 +161,19 @@ describe('value', () => {
             ezs.use({ value });
             const result = await runEzs(ezs, deepObjectData, 'id');
 
-            assert.equal(result.length, 2);
+            assert.deepStrictEqual(result.length, 2);
 
-            assert.equal(result[0], 1);
-            assert.equal(result[1], 2);
+            assert.deepStrictEqual(result[0], 1);
+            assert.deepStrictEqual(result[1], 2);
         });
 
         it('should extract the value (path = value)', async () => {
             ezs.use({ value });
             const result = await runEzs(ezs, deepObjectData, 'value');
 
-            assert.equal(result.length, 2);
+            assert.deepStrictEqual(result.length, 2);
 
-            assert.equal(result[0], {
+            assert.deepStrictEqual(result[0], {
                 a: 1,
                 b: {
                     a: '1',
@@ -187,7 +186,7 @@ describe('value', () => {
                 c: [1, 2],
                 d: [1.0002, 0.0057, 1000.100056]
             });
-            assert.equal(result[1], {
+            assert.deepStrictEqual(result[1], {
                 a: 2,
                 b: {
                     a: '2',
