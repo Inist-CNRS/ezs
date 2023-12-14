@@ -8,7 +8,7 @@ ezs.addPath(__dirname);
 const runEzs = (ezsRuntime, dataSet, path) => new Promise((resolve) => {
     const result = [];
     from(dataSet)
-        .pipe(ezsRuntime('tune', { path }))
+        .pipe(ezsRuntime('value', { path }))
         .on('data', (chunk) => {
             assert(typeof chunk === 'object');
             result.push(chunk);
@@ -35,6 +35,8 @@ describe('value', () => {
             ezs.use({ value });
             const result = await runEzs(ezs, simpleData, 'id');
 
+            assert.equal(result.length, 2);
+
             assert.equal(result, 1);
             assert.equal(result, 2);
         });
@@ -42,6 +44,8 @@ describe('value', () => {
         it('should extract the value (path = value)', async () => {
             ezs.use({ value });
             const result = await runEzs(ezs, simpleData, 'value');
+
+            assert.equal(result.length, 2);
 
             assert.equal(result, 1);
             assert.equal(result, 2);
@@ -64,6 +68,8 @@ describe('value', () => {
             ezs.use({ value });
             const result = await runEzs(ezs, arrayData, 'id');
 
+            assert.equal(result.length, 2);
+
             assert.equal(result, 1);
             assert.equal(result, 2);
         });
@@ -71,6 +77,8 @@ describe('value', () => {
         it('should extract the value (path = value)', async () => {
             ezs.use({ value });
             const result = await runEzs(ezs, arrayData, 'value');
+
+            assert.equal(result.length, 2);
 
             assert.equal(result, [1, 1]);
             assert.equal(result, [2, 2]);
@@ -97,6 +105,8 @@ describe('value', () => {
             ezs.use({ value });
             const result = await runEzs(ezs, objectData, 'id');
 
+            assert.equal(result.length, 2);
+
             assert.equal(result, 1);
             assert.equal(result, 2);
         });
@@ -104,6 +114,8 @@ describe('value', () => {
         it('should extract the value (path = value)', async () => {
             ezs.use({ value });
             const result = await runEzs(ezs, objectData, 'value');
+
+            assert.equal(result.length, 2);
 
             assert.equal(result, { a: 1 });
             assert.equal(result, { a: 2 });
@@ -150,6 +162,8 @@ describe('value', () => {
             ezs.use({ value });
             const result = await runEzs(ezs, deepObjectData, 'id');
 
+            assert.equal(result.length, 2);
+
             assert.equal(result, 1);
             assert.equal(result, 2);
         });
@@ -157,6 +171,8 @@ describe('value', () => {
         it('should extract the value (path = value)', async () => {
             ezs.use({ value });
             const result = await runEzs(ezs, deepObjectData, 'value');
+
+            assert.equal(result.length, 2);
 
             assert.equal(result, {
                 a: 1,
