@@ -23,33 +23,81 @@ const methods = {
 const allMethods = Object.keys(methods).join(',');
 
 /**
- * Take all `Object` and sort them with selected field
+ * Create and replace the id with a unify id that can be used with [sort](#sort)
  *
- * ```json
- * [{
- * }]
- * ```
+ * Créer et remplacer l'identifiant par un identifiant unifié qui peut être utilisé avec [sort](#sort)
  *
- * Script:
+ * ### Example / Exemple
+ *
+ * #### Script / Scénario
  *
  * ```ini
+ * ; Import analytics plugin required to use tune
+ * ; Importation du plugin analytique nécessaire pour utiliser tune
  * [use]
  * plugin = analytics
  *
+ * ; Using "tune" with default settings
+ * ; Utilisation de "tune" avec les paramettre par defaut
  * [tune]
  *
  * ```
  *
- * Output:
+ * #### Input / Entrée
  *
  * ```json
- * [
- * ]
+ *  [
+ *      {
+ *          "id": 1,
+ *          "value": 1
+ *      },
+ *      {
+ *          "id": 2,
+ *          "value": 2
+ *      }
+ *  ]
+ * ```
+ *
+ * #### Output / Sortie
+ *
+ * ```json
+ *  [
+ *      {
+ *          "id": "0000000000000000001.00000000000000000000",
+ *          "value": {
+ *              "id": 1,
+ *              "value": 1,
+ *              "label": "static value"
+ *          }
+ *      },
+ *      {
+ *          "id": "0000000000000000002.00000000000000000000",
+ *          "value": {
+ *              "id": 2,
+ *              "value": 2,
+ *              "label": "static value"
+ *          }
+ *      }
+ *  ]
  * ```
  *
  * @name tune
- * @param {String} [path=id] path to use for the sort key
- * @returns {Object}
+ * @param {String} [path=id]
+ *      <ul><li>path of the element used to create the unified identifier</li></ul>
+ *      <ul><li>chemin de l'élément utilisé pour créer l'identifiant unifié</li></ul>
+ * @param {'natural' | 'levenshtein' | 'numerical'} [method=natural]
+ *      <ul><li>method used to create the unified identifier</li></ul>
+ *          <ul><ul><li>natural - Create a normalised identifier that is set to a fixed length</li></ul></ul>
+ *          <ul><ul><li>levenshtein - Create an identifier based on the Levenshtein algorithm</li></ul></ul>
+ *          <ul><ul><li>numerical - Create an identifier based on a numeric value</li></ul></ul>
+ *      <ul><li>méthode utilisée pour créer l'identifiant unifié</li></ul>
+ *          <ul><ul><li>natural - Créer un identifiant normalisé de longueur fixe</li></ul></ul>
+ *          <ul><ul><li>levenshtein - Créer un identifiant basé sur l'algorithme de Levenshtein</li></ul></ul>
+ *          <ul><ul><li>numerical - Créer un identifiant basé sur une valeur numérique</li></ul></ul>
+ * @returns {{
+ *     id: String,
+ *     value: Object
+ * }}
  */
 export default function tune(data, feed) {
     if (this.isLast()) {
