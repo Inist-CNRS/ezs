@@ -117,7 +117,7 @@ describe('value', () => {
             assert.deepStrictEqual(result.length, 2);
 
             assert.deepStrictEqual(result[0], { a: 1 });
-            assert.deepStrictEqual(result[1], { a: 2 });
+            assert.deepStrictEqual(result[1], { b: 2 });
         });
     });
 
