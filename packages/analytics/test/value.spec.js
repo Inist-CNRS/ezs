@@ -294,4 +294,42 @@ describe('value', () => {
             });
         });
     });
+
+    describe('genrated data', () => {
+        const LENGHT = 1000;
+        let genratedData =  [];
+
+        beforeEach(() => {
+            const data = [];
+            for (let i = 0; i < LENGHT; i += 1) {
+                data.push({
+                    id: i,
+                    value: i * 2,
+                });
+            }
+            genratedData = data;
+        });
+
+        it('should extract the id (path = id)', async () => {
+            ezs.use({ value });
+            const result = await runEzs(ezs, genratedData, 'id');
+
+            assert.deepStrictEqual(result.length, LENGHT);
+
+            for (let i = 0; i < LENGHT; i += 1) {
+                assert.deepStrictEqual(result[i], i);
+            }
+        });
+
+        it('should extract the value (path = value)', async () => {
+            ezs.use({ value });
+            const result = await runEzs(ezs, genratedData, 'value');
+
+            assert.deepStrictEqual(result.length, LENGHT);
+
+            for (let i = 0; i < LENGHT; i += 1) {
+                assert.deepStrictEqual(result[i], i * 2);
+            }
+        });
+    });
 });
