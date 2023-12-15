@@ -57,8 +57,8 @@ export default function value(data, feed) {
     const val = fields
         .filter((k) => typeof k === 'string')
         .map((key) => get(data, key))
-        .filter((x) => x)
-        // eslint-disable-next-line no-unexpected-multiline
-        [0];
+        .filter((x) => x !== undefined)
+        .filter((x) => x !== null)[0];
+
     feed.send(val);
 }
