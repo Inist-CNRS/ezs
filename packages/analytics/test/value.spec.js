@@ -201,4 +201,97 @@ describe('value', () => {
             });
         });
     });
+
+    // https://github.com/Inist-CNRS/lodex-use-cases/tree/master/animalia100
+    // Special cases that have been problematic in a specific condition
+    describe('animalia100 data', () => {
+        const animalia100Data = [
+            {
+                id: '0000000000000000000.02702702702702702506',
+                value: {
+                    id: ['uid:/0579J7JN', 'uid:/KRVCJDGF'],
+                    value: 0.027027027027027025,
+                    values: [0, 0.05405405405405405],
+                },
+            },
+            {
+                id: '0000000000000000000.03571428571428571924',
+                value: {
+                    id: ['uid:/0579J7JN', 'uid:/JW63WRFP'],
+                    value: 0.03571428571428572,
+                    values: [0, 0.07142857142857144],
+                },
+            },
+            {
+                id: '0000000000000000000.07142857142857143848',
+                value: {
+                    id: ['uid:/0579J7JN', 'uid:/WC0F9P1S'],
+                    value: 0.07142857142857144,
+                    values: [0, 0.14285714285714288],
+                },
+            },
+            {
+                id: '0000000000000000000.08333333333333334259',
+                value: {
+                    id: ['uid:/0579J7JN', 'uid:/J9N9N456'],
+                    value: 0.08333333333333334,
+                    values: [0.16666666666666669, 0],
+                },
+            },
+            {
+                id: '0000000000000000000.08333333333333334259',
+                value: {
+                    id: ['uid:/0579J7JN', 'uid:/V572XQCD'],
+                    value: 0.08333333333333334,
+                    values: [0.16666666666666669, 0],
+                },
+            },
+        ];
+
+        it('should extract the id (path = id)', async () => {
+            ezs.use({ value });
+            const result = await runEzs(ezs, animalia100Data, 'id');
+
+            assert.deepStrictEqual(result.length, 5);
+
+            assert.deepStrictEqual(result[0], '0000000000000000000.02702702702702702506');
+            assert.deepStrictEqual(result[1], '0000000000000000000.03571428571428571924');
+            assert.deepStrictEqual(result[2], '0000000000000000000.07142857142857143848');
+            assert.deepStrictEqual(result[3], '0000000000000000000.08333333333333334259');
+            assert.deepStrictEqual(result[4], '0000000000000000000.08333333333333334259');
+        });
+
+        it('should extract the value (path = value)', async () => {
+            ezs.use({ value });
+            const result = await runEzs(ezs, animalia100Data, 'value');
+
+            assert.deepStrictEqual(result.length, 5);
+
+            assert.deepStrictEqual(result[0], {
+                id: ['uid:/0579J7JN', 'uid:/KRVCJDGF'],
+                value: 0.027027027027027025,
+                values: [0, 0.05405405405405405],
+            });
+            assert.deepStrictEqual(result[1], {
+                id: ['uid:/0579J7JN', 'uid:/JW63WRFP'],
+                value: 0.03571428571428572,
+                values: [0, 0.07142857142857144],
+            });
+            assert.deepStrictEqual(result[2], {
+                id: ['uid:/0579J7JN', 'uid:/WC0F9P1S'],
+                value: 0.07142857142857144,
+                values: [0, 0.14285714285714288],
+            });
+            assert.deepStrictEqual(result[3], {
+                id: ['uid:/0579J7JN', 'uid:/J9N9N456'],
+                value: 0.08333333333333334,
+                values: [0.16666666666666669, 0],
+            });
+            assert.deepStrictEqual(result[4], {
+                id: ['uid:/0579J7JN', 'uid:/V572XQCD'],
+                value: 0.08333333333333334,
+                values: [0.16666666666666669, 0],
+            });
+        });
+    });
 });
