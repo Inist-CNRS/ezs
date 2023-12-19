@@ -9,6 +9,7 @@ export const validKey = (input) =>
     input.search(/^[a-z]+:(\/?\/?)[^\s]+$/g) === 0;
 
 const sha = (input) => Promise.resolve(createHash('sha256').update(JSON.stringify(input)).digest('hex'));
+
 //
 // JS implentation of NCDA
 // see http://search.cpan.org/~jak/Noid/noid#NOID_CHECK_DIGIT_ALGORITHM
@@ -54,7 +55,7 @@ export default async function identify(data, feed) {
         if (scheme === 'uid') {
             identifier = await generate(nolookalikes, 8);
         } else if (scheme === 'sha') {
-            identifier = await sha(uri);
+            identifier = await sha(JSON.stringify(data));
         }
         if (identifier) {
             const checksum = ncda(identifier, nolookalikes);
