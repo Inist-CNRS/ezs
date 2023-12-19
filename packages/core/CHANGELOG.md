@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.4.2...@ezs/core@3.4.3) (2023-12-19)
+
+
+### Bug Fixes
+
+* 🐛 sha with whole data ([f155a6b](https://github.com/Inist-CNRS/ezs/commit/f155a6b0434f6700606a291e51094cb284c3e33f))
+
+
+
+
+
 ## [3.4.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.4.1...@ezs/core@3.4.2) (2023-12-08)
 
 **Note:** Version bump only for package @ezs/core

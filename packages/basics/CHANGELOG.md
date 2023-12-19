@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.5.8](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.5.7...@ezs/basics@2.5.8) (2023-12-19)
+
+
+### Bug Fixes
+
+* 🐛 avoid to produce null with undefined value ([14798ad](https://github.com/Inist-CNRS/ezs/commit/14798ad15faaaf51d8f2cacf202da62904cf049f))
+
+
+
+
+
 ## [2.5.7](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.5.6...@ezs/basics@2.5.7) (2023-12-08)
 
 
