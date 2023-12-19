@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.4.3...@ezs/core@3.4.4) (2023-12-19)
+
+
+### Bug Fixes
+
+* 🐛 with undefined data ([12b14c0](https://github.com/Inist-CNRS/ezs/commit/12b14c0ffa28f3931550a827f4f66e05557498ca))
+
+
+
+
+
 ## [3.4.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.4.2...@ezs/core@3.4.3) (2023-12-19)
 
 
