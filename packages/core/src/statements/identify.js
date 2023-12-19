@@ -50,17 +50,22 @@ export default async function identify(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
-    if (!validKey(uri)) {
-        let identifier;
-        if (scheme === 'uid') {
-            identifier = await generate(nolookalikes, 8);
-        } else if (scheme === 'sha') {
-            identifier = await sha(JSON.stringify(data));
+    try {
+        if (!validKey(uri)) {
+            let identifier;
+            if (scheme === 'uid') {
+                identifier = await generate(nolookalikes, 8);
+            } else if (scheme === 'sha') {
+                identifier = await sha(data);
+            }
+            if (identifier) {
+                const checksum = ncda(identifier, nolookalikes);
+                _.set(data, path, `${scheme}:/${identifier}${checksum}`);
+            }
         }
-        if (identifier) {
-            const checksum = ncda(identifier, nolookalikes);
-            _.set(data, path, `${scheme}:/${identifier}${checksum}`);
-        }
+    }
+    catch (e) {
+        return feed.stop(e);
     }
     return feed.send(data);
 }
