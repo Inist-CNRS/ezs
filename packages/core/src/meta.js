@@ -5,7 +5,7 @@ const regex = {
 };
 
 export default function Meta(ezs, commands) {
-    const lines = commands.split(/\r\n|\r|\n/);
+    const lines = commands.split('\\\n').join('').split(/\r\n|\r|\n/);
     const result = {};
     let meta = true;
     lines.forEach((line) => {
@@ -13,7 +13,7 @@ export default function Meta(ezs, commands) {
             if (regex.param.test(line) && meta) {
                 const match = line.match(regex.param);
                 const paramName = match[1];
-                const paramValue = match[2];
+                const paramValue = match[2].replace(/\^M/g, '\n');
                 result[paramName] = paramValue;
             } else if (regex.section.test(line)) {
                 meta = false;
