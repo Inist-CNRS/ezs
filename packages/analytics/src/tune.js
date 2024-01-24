@@ -102,7 +102,7 @@ const tune = (data, feed, ctx) => {
  * plugin = analytics
  *
  * ; Using "tune" with default settings
- * ; Utilisation de "tune" avec les paramettre par defaut
+ * ; Utilisation de "tune" avec les paramètres par défaut
  * [tune]
  *
  * ```
@@ -155,9 +155,9 @@ const tune = (data, feed, ctx) => {
  *          <ul><ul><li>levenshtein - Create an identifier based on the Levenshtein algorithm</li></ul></ul>
  *          <ul><ul><li>numerical - Create an identifier based on a numeric value</li></ul></ul>
  *      <ul><li>méthode utilisée pour créer l'identifiant unifié</li></ul>
- *          <ul><ul><li>natural - Créer un identifiant normalisé de longueur fixe</li></ul></ul>
- *          <ul><ul><li>levenshtein - Créer un identifiant basé sur l'algorithme de Levenshtein</li></ul></ul>
- *          <ul><ul><li>numerical - Créer un identifiant basé sur une valeur numérique</li></ul></ul>
+ *          <ul><ul><li>natural - Crée un identifiant normalisé de longueur fixe</li></ul></ul>
+ *          <ul><ul><li>levenshtein - Crée un identifiant basé sur l'algorithme de Levenshtein</li></ul></ul>
+ *          <ul><ul><li>numerical - Crée un identifiant basé sur une valeur numérique</li></ul></ul>
  * @returns {{
  *     id: String,
  *     value: Object
