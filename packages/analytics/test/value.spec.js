@@ -1,6 +1,6 @@
 import ezs from '../../core/src';
 import value from '../src/value';
-import runEzs from './utils/runEzs';
+import runEzs from '../test-utils/runEzs';
 
 ezs.addPath(__dirname);
 

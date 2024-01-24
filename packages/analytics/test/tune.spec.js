@@ -1,6 +1,6 @@
 import ezs from '../../core/src';
 import tune from '../src/tune';
-import runEzs from './utils/runEzs';
+import runEzs from '../test-utils/runEzs';
 
 ezs.addPath(__dirname);
 
@@ -78,7 +78,7 @@ describe('tune', () => {
         it('should normalize (path = value)', async () => {
             ezs.use({ tune });
 
-            const result = await runEzs(ezs, arrayData, 'tune');
+            const result = await runEzs(ezs, arrayData, 'tune', { path: 'value' });
 
             expect(result[0]).not.toBeNull();
             expect(result[1]).not.toBeNull();
