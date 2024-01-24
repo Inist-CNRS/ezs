@@ -3,6 +3,11 @@ import clone from 'lodash.clone';
 import { levenshteinDistance } from './algorithms';
 import core from './core';
 
+/**
+ * @private
+ * @param s {string | number | unknown}
+ * @returns {string}
+ */
 export const normalize = (s) => {
     if (typeof s === 'string') {
         return String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').padEnd(40, '~');
@@ -13,7 +18,20 @@ export const normalize = (s) => {
     return String(s);
 };
 
+/**
+ * @private
+ * @param x {string | number | unknown}
+ * @param y {string | number | unknown}
+ * @returns {*}
+ */
 const levenshtein = (x, y) => levenshteinDistance(normalize(x), normalize(y));
+
+/**
+ * @private
+ * @param x {number}
+ * @param y {number}
+ * @returns {number}
+ */
 const numerical = (x, y) => (x + 1) / (y + 1);
 
 const methods = {
@@ -21,6 +39,52 @@ const methods = {
     numerical,
 };
 const allMethods = Object.keys(methods).join(',');
+
+/**
+ * Tune function see documenation at the end.
+ * This part of the doc is use for jsdoc typing
+ * @private
+ * @param data {unknown}
+ * @param feed
+ * @param ctx
+ */
+const tune = (data, feed, ctx) => {
+    if (ctx.isLast()) {
+        feed.close();
+        return;
+    }
+    const path = ctx.getParam('path', 'id');
+    const method = ctx.getParam('method', 'natural');
+    const fields = Array.isArray(path) ? path : [path];
+    const currentValue = fields
+        .filter((k) => typeof k === 'string')
+        .map((key) => get(data, key))
+        .shift();
+
+    if (!methods[method] && method !== 'natural') {
+        throw new Error(`Invalid parameter 'method'. Accepted values are : ${allMethods}`);
+    }
+
+    if (method === 'natural') {
+        feed.send(core(normalize(currentValue), data));
+        return;
+    }
+
+    if (!ctx.previousValue) {
+        ctx.previousValue = currentValue;
+        ctx.previousDistance = 1;
+        feed.send(core(1, data));
+        return;
+    }
+
+    const similarity = methods[method](ctx.previousValue, currentValue);
+    const score = similarity === 0 ? Math.max(ctx.previousValue.length, currentValue.length) : similarity;
+    const currentDistance = ctx.previousDistance / score;
+
+    ctx.previousValue = clone(currentValue);
+    ctx.previousDistance = clone(currentDistance);
+    feed.send(core(currentDistance, data));
+};
 
 /**
  * Create and replace the id with a unify id that can be used with [sort](#sort)
@@ -99,43 +163,7 @@ const allMethods = Object.keys(methods).join(',');
  *     value: Object
  * }}
  */
-export default function tune(data, feed) {
-    if (this.isLast()) {
-        feed.close();
-        return;
-    }
-    const path = this.getParam('path', 'id');
-    const method = this.getParam('method', 'natural');
-    const fields = Array.isArray(path) ? path : [path];
-    const currentValue = fields
-        .filter((k) => typeof k === 'string')
-        .map((key) => get(data, key))
-        .shift();
-
-    if (!methods[method] && method !== 'natural') {
-        throw new Error(`Invalid parameter 'method'. Accepted values are : ${allMethods}`);
-    }
-
-    if (method === 'natural') {
-        feed.send(core(normalize(currentValue), data));
-        return;
-    }
-
-    if (!this.previousValue) {
-        this.previousValue = currentValue;
-        this.previousDistance = 1;
-        feed.send(core(1, data));
-        return;
-    }
-
-    const similarity = methods[method](this.previousValue, currentValue);
-    const score = similarity === 0 ? Math.max(this.previousValue.length, currentValue.length) : similarity;
-    const currentDistance = this.previousDistance / score;
-
-    this.previousValue = clone(currentValue);
-    this.previousDistance = clone(currentDistance);
-    feed.send(core(currentDistance, data));
-}
+export default tune;
 
 /*
 
