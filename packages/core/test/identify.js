@@ -90,6 +90,29 @@ describe('[identify]', () => {
                 done();
             });
     });
+
+    it('identify #2', (done) => {
+        from([
+            { id: 1, b: 'a' },
+            undefined,
+            { id: 1, b: 'a' },
+        ])
+            .pipe(ezs('identify', { path: 'uuid', scheme: 'sha' }))
+            .pipe(ezs.catch())
+            .on('error', (e) => {
+                try {
+                    expect(e.message).toEqual(expect.stringContaining('Received undefined'));
+                    done();
+                } catch(ee) {
+                    done(ee);
+                }
+            })
+            .on('data', () => true)
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+            });
+    });
+
 });
 
 describe('validKey', () => {

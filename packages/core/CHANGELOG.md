@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.5.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.4.4...@ezs/core@3.5.0) (2023-12-20)
+
+
+### Features
+
+* allow multilines metadata values ([8f342f1](https://github.com/Inist-CNRS/ezs/commit/8f342f11ca4fb67aef44c8d76f4dba68ce891b32))
+
+
+
+
+
+## [3.4.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.4.3...@ezs/core@3.4.4) (2023-12-19)
+
+
+### Bug Fixes
+
+* 🐛 with undefined data ([12b14c0](https://github.com/Inist-CNRS/ezs/commit/12b14c0ffa28f3931550a827f4f66e05557498ca))
+
+
+
+
+
+## [3.4.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.4.2...@ezs/core@3.4.3) (2023-12-19)
+
+
+### Bug Fixes
+
+* 🐛 sha with whole data ([f155a6b](https://github.com/Inist-CNRS/ezs/commit/f155a6b0434f6700606a291e51094cb284c3e33f))
+
+
+
+
+
 ## [3.4.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.4.1...@ezs/core@3.4.2) (2023-12-08)
 
 **Note:** Version bump only for package @ezs/core

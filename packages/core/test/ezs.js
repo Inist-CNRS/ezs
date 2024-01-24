@@ -852,11 +852,13 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
-    it('Catch meta from script', (done) => {
+    it('Catch meta from script #1', (done) => {
         const commands = `
 
             title = Le titre
-            description = La description
+            description = \
+La description
+            summary = Line1 ^M Line2 ^M Line3
 
             [replace]
             path = a
@@ -870,6 +872,7 @@ describe('Build a pipeline', () => {
         const meta = ezs.metaString(commands);
         assert.strictEqual(meta.title, 'Le titre');
         assert.strictEqual(meta.description, 'La description');
+        assert.strictEqual(meta.summary, 'Line1 \n Line2 \n Line3');
         done();
     });
 
