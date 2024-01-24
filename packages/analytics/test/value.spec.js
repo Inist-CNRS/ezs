@@ -1,29 +1,10 @@
-import from from 'from';
 import ezs from '../../core/src';
 import value from '../src/value';
+import runEzs from './utils/runEzs';
 
 ezs.addPath(__dirname);
 
 describe('value', () => {
-    /**
-     * Helper function use to call ezs in each tests
-     * @param ezsRuntime {(name: string, options: any, environment?: unknown) => NodeJS.WritableStream}
-     * @param dataSet {Array<unknown>}
-     * @param path {string | undefined}
-     * @returns {Promise<Array<unknown>>}
-     */
-    const runEzs = (ezsRuntime, dataSet, path) => new Promise((resolve) => {
-        const result = [];
-        from(dataSet)
-            .pipe(ezsRuntime('value', { path }))
-            .on('data', (chunk) => {
-                result.push(chunk);
-            })
-            .on('end', () => {
-                resolve(result);
-            });
-    });
-
     describe('simple data', () => {
         const simpleData =  [
             {
@@ -38,7 +19,7 @@ describe('value', () => {
 
         it('should extract the id (path = id)', async () => {
             ezs.use({ value });
-            const result = await runEzs(ezs, simpleData, 'id');
+            const result = await runEzs(ezs, simpleData, 'value', { path: 'id' });
 
             expect(result).toHaveLength(2);
 
@@ -48,7 +29,7 @@ describe('value', () => {
 
         it('should extract the value (path = value)', async () => {
             ezs.use({ value });
-            const result = await runEzs(ezs, simpleData, 'value');
+            const result = await runEzs(ezs, simpleData, 'value', { path: 'value' });
 
             expect(result).toHaveLength(2);
 
@@ -58,7 +39,7 @@ describe('value', () => {
 
         it('should extract the value (path = undefined)', async () => {
             ezs.use({ value });
-            const result = await runEzs(ezs, simpleData);
+            const result = await runEzs(ezs, simpleData, 'value');
 
             expect(result).toHaveLength(2);
 
@@ -81,7 +62,7 @@ describe('value', () => {
 
         it('should extract the id (path = id)', async () => {
             ezs.use({ value });
-            const result = await runEzs(ezs, arrayData, 'id');
+            const result = await runEzs(ezs, arrayData, 'value', { path: 'id' });
 
             expect(result).toHaveLength(2);
 
@@ -91,7 +72,7 @@ describe('value', () => {
 
         it('should extract the value (path = value)', async () => {
             ezs.use({ value });
-            const result = await runEzs(ezs, arrayData, 'value');
+            const result = await runEzs(ezs, arrayData, 'value', { path: 'value' });
 
             expect(result).toHaveLength(2);
 
@@ -118,7 +99,7 @@ describe('value', () => {
 
         it('should extract the id (path = id)', async () => {
             ezs.use({ value });
-            const result = await runEzs(ezs, objectData, 'id');
+            const result = await runEzs(ezs, objectData, 'value', { path: 'id' });
 
             expect(result).toHaveLength(2);
 
@@ -128,7 +109,7 @@ describe('value', () => {
 
         it('should extract the value (path = value)', async () => {
             ezs.use({ value });
-            const result = await runEzs(ezs, objectData, 'value');
+            const result = await runEzs(ezs, objectData, 'value', { path: 'value' });
 
             expect(result).toHaveLength(2);
 
@@ -175,7 +156,7 @@ describe('value', () => {
 
         it('should extract the id (path = id)', async () => {
             ezs.use({ value });
-            const result = await runEzs(ezs, deepObjectData, 'id');
+            const result = await runEzs(ezs, deepObjectData, 'value', { path: 'id' });
 
             expect(result).toHaveLength(2);
 
@@ -185,7 +166,7 @@ describe('value', () => {
 
         it('should extract the value (path = value)', async () => {
             ezs.use({ value });
-            const result = await runEzs(ezs, deepObjectData, 'value');
+            const result = await runEzs(ezs, deepObjectData, 'value', { path: 'value' });
 
             expect(result).toHaveLength(2);
 
@@ -267,7 +248,7 @@ describe('value', () => {
 
         it('should extract the id (path = id)', async () => {
             ezs.use({ value });
-            const result = await runEzs(ezs, animalia100Data, 'id');
+            const result = await runEzs(ezs, animalia100Data, 'value', { path: 'id' });
 
             expect(result).toHaveLength(5);
 
@@ -280,7 +261,7 @@ describe('value', () => {
 
         it('should extract the value (path = value)', async () => {
             ezs.use({ value });
-            const result = await runEzs(ezs, animalia100Data, 'value');
+            const result = await runEzs(ezs, animalia100Data, 'value', { path: 'value' });
 
             expect(result).toHaveLength(5);
 
@@ -329,7 +310,7 @@ describe('value', () => {
 
         it('should extract the id (path = id)', async () => {
             ezs.use({ value });
-            const result = await runEzs(ezs, genratedData, 'id');
+            const result = await runEzs(ezs, genratedData, 'value', { path: 'id' });
 
             expect(result).toHaveLength(LENGTH);
 
@@ -340,7 +321,7 @@ describe('value', () => {
 
         it('should extract the value (path = value)', async () => {
             ezs.use({ value });
-            const result = await runEzs(ezs, genratedData, 'value');
+            const result = await runEzs(ezs, genratedData, 'value', { path: 'value' });
 
             expect(result).toHaveLength(LENGTH);
 
