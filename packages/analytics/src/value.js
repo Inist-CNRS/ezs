@@ -59,7 +59,7 @@ const value = (data, feed, ctx) => {
  *      { "id": 2007, "value": 5 },
  *      { "id": 2009, "value": 6 },
  *      { "id": 2011, "value": 7 },
- *      { "id": 2013, "value": 8 },
+ *      { "id": 2013, "value": 8 }
  *  ]
  * ```
  *
@@ -84,7 +84,7 @@ const value = (data, feed, ctx) => {
  *          "value": {
  *              "hello": "lodex"
  *          }
- *      },
+ *      }
  *  ]
  * ```
  *
