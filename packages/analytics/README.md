@@ -1459,48 +1459,65 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### summing
 
-Take special `Object` like `{id, value}` and replace `value` with the sum of
-`value`s
+Create an id, value pair from two given path and apply a sum to the value
 
-```json
-[
- { "id": "A", "value": [1, 1, 1] },
- { "id": "B", "value": [1] },
- { "id": "C", "value": [1, 1, 1, 1] },
-]
-```
+Créer un couple id, value à partir de chemin et applique un somme sur la valeur
 
-Script:
+#### Example / Exemple
+
+##### Script / Scénario
 
 ```ini
+; Import analytics plugin required to use tune
+; Importation du plugin analytique nécessaire pour utiliser tune
 [use]
 plugin = analytics
 
-[summing]
+; Using "tune" with default settings
+; Utilisation de "tune" avec les paramètres par défaut
+[tune]
 ```
 
-Output:
+##### Input / Entrée
 
 ```json
-[{
-  "id": "A", "value": 3
-},
-{
-   "id": "B",
-   "value": 1
-},
-{
-   "id": "C",
-  "value": 4
-}]
+ [
+     {
+         "id": 1,
+         "value": [1, 1, 1],
+         "hello": "world"
+     },
+     {
+         "id": 2,
+         "value": [2, 2, 2],
+         "hello": "world"
+     }
+ ]
+```
+
+##### Output / Sortie
+
+```json
+[
+    {
+        "id": 1,
+        "value": 3
+    },
+    {
+        "id": 2,
+        "value": 6
+    }
+]
 ```
 
 #### Parameters
 
--   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
--   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
+-   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element used to create the new identifier</li></ul>
+         <ul><li>chemin de l'élément utilisé pour créer le nouvel identifiant</li></ul> (optional, default `id`)
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element to be summed</li></ul>
+         <ul><li>chemin de l'élément qui doit être sommé</li></ul> (optional, default `value`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)}** 
 
 ### tune
 

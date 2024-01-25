@@ -5,6 +5,11 @@ import runEzs from '../test-utils/runEzs';
 ezs.addPath(__dirname);
 
 describe('tune', () => {
+
+    beforeAll(() => {
+        ezs.use({ tune });
+    });
+
     describe('normalize, simple object', () => {
         const simpleData =  [
             {
@@ -18,8 +23,6 @@ describe('tune', () => {
         ];
 
         it('should normalize (path = id)', async () => {
-            ezs.use({ tune });
-
             const result = await runEzs(ezs, simpleData, 'tune');
 
             expect(result[0]).not.toBeNull();
@@ -33,8 +36,6 @@ describe('tune', () => {
         });
 
         it('should normalize (path = value)', async () => {
-            ezs.use({ tune });
-
             const result = await runEzs(ezs, simpleData, 'tune', { path: 'value' });
 
             expect(result[0]).not.toBeNull();
@@ -61,8 +62,6 @@ describe('tune', () => {
         ];
 
         it('should normalize (path = id)', async () => {
-            ezs.use({ tune });
-
             const result = await runEzs(ezs, arrayData, 'tune');
 
             expect(result[0]).not.toBeNull();
@@ -76,8 +75,6 @@ describe('tune', () => {
         });
 
         it('should normalize (path = value)', async () => {
-            ezs.use({ tune });
-
             const result = await runEzs(ezs, arrayData, 'tune', { path: 'value' });
 
             expect(result[0]).not.toBeNull();
