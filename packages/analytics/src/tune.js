@@ -41,7 +41,7 @@ const methods = {
 const allMethods = Object.keys(methods).join(',');
 
 /**
- * Tune function see documenation at the end.
+ * Tune function see documentation at the end.
  * This part of the doc is use for jsdoc typing
  * @private
  * @param data {unknown}

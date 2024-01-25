@@ -1,7 +1,7 @@
 import get from 'lodash.get';
 
 /**
- * Value function see documenation at the end.
+ * Value function see documentation at the end.
  * This part of the doc is use for jsdoc typing
  * @private
  * @param data {unknown}
