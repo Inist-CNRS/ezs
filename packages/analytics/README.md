@@ -1578,48 +1578,103 @@ Returns **{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Refere
 
 ### value
 
-Take `Object` object and getting the value field
+Create a new object from the value of the given path
 
-```json
-[
- { id: 2000, value: 1 },
- { id: 2001, value: 2 },
- { id: 2003, value: 3 },
- { id: 2005, value: 4 },
- { id: 2007, value: 5 },
- { id: 2009, value: 6 },
- { id: 2011, value: 7 },
- { id: 2013, value: 8 },
-]
-```
+Créer un nouvel objet à partir de la valeur d'un chemin donnée
 
-Script:
+#### Example / Exemple
+
+##### Script / Scénario
 
 ```ini
+; Import analytics plugin required to use value
+; Importation du plugin analytique nécessaire pour utiliser value
 [use]
 plugin = analytics
 
+; Using "value" with default settings
+; Utilisation de "tune" avec les paramètres par défaut
 [value]
-path = id
 ```
 
-Output:
+##### Input / Entrée
+
+###### Dataset 1 / Jeu de donnée 1
 
 ```json
-[
-2000,
-2001,
-2003,
-2005,
-2007,
-2009,
-2011,
-2013
-]
+ [
+     { "id": 2000, "value": 1 },
+     { "id": 2001, "value": 2 },
+     { "id": 2003, "value": 3 },
+     { "id": 2005, "value": 4 },
+     { "id": 2007, "value": 5 },
+     { "id": 2009, "value": 6 },
+     { "id": 2011, "value": 7 },
+     { "id": 2013, "value": 8 },
+ ]
+```
+
+###### Dataset 2 / Jeu de donnée 2
+
+```json
+ [
+     {
+         "id": 1,
+         "value": {
+             "hello": "world"
+         }
+     },
+     {
+         "id": 2,
+         "value": {
+             "hello": "ezs"
+         }
+     },
+     {
+         "id": 3,
+         "value": {
+             "hello": "lodex"
+         }
+     },
+ ]
+```
+
+##### Output / Sortie
+
+###### Dataset 1 / Jeu de donnée 1
+
+```json
+ [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+ ]
+```
+
+###### Dataset 2 / Jeu de donnée 2
+
+```json
+ [
+     {
+         "hello": "world"
+     },
+     {
+         "hello": "ezs"
+     },
+     {
+         "hello": "lodex"
+     }
+ ]
 ```
 
 #### Parameters
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the pah of the value field (optional, default `value`)
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element used to create the new object</li></ul>
+         <ul><li>chemin de l'élément utilisé pour créer le nouvel objet</li></ul> (optional, default `value`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 

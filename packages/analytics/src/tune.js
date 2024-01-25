@@ -45,7 +45,7 @@ const allMethods = Object.keys(methods).join(',');
  * This part of the doc is use for jsdoc typing
  * @private
  * @param data {unknown}
- * @param feed
+ * @param feed {Feed}
  * @param ctx
  */
 const tune = (data, feed, ctx) => {
