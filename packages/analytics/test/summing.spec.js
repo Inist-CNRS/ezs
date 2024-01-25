@@ -10,6 +10,62 @@ describe('summing', () => {
         ezs.use({ summing });
     });
 
+    describe('wrong data', () => {
+        const undefinedData = [
+            undefined,
+            undefined,
+            undefined,
+            undefined
+        ];
+
+        const nullData = [
+            null,
+            null,
+            null,
+            null
+        ];
+
+        const undefinedNullData = [
+            undefined,
+            null,
+            undefined,
+            null
+        ];
+
+        const wrongKeyData = [
+            {
+                'hello': 'world',
+            },
+            {
+                'hello': 'world',
+            }
+        ];
+
+        it('should return no result when input contains undefined', async () => {
+            const result = await runEzs(ezs, undefinedData, 'summing');
+
+            expect(result).toHaveLength(0);
+        });
+
+        it.skip('should return no result when input contains null', async () => {
+            const result = await runEzs(ezs, nullData, 'summing');
+
+            expect(result).toHaveLength(0);
+        });
+
+        it.skip('should return no result when input contains undefined and null', async () => {
+            const result = await runEzs(ezs, undefinedNullData, 'summing');
+
+            expect(result).toHaveLength(0);
+        });
+
+        it('should return no result when input contains wrong key', async () => {
+            const result = await runEzs(ezs, wrongKeyData, 'summing');
+
+            expect(result).toHaveLength(0);
+        });
+    });
+
     describe('summing, simple object', () => {
         const simpleData =  [
             {

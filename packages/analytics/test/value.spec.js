@@ -10,6 +10,62 @@ describe('value', () => {
         ezs.use({ value });
     });
 
+    describe('wrong data', () => {
+        const undefinedData = [
+            undefined,
+            undefined,
+            undefined,
+            undefined
+        ];
+
+        const nullData = [
+            null,
+            null,
+            null,
+            null
+        ];
+
+        const undefinedNullData = [
+            undefined,
+            null,
+            undefined,
+            null
+        ];
+
+        const wrongKeyData = [
+            {
+                'hello': 'world',
+            },
+            {
+                'hello': 'world',
+            }
+        ];
+
+        it('should return no result when input contains undefined', async () => {
+            const result = await runEzs(ezs, undefinedData, 'value');
+
+            expect(result).toHaveLength(0);
+        });
+
+        it.skip('should return no result when input contains null', async () => {
+            const result = await runEzs(ezs, nullData, 'value');
+
+            expect(result).toHaveLength(0);
+        });
+
+        it.skip('should return no result when input contains undefined and null', async () => {
+            const result = await runEzs(ezs, undefinedNullData, 'value');
+
+            expect(result).toHaveLength(0);
+        });
+
+        it('should return no result when input contains wrong key', async () => {
+            const result = await runEzs(ezs, wrongKeyData, 'value');
+
+            expect(result).toHaveLength(0);
+        });
+    });
+
     describe('simple data', () => {
         const simpleData =  [
             {
