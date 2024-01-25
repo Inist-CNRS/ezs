@@ -2,10 +2,9 @@
 *
 
 # White list only the required files
-!package-lock.json
+!yarn.lock
 !package.json
 !packages/
 !jest.config.js
-!jest-mongodb-config.js
 !lerna.json
 !babel.config.js
