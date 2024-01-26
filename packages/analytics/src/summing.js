@@ -37,14 +37,16 @@ const summing = (data, feed, ctx) => {
  * #### Script / Scénario
  *
  * ```ini
- * ; Import analytics plugin required to use tune
- * ; Importation du plugin analytique nécessaire pour utiliser tune
+ * ; Import analytics plugin required to use summing
+ * ; Importation du plugin analytique nécessaire pour utiliser summing
  * [use]
  * plugin = analytics
  *
- * ; Using "tune" with default settings
- * ; Utilisation de "tune" avec les paramètres par défaut
- * [tune]
+ * ; Using "summing" with default settings
+ * ; Utilisation de "summing" avec les paramètres par défaut
+ * [summing]
+ * ; id = id
+ * ; value = value
  *
  * ```
  *
@@ -65,7 +67,7 @@ const summing = (data, feed, ctx) => {
  *  ]
  *  ```
  *
- *  #### Output / Sortie
+ * #### Output / Sortie
  *
  *  ```json
  *  [

@@ -43,6 +43,7 @@ const value = (data, feed, ctx) => {
  * ; Using "value" with default settings
  * ; Utilisation de "tune" avec les paramètres par défaut
  * [value]
+ * ; path = value
  *
  * ```
  *

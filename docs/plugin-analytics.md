@@ -1298,162 +1298,175 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### sort
 
-Take all `Object` and sort them with dedicated key
+Sort incomming object base on the value of the given path
 
-```json
-[{
- { id: 2000, value: 1 },
- { id: 2001, value: 2 },
- { id: 2003, value: 3 },
- { id: 2005, value: 4 },
- { id: 2007, value: 5 },
- { id: 2009, value: 6 },
- { id: 2011, value: 7 },
- { id: 2013, value: 8 },
-}]
-```
+Trier les objets entrants sur la base de la valeur du chemin donné
 
-Script:
+#### Example / Exemple
+
+##### Script / Scénario
 
 ```ini
+; Import analytics plugin required to use tune
+; Importation du plugin analytique nécessaire pour utiliser sort
 [use]
 plugin = analytics
 
+; Using "sort" with default settings
+; Utilisation de "sort" avec les paramètres par défaut
 [sort]
-path = value
-reverse = true
+; path = id
+; reverse = false
 ```
 
-Output:
+##### Input / Entrée
 
 ```json
-[
-{ "id": 2013, "value": 8 },
-{ "id": 2011, "value": 7 },
-{ "id": 2009, "value": 6 },
-{ "id": 2007, "value": 5 },
-{ "id": 2005, "value": 4 },
-{ "id": 2003, "value": 3 },
-{ "id": 2001, "value": 2 },
-{ "id": 2000, "value": 1 }
-]
+ [
+     { "id": 2013, "value": 8 },
+     { "id": 2011, "value": 7 },
+     { "id": 2009, "value": 6 },
+     { "id": 2007, "value": 5 },
+     { "id": 2005, "value": 4 },
+     { "id": 2003, "value": 3 },
+     { "id": 2001, "value": 2 },
+     { "id": 2000, "value": 1 }
+ ]
+```
+
+##### Output / Sortie
+
+```json
+ [
+     { "id": 2000, "value": 1 },
+     { "id": 2001, "value": 2 },
+     { "id": 2003, "value": 3 },
+     { "id": 2005, "value": 4 },
+     { "id": 2007, "value": 5 },
+     { "id": 2009, "value": 6 },
+     { "id": 2011, "value": 7 },
+     { "id": 2013, "value": 8 },
+ ]
 ```
 
 #### Parameters
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
--   `reverse` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** reverser order (optional, default `false`)
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element used to as reference for the sort</li></ul>
+         <ul><li>chemin de l'élément utilisé comme reference pour le trie</li></ul> (optional, default `id`)
+-   `reverse` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** <ul><li>sort in ascending or descending order</li></ul>
+         <ul><li>trier par ordre croissant ou décroissant</li></ul> (optional, default `false`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### statistics
 
-Compute some statistics from one or more fields
+Analyse and create statistics from given fields
 
-#### Parameters
+Analisse et créer des statistiques a partir des champs donnée
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the value field (optional, default `value`)
--   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of statistics in output object (optional, default `_statistics`)
+#### Example / Exemple
 
-#### Examples
+##### Script / Scénario
 
-Input
-
-
-````javascript
-```json
-[
- { a: 1, },
- { a: 1, },
- { a: 2, },
- { a: 3, },
- { a: 3, },
- { a: 3, },
-]
-```
-````
-
-Script
-
-
-````javascript
 ```ini
+; Import analytics plugin required to use statistics
+; Importation du plugin analytique nécessaire pour utiliser statistics
 [use]
 plugin = analytics
 
+; Using "statistics" with default settings
+; Utilisation de "statistics" avec les paramètres par défaut
 [statistics]
-path = a
-
+; path = value
+; target = _statistics
 ```
-````
 
-Output
+##### Input / Entrée
 
-
-````javascript
 ```json
-[{
-    "a": 1,
-    "stats": {
-        "a": {
-            "sample": 2,
-            "frequency": 1,
-            "percentage": 25,
-            "sum": 4,
-            "count": 3,
-            "min": 1,
-            "max": 2,
-            "mean": 1.3333333333333333,
-            "range": 1,
-            "midrange": 0.5,
-            "variance": 0.2222222222222222,
-            "deviation": 0.4714045207910317,
-            "population": 2
-        }
-    }
-},
-{
-    "a": 1,
-    "stats": {
-        "a": {
-            "sample": 2,
-            "frequency": 1,
-            "percentage": 25,
-            "sum": 4,
-            "count": 3,
-            "min": 1,
-            "max": 2,
-            "mean": 1.3333333333333333,
-            "range": 1,
-            "midrange": 0.5,
-            "variance": 0.2222222222222222,
-            "deviation": 0.4714045207910317,
-            "population": 2
-        }
-     }
-},
-{
-    "a": 2,
-    "stats": {
-        "a": {
-            "sample": 1,
-            "frequency": 0.5,
-            "percentage": 50,
-            "sum": 4,
-            "count": 3,
-            "min": 1,
-            "max": 2,
-            "mean": 1.3333333333333333,
-            "range": 1,
-            "midrange": 0.5,
-            "variance": 0.2222222222222222,
-            "deviation": 0.4714045207910317,
-            "population": 2
-     }
-   }
-}]
+ [
+     { "value": 1 },
+     { "value": 1 },
+     { "value": 2 },
+     { "value": 3 },
+     { "value": 3 },
+     { "value": 3 }
+ ]
 ```
-````
+
+##### Output / Sortie
+
+```json
+ [
+     {
+         "value": 1,
+         "_statistics": {
+             "value": {
+                 "sample": 2,
+                 "frequency": 1,
+                 "percentage": 25,
+                 "sum": 4,
+                 "count": 3,
+                 "min": 1,
+                 "max": 2,
+                 "mean": 1.3333333333333333,
+                 "range": 1,
+                 "midrange": 0.5,
+                 "variance": 0.2222222222222222,
+                 "deviation": 0.4714045207910317,
+                 "population": 2
+             }
+         }
+     },
+     {
+         "value": 1,
+         "_statistics": {
+             "value": {
+                 "sample": 2,
+                 "frequency": 1,
+                 "percentage": 25,
+                 "sum": 4,
+                 "count": 3,
+                 "min": 1,
+                 "max": 2,
+                 "mean": 1.3333333333333333,
+                 "range": 1,
+                 "midrange": 0.5,
+                 "variance": 0.2222222222222222,
+                 "deviation": 0.4714045207910317,
+                 "population": 2
+             }
+         }
+     },
+     {
+         "value": 2,
+         "_statistics": {
+             "value": {
+                 "sample": 1,
+                 "frequency": 0.5,
+                 "percentage": 50,
+                 "sum": 4,
+                 "count": 3,
+                 "min": 1,
+                 "max": 2,
+                 "mean": 1.3333333333333333,
+                 "range": 1,
+                 "midrange": 0.5,
+                 "variance": 0.2222222222222222,
+                 "deviation": 0.4714045207910317,
+                 "population": 2
+             }
+         }
+     }
+ ]
+```
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element used to create the statistics</li></ul>
+         <ul><li>chemin de l'élément utilisé pour créer les statistics</li></ul> (optional, default `value`)
+-   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the statistics in the returned object</li></ul>
+         <ul><li>chemin des stastistiques dans l'objet retourné</li></ul> (optional, default `_statistics`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -1468,14 +1481,16 @@ Créer un couple id, value à partir de chemin et applique un somme sur la valeu
 ##### Script / Scénario
 
 ```ini
-; Import analytics plugin required to use tune
-; Importation du plugin analytique nécessaire pour utiliser tune
+; Import analytics plugin required to use summing
+; Importation du plugin analytique nécessaire pour utiliser summing
 [use]
 plugin = analytics
 
-; Using "tune" with default settings
-; Utilisation de "tune" avec les paramètres par défaut
-[tune]
+; Using "summing" with default settings
+; Utilisation de "summing" avec les paramètres par défaut
+[summing]
+; id = id
+; value = value
 ```
 
 ##### Input / Entrée
@@ -1538,6 +1553,8 @@ plugin = analytics
 ; Using "tune" with default settings
 ; Utilisation de "tune" avec les paramètres par défaut
 [tune]
+; path = id
+; method = natural
 ```
 
 ##### Input / Entrée
@@ -1612,6 +1629,7 @@ plugin = analytics
 ; Using "value" with default settings
 ; Utilisation de "tune" avec les paramètres par défaut
 [value]
+; path = value
 ```
 
 ##### Input / Entrée

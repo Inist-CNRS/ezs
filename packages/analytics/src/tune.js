@@ -104,6 +104,8 @@ const tune = (data, feed, ctx) => {
  * ; Using "tune" with default settings
  * ; Utilisation de "tune" avec les paramètres par défaut
  * [tune]
+ * ; path = id
+ * ; method = natural
  *
  * ```
  *

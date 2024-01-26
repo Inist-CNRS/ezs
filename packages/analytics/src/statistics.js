@@ -29,115 +29,28 @@ const calculating = (values) => {
 };
 
 /**
- * Compute some statistics from one or more fields
- *
- * @example <caption>Input</caption>
- * ```json
- * [
- *  { a: 1, },
- *  { a: 1, },
- *  { a: 2, },
- *  { a: 3, },
- *  { a: 3, },
- *  { a: 3, },
- * ]
- * ```
- *
- * @example <caption>Script</caption>
- * ```ini
- * [use]
- * plugin = analytics
- *
- * [statistics]
- * path = a
- *
- * ```
- *
- * @example <caption>Output</caption>
- * ```json
- * [{
- *     "a": 1,
- *     "stats": {
- *         "a": {
- *             "sample": 2,
- *             "frequency": 1,
- *             "percentage": 25,
- *             "sum": 4,
- *             "count": 3,
- *             "min": 1,
- *             "max": 2,
- *             "mean": 1.3333333333333333,
- *             "range": 1,
- *             "midrange": 0.5,
- *             "variance": 0.2222222222222222,
- *             "deviation": 0.4714045207910317,
- *             "population": 2
- *         }
- *     }
- * },
- * {
- *     "a": 1,
- *     "stats": {
- *         "a": {
- *             "sample": 2,
- *             "frequency": 1,
- *             "percentage": 25,
- *             "sum": 4,
- *             "count": 3,
- *             "min": 1,
- *             "max": 2,
- *             "mean": 1.3333333333333333,
- *             "range": 1,
- *             "midrange": 0.5,
- *             "variance": 0.2222222222222222,
- *             "deviation": 0.4714045207910317,
- *             "population": 2
- *         }
- *      }
- * },
- * {
- *     "a": 2,
- *     "stats": {
- *         "a": {
- *             "sample": 1,
- *             "frequency": 0.5,
- *             "percentage": 50,
- *             "sum": 4,
- *             "count": 3,
- *             "min": 1,
- *             "max": 2,
- *             "mean": 1.3333333333333333,
- *             "range": 1,
- *             "midrange": 0.5,
- *             "variance": 0.2222222222222222,
- *             "deviation": 0.4714045207910317,
- *             "population": 2
- *      }
- *    }
- * }]
- * ```
- *
- * @export
- * @name statistics
- * @param {String} [path=value] path of the value field
- * @param {String} [target=_statistics] path of statistics in output object
- * @returns {Object}
+ * Statistics function see documentation at the end.
+ * This part of the doc is use for jsdoc typing
+ * @private
+ * @param data {unknown}
+ * @param feed {Feed}
+ * @param ctx
  */
-export default async function statistics(data, feed) {
-    const path = this.getParam('path', 'value');
-    const target = this.getParam('target', '_statistics');
+const statistics = async (data, feed, ctx) => {
+    const path = ctx.getParam('path', 'value');
+    const target = ctx.getParam('target', '_statistics');
     const fields = Array.isArray(path) ? path : [path];
     const keys = fields.filter((k) => typeof k === 'string');
 
-    if (this.isFirst()) {
-        const location = this.getParam('location');
-        this.store = createStore(this.ezs, 'statistics', location);
-        this.store.reset();
-        this.stack = {};
+    if (ctx.isFirst()) {
+        const location = ctx.getParam('location');
+        ctx.store = createStore(ctx.ezs, 'statistics', location);
+        ctx.store.reset();
+        ctx.stack = {};
     }
-    if (this.isLast()) {
-        const values = keys.filter((key) => this.stack[key]).reduce((obj, key) => {
-            const result = calculating(this.stack[key].stat);
+    if (ctx.isLast()) {
+        const values = keys.filter((key) => ctx.stack[key]).reduce((obj, key) => {
+            const result = calculating(ctx.stack[key].stat);
             const range = result.max - result.min;
             const midrange = range / 2;
             const variance = result.diff / result.count;
@@ -151,16 +64,16 @@ export default async function statistics(data, feed) {
                 midrange,
                 variance,
                 deviation: Math.sqrt(variance),
-                population: Object.keys(this.stack[key].hash).length,
+                population: Object.keys(ctx.stack[key].hash).length,
             };
             return obj;
         }, {});
-        const stream = await this.store.empty();
+        const stream = await ctx.store.empty();
         stream
             .on('data', ({ value }) => {
                 const localValues = value.hashValues.reduce((obj, item) => {
-                    const sample = this.stack[item.key].hash[item.hashValue];
-                    const percentage = (100 * this.stack[item.key].vals[item.hashValue]) / values[item.key].sum;
+                    const sample = ctx.stack[item.key].hash[item.hashValue];
+                    const percentage = (100 * ctx.stack[item.key].vals[item.hashValue]) / values[item.key].sum;
                     const frequency = sample / values[item.key].population;
                     obj[item.key] = {
                         sample,
@@ -174,7 +87,7 @@ export default async function statistics(data, feed) {
                 feed.write(value.data);
             })
             .on('end', async () => {
-                await this.store.close();
+                await ctx.store.close();
                 feed.close();
             });
         return;
@@ -182,11 +95,11 @@ export default async function statistics(data, feed) {
     const hashValues = keys.map((key) => {
         const rawValue = get(data, key);
         if (!rawValue) return;
-        if (!this.stack[key]) {
-            this.stack[key] = { stat: [], hash: {}, vals: {} };
+        if (!ctx.stack[key]) {
+            ctx.stack[key] = { stat: [], hash: {}, vals: {} };
         }
         const numValue = Number(rawValue);
-        this.stack[key].stat.push({
+        ctx.stack[key].stat.push({
             sum: numValue || 0,
             min: numValue || 0,
             max: numValue || 0,
@@ -194,14 +107,126 @@ export default async function statistics(data, feed) {
             diff: 0,
         });
         const hashValue = hashCoerce.hash(rawValue);
-        if (this.stack[key].hash[hashValue]) {
-            this.stack[key].hash[hashValue] += 1;
+        if (ctx.stack[key].hash[hashValue]) {
+            ctx.stack[key].hash[hashValue] += 1;
         } else {
-            this.stack[key].hash[hashValue] = 1;
+            ctx.stack[key].hash[hashValue] = 1;
         }
-        this.stack[key].vals[hashValue] = numValue;
+        ctx.stack[key].vals[hashValue] = numValue;
         return { key, hashValue };
     }).filter(Boolean);
-    const uri = 'uid:'.concat(this.getIndex().toString().padStart(10, '0'));
-    this.store.put(uri, { data, hashValues }).then(() => feed.end());
-}
+    const uri = 'uid:'.concat(ctx.getIndex().toString().padStart(10, '0'));
+    ctx.store.put(uri, { data, hashValues }).then(() => feed.end());
+};
+
+/**
+ * Analyse and create statistics from given fields
+ *
+ * Analisse et créer des statistiques a partir des champs donnée
+ *
+ * ### Example / Exemple
+ *
+ * #### Script / Scénario
+ * ```ini
+ * ; Import analytics plugin required to use statistics
+ * ; Importation du plugin analytique nécessaire pour utiliser statistics
+ * [use]
+ * plugin = analytics
+ *
+ * ; Using "statistics" with default settings
+ * ; Utilisation de "statistics" avec les paramètres par défaut
+ * [statistics]
+ * ; path = value
+ * ; target = _statistics
+ *
+ * ```
+ *
+ * #### Input / Entrée
+ * ```json
+ *  [
+ *      { "value": 1 },
+ *      { "value": 1 },
+ *      { "value": 2 },
+ *      { "value": 3 },
+ *      { "value": 3 },
+ *      { "value": 3 }
+ *  ]
+ * ```
+ *
+ * #### Output / Sortie
+ *
+ * ```json
+ *  [
+ *      {
+ *          "value": 1,
+ *          "_statistics": {
+ *              "value": {
+ *                  "sample": 2,
+ *                  "frequency": 1,
+ *                  "percentage": 25,
+ *                  "sum": 4,
+ *                  "count": 3,
+ *                  "min": 1,
+ *                  "max": 2,
+ *                  "mean": 1.3333333333333333,
+ *                  "range": 1,
+ *                  "midrange": 0.5,
+ *                  "variance": 0.2222222222222222,
+ *                  "deviation": 0.4714045207910317,
+ *                  "population": 2
+ *              }
+ *          }
+ *      },
+ *      {
+ *          "value": 1,
+ *          "_statistics": {
+ *              "value": {
+ *                  "sample": 2,
+ *                  "frequency": 1,
+ *                  "percentage": 25,
+ *                  "sum": 4,
+ *                  "count": 3,
+ *                  "min": 1,
+ *                  "max": 2,
+ *                  "mean": 1.3333333333333333,
+ *                  "range": 1,
+ *                  "midrange": 0.5,
+ *                  "variance": 0.2222222222222222,
+ *                  "deviation": 0.4714045207910317,
+ *                  "population": 2
+ *              }
+ *          }
+ *      },
+ *      {
+ *          "value": 2,
+ *          "_statistics": {
+ *              "value": {
+ *                  "sample": 1,
+ *                  "frequency": 0.5,
+ *                  "percentage": 50,
+ *                  "sum": 4,
+ *                  "count": 3,
+ *                  "min": 1,
+ *                  "max": 2,
+ *                  "mean": 1.3333333333333333,
+ *                  "range": 1,
+ *                  "midrange": 0.5,
+ *                  "variance": 0.2222222222222222,
+ *                  "deviation": 0.4714045207910317,
+ *                  "population": 2
+ *              }
+ *          }
+ *      }
+ *  ]
+ * ```
+ *
+ * @name statistics
+ * @param {String} [path=value]
+ *      <ul><li>path of the element used to create the statistics</li></ul>
+ *      <ul><li>chemin de l'élément utilisé pour créer les statistics</li></ul>
+ * @param {String} [target=_statistics]
+ *      <ul><li>path of the statistics in the returned object</li></ul>
+ *      <ul><li>chemin des stastistiques dans l'objet retourné</li></ul>
+ * @returns {Object}
+ */
+export default statistics;
