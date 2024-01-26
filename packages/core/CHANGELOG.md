@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.6.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.5.0...@ezs/core@3.6.0) (2024-01-26)
+
+
+### Features
+
+* 🎸 add [BIBParse] ([20489b8](https://github.com/Inist-CNRS/ezs/commit/20489b8c816edc7e504c81e836ae558b7a524bcf))
+
+
+
+
+
 # [3.5.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.4.4...@ezs/core@3.5.0) (2023-12-20)
 
 
