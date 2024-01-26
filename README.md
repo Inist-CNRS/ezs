@@ -18,7 +18,6 @@ The standard package is [@ezs/core](./packages/core#readme), which contains its 
 - [@ezs/conditor](./packages/conditor#readme) [![npm version](https://img.shields.io/npm/v/@ezs/conditor)](https://npm.im/@ezs/conditor)
 - [@ezs/istex](./packages/istex#readme) [![npm version](https://img.shields.io/npm/v/@ezs/istex)](https://npm.im/@ezs/istex)
 - [@ezs/libpostal](./packages/libpostal#readme) [![npm version](https://img.shields.io/npm/v/@ezs/libpostal)](https://npm.im/@ezs/libpostal)
-- [@ezs/lodex](./packages/lodex#readme) [![npm version](https://img.shields.io/npm/v/@ezs/lodex)](https://npm.im/@ezs/lodex)
 - [@ezs/loterre](./packages/loterre#readme) [![npm version](https://img.shields.io/npm/v/@ezs/loterre)](https://npm.im/@ezs/loterre)
 - [@ezs/sparql](./packages/sparql#readme) [![npm version](https://img.shields.io/npm/v/@ezs/sparql)](https://npm.im/@ezs/sparql)
 - [@ezs/spawn](./packages/spawn#readme) [![npm version](https://img.shields.io/npm/v/@ezs/spawn)](https://npm.im/@ezs/spawn)
