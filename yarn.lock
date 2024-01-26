@@ -3612,6 +3612,11 @@ better-https-proxy-agent@1.0.9:
   dependencies:
     duplexify "4.0.0"
 
+bib2json@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/bib2json/-/bib2json-0.0.1.tgz#c33bcf6f35edb4647fd75ff76f25bd7999fc3f31"
+  integrity sha512-6R9dpnE5FpUSH61Wq00XDcivsPAeH1+u+SeXevDh1eUHTfEiORRve5XpHTbCzwh1XytHotllY+ErUErbdxkFHg==
+
 big-integer@^1.6.17:
   version "1.6.51"
   resolved "https://registry.yarnpkg.com/big-integer/-/big-integer-1.6.51.tgz#0df92a5d9880560d3ff2d5fd20245c889d130686"

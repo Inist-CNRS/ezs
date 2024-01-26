@@ -14,6 +14,7 @@ npm install @ezs/basics
 
 #### Table of Contents
 
+-   [BIBParse](#bibparse)
 -   [BUFObject](#bufobject)
 -   [CSVObject](#csvobject)
 -   [CSVParse](#csvparse)
@@ -46,6 +47,24 @@ npm install @ezs/basics
 -   [XMLParse](#xmlparse)
 -   [XMLString](#xmlstring)
 -   [ZIPExtract](#zipextract)
+
+### BIBParse
+
+Take a `String` and split it at bibtext entry.
+
+Input:
+
+```json
+["@article{my_article,\ntitle = {Hello world},\n", "journal = \"Some Journal\"\n"]
+```
+
+Output:
+
+```json
+["a", "b", "c", "d"]
+```
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### BUFObject
 

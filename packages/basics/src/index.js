@@ -3,6 +3,7 @@ import OBJCount from './obj-count';
 import OBJNamespaces from './obj-namespaces';
 import OBJStandardize from './obj-standardize';
 import OBJFlatten from './obj-flatten';
+import BIBParse from './bib-parse';
 import TXTConcat from './txt-concat';
 import TXTObject from './txt-object';
 import TXTParse from './txt-parse';
@@ -37,6 +38,7 @@ const funcs = {
     OBJNamespaces,
     OBJStandardize,
     OBJFlatten,
+    BIBParse,
     TXTParse,
     TXTObject,
     TXTConcat,
