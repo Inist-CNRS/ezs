@@ -6,7 +6,7 @@ import get from 'lodash.get';
  * @private
  * @param data {unknown}
  * @param feed {Feed}
- * @param ctx
+ * @param ctx {import('../../core/src/engine').EngineScope}
  */
 const value = (data, feed, ctx) => {
     if (ctx.isLast()) {

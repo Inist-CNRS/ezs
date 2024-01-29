@@ -17,7 +17,7 @@ const sorting = (arr, reverse = false) => {
  * @private
  * @param data {unknown}
  * @param feed {Feed}
- * @param ctx
+ * @param ctx {import('../../core/src/engine').EngineScope}
  */
 const sort = async (data, feed, ctx) => {
     if (!ctx.store) {
@@ -68,7 +68,7 @@ const sort = async (data, feed, ctx) => {
  * #### Script / Scénario
  *
  * ```ini
- * ; Import analytics plugin required to use tune
+ * ; Import analytics plugin required to use sort
  * ; Importation du plugin analytique nécessaire pour utiliser sort
  * [use]
  * plugin = analytics
@@ -107,7 +107,7 @@ const sort = async (data, feed, ctx) => {
  *      { "id": 2007, "value": 5 },
  *      { "id": 2009, "value": 6 },
  *      { "id": 2011, "value": 7 },
- *      { "id": 2013, "value": 8 },
+ *      { "id": 2013, "value": 8 }
  *  ]
  * ```
  *

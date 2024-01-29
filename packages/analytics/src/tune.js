@@ -46,7 +46,7 @@ const allMethods = Object.keys(methods).join(',');
  * @private
  * @param data {unknown}
  * @param feed {Feed}
- * @param ctx
+ * @param ctx {import('../../core/src/engine').EngineScope}
  */
 const tune = (data, feed, ctx) => {
     if (ctx.isLast()) {

@@ -7,7 +7,7 @@ import core from './core';
  * @private
  * @param data {unknown}
  * @param feed {Feed}
- * @param ctx
+ * @param ctx {import('../../core/src/engine').EngineScope}
  */
 const summing = (data, feed, ctx) => {
     if (ctx.isLast()) {

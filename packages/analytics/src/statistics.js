@@ -34,7 +34,7 @@ const calculating = (values) => {
  * @private
  * @param data {unknown}
  * @param feed {Feed}
- * @param ctx
+ * @param ctx {import('../../core/src/engine').EngineScope}
  */
 const statistics = async (data, feed, ctx) => {
     const path = ctx.getParam('path', 'value');
