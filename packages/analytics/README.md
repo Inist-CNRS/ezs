@@ -1255,52 +1255,77 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### slice
 
-Take `Object` and throw the same object only if it is in the section of the
-stream between start and start + size. stream is numbered from 1
+Returns a copy of a section of a stream.
 
-```json
-[{
- { id: 2000, value: 1 },
- { id: 2001, value: 2 },
- { id: 2003, value: 3 },
- { id: 2005, value: 4 },
- { id: 2007, value: 5 },
- { id: 2009, value: 6 },
- { id: 2011, value: 7 },
- { id: 2013, value: 8 },
-}]
-```
+Renvoie une copie d'une section d'un flux.
 
-Script:
+#### Example / Exemple
+
+##### Script / Scénario
 
 ```ini
+; Import analytics plugin required to use slice
+; Importation du plugin analytique nécessaire pour utiliser slice
 [use]
 plugin = analytics
 
-[drop]
+; Using "slice" with default settings
+; Utilisation de "slice" avec les paramètres par défaut
+[slice]
+; start = 1
+; size = 10
 ```
 
-Output:
+##### Input / Entrée
 
 ```json
-[
-{ "id": 2001, "value": 2 },
-{ "id": 2003, "value": 3 },
-]
+ [
+     { "id": 2023, "value": 12 },
+     { "id": 2021, "value": 11 },
+     { "id": 2019, "value": 10 },
+     { "id": 2017, "value": 9 },
+     { "id": 2013, "value": 8 },
+     { "id": 2011, "value": 7 },
+     { "id": 2009, "value": 6 },
+     { "id": 2007, "value": 5 },
+     { "id": 2005, "value": 4 },
+     { "id": 2003, "value": 3 },
+     { "id": 2001, "value": 2 },
+     { "id": 2000, "value": 1 }
+ ]
+```
+
+##### Output / Sortie
+
+```json
+ [
+     { "id": 2023, "value": 12 },
+     { "id": 2021, "value": 11 },
+     { "id": 2019, "value": 10 },
+     { "id": 2017, "value": 9 },
+     { "id": 2013, "value": 8 },
+     { "id": 2011, "value": 7 },
+     { "id": 2009, "value": 6 },
+     { "id": 2007, "value": 5 },
+     { "id": 2005, "value": 4 },
+     { "id": 2003, "value": 3 }
+ ]
 ```
 
 #### Parameters
 
--   `start` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** start of the slice (optional, default `0`)
--   `size` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** size of the slice (optional, default `10`)
+-   `start` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** <ul><li>the beginning index of the specified portion of the stream</li></ul>
+         <ul><li>l'indice de début de la partie spécifiée du flux</li></ul> (optional, default `1`)
+-   `size` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** <ul><li>the size of the specified portion of the stream</li></ul>
+         <ul><li>la taille de début de la partie spécifiée du flux</li></ul> (optional, default `10`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### sort
 
-Sort incomming object base on the value of the given path
+Sort incomming object base on the value of the given path.
 
-Trier les objets entrants sur la base de la valeur du chemin donné
+Trier les objets entrants sur la base de la valeur du chemin donné.
 
 #### Example / Exemple
 
@@ -1360,9 +1385,9 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### statistics
 
-Analyse and create statistics from given fields
+Analyse and create statistics from given fields.
 
-Analisse et créer des statistiques a partir des champs donnée
+Analisse et créer des statistiques a partir des champs donnée.
 
 #### Example / Exemple
 
@@ -1472,9 +1497,9 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### summing
 
-Create an id, value pair from two given path and apply a sum to the value
+Create an id, value pair from two given path and apply a sum to the value.
 
-Créer un couple id, value à partir de chemin et applique un somme sur la valeur
+Créer un couple id, value à partir de chemin et applique un somme sur la valeur.
 
 #### Example / Exemple
 
@@ -1536,9 +1561,9 @@ Returns **{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Refere
 
 ### tune
 
-Create and replace the id with a unify id that can be used with [sort](#sort)
+Create and replace the id with a unify id that can be used with [sort](#sort).
 
-Créer et remplacer l'identifiant par un identifiant unifié qui peut être utilisé avec [sort](#sort)
+Créer et remplacer l'identifiant par un identifiant unifié qui peut être utilisé avec [sort](#sort).
 
 #### Example / Exemple
 
@@ -1612,9 +1637,9 @@ Returns **{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Refere
 
 ### value
 
-Create a new object from the value of the given path
+Create a new object from the value of the given path.
 
-Créer un nouvel objet à partir de la valeur d'un chemin donnée
+Créer un nouvel objet à partir de la valeur d'un chemin donnée.
 
 #### Example / Exemple
 

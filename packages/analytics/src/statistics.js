@@ -120,9 +120,9 @@ const statistics = async (data, feed, ctx) => {
 };
 
 /**
- * Analyse and create statistics from given fields
+ * Analyse and create statistics from given fields.
  *
- * Analisse et créer des statistiques a partir des champs donnée
+ * Analisse et créer des statistiques a partir des champs donnée.
  *
  * ### Example / Exemple
  *

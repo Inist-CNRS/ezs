@@ -59,9 +59,9 @@ const sort = async (data, feed, ctx) => {
 };
 
 /**
- * Sort incomming object base on the value of the given path
+ * Sort incomming object base on the value of the given path.
  *
- * Trier les objets entrants sur la base de la valeur du chemin donné
+ * Trier les objets entrants sur la base de la valeur du chemin donné.
  *
  * ### Example / Exemple
  *

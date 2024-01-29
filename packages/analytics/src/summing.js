@@ -28,9 +28,9 @@ const summing = (data, feed, ctx) => {
 };
 
 /**
- * Create an id, value pair from two given path and apply a sum to the value
+ * Create an id, value pair from two given path and apply a sum to the value.
  *
- * Créer un couple id, value à partir de chemin et applique un somme sur la valeur
+ * Créer un couple id, value à partir de chemin et applique un somme sur la valeur.
  *
  * ### Example / Exemple
  *

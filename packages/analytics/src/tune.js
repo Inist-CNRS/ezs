@@ -87,9 +87,9 @@ const tune = (data, feed, ctx) => {
 };
 
 /**
- * Create and replace the id with a unify id that can be used with [sort](#sort)
+ * Create and replace the id with a unify id that can be used with [sort](#sort).
  *
- * Créer et remplacer l'identifiant par un identifiant unifié qui peut être utilisé avec [sort](#sort)
+ * Créer et remplacer l'identifiant par un identifiant unifié qui peut être utilisé avec [sort](#sort).
  *
  * ### Example / Exemple
  *

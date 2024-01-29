@@ -26,9 +26,9 @@ const value = (data, feed, ctx) => {
 };
 
 /**
- * Create a new object from the value of the given path
+ * Create a new object from the value of the given path.
  *
- * Créer un nouvel objet à partir de la valeur d'un chemin donnée
+ * Créer un nouvel objet à partir de la valeur d'un chemin donnée.
  *
  * ### Example / Exemple
  *
