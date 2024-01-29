@@ -1172,86 +1172,104 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### segment
 
-Take `Object` object getting some fields with json path, and throw segment of
-value. Ex: get `[a,b,c]` and throw `[a,b], [b,c]`
+Returns an object containing a segmentation of the input.
 
-```json
-[{
-          {
-              id: 'doc#1',
-              value: [
-                   1,
-                   2,
-                  3,
-                   4,
-               ],
-          },
-          {
-              id: 'doc#2',
-              value: [
-                  4,
-                  5,
-                  6,
-              ],
-          },
-          {
-              id: 'doc#3',
-              value: [
-                  6,
-                  7,
-              ]
-          },
-          {
-              id: 'doc#4',
-              value: [
-                  1,
-                  2,
-                  3,
-                  4,
-                  5,
-                  6,
-                  7,
-              ]
-          }
-}]
-```
+-   `[a,b,c]` will be returned as `[a,b], [b,c]`
 
-Script:
+Renvoie un objet contenant une segmentation de l'entrée.
+
+-   `[a,b,c]` sera retourné sous la forme `[a,b], [b,c]`
+
+#### Example / Exemple
+
+##### Script / Scénario
 
 ```ini
+; Import analytics plugin required to use segment
+; Importation du plugin analytique nécessaire pour utiliser segment
 [use]
 plugin = analytics
 
+; Using "segment" with default settings
+; Utilisation de "segment" avec les paramètres par défaut
 [segment]
-path = value
+; aggregate = true
+; identifier = false
+; path = value
 ```
 
-Output:
+##### Input / Entrée
 
 ```json
-[
-  { id: [ 1, 2 ], value: 1 }
-  { id: [ 2, 3 ], value: 1 }
-  { id: [ 3, 4 ], value: 1 }
-  { id: [ 4, 5 ], value: 1 }
-  { id: [ 5, 6 ], value: 1 }
-  { id: [ 6, 7 ], value: 1 }
-  { id: [ 1, 2 ], value: 1 }
-  { id: [ 2, 3 ], value: 1 }
-  { id: [ 3, 4 ], value: 1 }
-  { id: [ 4, 5 ], value: 1 }
-  { id: [ 5, 6 ], value: 1 }
-  { id: [ 6, 7 ], value: 1 }
-]
+ [
+     {
+         "id": "doc#1",
+         "value": [
+             1,
+             2,
+             3,
+             4
+         ]
+     },
+     {
+         "id": "doc#2",
+         "value": [
+             4,
+             5,
+             6
+         ]
+     },
+     {
+         "id": "doc#3",
+         "value": [
+             6,
+             7
+         ]
+     },
+     {
+         "id": "doc#4",
+         "value": [
+             1,
+             2,
+             3,
+             4,
+             5,
+             6,
+             7
+         ]
+     }
+ ]
+```
+
+##### Output / Sortie
+
+```json
+ [
+     { "id": [ 1, 2 ], "value": 1 },
+     { "id": [ 2, 3 ], "value": 1 },
+     { "id": [ 3, 4 ], "value": 1 },
+     { "id": [ 4, 5 ], "value": 1 },
+     { "id": [ 5, 6 ], "value": 1 },
+     { "id": [ 6, 7 ], "value": 1 },
+     { "id": [ 1, 2 ], "value": 1 },
+     { "id": [ 2, 3 ], "value": 1 },
+     { "id": [ 3, 4 ], "value": 1 },
+     { "id": [ 4, 5 ], "value": 1 },
+     { "id": [ 5, 6 ], "value": 1 },
+     { "id": [ 6, 7 ], "value": 1 }
+ ]
 ```
 
 #### Parameters
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path (optional, default `value`)
--   `aggregate` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** aggregate all values for all paths (or not) (optional, default `true`)
--   `identifier` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use to set value result field (if not set or not exists, 1 is use as a default value) (optional, default `false`)
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element who need to be segmented</li></ul>
+         <ul><li>chemin de l'élément qui doit être segmentés</li></ul> (optional, default `value`)
+-   `aggregate` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** aggregate all values for all paths (or not)     <ul><li>aggregate all segmented value in one element (work if you have multiple path)</li></ul>
+         <ul><li>agréger toutes les valeurs segmentées en un seul élément (fonctionne si vous avez plusieurs chemins)</li></ul> (optional, default `true`)
+-   `identifier` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element who will be put in value field (if not set, fallback to `1`)</li></ul>
+         <ul><li>chemin de l'élément qui sera mis dans le champ valeur (si non défini, fallback à `1`)</li></ul> (optional, default `false`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **{id: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>, value: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)}** 
 
 ### slice
 
@@ -1332,7 +1350,7 @@ Trier les objets entrants sur la base de la valeur du chemin donné.
 ##### Script / Scénario
 
 ```ini
-; Import analytics plugin required to use tune
+; Import analytics plugin required to use sort
 ; Importation du plugin analytique nécessaire pour utiliser sort
 [use]
 plugin = analytics
@@ -1370,7 +1388,7 @@ plugin = analytics
      { "id": 2007, "value": 5 },
      { "id": 2009, "value": 6 },
      { "id": 2011, "value": 7 },
-     { "id": 2013, "value": 8 },
+     { "id": 2013, "value": 8 }
  ]
 ```
 
