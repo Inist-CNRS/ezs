@@ -90,6 +90,7 @@ export default class Engine extends SafeTransform {
         this.shell = new Shell(ezs, this.environment);
         this.chunk = {};
         /**
+         * @private
          * @type {EngineScope}
          */
         this.scope = {};
