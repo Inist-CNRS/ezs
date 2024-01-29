@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.6.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.5.8...@ezs/basics@2.6.0) (2024-01-26)
+
+
+### Bug Fixes
+
+* 🐛 missing files ([be5b984](https://github.com/Inist-CNRS/ezs/commit/be5b984833f58dff1dcb28b9d998976094459e79))
+
+
+### Features
+
+* 🎸 add [BIBParse] ([20489b8](https://github.com/Inist-CNRS/ezs/commit/20489b8c816edc7e504c81e836ae558b7a524bcf))
+
+
+
+
+
 ## [2.5.8](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.5.7...@ezs/basics@2.5.8) (2023-12-19)
 
 

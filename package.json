@@ -19,7 +19,6 @@
     "@babel/plugin-transform-modules-commonjs": "7.13.8",
     "@babel/preset-env": "7.13.15",
     "@babel/register": "7.13.14",
-    "@shelf/jest-mongodb": "1.2.4",
     "@types/jest": "26.0.22",
     "@types/ramda": "0.27.40",
     "array-parallel": "0.1.3",
