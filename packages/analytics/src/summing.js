@@ -30,7 +30,7 @@ const summing = (data, feed, ctx) => {
 /**
  * Create an `id`, `value` pair from two given paths and apply a sum to the value.
  *
- * Créer un couple id, value à partir de chemins et applique une somme sur `value`.
+ * Créer un couple `id`, `value` à partir de chemins et applique une somme sur `value`.
  *
  * ### Example / Exemple
  *

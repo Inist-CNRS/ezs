@@ -1517,7 +1517,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Create an `id`, `value` pair from two given paths and apply a sum to the value.
 
-Créer un couple id, value à partir de chemins et applique une somme sur `value`.
+Créer un couple `id`, `value` à partir de chemins et applique une somme sur `value`.
 
 #### Example / Exemple
 
@@ -1655,7 +1655,7 @@ Returns **{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Refere
 
 ### value
 
-Create a new object from the value of the given path.
+Create a new object from the value of the given `path`.
 
 Créer un nouvel objet à partir du chemin donné dans `path`.
 
