@@ -1,5 +1,4 @@
-import get from 'lodash.get';
-import uniq from 'lodash.uniq';
+import { get, uniq } from 'lodash';
 import core from './core';
 
 const equalTo = (id) => (item) => item.id.some((key) => key === id);

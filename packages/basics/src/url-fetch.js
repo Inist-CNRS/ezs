@@ -1,6 +1,5 @@
 import debug from 'debug';
-import get from 'lodash.get';
-import set from 'lodash.set';
+import { get, set } from 'lodash';
 import AbortController from 'node-abort-controller';
 import parseHeaders from 'parse-headers';
 import retry from 'async-retry';

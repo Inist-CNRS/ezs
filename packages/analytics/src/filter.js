@@ -1,4 +1,4 @@
-import get from 'lodash.get';
+import { get } from 'lodash';
 
 /**
  * Take `Object` and throw the same object only if there the value of the select field is equals than a value

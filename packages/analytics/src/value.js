@@ -1,4 +1,4 @@
-import get from 'lodash.get';
+import { get } from 'lodash';
 
 /**
  * Take `Object` object and getting the value field

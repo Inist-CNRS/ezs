@@ -19,7 +19,7 @@
     "fast-xml-parser": "4.2.5",
     "fetch-with-proxy": "3.0.1",
     "isomorphic-fetch": "2.2.1",
-    "lodash.get": "^4.4.2",
+    "lodash": "4.17.21",
     "node-abort-controller": "1.1.0",
     "progress": "2.0.3",
     "qs": "6.10.3",

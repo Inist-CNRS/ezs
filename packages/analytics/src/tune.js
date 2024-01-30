@@ -1,5 +1,4 @@
-import get from 'lodash.get';
-import clone from 'lodash.clone';
+import { get, clone } from 'lodash';
 import { levenshteinDistance } from './algorithms';
 import core from './core';
 

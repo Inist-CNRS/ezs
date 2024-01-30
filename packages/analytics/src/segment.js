@@ -1,5 +1,4 @@
-import get from 'lodash.get';
-import flatten from 'lodash.flatten';
+import { get, flatten } from 'lodash';
 import core from './core';
 
 /**

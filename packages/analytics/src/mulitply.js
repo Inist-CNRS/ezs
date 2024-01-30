@@ -1,4 +1,4 @@
-import set from 'lodash.set';
+import { set } from 'lodash';
 import clone from 'lodash.clone';
 
 /**

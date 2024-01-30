@@ -3,7 +3,7 @@ import { promisify } from 'util';
 import { readFile } from 'fs';
 import tar from 'tar-stream';
 import { createGzip } from 'zlib';
-import merge from 'lodash.merge';
+import { merge } from 'lodash';
 
 // Avoid importing from fs/promise to be compatible with node 12
 const readFilePromise = promisify(readFile);
