@@ -3,7 +3,7 @@ import core from './core';
 
 /**
  * Summing function see documentation at the end.
- * This part of the doc is use for jsdoc typing
+ * This part of the doc is used for jsdoc typing
  * @private
  * @param data {unknown}
  * @param feed {Feed}
@@ -28,17 +28,17 @@ const summing = (data, feed, ctx) => {
 };
 
 /**
- * Create an id, value pair from two given path and apply a sum to the value.
+ * Create an `id`, `value` pair from two given paths and apply a sum to the value.
  *
- * Créer un couple id, value à partir de chemin et applique un somme sur la valeur.
+ * Créer un couple id, value à partir de chemins et applique une somme sur `value`.
  *
  * ### Example / Exemple
  *
  * #### Script / Scénario
  *
  * ```ini
- * ; Import analytics plugin required to use summing
- * ; Importation du plugin analytique nécessaire pour utiliser summing
+ * ; Import analytics plugin required to use "summing"
+ * ; Importation du plugin analytique nécessaire pour utiliser "summing"
  * [use]
  * plugin = analytics
  *

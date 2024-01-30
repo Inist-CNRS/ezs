@@ -1,7 +1,7 @@
 import from from 'from';
 
 /**
- * Helper function use to call ezs in each tests
+ * Helper function used to call ezs in each test
  * @param ezsRuntime {(name: string, options: any, environment?: unknown) => NodeJS.WritableStream}
  * @param dataSet {Array<unknown>}
  * @param functionName {string}

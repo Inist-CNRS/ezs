@@ -2,7 +2,7 @@ import get from 'lodash.get';
 
 /**
  * Value function see documentation at the end.
- * This part of the doc is use for jsdoc typing
+ * This part of the doc is used for jsdoc typing
  * @private
  * @param data {unknown}
  * @param feed {Feed}
@@ -28,15 +28,15 @@ const value = (data, feed, ctx) => {
 /**
  * Create a new object from the value of the given path.
  *
- * Créer un nouvel objet à partir de la valeur d'un chemin donnée.
+ * Créer un nouvel objet à partir du chemin donné dans `path`.
  *
  * ### Example / Exemple
  *
  * #### Script / Scénario
  *
  * ```ini
- * ; Import analytics plugin required to use value
- * ; Importation du plugin analytique nécessaire pour utiliser value
+ * ; Import analytics plugin required to use "value"
+ * ; Importation du plugin analytique nécessaire pour utiliser "value"
  * [use]
  * plugin = analytics
  *
@@ -49,7 +49,7 @@ const value = (data, feed, ctx) => {
  *
  * #### Input / Entrée
  *
- * ##### Dataset 1 / Jeu de donnée 1
+ * ##### Dataset 1 / Jeu de données 1
  *
  * ```json
  *  [
@@ -64,7 +64,7 @@ const value = (data, feed, ctx) => {
  *  ]
  * ```
  *
- * ##### Dataset 2 / Jeu de donnée 2
+ * ##### Dataset 2 / Jeu de données 2
  *
  * ```json
  *  [
@@ -91,7 +91,7 @@ const value = (data, feed, ctx) => {
  *
  * #### Output / Sortie
  *
- * ##### Dataset 1 / Jeu de donnée 1
+ * ##### Dataset 1 / Jeu de données 1
  *
  * ```json
  *  [
@@ -106,7 +106,7 @@ const value = (data, feed, ctx) => {
  *  ]
  * ```
  *
- * ##### Dataset 2 / Jeu de donnée 2
+ * ##### Dataset 2 / Jeu de données 2
  *
  * ```json
  *  [

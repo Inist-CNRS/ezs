@@ -13,7 +13,7 @@ const sorting = (arr, reverse = false) => {
 
 /**
  * Sort function see documentation at the end.
- * This part of the doc is use for jsdoc typing
+ * This part of the doc is used for jsdoc typing
  * @private
  * @param data {unknown}
  * @param feed {Feed}
@@ -59,17 +59,17 @@ const sort = async (data, feed, ctx) => {
 };
 
 /**
- * Sort incomming object base on the value of the given path.
+ * Sort incomming objects based on the value of the given path.
  *
- * Trier les objets entrants sur la base de la valeur du chemin donné.
+ * Trie les objets entrants en fonction de la valeur du champ donné par `path`.
  *
  * ### Example / Exemple
  *
  * #### Script / Scénario
  *
  * ```ini
- * ; Import analytics plugin required to use sort
- * ; Importation du plugin analytique nécessaire pour utiliser sort
+ * ; Import analytics plugin required to use "sort"
+ * ; Importation du plugin analytique nécessaire pour utiliser "sort"
  * [use]
  * plugin = analytics
  *
@@ -114,7 +114,7 @@ const sort = async (data, feed, ctx) => {
  * @name sort
  * @param {String} [path=id]
  *      <ul><li>path of the element used to as reference for the sort</li></ul>
- *      <ul><li>chemin de l'élément utilisé comme reference pour le trie</li></ul>
+ *      <ul><li>chemin de l'élément utilisé comme référence pour le tri</li></ul>
  * @param {boolean} [reverse=false]
  *      <ul><li>sort in ascending or descending order</li></ul>
  *      <ul><li>trier par ordre croissant ou décroissant</li></ul>

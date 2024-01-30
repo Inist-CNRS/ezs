@@ -1185,8 +1185,8 @@ Renvoie un objet contenant une segmentation de l'entrée.
 ##### Script / Scénario
 
 ```ini
-; Import analytics plugin required to use segment
-; Importation du plugin analytique nécessaire pour utiliser segment
+; Import analytics plugin required to use "segment"
+; Importation du plugin analytique nécessaire pour utiliser "segment"
 [use]
 plugin = analytics
 
@@ -1282,8 +1282,8 @@ Renvoie une copie d'une section d'un flux.
 ##### Script / Scénario
 
 ```ini
-; Import analytics plugin required to use slice
-; Importation du plugin analytique nécessaire pour utiliser slice
+; Import analytics plugin required to use "slice"
+; Importation du plugin analytique nécessaire pour utiliser "slice"
 [use]
 plugin = analytics
 
@@ -1341,17 +1341,17 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### sort
 
-Sort incomming object base on the value of the given path.
+Sort incomming objects based on the value of the given path.
 
-Trier les objets entrants sur la base de la valeur du chemin donné.
+Trie les objets entrants en fonction de la valeur du champ donné par `path`.
 
 #### Example / Exemple
 
 ##### Script / Scénario
 
 ```ini
-; Import analytics plugin required to use sort
-; Importation du plugin analytique nécessaire pour utiliser sort
+; Import analytics plugin required to use "sort"
+; Importation du plugin analytique nécessaire pour utiliser "sort"
 [use]
 plugin = analytics
 
@@ -1395,7 +1395,7 @@ plugin = analytics
 #### Parameters
 
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element used to as reference for the sort</li></ul>
-         <ul><li>chemin de l'élément utilisé comme reference pour le trie</li></ul> (optional, default `id`)
+         <ul><li>chemin de l'élément utilisé comme référence pour le tri</li></ul> (optional, default `id`)
 -   `reverse` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** <ul><li>sort in ascending or descending order</li></ul>
          <ul><li>trier par ordre croissant ou décroissant</li></ul> (optional, default `false`)
 
@@ -1405,15 +1405,15 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Analyse and create statistics from given fields.
 
-Analisse et créer des statistiques a partir des champs donnée.
+Analyse et crée des statistiques à partir des champs donnés.
 
 #### Example / Exemple
 
 ##### Script / Scénario
 
 ```ini
-; Import analytics plugin required to use statistics
-; Importation du plugin analytique nécessaire pour utiliser statistics
+; Import analytics plugin required to use "statistics"
+; Importation du plugin analytique nécessaire pour utiliser "statistics"
 [use]
 plugin = analytics
 
@@ -1507,7 +1507,7 @@ plugin = analytics
 #### Parameters
 
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element used to create the statistics</li></ul>
-         <ul><li>chemin de l'élément utilisé pour créer les statistics</li></ul> (optional, default `value`)
+         <ul><li>chemin de l'élément utilisé pour créer les statistiques</li></ul> (optional, default `value`)
 -   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the statistics in the returned object</li></ul>
          <ul><li>chemin des stastistiques dans l'objet retourné</li></ul> (optional, default `_statistics`)
 
@@ -1515,17 +1515,17 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### summing
 
-Create an id, value pair from two given path and apply a sum to the value.
+Create an `id`, `value` pair from two given paths and apply a sum to the value.
 
-Créer un couple id, value à partir de chemin et applique un somme sur la valeur.
+Créer un couple id, value à partir de chemins et applique une somme sur `value`.
 
 #### Example / Exemple
 
 ##### Script / Scénario
 
 ```ini
-; Import analytics plugin required to use summing
-; Importation du plugin analytique nécessaire pour utiliser summing
+; Import analytics plugin required to use "summing"
+; Importation du plugin analytique nécessaire pour utiliser "summing"
 [use]
 plugin = analytics
 
@@ -1579,7 +1579,7 @@ Returns **{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Refere
 
 ### tune
 
-Create and replace the id with a unify id that can be used with [sort](#sort).
+Create and replace the id with a unified id that can be used with [sort](#sort).
 
 Créer et remplacer l'identifiant par un identifiant unifié qui peut être utilisé avec [sort](#sort).
 
@@ -1588,8 +1588,8 @@ Créer et remplacer l'identifiant par un identifiant unifié qui peut être util
 ##### Script / Scénario
 
 ```ini
-; Import analytics plugin required to use tune
-; Importation du plugin analytique nécessaire pour utiliser tune
+; Import analytics plugin required to use "tune"
+; Importation du plugin analytique nécessaire pour utiliser "tune"
 [use]
 plugin = analytics
 
@@ -1657,15 +1657,15 @@ Returns **{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Refere
 
 Create a new object from the value of the given path.
 
-Créer un nouvel objet à partir de la valeur d'un chemin donnée.
+Créer un nouvel objet à partir du chemin donné dans `path`.
 
 #### Example / Exemple
 
 ##### Script / Scénario
 
 ```ini
-; Import analytics plugin required to use value
-; Importation du plugin analytique nécessaire pour utiliser value
+; Import analytics plugin required to use "value"
+; Importation du plugin analytique nécessaire pour utiliser "value"
 [use]
 plugin = analytics
 
@@ -1677,7 +1677,7 @@ plugin = analytics
 
 ##### Input / Entrée
 
-###### Dataset 1 / Jeu de donnée 1
+###### Dataset 1 / Jeu de données 1
 
 ```json
  [
@@ -1692,7 +1692,7 @@ plugin = analytics
  ]
 ```
 
-###### Dataset 2 / Jeu de donnée 2
+###### Dataset 2 / Jeu de données 2
 
 ```json
  [
@@ -1719,7 +1719,7 @@ plugin = analytics
 
 ##### Output / Sortie
 
-###### Dataset 1 / Jeu de donnée 1
+###### Dataset 1 / Jeu de données 1
 
 ```json
  [
@@ -1734,7 +1734,7 @@ plugin = analytics
  ]
 ```
 
-###### Dataset 2 / Jeu de donnée 2
+###### Dataset 2 / Jeu de données 2
 
 ```json
  [

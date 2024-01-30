@@ -41,13 +41,13 @@ describe('tune', () => {
             }
         ];
 
-        it.skip('should return no result when input contains undefined', async () => {
+        it.skip('should return no result when input contains only undefined', async () => {
             const result = await runEzs(ezs, undefinedData, 'tune');
 
             expect(result).toHaveLength(0);
         });
 
-        it.skip('should return no result when input contains null', async () => {
+        it.skip('should return no result when input contains only null', async () => {
             const result = await runEzs(ezs, nullData, 'tune');
 
             expect(result).toHaveLength(0);
@@ -59,10 +59,22 @@ describe('tune', () => {
             expect(result).toHaveLength(0);
         });
 
-        it.skip('should return no result when input contains wrong key', async () => {
+        it('should return no result when input contains wrong key', async () => {
             const result = await runEzs(ezs, wrongKeyData, 'tune');
 
-            expect(result).toHaveLength(0);
+            expect(result).toHaveLength(2);
+
+            expect(result[0]).not.toBeNull();
+            expect(result[0].id).toStrictEqual('undefined');
+            expect(result[0].value).toStrictEqual({
+                'hello': 'world',
+            });
+
+            expect(result[1]).not.toBeNull();
+            expect(result[1].id).toStrictEqual('undefined');
+            expect(result[1].value).toStrictEqual({
+                'hello': 'world',
+            });
         });
     });
 

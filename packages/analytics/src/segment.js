@@ -4,7 +4,7 @@ import core from './core';
 
 /**
  * Segment function see documentation at the end.
- * This part of the doc is use for jsdoc typing
+ * This part of the doc is used for jsdoc typing
  * @private
  * @param data {unknown}
  * @param feed {Feed}
@@ -61,8 +61,8 @@ const segment = (data, feed, ctx) => {
  * #### Script / Scénario
  *
  * ```ini
- * ; Import analytics plugin required to use segment
- * ; Importation du plugin analytique nécessaire pour utiliser segment
+ * ; Import analytics plugin required to use "segment"
+ * ; Importation du plugin analytique nécessaire pour utiliser "segment"
  * [use]
  * plugin = analytics
  *

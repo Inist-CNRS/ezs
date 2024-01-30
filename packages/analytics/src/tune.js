@@ -42,7 +42,7 @@ const allMethods = Object.keys(methods).join(',');
 
 /**
  * Tune function see documentation at the end.
- * This part of the doc is use for jsdoc typing
+ * This part of the doc is used for jsdoc typing
  * @private
  * @param data {unknown}
  * @param feed {Feed}
@@ -87,7 +87,7 @@ const tune = (data, feed, ctx) => {
 };
 
 /**
- * Create and replace the id with a unify id that can be used with [sort](#sort).
+ * Create and replace the id with a unified id that can be used with [sort](#sort).
  *
  * Créer et remplacer l'identifiant par un identifiant unifié qui peut être utilisé avec [sort](#sort).
  *
@@ -96,8 +96,8 @@ const tune = (data, feed, ctx) => {
  * #### Script / Scénario
  *
  * ```ini
- * ; Import analytics plugin required to use tune
- * ; Importation du plugin analytique nécessaire pour utiliser tune
+ * ; Import analytics plugin required to use "tune"
+ * ; Importation du plugin analytique nécessaire pour utiliser "tune"
  * [use]
  * plugin = analytics
  *

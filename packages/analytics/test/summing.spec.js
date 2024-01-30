@@ -41,13 +41,13 @@ describe('summing', () => {
             }
         ];
 
-        it('should return no result when input contains undefined', async () => {
+        it('should return no result when input contains only undefined', async () => {
             const result = await runEzs(ezs, undefinedData, 'summing');
 
             expect(result).toHaveLength(0);
         });
 
-        it.skip('should return no result when input contains null', async () => {
+        it.skip('should return no result when input contains only null', async () => {
             const result = await runEzs(ezs, nullData, 'summing');
 
             expect(result).toHaveLength(0);
@@ -86,15 +86,11 @@ describe('summing', () => {
             expect(result).toHaveLength(2);
 
             expect(result[0]).not.toBeNull();
-            expect(result[0].id).not.toBeNull();
             expect(result[0].id).toStrictEqual(1);
-            expect(result[0].value).not.toBeNull();
             expect(result[0].value).toStrictEqual(3);
 
             expect(result[1]).not.toBeNull();
-            expect(result[1].id).not.toBeNull();
             expect(result[1].id).toStrictEqual(2);
-            expect(result[1].value).not.toBeNull();
             expect(result[1].value).toStrictEqual(6);
         });
 
@@ -109,15 +105,11 @@ describe('summing', () => {
             expect(result).toHaveLength(2);
 
             expect(result[0]).not.toBeNull();
-            expect(result[0].id).not.toBeNull();
             expect(result[0].id).toStrictEqual([1, 1, 1]);
-            expect(result[0].value).not.toBeNull();
             expect(result[0].value).toStrictEqual(1);
 
             expect(result[1]).not.toBeNull();
-            expect(result[1].id).not.toBeNull();
             expect(result[1].id).toStrictEqual([2, 2, 2]);
-            expect(result[1].value).not.toBeNull();
             expect(result[1].value).toStrictEqual(2);
         });
     });
@@ -144,16 +136,12 @@ describe('summing', () => {
             expect(result).toHaveLength(2);
 
             expect(result[0]).not.toBeNull();
-            expect(result[0].id).not.toBeNull();
             expect(result[0].id).toStrictEqual(2);
-            expect(result[0].value).not.toBeNull();
             expect(result[0].value).toStrictEqual(30);
             expect(result[0]).not.toHaveProperty('hello');
 
             expect(result[1]).not.toBeNull();
-            expect(result[1].id).not.toBeNull();
             expect(result[1].id).toStrictEqual(4);
-            expect(result[1].value).not.toBeNull();
             expect(result[1].value).toStrictEqual(60);
             expect(result[1]).not.toHaveProperty('hello');
         });
@@ -169,16 +157,12 @@ describe('summing', () => {
             expect(result).toHaveLength(2);
 
             expect(result[0]).not.toBeNull();
-            expect(result[0].id).not.toBeNull();
             expect(result[0].id).toStrictEqual([10, 10, 10]);
-            expect(result[0].value).not.toBeNull();
             expect(result[0].value).toStrictEqual(2);
             expect(result[0]).not.toHaveProperty('hello');
 
             expect(result[1]).not.toBeNull();
-            expect(result[1].id).not.toBeNull();
             expect(result[1].id).toStrictEqual([20, 20, 20]);
-            expect(result[1].value).not.toBeNull();
             expect(result[1].value).toStrictEqual(4);
             expect(result[1]).not.toHaveProperty('hello');
         });

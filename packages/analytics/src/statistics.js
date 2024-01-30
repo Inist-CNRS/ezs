@@ -30,7 +30,7 @@ const calculating = (values) => {
 
 /**
  * Statistics function see documentation at the end.
- * This part of the doc is use for jsdoc typing
+ * This part of the doc is used for jsdoc typing
  * @private
  * @param data {unknown}
  * @param feed {Feed}
@@ -122,14 +122,14 @@ const statistics = async (data, feed, ctx) => {
 /**
  * Analyse and create statistics from given fields.
  *
- * Analisse et créer des statistiques a partir des champs donnée.
+ * Analyse et crée des statistiques à partir des champs donnés.
  *
  * ### Example / Exemple
  *
  * #### Script / Scénario
  * ```ini
- * ; Import analytics plugin required to use statistics
- * ; Importation du plugin analytique nécessaire pour utiliser statistics
+ * ; Import analytics plugin required to use "statistics"
+ * ; Importation du plugin analytique nécessaire pour utiliser "statistics"
  * [use]
  * plugin = analytics
  *
@@ -223,7 +223,7 @@ const statistics = async (data, feed, ctx) => {
  * @name statistics
  * @param {String} [path=value]
  *      <ul><li>path of the element used to create the statistics</li></ul>
- *      <ul><li>chemin de l'élément utilisé pour créer les statistics</li></ul>
+ *      <ul><li>chemin de l'élément utilisé pour créer les statistiques</li></ul>
  * @param {String} [target=_statistics]
  *      <ul><li>path of the statistics in the returned object</li></ul>
  *      <ul><li>chemin des stastistiques dans l'objet retourné</li></ul>

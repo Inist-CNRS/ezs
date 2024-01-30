@@ -1,7 +1,7 @@
 
 /**
  * Slice function see documentation at the end.
- * This part of the doc is use for jsdoc typing
+ * This part of the doc is used for jsdoc typing
  * @private
  * @param data {unknown}
  * @param feed {Feed}
@@ -38,8 +38,8 @@ const slice = (data, feed, ctx) => {
  * #### Script / Scénario
  *
  * ```ini
- * ; Import analytics plugin required to use slice
- * ; Importation du plugin analytique nécessaire pour utiliser slice
+ * ; Import analytics plugin required to use "slice"
+ * ; Importation du plugin analytique nécessaire pour utiliser "slice"
  * [use]
  * plugin = analytics
  *
