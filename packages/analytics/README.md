@@ -1134,33 +1134,45 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### reducing
 
-Take `Object` group value of `{ id, value }` objectpath
+Merges the `id`, `value` pairs into a new pair, associating the identifier with the values.
 
-```json
-[{
-         { id: 'x', value: 2 },
-         { id: 't', value: 2 },
-         { id: 'x', value: 3 },
-         { id: 'x', value: 5 },
-}]
-```
+Fusionne les couple `id`, `value`, en un nouveau couple associent l'identifient au valeurs.
 
-Script:
+#### Example / Exemple
+
+##### Script / Scénario
 
 ```ini
+; Import analytics plugin required to use "reducing"
+; Importation du plugin analytique nécessaire pour utiliser "reducing"
 [use]
 plugin = analytics
 
+; Using "reducing" with default settings
+; Utilisation de "reducing" avec les paramètres par défaut
 [reducing]
+; id = id
+; value = value
 ```
 
-Output:
+##### Input / Entrée
 
 ```json
-[
-         { id: 'x', value: [2, 3, 5] },
-         { id: 't', value: [2] },
-]
+ [
+     { "id": "x", "value": 2 },
+     { "id": "t", "value": 2 },
+     { "id": "x", "value": 3 },
+     { "id": "x", "value": 5 }
+ ]
+```
+
+##### Output / Sortie
+
+```json
+ [
+     { "id": "x", "value": [2, 3, 5] },
+     { "id": "t", "value": [2] }
+ ]
 ```
 
 #### Parameters
