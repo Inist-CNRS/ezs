@@ -1295,7 +1295,7 @@ plugin = analytics
 -   `identifier` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element who will be put in value field (if not set, fallback to `1`)</li></ul>
          <ul><li>chemin de l'élément qui sera mis dans le champ valeur (si non défini, fallback à `1`)</li></ul> (optional, default `false`)
 
-Returns **{id: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>, value: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)}** 
+Returns **{id: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>, value: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)}** 
 
 ### slice
 

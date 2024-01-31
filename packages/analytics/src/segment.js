@@ -148,7 +148,7 @@ const segment = (data, feed, ctx) => {
  *      <ul><li>path of the element who will be put in value field (if not set, fallback to `1`)</li></ul>
  *      <ul><li>chemin de l'élément qui sera mis dans le champ valeur (si non défini, fallback à `1`)</li></ul>
  * @returns {{
- *     id: Array<number>,
+ *     id: Array<Number>,
  *     value: Object,
  * }}
  */
