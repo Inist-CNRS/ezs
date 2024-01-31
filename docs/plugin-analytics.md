@@ -1042,46 +1042,54 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### pair
 
-Take `Object` object getting some fields with json path, and
-throw all pair of value from two fields
+Create a pair with 'id' containing a pair of the given 'path's and 'value' set to 1.
 
-```json
-[
- { departure: ['tokyo', 'nancy'], arrival: 'toul' },
- { departure: ['paris', 'nancy'], arrival: 'toul' },
- { departure: ['london', 'berlin'], arrival: 'toul' },
-]
-```
+Créer un couple 'id' contenent un couple des 'path's donnée et 'value' mise à 1.
 
-Script:
+##### Script / Scénario
 
 ```ini
+; Import analytics plugin required to use "pair"
+; Importation du plugin analytique nécessaire pour utiliser "pair"
 [use]
 plugin = analytics
 
+; Using "pair" with 'departure' and 'arrival' as paths setttings
+; Utilisation de "pair" avec 'departure' et 'arrival' comme paramètres de paths
 [pair]
 path = departure
 path = arrival
 ```
 
-Output:
+##### Input / Entrée
 
 ```json
-[
- { "id": [ "tokyo", "toul" ], "value": 1 },
-{ "id": [ "nancy", "toul" ], "value": 1 },
-{ "id": [ "paris", "toul" ], "value": 1 },
- { "id": [ "nancy", "toul" ], "value": 1 },
- { "id": [ "london", "toul" ], "value": 1 },
- { "id": [ "berlin", "toul" ], "value": 1 }
-]
+ [
+     { "departure": ["tokyo", "nancy"], "arrival": "toul" },
+     { "departure": ["paris", "nancy"], "arrival": "toul" },
+     { "departure": ["london", "berlin"], "arrival": "toul" }
+ ]
+```
+
+##### Output / Sortie
+
+```json
+ [
+     { "id": ["tokyo", "toul"], "value": 1 },
+     { "id": ["nancy", "toul"], "value": 1 },
+     { "id": ["paris", "toul"], "value": 1 },
+     { "id": ["nancy", "toul"], "value": 1 },
+     { "id": ["london", "toul"], "value": 1 },
+     { "id": ["berlin", "toul"], "value": 1 }
+ ]
 ```
 
 #### Parameters
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `null` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element who will be use to create the pair</li></ul>
+         <ul><li>chemin de l'élément qui vas etre utilisé pour créer le couple</li></ul>
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **{id: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>, value: `1`}** 
 
 ### pluck
 

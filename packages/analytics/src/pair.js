@@ -2,52 +2,19 @@ import get from 'lodash.get';
 import core from './core';
 
 /**
- * Take `Object` object getting some fields with json path, and
- * throw all pair of value from two fields
- *
- * ```json
- * [
- *  { departure: ['tokyo', 'nancy'], arrival: 'toul' },
- *  { departure: ['paris', 'nancy'], arrival: 'toul' },
- *  { departure: ['london', 'berlin'], arrival: 'toul' },
- * ]
- * ```
- *
- * Script:
- *
- * ```ini
- * [use]
- * plugin = analytics
- *
- * [pair]
- * path = departure
- * path = arrival
- *
- * ```
- *
- * Output:
- *
- * ```json
- * [
- *  { "id": [ "tokyo", "toul" ], "value": 1 },
- * { "id": [ "nancy", "toul" ], "value": 1 },
- * { "id": [ "paris", "toul" ], "value": 1 },
- *  { "id": [ "nancy", "toul" ], "value": 1 },
- *  { "id": [ "london", "toul" ], "value": 1 },
- *  { "id": [ "berlin", "toul" ], "value": 1 }
- * ]
- * ```
- *
- * @name pair
- * @param {String} path
- * @returns {Object}
+ * Pair function see documentation at the end.
+ * This part of the doc is used for jsdoc typing
+ * @private
+ * @param data {unknown}
+ * @param feed {Feed}
+ * @param ctx {import('../../core/src/engine').EngineScope}
  */
-export default function pair(data, feed) {
-    if (this.isLast()) {
+const pair = (data, feed, ctx) => {
+    if (ctx.isLast()) {
         feed.close();
         return;
     }
-    let fields = this.getParam('path', []);
+    let fields = ctx.getParam('path', []);
     if (!Array.isArray(fields)) {
         fields = [fields];
     }
@@ -68,4 +35,59 @@ export default function pair(data, feed) {
         });
 
     feed.end();
-}
+};
+
+/**
+ * Create a pair with 'id' containing a pair of the given 'path's and 'value' set to 1.
+ *
+ * Créer un couple 'id' contenent un couple des 'path's donnée et 'value' mise à 1.
+ *
+ * #### Script / Scénario
+ *
+ * ```ini
+ * ; Import analytics plugin required to use "pair"
+ * ; Importation du plugin analytique nécessaire pour utiliser "pair"
+ * [use]
+ * plugin = analytics
+ *
+ * ; Using "pair" with 'departure' and 'arrival' as paths setttings
+ * ; Utilisation de "pair" avec 'departure' et 'arrival' comme paramètres de paths
+ * [pair]
+ * path = departure
+ * path = arrival
+ *
+ * ```
+ *
+ * #### Input / Entrée
+ *
+ * ```json
+ *  [
+ *      { "departure": ["tokyo", "nancy"], "arrival": "toul" },
+ *      { "departure": ["paris", "nancy"], "arrival": "toul" },
+ *      { "departure": ["london", "berlin"], "arrival": "toul" }
+ *  ]
+ * ```
+ *
+ * #### Output / Sortie
+ *
+ * ```json
+ *  [
+ *      { "id": ["tokyo", "toul"], "value": 1 },
+ *      { "id": ["nancy", "toul"], "value": 1 },
+ *      { "id": ["paris", "toul"], "value": 1 },
+ *      { "id": ["nancy", "toul"], "value": 1 },
+ *      { "id": ["london", "toul"], "value": 1 },
+ *      { "id": ["berlin", "toul"], "value": 1 }
+ *  ]
+ * ```
+ *
+ * @name pair
+ * @param {String}
+ *      <ul><li>path of the element who will be use to create the pair</li></ul>
+ *      <ul><li>chemin de l'élément qui vas etre utilisé pour créer le couple</li></ul>
+ * @returns {{
+ *      id: Array<String>,
+ *      value: 1
+ * }}
+ */
+export default pair;
