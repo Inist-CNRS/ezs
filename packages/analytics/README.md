@@ -1085,52 +1085,64 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### pluck
 
-Take `Object` object getting value of fields (with json `path`) and throws an
-object for each value
+Extract the value of a given `path` and create a pair with the `path` as the `id`
+and `path` value as the `value`.
 
-```json
-[
- { city: 'tokyo', year: 2000, count: 1 },
- { city: 'paris', year: 2001, count: 2 },
- { city: 'london', year: 2003, count: 3 },
- { city: 'nancy', year: 2005, count: 4 },
- { city: 'berlin', year: 2007, count: 5 },
- { city: 'madrid', year: 2009, count: 6 },
- { city: 'stockholm', year: 2011, count: 7 },
- { city: 'bruxelles', year: 2013, count: 8 },
-]
-```
+Extrais la valeur d'un `path` donnée et créer un couple avec pour identifient le `path`
+et comme `value` la valeur du `path`.
 
-Script:
+#### Example / Exemple
+
+##### Script / Scénario
 
 ```ini
+; Import analytics plugin required to use "pluck"
+; Importation du plugin analytique nécessaire pour utiliser "pluck"
 [use]
 plugin = analytics
 
+; Using "pluck" with 'year' as path setttings instead of 'id' how is the default value
+; Utilisation de "pluck" avec 'year' comme paramètres de path au lieux de la valeur par defaut qui et 'id'
 [pluck]
 path = year
 ```
 
-Output:
+##### Input / Entrée
 
 ```json
-[
-{ "id": "year", "value": 2000 },
-{ "id": "year", "value": 2001 },
-{ "id": "year", "value": 2003 },
-{ "id": "year", "value": 2005 },
-{ "id": "year", "value": 2007 },
-{ "id": "year", "value": 2009 },
-{ "id": "year", "value": 2011 },
-{ "id": "year", "value": 2013 }
-]
+ [
+     { "city": "tokyo", "year": 2000, "count": 1 },
+     { "city": "paris", "year": 2001, "count": 2 },
+     { "city": "london", "year": 2003, "count": 3 },
+     { "city": "nancy", "year": 2005, "count": 4 },
+     { "city": "berlin", "year": 2007, "count": 5 },
+     { "city": "madrid", "year": 2009, "count": 6 },
+     { "city": "stockholm", "year": 2011, "count": 7 },
+     { "city": "bruxelles", "year": 2013, "count": 8 }
+ ]
+```
+
+##### Output / Sortie
+
+```json
+ [
+     { "id": "year", "value": 2000 },
+     { "id": "year", "value": 2001 },
+     { "id": "year", "value": 2003 },
+     { "id": "year", "value": 2005 },
+     { "id": "year", "value": 2007 },
+     { "id": "year", "value": 2009 },
+     { "id": "year", "value": 2011 },
+     { "id": "year", "value": 2013 }
+ ]
 ```
 
 #### Parameters
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use form group by (optional, default `id`)
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element who need to be extrated</li></ul>
+         <ul><li>chemin de l'élément qui doit être extrais</li></ul> (optional, default `id`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)}** 
 
 ### reducing
 
@@ -1177,10 +1189,12 @@ plugin = analytics
 
 #### Parameters
 
--   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
--   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
+-   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element who will be use as the key</li></ul>
+         <ul><li>chemin de l'élément qui vas être utilisé comme clé</li></ul> (optional, default `id`)
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element who will be merge into an array</li></ul>
+         <ul><li>chemin de l'élément qui vas être fussioné en un tableau</li></ul> (optional, default `value`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>}** 
 
 ### segment
 

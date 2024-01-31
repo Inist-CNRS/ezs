@@ -73,8 +73,15 @@ const reducing = async (data, feed, ctx) => {
  * ```
  *
  * @name reducing
- * @param {String} [id=id] path to use for id
- * @param {String} [value=value] path to use for value
- * @returns {Object}
+ * @param {String} [id=id]
+ *      <ul><li>path of the element who will be use as the key</li></ul>
+ *      <ul><li>chemin de l'élément qui vas être utilisé comme clé</li></ul>
+ * @param {String} [value=value]
+ *      <ul><li>path of the element who will be merge into an array</li></ul>
+ *      <ul><li>chemin de l'élément qui vas être fussioné en un tableau</li></ul>
+ * @returns {{
+ *     id: String,
+ *     value: Array<Object>
+ * }}
  */
 export default reducing;
