@@ -25,7 +25,6 @@ const slice = (data, feed, ctx) => {
         }
         feed.end();
     }
-    [].slice();
 };
 
 /**
