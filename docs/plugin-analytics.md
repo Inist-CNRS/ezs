@@ -996,49 +996,66 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### output
 
-Format the output with data a meta
+Create an output string containing all incoming elements in a `data` array.
+with given `meta` extracted into an object called `meta`.
+
+Créer une sortie en chain de caratere avec les element entrent mise dans un tableau nommé `data`
+eyent les donnée `meta` extrais et mises dans un objet appelé `meta`.
+
+##### Script / Scénario
+
+###### ini
+
+```ini
+; Import analytics plugin required to use "output"
+; Importation du plugin analytique nécessaire pour utiliser "output"
+[use]
+plugin = analytics
+
+; Using "output" with 'indent' as true and 'meta' as total
+; Utilisation de "output" avec 'indent' à vrai et total comme paramètres de 'meta'
+[output]
+indent = true
+meta = total
+```
+
+##### Input / Entrée
+
+```json
+ [
+     { "_id": 1, "value": 2, "total": 2 },
+     { "_id": 2, "value": 4, "total": 2 }
+ ]
+```
+
+##### Output / Sortie
+
+!!! Attention: This is an output function that can only be used at the end of an EZS script. !!!
+!!! The output is a string and can't be used with other EZS functions.                       !!!
+
+!!! Attention : Ceci est une fonction de sortie, Elle peut uniquement etre utilisé à la fin d'un script ezs !!!
+!!! Cette sortie est une chaine de carater et ne peut pas etre utilisé avec d'autre fonction ezs            !!!
+
+```json
+ {
+     "data": [
+         { "_id": 1, "value": 2 },
+         { "_id": 2, "value": 4 }
+     ],
+     "meta": {
+         "total": 2
+     }
+ }
+```
 
 #### Parameters
 
--   `indent` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** indent or not (optional, default `false`)
--   `meta` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>?** fields to be considered as metadata
-                                      object
+-   `indent` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** <ul><li>indent the output json</li></ul>
+         <ul><li>indenté le json de sortie</li></ul> (optional, default `false`)
+-   `meta` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** <ul><li>element from the input to put it in the `meta` object</li></ul>
+         <ul><li>élément a extraire de l'entrée et a mettre dans l'objet `meta`</li></ul>
 
-#### Examples
-
-Input
-
-
-```javascript
-[
-     { _id: 1, value: 2, total: 2 },
-     { _id: 2, value: 4, total: 2 }
-]
-```
-
-Script
-
-
-```javascript
-.pipe(ezs('output', { meta: 'total' }))
-```
-
-Output
-
-
-```javascript
-{
-    data: [
-        { _id: 1, value: 2 },
-        { _id: 2, value: 4 }
-    ],
-    meta: {
-        total: 2
-    }
-}
-```
-
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ### pair
 
