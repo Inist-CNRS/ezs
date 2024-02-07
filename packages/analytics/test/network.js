@@ -209,7 +209,7 @@ describe('network', () => {
             });
     });
 
-    it('pair', (done) => {
+    it('pair #1', (done) => {
         ezs.use(statements);
         const res = [];
         from([
@@ -232,7 +232,7 @@ describe('network', () => {
             });
     });
 
-    it('pair', (done) => {
+    it('pair #2', (done) => {
         ezs.use(statements);
         const res = [];
         from([
@@ -254,4 +254,29 @@ describe('network', () => {
                 done();
             });
     });
+
+    it('pair #3', (done) => {
+        ezs.use(statements);
+        const res = [];
+        from([
+            { i: 'doc#1', a: ['x', 'b', 'z'], b: 'A' },
+            { i: 'doc#2', a: ['t', 'b', 'z'], b: 'B' },
+            { i: 'doc#3', a: ['t', 'c', 'z'], b: 'C' },
+            { i: 'doc#4', a: ['y', 'd', 'z'], b: 'D' },
+            { i: 'doc#5', a: ['x', 'b', 'z'], b: 'E' },
+        ])
+            .pipe(ezs('pair', { path: ['a', 'b'], identifier: 'i' }))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(15, res.length);
+                assert.equal('doc#1', res[0].value);
+                done();
+            });
+    });
+
+
+
 });
