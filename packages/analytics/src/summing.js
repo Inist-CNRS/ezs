@@ -1,4 +1,4 @@
-import get from 'lodash.get';
+import { get } from 'lodash';
 import core from './core';
 /**
  * Take special `Object` like `{id, value}` and replace `value` with the sum of

@@ -1,4 +1,4 @@
-import get from 'lodash.get';
+import { get } from 'lodash';
 
 const UPPER_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const SENTENCE_INIT = '  ';

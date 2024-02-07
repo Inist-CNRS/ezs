@@ -1,4 +1,4 @@
-import get from 'lodash.get';
+import { get } from 'lodash';
 import core from './core';
 /**
  * Take `Object` and take values with [value] path (must be an array)

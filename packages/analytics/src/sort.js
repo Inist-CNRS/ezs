@@ -1,4 +1,4 @@
-import get from 'lodash.get';
+import { get } from 'lodash';
 import fastsort from 'fast-sort';
 import { createStore } from '@ezs/store';
 import { normalize } from './tune';

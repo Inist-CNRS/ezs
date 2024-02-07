@@ -1,5 +1,4 @@
-import get from 'lodash.get';
-import set from 'lodash.set';
+import { get, set } from 'lodash';
 
 /**
  * Encodes a given string using a provided mapping, replacing characters that

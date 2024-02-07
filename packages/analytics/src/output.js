@@ -1,5 +1,4 @@
-import get from 'lodash.get';
-import unset from 'lodash.unset';
+import { get, unset } from 'lodash';
 /**
  * Format the output with data a meta
  *
