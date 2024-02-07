@@ -14,10 +14,9 @@ const pair = (data, feed, ctx) => {
         feed.close();
         return;
     }
-    let fields = ctx.getParam('path', []);
-    if (!Array.isArray(fields)) {
-        fields = [fields];
-    }
+    const idt = ctx.getParam('identifier', false);
+    const weight = idt === false ? 1 : get(data, idt, 1);
+    const fields = [].concat(ctx.getParam('path', []));
 
     const values = fields
         .map((key) => get(data, key))
@@ -29,7 +28,7 @@ const pair = (data, feed, ctx) => {
             const a = values.slice(i + 1).reduce((pre, cur) => pre.concat(cur), []);
             if (a.length > 0) {
                 v.forEach((w) => {
-                    a.forEach((x) => feed.write(core([w, x], 1)));
+                    a.forEach((x) => feed.write(core([w, x], weight)));
                 });
             }
         });
@@ -82,6 +81,7 @@ const pair = (data, feed, ctx) => {
  * ```
  *
  * @name pair
+ * @param {String} [identifier=false] path to use to set value result field (if not set or not exists, 1 is use as a default value)
  * @param {String}
  *      <ul><li>path of the element who will be use to create the pair</li></ul>
  *      <ul><li>chemin de l'élément qui vas etre utilisé pour créer le couple</li></ul>
