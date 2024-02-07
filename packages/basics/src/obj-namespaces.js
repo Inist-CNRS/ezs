@@ -1,7 +1,4 @@
-import zipObject from 'lodash.zipobject';
-import escapeRegExp from 'lodash.escaperegexp';
-import mapKeys from 'lodash.mapkeys';
-import mapValues from 'lodash.mapvalues';
+import { zipObject, escapeRegExp, mapKeys, mapValues } from 'lodash';
 
 /**
  * Take `Object` and throw the same object, all keys parsed to replace namespaces with their prefixes

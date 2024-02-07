@@ -1,4 +1,4 @@
-import get from 'lodash.get';
+import { get } from 'lodash';
 import { transform } from 'inflection';
 
 const transformer = (transformations) => (str) =>

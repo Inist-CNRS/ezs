@@ -32,8 +32,7 @@
   },
   "dependencies": {
     "inflection": "2.0.1",
-    "lodash.get": "4.4.2",
-    "lodash.set": "4.3.2"
+    "lodash": "4.17.21"
   },
   "scripts": {
     "build": "babel src --out-dir lib",

@@ -1,5 +1,4 @@
-import set from 'lodash.set';
-import clone from 'lodash.clone';
+import { set, clone } from 'lodash';
 
 /**
  * Take `Object` and throw the same object only if there the value of the select field is equals than a value

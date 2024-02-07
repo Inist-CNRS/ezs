@@ -1,4 +1,4 @@
-import set from 'lodash.set';
+import { set } from 'lodash';
 import leveldown from 'leveldown';
 import levelup from 'levelup';
 import InistArk from 'inist-ark';

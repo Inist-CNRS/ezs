@@ -1,6 +1,5 @@
 import hasher from 'node-object-hash';
-import get from 'lodash.get';
-import set from 'lodash.set';
+import { get, set } from 'lodash';
 import { createStore } from '@ezs/store';
 
 const hashCoerce = hasher({

@@ -1,4 +1,4 @@
-import get from 'lodash.get';
+import { get } from 'lodash';
 import core from './core';
 /**
  * Take `Object` object getting some fields with json path, and do ...

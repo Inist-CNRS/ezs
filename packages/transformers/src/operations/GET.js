@@ -1,5 +1,4 @@
-import _get from 'lodash.get';
-import _flatten from 'lodash.flatten';
+import { get as _get, flatten as _flatten } from 'lodash';
 import { transformerWithArg } from './transformer';
 
 export const get = (value, path) => {

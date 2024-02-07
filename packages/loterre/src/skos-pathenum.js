@@ -1,7 +1,5 @@
 import { createStore } from '@ezs/store';
-import has from 'lodash.has';
-import get from 'lodash.get';
-import set from 'lodash.set';
+import { has, get, set } from 'lodash';
 
 /**
  * @name getBroaderOrNarrowerLst

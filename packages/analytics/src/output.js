@@ -1,6 +1,4 @@
-import get from 'lodash.get';
-import unset from 'lodash.unset';
-
+import { get, unset } from 'lodash';
 /**
  * Pair function see documentation at the end.
  * This part of the doc is used for jsdoc typing
