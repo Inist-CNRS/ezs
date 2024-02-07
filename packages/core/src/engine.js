@@ -9,6 +9,23 @@ import Shell from './shell';
 
 import SafeTransform from './SafeTransform';
 
+/**
+ * Engine scope object type
+ * @private
+ * @typedef {Object} EngineScope
+ *
+ * @property {Engine} ezs
+ * @property {(d: unknown, c: unknown) => void} emit
+ * @property {() => any} getParams
+ * @property {() => boolean} isFirst
+ * @property {() => number} getIndex
+ * @property {() => boolean} isLast
+ * @property {() => string} getCumulativeTime
+ * @property {() => number} getCumulativeTimeMS
+ * @property {() => number} getCounter
+ * @property {(name: string, defval?: string | string[], chunk?: unknown) => string | string[] | undefined} getParam
+ */
+
 const nanoZero = () => BigInt(0);
 
 const nano2sec = (ns) => {
@@ -72,6 +89,10 @@ export default class Engine extends SafeTransform {
         eos(this, decreaseCounter);
         this.shell = new Shell(ezs, this.environment);
         this.chunk = {};
+        /**
+         * @private
+         * @type {EngineScope}
+         */
         this.scope = {};
         this.scope.getEnv = (name) => (name === undefined ? this.environment : this.environment[name]);
         this.scope.ezs = this.ezs;
