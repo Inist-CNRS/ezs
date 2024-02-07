@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.3.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@2.2.2...@ezs/analytics@2.3.0) (2024-02-07)
+
+
+### Bug Fixes
+
+* update lodash import ([b51c4d5](https://github.com/Inist-CNRS/ezs/commit/b51c4d50a23e80c838e86ac2c911e678c764b990))
+
+
+### Features
+
+* 🎸 add identifier param (like [graph]) ([855916a](https://github.com/Inist-CNRS/ezs/commit/855916aff4a8ae6fc3b68e6c06435b4939ced812))
+
+
+
+
+
 ## [2.2.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@2.2.1...@ezs/analytics@2.2.2) (2024-01-26)
 
 **Note:** Version bump only for package @ezs/analytics

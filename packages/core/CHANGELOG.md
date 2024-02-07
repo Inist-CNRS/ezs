@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.7.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.6.0...@ezs/core@3.7.0) (2024-02-07)
+
+
+### Features
+
+* 🎸 add identifier param (like [graph]) ([855916a](https://github.com/Inist-CNRS/ezs/commit/855916aff4a8ae6fc3b68e6c06435b4939ced812))
+
+
+
+
+
 # [3.6.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.5.0...@ezs/core@3.6.0) (2024-01-26)
 
 
