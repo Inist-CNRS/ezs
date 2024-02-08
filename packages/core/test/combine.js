@@ -364,7 +364,7 @@ describe('no combine', () => {
             })
             .on('end', () => {
                 done(new Error('Error is the right behavior'));
-        });
+            });
     });
 });
 
@@ -390,7 +390,7 @@ const cacheScript = `
 
 
 
-test('combine with internal cache with script #1', (done) => {
+test.only('combine with internal cache with script #1', (done) => {
     const input = [
         { a: 1, b: 'a' },
         { a: 2, b: 'b' },
@@ -401,7 +401,7 @@ test('combine with internal cache with script #1', (done) => {
     ];
     const output = [];
     from(input)
-        .pipe(ezs('combine', { path: 'b', script: cacheScript }, env))
+        .pipe(ezs('combine', { path: 'b', script: cacheScript, cacheName }, env))
         .pipe(ezs.catch())
         .on('error', done)
         .on('data', (chunk) => {
@@ -421,7 +421,7 @@ test('combine with internal cache with script #1', (done) => {
         });
 });
 
-test('combine with internal cache with script #2', (done) => {
+test.only('combine with internal cache with script #2', (done) => {
     const input = [
         { a: 1, b: 'a' },
         { a: 2, b: 'b' },
@@ -432,7 +432,7 @@ test('combine with internal cache with script #2', (done) => {
     ];
     const output = [];
     from(input)
-        .pipe(ezs('combine', { path: 'b', script: cacheScript }, env))
+        .pipe(ezs('combine', { path: 'b', script: cacheScript, cacheName }, env))
         .pipe(ezs.catch())
         .on('error', done)
         .on('data', (chunk) => {
@@ -450,5 +450,3 @@ test('combine with internal cache with script #2', (done) => {
             done();
         });
 });
-
-

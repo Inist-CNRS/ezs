@@ -2,6 +2,11 @@ import _ from 'lodash';
 import debug from 'debug';
 import assert from 'assert';
 import hasher from 'node-object-hash';
+import { resolve  as resolvePath } from 'path';
+import { tmpdir } from 'os';
+import makeDir from 'make-dir';
+import pathExists from 'path-exists';
+import cacache from 'cacache';
 
 const hashCoerce = hasher({ sort: false, coerce: true });
 const core = (id, value) => ({ id, value });
@@ -23,8 +28,28 @@ async function saveIn(data, feed) {
             database[databaseID][id] = value;
         }
     }
-    return feed.send(id);
+    return feed.send(data);
 }
+
+async function cacheSave(data, feed) {
+    const { ezs } = this;
+    if (this.isLast()) {
+        return feed.close();
+    }
+    const cachePath = this.getParam('cachePath');
+    const cacheKey = this.getParam('cacheKey');
+    if (cachePath && cacheKey) {
+        if (this.isFirst()) {
+            this.input = ezs.createStream(ezs.objectMode());
+            this.input
+                .pipe(ezs('pack'))
+                .pipe(cacache.put.stream(cachePath, cacheKey));
+        }
+        return ezs.writeTo(this.input, data, () => feed.send(data));
+    }
+    feed.send(data);
+}
+
 
 
 /**
@@ -70,15 +95,23 @@ async function saveIn(data, feed) {
  * @param {String} [commands] the external pipeline is described in a object
  * @param {String} [command] the external pipeline is described in a URL-like command
  * @param {String} [logger] A dedicaded pipeline described in a file to trap or log errors
+ * @param {String} [cacheName] Enable cache, with dedicated name
  * @returns {Object}
  */
-export default function combine(data, feed) {
+export default async function combine(data, feed) {
     const { ezs } = this;
+    const cacheName = this.getParam('cacheName');
     let whenReady = Promise.resolve(true);
     if (this.isFirst()) {
+        if (cacheName && !this.cachePath) {
+            const location = this.getParam('location');
+            this.cachePath = resolvePath(location || tmpdir(), 'memory', `combine/${cacheName}`);
+            if (!pathExists.sync(this.cachePath)) {
+                makeDir.sync(this.cachePath);
+            }
+        }
         debug('ezs')('[combine] with sub pipeline.');
         const primer = this.getParam('primer', 'n/a');
-        const input = ezs.createStream(ezs.objectMode());
         const commands = ezs.createCommands({
             file: this.getParam('file'),
             script: this.getParam('script'),
@@ -88,11 +121,26 @@ export default function combine(data, feed) {
             append: this.getParam('append'),
         });
         this.databaseID = hashCoerce.hash({ primer, commands });
+        const input = ezs.createStream(ezs.objectMode());
         if (!database[this.databaseID]) {
             database[this.databaseID] = {};
-            const statements = ezs.compileCommands(commands, this.getEnv());
-            const logger = ezs.createTrap(this.getParam('logger'), this.getEnv());
-            const output = ezs.createPipeline(input, statements, logger)
+            let stream;
+            if (cacheName) {
+                const cacheObject = await cacache.get.info(this.cachePath, this.databaseID);
+                if (cacheObject) {
+                    stream = cacache.get.stream.byDigest(this.cachePath, cacheObject.integrity).pipe(ezs('unpack'));
+                }
+            }
+            if (!stream) {
+                const statements = ezs.compileCommands(commands, this.getEnv());
+                const logger = ezs.createTrap(this.getParam('logger'), this.getEnv());
+                stream = ezs.createPipeline(input, statements, logger)
+                    .pipe(ezs(cacheSave, {
+                        cachePath: this.cachePath,
+                        cacheKey: this.databaseID,
+                    }));
+            }
+            const output = stream
                 .pipe(ezs(saveIn, null, this.databaseID))
                 .pipe(ezs.catch())
                 .on('data', (d) => assert(d)) // WARNING: The data must be consumed, otherwise the "end" event has not been triggered
