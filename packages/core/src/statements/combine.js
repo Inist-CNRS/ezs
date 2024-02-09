@@ -11,7 +11,7 @@ import cacache from 'cacache';
 const hashCoerce = hasher({ sort: false, coerce: true });
 const core = (id, value) => ({ id, value });
 
-const database = {};
+export const database = {};
 
 async function saveIn(data, feed) {
     if (this.isLast()) {
@@ -31,7 +31,7 @@ async function saveIn(data, feed) {
     return feed.send(data);
 }
 
-async function cacheSave(data, feed) {
+function cacheSave(data, feed) {
     const { ezs } = this;
     if (this.isLast()) {
         return feed.close();
@@ -40,6 +40,7 @@ async function cacheSave(data, feed) {
     const cacheKey = this.getParam('cacheKey');
     if (cachePath && cacheKey) {
         if (this.isFirst()) {
+            // console.log('cache set', cachePath, cacheKey);
             this.input = ezs.createStream(ezs.objectMode());
             this.input
                 .pipe(ezs('pack'))
@@ -126,7 +127,9 @@ export default async function combine(data, feed) {
             database[this.databaseID] = {};
             let stream;
             if (cacheName) {
+                // console.log('cache get', this.cachePath, this.databaseID);
                 const cacheObject = await cacache.get.info(this.cachePath, this.databaseID);
+                // console.log({cacheObject});
                 if (cacheObject) {
                     stream = cacache.get.stream.byDigest(this.cachePath, cacheObject.integrity).pipe(ezs('unpack'));
                 }
@@ -168,9 +171,10 @@ export default async function combine(data, feed) {
                 }
                 return core(key, database[this.databaseID][key]);
             });
-            if (values.length && Array.isArray(pathVal)) {
+            // length of the values is always equal to the length of the keys.
+            if (Array.isArray(pathVal)) {
                 _.set(data, path, values);
-            } else if (values.length && !Array.isArray(pathVal)) {
+            } else  {
                 const val = values.shift();
                 if (val !== null) {
                     _.set(data, path, val);
@@ -181,10 +185,6 @@ export default async function combine(data, feed) {
                     const orig = _.get(data, path);
                     _.set(data, path, { id: orig, value: orig });
                 }
-            } else if (Array.isArray(pathVal)) {
-                _.set(data, path, pathVal.map((id) => ({ id })));
-            } else {
-                _.set(data, path, { id: pathVal });
             }
             return feed.send(data);
         })
