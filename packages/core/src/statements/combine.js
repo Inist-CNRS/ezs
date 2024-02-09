@@ -33,22 +33,28 @@ async function saveIn(data, feed) {
 
 function cacheSave(data, feed) {
     const { ezs } = this;
-    if (this.isLast()) {
-        return feed.close();
-    }
     const cachePath = this.getParam('cachePath');
     const cacheKey = this.getParam('cacheKey');
+    if (this.isLast()) {
+        if (cachePath && cacheKey) {
+            this.whenFinish.finally(() => feed.close());
+            return this.input.end();
+        }
+        return feed.close();
+    }
     if (cachePath && cacheKey) {
-        if (this.isFirst()) {
-            // console.log('cache set', cachePath, cacheKey);
+        if (!this.input) {
             this.input = ezs.createStream(ezs.objectMode());
-            this.input
-                .pipe(ezs('pack'))
-                .pipe(cacache.put.stream(cachePath, cacheKey));
+            this.whenFinish = new Promise(
+                (resolve) => this.input
+                    .pipe(ezs('pack'))
+                    .pipe(cacache.put.stream(cachePath, cacheKey))
+                    .on('end', resolve)
+            );
         }
         return ezs.writeTo(this.input, data, () => feed.send(data));
     }
-    feed.send(data);
+    return feed.send(data);
 }
 
 
@@ -127,9 +133,7 @@ export default async function combine(data, feed) {
             database[this.databaseID] = {};
             let stream;
             if (cacheName) {
-                // console.log('cache get', this.cachePath, this.databaseID);
                 const cacheObject = await cacache.get.info(this.cachePath, this.databaseID);
-                // console.log({cacheObject});
                 if (cacheObject) {
                     stream = cacache.get.stream.byDigest(this.cachePath, cacheObject.integrity).pipe(ezs('unpack'));
                 }
@@ -156,39 +160,35 @@ export default async function combine(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
-    return whenReady
-        .then(() => {
-            const defval = this.getParam('default', null);
-            const path = this.getParam('path');
-            const pathVal = _.get(data, path);
-            const keys = [].concat(pathVal).filter(Boolean);
-            if (keys.length === 0) {
-                return feed.send(data);
-            }
-            const values = keys.map((key) => {
-                if (!database[this.databaseID][key]) {
-                    return null;
-                }
-                return core(key, database[this.databaseID][key]);
-            });
-            // length of the values is always equal to the length of the keys.
-            if (Array.isArray(pathVal)) {
-                _.set(data, path, values);
-            } else  {
-                const val = values.shift();
-                if (val !== null) {
-                    _.set(data, path, val);
-                } else if (defval !== null) {
-                    const orig = _.get(data, path);
-                    _.set(data, path, { id: orig, value: defval });
-                } else {
-                    const orig = _.get(data, path);
-                    _.set(data, path, { id: orig, value: orig });
-                }
-            }
-            return feed.send(data);
-        })
-        .catch((e) => {
-            feed.stop(e);
-        });
+    await whenReady;
+    const defval = this.getParam('default', null);
+    const path = this.getParam('path');
+    const pathVal = _.get(data, path);
+    const keys = [].concat(pathVal).filter(Boolean);
+    if (keys.length === 0) {
+        return feed.send(data);
+    }
+    const values = keys.map((key) => {
+        if (!database[this.databaseID][key]) {
+            return null;
+        }
+        return core(key, database[this.databaseID][key]);
+    });
+    // length of the values is always equal to the length of the keys.
+    if (Array.isArray(pathVal)) {
+        _.set(data, path, values);
+    } else  {
+        const val = values.shift();
+        if (val !== null) {
+            _.set(data, path, val);
+        } else if (defval !== null) {
+            const orig = _.get(data, path);
+            _.set(data, path, { id: orig, value: defval });
+        } else {
+            const orig = _.get(data, path);
+            _.set(data, path, { id: orig, value: orig });
+        }
+    }
+    return feed.send(data);
+
 }
