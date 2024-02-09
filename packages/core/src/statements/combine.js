@@ -2,11 +2,16 @@ import _ from 'lodash';
 import debug from 'debug';
 import assert from 'assert';
 import hasher from 'node-object-hash';
+import { resolve  as resolvePath } from 'path';
+import { tmpdir } from 'os';
+import makeDir from 'make-dir';
+import pathExists from 'path-exists';
+import cacache from 'cacache';
 
 const hashCoerce = hasher({ sort: false, coerce: true });
 const core = (id, value) => ({ id, value });
 
-const database = {};
+export const database = {};
 
 async function saveIn(data, feed) {
     if (this.isLast()) {
@@ -23,8 +28,35 @@ async function saveIn(data, feed) {
             database[databaseID][id] = value;
         }
     }
-    return feed.send(id);
+    return feed.send(data);
 }
+
+function cacheSave(data, feed) {
+    const { ezs } = this;
+    const cachePath = this.getParam('cachePath');
+    const cacheKey = this.getParam('cacheKey');
+    if (this.isLast()) {
+        if (cachePath && cacheKey) {
+            this.whenFinish.finally(() => feed.close());
+            return this.input.end();
+        }
+        return feed.close();
+    }
+    if (cachePath && cacheKey) {
+        if (!this.input) {
+            this.input = ezs.createStream(ezs.objectMode());
+            this.whenFinish = new Promise(
+                (resolve) => this.input
+                    .pipe(ezs('pack'))
+                    .pipe(cacache.put.stream(cachePath, cacheKey))
+                    .on('end', resolve)
+            );
+        }
+        return ezs.writeTo(this.input, data, () => feed.send(data));
+    }
+    return feed.send(data);
+}
+
 
 
 /**
@@ -70,15 +102,23 @@ async function saveIn(data, feed) {
  * @param {String} [commands] the external pipeline is described in a object
  * @param {String} [command] the external pipeline is described in a URL-like command
  * @param {String} [logger] A dedicaded pipeline described in a file to trap or log errors
+ * @param {String} [cacheName] Enable cache, with dedicated name
  * @returns {Object}
  */
-export default function combine(data, feed) {
+export default async function combine(data, feed) {
     const { ezs } = this;
+    const cacheName = this.getParam('cacheName');
     let whenReady = Promise.resolve(true);
     if (this.isFirst()) {
+        if (cacheName && !this.cachePath) {
+            const location = this.getParam('location');
+            this.cachePath = resolvePath(location || tmpdir(), 'memory', `combine/${cacheName}`);
+            if (!pathExists.sync(this.cachePath)) {
+                makeDir.sync(this.cachePath);
+            }
+        }
         debug('ezs')('[combine] with sub pipeline.');
         const primer = this.getParam('primer', 'n/a');
-        const input = ezs.createStream(ezs.objectMode());
         const commands = ezs.createCommands({
             file: this.getParam('file'),
             script: this.getParam('script'),
@@ -88,11 +128,26 @@ export default function combine(data, feed) {
             append: this.getParam('append'),
         });
         this.databaseID = hashCoerce.hash({ primer, commands });
+        const input = ezs.createStream(ezs.objectMode());
         if (!database[this.databaseID]) {
             database[this.databaseID] = {};
-            const statements = ezs.compileCommands(commands, this.getEnv());
-            const logger = ezs.createTrap(this.getParam('logger'), this.getEnv());
-            const output = ezs.createPipeline(input, statements, logger)
+            let stream;
+            if (cacheName) {
+                const cacheObject = await cacache.get.info(this.cachePath, this.databaseID);
+                if (cacheObject) {
+                    stream = cacache.get.stream.byDigest(this.cachePath, cacheObject.integrity).pipe(ezs('unpack'));
+                }
+            }
+            if (!stream) {
+                const statements = ezs.compileCommands(commands, this.getEnv());
+                const logger = ezs.createTrap(this.getParam('logger'), this.getEnv());
+                stream = ezs.createPipeline(input, statements, logger)
+                    .pipe(ezs(cacheSave, {
+                        cachePath: this.cachePath,
+                        cacheKey: this.databaseID,
+                    }));
+            }
+            const output = stream
                 .pipe(ezs(saveIn, null, this.databaseID))
                 .pipe(ezs.catch())
                 .on('data', (d) => assert(d)) // WARNING: The data must be consumed, otherwise the "end" event has not been triggered
@@ -105,42 +160,35 @@ export default function combine(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
-    return whenReady
-        .then(() => {
-            const defval = this.getParam('default', null);
-            const path = this.getParam('path');
-            const pathVal = _.get(data, path);
-            const keys = [].concat(pathVal).filter(Boolean);
-            if (keys.length === 0) {
-                return feed.send(data);
-            }
-            const values = keys.map((key) => {
-                if (!database[this.databaseID][key]) {
-                    return null;
-                }
-                return core(key, database[this.databaseID][key]);
-            });
-            if (values.length && Array.isArray(pathVal)) {
-                _.set(data, path, values);
-            } else if (values.length && !Array.isArray(pathVal)) {
-                const val = values.shift();
-                if (val !== null) {
-                    _.set(data, path, val);
-                } else if (defval !== null) {
-                    const orig = _.get(data, path);
-                    _.set(data, path, { id: orig, value: defval });
-                } else {
-                    const orig = _.get(data, path);
-                    _.set(data, path, { id: orig, value: orig });
-                }
-            } else if (Array.isArray(pathVal)) {
-                _.set(data, path, pathVal.map((id) => ({ id })));
-            } else {
-                _.set(data, path, { id: pathVal });
-            }
-            return feed.send(data);
-        })
-        .catch((e) => {
-            feed.stop(e);
-        });
+    await whenReady;
+    const defval = this.getParam('default', null);
+    const path = this.getParam('path');
+    const pathVal = _.get(data, path);
+    const keys = [].concat(pathVal).filter(Boolean);
+    if (keys.length === 0) {
+        return feed.send(data);
+    }
+    const values = keys.map((key) => {
+        if (!database[this.databaseID][key]) {
+            return null;
+        }
+        return core(key, database[this.databaseID][key]);
+    });
+    // length of the values is always equal to the length of the keys.
+    if (Array.isArray(pathVal)) {
+        _.set(data, path, values);
+    } else  {
+        const val = values.shift();
+        if (val !== null) {
+            _.set(data, path, val);
+        } else if (defval !== null) {
+            const orig = _.get(data, path);
+            _.set(data, path, { id: orig, value: defval });
+        } else {
+            const orig = _.get(data, path);
+            _.set(data, path, { id: orig, value: orig });
+        }
+    }
+    return feed.send(data);
+
 }
