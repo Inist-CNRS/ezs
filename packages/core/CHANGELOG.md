@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.8.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.7.0...@ezs/core@3.8.0) (2024-02-09)
+
+
+### Bug Fixes
+
+* 🐛 improve tests ([fbeb531](https://github.com/Inist-CNRS/ezs/commit/fbeb53184028cacf3fc9ac6fa0096601f76aeded))
+
+
+### Features
+
+* 🎸 cacheName for combine like expand ([f79a52a](https://github.com/Inist-CNRS/ezs/commit/f79a52a028b287d7fc6fc0d566ba7bf8f728a436))
+
+
+
+
+
 # [3.7.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.6.0...@ezs/core@3.7.0) (2024-02-07)
 
 
