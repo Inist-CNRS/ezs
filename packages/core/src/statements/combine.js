@@ -158,6 +158,7 @@ export default async function combine(data, feed) {
         }
     }
     if (this.isLast()) {
+        delete database[this.databaseID];
         return feed.close();
     }
     await whenReady;

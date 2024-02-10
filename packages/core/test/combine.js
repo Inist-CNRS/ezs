@@ -440,8 +440,6 @@ const nextTest = (done) => {
         { a: 15, b: 'e' },
         { a: 16, b: 'f' },
     ];
-    // Clean memory cache to hit the file cache
-    Object.keys(database).forEach(k => {delete database[k];});
     const output = [];
     from(input)
         .pipe(ezs('combine', { path: 'b', script: cacheScript, cacheName }, env))
