@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.8.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.8.0...@ezs/core@3.8.1) (2024-02-10)
+
+
+### Bug Fixes
+
+* 🐛 clean memory after each flow ([07f46ad](https://github.com/Inist-CNRS/ezs/commit/07f46add096f7d604b718fee4d58fe532b7d2191))
+
+
+
+
+
 # [3.8.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.7.0...@ezs/core@3.8.0) (2024-02-09)
 
 
