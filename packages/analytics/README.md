@@ -1051,9 +1051,9 @@ meta = total
 #### Parameters
 
 -   `indent` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** <ul><li>indent the output json</li></ul>
-         <ul><li>indenté le json de sortie</li></ul> (optional, default `false`)
+    <ul><li>indenté le json de sortie</li></ul> (optional, default `false`)
 -   `meta` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** <ul><li>element from the input to put it in the `meta` object</li></ul>
-         <ul><li>élément a extraire de l'entrée et a mettre dans l'objet `meta`</li></ul>
+    <ul><li>élément a extraire de l'entrée et a mettre dans l'objet `meta`</li></ul>
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
@@ -1105,7 +1105,7 @@ path = arrival
 
 -   `identifier` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use to set value result field (if not set or not exists, 1 is use as a default value) (optional, default `false`)
 -   `null` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element who will be use to create the pair</li></ul>
-         <ul><li>chemin de l'élément qui vas etre utilisé pour créer le couple</li></ul>
+    <ul><li>chemin de l'élément qui vas etre utilisé pour créer le couple</li></ul>
 
 Returns **{id: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>, value: `1`}** 
 
@@ -1166,7 +1166,7 @@ path = year
 #### Parameters
 
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element who need to be extrated</li></ul>
-         <ul><li>chemin de l'élément qui doit être extrais</li></ul> (optional, default `id`)
+    <ul><li>chemin de l'élément qui doit être extrais</li></ul> (optional, default `id`)
 
 Returns **{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)}** 
 
@@ -1216,9 +1216,9 @@ plugin = analytics
 #### Parameters
 
 -   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element who will be use as the key</li></ul>
-         <ul><li>chemin de l'élément qui vas être utilisé comme clé</li></ul> (optional, default `id`)
+    <ul><li>chemin de l'élément qui vas être utilisé comme clé</li></ul> (optional, default `id`)
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element who will be merge into an array</li></ul>
-         <ul><li>chemin de l'élément qui vas être fussioné en un tableau</li></ul> (optional, default `value`)
+    <ul><li>chemin de l'élément qui vas être fussioné en un tableau</li></ul> (optional, default `value`)
 
 Returns **{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>}** 
 
@@ -1315,11 +1315,11 @@ plugin = analytics
 #### Parameters
 
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element who need to be segmented</li></ul>
-         <ul><li>chemin de l'élément qui doit être segmentés</li></ul> (optional, default `value`)
--   `aggregate` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** aggregate all values for all paths (or not)     <ul><li>aggregate all segmented value in one element (work if you have multiple path)</li></ul>
-         <ul><li>agréger toutes les valeurs segmentées en un seul élément (fonctionne si vous avez plusieurs chemins)</li></ul> (optional, default `true`)
+    <ul><li>chemin de l'élément qui doit être segmentés</li></ul> (optional, default `value`)
+-   `aggregate` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** aggregate all values for all paths (or not)<ul><li>aggregate all segmented value in one element (work if you have multiple path)</li></ul>
+    <ul><li>agréger toutes les valeurs segmentées en un seul élément (fonctionne si vous avez plusieurs chemins)</li></ul> (optional, default `true`)
 -   `identifier` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element who will be put in value field (if not set, fallback to `1`)</li></ul>
-         <ul><li>chemin de l'élément qui sera mis dans le champ valeur (si non défini, fallback à `1`)</li></ul> (optional, default `false`)
+    <ul><li>chemin de l'élément qui sera mis dans le champ valeur (si non défini, fallback à `1`)</li></ul> (optional, default `false`)
 
 Returns **{id: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>, value: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)}** 
 
@@ -1385,9 +1385,9 @@ plugin = analytics
 #### Parameters
 
 -   `start` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** <ul><li>the beginning index of the specified portion of the stream</li></ul>
-         <ul><li>l'indice de début de la partie spécifiée du flux</li></ul> (optional, default `1`)
+    <ul><li>l'indice de début de la partie spécifiée du flux</li></ul> (optional, default `1`)
 -   `size` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** <ul><li>the size of the specified portion of the stream</li></ul>
-         <ul><li>la taille de début de la partie spécifiée du flux</li></ul> (optional, default `10`)
+    <ul><li>la taille de début de la partie spécifiée du flux</li></ul> (optional, default `10`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -1447,9 +1447,9 @@ plugin = analytics
 #### Parameters
 
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element used to as reference for the sort</li></ul>
-         <ul><li>chemin de l'élément utilisé comme référence pour le tri</li></ul> (optional, default `id`)
+    <ul><li>chemin de l'élément utilisé comme référence pour le tri</li></ul> (optional, default `id`)
 -   `reverse` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** <ul><li>sort in ascending or descending order</li></ul>
-         <ul><li>trier par ordre croissant ou décroissant</li></ul> (optional, default `false`)
+    <ul><li>trier par ordre croissant ou décroissant</li></ul> (optional, default `false`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -1559,9 +1559,9 @@ plugin = analytics
 #### Parameters
 
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element used to create the statistics</li></ul>
-         <ul><li>chemin de l'élément utilisé pour créer les statistiques</li></ul> (optional, default `value`)
+    <ul><li>chemin de l'élément utilisé pour créer les statistiques</li></ul> (optional, default `value`)
 -   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the statistics in the returned object</li></ul>
-         <ul><li>chemin des stastistiques dans l'objet retourné</li></ul> (optional, default `_statistics`)
+    <ul><li>chemin des stastistiques dans l'objet retourné</li></ul> (optional, default `_statistics`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -1623,9 +1623,9 @@ plugin = analytics
 #### Parameters
 
 -   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element used to create the new identifier</li></ul>
-         <ul><li>chemin de l'élément utilisé pour créer le nouvel identifiant</li></ul> (optional, default `id`)
+    <ul><li>chemin de l'élément utilisé pour créer le nouvel identifiant</li></ul> (optional, default `id`)
 -   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element to be summed</li></ul>
-         <ul><li>chemin de l'élément qui doit être sommé</li></ul> (optional, default `value`)
+    <ul><li>chemin de l'élément qui doit être sommé</li></ul> (optional, default `value`)
 
 Returns **{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)}** 
 
@@ -1693,15 +1693,15 @@ plugin = analytics
 #### Parameters
 
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element used to create the unified identifier</li></ul>
-         <ul><li>chemin de l'élément utilisé pour créer l'identifiant unifié</li></ul> (optional, default `id`)
+    <ul><li>chemin de l'élément utilisé pour créer l'identifiant unifié</li></ul> (optional, default `id`)
 -   `method` **(`"natural"` \| `"levenshtein"` \| `"numerical"`)** <ul><li>method used to create the unified identifier</li></ul>
-             <ul><ul><li>natural - Create a normalised identifier that is set to a fixed length</li></ul></ul>
-             <ul><ul><li>levenshtein - Create an identifier based on the Levenshtein algorithm</li></ul></ul>
-             <ul><ul><li>numerical - Create an identifier based on a numeric value</li></ul></ul>
-         <ul><li>méthode utilisée pour créer l'identifiant unifié</li></ul>
-             <ul><ul><li>natural - Crée un identifiant normalisé de longueur fixe</li></ul></ul>
-             <ul><ul><li>levenshtein - Crée un identifiant basé sur l'algorithme de Levenshtein</li></ul></ul>
-             <ul><ul><li>numerical - Crée un identifiant basé sur une valeur numérique</li></ul></ul> (optional, default `natural`)
+      <ul><ul><li>natural - Create a normalised identifier that is set to a fixed length</li></ul></ul>
+      <ul><ul><li>levenshtein - Create an identifier based on the Levenshtein algorithm</li></ul></ul>
+    ul><ul><li>numerical - Create an identifier based on a numeric value</li></ul></ul>
+    <ul><li>méthode utilisée pour créer l'identifiant unifié</li></ul>
+      <ul><ul><li>natural - Crée un identifiant normalisé de longueur fixe</li></ul></ul>
+      <ul><ul><li>levenshtein - Crée un identifiant basé sur l'algorithme de Levenshtein</li></ul></ul>
+    <ul><ul><li>numerical - Crée un identifiant basé sur une valeur numérique</li></ul></ul> (optional, default `natural`)
 
 Returns **{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)}** 
 
@@ -1805,6 +1805,6 @@ plugin = analytics
 #### Parameters
 
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element used to create the new object</li></ul>
-         <ul><li>chemin de l'élément utilisé pour créer le nouvel objet</li></ul> (optional, default `value`)
+    <ul><li>chemin de l'élément utilisé pour créer le nouvel objet</li></ul> (optional, default `value`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 

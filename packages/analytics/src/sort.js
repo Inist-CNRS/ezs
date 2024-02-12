@@ -113,11 +113,11 @@ const sort = async (data, feed, ctx) => {
  *
  * @name sort
  * @param {String} [path=id]
- *      <ul><li>path of the element used to as reference for the sort</li></ul>
- *      <ul><li>chemin de l'élément utilisé comme référence pour le tri</li></ul>
+ * <ul><li>path of the element used to as reference for the sort</li></ul>
+ * <ul><li>chemin de l'élément utilisé comme référence pour le tri</li></ul>
  * @param {boolean} [reverse=false]
- *      <ul><li>sort in ascending or descending order</li></ul>
- *      <ul><li>trier par ordre croissant ou décroissant</li></ul>
+ * <ul><li>sort in ascending or descending order</li></ul>
+ * <ul><li>trier par ordre croissant ou décroissant</li></ul>
  * @returns {Object}
  */
 export default sort;

@@ -83,8 +83,8 @@ const pair = (data, feed, ctx) => {
  * @name pair
  * @param {String} [identifier=false] path to use to set value result field (if not set or not exists, 1 is use as a default value)
  * @param {String}
- *      <ul><li>path of the element who will be use to create the pair</li></ul>
- *      <ul><li>chemin de l'élément qui vas etre utilisé pour créer le couple</li></ul>
+ * <ul><li>path of the element who will be use to create the pair</li></ul>
+ * <ul><li>chemin de l'élément qui vas etre utilisé pour créer le couple</li></ul>
  * @returns {{
  *      id: Array<String>,
  *      value: 1

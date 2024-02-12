@@ -138,14 +138,14 @@ const segment = (data, feed, ctx) => {
  *
  * @name segment
  * @param {String} [path=value]
- *      <ul><li>path of the element who need to be segmented</li></ul>
- *      <ul><li>chemin de l'élément qui doit être segmentés</li></ul>
+ * <ul><li>path of the element who need to be segmented</li></ul>
+ * <ul><li>chemin de l'élément qui doit être segmentés</li></ul>
  * @param {Boolean} [aggregate=true] aggregate all values for all paths (or not)
- *      <ul><li>aggregate all segmented value in one element (work if you have multiple path)</li></ul>
- *      <ul><li>agréger toutes les valeurs segmentées en un seul élément (fonctionne si vous avez plusieurs chemins)</li></ul>
+ * <ul><li>aggregate all segmented value in one element (work if you have multiple path)</li></ul>
+ * <ul><li>agréger toutes les valeurs segmentées en un seul élément (fonctionne si vous avez plusieurs chemins)</li></ul>
  * @param {String} [identifier=false]
- *      <ul><li>path of the element who will be put in value field (if not set, fallback to `1`)</li></ul>
- *      <ul><li>chemin de l'élément qui sera mis dans le champ valeur (si non défini, fallback à `1`)</li></ul>
+ * <ul><li>path of the element who will be put in value field (if not set, fallback to `1`)</li></ul>
+ * <ul><li>chemin de l'élément qui sera mis dans le champ valeur (si non défini, fallback à `1`)</li></ul>
  * @returns {{
  *     id: Array<Number>,
  *     value: Object,

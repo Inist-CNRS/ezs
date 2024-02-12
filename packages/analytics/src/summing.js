@@ -84,11 +84,11 @@ const summing = (data, feed, ctx) => {
  *
  * @name summing
  * @param {String} [id=id]
- *      <ul><li>path of the element used to create the new identifier</li></ul>
- *      <ul><li>chemin de l'élément utilisé pour créer le nouvel identifiant</li></ul>
+ * <ul><li>path of the element used to create the new identifier</li></ul>
+ * <ul><li>chemin de l'élément utilisé pour créer le nouvel identifiant</li></ul>
  * @param {String} [value=value]
- *      <ul><li>path of the element to be summed</li></ul>
- *      <ul><li>chemin de l'élément qui doit être sommé</li></ul>
+ * <ul><li>path of the element to be summed</li></ul>
+ * <ul><li>chemin de l'élément qui doit être sommé</li></ul>
  * @returns {{
  *     id: String,
  *     value: Object
