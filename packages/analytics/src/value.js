@@ -124,8 +124,8 @@ const value = (data, feed, ctx) => {
  *
  * @name value
  * @param {String} [path=value]
- *      <ul><li>path of the element used to create the new object</li></ul>
- *      <ul><li>chemin de l'élément utilisé pour créer le nouvel objet</li></ul>
+ * <ul><li>path of the element used to create the new object</li></ul>
+ * <ul><li>chemin de l'élément utilisé pour créer le nouvel objet</li></ul>
  * @returns {Object}
  */
 export default value;

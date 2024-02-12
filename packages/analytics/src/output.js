@@ -100,11 +100,11 @@ const output = (data, feed, ctx) => {
  *
  * @name output
  * @param {Boolean}  [indent=false]
- *      <ul><li>indent the output json</li></ul>
- *      <ul><li>indenté le json de sortie</li></ul>
+ * <ul><li>indent the output json</li></ul>
+ * <ul><li>indenté le json de sortie</li></ul>
  * @param {String} [meta]
- *      <ul><li>element from the input to put it in the `meta` object</li></ul>
- *      <ul><li>élément a extraire de l'entrée et a mettre dans l'objet `meta`</li></ul>
+ * <ul><li>element from the input to put it in the `meta` object</li></ul>
+ * <ul><li>élément a extraire de l'entrée et a mettre dans l'objet `meta`</li></ul>
  * @returns {String}
  */
 export default {

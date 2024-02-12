@@ -85,8 +85,8 @@ const pluck = (data, feed, ctx) => {
  *
  * @name pluck
  * @param {String} [path=id]
- *      <ul><li>path of the element who need to be extrated</li></ul>
- *      <ul><li>chemin de l'élément qui doit être extrais</li></ul>
+ * <ul><li>path of the element who need to be extrated</li></ul>
+ * <ul><li>chemin de l'élément qui doit être extrais</li></ul>
  * @returns {{
  *     id: String,
  *     value: Object

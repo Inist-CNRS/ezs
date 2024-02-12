@@ -221,11 +221,11 @@ const statistics = async (data, feed, ctx) => {
  *
  * @name statistics
  * @param {String} [path=value]
- *      <ul><li>path of the element used to create the statistics</li></ul>
- *      <ul><li>chemin de l'élément utilisé pour créer les statistiques</li></ul>
+ * <ul><li>path of the element used to create the statistics</li></ul>
+ * <ul><li>chemin de l'élément utilisé pour créer les statistiques</li></ul>
  * @param {String} [target=_statistics]
- *      <ul><li>path of the statistics in the returned object</li></ul>
- *      <ul><li>chemin des stastistiques dans l'objet retourné</li></ul>
+ * <ul><li>path of the statistics in the returned object</li></ul>
+ * <ul><li>chemin des stastistiques dans l'objet retourné</li></ul>
  * @returns {Object}
  */
 export default statistics;

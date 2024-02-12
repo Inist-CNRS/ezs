@@ -88,11 +88,11 @@ const slice = (data, feed, ctx) => {
  *
  * @name slice
  * @param {Number} [start=1]
- *      <ul><li>the beginning index of the specified portion of the stream</li></ul>
- *      <ul><li>l'indice de début de la partie spécifiée du flux</li></ul>
+ * <ul><li>the beginning index of the specified portion of the stream</li></ul>
+ * <ul><li>l'indice de début de la partie spécifiée du flux</li></ul>
  * @param {Number} [size=10]
- *      <ul><li>the size of the specified portion of the stream</li></ul>
- *      <ul><li>la taille de début de la partie spécifiée du flux</li></ul>
+ * <ul><li>the size of the specified portion of the stream</li></ul>
+ * <ul><li>la taille de début de la partie spécifiée du flux</li></ul>
  * @returns {Object}
  */
 export default slice;
