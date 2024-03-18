@@ -33,6 +33,10 @@ export default class Feed {
             }, this.timeout);
         }
 
+        stream.on('finish', () => {
+            this.close();
+        });
+
         stream.on('data', async (data) => {
             if (this.timer) {
                 this.timer.reschedule(this.timeout);
