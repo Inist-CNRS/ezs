@@ -84,7 +84,7 @@ export default function loop(data, feed) {
     if (tests.every((test) => test)) {
         input.write(data);
         input.end();
-        return feed.flow(output, { autoclose: false });
+        return feed.flow(output);
     }
     input.end();
     return feed.end();
