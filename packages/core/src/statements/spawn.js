@@ -37,5 +37,5 @@ export default async function spawn(data, feed) {
     const output = ezs.createPipeline(input, statements, logger)
         .pipe(ezs.catch((e) => feed.write(e))); // avoid to break pipeline at each error
     ezs.writeTo(input, data, () => input.end());
-    await feed.flow(output);
+    await feed.flow(output, { autoclose: false });
 }

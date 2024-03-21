@@ -57,7 +57,8 @@ describe('spawn through file(s)', () => {
             const ten = new Upto(10);
             ten
                 .pipe(ezs('spawn', { commands }))
-                // .pipe(ezs('debug'))
+                .pipe(ezs.catch())
+                .on('error', done)
                 .on('data', (chunk) => {
                     res += chunk;
                 })
