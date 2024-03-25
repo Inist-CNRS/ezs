@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.8.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.8.1...@ezs/core@3.8.2) (2024-03-25)
+
+
+### Bug Fixes
+
+* 🐛 add autoclose option for feed.flow ([0fc3ad2](https://github.com/Inist-CNRS/ezs/commit/0fc3ad2db7118dc51df35f60ee125ee35097ed96))
+* 🐛 autoClose is set to off by default ([6e6810d](https://github.com/Inist-CNRS/ezs/commit/6e6810d7336e428a40aa46d6c12b24fc2d2231f5))
+* 🐛 deliberate premature closure ([5e807e0](https://github.com/Inist-CNRS/ezs/commit/5e807e0159e491134811fabe1b5a81d6d8edb871))
+
+
+
+
+
 ## [3.8.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.8.0...@ezs/core@3.8.1) (2024-02-10)
 
 
