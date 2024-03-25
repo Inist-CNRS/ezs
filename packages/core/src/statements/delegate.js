@@ -29,7 +29,7 @@ export default function delegate(data, feed) {
         const logger = ezs.createTrap(this.getParam('logger'), this.getEnv());
         const output = ezs.createPipeline(this.input, statements, logger)
             .pipe(ezs.catch((e) => feed.write(e))); // avoid to break pipeline at each error
-        this.whenFinish = feed.flow(output);
+        this.whenFinish = feed.flow(output, { autoclose: true });
     }
     if (this.isLast()) {
         debug('ezs')(`${this.getIndex()} chunks have been delegated`);

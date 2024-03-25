@@ -17,10 +17,10 @@ ezs.settings.metricsEnable = false;
 
 describe(' through server(s)', () => {
     const server5 = ezs.createServer(33333, __dirname);
-    const options = {
+    const options = (path = '/transit.ini') => ({
         hostname: '0.0.0.0',
         port: 33333,
-        path: '/transit.ini',
+        path,
         method: 'POST',
         headers: {
             'Content-Type': 'text/plain; charset=utf-8',
@@ -28,7 +28,7 @@ describe(' through server(s)', () => {
             'Accept-Language': 'en-US,en;q=0.8',
             'Connection': 'Close'
         }
-    };
+    });
 
     afterAll(() => {
         server5.close();
@@ -309,10 +309,35 @@ describe(' through server(s)', () => {
                 });
             setTimeout(() => stream.destroy(), 10);
         });
+        it('truncate request', (done) => {
+            let check = 0;
+            const input = Array(1000000).fill('a');
+            const stream = from(input).pipe(ezs(
+                (data, feed) => {
+                    check += 1;
+                    return feed.send(data);
+                })
+            );
+            const output = [];
+            const req = http.request(options('/transit3.ini'), (res) => {
+                res.setEncoding('utf8');
+                res.on('error', done);
+                res.on('data', (chunk) => {
+                    output.push(chunk);
+                });
+                res.on('end', () => {
+                    assert.equal(output.join(''), 'a');
+                    assert(check < 5);
+                    done();
+                });
+            });
+            stream.pipe(req);
+        });
+
         it('baseline', (done) => {
             const stream = from(['1', '2', '3', '4', '5', '6', '7', '8', '9']);
             const output = [];
-            const req = http.request(options, (res) => {
+            const req = http.request(options(), (res) => {
                 res.setEncoding('utf8');
                 res.on('error', done);
                 res.on('data', (chunk) => {
@@ -330,7 +355,7 @@ describe(' through server(s)', () => {
             const input = Array(1000).fill('a');
             const stream = from(input);
             const output = [];
-            const req = http.request(options, (res) => {
+            const req = http.request(options(), (res) => {
                 res.setEncoding('utf8');
                 res.on('data', (chunk) => {
                     output.push(chunk);
@@ -350,7 +375,7 @@ describe(' through server(s)', () => {
             const input = Array(1000).fill('a');
             const stream = from(input);
             const output = [];
-            const req = http.request(options, (res) => {
+            const req = http.request(options(), (res) => {
                 res.setEncoding('utf8');
                 res.on('error', () => done());
                 res.on('data', (chunk) => {
@@ -369,7 +394,7 @@ describe(' through server(s)', () => {
             const input = Array(1000).fill('a');
             const stream = from(input);
             const output = [];
-            const req = http.request(options, (res) => {
+            const req = http.request(options(), (res) => {
                 res.setEncoding('utf8');
                 res.on('data', (chunk) => {
                     output.push(chunk);
@@ -389,7 +414,7 @@ describe(' through server(s)', () => {
             const input = Array(1000).fill('a');
             const stream = from(input);
             const output = [];
-            const req = http.request(options, (res) => {
+            const req = http.request(options(), (res) => {
                 res.setEncoding('utf8');
                 res.on('error', done);
                 res.on('data', (chunk) => {
@@ -410,7 +435,7 @@ describe(' through server(s)', () => {
             const input = Array(1000).fill('a');
             const stream = from(input);
             const output = [];
-            const req = http.request(options, (res) => {
+            const req = http.request(options(), (res) => {
                 res.setEncoding('utf8');
                 res.on('error', () => done());
                 res.on('data', (chunk) => {
@@ -430,7 +455,7 @@ describe(' through server(s)', () => {
 
         it('No content #1', (done) => {
             const stream = new PassThrough();
-            const req = http.request(options, () => {
+            const req = http.request(options(), () => {
                 req.abort();
                 done();
             });

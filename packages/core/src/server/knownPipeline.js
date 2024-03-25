@@ -120,6 +120,10 @@ const knownPipeline = (ezs) => (request, response, next) => {
     const outputStream = new PassThrough();
     outputStream.pipe(response);
     const transformedStream = ezs.createPipeline(decodedStream, statements)
+        .on('unpipe', () => {
+            request.unpipe(rawStream);
+            rawStream.end();
+        })
         .pipe(ezs.catch((e) => e))
         .on('error', (e) => {
             outputStream.unpipe(response);
@@ -146,12 +150,12 @@ const knownPipeline = (ezs) => (request, response, next) => {
 
     request
         .once('aborted', () => {
-            rawStream.destroy();
-            decodedStream.destroy();
-            transformedStream.destroy();
+            request.unpipe(rawStream);
+            rawStream.end();
         })
         .on('error', (e) => {
             request.unpipe(rawStream);
+            rawStream.end();
             triggerError(e, 500);
         })
         .once('close', () => {

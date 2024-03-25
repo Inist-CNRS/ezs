@@ -43,7 +43,7 @@ async function loopFunc(data, feed) {
  * @param {String} [script] the external pipeline is described in a string of characters
  * @param {String} [commands] the external pipeline is described in an object
  * @param {String} [command] the external pipeline is described in an URL-like command
- * @param {String} [logger] A dedicaded pipeline described in a file to trap or log errors 
+ * @param {String} [logger] A dedicaded pipeline described in a file to trap or log errors
  * @returns {Object}
  */
 export default function loop(data, feed) {

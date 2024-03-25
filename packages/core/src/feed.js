@@ -25,13 +25,20 @@ export default class Feed {
         }
     }
 
-    flow(stream) {
+    flow(stream, options = {}) {
+        const { autoclose = false } = options;
         if (this.timeout > 0) {
             this.timer = retimer(() => {
                 this.stop(new Error(`The pipe has not received any data for ${this.timeout} milliseconds.`));
                 return stream.end();
             }, this.timeout);
         }
+
+        stream.on('finish', () => {
+            if (autoclose) {
+                this.close();
+            }
+        });
 
         stream.on('data', async (data) => {
             if (this.timer) {
