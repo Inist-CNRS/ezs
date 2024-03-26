@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.11.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.10.8...@ezs/conditor@2.11.0) (2024-03-26)
+
+
+### Features
+
+* 🎸 use new Corhal POST route ([cc260cf](https://github.com/Inist-CNRS/ezs/commit/cc260cf4ac7e8cd65c1519cb800b323c4fa0ea0b))
+
+
+
+
+
 ## [2.10.8](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.10.7...@ezs/conditor@2.10.8) (2024-02-07)
 
 **Note:** Version bump only for package @ezs/conditor
