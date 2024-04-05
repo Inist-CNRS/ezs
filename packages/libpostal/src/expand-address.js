@@ -1,4 +1,4 @@
-import postal from '@cymen/node-postal';
+import postal from 'node-postal';
 
 const expand = (input) => ({
     id: input,
@@ -6,13 +6,13 @@ const expand = (input) => ({
 });
 
 /**
- * Takes a string containing an address to return an object.
- * This will contain a standardized version of the address.
- *
- * @name expandAddress
- * @returns {Object}
+ * ExpandAddress function see documentation at the end.
+ * This part of the doc is used for jsdoc typing
+ * @private
+ * @param data {unknown}
+ * @param feed {Feed}
  */
-export default function expandAddress(data, feed) {
+const expandAddress = (data, feed) => {
     if (this.isLast()) {
         return feed.close();
     }
@@ -23,4 +23,48 @@ export default function expandAddress(data, feed) {
         return feed.send(expand(data));
     }
     return feed.send(data);
-}
+};
+
+
+/**
+ * Try to normalized given addresss.
+ *
+ * Essayer de normaliser les adresses données.
+ *
+ * ### Example / Exemple
+ *
+ * #### Script / Scénario
+ *
+ * ```ini
+ * ; Import libpostal plugin required to use "expandAddress"
+ * ; Importation du plugin libpostal nécessaire pour utiliser "expandAddress"
+ * [use]
+ * plugin = libpostal
+ *
+ * ; Using "expandAddress"
+ * ; Utilisation de "expandAddress"
+ * [expandAddress]
+ *
+ * ```
+ *
+ * #### Input / Entrée
+ *
+ * ```json
+ *  [
+ *      "Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238"
+ *  ]
+ * ```
+ *
+ * #### Output / Sortie
+ *
+ * ```json
+ * ```
+ *
+ * @name expandAddress
+ *
+ * @returns {{
+ *     id: String,
+ *     value: Array<String>
+ * }}
+ */
+export default expandAddress;

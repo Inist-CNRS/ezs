@@ -1,4 +1,4 @@
-import postal from '@cymen/node-postal';
+import postal from 'node-postal';
 import { get, set, clone } from 'lodash';
 
 const parse = (input) => ({

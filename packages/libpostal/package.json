@@ -5,7 +5,8 @@
   "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
   "bugs": "https://github.com/Inist-CNRS/ezs/issues",
   "dependencies": {
-    "lodash": "4.17.21"
+    "lodash": "4.17.21",
+    "node-postal": "1.2.0"
   },
   "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/libpostal#readme",
   "keywords": [
@@ -14,8 +15,10 @@
   "license": "MIT",
   "main": "./lib/index.js",
   "peerDependencies": {
-    "@cymen/node-postal": "2.0.5",
     "@ezs/core": "*"
+  },
+  "devDependencies": {
+    "@types/node-postal": "1.1.3"
   },
   "publishConfig": {
     "access": "public"

@@ -1,4 +1,4 @@
-import postal from '@cymen/node-postal';
+import postal from 'node-postal';
 
 const parse = (input) => ({
     id: input,
