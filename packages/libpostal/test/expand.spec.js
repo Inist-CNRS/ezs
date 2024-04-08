@@ -46,9 +46,9 @@ describe('expandAddress, expandAddressWith', () => {
 
             expect(result[0]).not.toBeNull();
 
-            console.log(result[0].value);
+            console.dir(result[0], {depth: 5});
 
-            expect(result[0].id).toEqual(simpleData[0].value);
+            expect(result[0].value.id).toEqual(simpleData[0].value);
         });
     });
 });
