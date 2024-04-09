@@ -2,6 +2,7 @@ import postal from 'node-postal';
 
 /**
  * Perform libpostal parse address
+ * @private
  * @param input{string} Address to expand
  * @param path{string} Path of the parsed address in the result object
  * @return {{[path: string]: string[], id: string}}

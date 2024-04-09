@@ -16,21 +16,10 @@ npm install @ezs/libpostal
 
 #### Table of Contents
 
--   [expand](#expand)
 -   [expandAddress](#expandaddress)
 -   [expandAddressWith](#expandaddresswith)
 -   [expandAddressWith](#expandaddresswith-1)
--   [parse](#parse)
 -   [parseAddress](#parseaddress)
-
-### expand
-
-Perform libpostal expand address
-
-#### Parameters
-
--   `input`  {string} Address to expand
--   `path`  {string} Path of the expanded address in the result object (optional, default `'value'`)
 
 ### expandAddress
 
@@ -168,15 +157,6 @@ plugin = libpostal
      }
  ]
 ```
-
-### parse
-
-Perform libpostal parse address
-
-#### Parameters
-
--   `input`  {string} Address to expand
--   `path`  {string} Path of the parsed address in the result object (optional, default `'value'`)
 
 ### parseAddress
 
