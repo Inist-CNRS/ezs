@@ -11,9 +11,10 @@ const expand = (input) => ({
  * @private
  * @param data {unknown}
  * @param feed {Feed}
+ * @param ctx {import('../../core/src/engine').EngineScope}
  */
-const expandAddress = (data, feed) => {
-    if (this.isLast()) {
+const expandAddress = (data, feed, ctx) => {
+    if (ctx.isLast()) {
         return feed.close();
     }
     if (Array.isArray(data)) {

@@ -23,16 +23,24 @@ describe('expandAddress, expandAddressWith', () => {
             ['Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238']
         ];
 
-        it.skip('should expandAddress with simple array of string', async () => {
+        it('should expandAddress with simple array of string', async () => {
             const result = await runEzs(ezs, simpleData, 'expandAddress');
 
             expect(result[0]).not.toBeNull();
+            expect(result[0].value).not.toBeNull();
+            expect(result[0].value).toHaveLength(2);
+            expect(result[0].value[0]).toEqual('barboncino 781 franklin avenue crown heights brooklyn ny 11238');
+            expect(result[0].value[1]).toEqual('barboncino 781 franklin avenue crown heights brooklyn new york 11238');
         });
 
-        it.skip('should expandAddress with simple array of array of string', async () => {
+        it('should expandAddress with simple array of array of string', async () => {
             const result = await runEzs(ezs, simpleData2, 'expandAddress');
 
             expect(result[0]).not.toBeNull();
+            expect(result[0].value).not.toBeNull();
+            expect(result[0].value).toHaveLength(2);
+            expect(result[0].value[0]).toEqual('barboncino 781 franklin avenue crown heights brooklyn ny 11238');
+            expect(result[0].value[1]).toEqual('barboncino 781 franklin avenue crown heights brooklyn new york 11238');
         });
     });
 
