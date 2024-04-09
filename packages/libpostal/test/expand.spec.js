@@ -11,9 +11,6 @@ describe('expandAddress, expandAddressWith', () => {
         ezs.use({ expandAddress, expandAddressWith });
     });
 
-    /**
-     * That test doesn't work due to an issues with the data pipeline of ezs
-     */
     describe('expandAddress', () => {
         const simpleData =  [
             'Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238'
