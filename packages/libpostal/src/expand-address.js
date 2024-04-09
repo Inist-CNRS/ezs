@@ -1,9 +1,4 @@
-import postal from 'node-postal';
-
-const expand = (input) => ({
-    id: input,
-    value: postal.expand.expand_address(String(input).trim()),
-});
+import expand from './postal/expand';
 
 /**
  * ExpandAddress function see documentation at the end.
@@ -18,7 +13,7 @@ const expandAddress = (data, feed, ctx) => {
         return feed.close();
     }
     if (Array.isArray(data)) {
-        return feed.send(data.map(expand));
+        return feed.send(data.map(entry => expand(entry)));
     }
     if (typeof data === 'string') {
         return feed.send(expand(data));
@@ -59,6 +54,15 @@ const expandAddress = (data, feed, ctx) => {
  * #### Output / Sortie
  *
  * ```json
+ *  [
+ *      {
+ *          "id": "Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238",
+ *          "value": [
+ *              "barboncino 781 franklin avenue crown heights brooklyn ny 11238",
+ *              "barboncino 781 franklin avenue crown heights brooklyn new york 11238"
+ *          ]
+ *      }
+ *  ]
  * ```
  *
  * @name expandAddress
