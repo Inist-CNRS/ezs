@@ -23,7 +23,7 @@ npm install @ezs/libpostal
 
 ### expandAddress
 
-Try to normalized given addresss.
+Try to normalize given addresss.
 
 Essayer de normaliser les adresses données.
 
@@ -68,7 +68,7 @@ Returns **{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Refere
 
 ### expandAddressWith
 
-Try to normalized given addresss.
+Try to normalize given addresss.
 
 Essayer de normaliser les adresses données.
 

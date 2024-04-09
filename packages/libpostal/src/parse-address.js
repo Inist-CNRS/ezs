@@ -1,28 +1,6 @@
 import parse from './postal/parse';
 
 /**
- * ParseAddress function see documentation at the end.
- * This part of the doc is used for jsdoc typing
- * @private
- * @param data {unknown}
- * @param feed {Feed}
- * @param ctx {import('../../core/src/engine').EngineScope}
- */
-const parseAddress = (data, feed, ctx) => {
-    if (ctx.isLast()) {
-        return feed.close();
-    }
-    if (Array.isArray(data)) {
-        return feed.send(data.map(entry => parse(entry)));
-    }
-    if (typeof data === 'string') {
-        return feed.send(parse(data));
-    }
-    return feed.send(data);
-};
-
-
-/**
  * Try to parse given addresss.
  *
  * Essayer de faire l'analyse grammaticale des adresses données.
@@ -77,4 +55,41 @@ const parseAddress = (data, feed, ctx) => {
  *     value: Array<String>
  * }}
  */
-export default parseAddress;
+
+/**
+ * Perform the address parsing on the data and return the result
+ * @private
+ * @param data {unknown}
+ */
+const parseAddress = (data) => {
+    if (Array.isArray(data)) {
+        return data.map(value => parseAddress(value));
+    }
+
+    if (typeof data === 'string') {
+        return parse(data);
+    }
+
+    return data;
+};
+
+
+/**
+ * ParseAddress function see documentation at the end.
+ * This part of the doc is used for jsdoc typing
+ * @private
+ * @param data {unknown}
+ * @param feed {Feed}
+ * @param ctx {import('../../core/src/engine').EngineScope}
+ */
+const handleEzsFeed = (data, feed, ctx) => {
+    if (ctx.isLast()) {
+        return feed.close();
+    }
+
+    return feed.send(
+        parseAddress(data)
+    );
+};
+
+export default handleEzsFeed;

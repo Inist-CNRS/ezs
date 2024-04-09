@@ -2,36 +2,7 @@ import { get } from 'lodash';
 import expand from './postal/expand';
 
 /**
- * ExpandAddressWith function see documentation at the end.
- * This part of the doc is used for jsdoc typing
- * @private
- * @param data {unknown}
- * @param feed {Feed}
- * @param ctx {import('../../core/src/engine').EngineScope}
- */
-const expandAddressWith = (data, feed, ctx) => {
-    const paths = []
-        .concat(ctx.getParam('path'))
-        .filter(Boolean);
-    if (ctx.isLast()) {
-        return feed.close();
-    }
-
-    paths.forEach((path) => {
-        const value = get(data, path);
-        if (Array.isArray(value)) {
-            return feed.send(value.map(entry => expand(entry, path)));
-        }
-        if (typeof value === 'string') {
-            return feed.send(expand(value, path));
-        }
-        return feed.send(value);
-    });
-    return feed.end();
-};
-
-/**
- * Try to normalized given addresss.
+ * Try to normalize given addresss.
  *
  * Essayer de normaliser les adresses données.
  *
@@ -83,4 +54,50 @@ const expandAddressWith = (data, feed, ctx) => {
  *    [path: string]: string[]
  * }}
  */
-export default expandAddressWith;
+
+/**
+ * Perform the normalization on the data and return the result
+ * @private
+ * @param data {unknown}
+ * @param path {string}
+ */
+const expandAddressWith = (data, path) => {
+    /** @type {unknown} */
+    const dataToProcess = get(data, path);
+
+    if (Array.isArray(dataToProcess)) {
+        return dataToProcess.map(value => expandAddressWith(value, path));
+    }
+
+    if (typeof dataToProcess === 'string') {
+        return expand(dataToProcess, path);
+    }
+
+    return dataToProcess;
+};
+
+/**
+ * ExpandAddressWith function see documentation at the end.
+ * This part of the doc is used for jsdoc typing
+ * @private
+ * @param data {unknown}
+ * @param feed {Feed}
+ * @param ctx {import('../../core/src/engine').EngineScope}
+ */
+const handleEzsFeed = (data, feed, ctx) => {
+    const paths = []
+        .concat(ctx.getParam('path'))
+        .filter(Boolean);
+
+    if (ctx.isLast()) {
+        return feed.close();
+    }
+
+    paths.forEach((path) => {
+        feed.send(expandAddressWith(data, path));
+    });
+
+    return feed.end();
+};
+
+export default handleEzsFeed;

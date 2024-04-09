@@ -1,29 +1,7 @@
 import expand from './postal/expand';
 
 /**
- * ExpandAddress function see documentation at the end.
- * This part of the doc is used for jsdoc typing
- * @private
- * @param data {unknown}
- * @param feed {Feed}
- * @param ctx {import('../../core/src/engine').EngineScope}
- */
-const expandAddress = (data, feed, ctx) => {
-    if (ctx.isLast()) {
-        return feed.close();
-    }
-    if (Array.isArray(data)) {
-        return feed.send(data.map(entry => expand(entry)));
-    }
-    if (typeof data === 'string') {
-        return feed.send(expand(data));
-    }
-    return feed.send(data);
-};
-
-
-/**
- * Try to normalized given addresss.
+ * Try to normalize given addresss.
  *
  * Essayer de normaliser les adresses données.
  *
@@ -72,4 +50,40 @@ const expandAddress = (data, feed, ctx) => {
  *     value: Array<String>
  * }}
  */
-export default expandAddress;
+
+/**
+ * Perform the normalization on the data and return the result
+ * @private
+ * @param data {unknown}
+ */
+const expandAddress = (data) => {
+    if (Array.isArray(data)) {
+        return data.map(value => expandAddress(value));
+    }
+
+    if (typeof data === 'string') {
+        return expand(data);
+    }
+
+    return data;
+};
+
+/**
+ * ExpandAddress function see documentation at the end.
+ * This part of the doc is used for jsdoc typing
+ * @private
+ * @param data {unknown}
+ * @param feed {Feed}
+ * @param ctx {import('../../core/src/engine').EngineScope}
+ */
+const handleEzsFeed = (data, feed, ctx) => {
+    if (ctx.isLast()) {
+        return feed.close();
+    }
+
+    return feed.send(
+        expandAddress(data)
+    );
+};
+
+export default handleEzsFeed;
