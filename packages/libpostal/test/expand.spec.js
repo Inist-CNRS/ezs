@@ -23,6 +23,7 @@ describe('expandAddress, expandAddressWith', () => {
         it('should expandAddress with simple array of string', async () => {
             const result = await runEzs(ezs, simpleData, 'expandAddress');
 
+            expect(result).toHaveLength(1);
             expect(result[0]).not.toBeNull();
             expect(result[0].value).not.toBeNull();
             expect(result[0].value).toHaveLength(2);
@@ -35,6 +36,7 @@ describe('expandAddress, expandAddressWith', () => {
         it('should expandAddress with simple array of array of string', async () => {
             const result = await runEzs(ezs, simpleData2, 'expandAddress');
 
+            expect(result).toHaveLength(1);
             expect(result[0]).not.toBeNull();
             expect(result[0][0]).not.toBeNull();
             expect(result[0][0].value).not.toBeNull();
@@ -58,6 +60,7 @@ describe('expandAddress, expandAddressWith', () => {
         it('should expandAddressWith (path = value)', async () => {
             const result = await runEzs(ezs, simpleData, 'expandAddressWith', {path: 'value'});
 
+            expect(result).toHaveLength(1);
             expect(result[0]).not.toBeNull();
             expect(result[0].value).not.toBeNull();
             expect(result[0].value).toHaveLength(2);
@@ -70,6 +73,7 @@ describe('expandAddress, expandAddressWith', () => {
         it('should expandAddressWith (path = other_path)', async () => {
             const result = await runEzs(ezs, simpleData2, 'expandAddressWith', {path: 'other_path'});
 
+            expect(result).toHaveLength(1);
             expect(result[0]).not.toBeNull();
             expect(result[0].other_path).not.toBeNull();
             expect(result[0].other_path).toHaveLength(2);

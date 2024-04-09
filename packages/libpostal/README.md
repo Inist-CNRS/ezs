@@ -16,43 +16,209 @@ npm install @ezs/libpostal
 
 #### Table of Contents
 
+-   [expand](#expand)
 -   [expandAddress](#expandaddress)
 -   [expandAddressWith](#expandaddresswith)
+-   [expandAddressWith](#expandaddresswith-1)
+-   [parse](#parse)
 -   [parseAddress](#parseaddress)
--   [parseAddressWith](#parseaddresswith)
+
+### expand
+
+Perform libpostal expand address
+
+#### Parameters
+
+-   `input`  {string} Address to expand
+-   `path`  {string} Path of the expanded address in the result object (optional, default `'value'`)
 
 ### expandAddress
 
-Takes a string containing an address to return an object.
-This will contain a standardized version of the address.
+Try to normalized given addresss.
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Essayer de normaliser les adresses données.
+
+#### Example / Exemple
+
+##### Script / Scénario
+
+```ini
+; Import libpostal plugin required to use "expandAddress"
+; Importation du plugin libpostal nécessaire pour utiliser "expandAddress"
+[use]
+plugin = libpostal
+
+; Using "expandAddress"
+; Utilisation de "expandAddress"
+[expandAddress]
+```
+
+##### Input / Entrée
+
+```json
+ [
+     "Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238"
+ ]
+```
+
+##### Output / Sortie
+
+```json
+ [
+     {
+         "id": "Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238",
+         "value": [
+             "barboncino 781 franklin avenue crown heights brooklyn ny 11238",
+             "barboncino 781 franklin avenue crown heights brooklyn new york 11238"
+         ]
+     }
+ ]
+```
+
+Returns **{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>}** 
 
 ### expandAddressWith
 
-Takes a field of object containing an address to return the same object except for the field containing the address.
-This will contain a standardized version of the address.
+Try to normalized given addresss.
+
+Essayer de normaliser les adresses données.
+
+#### Example / Exemple
+
+##### Script / Scénario
+
+```ini
+; Import libpostal plugin required to use "expandAddressWith"
+; Importation du plugin libpostal nécessaire pour utiliser "expandAddressWith"
+[use]
+plugin = libpostal
+
+; Using "expandAddressWith"
+; Utilisation de "expandAddressWith"
+[expandAddress]
+; path = value
+```
+
+##### Input / Entrée
+
+```json
+ [
+     {
+         "value": "Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238"
+     }
+ ]
+```
+
+##### Output / Sortie
+
+```json
+ [
+     {
+         "id": "Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238",
+         "value": [
+             "barboncino 781 franklin avenue crown heights brooklyn ny 11238",
+             "barboncino 781 franklin avenue crown heights brooklyn new york 11238"
+         ]
+     }
+ ]
+```
+
+### expandAddressWith
+
+Try to parse given addresss.
+
+Essayer de faire l'analyse grammaticale des adresses données.
+
+#### Example / Exemple
+
+##### Script / Scénario
+
+```ini
+; Import libpostal plugin required to use "parseAddressWith"
+; Importation du plugin libpostal nécessaire pour utiliser "parseAddressWith"
+[use]
+plugin = libpostal
+
+; Using "parseAddressWith"
+; Utilisation de "parseAddressWith"
+[expandAddress]
+; path = value
+```
+
+##### Input / Entrée
+
+```json
+ [
+     {
+         "value": "Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238"
+     }
+ ]
+```
+
+##### Output / Sortie
+
+```json
+ [
+     {
+         "id": "Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238",
+         "value": [
+             "barboncino 781 franklin avenue crown heights brooklyn ny 11238",
+             "barboncino 781 franklin avenue crown heights brooklyn new york 11238"
+         ]
+     }
+ ]
+```
+
+### parse
+
+Perform libpostal parse address
 
 #### Parameters
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path to the chosen field
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `input`  {string} Address to expand
+-   `path`  {string} Path of the parsed address in the result object (optional, default `'value'`)
 
 ### parseAddress
 
-Takes a string containing an address to return an object.
-This will contain the different fields present in the address.
+Try to parse given addresss.
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Essayer de faire l'analyse grammaticale des adresses données.
 
-### parseAddressWith
+#### Example / Exemple
 
-Takes a field of object containing an address to return the same object except for the field containing the address.
-This will contain the different fields found in the address.
+##### Script / Scénario
 
-#### Parameters
+```ini
+; Import libpostal plugin required to use "parseAddress"
+; Importation du plugin libpostal nécessaire pour utiliser "parseAddress"
+[use]
+plugin = libpostal
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path to the chosen field
+; Using "parseAddress"
+; Utilisation de "parseAddress"
+[parseAddress]
+```
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+##### Input / Entrée
+
+```json
+ [
+     "Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238"
+ ]
+```
+
+##### Output / Sortie
+
+```json
+ [
+     {
+         "id": "Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238",
+         "value": [
+             "barboncino 781 franklin avenue crown heights brooklyn ny 11238",
+             "barboncino 781 franklin avenue crown heights brooklyn new york 11238"
+         ]
+     }
+ ]
+```
+
+Returns **{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>}** 

@@ -23,11 +23,11 @@ const expandAddressWith = (data, feed, ctx) => {
             return feed.send(value.map(entry => expand(entry, path)));
         }
         if (typeof value === 'string') {
-            return feed.send( expand(value, path));
+            return feed.send(expand(value, path));
         }
         return feed.send(value);
     });
-    return feed.send(data);
+    return feed.end();
 };
 
 /**
@@ -76,7 +76,7 @@ const expandAddressWith = (data, feed, ctx) => {
  *  ]
  * ```
  *
- * @name expandAddress
+ * @name expandAddressWith
  *
  * @returns {{
  *    id: string,
