@@ -35,6 +35,15 @@ jobs:
         CXXFLAGS: '-I/deps/include'
         LDFLAGS: '-L/deps/lib'
       run: yarn run ci:install
+
+    - name: Rebuild node-postal (Mainly use to NodeJS 20)
+      env:
+        CXXFLAGS: '-I/deps/include'
+        LDFLAGS: '-L/deps/lib'
+      run: |
+        cd node_modules/node-postal
+        yarn run install
+
     - name: Testing all packages
       env:
         LD_LIBRARY_PATH: '/deps/lib'
