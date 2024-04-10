@@ -118,6 +118,21 @@ describe('expandAddress, expandAddressWith', () => {
     });
 
     describe('expandAddressWith', () => {
+        const wrongData = [
+            {'hello': 'world'},
+            {'mario': 'luigi'}
+        ];
+
+        const wrongData2 = [
+            [
+                {'hello': 'world'},
+                {'mario': 'luigi'}
+            ],
+            [
+                {'wario': 'waluigi'}
+            ]
+        ];
+
         const simpleData =  [
             {value: 'Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238'},
             {value: 'Inist-CNRS 2, rue Jean Zay CS 10310 F‑54519 Vandœuvre-lès-Nancy France'}
@@ -147,6 +162,18 @@ describe('expandAddress, expandAddressWith', () => {
                 {other_path: 'University of Bordeaux, IMS, CNRS UMR5218, Talence, F-33405, France'}
             ]
         ];
+
+        it('should expandAddressWith return the same object', async () => {
+            const result = await runEzs(ezs, wrongData, 'expandAddressWith');
+
+            expect(result).toStrictEqual(wrongData);
+        });
+
+        it('should expandAddressWith return the same array of object', async () => {
+            const result = await runEzs(ezs, wrongData2, 'expandAddressWith');
+
+            expect(result).toStrictEqual(wrongData2);
+        });
 
         it('should expandAddressWith (path = value, object)', async () => {
             const result = await runEzs(ezs, simpleData, 'expandAddressWith');

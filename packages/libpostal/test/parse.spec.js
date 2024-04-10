@@ -129,6 +129,21 @@ describe('parseAddress, parseAddressWith', () => {
     });
 
     describe('parseAddressWith', () => {
+        const wrongData = [
+            {'hello': 'world'},
+            {'mario': 'luigi'}
+        ];
+
+        const wrongData2 = [
+            [
+                {'hello': 'world'},
+                {'mario': 'luigi'}
+            ],
+            [
+                {'wario': 'waluigi'}
+            ]
+        ];
+
         const simpleData =  [
             {value: 'Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238'},
             {value: 'Inist-CNRS 2, rue Jean Zay CS 10310 F‑54519 Vandœuvre-lès-Nancy France'}
@@ -158,6 +173,18 @@ describe('parseAddress, parseAddressWith', () => {
                 {other_path: 'University of Bordeaux, IMS, CNRS UMR5218, Talence, F-33405, France'}
             ]
         ];
+
+        it('should parseAddressWith return the same oarray of object', async () => {
+            const result = await runEzs(ezs, wrongData, 'parseAddressWith');
+
+            expect(result).toStrictEqual(wrongData);
+        });
+
+        it('should parseAddressWith return the same a array of array of object', async () => {
+            const result = await runEzs(ezs, wrongData2, 'parseAddressWith');
+
+            expect(result).toStrictEqual(wrongData2);
+        });
 
         it('should parseAddressWith (path = value, object)', async () => {
             const result = await runEzs(ezs, simpleData, 'parseAddressWith');
