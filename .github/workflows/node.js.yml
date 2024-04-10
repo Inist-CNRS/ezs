@@ -22,6 +22,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Install libpostal
+      run: bash ${GITHUB_WORKSPACE}/.github/workflows/install-libpostal.sh
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
@@ -29,8 +31,22 @@ jobs:
         cache: 'yarn'
 
     - name: Install dependencies
+      env:
+        CXXFLAGS: '-I/deps/include'
+        LDFLAGS: '-L/deps/lib'
       run: yarn run ci:install
+
+    - name: Rebuild node-postal (Mainly use to NodeJS 20)
+      env:
+        CXXFLAGS: '-I/deps/include'
+        LDFLAGS: '-L/deps/lib'
+      run: |
+        cd node_modules/node-postal
+        yarn run install
+
     - name: Testing all packages
+      env:
+        LD_LIBRARY_PATH: '/deps/lib'
       run: yarn run ci:test
 
     - name: Coveralls Parallel
