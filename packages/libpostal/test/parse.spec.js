@@ -12,18 +12,53 @@ describe('parseAddress, parseAddressWith', () => {
     });
 
     describe('parseAddress', () => {
+        const wrongData = [
+            {'hello': 'world'},
+            {'mario': 'luigi'}
+        ];
+
+        const wrongData2 = [
+            [
+                {'hello': 'world'},
+                {'mario': 'luigi'}
+            ],
+            [
+                {'wario': 'waluigi'}
+            ]
+        ];
+
         const simpleData =  [
-            'Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238'
+            'Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238',
+            'Inist-CNRS 2, rue Jean Zay CS 10310 F‑54519 Vandœuvre-lès-Nancy France'
         ];
 
         const simpleData2 =  [
-            ['Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238']
+            [
+                'Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238',
+                'Inist-CNRS 2, rue Jean Zay CS 10310 F‑54519 Vandœuvre-lès-Nancy France'
+            ],
+            [
+                'University of Bordeaux, IMS, CNRS UMR5218, Talence, F-33405, France'
+            ]
         ];
+
+        it('should parseAddress return the same oarray of object', async () => {
+            const result = await runEzs(ezs, wrongData, 'parseAddress');
+
+            expect(result).toStrictEqual(wrongData);
+        });
+
+        it('should parseAddress return the same a array of array of object', async () => {
+            const result = await runEzs(ezs, wrongData2, 'parseAddress');
+
+            expect(result).toStrictEqual(wrongData2);
+        });
 
         it('should parseAddress with simple array of string', async () => {
             const result = await runEzs(ezs, simpleData, 'parseAddress');
 
-            expect(result).toHaveLength(1);
+            expect(result).toHaveLength(2);
+
             expect(result[0]).not.toBeNull();
             expect(result[0].id).not.toBeNull();
             expect(result[0].id).toEqual(simpleData[0]);
@@ -35,13 +70,27 @@ describe('parseAddress, parseAddressWith', () => {
             expect(result[0].value.city_district).toEqual('brooklyn');
             expect(result[0].value.state).toEqual('ny');
             expect(result[0].value.postcode).toEqual('11238');
+
+            expect(result[1]).not.toBeNull();
+            expect(result[1].id).not.toBeNull();
+            expect(result[1].id).toEqual(simpleData[1]);
+            expect(result[1].value).not.toBeNull();
+            expect(result[1].value.house).toEqual('inist-cnrs');
+            expect(result[1].value.house_number).toEqual('2');
+            expect(result[1].value.road).toEqual('rue jean zay cs 10310');
+            expect(result[1].value.postcode).toEqual('f-54519');
+            expect(result[1].value.city).toEqual('vandœuvre-lès-nancy');
+            expect(result[1].value.country).toEqual('france');
         });
 
         it('should parseAddress with simple array of array of string', async () => {
             const result = await runEzs(ezs, simpleData2, 'parseAddress');
 
-            expect(result).toHaveLength(1);
+            expect(result).toHaveLength(2);
+
             expect(result[0]).not.toBeNull();
+            expect(result[0]).toHaveLength(2);
+
             expect(result[0][0]).not.toBeNull();
             expect(result[0][0].id).not.toBeNull();
             expect(result[0][0].id).toEqual(simpleData2[0][0]);
@@ -53,6 +102,29 @@ describe('parseAddress, parseAddressWith', () => {
             expect(result[0][0].value.city_district).toEqual('brooklyn');
             expect(result[0][0].value.state).toEqual('ny');
             expect(result[0][0].value.postcode).toEqual('11238');
+
+            expect(result[0][1]).not.toBeNull();
+            expect(result[0][1].id).not.toBeNull();
+            expect(result[0][1].id).toEqual(simpleData2[0][1]);
+            expect(result[0][1].value).not.toBeNull();
+            expect(result[0][1].value.house).toEqual('inist-cnrs');
+            expect(result[0][1].value.house_number).toEqual('2');
+            expect(result[0][1].value.road).toEqual('rue jean zay cs 10310');
+            expect(result[0][1].value.postcode).toEqual('f-54519');
+            expect(result[0][1].value.city).toEqual('vandœuvre-lès-nancy');
+            expect(result[0][1].value.country).toEqual('france');
+
+            expect(result[1]).not.toBeNull();
+            expect(result[1]).toHaveLength(1);
+
+            expect(result[1][0]).not.toBeNull();
+            expect(result[1][0].id).not.toBeNull();
+            expect(result[1][0].id).toEqual(simpleData2[1][0]);
+            expect(result[1][0].value).not.toBeNull();
+            expect(result[1][0].value.house).toEqual('university of bordeaux ims cnrs umr5218');
+            expect(result[1][0].value.postcode).toEqual('f-33405');
+            expect(result[1][0].value.city).toEqual('talence');
+            expect(result[1][0].value.country).toEqual('france');
         });
     });
 
