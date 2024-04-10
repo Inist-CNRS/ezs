@@ -3,7 +3,7 @@ import parse from './postal/parse';
 /**
  * Try to parse given addresss.
  *
- * Essayer de faire l'analyse grammaticale des adresses données.
+ * Essaye de faire l'analyse grammaticale des adresses données.
  *
  * ### Example / Exemple
  *

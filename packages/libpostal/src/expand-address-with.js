@@ -4,7 +4,7 @@ import expand from './postal/expand';
 /**
  * Try to normalize given addresss.
  *
- * Essayer de normaliser les adresses données.
+ * Essaye de normaliser les adresses données.
  *
  * ### Example / Exemple
  *
