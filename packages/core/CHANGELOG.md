@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.8.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.8.2...@ezs/core@3.8.3) (2024-04-10)
+
+
+### Bug Fixes
+
+* 🐛 hyphenation for dos filex ([6a6bcbc](https://github.com/Inist-CNRS/ezs/commit/6a6bcbcc9da717f2561a5f956bcab11a3594149e))
+
+
+
+
+
 ## [3.8.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.8.1...@ezs/core@3.8.2) (2024-03-25)
 
 
