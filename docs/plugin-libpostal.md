@@ -25,7 +25,7 @@ npm install @ezs/libpostal
 
 Try to normalize given addresss.
 
-Essayer de normaliser les adresses données.
+Essaye de normaliser les adresses données.
 
 #### Example / Exemple
 
@@ -74,7 +74,7 @@ Returns **({id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Refer
 
 Try to normalize given addresss.
 
-Essayer de normaliser les adresses données.
+Essaye de normaliser les adresses données.
 
 #### Example / Exemple
 
@@ -130,7 +130,7 @@ Returns **({path: {id: [string](https://developer.mozilla.org/docs/Web/JavaScrip
 
 Try to parse given addresss.
 
-Essayer de faire l'analyse grammaticale des adresses données.
+Essaye de faire l'analyse grammaticale des adresses données.
 
 #### Example / Exemple
 
@@ -184,7 +184,7 @@ Returns **({id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Refer
 
 Try to parse given addresss.
 
-Essayer de faire l'analyse grammaticale des adresses données.
+Essaye de faire l'analyse grammaticale des adresses données.
 
 #### Example / Exemple
 
