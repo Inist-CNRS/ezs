@@ -42,19 +42,19 @@ describe('parseAddress, parseAddressWith', () => {
             ]
         ];
 
-        it('should parseAddress return the same oarray of object', async () => {
+        it('should return the same object', async () => {
             const result = await runEzs(ezs, wrongData, 'parseAddress');
 
             expect(result).toStrictEqual(wrongData);
         });
 
-        it('should parseAddress return the same a array of array of object', async () => {
+        it('should return the same array of object', async () => {
             const result = await runEzs(ezs, wrongData2, 'parseAddress');
 
             expect(result).toStrictEqual(wrongData2);
         });
 
-        it('should parseAddress with simple array of string', async () => {
+        it('should parse the address on simple string', async () => {
             const result = await runEzs(ezs, simpleData, 'parseAddress');
 
             expect(result).toHaveLength(2);
@@ -83,7 +83,7 @@ describe('parseAddress, parseAddressWith', () => {
             expect(result[1].value.country).toEqual('france');
         });
 
-        it('should parseAddress with simple array of array of string', async () => {
+        it('should parse the address on an array of string', async () => {
             const result = await runEzs(ezs, simpleData2, 'parseAddress');
 
             expect(result).toHaveLength(2);
@@ -174,19 +174,19 @@ describe('parseAddress, parseAddressWith', () => {
             ]
         ];
 
-        it('should parseAddressWith return the same oarray of object', async () => {
+        it('should return the same object', async () => {
             const result = await runEzs(ezs, wrongData, 'parseAddressWith');
 
             expect(result).toStrictEqual(wrongData);
         });
 
-        it('should parseAddressWith return the same a array of array of object', async () => {
+        it('should return the same array of object', async () => {
             const result = await runEzs(ezs, wrongData2, 'parseAddressWith');
 
             expect(result).toStrictEqual(wrongData2);
         });
 
-        it('should parseAddressWith (path = value, object)', async () => {
+        it('should parse the address on simple object (path = value, object)', async () => {
             const result = await runEzs(ezs, simpleData, 'parseAddressWith');
 
             expect(result).toHaveLength(2);
@@ -217,7 +217,7 @@ describe('parseAddress, parseAddressWith', () => {
             expect(result[1].value.value.country).toEqual('france');
         });
 
-        it('should parseAddressWith (path = other_path, object)', async () => {
+        it('should parse the address on simple object (path = other_path, object)', async () => {
             const result = await runEzs(ezs, simpleData2, 'parseAddressWith', {path: 'other_path'});
 
             expect(result).toHaveLength(2);
@@ -248,7 +248,7 @@ describe('parseAddress, parseAddressWith', () => {
             expect(result[1].other_path.value.country).toEqual('france');
         });
 
-        it('should parseAddressWith (path = value, array of object)', async () => {
+        it('should parse the address on an array of object (path = value, array of object)', async () => {
             const result = await runEzs(ezs, simpleData3, 'parseAddressWith');
 
             expect(result).toHaveLength(2);
@@ -293,7 +293,7 @@ describe('parseAddress, parseAddressWith', () => {
             expect(result[1][0].value.value.country).toEqual('france');
         });
 
-        it('should parseAddressWith (path = other_path, array of object)', async () => {
+        it('should parse the address on an array of object (path = other_path, array of object)', async () => {
             const result = await runEzs(ezs, simpleData4, 'parseAddressWith', {path: 'other_path'});
 
             expect(result).toHaveLength(2);

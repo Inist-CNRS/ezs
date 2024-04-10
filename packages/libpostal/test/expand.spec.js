@@ -42,19 +42,19 @@ describe('expandAddress, expandAddressWith', () => {
             ]
         ];
 
-        it('should expandAddress return the same object', async () => {
+        it('should return the same object', async () => {
             const result = await runEzs(ezs, wrongData, 'expandAddress');
 
             expect(result).toStrictEqual(wrongData);
         });
 
-        it('should expandAddress return the same array of object', async () => {
+        it('should return the same array of object', async () => {
             const result = await runEzs(ezs, wrongData2, 'expandAddress');
 
             expect(result).toStrictEqual(wrongData2);
         });
 
-        it('should expandAddress with simple string', async () => {
+        it('should expand the address on simple string', async () => {
             const result = await runEzs(ezs, simpleData, 'expandAddress');
 
             expect(result).toHaveLength(2);
@@ -74,7 +74,7 @@ describe('expandAddress, expandAddressWith', () => {
                 .toEqual('inist-cnrs 2, rue jean zay cs 10310 f-54519 vandoeuvre-les-nancy france');
         });
 
-        it('should expandAddress with simple array of string', async () => {
+        it('should expand the address on an array of string', async () => {
             const result = await runEzs(ezs, simpleData2, 'expandAddress');
 
             expect(result).toHaveLength(2);
@@ -163,19 +163,19 @@ describe('expandAddress, expandAddressWith', () => {
             ]
         ];
 
-        it('should expandAddressWith return the same object', async () => {
+        it('should return the same object', async () => {
             const result = await runEzs(ezs, wrongData, 'expandAddressWith');
 
             expect(result).toStrictEqual(wrongData);
         });
 
-        it('should expandAddressWith return the same array of object', async () => {
+        it('should return the same array of object', async () => {
             const result = await runEzs(ezs, wrongData2, 'expandAddressWith');
 
             expect(result).toStrictEqual(wrongData2);
         });
 
-        it('should expandAddressWith (path = value, object)', async () => {
+        it('should expand the address on simple object (path = value, object)', async () => {
             const result = await runEzs(ezs, simpleData, 'expandAddressWith');
 
             expect(result).toHaveLength(2);
@@ -201,7 +201,7 @@ describe('expandAddress, expandAddressWith', () => {
                 .toEqual('inist-cnrs 2, rue jean zay cs 10310 f-54519 vandoeuvre-les-nancy france');
         });
 
-        it('should expandAddressWith (path = other_path, object)', async () => {
+        it('should expand the address on simple object (path = other_path, object)', async () => {
             const result = await runEzs(ezs, simpleData2, 'expandAddressWith', {path: 'other_path'});
 
             expect(result).toHaveLength(2);
@@ -227,7 +227,7 @@ describe('expandAddress, expandAddressWith', () => {
                 .toEqual('inist-cnrs 2, rue jean zay cs 10310 f-54519 vandoeuvre-les-nancy france');
         });
 
-        it('should expandAddressWith (path = value, array of object)', async () => {
+        it('should expand the address on an array of object (path = value, array of object)', async () => {
             const result = await runEzs(ezs, simpleData3, 'expandAddressWith');
 
             expect(result).toHaveLength(2);
@@ -276,7 +276,7 @@ describe('expandAddress, expandAddressWith', () => {
                 .toEqual('university of bordeaux ims corners umr 5218 talence front 33405 france');
         });
 
-        it('should expandAddressWith (path = other_path, array of object)', async () => {
+        it('should expand the address on an array of object (path = other_path, array of object)', async () => {
             const result = await runEzs(ezs, simpleData4, 'expandAddressWith', {path: 'other_path'});
 
             expect(result).toHaveLength(2);
