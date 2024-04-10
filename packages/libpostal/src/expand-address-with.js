@@ -38,42 +38,59 @@ import expand from './postal/expand';
  * ```json
  *  [
  *      {
- *          "id": "Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238",
- *          "value": [
- *              "barboncino 781 franklin avenue crown heights brooklyn ny 11238",
- *              "barboncino 781 franklin avenue crown heights brooklyn new york 11238"
- *          ]
+ *          "value": {
+ *              "id": "Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238",
+ *              "value": [
+ *                  "barboncino 781 franklin avenue crown heights brooklyn ny 11238",
+ *                  "barboncino 781 franklin avenue crown heights brooklyn new york 11238"
+ *              ]
+ *          }
  *      }
  *  ]
  * ```
  *
  * @name expandAddressWith
  *
+ * @param {{path:string[]} | {path:string[]}[] | Object} input
+ *
+ * @param {String} [path=value]
+ * <ul><li>path of the element to expand</li></ul>
+ * <ul><li>chemin de l'élément à etandre</li></ul>
+ *
  * @returns {{
- *    id: string,
- *    [path: string]: string[]
- * }}
+ *    path: {id: string, value: string[]}
+ * }|{
+ *    path: {id: string, value: string[]}
+ * }[]|Object}
  */
-
-/**
- * Perform the normalization on the data and return the result
- * @private
- * @param data {unknown}
- * @param path {string}
- */
-const expandAddressWith = (data, path) => {
-    /** @type {unknown} */
-    const dataToProcess = get(data, path);
-
-    if (Array.isArray(dataToProcess)) {
-        return dataToProcess.map(value => expandAddressWith(value, path));
+const expandAddressWith = (input, path) => {
+    // If the input is an array,
+    // apply the expand function on each value and return the original object with the modified value
+    if (Array.isArray(input)) {
+        return input.map(value => {
+            const dataToProcess = get(value, path);
+            if (typeof dataToProcess === 'string') {
+                return {
+                    ...value,
+                    [path]: expand(dataToProcess)
+                };
+            }
+            return value;
+        });
     }
 
+    const dataToProcess = get(input, path);
+    // If the value of the given path is a string,
+    // apply the expand function on it and return the original object with the modified value
     if (typeof dataToProcess === 'string') {
-        return expand(dataToProcess, path);
+        return {
+            ...input,
+            [path]: expand(dataToProcess)
+        };
     }
 
-    return dataToProcess;
+    // If the value of the given path is not a string or an array, return the original object
+    return input;
 };
 
 /**
@@ -85,19 +102,15 @@ const expandAddressWith = (data, path) => {
  * @param ctx {import('../../core/src/engine').EngineScope}
  */
 const handleEzsFeed = (data, feed, ctx) => {
-    const paths = []
-        .concat(ctx.getParam('path'))
-        .filter(Boolean);
+    const path = []
+        .concat(ctx.getParam('path', 'value'))
+        .filter(Boolean)[0];
 
     if (ctx.isLast()) {
         return feed.close();
     }
 
-    paths.forEach((path) => {
-        feed.send(expandAddressWith(data, path));
-    });
-
-    return feed.end();
+    return feed.send(expandAddressWith(data, path));
 };
 
 export default handleEzsFeed;

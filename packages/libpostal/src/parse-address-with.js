@@ -2,35 +2,6 @@ import { get } from 'lodash';
 import parse from './postal/parse';
 
 /**
- * ParseAddressWith function see documentation at the end.
- * This part of the doc is used for jsdoc typing
- * @private
- * @param data {unknown}
- * @param feed {Feed}
- * @param ctx {import('../../core/src/engine').EngineScope}
- */
-const parseAddressWith = (data, feed, ctx) => {
-    const paths = []
-        .concat(ctx.getParam('path'))
-        .filter(Boolean);
-    if (ctx.isLast()) {
-        return feed.close();
-    }
-
-    paths.forEach((path) => {
-        const value = get(data, path);
-        if (Array.isArray(value)) {
-            return feed.send(value.map(entry => parse(entry, path)));
-        }
-        if (typeof value === 'string') {
-            return feed.send(parse(value, path));
-        }
-        return feed.send(value);
-    });
-    return feed.end();
-};
-
-/**
  * Try to parse given addresss.
  *
  * Essayer de faire l'analyse grammaticale des adresses données.
@@ -67,15 +38,17 @@ const parseAddressWith = (data, feed, ctx) => {
  * ```json
  *  [
  *      {
- *          "id": "Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238",
  *          "value": {
- *              "house": "barboncino",
- *              "house_number": "781",
- *              "road": "franklin ave",
- *              "suburb": "crown heights",
- *              "city_district": "brooklyn",
- *              "state": "ny",
- *              "postcode": "11238"
+ *              "id": "Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238",
+ *              "value": {
+ *                  "house": "barboncino",
+ *                  "house_number": "781",
+ *                  "road": "franklin ave",
+ *                  "suburb": "crown heights",
+ *                  "city_district": "brooklyn",
+ *                  "state": "ny",
+ *                  "postcode": "11238"
+ *              }
  *          }
  *      }
  *  ]
@@ -83,9 +56,68 @@ const parseAddressWith = (data, feed, ctx) => {
  *
  * @name parseAddressWith
  *
+ * @param {{path:string[]} | {path:string[]}[] | Object} input
+ *
+ * @param {String} [path=value]
+ * <ul><li>path of the element to parse</li></ul>
+ * <ul><li>chemin de l'élément à analyser</li></ul>
+ *
  * @returns {{
- *    id: string,
- *    [path: string]: string[]
- * }}
+ *    path: {id: string, value: Object}
+ * }|{
+ *    path: {id: string, value: Object}
+ * }[]|Object}
  */
-export default parseAddressWith;
+const parseAddressWith = (input, path) => {
+    // If the input is an array,
+    // apply the parse function on each value and return the original object with the modified value
+    if (Array.isArray(input)) {
+        return input.map(value => {
+            const dataToProcess = get(value, path);
+            if (typeof dataToProcess === 'string') {
+                return {
+                    ...value,
+                    [path]: parse(dataToProcess)
+                };
+            }
+            return value;
+        });
+    }
+
+    const dataToProcess = get(input, path);
+    // If the value of the given path is a string,
+    // apply the parse function on it and return the original object with the modified value
+    if (typeof dataToProcess === 'string') {
+        return {
+            ...input,
+            [path]: parse(dataToProcess)
+        };
+    }
+
+    // If the value of the given path is not a string or an array, return the original object
+    return input;
+};
+
+
+
+/**
+ * ExpandAddressWith function see documentation at the end.
+ * This part of the doc is used for jsdoc typing
+ * @private
+ * @param data {unknown}
+ * @param feed {Feed}
+ * @param ctx {import('../../core/src/engine').EngineScope}
+ */
+const handleEzsFeed = (data, feed, ctx) => {
+    const path = []
+        .concat(ctx.getParam('path', 'value'))
+        .filter(Boolean)[0];
+
+    if (ctx.isLast()) {
+        return feed.close();
+    }
+
+    return feed.send(parseAddressWith(data, path));
+};
+
+export default handleEzsFeed;

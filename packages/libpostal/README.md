@@ -64,7 +64,11 @@ plugin = libpostal
  ]
 ```
 
-Returns **{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>}** 
+#### Parameters
+
+-   `input` **([String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)> | [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object))** 
+
+Returns **({id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>} | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>}> | [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object))** 
 
 ### expandAddressWith
 
@@ -103,14 +107,24 @@ plugin = libpostal
 ```json
  [
      {
-         "id": "Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238",
-         "value": [
-             "barboncino 781 franklin avenue crown heights brooklyn ny 11238",
-             "barboncino 781 franklin avenue crown heights brooklyn new york 11238"
-         ]
+         "value": {
+             "id": "Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238",
+             "value": [
+                 "barboncino 781 franklin avenue crown heights brooklyn ny 11238",
+                 "barboncino 781 franklin avenue crown heights brooklyn new york 11238"
+             ]
+         }
      }
  ]
 ```
+
+#### Parameters
+
+-   `input` **({path: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>} | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;{path: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>}> | [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object))** 
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element to expand</li></ul>
+    <ul><li>chemin de l'élément à etandre</li></ul> (optional, default `value`)
+
+Returns **({path: {id: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>}} | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;{path: {id: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>}}> | [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object))** 
 
 ### parseAddress
 
@@ -160,7 +174,11 @@ plugin = libpostal
  ]
 ```
 
-Returns **{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>}** 
+#### Parameters
+
+-   `input` **([String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)> | [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object))** 
+
+Returns **({id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)} | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)}> | [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object))** 
 
 ### parseAddressWith
 
@@ -199,16 +217,26 @@ plugin = libpostal
 ```json
  [
      {
-         "id": "Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238",
          "value": {
-             "house": "barboncino",
-             "house_number": "781",
-             "road": "franklin ave",
-             "suburb": "crown heights",
-             "city_district": "brooklyn",
-             "state": "ny",
-             "postcode": "11238"
+             "id": "Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238",
+             "value": {
+                 "house": "barboncino",
+                 "house_number": "781",
+                 "road": "franklin ave",
+                 "suburb": "crown heights",
+                 "city_district": "brooklyn",
+                 "state": "ny",
+                 "postcode": "11238"
+             }
          }
      }
  ]
 ```
+
+#### Parameters
+
+-   `input` **({path: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>} | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;{path: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>}> | [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object))** 
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element to parse</li></ul>
+    <ul><li>chemin de l'élément à analyser</li></ul> (optional, default `value`)
+
+Returns **({path: {id: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)}} | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;{path: {id: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)}}> | [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object))** 

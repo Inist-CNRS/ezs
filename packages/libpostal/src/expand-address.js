@@ -45,27 +45,31 @@ import expand from './postal/expand';
  *
  * @name expandAddress
  *
+ * @param {String|String[]|Object} input
+ *
  * @returns {{
  *     id: String,
  *     value: Array<String>
- * }}
+ * }|{
+ *     id: String,
+ *     value: Array<String>
+ * }[]|Object}
  */
-
-/**
- * Perform the normalization on the data and return the result
- * @private
- * @param data {unknown}
- */
-const expandAddress = (data) => {
-    if (Array.isArray(data)) {
-        return data.map(value => expandAddress(value));
+const expandAddress = (input) => {
+    if (Array.isArray(input)) {
+        return input.map(value => {
+            if (typeof value === 'string') {
+                return expand(value);
+            }
+            return value;
+        });
     }
 
-    if (typeof data === 'string') {
-        return expand(data);
+    if (typeof input === 'string') {
+        return expand(input);
     }
 
-    return data;
+    return input;
 };
 
 /**

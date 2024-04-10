@@ -4,12 +4,11 @@ import postal from 'node-postal';
  * Perform libpostal parse address
  * @private
  * @param input{string} Address to expand
- * @param path{string} Path of the parsed address in the result object
- * @return {{[path: string]: string[], id: string}}
+ * @return {{value: object, id: string}}
  */
-const parse = (input, path = 'value') => ({
+const parse = (input) => ({
     id: input,
-    [path]: postal.parser
+    value: postal.parser
         .parse_address(String(input).trim())
         .reduce((outputResult, postalResult) => ({
             ...outputResult,

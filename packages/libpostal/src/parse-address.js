@@ -50,27 +50,31 @@ import parse from './postal/parse';
  *
  * @name parseAddress
  *
+ * @param {String|String[]|Object} input
+ *
  * @returns {{
  *     id: String,
- *     value: Array<String>
- * }}
+ *     value: Object
+ * }|{
+ *     id: String,
+ *     value: Object
+ * }[]|Object}
  */
-
-/**
- * Perform the address parsing on the data and return the result
- * @private
- * @param data {unknown}
- */
-const parseAddress = (data) => {
-    if (Array.isArray(data)) {
-        return data.map(value => parseAddress(value));
+const parseAddress = (input) => {
+    if (Array.isArray(input)) {
+        return input.map(value => {
+            if (typeof value === 'string') {
+                return parse(value);
+            }
+            return value;
+        });
     }
 
-    if (typeof data === 'string') {
-        return parse(data);
+    if (typeof input === 'string') {
+        return parse(input);
     }
 
-    return data;
+    return input;
 };
 
 
