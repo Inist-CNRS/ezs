@@ -177,7 +177,7 @@ export default class Engine extends SafeTransform {
             if (data === null) {
                 this.nullWasSent = true;
                 this.nullWasSentError = createErrorWith(new Error('As a reminder, the end was recorded at this point'), currentIndex, this.funcName, this.params, chunk);
-            } else if (this.nullWasSent) {
+            } else if (this.nullWasSent && !this.errorWasSent) {
                 console.warn(createErrorWith(new Error('Oops, that\'s going to crash ?'), currentIndex, this.funcName, this.params, chunk));
                 console.warn(this.nullWasSentError);
             }
