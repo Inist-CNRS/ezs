@@ -176,6 +176,10 @@ export default class Engine extends SafeTransform {
         const push = (data) => {
             if (data === null) {
                 this.nullWasSent = true;
+                this.nullWasSentError = createErrorWith(new Error('As a reminder, the end was recorded at this point'), currentIndex, this.funcName, this.params, chunk);
+            } else if (this.nullWasSent) {
+                console.warn(createErrorWith(new Error('Oops, that\'s going to crash ?'), currentIndex, this.funcName, this.params, chunk));
+                console.warn(this.nullWasSentError);
             }
             if (!this.nullWasSent && this._readableState.ended) {
                 return warn(new Error('No back pressure control ?'));
