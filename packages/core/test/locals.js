@@ -1,3 +1,17 @@
+import from from 'from';
+
+function flame(data, feed) {
+    if (this.isLast()) {
+        return feed.close();
+    }
+    if (this.isFirst()) {
+        this.input = this.ezs.createStream(this.ezs.objectMode());
+    }
+    const size = Number(this.getParam('size', 10));
+    return feed.flow(from(Array(size).fill(data)));
+}
+
+
 function plus1(data, feed) {
     feed.send(data + 1);
 }
@@ -244,4 +258,5 @@ module.exports = {
     splash,
     throttle,
     erraticError,
+    flame,
 };

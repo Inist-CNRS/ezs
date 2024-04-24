@@ -7,7 +7,13 @@ export default class Feed {
         this.push = push;
         this.done = once(done);
         this.error = once(error);
-        this.seal = once(() => { push(null); done(); });
+        this.seal = once(() => { 
+            // ensure that all current writing operations are completed
+            setImmediate(() => {
+                push(null); 
+                done(); 
+            });
+        });
         this.wait = wait;
         this.timeout = Number(this.ezs.settings.feed.timeout);
     }
