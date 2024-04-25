@@ -176,6 +176,10 @@ export default class Engine extends SafeTransform {
         const push = (data) => {
             if (data === null) {
                 this.nullWasSent = true;
+                this.nullWasSentError = createErrorWith(new Error('As a reminder, the end was recorded at this point'), currentIndex, this.funcName, this.params, chunk);
+            } else if (this.nullWasSent && !this.errorWasSent) {
+                console.warn(createErrorWith(new Error('Oops, that\'s going to crash ?'), currentIndex, this.funcName, this.params, chunk));
+                return warn(this.nullWasSentError);
             }
             if (!this.nullWasSent && this._readableState.ended) {
                 return warn(new Error('No back pressure control ?'));
@@ -194,6 +198,7 @@ export default class Engine extends SafeTransform {
             return this.resume();
         };
         const feed = new Feed(this.ezs, push, done, warn, wait);
+        feed.engine = this;
         try {
             this.chunk = chunk;
             return Promise.resolve(this.func.call(this.scope, chunk, feed, this.scope)).catch((e) => {

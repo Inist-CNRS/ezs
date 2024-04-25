@@ -342,7 +342,6 @@ describe('statements', () => {
                 res.push(chunk);
             })
             .on('end', () => {
-                console.log({res});
                 assert.equal(res.length, 0);
                 done();
             });

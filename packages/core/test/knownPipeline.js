@@ -14,6 +14,7 @@ ezs.settings.servePath = __dirname;
 ezs.settings.cacheEnable = true;
 ezs.settings.tracerEnable = false;
 ezs.settings.metricsEnable = false;
+ezs.settings.feed.timeout = 330000;
 
 describe(' through server(s)', () => {
     const server5 = ezs.createServer(33333, __dirname);
@@ -297,23 +298,68 @@ describe(' through server(s)', () => {
             .catch(done);
     });
 
-
-    describe('errors' , () => {
-        it('abort request', (done) => {
-            const input = Array(1000000).fill('a');
-            const stream = from(input);
-            fetch('http://127.0.0.1:33333/transit.ini', { method: 'POST', body: stream })
-                .then(() => true)
-                .catch(() => {
+    describe('truncate', () => {
+        const size = 10000;
+        const input = Array(size).fill('a');
+        it('truncate request #1', (done) => {
+            let check = 0;
+            const stream = from(input).pipe(ezs(
+                (data, feed, ctx) => {
+                    if (ctx.isLast()) return feed.close();
+                    check += 1;
+                    return feed.send(data);
+                })
+            );
+            let output = 0;
+            const req = http.request(options('/transit.ini'), (res) => {
+                res.setEncoding('utf8');
+                res.on('error', done);
+                res.on('data', () => {
+                    output += 1;
+                });
+                res.on('end', () => {
+                    assert.equal(output, size);
+                    assert.equal(output, check);
                     done();
                 });
-            setTimeout(() => stream.destroy(), 10);
-        });
-        it('truncate request', (done) => {
+            });
+            stream.pipe(req);
+        }, 60000);
+        it('truncate request #1bis', (done) => {
             let check = 0;
-            const input = Array(1000000).fill('a');
             const stream = from(input).pipe(ezs(
-                (data, feed) => {
+                (data, feed, ctx) => {
+                    if (ctx.isLast()) {
+                        feed.close();
+                        return setImmediate(() => feed.write('x')); // It's bad
+                    }
+                    check += 1;
+                    return feed.send(data);
+                })
+            );
+            let output = 0;
+            const req = http.request(options('/transit.ini'), (res) => {
+                res.setEncoding('utf8');
+                res.on('error', done);
+                res.on('data', () => {
+                    output += 1;
+                });
+                res.on('end', () => {
+                    assert.equal(output, size);
+                    assert.equal(output, check);
+                    done();
+                });
+            });
+            stream.pipe(req).on('error', (e) => {
+                assert.match(e.message, /reminder/);
+                done();
+            });
+        }, 60000);
+        it('truncate request #2', (done) => {
+            let check = 0;
+            const stream = from(input).pipe(ezs(
+                (data, feed, ctx) => {
+                    if (ctx.isLast()) return feed.close();
                     check += 1;
                     return feed.send(data);
                 })
@@ -332,7 +378,57 @@ describe(' through server(s)', () => {
                 });
             });
             stream.pipe(req);
+        }, 60000);
+        it('truncate request #3', (done) => {
+            let check = 0;
+            const stream = from(['a']).pipe(ezs(
+                (data, feed, ctx) => {
+                    if (ctx.isLast()) return feed.close();
+                    check += 1;
+                    return feed.send(data);
+                })
+            );
+            const output = [];
+            const req = http.request(options(`/transit4.ini?size=${size}`), (res) => {
+                res.setEncoding('utf8');
+                res.on('error', done);
+                res.on('data', (chunk) => {
+                    output.push(chunk);
+                });
+                res.on('end', () => {
+                    assert.equal(output[0], 'a');
+                    assert.equal(output.length, size);
+                    done();
+                });
+            });
+            stream.pipe(req);
+        }, 60000);
+    });
+
+    describe('errors' , () => {
+        it('abort request', (done) => {
+            const input = Array(1000000).fill('a');
+            const stream = from(input);
+            fetch('http://127.0.0.1:33333/transit.ini', { method: 'POST', body: stream })
+                .then(() => true)
+                .catch(() => {
+                    done();
+                });
+            setTimeout(() => stream.destroy(), 10);
         });
+        it.skip('too long request', (done) => {
+            const input = Array(1).fill('a');
+            const stream = from(input);
+            const req = http.request(options('/transit5.ini'), (res) => {
+                res.setEncoding('utf8');
+                res.on('error', done);
+                res.on('data', (chunk) => true);
+                res.on('end', () => {
+                    done();
+                });
+            });
+            stream.pipe(req);
+        }, 60000);
 
         it('baseline', (done) => {
             const stream = from(['1', '2', '3', '4', '5', '6', '7', '8', '9']);
