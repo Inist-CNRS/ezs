@@ -65,6 +65,13 @@ function slow(data, feed) {
         }, time2sleep);
     }, time2sleep);
 }
+function slowAtTheEnd(data, feed) {
+    const time2sleep = Number(this.getParam('time', 200));
+    if (this.isLast()) {
+        return setTimeout(() => feed.close(), time2sleep);
+    }
+    return feed.send(data);
+}
 
 function noclose(data, feed) {
     if (!this.isLast()) {
@@ -242,6 +249,7 @@ module.exports = {
     decrement,
     stepper,
     slow,
+    slowAtTheEnd,
     noclose,
     aie,
     bad,

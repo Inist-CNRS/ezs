@@ -14,6 +14,7 @@ ezs.settings.servePath = __dirname;
 ezs.settings.cacheEnable = true;
 ezs.settings.tracerEnable = false;
 ezs.settings.metricsEnable = false;
+ezs.settings.feed.timeout = 330000;
 
 describe(' through server(s)', () => {
     const server5 = ezs.createServer(33333, __dirname);
@@ -324,7 +325,7 @@ describe(' through server(s)', () => {
             });
             stream.pipe(req);
         }, 60000);
-        it.only('truncate request #1bis', (done) => {
+        it('truncate request #1bis', (done) => {
             let check = 0;
             const stream = from(input).pipe(ezs(
                 (data, feed, ctx) => {
@@ -415,6 +416,20 @@ describe(' through server(s)', () => {
                 });
             setTimeout(() => stream.destroy(), 10);
         });
+        it.skip('too long request', (done) => {
+            const input = Array(1).fill('a');
+            const stream = from(input);
+            const req = http.request(options('/transit5.ini'), (res) => {
+                res.setEncoding('utf8');
+                res.on('error', done);
+                res.on('data', (chunk) => true);
+                res.on('end', () => {
+                    done();
+                });
+            });
+            stream.pipe(req);
+        }, 60000);
+
         it('baseline', (done) => {
             const stream = from(['1', '2', '3', '4', '5', '6', '7', '8', '9']);
             const output = [];

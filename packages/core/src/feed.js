@@ -41,10 +41,6 @@ export default class Feed {
                 return stream.end();
             }, this.timeout);
         }
-        stream.on('drain', (x) => {
-            this.log(`Feed.flow.stream.drain with ${x} and ${closed}/${autoCloseWanted} `);
-        })
-
 
         stream.on('finish', () => {
             closed = true;
