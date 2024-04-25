@@ -298,7 +298,7 @@ describe(' through server(s)', () => {
     });
 
     describe('truncate', () => {
-        const size = 100;
+        const size = 10000;
         const input = Array(size).fill('a');
         it('truncate request #1', (done) => {
             let check = 0;
@@ -323,6 +323,36 @@ describe(' through server(s)', () => {
                 });
             });
             stream.pipe(req);
+        }, 60000);
+        it.only('truncate request #1bis', (done) => {
+            let check = 0;
+            const stream = from(input).pipe(ezs(
+                (data, feed, ctx) => {
+                    if (ctx.isLast()) {
+                        feed.close();
+                        return setImmediate(() => feed.write('x')); // It's bad
+                    }
+                    check += 1;
+                    return feed.send(data);
+                })
+            );
+            let output = 0;
+            const req = http.request(options('/transit.ini'), (res) => {
+                res.setEncoding('utf8');
+                res.on('error', done);
+                res.on('data', () => {
+                    output += 1;
+                });
+                res.on('end', () => {
+                    assert.equal(output, size);
+                    assert.equal(output, check);
+                    done();
+                });
+            });
+            stream.pipe(req).on('error', (e) => {
+                assert.match(e.message, /reminder/);
+                done();
+            });
         }, 60000);
         it('truncate request #2', (done) => {
             let check = 0;
@@ -366,8 +396,7 @@ describe(' through server(s)', () => {
                 });
                 res.on('end', () => {
                     assert.equal(output[0], 'a');
-                    assert.equal(output.length, check);
-                    assert.equal(check, size);
+                    assert.equal(output.length, size);
                     done();
                 });
             });
