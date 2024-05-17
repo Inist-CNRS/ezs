@@ -42,7 +42,7 @@ function decreaseCounter() {
     counter -= 1;
 }
 
-function createErrorWith(error, index, funcName, funcParams, chunk) {
+function createObjectError(error, index, funcName, funcParams, chunk) {
     const stk = String(error.stack).split('\n');
     const prefix = `item #${index} `;
     const erm = stk.shift().replace(prefix, '');
@@ -62,6 +62,9 @@ function createErrorWith(error, index, funcName, funcParams, chunk) {
         chunk,
     });
     Error.captureStackTrace(err, createErrorWith);
+}
+function createErrorWith(error, index, funcName, funcParams, chunk) {
+    const err = createObjectError(error, index, funcName, funcParams, chunk);
     debug('ezs')('Caught an', err);
     return err;
 }
@@ -176,7 +179,7 @@ export default class Engine extends SafeTransform {
         const push = (data) => {
             if (data === null) {
                 this.nullWasSent = true;
-                this.nullWasSentError = createErrorWith(new Error('As a reminder, the end was recorded at this point'), currentIndex, this.funcName, this.params, chunk);
+                this.nullWasSentError = createObjectError(new Error('As a reminder, the end was recorded at this point'), currentIndex, this.funcName, this.params, chunk);
             } else if (this.nullWasSent && !this.errorWasSent) {
                 console.warn(createErrorWith(new Error('Oops, that\'s going to crash ?'), currentIndex, this.funcName, this.params, chunk));
                 return warn(this.nullWasSentError);
