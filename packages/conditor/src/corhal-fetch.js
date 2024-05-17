@@ -10,7 +10,9 @@ import each from 'async-each-series';
 const request = (url, parameters) => async () => {
     const response = await fetch(url, parameters);
     if (!response.ok) {
-        throw new Error(response.statusText);
+        const err = new Error(response.statusText);
+        err.body = await response.json();
+        throw err;
     }
     return response;
 };
@@ -69,7 +71,7 @@ export default async function CORHALFetch(data, feed) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, envelope: true }),
     };
     const options = {
         retries,
@@ -100,7 +102,7 @@ export default async function CORHALFetch(data, feed) {
                 const { headers: headersBis, body: noticesBis } = await responseBis.json();
                 loop(stream, noticesBis, headersBis['after-key-token']);
             } catch (e) {
-                console.error(`Error with ${url}/after/`, e.message);
+                console.error(`Error with ${url}/after/`, e.message, e.body);
                 stream.end();
             }
         } else {
@@ -110,8 +112,7 @@ export default async function CORHALFetch(data, feed) {
     try {
         const output = ezs.createStream(ezs.objectMode());
         const response = await retry(request(cURL.href, parameters), options);
-        const headers = response.headers.raw();
-        const notices = await response.json();
+        const { headers, body: notices } = await response.json();
         await loop(output, notices, headers['after-key-token']);
         await feed.flow(output);
     } catch (e) {
