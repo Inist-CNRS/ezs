@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.11.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.11.0...@ezs/conditor@2.11.1) (2024-05-17)
+
+
+### Bug Fixes
+
+* 🐛 token too long in http headers ([6555054](https://github.com/Inist-CNRS/ezs/commit/6555054094edcdd86128df229c0d08f9b06b39bc))
+
+
+
+
+
 # [2.11.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.10.8...@ezs/conditor@2.11.0) (2024-03-26)
 
 

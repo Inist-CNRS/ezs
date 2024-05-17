@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.8.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.8.4...@ezs/core@3.8.5) (2024-05-17)
+
+
+### Bug Fixes
+
+* 🐛 avoid useless debug message ([a714970](https://github.com/Inist-CNRS/ezs/commit/a7149704ff2254f6ff6c4893aeca89a2a0945850))
+* 🐛 use specific debug message for each error ([503f2ab](https://github.com/Inist-CNRS/ezs/commit/503f2ab65a31ab818d418b59c8caf97df1190463))
+
+
+
+
+
 ## [3.8.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.8.3...@ezs/core@3.8.4) (2024-04-25)
 
 **Note:** Version bump only for package @ezs/core
