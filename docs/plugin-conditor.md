@@ -56,6 +56,7 @@ Sachant qu'on appauvrit (casse, accents, tiret, apostrophe) tous les champs.
 -   [compareRnsr](#comparernsr)
 -   [conditorScroll](#conditorscroll)
 -   [CORHALFetch](#corhalfetch)
+-   [CORHALFetch](#corhalfetch-1)
 -   [getRnsr](#getrnsr)
 -   [getRnsrInfo](#getrnsrinfo)
 -   [WOSFetch](#wosfetch)
@@ -192,6 +193,39 @@ Output
 ```
 
 Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 
+
+### CORHALFetch
+
+Take `String` as URL, throw each chunk from the result
+
+Input:
+
+```json
+[
+  { q: "toto" },
+]
+```
+
+Script:
+
+```ini
+[CORHALFetch]
+url = https://corhal-api.inist.fr
+```
+
+Output:
+
+```json
+[{...}, {"a": "b"}, {"a": "c" }]
+```
+
+#### Parameters
+
+-   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** corhal api url
+-   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (optional, default `1000`)
+-   `retries` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** The maximum amount of times to retry the connection (optional, default `5`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### CORHALFetch
 
