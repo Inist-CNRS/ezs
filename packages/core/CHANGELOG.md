@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.8.6](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.8.5...@ezs/core@3.8.6) (2024-05-29)
+
+
+### Bug Fixes
+
+* 🐛 circular ref ([66cabad](https://github.com/Inist-CNRS/ezs/commit/66cabad0d0be031765bc498e80c5946ffe564b0c))
+
+
+
+
+
 ## [3.8.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.8.4...@ezs/core@3.8.5) (2024-05-17)
 
 
