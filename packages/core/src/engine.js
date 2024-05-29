@@ -4,6 +4,7 @@ import queue from 'concurrent-queue';
 import { hrtime } from 'process';
 import eos from 'end-of-stream';
 import pWaitFor from 'p-wait-for';
+import stringify from 'json-stringify-safe';
 import Feed from './feed';
 import Shell from './shell';
 
@@ -49,7 +50,7 @@ function createErrorWith(error, index, funcName, funcParams, chunk) {
     const msg = `${prefix}[${funcName}] <${erm}>\n\t${stk.slice(0, 10).join('\n\t')}`;
     const err = Error(msg);
     err.sourceError = error;
-    err.sourceChunk = JSON.stringify(chunk);
+    err.sourceChunk = stringify(chunk);
     err.toJSON = () => ({
         type: error.type || 'Standard error',
         scope: error.scope || 'code',

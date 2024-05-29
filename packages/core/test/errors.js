@@ -1,4 +1,5 @@
 import assert from 'assert';
+import from from 'from';
 import { Readable } from 'stream';
 import ezs from '../src';
 
@@ -219,4 +220,35 @@ describe('Catch error in a pipeline', () => {
                 done();
             });
     });
+    it.only('with circular refs', (done) => {
+        const commands = `
+            [assign]
+            path = value
+            value = self().concat(self.value)
+
+            [assign]
+            path = value
+            value = fix(true).thru(x => { throw new Error('Bang!')})
+        `;
+        const input = from([
+            { value: 1 },
+            { value: 2 },
+        ]);
+        input
+            .pipe(ezs('delegate', { script: commands }))
+            .pipe(ezs('plaf'))
+            .pipe(ezs.catch((e) => e))
+            .on('error', (err) => {
+                assert(err.sourceChunk.includes('Circular'));
+                done();
+            })
+            .on('data', () => {
+                done(new Error('this is not the expected behavior'));
+            })
+            .on('end', () => {
+                done(new Error('this is not the expected behavior'));
+            });
+
+    });
+
 });
