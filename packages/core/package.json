@@ -22,6 +22,7 @@
     "global-modules": "2.0.0",
     "http-shutdown": "1.2.2",
     "json-buffer": "3.0.1",
+    "json-stringify-safe": "5.0.1",
     "load-json-file": "6.2.0",
     "lodash": "4.17.21",
     "lru-cache": "5.1.1",
