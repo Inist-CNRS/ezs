@@ -115,12 +115,12 @@ const getYear = pipe(slice(0, 4), Number);
  * ```
  *
  * @export
- * @param {number} [year=2021] Year of the RNSR to use instead of the last one
+ * @param {number} [year=2023] Year of the RNSR to use instead of the last one
  * @name affAlign
  */
 export default async function affAlign(data, feed) {
     if (this.isFirst()) {
-        const rnsrYear = this.getParam('year', 2021);
+        const rnsrYear = this.getParam('year', 2023);
         RNSR = await getRnsrYear(rnsrYear);
     }
     if (this.isLast()) {

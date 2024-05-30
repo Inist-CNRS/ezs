@@ -32,12 +32,12 @@ import { depleteString } from './strings';
  * ```
  *
  * @export
- * @param {number} [year=2021] Year of the RNSR to use instead of the last one
+ * @param {number} [year=2023] Year of the RNSR to use instead of the last one
  * @name getRnsr
  */
 export default async function getRnsr(data, feed) {
     if (this.isFirst()) {
-        const rnsrYear = this.getParam('year', 2021);
+        const rnsrYear = this.getParam('year', 2023);
         this.RNSR = await getRnsrYear(rnsrYear);
     }
     if (this.isLast()) {
