@@ -53,7 +53,6 @@ export default {
     env,
     group,
     ungroup,
-    dispatch,
     parallel,
     tracer,
     spawn,
