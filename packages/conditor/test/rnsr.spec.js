@@ -346,6 +346,18 @@ describe('existedInYear', () => {
         expect(result).toBe(true);
     });
 
+    it('should exist when an_fermeture is 0', () => {
+        const structure = {
+            annee_creation: '2000',
+            an_fermeture: 0,
+        };
+        const year = 2021;
+
+        const result = existedInYear(year)(structure);
+
+        expect(result).toBe(true);
+    });
+
     it('should exist when no year given', () => {
         const structure = {
             annee_creation: '2000',
