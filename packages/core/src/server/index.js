@@ -34,6 +34,7 @@ function createServer(ezs, serverPort, serverPath, workerId) {
     const app = connect();
     app.use((request, response, next) => {
         request.workerId = workerId;
+        request.requestId = `${workerId}-${Date.now()}-${Math.floor(Math.random() * 1e6)}`;
         request.catched = false;
         request.serverPath = serverPath;
         request.urlParsed = parse(request.url, true);
@@ -63,13 +64,10 @@ function createServer(ezs, serverPort, serverPath, workerId) {
     server.setTimeout(0);
     server.listen(serverPort);
     server.addListener('connection', (socket) => {
-        const uniqId = `${Date.now()}-${Math.floor(Math.random() * 1e6)}`;
-        debug('ezs')('New connection', uniqId);
         httpConnectionTotal.inc();
         httpConnectionOpen.inc();
         socket.on('close', () => {
             httpConnectionOpen.dec();
-            debug('ezs')('Connection closed', uniqId);
         });
     });
     signals.forEach((signal) => process.on(signal, () => {
