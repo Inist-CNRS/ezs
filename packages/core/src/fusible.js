@@ -1,4 +1,4 @@
-import { access, constants, writeFile, unlink } from 'fs/promises';
+import { access, constants, writeFile, unlink } from 'fs';
 import { resolve, normalize } from 'path';
 import { tmpdir } from 'os';
 import generate from 'nanoid/async/generate';
@@ -14,36 +14,48 @@ export const createFusible = async () => {
     return fusible;
 };
 
-export const checkFusible = async (fusible) => {
+export const checkFusible = (fusible) => new Promise((next) => {
     if (!fusible) {
-        return false;
+        return next(false);
     }
     const fusibleFile = resolve(normalize(location), fusible + extension);
-    try {
-        await access(fusibleFile, constants.R_OK);
-        return true;
-    } catch {
-        return false;
-    }
-};
+    return access(fusibleFile, constants.R_OK, (err) => {
+        if (err) {
+            return next(false);
+        }
+        return next(true);
+    });
+});
 
 
-export const enableFusible = async (fusible) => {
+export const enableFusible = (fusible) => new Promise((next, cancel) => {
     const fusibleFile = resolve(normalize(location), fusible + extension);
-    const check = await checkFusible(fusible);
-    if (!check) {
-        const fileContent = checksum(fusible);
-        await writeFile(fusibleFile, fileContent);
-    }
+    checkFusible(fusible).then((check) => {
+        if (!check) {
+            const fileContent = checksum(fusible);
+            writeFile(fusibleFile, fileContent, (err) => {
+                if (err) {
+                    return cancel(err);
+                }
+                return next(true);
+            });
+        }
+        return next(true);
+    });
+});
+
+export const disableFusible = (fusible) => new Promise((next, cancel) => {
+    const fusibleFile = resolve(normalize(location), fusible + extension);
+    checkFusible(fusible).then((check) => {
+        if (check) {
+            unlink(fusibleFile, (err) => {
+                if (err) {
+                    return cancel(err);
+                }
+                return next(true);
+            });
+        }
+    });
     return true;
-};
-
-export const disableFusible = async (fusible) => {
-    const fusibleFile = resolve(normalize(location), fusible + extension);
-    const check = await checkFusible(fusible);
-    if (check) {
-        await unlink(fusibleFile);
-    }
-    return true;
-};
+});
 
