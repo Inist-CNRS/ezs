@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.9.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.8.7...@ezs/core@3.9.0) (2024-05-31)
+
+
+### Bug Fixes
+
+* 🐛 tests ([2205210](https://github.com/Inist-CNRS/ezs/commit/220521034c2055488a1e7d8349b15ae0aa5461b7))
+* 🐛 wrong type ([95de130](https://github.com/Inist-CNRS/ezs/commit/95de130b8260ae3b985c1eb63a3389ec1573d8f1))
+
+
+### Features
+
+* 🎸 add [breaker] ([54d566c](https://github.com/Inist-CNRS/ezs/commit/54d566ce0aaf1125744c91e659e82db549046664))
+* 🎸 add x-request-id ([089d690](https://github.com/Inist-CNRS/ezs/commit/089d690834e4dcdfb35e26161f89438e3c329fd6))
+
+
+
+
+
 ## [3.8.7](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.8.6...@ezs/core@3.8.7) (2024-05-30)
 
 **Note:** Version bump only for package @ezs/core
