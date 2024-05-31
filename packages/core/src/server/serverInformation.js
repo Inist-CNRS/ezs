@@ -184,7 +184,7 @@ const collectMetadata = async (dirPath, hostName) => {
 const collectPaths = (ezs, dirPath) => new Promise((resolve) => {
     dir.files(dirPath, (err, files) => {
         const filenames = err ? [] : files;
-        const paths = filenames
+        const localPaths = filenames
             .filter((f) => (f.search(/\.(ini|ezs)$/) > 0))
             .map((f) => ({
                 [f.replace(dirPath, '').replace(/\.\w+/, '')]:
@@ -206,7 +206,7 @@ const collectPaths = (ezs, dirPath) => new Promise((resolve) => {
                     ...cur,
                 }), {},
             );
-        resolve(paths.push(globalSwaggerPaths));
+        resolve(_.merge(globalSwaggerPaths, localPaths));
     });
 });
 
