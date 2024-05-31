@@ -35,6 +35,7 @@ import combine from './combine';
 import expand from './expand';
 import overturn from './overturn';
 import fork from './fork';
+import breaker from './breaker';
 
 export default {
     extract,
@@ -74,4 +75,5 @@ export default {
     combine,
     overturn,
     fork,
+    breaker,
 };

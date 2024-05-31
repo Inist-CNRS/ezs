@@ -8,8 +8,8 @@ import _ from 'lodash';
 import { metricsHandle } from './metrics';
 import errorHandler from './errorHandler';
 import { isFile } from '../file';
+import breaker from '../statements/breaker';
 import settings from '../settings';
-
 
 const dispositionFrom = ({ extension }) => (extension ? `attachment; filename="dump.${extension}"` : 'inline');
 
@@ -33,7 +33,7 @@ const knownPipeline = (ezs) => (request, response, next) => {
     request.catched = true;
     debug('ezs')(`Create middleware 'knownPipeline' for ${request.method} ${request.pathName}`);
 
-    const { headers } = request;
+    const { headers, fusible } = request;
     const triggerError = errorHandler(request, response);
     const { query } = request.urlParsed;
     const files = ezs.memoize(`knownPipeline>${request.pathName}`,
@@ -46,7 +46,6 @@ const knownPipeline = (ezs) => (request, response, next) => {
         triggerError(new Error(`Cannot find ${request.pathName}`), 404);
         return false;
     }
-
     debug('ezs')(
         `PID ${process.pid} will execute ${request.pathName} commands with ${sizeof(query)}B of global parameters`,
     );
@@ -64,6 +63,8 @@ const knownPipeline = (ezs) => (request, response, next) => {
     response.setHeader('Content-Encoding', contentEncoding);
     response.setHeader('Content-Disposition', contentDisposition);
     response.setHeader('Content-Type', contentType);
+    response.setHeader('X-Request-ID', fusible);
+
     response.socket.setNoDelay(false);
 
     if (request.method !== 'POST') {
@@ -98,6 +99,8 @@ const knownPipeline = (ezs) => (request, response, next) => {
         statements.unshift(ezs('metrics', { bucket: 'input' }));
         statements.push(ezs('metrics', { bucket: 'output' }));
     }
+    statements.unshift(ezs(breaker, { fusible }));
+    statements.push(ezs(breaker, { fusible }));
 
     const rawStream = new PassThrough();
     let emptyStream = true;

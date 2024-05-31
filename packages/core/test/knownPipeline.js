@@ -373,7 +373,7 @@ describe(' through server(s)', () => {
                 });
                 res.on('end', () => {
                     assert.equal(output.join(''), 'a');
-                    assert(check < 5);
+                    assert(check < (input.length / 2));
                     done();
                 });
             });

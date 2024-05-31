@@ -56,7 +56,6 @@ Sachant qu'on appauvrit (casse, accents, tiret, apostrophe) tous les champs.
 -   [compareRnsr](#comparernsr)
 -   [conditorScroll](#conditorscroll)
 -   [CORHALFetch](#corhalfetch)
--   [CORHALFetch](#corhalfetch-1)
 -   [getRnsr](#getrnsr)
 -   [getRnsrInfo](#getrnsrinfo)
 -   [WOSFetch](#wosfetch)
@@ -107,7 +106,7 @@ Output:
 
 #### Parameters
 
--   `year` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Year of the RNSR to use instead of the last one (optional, default `2021`)
+-   `year` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Year of the RNSR to use instead of the last one (optional, default `2023`)
 
 ### compareRnsr
 
@@ -227,39 +226,6 @@ Output:
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-### CORHALFetch
-
-Take `String` as URL, throw each chunk from the result
-
-Input:
-
-```json
-[
-  { q: "toto" },
-]
-```
-
-Script:
-
-```ini
-[CORHALFetch]
-url = https://corhal-api.inist.fr
-```
-
-Output:
-
-```json
-[{...}, {"a": "b"}, {"a": "c" }]
-```
-
-#### Parameters
-
--   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** corhal api url
--   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (optional, default `1000`)
--   `retries` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** The maximum amount of times to retry the connection (optional, default `5`)
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
 ### getRnsr
 
 Find the RNSR identifier(s) matching the `address` and the publication `year`
@@ -292,7 +258,7 @@ Output:
 
 #### Parameters
 
--   `year` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Year of the RNSR to use instead of the last one (optional, default `2021`)
+-   `year` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Year of the RNSR to use instead of the last one (optional, default `2023`)
 
 ### getRnsrInfo
 
@@ -368,7 +334,7 @@ Output:
 
 #### Parameters
 
--   `year` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Year of the RNSR to use instead of the last one (optional, default `2021`)
+-   `year` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Year of the RNSR to use instead of the last one (optional, default `2023`)
 
 ### WOSFetch
 

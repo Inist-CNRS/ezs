@@ -25,6 +25,35 @@ const keyOfPathItemObject = [ // https://swagger.io/specification/
     'servers',
     'parameters',
 ];
+const globalSwaggerPaths = {
+    '/': {
+        'delete': {
+            description: 'Cancel asynchronous requests',
+            summary: 'A way to cancel too long request.'
+        },
+        requestBody: {
+            description: '',
+            content: {
+                'application/json': {
+                    schema: {
+                        $ref: '#/components/schemas/serverControl'
+                    }
+                }
+            },
+            required: true
+        },
+        responses: {
+            '202': {
+                description: 'successful operation',
+            },
+            '400': {
+                description: 'Invalid input value',
+            }
+        }
+    }
+};
+
+
 const collectMetadata = async (dirPath, hostName) => {
     const globalSwagger = {
         openapi: '3.0.0',
@@ -124,6 +153,16 @@ const collectMetadata = async (dirPath, hostName) => {
                     items: {
                         $ref: '#/components/schemas/minimalObject'
                     }
+                },
+                serverControl: {
+                    type: 'object',
+                    properties: {
+                        'x-request-id': {
+                            description: 'Request identifier sent in the http response header.',
+                            type: 'string',
+                            example: 'qdrfgtyhbvdeftgh'
+                        }
+                    }
                 }
             },
         },
@@ -140,11 +179,12 @@ const collectMetadata = async (dirPath, hostName) => {
         return globalSwagger;
     }
     return globalSwagger;
-}
+};
+
 const collectPaths = (ezs, dirPath) => new Promise((resolve) => {
     dir.files(dirPath, (err, files) => {
         const filenames = err ? [] : files;
-        const paths = filenames
+        const localPaths = filenames
             .filter((f) => (f.search(/\.(ini|ezs)$/) > 0))
             .map((f) => ({
                 [f.replace(dirPath, '').replace(/\.\w+/, '')]:
@@ -166,7 +206,7 @@ const collectPaths = (ezs, dirPath) => new Promise((resolve) => {
                     ...cur,
                 }), {},
             );
-        resolve(paths);
+        resolve(_.merge(globalSwaggerPaths, localPaths));
     });
 });
 

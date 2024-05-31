@@ -35,6 +35,8 @@ export function ncda(input, alphabet = []) {
     return alphabet[x] || '';
 }
 
+export const checksum = (input) => ncda(input, nolookalikes);
+
 /**
  * Take `Object`, and compute & add an identifier
  *
@@ -59,8 +61,8 @@ export default async function identify(data, feed) {
                 identifier = await sha(data);
             }
             if (identifier) {
-                const checksum = ncda(identifier, nolookalikes);
-                _.set(data, path, `${scheme}:/${identifier}${checksum}`);
+                const digit = checksum(identifier);
+                _.set(data, path, `${scheme}:/${identifier}${digit}`);
             }
         }
     }
