@@ -33,7 +33,7 @@ const knownPipeline = (ezs) => (request, response, next) => {
     request.catched = true;
     debug('ezs')(`Create middleware 'knownPipeline' for ${request.method} ${request.pathName}`);
 
-    const { headers } = request;
+    const { headers, fusible } = request;
     const triggerError = errorHandler(request, response);
     const { query } = request.urlParsed;
     const files = ezs.memoize(`knownPipeline>${request.pathName}`,
@@ -63,7 +63,7 @@ const knownPipeline = (ezs) => (request, response, next) => {
     response.setHeader('Content-Encoding', contentEncoding);
     response.setHeader('Content-Disposition', contentDisposition);
     response.setHeader('Content-Type', contentType);
-    response.setHeader('X-Request-ID', request.requestId);
+    response.setHeader('X-Request-ID', fusible);
 
     response.socket.setNoDelay(false);
 
@@ -99,8 +99,8 @@ const knownPipeline = (ezs) => (request, response, next) => {
         statements.unshift(ezs('metrics', { bucket: 'input' }));
         statements.push(ezs('metrics', { bucket: 'output' }));
     }
-    statements.unshift(ezs(breaker, { sid: request.requestId }));
-    statements.push(ezs(breaker, { sid: request.requestId }));
+    statements.unshift(ezs(breaker, { fusible }));
+    statements.push(ezs(breaker, { fusible }));
 
     const rawStream = new PassThrough();
     let emptyStream = true;
