@@ -73,5 +73,28 @@ describe('through server(s)', () => {
         expect(response2.status).toBe(400);
     });
 
+
+    it('async request', async (done) => {
+        try {
+            const stream = from([
+                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+            ]);
+            const response1 = await fetch('http://127.0.0.1:33377/transit7.ini?time=300', { method: 'POST', body: stream });
+            const requestID = await response1.text();
+            const response2 = await fetch('http://127.0.0.1:33377/', {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ 'x-request-id': requestID }),
+            });
+            expect(response2.status).toBe(202);
+            done();
+        } catch(e) {
+            done(e);
+        }
+    });
+
 });
 
