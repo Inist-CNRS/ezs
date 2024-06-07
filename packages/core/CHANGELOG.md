@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.10.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.9.0...@ezs/core@3.10.0) (2024-06-07)
+
+
+### Bug Fixes
+
+* 🐛 async requests should have their own request ID ([2fb6003](https://github.com/Inist-CNRS/ezs/commit/2fb6003ae2f7347a7d2468e0029b7e841f221066))
+* 🐛 remove functionx ([e9b9b71](https://github.com/Inist-CNRS/ezs/commit/e9b9b715058983eba349334da99eb9d1a7ef8dec))
+* 🐛 remove useless file ([5d59d9b](https://github.com/Inist-CNRS/ezs/commit/5d59d9b1a6edd0362821ec8ac50624acaa68ad58))
+* 🐛 remove useless files ([000dbbc](https://github.com/Inist-CNRS/ezs/commit/000dbbccf2fefddaa19647b56c8a4943a93c8e5a))
+
+
+### Features
+
+* 🎸 drop useless rpc mode ([9460ad0](https://github.com/Inist-CNRS/ezs/commit/9460ad0c8c8ec92f51125014fa197f805e9a4e9f))
+
+
+
+
+
 # [3.9.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.8.7...@ezs/core@3.9.0) (2024-05-31)
 
 
