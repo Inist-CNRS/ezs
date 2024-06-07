@@ -66,6 +66,7 @@ describe('fork)', () => {
             .on('error', done)
             .on('data', (chunk) => {
                 assert(typeof chunk === 'object');
+                assert(typeof chunk['x-request-id'] === 'string');
                 res += chunk.a;
             })
             .on('end', () => {
@@ -73,6 +74,37 @@ describe('fork)', () => {
                 done();
             });
     });
+    it('#1bis (standalone)', (done) => {
+        let res = 0;
+        const script = `
+            [assign]
+            path = a
+            value = 99
+        `;
+        from([
+            { a: 1, b: 9 },
+            { a: 2, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+        ])
+            .pipe(ezs('fork', {
+                script,
+                standalone: true,
+                target: false,
+            }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res += chunk.a;
+            })
+            .on('end', () => {
+                assert.equal(6, res);
+                done();
+            });
+    });
+
 
     it('#2', (done) => {
         const script = `
