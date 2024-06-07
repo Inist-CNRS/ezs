@@ -104,6 +104,36 @@ describe('fork)', () => {
                 done();
             });
     });
+    it('#1ter(standalone)', (done) => {
+        let res = 0;
+        const script = `
+            [assign]
+            path = a
+            value = 99
+        `;
+        from([
+            1,
+            2,
+            3,
+            4,
+            5,
+        ])
+            .pipe(ezs('fork', {
+                script,
+                standalone: true,
+                target: true,
+            }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                res += Number(chunk);
+            })
+            .on('end', () => {
+                assert.equal(15, res);
+                done();
+            });
+    });
+
 
 
     it('#2', (done) => {
