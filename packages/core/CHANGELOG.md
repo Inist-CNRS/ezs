@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.10.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.10.0...@ezs/core@3.10.1) (2024-06-19)
+
+
+### Bug Fixes
+
+* 🐛 deleting a global variable is diabolical ([8936dc0](https://github.com/Inist-CNRS/ezs/commit/8936dc075ab73ca32234f758a36a37247e644ab7))
+
+
+
+
+
 # [3.10.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.9.0...@ezs/core@3.10.0) (2024-06-07)
 
 
