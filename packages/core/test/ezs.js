@@ -361,6 +361,34 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
+    it('with assign non object value', (done) => {
+        let res = 0;
+        const commands = `
+            # My first ezs script
+            title = FOR TEST
+            description = set local or global
+
+            [assign]
+            path = val.ue
+            value = get('val')
+        `;
+        const ten = new Decade();
+        ten
+            .pipe(ezs((input, output, ctx) => {
+                if (ctx.isLast()) {
+                    return output.close();
+                }
+                return output.send({ val: input });
+            }))
+            .pipe(ezs('delegate', { script: commands }))
+            .on('data', (chunk) => {
+                res = chunk;
+            })
+            .on('end', () => {
+                assert.strictEqual(res.val.ue, 9);
+                done();
+            });
+    });
     it('with assign(multi) script pipeline', (done) => {
         let res = 0;
         const commands = `
