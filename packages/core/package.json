@@ -46,7 +46,7 @@
   "directories": {
     "test": "test"
   },
-  "gitHead": "bc1be6636627b450c72d59ec404c43d87d7a42aa",
+  "gitHead": "483fb747db3ae5d72ffeb49dc29fa44fe4dbde84",
   "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/core#readme",
   "keywords": [
     "stream",
