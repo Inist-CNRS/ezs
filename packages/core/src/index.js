@@ -57,6 +57,7 @@ ezs.toBuffer = (options) => new Output(options);
 ezs.use = (plugin) => Statement.set(ezs, plugin);
 ezs.addPath = (p) => ezsPath.push(p);
 ezs.getPath = () => ezsPath;
+ezs.getCache = () => ezsCache;
 ezs.loadScript = (file) => ezs.memoize(`ezs.loadScript>${file}`, () => File(ezs, file));
 ezs.compileScript = (script) => new Commands(ezs.parseString(script));
 ezs.parseCommand = (command) => ezs.memoize(`ezs.parseCommand>${command}`, () => parseCommand(command));

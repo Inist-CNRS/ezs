@@ -11,21 +11,16 @@ import cacache from 'cacache';
 const hashCoerce = hasher({ sort: false, coerce: true });
 const core = (id, value) => ({ id, value });
 
-export const database = {};
-
 async function saveIn(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
-    const databaseID = this.getEnv();
+    const database = this.getEnv();
     const { id, value } = data;
     const isKey = Boolean(id);
     if (isKey) {
-        if (!database[databaseID]) {
-            database[databaseID] = {};
-        }
-        if (!database[databaseID][id]) {
-            database[databaseID][id] = value;
+        if (!database[id]) {
+            database[id] = value;
         }
     }
     return feed.send(data);
@@ -129,36 +124,33 @@ export default async function combine(data, feed) {
         });
         this.databaseID = hashCoerce.hash({ primer, commands });
         const input = ezs.createStream(ezs.objectMode());
-        if (!database[this.databaseID]) {
-            database[this.databaseID] = {};
-            let stream;
-            if (cacheName) {
-                const cacheObject = await cacache.get.info(this.cachePath, this.databaseID);
-                if (cacheObject) {
-                    stream = cacache.get.stream.byDigest(this.cachePath, cacheObject.integrity).pipe(ezs('unpack'));
-                }
+        this.database = {};
+        let stream;
+        if (cacheName) {
+            const cacheObject = await cacache.get.info(this.cachePath, this.databaseID);
+            if (cacheObject) {
+                stream = cacache.get.stream.byDigest(this.cachePath, cacheObject.integrity).pipe(ezs('unpack'));
             }
-            if (!stream) {
-                const statements = ezs.compileCommands(commands, this.getEnv());
-                const logger = ezs.createTrap(this.getParam('logger'), this.getEnv());
-                stream = ezs.createPipeline(input, statements, logger)
-                    .pipe(ezs(cacheSave, {
-                        cachePath: this.cachePath,
-                        cacheKey: this.databaseID,
-                    }));
-            }
-            const output = stream
-                .pipe(ezs(saveIn, null, this.databaseID))
-                .pipe(ezs.catch())
-                .on('data', (d) => assert(d)) // WARNING: The data must be consumed, otherwise the "end" event has not been triggered
-                .on('error', (e) => feed.stop(e));
-            whenReady = new Promise((resolve) => output.on('end', resolve));
-            input.write(primer);
-            input.end();
         }
+        if (!stream) {
+            const statements = ezs.compileCommands(commands, this.getEnv());
+            const logger = ezs.createTrap(this.getParam('logger'), this.getEnv());
+            stream = ezs.createPipeline(input, statements, logger)
+                .pipe(ezs(cacheSave, {
+                    cachePath: this.cachePath,
+                    cacheKey: this.databaseID,
+                }));
+        }
+        const output = stream
+            .pipe(ezs(saveIn, null, this.database))
+            .pipe(ezs.catch())
+            .on('data', (d) => assert(d)) // WARNING: The data must be consumed, otherwise the "end" event has not been triggered
+            .on('error', (e) => feed.stop(e));
+        whenReady = new Promise((resolve) => output.on('end', resolve));
+        input.write(primer);
+        input.end();
     }
     if (this.isLast()) {
-        delete database[this.databaseID];
         return feed.close();
     }
     await whenReady;
@@ -170,10 +162,10 @@ export default async function combine(data, feed) {
         return feed.send(data);
     }
     const values = keys.map((key) => {
-        if (!database[this.databaseID][key]) {
+        if (!this.database[key]) {
             return null;
         }
-        return core(key, database[this.databaseID][key]);
+        return core(key, this.database[key]);
     });
     // length of the values is always equal to the length of the keys.
     if (Array.isArray(pathVal)) {
