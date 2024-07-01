@@ -19,6 +19,7 @@ import writeTo from 'stream-write';
  * @name TARExtract
  * @param {String} [path="**\/*.json"] Regex to select the files to extract
  * @param {String} [json=true] Parse as JSON the content of each file
+ * @param {Boolean} [text=true] The content of each file is converted to a string (otherwise it remains a buffer)
  * @param {Boolean} [compress=false] Enable gzip compression
  * @returns {{id: String, value: String}[]}
  */
@@ -26,7 +27,8 @@ export default function TARExtract(data, feed) {
     const filesPatern = this.getParam('path', '**/*.json');
     if (this.isFirst()) {
         const { ezs } = this;
-        const json = this.getParam('json', true);
+        const text = this.getParam('text', true);
+        const json = text ? this.getParam('json', true) : false;
         const compress = this.getParam('compress', false);
         this.input = ezs.createStream(ezs.objectMode());
         this.output = ezs.createStream(ezs.objectMode());
@@ -35,15 +37,24 @@ export default function TARExtract(data, feed) {
             extract.on('entry', async (header, stream, next) => {
                 if (micromatch.isMatch(header.name, filesPatern)) {
                     try {
-                        const contentRaw = await getStream(stream);
                         if (json) {
-                            const contentJson = JSON.parse(contentRaw);
+                            const contentText= await getStream(stream);
+                            const contentJson = JSON.parse(contentText);
                             return writeTo(
                                 this.output,
                                 contentJson,
                                 () => next(),
                             );
                         }
+                        if (text) {
+                            const contentText = await getStream(stream);
+                            return writeTo(
+                                this.output,
+                                { id: header.name, value: contentText },
+                                () => next(),
+                            );
+                        }
+                        const contentRaw = await getStream(stream, { encoding: 'buffer' });
                         return writeTo(
                             this.output,
                             { id: header.name, value: contentRaw },
