@@ -38,7 +38,7 @@ export default function TARExtract(data, feed) {
                 if (micromatch.isMatch(header.name, filesPatern)) {
                     try {
                         if (json) {
-                            const contentText= await getStream(stream);
+                            const contentText = await getStream(stream);
                             const contentJson = JSON.parse(contentText);
                             return writeTo(
                                 this.output,
