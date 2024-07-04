@@ -20,6 +20,7 @@ npm install @ezs/basics
 -   [CSVParse](#csvparse)
 -   [CSVString](#csvstring)
 -   [FILELoad](#fileload)
+-   [FILEMerge](#filemerge)
 -   [FILESave](#filesave)
 -   [INIString](#inistring)
 -   [JSONParse](#jsonparse)
@@ -248,6 +249,37 @@ Output:
 
 -   `location` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Directory location (optional, default `TMPDIR`)
 -   `compress` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Enable gzip compression (optional, default `false`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### FILEMerge
+
+Take `Object` or `Buffer` and throw only one document
+
+```json
+[ fi1e1.csv, file2.csv ]
+```
+
+Script:
+
+```ini
+[use]
+plugin = basics
+
+[FILELoad]
+[FILEMerge]
+[replace]
+path = contentOfFile1AndFile2
+value = self()
+```
+
+Output:
+
+```json
+[
+(...)
+]
+```
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -591,6 +623,7 @@ It returns to the output stream
 
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Regex to select the files to extract (optional, default `"**\/*.json"`)
 -   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Parse as JSON the content of each file (optional, default `true`)
+-   `text` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** The content of each file is converted to a string (otherwise it remains a buffer) (optional, default `true`)
 -   `compress` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Enable gzip compression (optional, default `false`)
 
 Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)}>** 

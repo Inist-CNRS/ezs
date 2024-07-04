@@ -12,13 +12,13 @@ npm install @ezs/core
 
 Plusieurs instructions permettent de créer des sous flux (sub pipeline), à partir d'un fichier d’instructions ou d'instructions imbriquées. Si elles s'utilisent toutes de la même manière (avec les mêmes paramètres) centaines peuvent apparaître comme similaires mais leur fonctionnement est différent :
 
--   [delegate] &#x3A; 1 sous flux pour tous les éléments
--   [swing] &#x3A; 1 sous flux pour tous les éléments filtrés selon une condition
--   [spaw] &#x3A; 1 sous flux par élément
--   [loop] &#x3A; 1 sous flux par élément
--   [expand] &#x3A; 1 sous flux pour N éléments (N = size), seul le champ sélectionné est envoyé dans le pipeline
--   [combine] &#x3A; 1 sous flux pour tous les éléments, seul le champ sélectionné est comparé avec le résultat du sous flux
--   [singleton] &#x3A; 1 sous flux pour le premier élément
+-   [delegate] : 1 sous flux pour tous les éléments
+-   [swing] : 1 sous flux pour tous les éléments filtrés selon une condition
+-   [spaw] : 1 sous flux par élément
+-   [loop] : 1 sous flux par élément
+-   [expand] : 1 sous flux pour N éléments (N = size), seul le champ sélectionné est envoyé dans le pipeline
+-   [combine] : 1 sous flux pour tous les éléments, seul le champ sélectionné est comparé avec le résultat du sous flux
+-   [singleton] : 1 sous flux pour le premier élément
 
 ## usage
 
@@ -32,7 +32,7 @@ Plusieurs instructions permettent de créer des sous flux (sub pipeline), à par
 -   [debug](#debug)
 -   [dedupe](#dedupe)
 -   [delegate](#delegate)
--   [dispatch](#dispatch)
+-   [delegate](#delegate-1)
 -   [dump](#dump)
 -   [env](#env)
 -   [exchange](#exchange)
@@ -64,6 +64,7 @@ Plusieurs instructions permettent de créer des sous flux (sub pipeline), à par
 -   [truncate](#truncate)
 -   [ungroup](#ungroup)
 -   [unpack](#unpack)
+-   [use](#use)
 -   [validate](#validate)
 
 ### assign
@@ -251,6 +252,16 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### delegate
 
+Break the stream  if the control file cannot be checked
+
+#### Parameters
+
+-   `fusible` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** file to check
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### delegate
+
 Delegate processing to an external pipeline.
 
 > **Note**: works like [spawn](#spawn), but each chunk share the same external pipeline.
@@ -262,19 +273,6 @@ Delegate processing to an external pipeline.
 -   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
 -   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
 -   `logger` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** A dedicaded pipeline described in a file to trap or log errors
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### dispatch
-
-Dispatch processing to an external pipeline on one or more servers.
-
-#### Parameters
-
--   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
--   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
--   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
--   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -491,6 +489,7 @@ fork the current pipeline
 -   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
 -   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
 -   `logger` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** A dedicaded pipeline described in a file to trap or log errors
+-   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose the key to set with the forked request identifier (optional, default `x-request-id`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -1304,6 +1303,26 @@ Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Gl
 Take `String`s or `Buffer`s and throw `Object` builded by JSON.parse on each line.
 
 Returns **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### use
+
+Take all `String`, concat them and throw just one.
+
+Script:
+
+```ini
+[use]
+plugin = basics
+plugin = analytics
+```
+
+#### Parameters
+
+-   `beginWith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Add value at the begin
+-   `joinWith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** use value to join 2 chunk
+-   `endWith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Add value at the end
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ### validate
 
