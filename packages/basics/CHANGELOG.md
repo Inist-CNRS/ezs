@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.7.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.6.1...@ezs/basics@2.7.0) (2024-07-04)
+
+
+### Features
+
+* 🎸 add FILEMerge ([cb879fa](https://github.com/Inist-CNRS/ezs/commit/cb879fae73b48a2b5850c6a0597a4ca97d722493))
+* 🎸 keep buffer for binary files ([e4a30fe](https://github.com/Inist-CNRS/ezs/commit/e4a30fe729257af877ca2d9f89a6a948d62965d6))
+
+
+
+
+
 ## [2.6.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.6.0...@ezs/basics@2.6.1) (2024-02-07)
 
 **Note:** Version bump only for package @ezs/basics
