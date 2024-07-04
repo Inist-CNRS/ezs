@@ -31,6 +31,7 @@ import TARDump from './tar-dump';
 import INIString from './ini-string';
 import FILESave from './file-save';
 import FILELoad from './file-load';
+import FILEMerge from './file-merge';
 
 const funcs = {
     BUFObject,
@@ -66,6 +67,7 @@ const funcs = {
     INIString,
     FILESave,
     FILELoad,
+    FILEMerge,
     // aliases
     bufferify: BUFObject.BUFObject,
     concat: TXTConcat.TXTConcat,
