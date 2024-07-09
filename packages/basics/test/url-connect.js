@@ -245,6 +245,31 @@ describe('URLConnect', () => {
                     done(new Error('Error is the right behavior'));
                 });
         });
+        test('#4ter', (done) => {
+            ezs.use(statements);
+            const input = ['1a', '2a', '3a', '4a', '5a'];
+            from(input)
+                .pipe(ezs('URLConnect', {
+                    url: 'http://127.0.0.1:33331/empty.ini',
+                    json: true,
+                    retries: 1,
+                }))
+                .pipe(ezs.catch())
+                .on('error', (e) => {
+                    try {
+                        expect(e.message).toEqual(expect.stringContaining("URL returned an empty response "));
+                        done();
+                    } catch(ee) {
+                        done(ee);
+                    }
+                })
+                .on('data', () => {
+                    done(new Error('Error is the right behavior'));
+                })
+                .on('end', () => {
+                    done(new Error('Error is the right behavior'));
+                });
+        });
     }
     test('#5', (done) => {
         ezs.use(statements);
