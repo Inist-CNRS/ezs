@@ -88,9 +88,15 @@ export default async function URLConnect(data, feed) {
                     if (json) {
                         const bodyOutRaw = await getStream(response.body);
                         if (bodyOutRaw === '') {
-                            throw new Error('URL returned an empty response ');
+                            throw new Error('URL returned an empty response');
                         }
-                        const bodyOutArray = JSON.parse(bodyOutRaw);
+                        let bodyOutArray;
+                        try {
+                            bodyOutArray = JSON.parse(bodyOutRaw);
+                        }
+                        catch (e) {
+                            throw new Error(`URL returned an invalid JSON response (${bodyOutRaw})`);
+                        }
                         return from(bodyOutArray).pipe(output);
                     }
                     return response.body.pipe(output);
