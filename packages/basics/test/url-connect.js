@@ -207,7 +207,7 @@ describe('URLConnect', () => {
                 .pipe(ezs.catch())
                 .on('error', (e) => {
                     try {
-                        expect(e.message).toEqual(expect.stringContaining('JSON at position'));
+                        expect(e.message).toEqual(expect.stringContaining('URL returned an invalid JSON response'));
                         done();
                     } catch(ee) {
                         done(ee);
@@ -232,7 +232,32 @@ describe('URLConnect', () => {
                 .pipe(ezs.catch())
                 .on('error', (e) => {
                     try {
-                        expect(e.message).toEqual(expect.stringContaining("Invalid JSON (Unexpected \"\\r\" at position 3 in state STOP)"));
+                        expect(e.message).toEqual(expect.stringContaining('Invalid JSON'));
+                        done();
+                    } catch(ee) {
+                        done(ee);
+                    }
+                })
+                .on('data', () => {
+                    done(new Error('Error is the right behavior'));
+                })
+                .on('end', () => {
+                    done(new Error('Error is the right behavior'));
+                });
+        });
+        test('#4ter', (done) => {
+            ezs.use(statements);
+            const input = ['1a', '2a', '3a', '4a', '5a'];
+            from(input)
+                .pipe(ezs('URLConnect', {
+                    url: 'http://127.0.0.1:33331/empty.ini',
+                    json: true,
+                    retries: 1,
+                }))
+                .pipe(ezs.catch())
+                .on('error', (e) => {
+                    try {
+                        expect(e.message).toEqual(expect.stringContaining('URL returned an empty response'));
                         done();
                     } catch(ee) {
                         done(ee);
