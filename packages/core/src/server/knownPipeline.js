@@ -31,23 +31,23 @@ const knownPipeline = (ezs) => (request, response, next) => {
         return next();
     }
     request.catched = true;
-    debug('ezs')(`Create middleware 'knownPipeline' for ${request.method} ${request.pathName}`);
-
-    const { headers, fusible } = request;
-    const triggerError = errorHandler(request, response);
+    const { headers, fusible, method, pathName } = request;
     const { query } = request.urlParsed;
-    const files = ezs.memoize(`knownPipeline>${request.pathName}`,
-        () => request.pathName
+
+    debug('ezs')(`Create middleware 'knownPipeline' for ${method} ${pathName}`);
+    const triggerError = errorHandler(request, response);
+    const files = ezs.memoize(`knownPipeline>${pathName}`,
+        () => pathName
             .slice(1)
             .split(',')
             .map((file) => join(request.serverPath, dirname(file), basename(file, '.ini').concat('.ini')))
             .filter((file) => isFile(file)));
     if (files.length === 0) {
-        triggerError(new Error(`Cannot find ${request.pathName}`), 404);
+        triggerError(new Error(`Cannot find ${pathName}`), 404);
         return false;
     }
     debug('ezs')(
-        `PID ${process.pid} will execute ${request.pathName} commands with ${sizeof(query)}B of global parameters`,
+        `PID ${process.pid} will execute ${pathName} commands with ${sizeof(query)}B of global parameters`,
     );
 
     const meta = ezs.memoize(`executePipeline>${files}`,
@@ -67,7 +67,7 @@ const knownPipeline = (ezs) => (request, response, next) => {
 
     response.socket.setNoDelay(false);
 
-    if (request.method !== 'POST') {
+    if (method !== 'POST') {
         response.writeHead(200);
         response.end();
         return true;
@@ -80,7 +80,7 @@ const knownPipeline = (ezs) => (request, response, next) => {
         metricsEnable,
     } = settings;
     const execMode = server ? 'dispatch' : delegate;
-    const environment = { ...query, headers };
+    const environment = { ...query, headers, request: { fusible, method, pathName } };
     const statements = files.map((file) => ezs(execMode, { file, server }, environment));
     const prepend2Pipeline = ezs.parseCommand(onlyOne(prepend));
     if (prepend2Pipeline) {
@@ -95,7 +95,7 @@ const knownPipeline = (ezs) => (request, response, next) => {
         statements.push(ezs('tracer', { print: '.', last: '!' }));
     }
     if (metricsEnable) {
-        ezs.use({metrics: metricsHandle(request.pathName)});
+        ezs.use({metrics: metricsHandle(pathName)});
         statements.unshift(ezs('metrics', { bucket: 'input' }));
         statements.push(ezs('metrics', { bucket: 'output' }));
     }
