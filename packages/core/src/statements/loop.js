@@ -1,3 +1,5 @@
+import breaker from './breaker';
+
 async function loopFunc(data, feed) {
     const { ezs } = this;
     if (this.isLast()) {
@@ -8,6 +10,8 @@ async function loopFunc(data, feed) {
     const depth = this.getParam('depth');
     const maxDepth = this.getParam('maxDepth');
     const reverse = this.getParam('reverse');
+    const fusible = this.getParam('fusible');
+    const control = fusible ? ezs(breaker, { fusible }) : ezs('transit');
     const tests = []
         .concat(getParam('test', false, data))
         .map((i) => Boolean(i))
@@ -15,6 +19,7 @@ async function loopFunc(data, feed) {
     const input = ezs.createStream(ezs.objectMode());
     const statements = ezs.compileCommands(commands, getEnv());
     const output = ezs.createPipeline(input, statements)
+        .pipe(control)
         .pipe(ezs(loopFunc, { reverse, depth: depth + 1, maxDepth }, this.getEnv()))
         .pipe(ezs.catch((e) => feed.write(e))); // avoid to break pipeline at each error
 
@@ -44,6 +49,7 @@ async function loopFunc(data, feed) {
  * @param {String} [commands] the external pipeline is described in an object
  * @param {String} [command] the external pipeline is described in an URL-like command
  * @param {String} [logger] A dedicaded pipeline described in a file to trap or log errors
+ * @param {String} [fusible] Can be set with the ezs server fusible see env('request.fusible')
  * @returns {Object}
  */
 export default function loop(data, feed) {
@@ -61,6 +67,7 @@ export default function loop(data, feed) {
     });
     const maxDepth = Number(this.getParam('maxDepth', 100000));
     const reverse = Boolean(this.getParam('reverse', false));
+    const fusible = this.getParam('fusible', false);
     const tests = []
         .concat(this.getParam('test', false))
         .map((i) => Boolean(i))
@@ -73,6 +80,7 @@ export default function loop(data, feed) {
             reverse,
             depth: 1,
             maxDepth,
+            fusible,
         }, {
             commands,
             getEnv: this.getEnv,
