@@ -70,11 +70,15 @@ function createServer(ezs, serverPort, serverPath, workerId) {
         next();
     });
     const server = controlServer(http.createServer(app));
-    server.setTimeout(0);
+    server.setTimeout(0); // default value, useful?
+    server.requestTimeout = 0; // ezs has its own timeout see feed.timeout
     server.listen(serverPort);
     server.addListener('connection', (socket) => {
         httpConnectionTotal.inc();
         httpConnectionOpen.inc();
+        socket.on('error', (e) => {
+            debug('ezs')('Connection error, the server has stopped the request :', e.message);
+        });
         socket.on('close', () => {
             httpConnectionOpen.dec();
         });
