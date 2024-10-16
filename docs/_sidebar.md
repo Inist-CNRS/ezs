@@ -9,6 +9,7 @@
 
   - [d’une instruction](coding-statement.md)
   - [d’un fichier .ini](coding-ini.md)
+  - [d’un sous flux](coding-sub-pipeline.md)
 
 - Plugins
 
