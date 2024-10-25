@@ -6,6 +6,7 @@ import controlServer from 'http-shutdown';
 import { parse } from 'url';
 import debug from 'debug';
 import knownPipeline from './knownPipeline';
+import unknownPipeline from './unknownPipeline';
 import serverInformation from './serverInformation';
 import serverControl from './serverControl';
 import errorHandler from './errorHandler';
@@ -57,6 +58,7 @@ function createServer(ezs, serverPort, serverPath, workerId) {
     app.use(metrics(ezs));
     app.use(serverInformation(ezs));
     app.use(serverControl(ezs));
+    app.use(unknownPipeline(ezs));
     app.use(knownPipeline(ezs));
     app.use((request, response, next) => {
         if (request.catched === false) {

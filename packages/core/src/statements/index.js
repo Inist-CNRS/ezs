@@ -14,6 +14,7 @@ import shuffle from './shuffle';
 import env from './env';
 import group from './group';
 import ungroup from './ungroup';
+import dispatch from './dispatch';
 import parallel from './parallel';
 import spawn from './spawn';
 import delegate from './delegate';
@@ -54,6 +55,7 @@ export default {
     env,
     group,
     ungroup,
+    dispatch,
     parallel,
     tracer,
     spawn,
