@@ -55,10 +55,14 @@ function createServer(ezs, serverPort, serverPath, workerId) {
         });
         next();
     });
-    app.use(metrics(ezs));
+    if (settings.metricsEnable) {
+        app.use(metrics(ezs));
+    }
     app.use(serverInformation(ezs));
     app.use(serverControl(ezs));
-    app.use(unknownPipeline(ezs));
+    if (settings.rpcEnable) {
+        app.use(unknownPipeline(ezs));
+    }
     app.use(knownPipeline(ezs));
     app.use((request, response, next) => {
         if (request.catched === false) {
