@@ -16,7 +16,7 @@ npm install @ezs/spawn
 
 #### Table of Contents
 
--   [exec](#exec)
+*   [exec](#exec)
 
 ### exec
 
@@ -32,12 +32,13 @@ plugin = spawn
 command = ./my/script.py
 args = -o
 args = -x
+
 ```
 
 #### Parameters
 
--   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** host command
--   `args` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** argument for command
--   `concurrency` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Number of processes to launch concurrency (optional, default `auto`)
+*   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** host command
+*   `args` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** argument for command
+*   `concurrency` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Number of processes to launch concurrency (optional, default `auto`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;

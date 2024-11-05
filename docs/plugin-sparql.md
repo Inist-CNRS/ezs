@@ -14,14 +14,13 @@ npm install @ezs/sparql
 
 #### Table of Contents
 
--   [SPARQLDecodeQuery](#sparqldecodequery)
--   [SPARQLQuery](#sparqlquery)
--   [SPARQLToDistinct](#sparqltodistinct)
+*   [SPARQLDecodeQuery](#sparqldecodequery)
+*   [SPARQLQuery](#sparqlquery)
+*   [SPARQLToDistinct](#sparqltodistinct)
 
 ### SPARQLDecodeQuery
 
--   **See: SPARQLQuery
-    **
+*   **See**: SPARQLQuery
 
 Take a query share link from a YASGUI editor and convert it into an object
 which contains the query and the endpoint. Then, it could be used by
@@ -99,8 +98,8 @@ Format [SPARQLQuery](#sparqlquery) result as a LODEX routine.
 
 The input should contain **at least two fields**:
 
--   the first is corresponding with the **\_id** output field
--   the second is corresponding with the **value** output field
+*   the first is corresponding with the **\_id** output field
+*   the second is corresponding with the **value** output field
 
 > **Warning**: input's second field value should contain an integer
 

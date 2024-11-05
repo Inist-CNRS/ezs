@@ -14,7 +14,7 @@ npm install @ezs/ark
 
 #### Table of Contents
 
--   [generateARK](#generateark)
+*   [generateARK](#generateark)
 
 ### generateARK
 
@@ -22,11 +22,11 @@ Take `Object` object, and throw the same object but with an ARK
 
 #### Parameters
 
--   `data`  
--   `feed`  
--   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field name to insert ARK (optional, default `ark`)
--   `subpublisher` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Subpublisher
--   `naan` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** NAAN
--   `databasePath` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Path for database to store generated ARKs
+*   `data` &#x20;
+*   `feed` &#x20;
+*   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** field name to insert ARK (optional, default `ark`)
+*   `subpublisher` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Subpublisher
+*   `naan` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** NAAN
+*   `databasePath` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Path for database to store generated ARKs
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;

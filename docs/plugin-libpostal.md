@@ -16,10 +16,10 @@ npm install @ezs/libpostal
 
 #### Table of Contents
 
--   [expandAddress](#expandaddress)
--   [expandAddressWith](#expandaddresswith)
--   [parseAddress](#parseaddress)
--   [parseAddressWith](#parseaddresswith)
+*   [expandAddress](#expandaddress)
+*   [expandAddressWith](#expandaddresswith)
+*   [parseAddress](#parseaddress)
+*   [parseAddressWith](#parseaddresswith)
 
 ### expandAddress
 
@@ -40,6 +40,7 @@ plugin = libpostal
 ; Using "expandAddress"
 ; Utilisation de "expandAddress"
 [expandAddress]
+
 ```
 
 ##### Input / Entrée
@@ -66,9 +67,9 @@ plugin = libpostal
 
 #### Parameters
 
--   `input` **([String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)> | [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object))** 
+*   `input` **([String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)> | [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object))**&#x20;
 
-Returns **({id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>} | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>}> | [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object))** 
+Returns **({id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>} | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>}> | [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object))**&#x20;
 
 ### expandAddressWith
 
@@ -90,6 +91,7 @@ plugin = libpostal
 ; Utilisation de "expandAddressWith"
 [expandAddress]
 ; path = value
+
 ```
 
 ##### Input / Entrée
@@ -120,11 +122,11 @@ plugin = libpostal
 
 #### Parameters
 
--   `input` **({path: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>} | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;{path: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>}> | [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object))** 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element to expand</li></ul>
+*   `input` **({path: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>} | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<{path: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>}> | [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object))**&#x20;
+*   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element to expand</li></ul>
     <ul><li>chemin de l'élément à etandre</li></ul> (optional, default `value`)
 
-Returns **({path: {id: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>}} | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;{path: {id: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>}}> | [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object))** 
+Returns **({path: {id: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>}} | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<{path: {id: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>}}> | [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object))**&#x20;
 
 ### parseAddress
 
@@ -145,6 +147,7 @@ plugin = libpostal
 ; Using "parseAddress"
 ; Utilisation de "parseAddress"
 [parseAddress]
+
 ```
 
 ##### Input / Entrée
@@ -176,9 +179,9 @@ plugin = libpostal
 
 #### Parameters
 
--   `input` **([String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)> | [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object))** 
+*   `input` **([String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)> | [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object))**&#x20;
 
-Returns **({id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)} | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)}> | [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object))** 
+Returns **({id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)} | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)}> | [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object))**&#x20;
 
 ### parseAddressWith
 
@@ -200,6 +203,7 @@ plugin = libpostal
 ; Utilisation de "parseAddressWith"
 [expandAddress]
 ; path = value
+
 ```
 
 ##### Input / Entrée
@@ -235,8 +239,8 @@ plugin = libpostal
 
 #### Parameters
 
--   `input` **({path: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>} | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;{path: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>}> | [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object))** 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element to parse</li></ul>
+*   `input` **({path: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>} | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<{path: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>}> | [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object))**&#x20;
+*   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element to parse</li></ul>
     <ul><li>chemin de l'élément à analyser</li></ul> (optional, default `value`)
 
-Returns **({path: {id: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)}} | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;{path: {id: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)}}> | [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object))** 
+Returns **({path: {id: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)}} | [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<{path: {id: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)}}> | [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object))**&#x20;

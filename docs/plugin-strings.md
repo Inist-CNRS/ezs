@@ -22,10 +22,10 @@ plugin = strings
 
 #### Table of Contents
 
--   [decode](#decode)
--   [encode](#encode)
--   [inflection](#inflection)
--   [sentences](#sentences)
+*   [decode](#decode)
+*   [encode](#encode)
+*   [inflection](#inflection)
+*   [sentences](#sentences)
 
 ### decode
 
@@ -80,11 +80,11 @@ See `encode`.
 
 #### Parameters
 
--   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The path of the string to be decoded, within data.
--   `from` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** An array of strings to replace with.
--   `to` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** An array of strings to be replaced.
--   `prefix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** A string to be removed from the beginning of each replaced substring. (optional, default `""`)
--   `suffix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** A string to be removed from the end of each replaced substring. (optional, default `""`)
+*   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The path of the string to be decoded, within data.
+*   `from` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** An array of strings to replace with.
+*   `to` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** An array of strings to be replaced.
+*   `prefix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** A string to be removed from the beginning of each replaced substring. (optional, default `""`)
+*   `suffix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** A string to be removed from the end of each replaced substring. (optional, default `""`)
 
 ### encode
 
@@ -134,24 +134,24 @@ Output:
 > ⚠ The replacements are made in the order of the `from` array. This means
 > that if 1 is replaced with 2, and next 2 replaced with 3, a 1 is eventually
 > replaced with 3.
->
+
 > ⚠ You must give as much `from` as `to`.
 
 See `decode` to invert the processus.
 
 #### Parameters
 
--   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The path of the string to be encoded, within data.
--   `from` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** An array of strings to replace.
--   `to` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** An array of strings to replace with.
--   `prefix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** A string to be added to the beginning of each replaced substring. (optional, default `""`)
--   `suffix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** A string to be added to the end of each replaced substring. (optional, default `""`)
+*   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The path of the string to be encoded, within data.
+*   `from` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** An array of strings to replace.
+*   `to` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** An array of strings to replace with.
+*   `prefix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** A string to be added to the beginning of each replaced substring. (optional, default `""`)
+*   `suffix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** A string to be added to the end of each replaced substring. (optional, default `""`)
 
 ### inflection
 
 Take a `String` and inflect it with or more transformers from this list
- pluralize, singularize, camelize, underscore, humanize, capitalize,
- dasherize, titleize, demodulize, tableize, classify, foreign_key, ordinalize
+pluralize, singularize, camelize, underscore, humanize, capitalize,
+dasherize, titleize, demodulize, tableize, classify, foreign\_key, ordinalize
 
 Input:
 
@@ -182,10 +182,10 @@ see <https://www.npmjs.com/package/inflection>
 
 #### Parameters
 
--   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to segment (optional, default `""`)
--   `transform` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** name of a transformer
+*   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to segment (optional, default `""`)
+*   `transform` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** name of a transformer
 
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** 
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>**&#x20;
 
 ### sentences
 
@@ -208,6 +208,6 @@ Output:
 
 #### Parameters
 
--   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to segment (optional, default `""`)
+*   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to segment (optional, default `""`)
 
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** 
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>**&#x20;

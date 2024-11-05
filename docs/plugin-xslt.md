@@ -16,8 +16,8 @@ npm install @ezs/xslt
 
 #### Table of Contents
 
--   [xslt](#xslt)
--   [xslt](#xslt-1)
+*   [xslt](#xslt)
+*   [xslt](#xslt-1)
 
 ### xslt
 
@@ -30,13 +30,14 @@ Script:
 plugin = xslt
 
 [fop]
+
 ```
 
 #### Parameters
 
--   `config` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** argument for FOP Processor
+*   `config` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** argument for FOP Processor
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### xslt
 
@@ -51,11 +52,12 @@ plugin = xslt
 [xslt]
 stylesheet = ./style.xsl
 param = prefix=X
+
 ```
 
 #### Parameters
 
--   `stylesheet` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path to stylesheet file
--   `param` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** argument for XSL Processor
+*   `stylesheet` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path to stylesheet file
+*   `param` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** argument for XSL Processor
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;

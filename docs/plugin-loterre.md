@@ -14,10 +14,10 @@ npm install @ezs/loterre
 
 #### Table of Contents
 
--   [SKOSHierarchy](#skoshierarchy)
--   [SKOSObject](#skosobject)
--   [SKOSPathEnum](#skospathenum)
--   [SKOSToGexf](#skostogexf)
+*   [SKOSHierarchy](#skoshierarchy)
+*   [SKOSObject](#skosobject)
+*   [SKOSPathEnum](#skospathenum)
+*   [SKOSToGexf](#skostogexf)
 
 ### SKOSHierarchy
 
@@ -35,7 +35,7 @@ Output:
 
 #### Parameters
 
--   `language` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Choose language of `prefLabel` (optional, default `en`)
+*   `language` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Choose language of `prefLabel` (optional, default `en`)
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)** Return fed Object
 
@@ -46,9 +46,9 @@ create a new basic object with only keys & values
 
 #### Parameters
 
--   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)** 
+*   `none` **[undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)**&#x20;
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### SKOSPathEnum
 
@@ -140,10 +140,10 @@ Output:
 
 #### Parameters
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Choose one or more paths to enum (optional, default `skos$broader`)
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Choose one path to select uri from found concepts (optional, default `rdf$about`)
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Choose one path to select label from found concepts (optional, default `skos$prefLabel`)
--   `recursion` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Follow path to enum (usefull for broaderConcept) (optional, default `false`)
+*   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Choose one or more paths to enum (optional, default `skos$broader`)
+*   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Choose one path to select uri from found concepts (optional, default `rdf$about`)
+*   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Choose one path to select label from found concepts (optional, default `skos$prefLabel`)
+*   `recursion` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Follow path to enum (usefull for broaderConcept) (optional, default `false`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Returns object
 
@@ -163,6 +163,6 @@ Output:
 
 #### Parameters
 
--   `language` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Choose language of `prefLabel` (optional, default `en`)
+*   `language` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Choose language of `prefLabel` (optional, default `en`)
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)** Return fed Object

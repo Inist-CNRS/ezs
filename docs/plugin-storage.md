@@ -16,9 +16,9 @@ npm install @ezs/storage
 
 #### Table of Contents
 
--   [cast](#cast)
--   [load](#load)
--   [save](#save)
+*   [cast](#cast)
+*   [load](#load)
+*   [save](#save)
 
 ### cast
 
@@ -28,12 +28,12 @@ Take an `Object` and replace it with all the objects of the same domain containe
 
 #### Parameters
 
--   `data`  
--   `feed`  
--   `domain` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** domain ID (same for all objects) (optional, default `ezs`)
--   `clean` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** clean all stored object after cast them (optional, default `false`)
+*   `data` &#x20;
+*   `feed` &#x20;
+*   `domain` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** domain ID (same for all objects) (optional, default `ezs`)
+*   `clean` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** clean all stored object after cast them (optional, default `false`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### load
 
@@ -41,13 +41,13 @@ With a `String`, containing a URI throw all the documents that match
 
 #### Parameters
 
--   `data`  
--   `feed`  
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path containing the object Identifier (optional, default `uri`)
--   `domain` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** domain ID (that should contains the uri input) (optional, default `ezs`)
--   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** choose the key to set
+*   `data` &#x20;
+*   `feed` &#x20;
+*   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path containing the object Identifier (optional, default `uri`)
+*   `domain` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** domain ID (that should contains the uri input) (optional, default `ezs`)
+*   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** choose the key to set
 
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**&#x20;
 
 ### save
 
@@ -55,11 +55,11 @@ Take `Object`, to save it into a store and throw an URL
 
 #### Parameters
 
--   `data`  
--   `feed`  
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path containing the object Identifier (optional, default `uri`)
--   `domain` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** domain ID (same for all objects) (optional, default `ezs`)
--   `reset` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** if the store already exists, you will erase all previous content (optional, default `false`)
--   `score` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** if the object has already been saved, the current object will replace it if its score is higher (optional, default `false`)
+*   `data` &#x20;
+*   `feed` &#x20;
+*   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path containing the object Identifier (optional, default `uri`)
+*   `domain` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** domain ID (same for all objects) (optional, default `ezs`)
+*   `reset` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** if the store already exists, you will erase all previous content (optional, default `false`)
+*   `score` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** if the object has already been saved, the current object will replace it if its score is higher (optional, default `false`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;

@@ -30,18 +30,18 @@ total: 1392
 Les règles certaines utilisées par [affAlign](#affAlign), appliquées à l'adresse
 de l'affiliation à aligner sont les suivantes:
 
--   le `code_postal` **ou** la `ville_postale` de la structure doivent être présents,
--   **et**  pour au moins une des tutelles (`etabAssoc.*.etab`, et `etabAssoc.*.etab.natTutEtab` vaut `TUTE`):
-    -   soit `etabAssoc.*.etab.sigle` ou le `etabAssoc.*.etab.libelle` sont présents,
-    -   soit `etabAssoc.*.etab.libelle` commence par `Université` et le
+*   le `code_postal` **ou** la `ville_postale` de la structure doivent être présents,
+*   **et**  pour au moins une des tutelles (`etabAssoc.*.etab`, et `etabAssoc.*.etab.natTutEtab` vaut `TUTE`):
+    *   soit `etabAssoc.*.etab.sigle` ou le `etabAssoc.*.etab.libelle` sont présents,
+    *   soit `etabAssoc.*.etab.libelle` commence par `Université` et le
         `etabAssoc.*.etab.libelle` est présent (mais pas le
         `etabAssoc.*.etab.sigle`).
--   **et** on trouve la bonne structure:
-    -   soit `etabAssoc.*.label` et `etabAssoc.*.numero` sont présents proches et en
+*   **et** on trouve la bonne structure:
+    *   soit `etabAssoc.*.label` et `etabAssoc.*.numero` sont présents proches et en
         séquence (ex: `GDR2945`, `GDR 2945` ou `GDR mot 2945`),
-    -   soit `sigle` est présent,
-    -   soit `intitule` est présent.
--   **et** la structure existait lors de la publication: une des
+    *   soit `sigle` est présent,
+    *   soit `intitule` est présent.
+*   **et** la structure existait lors de la publication: une des
     `xPublicationDate` est entre `annee_creation` et l'éventuelle `an_fermeture`.
 
 Sachant qu'on appauvrit (casse, accents, tiret, apostrophe) tous les champs.
@@ -52,14 +52,14 @@ Sachant qu'on appauvrit (casse, accents, tiret, apostrophe) tous les champs.
 
 #### Table of Contents
 
--   [affAlign](#affalign)
--   [compareRnsr](#comparernsr)
--   [conditorScroll](#conditorscroll)
--   [CORHALFetch](#corhalfetch)
--   [CORHALFetch](#corhalfetch-1)
--   [getRnsr](#getrnsr)
--   [getRnsrInfo](#getrnsrinfo)
--   [WOSFetch](#wosfetch)
+*   [affAlign](#affalign)
+*   [compareRnsr](#comparernsr)
+*   [conditorScroll](#conditorscroll)
+*   [CORHALFetch](#corhalfetch)
+*   [CORHALFetch](#corhalfetch-1)
+*   [getRnsr](#getrnsr)
+*   [getRnsrInfo](#getrnsrinfo)
+*   [WOSFetch](#wosfetch)
 
 ### affAlign
 
@@ -107,7 +107,7 @@ Output:
 
 #### Parameters
 
--   `year` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Year of the RNSR to use instead of the last one (optional, default `2023`)
+*   `year` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Year of the RNSR to use instead of the last one (optional, default `2023`)
 
 ### compareRnsr
 
@@ -118,7 +118,6 @@ Take Conditor JSON documents and compute the recall of
 #### Examples
 
 Input
-
 
 ```javascript
 [{
@@ -133,7 +132,6 @@ Input
 ```
 
 Output
-
 
 ```javascript
 {
@@ -154,19 +152,18 @@ Use scroll to return all results from Conditor API.
 
 #### Parameters
 
--   `q` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** query (optional, default `""`)
--   `scroll` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** duration of the scroll (optional, default `"5m"`)
--   `page_size` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** size of the pages (optional, default `1000`)
--   `max_page` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** maximum number of pages (optional, default `1000000`)
--   `includes` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** fields to get in the response
--   `excludes` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** fields to exclude from the response
--   `sid` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** User-agent identifier (optional, default `"ezs-conditor"`)
--   `progress` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** display a progress bar in stderr (optional, default `false`)
+*   `q` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** query (optional, default `""`)
+*   `scroll` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** duration of the scroll (optional, default `"5m"`)
+*   `page_size` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** size of the pages (optional, default `1000`)
+*   `max_page` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** maximum number of pages (optional, default `1000000`)
+*   `includes` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** fields to get in the response
+*   `excludes` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** fields to exclude from the response
+*   `sid` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** User-agent identifier (optional, default `"ezs-conditor"`)
+*   `progress` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** display a progress bar in stderr (optional, default `false`)
 
 #### Examples
 
 Input
-
 
 ```javascript
 {
@@ -178,7 +175,6 @@ Input
 ```
 
 Output
-
 
 ```javascript
 [[
@@ -192,7 +188,7 @@ Output
 ]]
 ```
 
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>**&#x20;
 
 ### CORHALFetch
 
@@ -221,11 +217,11 @@ Output:
 
 #### Parameters
 
--   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** corhal api url
--   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (optional, default `1000`)
--   `retries` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** The maximum amount of times to retry the connection (optional, default `5`)
+*   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** corhal api url
+*   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (optional, default `1000`)
+*   `retries` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** The maximum amount of times to retry the connection (optional, default `5`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### CORHALFetch
 
@@ -254,11 +250,11 @@ Output:
 
 #### Parameters
 
--   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** corhal api url
--   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (optional, default `1000`)
--   `retries` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** The maximum amount of times to retry the connection (optional, default `5`)
+*   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** corhal api url
+*   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (optional, default `1000`)
+*   `retries` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** The maximum amount of times to retry the connection (optional, default `5`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### getRnsr
 
@@ -292,7 +288,7 @@ Output:
 
 #### Parameters
 
--   `year` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Year of the RNSR to use instead of the last one (optional, default `2023`)
+*   `year` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Year of the RNSR to use instead of the last one (optional, default `2023`)
 
 ### getRnsrInfo
 
@@ -368,7 +364,7 @@ Output:
 
 #### Parameters
 
--   `year` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Year of the RNSR to use instead of the last one (optional, default `2023`)
+*   `year` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Year of the RNSR to use instead of the last one (optional, default `2023`)
 
 ### WOSFetch
 
@@ -397,9 +393,9 @@ Output:
 
 #### Parameters
 
--   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** corhal api url (optional, default `https://wos-api.clarivate.com/api/wos`)
--   `token` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** WOS API TOKEN
--   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (optional, default `1000`)
--   `retries` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** The maximum amount of times to retry the connection (optional, default `5`)
+*   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** corhal api url (optional, default `https://wos-api.clarivate.com/api/wos`)
+*   `token` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** WOS API TOKEN
+*   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (optional, default `1000`)
+*   `retries` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** The maximum amount of times to retry the connection (optional, default `5`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;

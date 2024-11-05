@@ -12,13 +12,13 @@ npm install @ezs/core
 
 Plusieurs instructions permettent de créer des sous flux (sub pipeline), à partir d'un fichier d’instructions ou d'instructions imbriquées. Si elles s'utilisent toutes de la même manière (avec les mêmes paramètres) centaines peuvent apparaître comme similaires mais leur fonctionnement est différent :
 
--   [delegate] &#x3A; 1 sous flux pour tous les éléments
--   [swing] &#x3A; 1 sous flux pour tous les éléments filtrés selon une condition
--   [spaw] &#x3A; 1 sous flux par élément
--   [loop] &#x3A; 1 sous flux par élément
--   [expand] &#x3A; 1 sous flux pour N éléments (N = size), seul le champ sélectionné est envoyé dans le pipeline
--   [combine] &#x3A; 1 sous flux pour tous les éléments, seul le champ sélectionné est comparé avec le résultat du sous flux
--   [singleton] &#x3A; 1 sous flux pour le premier élément
+*   \[delegate] : 1 sous flux pour tous les éléments
+*   \[swing] : 1 sous flux pour tous les éléments filtrés selon une condition
+*   \[spaw] : 1 sous flux par élément
+*   \[loop] : 1 sous flux par élément
+*   \[expand] : 1 sous flux pour N éléments (N = size), seul le champ sélectionné est envoyé dans le pipeline
+*   \[combine] : 1 sous flux pour tous les éléments, seul le champ sélectionné est comparé avec le résultat du sous flux
+*   \[singleton] : 1 sous flux pour le premier élément
 
 ## usage
 
@@ -26,47 +26,47 @@ Plusieurs instructions permettent de créer des sous flux (sub pipeline), à par
 
 #### Table of Contents
 
--   [assign](#assign)
--   [combine](#combine)
--   [concat](#concat)
--   [debug](#debug)
--   [dedupe](#dedupe)
--   [delegate](#delegate)
--   [delegate](#delegate-1)
--   [dispatch](#dispatch)
--   [dump](#dump)
--   [env](#env)
--   [exchange](#exchange)
--   [expand](#expand)
--   [extract](#extract)
--   [fork](#fork)
--   [group](#group)
--   [identify](#identify)
--   [ignore](#ignore)
--   [keep](#keep)
--   [loop](#loop)
--   [map](#map)
--   [metrics](#metrics)
--   [overturn](#overturn)
--   [pack](#pack)
--   [parallel](#parallel)
--   [pop](#pop)
--   [remove](#remove)
--   [replace](#replace)
--   [shift](#shift)
--   [shuffle](#shuffle)
--   [singleton](#singleton)
--   [spawn](#spawn)
--   [swing](#swing)
--   [throttle](#throttle)
--   [time](#time)
--   [tracer](#tracer)
--   [transit](#transit)
--   [truncate](#truncate)
--   [ungroup](#ungroup)
--   [unpack](#unpack)
--   [use](#use)
--   [validate](#validate)
+*   [assign](#assign)
+*   [combine](#combine)
+*   [concat](#concat)
+*   [debug](#debug)
+*   [dedupe](#dedupe)
+*   [delegate](#delegate)
+*   [delegate](#delegate-1)
+*   [dispatch](#dispatch)
+*   [dump](#dump)
+*   [env](#env)
+*   [exchange](#exchange)
+*   [expand](#expand)
+*   [extract](#extract)
+*   [fork](#fork)
+*   [group](#group)
+*   [identify](#identify)
+*   [ignore](#ignore)
+*   [keep](#keep)
+*   [loop](#loop)
+*   [map](#map)
+*   [metrics](#metrics)
+*   [overturn](#overturn)
+*   [pack](#pack)
+*   [parallel](#parallel)
+*   [pop](#pop)
+*   [remove](#remove)
+*   [replace](#replace)
+*   [shift](#shift)
+*   [shuffle](#shuffle)
+*   [singleton](#singleton)
+*   [spawn](#spawn)
+*   [swing](#swing)
+*   [throttle](#throttle)
+*   [time](#time)
+*   [tracer](#tracer)
+*   [transit](#transit)
+*   [truncate](#truncate)
+*   [ungroup](#ungroup)
+*   [unpack](#unpack)
+*   [use](#use)
+*   [validate](#validate)
 
 ### assign
 
@@ -98,6 +98,7 @@ Script:
 [assign]
 path = b.c
 value = 'X'
+
 ```
 
 Output:
@@ -127,10 +128,10 @@ Output:
 
 #### Parameters
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of the new field
--   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value of the new field
+*   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of the new field
+*   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value of the new field
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### combine
 
@@ -154,6 +155,7 @@ plugin = analytics
 [combine]
 path = dept
 file = ./departement.ini
+
 ```
 
 Output:
@@ -168,17 +170,17 @@ Output:
 
 #### Parameters
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the path to substitute
--   `default` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value if no substitution (otherwise value stay unchanged)
--   `primer` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Data to send to the external pipeline (optional, default `n/a`)
--   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
--   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
--   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
--   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
--   `logger` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** A dedicaded pipeline described in a file to trap or log errors
--   `cacheName` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Enable cache, with dedicated name
+*   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the path to substitute
+*   `default` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value if no substitution (otherwise value stay unchanged)
+*   `primer` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Data to send to the external pipeline (optional, default `n/a`)
+*   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
+*   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
+*   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
+*   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
+*   `logger` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** A dedicaded pipeline described in a file to trap or log errors
+*   `cacheName` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Enable cache, with dedicated name
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### concat
 
@@ -211,11 +213,11 @@ Output:
 
 #### Parameters
 
--   `beginWith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Add value at the begin
--   `joinWith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** use value to join 2 chunk
--   `endWith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Add value at the end
+*   `beginWith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Add value at the begin
+*   `joinWith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** use value to join 2 chunk
+*   `endWith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Add value at the end
 
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**&#x20;
 
 ### debug
 
@@ -231,12 +233,12 @@ if ezs parameter is set, every object are not log (it's a global action)
 
 #### Parameters
 
--   `level` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** console level : log or error or silent (optional, default `error`)
--   `text` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** text before the dump (optional, default `valueOf`)
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to print
--   `ezs` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** enable or disable ezs global debug traces
+*   `level` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** console level : log or error or silent (optional, default `error`)
+*   `text` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** text before the dump (optional, default `valueOf`)
+*   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to print
+*   `ezs` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** enable or disable ezs global debug traces
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### dedupe
 
@@ -244,12 +246,12 @@ Take `Object`, and check that the object identifier has not already been used pr
 
 #### Parameters
 
--   `data`  
--   `feed`  
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path containing the object Identifier (optional, default `uri`)
--   `ignore` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Just ignore duplicate object (optional, default `false`)
+*   `data` &#x20;
+*   `feed` &#x20;
+*   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path containing the object Identifier (optional, default `uri`)
+*   `ignore` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Just ignore duplicate object (optional, default `false`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### delegate
 
@@ -257,9 +259,9 @@ Break the stream  if the control file cannot be checked
 
 #### Parameters
 
--   `fusible` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** file to check
+*   `fusible` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** file to check
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### delegate
 
@@ -269,13 +271,13 @@ Delegate processing to an external pipeline.
 
 #### Parameters
 
--   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
--   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
--   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
--   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
--   `logger` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** A dedicaded pipeline described in a file to trap or log errors
+*   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
+*   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
+*   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
+*   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
+*   `logger` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** A dedicaded pipeline described in a file to trap or log errors
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### dispatch
 
@@ -283,12 +285,12 @@ Dispatch processing to an external pipeline on one or more servers.
 
 #### Parameters
 
--   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
--   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
--   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
--   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
+*   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
+*   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
+*   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
+*   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### dump
 
@@ -334,9 +336,9 @@ Output:
 
 #### Parameters
 
--   `indent` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** indent JSON (optional, default `false`)
+*   `indent` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** indent JSON (optional, default `false`)
 
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**&#x20;
 
 ### env
 
@@ -345,10 +347,10 @@ first `Object` of the feed.
 
 #### Parameters
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of the new field
--   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value of the new field
+*   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of the new field
+*   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value of the new field
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### exchange
 
@@ -392,9 +394,9 @@ Output:
 
 #### Parameters
 
--   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value to replace input object
+*   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value to replace input object
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### expand
 
@@ -419,6 +421,7 @@ plugin = analytics
 [expand]
 path = dept
 file = ./departement.ini
+
 ```
 
 Output:
@@ -433,17 +436,17 @@ Output:
 
 #### Parameters
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the path to substitute
--   `size` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** How many chunk for sending to the external pipeline (optional, default `1`)
--   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
--   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
--   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
--   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
--   `logger` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** A dedicaded pipeline described in a file to trap or log errors
--   `cacheName` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Enable cache, with dedicated name
--   `token` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** add token values in the subpipeline (optional)
+*   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the path to substitute
+*   `size` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** How many chunk for sending to the external pipeline (optional, default `1`)
+*   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
+*   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
+*   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
+*   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
+*   `logger` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** A dedicaded pipeline described in a file to trap or log errors
+*   `cacheName` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Enable cache, with dedicated name
+*   `token` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** add token values in the subpipeline (optional)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### extract
 
@@ -485,9 +488,9 @@ Output:
 
 #### Parameters
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to extract
+*   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to extract
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### fork
 
@@ -497,15 +500,15 @@ fork the current pipeline
 
 #### Parameters
 
--   `standalone` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** The current pipeline will be able to end without waiting for the end of the external pipeline (optional, default `false`)
--   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
--   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
--   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
--   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
--   `logger` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** A dedicaded pipeline described in a file to trap or log errors
--   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose the key to set with the forked request identifier (optional, default `x-request-id`)
+*   `standalone` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** The current pipeline will be able to end without waiting for the end of the external pipeline (optional, default `false`)
+*   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
+*   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
+*   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
+*   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
+*   `logger` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** A dedicaded pipeline described in a file to trap or log errors
+*   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose the key to set with the forked request identifier (optional, default `x-request-id`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### group
 
@@ -545,9 +548,9 @@ Output:
 
 #### Parameters
 
--   `length` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Size of each partition
+*   `length` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Size of each partition
 
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**&#x20;
 
 ### identify
 
@@ -555,12 +558,12 @@ Take `Object`, and compute & add an identifier
 
 #### Parameters
 
--   `data`  
--   `feed`  
--   `scheme` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** scheme to use (uid or sha) (optional, default `uid`)
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path containing the object Identifier (optional, default `uri`)
+*   `data` &#x20;
+*   `feed` &#x20;
+*   `scheme` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** scheme to use (uid or sha) (optional, default `uid`)
+*   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path containing the object Identifier (optional, default `uri`)
 
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**&#x20;
 
 ### ignore
 
@@ -606,9 +609,9 @@ Output:
 
 #### Parameters
 
--   `length` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Length of the feed to ignore
+*   `length` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Length of the feed to ignore
 
-Returns **any** 
+Returns **any**&#x20;
 
 ### keep
 
@@ -652,9 +655,9 @@ Output:
 
 #### Parameters
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to keep
+*   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to keep
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### loop
 
@@ -664,17 +667,17 @@ Loop on external pipeline, until test will be true
 
 #### Parameters
 
--   `test` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** if test is true
--   `reverse` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** to reverse the test (optional, default `false`)
--   `maxDepth` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** to limit the number of loops (optional, default `100000`)
--   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
--   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
--   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in an object
--   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in an URL-like command
--   `logger` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** A dedicaded pipeline described in a file to trap or log errors
--   `fusible` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Can be set with the ezs server fusible see env('request.fusible')
+*   `test` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** if test is true
+*   `reverse` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** to reverse the test (optional, default `false`)
+*   `maxDepth` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** to limit the number of loops (optional, default `100000`)
+*   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
+*   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
+*   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in an object
+*   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in an URL-like command
+*   `logger` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** A dedicaded pipeline described in a file to trap or log errors
+*   `fusible` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Can be set with the ezs server fusible see env('request.fusible')
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### map
 
@@ -684,48 +687,47 @@ From an array field delegate processing of each items to an external pipeline
 
 #### Parameters
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the path to substitute
--   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
--   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
--   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in an object
--   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in an URL-like command
--   `logger` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** A dedicaded pipeline described in a file to trap or log errors
+*   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the path to substitute
+*   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
+*   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
+*   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in an object
+*   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in an URL-like command
+*   `logger` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** A dedicaded pipeline described in a file to trap or log errors
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### metrics
 
--   **See: ../server/knownPipeline.js
-    **
+*   **See**: ../server/knownPipeline.js
 
 Take `Object`, and throw the same object.
 
 This statement will only be used if :
 
--   EZS_METRICS is enabled
--   ezs is running in server mode
+*   EZS\_METRICS is enabled
+*   ezs is running in server mode
 
 WARNING: avoid setting bucket to "input" or "output", as these labels are used by ezs.
 If you do, you risk distorting the associated metrics.
 
 #### Parameters
 
--   `pathName` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to identify the script (optional, default `auto`)
--   `bucket` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to identify the moment of measurement (optional, default `unknow`)
+*   `pathName` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to identify the script (optional, default `auto`)
+*   `bucket` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** to identify the moment of measurement (optional, default `unknow`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### overturn
 
 Takes an `Object` and substitute twice a field with the corresponding value found in a external pipeline
 the internal pipeline receive a special object { id, value, token } :
 
--   id is the item identifier
--   value is the item path value,
--   token is an array containing stream id and an number (0 for first time, 1 for the second tme
+*   id is the item identifier
+*   value is the item path value,
+*   token is an array containing stream id and an number (0 for first time, 1 for the second tme
     The internal pipeline can overturn value with another.
 
-It's work like [expand] but
+It's work like \[expand] but
 the second call starts only when all the values of the stream have been sent once
 
 ```json
@@ -745,6 +747,7 @@ path = dept
 [overturn/assign]
 path = value
 value = get('value').split('').reverse().join('')
+
 ```
 
 Output:
@@ -770,6 +773,7 @@ path = dept
 [overturn/assign]
 path = value
 value = get('value').split('').reverse().join('')
+
 ```
 
 Output:
@@ -784,20 +788,20 @@ Output:
 
 #### Parameters
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the path to overturn
--   `size` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** How many chunk for sending to the external pipeline (optional, default `1`)
--   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
--   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
--   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
--   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
+*   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the path to overturn
+*   `size` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** How many chunk for sending to the external pipeline (optional, default `1`)
+*   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
+*   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
+*   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
+*   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### pack
 
 Take all `Object`, throw encoded `String`
 
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**&#x20;
 
 ### parallel
 
@@ -805,18 +809,17 @@ Takes an `Object` delegate processing to X internal pipelines
 
 #### Parameters
 
--   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
--   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
--   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
--   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
--   `logger` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** A dedicaded pipeline described in a file to trap or log errors
+*   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
+*   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
+*   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
+*   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
+*   `logger` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** A dedicaded pipeline described in a file to trap or log errors
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### pop
 
--   **See: shift
-    **
+*   **See**: shift
 
 Return the last `Object` and close the feed
 
@@ -854,7 +857,7 @@ Output:
 }]
 ```
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### remove
 
@@ -902,10 +905,10 @@ Output:
 
 #### Parameters
 
--   `test` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** if test is true
--   `reverse` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** reverse the test (optional, default `false`)
+*   `test` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** if test is true
+*   `reverse` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** reverse the test (optional, default `false`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### replace
 
@@ -963,10 +966,10 @@ Output:
 
 #### Parameters
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of the new field
--   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value of the new field
+*   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of the new field
+*   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value of the new field
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### shift
 
@@ -1006,7 +1009,7 @@ Output:
 }]
 ```
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### shuffle
 
@@ -1047,9 +1050,9 @@ Output:
 
 #### Parameters
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to shuffle
+*   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to shuffle
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### singleton
 
@@ -1057,13 +1060,13 @@ Takes only the first  `Object` delegate processing to a external pipeline
 
 #### Parameters
 
--   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
--   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
--   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
--   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
--   `logger` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** A dedicaded pipeline described in a file to trap or log errors
+*   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
+*   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
+*   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
+*   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
+*   `logger` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** A dedicaded pipeline described in a file to trap or log errors
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### spawn
 
@@ -1073,14 +1076,14 @@ Delegate processing to an external pipeline, throw each chunk from the result.
 
 #### Parameters
 
--   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
--   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
--   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in an object
--   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in an URL-like command
--   `logger` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** A dedicaded pipeline described in a file to trap or log errors
--   `cache` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Use a specific ezs statement to run commands (advanced)
+*   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
+*   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
+*   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in an object
+*   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in an URL-like command
+*   `logger` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** A dedicaded pipeline described in a file to trap or log errors
+*   `cache` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Use a specific ezs statement to run commands (advanced)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### swing
 
@@ -1091,16 +1094,16 @@ Delegate processing to an external pipeline under specifics conditions
 
 #### Parameters
 
--   `test` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** if test is true
--   `reverse` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** reverse the test (optional, default `false`)
--   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
--   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
--   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in an object
--   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in an URL-like
--   `logger` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** A dedicaded pipeline described in a file to trap or log errors
+*   `test` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** if test is true
+*   `reverse` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** reverse the test (optional, default `false`)
+*   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
+*   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
+*   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in an object
+*   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in an URL-like
+*   `logger` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** A dedicaded pipeline described in a file to trap or log errors
     command
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### throttle
 
@@ -1121,6 +1124,7 @@ plugin = analytics
 
 [throttle]
 bySecond = 2
+
 ```
 
 Output:
@@ -1134,9 +1138,9 @@ Output:
 
 #### Parameters
 
--   `bySecond` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Number of object by second (optional, default `1`)
+*   `bySecond` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Number of object by second (optional, default `1`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### time
 
@@ -1144,19 +1148,17 @@ Measure the execution time of a script, on each chunk of input.
 
 #### Parameters
 
--   `script` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
+*   `script` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?**&#x20;
 
 #### Examples
 
 Input
-
 
 ```javascript
 [1]
 ```
 
 Program
-
 
 ```javascript
 const script = `
@@ -1168,7 +1170,6 @@ from([1])
 
 Output
 
-
 ```javascript
 [{
   data: 1,
@@ -1176,7 +1177,7 @@ Output
 }]
 ```
 
-Returns **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### tracer
 
@@ -1185,11 +1186,11 @@ Useful to see the progress in the stream.
 
 #### Parameters
 
--   `print` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** character to print at each object (optional, default `.`)
--   `last` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** character to print at last call (optional, default `.`)
--   `first` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** character to print at first call (optional, default `.`)
+*   `print` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** character to print at each object (optional, default `.`)
+*   `last` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** character to print at last call (optional, default `.`)
+*   `first` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** character to print at first call (optional, default `.`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### transit
 
@@ -1223,7 +1224,7 @@ Output:
 }]
 ```
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### truncate
 
@@ -1272,9 +1273,9 @@ Output:
 
 #### Parameters
 
--   `length` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Length of the feed
+*   `length` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Length of the feed
 
-Returns **any** 
+Returns **any**&#x20;
 
 ### ungroup
 
@@ -1311,13 +1312,13 @@ Output:
 ]
 ```
 
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;any>** 
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)\<any>**&#x20;
 
 ### unpack
 
 Take `String`s or `Buffer`s and throw `Object` builded by JSON.parse on each line.
 
-Returns **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### use
 
@@ -1333,11 +1334,11 @@ plugin = analytics
 
 #### Parameters
 
--   `beginWith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Add value at the begin
--   `joinWith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** use value to join 2 chunk
--   `endWith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Add value at the end
+*   `beginWith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Add value at the begin
+*   `joinWith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** use value to join 2 chunk
+*   `endWith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Add value at the end
 
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**&#x20;
 
 ### validate
 
@@ -1345,8 +1346,8 @@ From an `Object`, throw the same object if all rules pass
 
 See
 
--   [Laravel validator rules](https://laravel.com/docs/8.x/validation)
--   <https://github.com/skaterdav85/validatorjs#readme>
+*   [Laravel validator rules](https://laravel.com/docs/8.x/validation)
+*   <https://github.com/skaterdav85/validatorjs#readme>
 
 Input file:
 
@@ -1391,7 +1392,7 @@ Output:
 
 #### Parameters
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of the field
--   `rule` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** rule to validate the field
+*   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of the field
+*   `rule` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** rule to validate the field
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
