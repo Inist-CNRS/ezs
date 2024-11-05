@@ -32,10 +32,8 @@ npm install @ezs/basics
 -   [TARDump](#tardump)
 -   [TARExtract](#tarextract)
 -   [TXTConcat](#txtconcat)
--   [TXTInflection](#txtinflection)
 -   [TXTObject](#txtobject)
 -   [TXTParse](#txtparse)
--   [TXTSentences](#txtsentences)
 -   [TXTZip](#txtzip)
 -   [URLConnect](#urlconnect)
 -   [URLFetch](#urlfetch)
@@ -650,46 +648,6 @@ Output:
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
-### TXTInflection
-
-Take a `String` and inflect it with or more transformers from this list
- pluralize, singularize, camelize, underscore, humanize, capitalize,
- dasherize, titleize, demodulize, tableize, classify, foreign_key, ordinalize
-
-Input:
-
-```json
-{ "id": 1, "value": "all job" }
-```
-
-Script:
-
-```ini
-[TXTInflection]
-transform = pluralize
-transform = capitalize
-transform = dasherize
-```
-
-Output:
-
-```json
-{ "id": 1, "value": "All-jobs" }
-```
-
-#### Parameters
-
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to segment (optional, default `"value"`)
--   `transform` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** name of a transformer
-
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** 
-
-**Meta**
-
--   **deprecated**: see <https://inist-cnrs.github.io/ezs/#/plugin-strings?id=inflection>
-    see <https://www.npmjs.com/package/inflection>
-
-
 ### TXTObject
 
 Take an array of values and generate an array containing objects with the
@@ -734,33 +692,6 @@ Output:
 -   `separator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose character which trigger the split (optional, default `"\n"`)
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-### TXTSentences
-
-Take a `String` and split it into an array of sentences.
-
-Input:
-
-```json
-{ "id": 1, "value": "First sentence? Second sentence. My name is Bond, J. Bond." }
-```
-
-Output:
-
-```json
-{ "id": 1, "value": ["First sentence?", "Second sentence.", "My name is Bond, J. Bond."] }
-```
-
-#### Parameters
-
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the field to segment (optional, default `"value"`)
-
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** 
-
-**Meta**
-
--   **deprecated**: see <https://inist-cnrs.github.io/ezs/#/plugin-strings?id=sentences>
-
 
 ### TXTZip
 
