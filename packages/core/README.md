@@ -33,6 +33,7 @@ Plusieurs instructions permettent de créer des sous flux (sub pipeline), à par
 -   [dedupe](#dedupe)
 -   [delegate](#delegate)
 -   [delegate](#delegate-1)
+-   [dispatch](#dispatch)
 -   [dump](#dump)
 -   [env](#env)
 -   [exchange](#exchange)
@@ -273,6 +274,19 @@ Delegate processing to an external pipeline.
 -   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
 -   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
 -   `logger` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** A dedicaded pipeline described in a file to trap or log errors
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### dispatch
+
+Dispatch processing to an external pipeline on one or more servers.
+
+#### Parameters
+
+-   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
+-   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
+-   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
+-   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
