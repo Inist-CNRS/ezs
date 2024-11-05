@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.8.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.7.2...@ezs/basics@2.8.0) (2024-11-05)
+
+
+### Bug Fixes
+
+* 🐛 files no longer exists ([5207c41](https://github.com/Inist-CNRS/ezs/commit/5207c41ca65f9ba6d7f685e30f01379446d20dbc))
+
+
+### Features
+
+* 🎸 TXTInflection & TXTSentences move to @ezs/strings ([3dd3df0](https://github.com/Inist-CNRS/ezs/commit/3dd3df0fec79e57ba24e0b560e83479b9ea73ac7))
+
+
+
+
+
 ## [2.7.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.7.1...@ezs/basics@2.7.2) (2024-09-18)
 
 **Note:** Version bump only for package @ezs/basics
