@@ -3,6 +3,76 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@2.3.1...@ezs/analytics@2.3.2) (2024-03-25)
+
+**Note:** Version bump only for package @ezs/analytics
+
+
+
+
+
+## [2.3.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@2.3.0...@ezs/analytics@2.3.1) (2024-02-09)
+
+**Note:** Version bump only for package @ezs/analytics
+
+
+
+
+
+# [2.3.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@2.2.2...@ezs/analytics@2.3.0) (2024-02-07)
+
+
+### Bug Fixes
+
+* update lodash import ([b51c4d5](https://github.com/Inist-CNRS/ezs/commit/b51c4d50a23e80c838e86ac2c911e678c764b990))
+
+
+### Features
+
+* 🎸 add identifier param (like [graph]) ([855916a](https://github.com/Inist-CNRS/ezs/commit/855916aff4a8ae6fc3b68e6c06435b4939ced812))
+
+
+
+
+
+## [2.2.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@2.2.1...@ezs/analytics@2.2.2) (2024-01-26)
+
+**Note:** Version bump only for package @ezs/analytics
+
+
+
+
+
+## [2.2.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@2.2.0...@ezs/analytics@2.2.1) (2023-09-08)
+
+**Note:** Version bump only for package @ezs/analytics
+
+
+
+
+
+# [2.2.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@2.1.0...@ezs/analytics@2.2.0) (2023-09-08)
+
+
+### Features
+
+* 🎸 add identifier parameter to [graph] ([961e201](https://github.com/Inist-CNRS/ezs/commit/961e20157816b3792ff6ee692e8fd5a6b437968c))
+
+
+
+
+
+# [2.1.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@2.0.23...@ezs/analytics@2.1.0) (2023-08-25)
+
+
+### Features
+
+* 🎸 add identifier parametee to [segement] ([bf66392](https://github.com/Inist-CNRS/ezs/commit/bf663926db6f664368b5a36e391fd25ad2d67ed0))
+
+
+
+
+
 ## [2.0.23](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@2.0.22...@ezs/analytics@2.0.23) (2023-07-17)
 
 **Note:** Version bump only for package @ezs/analytics

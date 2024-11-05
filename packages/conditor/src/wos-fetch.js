@@ -2,7 +2,7 @@
 import debug from 'debug';
 import { URL, URLSearchParams } from 'url';
 import AbortController from 'node-abort-controller';
-import get from 'lodash.get';
+import { get } from 'lodash';
 import retry from 'async-retry';
 import fetch from 'fetch-with-proxy';
 import writeTo from 'stream-write';

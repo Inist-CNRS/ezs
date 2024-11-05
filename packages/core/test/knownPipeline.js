@@ -14,13 +14,14 @@ ezs.settings.servePath = __dirname;
 ezs.settings.cacheEnable = true;
 ezs.settings.tracerEnable = false;
 ezs.settings.metricsEnable = false;
+ezs.settings.feed.timeout = 330000;
 
 describe(' through server(s)', () => {
     const server5 = ezs.createServer(33333, __dirname);
-    const options = {
+    const options = (path = '/transit.ini') => ({
         hostname: '0.0.0.0',
         port: 33333,
-        path: '/transit.ini',
+        path,
         method: 'POST',
         headers: {
             'Content-Type': 'text/plain; charset=utf-8',
@@ -28,7 +29,7 @@ describe(' through server(s)', () => {
             'Accept-Language': 'en-US,en;q=0.8',
             'Connection': 'Close'
         }
-    };
+    });
 
     afterAll(() => {
         server5.close();
@@ -87,7 +88,11 @@ describe(' through server(s)', () => {
                 const stream = from(input);
                 fetch('http://127.0.0.1:33333/buggy1.ini', { method: 'POST', body: stream })
                     .then((res) => {
-                        assert(res.headers.has('x-error'));
+                        assert(!res.ok);
+                        return res.json();
+                    })
+                    .then((json) => {
+                        assert.equal(json.scope, 'statements');
                         done();
                     })
                     .catch(done);
@@ -98,7 +103,11 @@ describe(' through server(s)', () => {
                 const stream = from(input);
                 fetch('http://127.0.0.1:33333/buggy2.ini', { method: 'POST', body: stream })
                     .then((res) => {
-                        assert(res.headers.has('x-error'));
+                        assert(!res.ok);
+                        return res.json();
+                    })
+                    .then((json) => {
+                        assert.equal(json.scope, 'data');
                         done();
                     })
                     .catch(done);
@@ -109,7 +118,11 @@ describe(' through server(s)', () => {
                 const stream = from(input);
                 fetch('http://127.0.0.1:33333/buggy3.ini', { method: 'POST', body: stream })
                     .then((res) => {
-                        assert(res.headers.has('x-error'));
+                        assert(!res.ok);
+                        return res.json();
+                    })
+                    .then((json) => {
+                        assert.equal(json.scope, 'statements');
                         done();
                     })
                     .catch(done);
@@ -285,6 +298,112 @@ describe(' through server(s)', () => {
             .catch(done);
     });
 
+    describe('truncate', () => {
+        const size = 10000;
+        const input = Array(size).fill('a');
+        it('truncate request #1', (done) => {
+            let check = 0;
+            const stream = from(input).pipe(ezs(
+                (data, feed, ctx) => {
+                    if (ctx.isLast()) return feed.close();
+                    check += 1;
+                    return feed.send(data);
+                })
+            );
+            let output = 0;
+            const req = http.request(options('/transit.ini'), (res) => {
+                res.setEncoding('utf8');
+                res.on('error', done);
+                res.on('data', () => {
+                    output += 1;
+                });
+                res.on('end', () => {
+                    assert.equal(output, size);
+                    assert.equal(output, check);
+                    done();
+                });
+            });
+            stream.pipe(req);
+        }, 60000);
+        it('truncate request #1bis', (done) => {
+            let check = 0;
+            const stream = from(input).pipe(ezs(
+                (data, feed, ctx) => {
+                    if (ctx.isLast()) {
+                        feed.close();
+                        return setImmediate(() => feed.write('x')); // It's bad
+                    }
+                    check += 1;
+                    return feed.send(data);
+                })
+            );
+            let output = 0;
+            const req = http.request(options('/transit.ini'), (res) => {
+                res.setEncoding('utf8');
+                res.on('error', done);
+                res.on('data', () => {
+                    output += 1;
+                });
+                res.on('end', () => {
+                    assert.equal(output, size);
+                    assert.equal(output, check);
+                    done();
+                });
+            });
+            stream.pipe(req).on('error', (e) => {
+                assert.match(e.message, /reminder/);
+                done();
+            });
+        }, 60000);
+        it('truncate request #2', (done) => {
+            let check = 0;
+            const stream = from(input).pipe(ezs(
+                (data, feed, ctx) => {
+                    if (ctx.isLast()) return feed.close();
+                    check += 1;
+                    return feed.send(data);
+                })
+            );
+            const output = [];
+            const req = http.request(options('/transit3.ini'), (res) => {
+                res.setEncoding('utf8');
+                res.on('error', done);
+                res.on('data', (chunk) => {
+                    output.push(chunk);
+                });
+                res.on('end', () => {
+                    assert.equal(output.join(''), 'a');
+                    assert(check < (input.length / 2));
+                    done();
+                });
+            });
+            stream.pipe(req);
+        }, 60000);
+        it('truncate request #3', (done) => {
+            let check = 0;
+            const stream = from(['a']).pipe(ezs(
+                (data, feed, ctx) => {
+                    if (ctx.isLast()) return feed.close();
+                    check += 1;
+                    return feed.send(data);
+                })
+            );
+            const output = [];
+            const req = http.request(options(`/transit4.ini?size=${size}`), (res) => {
+                res.setEncoding('utf8');
+                res.on('error', done);
+                res.on('data', (chunk) => {
+                    output.push(chunk);
+                });
+                res.on('end', () => {
+                    assert.equal(output[0], 'a');
+                    assert.equal(output.length, size);
+                    done();
+                });
+            });
+            stream.pipe(req);
+        }, 60000);
+    });
 
     describe('errors' , () => {
         it('abort request', (done) => {
@@ -297,10 +416,24 @@ describe(' through server(s)', () => {
                 });
             setTimeout(() => stream.destroy(), 10);
         });
+        it.skip('too long request', (done) => {
+            const input = Array(1).fill('a');
+            const stream = from(input);
+            const req = http.request(options('/transit5.ini'), (res) => {
+                res.setEncoding('utf8');
+                res.on('error', done);
+                res.on('data', (chunk) => true);
+                res.on('end', () => {
+                    done();
+                });
+            });
+            stream.pipe(req);
+        }, 60000);
+
         it('baseline', (done) => {
             const stream = from(['1', '2', '3', '4', '5', '6', '7', '8', '9']);
             const output = [];
-            const req = http.request(options, (res) => {
+            const req = http.request(options(), (res) => {
                 res.setEncoding('utf8');
                 res.on('error', done);
                 res.on('data', (chunk) => {
@@ -318,7 +451,7 @@ describe(' through server(s)', () => {
             const input = Array(1000).fill('a');
             const stream = from(input);
             const output = [];
-            const req = http.request(options, (res) => {
+            const req = http.request(options(), (res) => {
                 res.setEncoding('utf8');
                 res.on('data', (chunk) => {
                     output.push(chunk);
@@ -338,7 +471,7 @@ describe(' through server(s)', () => {
             const input = Array(1000).fill('a');
             const stream = from(input);
             const output = [];
-            const req = http.request(options, (res) => {
+            const req = http.request(options(), (res) => {
                 res.setEncoding('utf8');
                 res.on('error', () => done());
                 res.on('data', (chunk) => {
@@ -357,7 +490,7 @@ describe(' through server(s)', () => {
             const input = Array(1000).fill('a');
             const stream = from(input);
             const output = [];
-            const req = http.request(options, (res) => {
+            const req = http.request(options(), (res) => {
                 res.setEncoding('utf8');
                 res.on('data', (chunk) => {
                     output.push(chunk);
@@ -377,7 +510,7 @@ describe(' through server(s)', () => {
             const input = Array(1000).fill('a');
             const stream = from(input);
             const output = [];
-            const req = http.request(options, (res) => {
+            const req = http.request(options(), (res) => {
                 res.setEncoding('utf8');
                 res.on('error', done);
                 res.on('data', (chunk) => {
@@ -398,7 +531,7 @@ describe(' through server(s)', () => {
             const input = Array(1000).fill('a');
             const stream = from(input);
             const output = [];
-            const req = http.request(options, (res) => {
+            const req = http.request(options(), (res) => {
                 res.setEncoding('utf8');
                 res.on('error', () => done());
                 res.on('data', (chunk) => {
@@ -418,7 +551,7 @@ describe(' through server(s)', () => {
 
         it('No content #1', (done) => {
             const stream = new PassThrough();
-            const req = http.request(options, () => {
+            const req = http.request(options(), () => {
                 req.abort();
                 done();
             });

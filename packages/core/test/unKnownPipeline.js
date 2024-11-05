@@ -12,6 +12,7 @@ ezs.addPath(__dirname);
 ezs.settings.servePath = __dirname;
 ezs.settings.cacheEnable = true;
 ezs.settings.tracerEnable = true;
+ezs.settings.rpcEnable = true;
 ezs.settings.metricsEnable = false;
 
 class Upto extends Readable {

@@ -8,6 +8,7 @@ import debug from 'debug';
 import knownPipeline from './knownPipeline';
 import unknownPipeline from './unknownPipeline';
 import serverInformation from './serverInformation';
+import serverControl from './serverControl';
 import errorHandler from './errorHandler';
 import settings from '../settings';
 import { RX_FILENAME } from '../constants';
@@ -18,6 +19,11 @@ import {
     httpRequestDurationMicroseconds,
     aggregatorRegistry,
 } from './metrics';
+import {
+    createFusible,
+    enableFusible,
+    disableFusible
+} from '../fusible';
 
 function isPipeline() {
     const f = this.pathName.match(RX_FILENAME);
@@ -32,7 +38,8 @@ const signals = ['SIGINT', 'SIGTERM'];
 
 function createServer(ezs, serverPort, serverPath, workerId) {
     const app = connect();
-    app.use((request, response, next) => {
+    app.use( async (request, response, next) => {
+        const stopTimer = httpRequestDurationMicroseconds.startTimer();
         request.workerId = workerId;
         request.catched = false;
         request.serverPath = serverPath;
@@ -40,13 +47,22 @@ function createServer(ezs, serverPort, serverPath, workerId) {
         request.pathName = request.urlParsed.pathname;
         request.methodMatch = methodMatch;
         request.isPipeline = isPipeline;
-        const stopTimer = httpRequestDurationMicroseconds.startTimer();
-        eos(response, () => stopTimer());
+        request.fusible = await createFusible();
+        await enableFusible(request.fusible);
+        eos(response, async () => {
+            stopTimer();
+            await disableFusible(request.fusible);
+        });
         next();
     });
-    app.use(metrics(ezs));
+    if (settings.metricsEnable) {
+        app.use(metrics(ezs));
+    }
     app.use(serverInformation(ezs));
-    app.use(unknownPipeline(ezs));
+    app.use(serverControl(ezs));
+    if (settings.rpcEnable) {
+        app.use(unknownPipeline(ezs));
+    }
     app.use(knownPipeline(ezs));
     app.use((request, response, next) => {
         if (request.catched === false) {
@@ -56,20 +72,21 @@ function createServer(ezs, serverPort, serverPath, workerId) {
         next();
     });
     app.use((error, request, response, next) => {
-        errorHandler(request, response)(error, 500);
+        errorHandler(request, response)(error, 400);
         next();
     });
     const server = controlServer(http.createServer(app));
-    server.setTimeout(0);
+    server.setTimeout(0); // default value, useful?
+    server.requestTimeout = 0; // ezs has its own timeout see feed.timeout
     server.listen(serverPort);
     server.addListener('connection', (socket) => {
-        const uniqId = `${Date.now()}-${Math.floor(Math.random() * 1e6)}`;
-        debug('ezs')('New connection', uniqId);
         httpConnectionTotal.inc();
         httpConnectionOpen.inc();
+        socket.on('error', (e) => {
+            debug('ezs')('Connection error, the server has stopped the request :', e.message);
+        });
         socket.on('close', () => {
             httpConnectionOpen.dec();
-            debug('ezs')('Connection closed', uniqId);
         });
     });
     signals.forEach((signal) => process.on(signal, () => {

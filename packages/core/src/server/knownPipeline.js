@@ -8,10 +8,10 @@ import _ from 'lodash';
 import { metricsHandle } from './metrics';
 import errorHandler from './errorHandler';
 import { isFile } from '../file';
+import breaker from '../statements/breaker';
 import settings from '../settings';
 
-
-const dispositionFrom = ({ extension }) => (extension ? `dump.${extension}` : 'inline');
+const dispositionFrom = ({ extension }) => (extension ? `attachment; filename="dump.${extension}"` : 'inline');
 
 const encodingFrom = (headers) => (headers
     && headers['accept-encoding']
@@ -23,29 +23,31 @@ const typeFrom = ({ mimeType }) => (mimeType || 'application/json');
 const onlyOne = (item) => (Array.isArray(item) ? item.shift() : item);
 
 const knownPipeline = (ezs) => (request, response, next) => {
-
-    if (request.catched || !request.methodMatch(['POST', 'OPTIONS', 'HEAD']) || request.serverPath === false || !request.isPipeline()) {
+    if (request.catched
+      || !request.methodMatch(['POST', 'OPTIONS', 'HEAD'])
+      || request.serverPath === false
+      || !request.isPipeline()
+    ) {
         return next();
     }
     request.catched = true;
-    debug('ezs')(`Create middleware 'knownPipeline' for ${request.method} ${request.pathName}`);
-
-    const { headers } = request;
-    const triggerError = errorHandler(request, response);
+    const { headers, fusible, method, pathName } = request;
     const { query } = request.urlParsed;
-    const files = ezs.memoize(`knownPipeline>${request.pathName}`,
-        () => request.pathName
+
+    debug('ezs')(`Create middleware 'knownPipeline' for ${method} ${pathName}`);
+    const triggerError = errorHandler(request, response);
+    const files = ezs.memoize(`knownPipeline>${pathName}`,
+        () => pathName
             .slice(1)
             .split(',')
             .map((file) => join(request.serverPath, dirname(file), basename(file, '.ini').concat('.ini')))
             .filter((file) => isFile(file)));
     if (files.length === 0) {
-        triggerError(new Error(`Cannot find ${request.pathName}`), 404);
+        triggerError(new Error(`Cannot find ${pathName}`), 404);
         return false;
     }
-
     debug('ezs')(
-        `PID ${process.pid} will execute ${request.pathName} commands with ${sizeof(query)}B of global parameters`,
+        `PID ${process.pid} will execute ${pathName} commands with ${sizeof(query)}B of global parameters`,
     );
 
     const meta = ezs.memoize(`executePipeline>${files}`,
@@ -57,12 +59,15 @@ const knownPipeline = (ezs) => (request, response, next) => {
     response.setHeader('Access-Control-Allow-Origin', '*');
     response.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     response.setHeader('Access-Control-Allow-Headers', '*');
+    response.setHeader('Access-Control-Expose-Headers', '*');
     response.setHeader('Content-Encoding', contentEncoding);
     response.setHeader('Content-Disposition', contentDisposition);
     response.setHeader('Content-Type', contentType);
+    response.setHeader('X-Request-ID', fusible);
+
     response.socket.setNoDelay(false);
 
-    if (request.method !== 'POST') {
+    if (method !== 'POST') {
         response.writeHead(200);
         response.end();
         return true;
@@ -75,7 +80,7 @@ const knownPipeline = (ezs) => (request, response, next) => {
         metricsEnable,
     } = settings;
     const execMode = server ? 'dispatch' : delegate;
-    const environment = { ...query, headers };
+    const environment = { ...query, headers, request: { fusible, method, pathName } };
     const statements = files.map((file) => ezs(execMode, { file, server }, environment));
     const prepend2Pipeline = ezs.parseCommand(onlyOne(prepend));
     if (prepend2Pipeline) {
@@ -90,9 +95,12 @@ const knownPipeline = (ezs) => (request, response, next) => {
         statements.push(ezs('tracer', { print: '.', last: '!' }));
     }
     if (metricsEnable) {
-        statements.unshift(ezs(metricsHandle, { pathName: request.pathName, bucket: 'input' }));
-        statements.push(ezs(metricsHandle, { pathName: request.pathName, bucket: 'output' }));
+        ezs.use({metrics: metricsHandle(pathName)});
+        statements.unshift(ezs('metrics', { bucket: 'input' }));
+        statements.push(ezs('metrics', { bucket: 'output' }));
     }
+    statements.unshift(ezs(breaker, { fusible }));
+    statements.push(ezs(breaker, { fusible }));
 
     const rawStream = new PassThrough();
     let emptyStream = true;
@@ -112,36 +120,46 @@ const knownPipeline = (ezs) => (request, response, next) => {
         .pipe(ezs('truncate', { length: request.headers['content-length'] }))
         .pipe(ezs.uncompress(request.headers));
 
+    const outputStream = new PassThrough();
+    outputStream.pipe(response);
     const transformedStream = ezs.createPipeline(decodedStream, statements)
+        .on('unpipe', () => {
+            request.unpipe(rawStream);
+            rawStream.end();
+        })
         .pipe(ezs.catch((e) => e))
         .on('error', (e) => {
+            outputStream.unpipe(response);
+            responseStarted();
+            triggerError(e, 400);
             rawStream.destroy();
             decodedStream.destroy();
             transformedStream.destroy();
-            responseStarted();
-            next(e);
         });
 
     pipeline(
         transformedStream,
         ezs.toBuffer(),
         ezs.compress(response.getHeaders()),
-        response,
+        outputStream,
         (e) => {
-            responseStarted();
-            next(e);
+            if (e) {
+                outputStream.unpipe(response);
+                responseStarted();
+                triggerError(e, 500);
+            }
         }
     );
 
     request
         .once('aborted', () => {
-            rawStream.destroy();
-            decodedStream.destroy();
-            transformedStream.destroy();
+            request.unpipe(rawStream);
+            rawStream.end();
         })
         .on('error', (e) => {
             request.unpipe(rawStream);
-            triggerError(e);
+            rawStream.end();
+            triggerError(e, 500);
         })
         .once('close', () => {
             if (emptyStream) {

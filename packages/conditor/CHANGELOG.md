@@ -3,6 +3,79 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.12.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.12.1...@ezs/conditor@2.12.2) (2024-08-02)
+
+**Note:** Version bump only for package @ezs/conditor
+
+
+
+
+
+## [2.12.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.12.0...@ezs/conditor@2.12.1) (2024-07-04)
+
+**Note:** Version bump only for package @ezs/conditor
+
+
+
+
+
+# [2.12.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.11.2...@ezs/conditor@2.12.0) (2024-05-30)
+
+
+### Features
+
+* **conditor:** Make 2023 version of RNSR the default one ([c635f9c](https://github.com/Inist-CNRS/ezs/commit/c635f9cc0ce765eb462a4dbacc057e09964cf99e))
+
+
+
+
+
+## [2.11.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.11.1...@ezs/conditor@2.11.2) (2024-05-29)
+
+**Note:** Version bump only for package @ezs/conditor
+
+
+
+
+
+## [2.11.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.11.0...@ezs/conditor@2.11.1) (2024-05-17)
+
+
+### Bug Fixes
+
+* 🐛 token too long in http headers ([6555054](https://github.com/Inist-CNRS/ezs/commit/6555054094edcdd86128df229c0d08f9b06b39bc))
+
+
+
+
+
+# [2.11.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.10.8...@ezs/conditor@2.11.0) (2024-03-26)
+
+
+### Features
+
+* 🎸 use new Corhal POST route ([cc260cf](https://github.com/Inist-CNRS/ezs/commit/cc260cf4ac7e8cd65c1519cb800b323c4fa0ea0b))
+
+
+
+
+
+## [2.10.8](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.10.7...@ezs/conditor@2.10.8) (2024-02-07)
+
+**Note:** Version bump only for package @ezs/conditor
+
+
+
+
+
+## [2.10.7](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.10.6...@ezs/conditor@2.10.7) (2023-09-08)
+
+**Note:** Version bump only for package @ezs/conditor
+
+
+
+
+
 ## [2.10.6](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.10.5...@ezs/conditor@2.10.6) (2023-07-17)
 
 **Note:** Version bump only for package @ezs/conditor

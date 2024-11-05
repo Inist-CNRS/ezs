@@ -1,5 +1,4 @@
-import get from 'lodash.get';
-import mergeWith from 'lodash.mergewith';
+import { get, mergeWith } from 'lodash';
 import core from './core';
 
 

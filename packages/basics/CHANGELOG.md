@@ -3,6 +3,141 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.7.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.7.1...@ezs/basics@2.7.2) (2024-09-18)
+
+**Note:** Version bump only for package @ezs/basics
+
+
+
+
+
+## [2.7.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.7.0...@ezs/basics@2.7.1) (2024-07-09)
+
+
+### Bug Fixes
+
+* 🐛 explicit error message for empty response ([0cc34fd](https://github.com/Inist-CNRS/ezs/commit/0cc34fdbdf76c7d40c80c8a20029ede05a091094))
+
+
+
+
+
+# [2.7.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.6.1...@ezs/basics@2.7.0) (2024-07-04)
+
+
+### Features
+
+* 🎸 add FILEMerge ([cb879fa](https://github.com/Inist-CNRS/ezs/commit/cb879fae73b48a2b5850c6a0597a4ca97d722493))
+* 🎸 keep buffer for binary files ([e4a30fe](https://github.com/Inist-CNRS/ezs/commit/e4a30fe729257af877ca2d9f89a6a948d62965d6))
+
+
+
+
+
+## [2.6.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.6.0...@ezs/basics@2.6.1) (2024-02-07)
+
+**Note:** Version bump only for package @ezs/basics
+
+
+
+
+
+# [2.6.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.5.8...@ezs/basics@2.6.0) (2024-01-26)
+
+
+### Bug Fixes
+
+* 🐛 missing files ([be5b984](https://github.com/Inist-CNRS/ezs/commit/be5b984833f58dff1dcb28b9d998976094459e79))
+
+
+### Features
+
+* 🎸 add [BIBParse] ([20489b8](https://github.com/Inist-CNRS/ezs/commit/20489b8c816edc7e504c81e836ae558b7a524bcf))
+
+
+
+
+
+## [2.5.8](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.5.7...@ezs/basics@2.5.8) (2023-12-19)
+
+
+### Bug Fixes
+
+* 🐛 avoid to produce null with undefined value ([14798ad](https://github.com/Inist-CNRS/ezs/commit/14798ad15faaaf51d8f2cacf202da62904cf049f))
+
+
+
+
+
+## [2.5.7](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.5.6...@ezs/basics@2.5.7) (2023-12-08)
+
+
+### Bug Fixes
+
+* 🐛 1 retry not equal to 0 retry ([cb3f99b](https://github.com/Inist-CNRS/ezs/commit/cb3f99bfd50d95cec6aaadf52cab9bfced48c88f))
+
+
+
+
+
+## [2.5.6](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.5.5...@ezs/basics@2.5.6) (2023-12-08)
+
+**Note:** Version bump only for package @ezs/basics
+
+
+
+
+
+## [2.5.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.5.4...@ezs/basics@2.5.5) (2023-09-29)
+
+
+### Bug Fixes
+
+* 🐛 missing string decoder ([b50f1a2](https://github.com/Inist-CNRS/ezs/commit/b50f1a2963c3266a0294dad862cbff34e501f3c2))
+
+
+
+
+
+## [2.5.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.5.3...@ezs/basics@2.5.4) (2023-09-08)
+
+**Note:** Version bump only for package @ezs/basics
+
+
+
+
+
+## [2.5.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.5.2...@ezs/basics@2.5.3) (2023-08-25)
+
+
+### Bug Fixes
+
+* 🐛 tar extract freeze ([086b49f](https://github.com/Inist-CNRS/ezs/commit/086b49f7b3c24f551584514869bbe9ec135f7d0a))
+
+
+
+
+
+## [2.5.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.5.1...@ezs/basics@2.5.2) (2023-08-25)
+
+**Note:** Version bump only for package @ezs/basics
+
+
+
+
+
+## [2.5.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.5.0...@ezs/basics@2.5.1) (2023-08-24)
+
+
+### Bug Fixes
+
+* 🐛 FILESave and direct buffer input ([d4c14ee](https://github.com/Inist-CNRS/ezs/commit/d4c14ee229f6699f43592b87b01b2fc9baf83c70))
+* 🐛 remove buggy option ([3782390](https://github.com/Inist-CNRS/ezs/commit/378239008ed74d2aace22ecb3f3010e66f5af76a))
+
+
+
+
+
 # [2.5.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.4.1...@ezs/basics@2.5.0) (2023-08-18)
 
 

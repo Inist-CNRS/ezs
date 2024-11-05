@@ -7,7 +7,13 @@ export default class Feed {
         this.push = push;
         this.done = once(done);
         this.error = once(error);
-        this.seal = once(() => { push(null); done(); });
+        this.seal = once(() => {
+            // ensure that all current writing operations are completed
+            setImmediate(() => {
+                push(null);
+                done();
+            });
+        });
         this.wait = wait;
         this.timeout = Number(this.ezs.settings.feed.timeout);
     }
@@ -16,11 +22,19 @@ export default class Feed {
         if (something === null) {
             this.seal();
         } else if (something !== undefined) {
+            if (something instanceof Error) {
+                something.type = 'Data corruption error';
+                something.scope = 'data';
+                something.date = new Date();
+            }
             this.push(something);
         }
     }
 
-    flow(stream) {
+    flow(stream, options = {}) {
+        const { autoclose = false } = options;
+        let closed = false;
+        let autoCloseWanted = false;
         if (this.timeout > 0) {
             this.timer = retimer(() => {
                 this.stop(new Error(`The pipe has not received any data for ${this.timeout} milliseconds.`));
@@ -28,14 +42,31 @@ export default class Feed {
             }, this.timeout);
         }
 
+        stream.on('finish', () => {
+            closed = true;
+        this.log(`Feed.flow.stream.finish ${stream.isPaused()}`);
+            if (autoclose) {
+                if (stream.isPaused()) {
+                    autoCloseWanted = true;
+                } else {
+                    this.close();
+                }
+            }
+        });
+
         stream.on('data', async (data) => {
             if (this.timer) {
                 this.timer.reschedule(this.timeout);
             }
             if (!this.push(data)) {
+                this.log(`Feed.flow.stream.pause with ${data} and ${closed}/${autoCloseWanted}`);
                 stream.pause();
                 await this.wait();
+                this.log(`Feed.flow.stream.resumewith ${data} and ${closed}/${autoCloseWanted}`);
                 stream.resume();
+                if (autoCloseWanted) {
+                    this.close()
+                }
             }
         });
         stream.once('error', (e) => {
@@ -45,12 +76,16 @@ export default class Feed {
             return this.stop(e);
         });
         stream.once('end', () => {
+            this.log('Feed.flow.stream.end');
             if (this.timer) {
                 this.timer.clear();
             }
             return this.end();
         });
-        return new Promise((resolve) => stream.once('end', resolve));
+        return new Promise((resolve) => { this.log('Feed.flow.stream.end'); stream.once('end', resolve);});
+    }
+    log(x) {
+        //console.log(this.engine.funcName, x);
     }
 
     end() {
@@ -67,6 +102,9 @@ export default class Feed {
     }
 
     stop(withError) {
+        withError.type = 'Fatal run-time error';
+        withError.scope = 'statements';
+        withError.date = new Date();
         this.error(withError);
         this.seal();
     }

@@ -1,5 +1,14 @@
 import debug from 'debug';
-import _ from 'lodash';
+import { clone, set } from 'lodash';
+
+import breaker from './breaker';
+import {
+    createFusible,
+    enableFusible,
+    disableFusible
+} from '../fusible';
+
+
 
 /**
  * fork the current pipeline
@@ -12,18 +21,26 @@ import _ from 'lodash';
  * @param {String} [script] the external pipeline is described in a string of characters
  * @param {String} [commands] the external pipeline is described in a object
  * @param {String} [command] the external pipeline is described in a URL-like command
+ * @param {String} [logger] A dedicaded pipeline described in a file to trap or log errors
+ * @param {String} [target=x-request-id] choose the key to set with the forked request identifier
  * @returns {Object}
  */
-export default function fork(data, feed) {
+export default async function fork(data, feed) {
     const { ezs } = this;
     const standalone = Number([]
         .concat(this.getParam('standalone', false))
         .filter(Boolean)
         .shift());
+    const target = []
+        .concat(this.getParam('target', 'x-request-id'))
+        .filter(Boolean)
+        .shift();
 
     if (this.isFirst()) {
         let output;
         try {
+            this.fusible = await createFusible();
+            await enableFusible(this.fusible);
             this.input = ezs.createStream(ezs.objectMode());
             const commands = ezs.createCommands({
                 file: this.getParam('file'),
@@ -34,30 +51,52 @@ export default function fork(data, feed) {
                 append: this.getParam('append'),
             });
             const statements = ezs.compileCommands(commands, this.getEnv());
-            output = ezs.createPipeline(this.input, statements);
+            statements.unshift(ezs(breaker, { fusible: this.fusible }));
+            statements.push(ezs(breaker, { fusible: this.fusible }));
+            const logger = ezs.createTrap(this.getParam('logger'), this.getEnv());
+            output = ezs.createPipeline(this.input, statements, logger);
         }
         catch(e) {
             return feed.stop(e);
         }
-        this.whenFinish = new Promise((resolve) => output
-            .pipe(ezs.catch((e) => feed.write(e))) // avoid to break pipeline at each error
-            .once('error', (e) => feed.stop(e))
-            .once('end', resolve)
-            .on('data', () => true)
-        );
+        if (standalone) {
+            output
+                .on('data', () => true)
+                .once('error', async () => {
+                    await disableFusible(this.fusible);
+                })
+                .once('end', async () => {
+                    await disableFusible(this.fusible);
+                });
+        } else {
+            this.whenFinish = new Promise((resolve) => output
+                .pipe(ezs.catch((e) => feed.write(e))) // avoid to break pipeline at each error
+                .once('error', async (e) => {
+                    await disableFusible(this.fusible);
+                    feed.stop(e);
+                })
+                .on('data', () => true)
+                .once('end', async () => {
+                    await disableFusible(this.fusible);
+                    resolve();
+                })
+            );
+        }
     }
     if (this.isLast()) {
         debug('ezs')(`${this.getIndex()} chunks have been delegated`);
         this.input.end();
         if (standalone) {
-            Promise.race([
-                this.whenFinish,
-                Promise.resolve(true),
-            ]).finally(() => feed.close());
+            feed.close();
         } else {
             this.whenFinish.finally(() => feed.close());
         }
         return true;
     }
-    return ezs.writeTo(this.input, _.clone(data), () => feed.send(data));
+    return ezs.writeTo(this.input, clone(data), () => {
+        if (target) {
+            set(data, target, this.fusible);
+        }
+        feed.send(data);
+    });
 }

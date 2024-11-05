@@ -1,8 +1,6 @@
 /* istanbul ignore file */
 import { createStore } from '@ezs/store';
-import has from 'lodash.has';
-import get from 'lodash.get';
-import set from 'lodash.set';
+import { has, get } from 'lodash';
 
 
 /**

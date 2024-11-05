@@ -1,17 +1,20 @@
 import debug from 'debug';
-import Parameter from '../parameter';
+import JSONB from 'json-buffer';
 import { httpRequestErrorTotal }  from './metrics';
 
 const errorHandler = (request, response) => (error, code = 400) => {
-    debug('ezs')('Server has caught an error', error);
+    debug('ezs')('Server has caught an error', code, error);
     httpRequestErrorTotal.labels(request.pathName).inc();
-    if (!response.headersSent) {
-        response.setHeader('Content-Type', 'text/plain');
-        response.setHeader('Content-Disposition', 'inline');
-        response.writeHead(code, { 'X-Error': Parameter.encode(error.toString()) });
-        response.write(error.toString().split('\n', 1)[0]);
+    if (response.headersSent) {
+        return response.end();
     }
-    response.end();
+    const bodyResponse = JSONB.stringify(error);
+    response.writeHead(code, {
+        'Content-Type': 'application/json',
+        'Content-Length': bodyResponse.length,
+        'Content-Encoding': 'identity',
+    });
+    return response.end(bodyResponse);
 };
 
 export default errorHandler;

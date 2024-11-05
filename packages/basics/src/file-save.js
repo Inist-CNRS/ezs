@@ -81,14 +81,15 @@ export default function FILESave(data, feed) {
     }
     if (this.isLast()) {
         this.input.end();
-        return this.whenFinish
+        this.whenFinish
             .then((stats) => feed.write(stats))
             .catch((err) => feed.stop(err))
             .finally(() => feed.close());
+        return;
     }
     const jsonl = Boolean(this.getParam('jsonl', false));
     const bufContent = this.getParam('content', data);
     const bufFunc = jsonl ? toJSONL : String;
-    const buf = Buffer.from(bufFunc(bufContent));
+    const buf = Buffer.isBuffer(bufContent) ? bufContent : Buffer.from(bufFunc(bufContent));
     writeTo(this.input, buf, () => feed.end());
 }

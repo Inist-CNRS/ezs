@@ -1,7 +1,7 @@
 {
   "name": "@ezs/core",
   "description": "A wrapper to build Stream transformers with functional style",
-  "version": "3.0.5",
+  "version": "3.10.4",
   "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
   "bin": {
     "ezs": "./bin/ezs"
@@ -21,6 +21,8 @@
     "from": "0.1.7",
     "global-modules": "2.0.0",
     "http-shutdown": "1.2.2",
+    "json-buffer": "3.0.1",
+    "json-stringify-safe": "5.0.1",
     "load-json-file": "6.2.0",
     "lodash": "4.17.21",
     "lru-cache": "5.1.1",
@@ -44,7 +46,7 @@
   "directories": {
     "test": "test"
   },
-  "gitHead": "bc1be6636627b450c72d59ec404c43d87d7a42aa",
+  "gitHead": "483fb747db3ae5d72ffeb49dc29fa44fe4dbde84",
   "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/core#readme",
   "keywords": [
     "stream",

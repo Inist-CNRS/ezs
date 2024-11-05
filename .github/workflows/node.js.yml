@@ -17,26 +17,37 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [12.x, 14.x, 16.x, 18.x, 20.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
+    - name: Install libpostal
+      run: bash ${GITHUB_WORKSPACE}/.github/workflows/install-libpostal.sh
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Cache node modules
-      uses: actions/cache@v2
-      with:
-        path: ~/.npm
-        key: npm-deps-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: npm-deps-
+        cache: 'yarn'
 
-    - name: npm install
+    - name: Install dependencies
+      env:
+        CXXFLAGS: '-I/deps/include'
+        LDFLAGS: '-L/deps/lib'
+      run: yarn run ci:install
+
+    - name: Rebuild node-postal (Mainly use to NodeJS 20)
+      env:
+        CXXFLAGS: '-I/deps/include'
+        LDFLAGS: '-L/deps/lib'
       run: |
-        npm ci
-        npm test
+        cd node_modules/node-postal
+        yarn run install
+
+    - name: Testing all packages
+      env:
+        LD_LIBRARY_PATH: '/deps/lib'
+      run: yarn run ci:test
 
     - name: Coveralls Parallel
       uses: coverallsapp/github-action@master

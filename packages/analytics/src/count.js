@@ -1,4 +1,4 @@
-import get from 'lodash.get';
+import { get } from 'lodash';
 import core from './core';
 /**
  * Take `Object` and throw special `Object` like `{id, value}` if key(s) was found

@@ -29,12 +29,14 @@ import exchange from './exchange';
 import swing from './swing';
 import loop from './loop';
 import map from './map';
+import dedupe from './dedupe';
 import identify from './identify';
 import throttle from './throttle';
 import combine from './combine';
 import expand from './expand';
 import overturn from './overturn';
 import fork from './fork';
+import breaker from './breaker';
 
 export default {
     extract,
@@ -68,10 +70,12 @@ export default {
     swing,
     loop,
     map,
+    dedupe,
     identify,
     throttle,
     expand,
     combine,
     overturn,
     fork,
+    breaker,
 };

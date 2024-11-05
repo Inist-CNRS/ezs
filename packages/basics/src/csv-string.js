@@ -1,14 +1,17 @@
 import CSV from 'csv-string';
 
+const isNullOrUndefined = (value) => (value === undefined || value === null);
+
 function strict(data, sep) {
     const q = new RegExp('"', 'g');
     let line = '';
     let s = '';
     Object.keys(data).forEach((key) => {
+        const cell = isNullOrUndefined(data[key]) ?  '' : data[key];
         line = line.concat(
             s
                 .concat('"')
-                .concat(String(data[key]).replace(q, '""'))
+                .concat(String(cell).replace(q, '""'))
                 .concat('"'),
         );
         s = sep;

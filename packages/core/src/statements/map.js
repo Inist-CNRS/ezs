@@ -12,6 +12,7 @@ import from from 'from';
  * @param {String} [script] the external pipeline is described in a string of characters
  * @param {String} [commands] the external pipeline is described in an object
  * @param {String} [command] the external pipeline is described in an URL-like command
+ * @param {String} [logger] A dedicaded pipeline described in a file to trap or log errors
  * @returns {Object}
  */
 export default function map(data, feed) {
@@ -38,7 +39,8 @@ export default function map(data, feed) {
         return feed.send(data);
     }
     const newValue = [];
-    const output = ezs.createPipeline(from(value), this.createStatements());
+    const logger = ezs.createTrap(this.getParam('logger'), this.getEnv());
+    const output = ezs.createPipeline(from(value), this.createStatements(), logger);
     return output
         .pipe(ezs.catch())
         .on('error', (error) => {

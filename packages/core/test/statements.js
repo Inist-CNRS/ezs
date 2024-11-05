@@ -143,7 +143,30 @@ describe('statements', () => {
                 done();
             });
     });
+    it('concat#2', (done) => {
+        const result = [];
+        from([
+            Buffer.from([0xE2]),
+            Buffer.from([0x82]),
+            Buffer.from([0xAC]),
+            Buffer.from([0xC2]),
+            Buffer.from([0xA2]),
 
+        ])
+            .pipe(ezs('concat', {
+                beginWith: '<',
+                joinWith: '|',
+                endWith: '>',
+            }))
+            .on('data', (chunk) => {
+                result.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(result.length, 1);
+                assert.equal(result[0], '<€|¢>');
+                done();
+            });
+    });
     it('transit#1', (done) => {
         let index = 0;
         const data = [
@@ -359,6 +382,31 @@ describe('statements', () => {
                 done(new Error('Error is the right behavior'));
             });
     });
+    it('unpack#5', (done) => {
+        const res = [];
+        from([
+            Buffer.from('"'),
+            Buffer.from([0xC2]),
+            Buffer.from([0xA2]),
+            Buffer.from('"'),
+            Buffer.from('\n'),
+            Buffer.from('"'),
+            Buffer.from([0xE2]),
+            Buffer.from([0x82]),
+            Buffer.from([0xAC]),
+            Buffer.from('"'),
+            Buffer.from('\n'),
+        ])
+            .pipe(ezs('unpack'))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res[0], '¢');
+                assert.equal(res[1], '€');
+                done();
+            });
+    });
     it('truncate#1', (done) => {
         const res = [];
         from(['aa', 'bb', 'cc', 'dd', 'ee'])
@@ -471,7 +519,7 @@ describe('statements', () => {
             new Error(2),
         ])
             .pipe(ezs('dump'))
-            .pipe(ezs.catch(() => false))
+            .pipe(ezs.catch(() => true))
             .on('data', (chunk) => {
                 res.push(chunk);
             })
@@ -486,7 +534,7 @@ describe('statements', () => {
             new Error(1),
             new Error(2),
         ])
-            .pipe(ezs.catch(() => false))
+            .pipe(ezs.catch(() => true))
             .pipe(ezs('dump'))
             .on('data', (chunk) => {
                 res.push(chunk);
@@ -504,7 +552,7 @@ describe('statements', () => {
             new Error(2),
         ])
             .pipe(ezs('dump'))
-            .pipe(ezs.catch(() => false))
+            .pipe(ezs.catch(() => true))
             .on('data', (chunk) => {
                 res.push(chunk);
             })
@@ -520,7 +568,7 @@ describe('statements', () => {
             1,
             new Error(2),
         ])
-            .pipe(ezs.catch(() => false))
+            .pipe(ezs.catch(() => true))
             .pipe(ezs('dump'))
             .on('data', (chunk) => {
                 res.push(chunk);

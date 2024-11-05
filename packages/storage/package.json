@@ -1,13 +1,12 @@
 {
   "name": "@ezs/storage",
   "description": "Storage statements for EZS",
-  "version": "3.2.1",
+  "version": "3.2.3",
   "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
   "bugs": "https://github.com/Inist-CNRS/ezs/issues",
   "dependencies": {
     "cacache": "^17.1.3",
-    "lodash.get": "4.4.2",
-    "lodash.set": "^4.3.2",
+    "lodash": "4.17.21",
     "lru-cache": "5.1.1",
     "make-dir": "3.1.0",
     "path-exists": "4.0.0"
@@ -35,8 +34,5 @@
     "prepublish": "npm run build",
     "pretest": "npm run build",
     "preversion": "npm run doc"
-  },
-  "engines": {
-    "node": ">=14.0.0"
   }
 }

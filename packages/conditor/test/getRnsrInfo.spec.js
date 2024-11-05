@@ -289,4 +289,64 @@ describe('getRnsrInfo', () => {
                 done();
             });
     });
+
+    it('should return all correct identifier(s) - using RNSR 2023', (done) => {
+        let res = [];
+        const input = examples
+            .map((ex, i) => ({ id: i, value: { year: ex[2], address: ex[0] } }))
+            .filter((ex) => ex.id === 1); // choose correct case
+
+        from(input)
+            .pipe(ezs('getRnsrInfo', { year: 2023 }))
+            .on('data', (data) => {
+                res = [...res, data];
+            })
+            .on('end', () => {
+                expect(res.length).toBe(1);
+                expect(res[0].value).toEqual([{
+                    an_fermeture: 0,
+                    annee_creation: 2010,
+                    code_postal: 91191,
+                    etabAssoc: [{
+                        etab: {
+                            libelle: 'Centre national de la recherche scientifique',
+                            libelleAppauvri: 'centre national de la recherche scientifique',
+                            sigle: 'CNRS',
+                            sigleAppauvri: 'cnrs',
+                        },
+                        label: 'UMR',
+                        labelAppauvri: 'umr',
+                        numero: 8212,
+                    }, {
+                        etab: {
+                            libelle: 'Université Versailles Saint-Quentin-en-Yvelines',
+                            libelleAppauvri: 'universite versailles saint quentin en yvelines',
+                            sigle: 'VERSAILLES',
+                            sigleAppauvri: 'versailles',
+                        },
+                        label: 'UMR',
+                        labelAppauvri: 'umr',
+                        numero: 8212,
+                    }, {
+                        etab: {
+                            libelle: "Commissariat à l'énergie atomique et aux énergies alternatives",
+                            libelleAppauvri: 'commissariat a l energie atomique et aux energies alternatives',
+                            sigle: 'CEA',
+                            sigleAppauvri: 'cea',
+                        },
+                        label: 'UMR',
+                        labelAppauvri: 'umr',
+                        numero: 8212,
+                    }],
+                    intitule: "Laboratoire des Sciences du Climat et de l'Environnement UMR 8212",
+                    intituleAppauvri: 'laboratoire des sciences du climat et de l environnement umr 8212',
+                    num_nat_struct: '200611689J',
+                    sigle: 'LSCE',
+                    sigleAppauvri: 'lsce',
+                    ville_postale: 'GIF SUR YVETTE CEDEX',
+                    ville_postale_appauvrie: 'gif sur yvette cedex',
+                }]);
+                done();
+            });
+    });
 });

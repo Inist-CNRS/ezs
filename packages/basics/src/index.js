@@ -3,6 +3,7 @@ import OBJCount from './obj-count';
 import OBJNamespaces from './obj-namespaces';
 import OBJStandardize from './obj-standardize';
 import OBJFlatten from './obj-flatten';
+import BIBParse from './bib-parse';
 import TXTConcat from './txt-concat';
 import TXTObject from './txt-object';
 import TXTParse from './txt-parse';
@@ -28,6 +29,7 @@ import TARDump from './tar-dump';
 import INIString from './ini-string';
 import FILESave from './file-save';
 import FILELoad from './file-load';
+import FILEMerge from './file-merge';
 
 const funcs = {
     BUFObject,
@@ -35,6 +37,7 @@ const funcs = {
     OBJNamespaces,
     OBJStandardize,
     OBJFlatten,
+    BIBParse,
     TXTParse,
     TXTObject,
     TXTConcat,
@@ -60,6 +63,7 @@ const funcs = {
     INIString,
     FILESave,
     FILELoad,
+    FILEMerge,
     // aliases
     bufferify: BUFObject.BUFObject,
     concat: TXTConcat.TXTConcat,

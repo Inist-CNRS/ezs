@@ -14,11 +14,13 @@ npm install @ezs/basics
 
 #### Table of Contents
 
+-   [BIBParse](#bibparse)
 -   [BUFObject](#bufobject)
 -   [CSVObject](#csvobject)
 -   [CSVParse](#csvparse)
 -   [CSVString](#csvstring)
 -   [FILELoad](#fileload)
+-   [FILEMerge](#filemerge)
 -   [FILESave](#filesave)
 -   [INIString](#inistring)
 -   [JSONParse](#jsonparse)
@@ -44,6 +46,24 @@ npm install @ezs/basics
 -   [XMLParse](#xmlparse)
 -   [XMLString](#xmlstring)
 -   [ZIPExtract](#zipextract)
+
+### BIBParse
+
+Take a `String` and split it at bibtext entry.
+
+Input:
+
+```json
+["@article{my_article,\ntitle = {Hello world},\n", "journal = \"Some Journal\"\n"]
+```
+
+Output:
+
+```json
+["a", "b", "c", "d"]
+```
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### BUFObject
 
@@ -227,6 +247,37 @@ Output:
 
 -   `location` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Directory location (optional, default `TMPDIR`)
 -   `compress` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Enable gzip compression (optional, default `false`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### FILEMerge
+
+Take `Object` or `Buffer` and throw only one document
+
+```json
+[ fi1e1.csv, file2.csv ]
+```
+
+Script:
+
+```ini
+[use]
+plugin = basics
+
+[FILELoad]
+[FILEMerge]
+[replace]
+path = contentOfFile1AndFile2
+value = self()
+```
+
+Output:
+
+```json
+[
+(...)
+]
+```
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -550,6 +601,7 @@ Take all recevied objects and build a tar file
 -   `location` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Location path to store files in the tarball (optional, default `data`)
 -   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Convert to JSON the content of each chunk (optional, default `true`)
 -   `extension` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Choose extension fo each file (optional, default `json`)
+-   `additionalFile` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Path to an additional file that will be add to tarball
 -   `compress` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Enable gzip compression (optional, default `false`)
 
 ### TARExtract
@@ -569,6 +621,7 @@ It returns to the output stream
 
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Regex to select the files to extract (optional, default `"**\/*.json"`)
 -   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Parse as JSON the content of each file (optional, default `true`)
+-   `text` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** The content of each file is converted to a string (otherwise it remains a buffer) (optional, default `true`)
 -   `compress` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Enable gzip compression (optional, default `false`)
 
 Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)}>** 
@@ -661,14 +714,10 @@ The output will be the returned content of URL.
 
 Useful to send JSON data to an API and get results.
 
-Warning :
-if retries === 1,  it will directly use the stream
-to connect to the server otherwise the stream will be fully
-read to be buffered and sent to the server (n times)
-
 #### Parameters
 
 -   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fetch
+-   `streaming` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Direct connection to the Object Stream server (disables the retries setting) (optional, default `false`)
 -   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Parse as JSON the content of URL (optional, default `false`)
 -   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (optional, default `1000`)
 -   `noerror` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Ignore all errors (optional, default `false`)

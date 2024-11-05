@@ -497,6 +497,7 @@ Output:
 #### Parameters
 
 -   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `identifier` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use to set value result field (if not set or not exists, 1 is use as a default value) (optional, default `false`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -995,586 +996,814 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### output
 
-Format the output with data a meta
+Create an output string containing all incoming elements in a `data` array.
+with given `meta` extracted into an object called `meta`.
 
-#### Parameters
+Créer une sortie en chain de caratere avec les element entrent mise dans un tableau nommé `data`
+eyent les donnée `meta` extrais et mises dans un objet appelé `meta`.
 
--   `indent` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** indent or not (optional, default `false`)
--   `meta` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>?** fields to be considered as metadata
-                                      object
+##### Script / Scénario
 
-#### Examples
-
-Input
-
-
-```javascript
-[
-     { _id: 1, value: 2, total: 2 },
-     { _id: 2, value: 4, total: 2 }
-]
-```
-
-Script
-
-
-```javascript
-.pipe(ezs('output', { meta: 'total' }))
-```
-
-Output
-
-
-```javascript
-{
-    data: [
-        { _id: 1, value: 2 },
-        { _id: 2, value: 4 }
-    ],
-    meta: {
-        total: 2
-    }
-}
-```
-
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-### pair
-
-Take `Object` object getting some fields with json path, and
-throw all pair of value from two fields
-
-```json
-[
- { departure: ['tokyo', 'nancy'], arrival: 'toul' },
- { departure: ['paris', 'nancy'], arrival: 'toul' },
- { departure: ['london', 'berlin'], arrival: 'toul' },
-]
-```
-
-Script:
+###### ini
 
 ```ini
+; Import analytics plugin required to use "output"
+; Importation du plugin analytique nécessaire pour utiliser "output"
 [use]
 plugin = analytics
 
+; Using "output" with 'indent' as true and 'meta' as total
+; Utilisation de "output" avec 'indent' à vrai et total comme paramètres de 'meta'
+[output]
+indent = true
+meta = total
+```
+
+##### Input / Entrée
+
+```json
+ [
+     { "_id": 1, "value": 2, "total": 2 },
+     { "_id": 2, "value": 4, "total": 2 }
+ ]
+```
+
+##### Output / Sortie
+
+!!! Attention: This is an output function that can only be used at the end of an EZS script. !!!
+!!! The output is a string and can't be used with other EZS functions.                       !!!
+
+!!! Attention : Ceci est une fonction de sortie, Elle peut uniquement etre utilisé à la fin d'un script ezs !!!
+!!! Cette sortie est une chaine de carater et ne peut pas etre utilisé avec d'autre fonction ezs            !!!
+
+```json
+ {
+     "data": [
+         { "_id": 1, "value": 2 },
+         { "_id": 2, "value": 4 }
+     ],
+     "meta": {
+         "total": 2
+     }
+ }
+```
+
+#### Parameters
+
+-   `indent` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** <ul><li>indent the output json</li></ul>
+    <ul><li>indenté le json de sortie</li></ul> (optional, default `false`)
+-   `meta` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** <ul><li>element from the input to put it in the `meta` object</li></ul>
+    <ul><li>élément a extraire de l'entrée et a mettre dans l'objet `meta`</li></ul>
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+### pair
+
+Create a pair with 'id' containing a pair of the given 'path's and 'value' set to 1.
+
+Créer un couple 'id' contenent un couple des 'path's donnée et 'value' mise à 1.
+
+##### Script / Scénario
+
+```ini
+; Import analytics plugin required to use "pair"
+; Importation du plugin analytique nécessaire pour utiliser "pair"
+[use]
+plugin = analytics
+
+; Using "pair" with 'departure' and 'arrival' as paths setttings
+; Utilisation de "pair" avec 'departure' et 'arrival' comme paramètres de paths
 [pair]
 path = departure
 path = arrival
 ```
 
-Output:
+##### Input / Entrée
 
 ```json
-[
- { "id": [ "tokyo", "toul" ], "value": 1 },
-{ "id": [ "nancy", "toul" ], "value": 1 },
-{ "id": [ "paris", "toul" ], "value": 1 },
- { "id": [ "nancy", "toul" ], "value": 1 },
- { "id": [ "london", "toul" ], "value": 1 },
- { "id": [ "berlin", "toul" ], "value": 1 }
-]
+ [
+     { "departure": ["tokyo", "nancy"], "arrival": "toul" },
+     { "departure": ["paris", "nancy"], "arrival": "toul" },
+     { "departure": ["london", "berlin"], "arrival": "toul" }
+ ]
+```
+
+##### Output / Sortie
+
+```json
+ [
+     { "id": ["tokyo", "toul"], "value": 1 },
+     { "id": ["nancy", "toul"], "value": 1 },
+     { "id": ["paris", "toul"], "value": 1 },
+     { "id": ["nancy", "toul"], "value": 1 },
+     { "id": ["london", "toul"], "value": 1 },
+     { "id": ["berlin", "toul"], "value": 1 }
+ ]
 ```
 
 #### Parameters
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `identifier` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use to set value result field (if not set or not exists, 1 is use as a default value) (optional, default `false`)
+-   `null` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element who will be use to create the pair</li></ul>
+    <ul><li>chemin de l'élément qui vas etre utilisé pour créer le couple</li></ul>
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **{id: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>, value: `1`}** 
 
 ### pluck
 
-Take `Object` object getting value of fields (with json `path`) and throws an
-object for each value
+Extract the value of a given `path` and create a pair with the `path` as the `id`
+and `path` value as the `value`.
 
-```json
-[
- { city: 'tokyo', year: 2000, count: 1 },
- { city: 'paris', year: 2001, count: 2 },
- { city: 'london', year: 2003, count: 3 },
- { city: 'nancy', year: 2005, count: 4 },
- { city: 'berlin', year: 2007, count: 5 },
- { city: 'madrid', year: 2009, count: 6 },
- { city: 'stockholm', year: 2011, count: 7 },
- { city: 'bruxelles', year: 2013, count: 8 },
-]
-```
+Extrais la valeur d'un `path` donnée et créer un couple avec pour identifient le `path`
+et comme `value` la valeur du `path`.
 
-Script:
+#### Example / Exemple
+
+##### Script / Scénario
 
 ```ini
+; Import analytics plugin required to use "pluck"
+; Importation du plugin analytique nécessaire pour utiliser "pluck"
 [use]
 plugin = analytics
 
+; Using "pluck" with 'year' as path setttings instead of 'id' how is the default value
+; Utilisation de "pluck" avec 'year' comme paramètres de path au lieux de la valeur par defaut qui et 'id'
 [pluck]
 path = year
 ```
 
-Output:
+##### Input / Entrée
 
 ```json
-[
-{ "id": "year", "value": 2000 },
-{ "id": "year", "value": 2001 },
-{ "id": "year", "value": 2003 },
-{ "id": "year", "value": 2005 },
-{ "id": "year", "value": 2007 },
-{ "id": "year", "value": 2009 },
-{ "id": "year", "value": 2011 },
-{ "id": "year", "value": 2013 }
-]
+ [
+     { "city": "tokyo", "year": 2000, "count": 1 },
+     { "city": "paris", "year": 2001, "count": 2 },
+     { "city": "london", "year": 2003, "count": 3 },
+     { "city": "nancy", "year": 2005, "count": 4 },
+     { "city": "berlin", "year": 2007, "count": 5 },
+     { "city": "madrid", "year": 2009, "count": 6 },
+     { "city": "stockholm", "year": 2011, "count": 7 },
+     { "city": "bruxelles", "year": 2013, "count": 8 }
+ ]
+```
+
+##### Output / Sortie
+
+```json
+ [
+     { "id": "year", "value": 2000 },
+     { "id": "year", "value": 2001 },
+     { "id": "year", "value": 2003 },
+     { "id": "year", "value": 2005 },
+     { "id": "year", "value": 2007 },
+     { "id": "year", "value": 2009 },
+     { "id": "year", "value": 2011 },
+     { "id": "year", "value": 2013 }
+ ]
 ```
 
 #### Parameters
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use form group by (optional, default `id`)
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element who need to be extrated</li></ul>
+    <ul><li>chemin de l'élément qui doit être extrais</li></ul> (optional, default `id`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)}** 
 
 ### reducing
 
-Take `Object` group value of `{ id, value }` objectpath
+Merges the `id`, `value` pairs into a new pair, associating the identifier with the values.
 
-```json
-[{
-         { id: 'x', value: 2 },
-         { id: 't', value: 2 },
-         { id: 'x', value: 3 },
-         { id: 'x', value: 5 },
-}]
-```
+Fusionne les couple `id`, `value`, en un nouveau couple associent l'identifient au valeurs.
 
-Script:
+#### Example / Exemple
+
+##### Script / Scénario
 
 ```ini
+; Import analytics plugin required to use "reducing"
+; Importation du plugin analytique nécessaire pour utiliser "reducing"
 [use]
 plugin = analytics
 
+; Using "reducing" with default settings
+; Utilisation de "reducing" avec les paramètres par défaut
 [reducing]
+; id = id
+; value = value
 ```
 
-Output:
+##### Input / Entrée
 
 ```json
-[
-         { id: 'x', value: [2, 3, 5] },
-         { id: 't', value: [2] },
-]
+ [
+     { "id": "x", "value": 2 },
+     { "id": "t", "value": 2 },
+     { "id": "x", "value": 3 },
+     { "id": "x", "value": 5 }
+ ]
+```
+
+##### Output / Sortie
+
+```json
+ [
+     { "id": "x", "value": [2, 3, 5] },
+     { "id": "t", "value": [2] }
+ ]
 ```
 
 #### Parameters
 
--   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
--   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
+-   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element who will be use as the key</li></ul>
+    <ul><li>chemin de l'élément qui vas être utilisé comme clé</li></ul> (optional, default `id`)
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element who will be merge into an array</li></ul>
+    <ul><li>chemin de l'élément qui vas être fussioné en un tableau</li></ul> (optional, default `value`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>}** 
 
 ### segment
 
-Take `Object` object getting some fields with json path, and throw segment of
-value. Ex: get `[a,b,c]` and throw `[a,b], [b,c]`
+Returns an object containing a segmentation of the input.
 
-```json
-[{
-          {
-              id: 'doc#1',
-              value: [
-                   1,
-                   2,
-                  3,
-                   4,
-               ],
-          },
-          {
-              id: 'doc#2',
-              value: [
-                  4,
-                  5,
-                  6,
-              ],
-          },
-          {
-              id: 'doc#3',
-              value: [
-                  6,
-                  7,
-              ]
-          },
-          {
-              id: 'doc#4',
-              value: [
-                  1,
-                  2,
-                  3,
-                  4,
-                  5,
-                  6,
-                  7,
-              ]
-          }
-}]
-```
+-   `[a,b,c]` will be returned as `[a,b], [b,c]`
 
-Script:
+Renvoie un objet contenant une segmentation de l'entrée.
+
+-   `[a,b,c]` sera retourné sous la forme `[a,b], [b,c]`
+
+#### Example / Exemple
+
+##### Script / Scénario
 
 ```ini
+; Import analytics plugin required to use "segment"
+; Importation du plugin analytique nécessaire pour utiliser "segment"
 [use]
 plugin = analytics
 
+; Using "segment" with default settings
+; Utilisation de "segment" avec les paramètres par défaut
 [segment]
-path = value
+; aggregate = true
+; identifier = false
+; path = value
 ```
 
-Output:
+##### Input / Entrée
 
 ```json
-[
-  { id: [ 1, 2 ], value: 1 }
-  { id: [ 2, 3 ], value: 1 }
-  { id: [ 3, 4 ], value: 1 }
-  { id: [ 4, 5 ], value: 1 }
-  { id: [ 5, 6 ], value: 1 }
-  { id: [ 6, 7 ], value: 1 }
-  { id: [ 1, 2 ], value: 1 }
-  { id: [ 2, 3 ], value: 1 }
-  { id: [ 3, 4 ], value: 1 }
-  { id: [ 4, 5 ], value: 1 }
-  { id: [ 5, 6 ], value: 1 }
-  { id: [ 6, 7 ], value: 1 }
-]
+ [
+     {
+         "id": "doc#1",
+         "value": [
+             1,
+             2,
+             3,
+             4
+         ]
+     },
+     {
+         "id": "doc#2",
+         "value": [
+             4,
+             5,
+             6
+         ]
+     },
+     {
+         "id": "doc#3",
+         "value": [
+             6,
+             7
+         ]
+     },
+     {
+         "id": "doc#4",
+         "value": [
+             1,
+             2,
+             3,
+             4,
+             5,
+             6,
+             7
+         ]
+     }
+ ]
+```
+
+##### Output / Sortie
+
+```json
+ [
+     { "id": [ 1, 2 ], "value": 1 },
+     { "id": [ 2, 3 ], "value": 1 },
+     { "id": [ 3, 4 ], "value": 1 },
+     { "id": [ 4, 5 ], "value": 1 },
+     { "id": [ 5, 6 ], "value": 1 },
+     { "id": [ 6, 7 ], "value": 1 },
+     { "id": [ 1, 2 ], "value": 1 },
+     { "id": [ 2, 3 ], "value": 1 },
+     { "id": [ 3, 4 ], "value": 1 },
+     { "id": [ 4, 5 ], "value": 1 },
+     { "id": [ 5, 6 ], "value": 1 },
+     { "id": [ 6, 7 ], "value": 1 }
+ ]
 ```
 
 #### Parameters
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path (optional, default `value`)
--   `aggregate` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** aggregate all values for all paths (or not) (optional, default `true`)
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element who need to be segmented</li></ul>
+    <ul><li>chemin de l'élément qui doit être segmentés</li></ul> (optional, default `value`)
+-   `aggregate` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** aggregate all values for all paths (or not)<ul><li>aggregate all segmented value in one element (work if you have multiple path)</li></ul>
+    <ul><li>agréger toutes les valeurs segmentées en un seul élément (fonctionne si vous avez plusieurs chemins)</li></ul> (optional, default `true`)
+-   `identifier` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element who will be put in value field (if not set, fallback to `1`)</li></ul>
+    <ul><li>chemin de l'élément qui sera mis dans le champ valeur (si non défini, fallback à `1`)</li></ul> (optional, default `false`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **{id: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>, value: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)}** 
 
 ### slice
 
-Take `Object` and throw the same object only if it is in the section of the
-stream between start and start + size. stream is numbered from 1
+Returns a copy of a section of a stream.
 
-```json
-[{
- { id: 2000, value: 1 },
- { id: 2001, value: 2 },
- { id: 2003, value: 3 },
- { id: 2005, value: 4 },
- { id: 2007, value: 5 },
- { id: 2009, value: 6 },
- { id: 2011, value: 7 },
- { id: 2013, value: 8 },
-}]
-```
+Renvoie une copie d'une section d'un flux.
 
-Script:
+#### Example / Exemple
+
+##### Script / Scénario
 
 ```ini
+; Import analytics plugin required to use "slice"
+; Importation du plugin analytique nécessaire pour utiliser "slice"
 [use]
 plugin = analytics
 
-[drop]
+; Using "slice" with default settings
+; Utilisation de "slice" avec les paramètres par défaut
+[slice]
+; start = 1
+; size = 10
 ```
 
-Output:
+##### Input / Entrée
 
 ```json
-[
-{ "id": 2001, "value": 2 },
-{ "id": 2003, "value": 3 },
-]
+ [
+     { "id": 2023, "value": 12 },
+     { "id": 2021, "value": 11 },
+     { "id": 2019, "value": 10 },
+     { "id": 2017, "value": 9 },
+     { "id": 2013, "value": 8 },
+     { "id": 2011, "value": 7 },
+     { "id": 2009, "value": 6 },
+     { "id": 2007, "value": 5 },
+     { "id": 2005, "value": 4 },
+     { "id": 2003, "value": 3 },
+     { "id": 2001, "value": 2 },
+     { "id": 2000, "value": 1 }
+ ]
+```
+
+##### Output / Sortie
+
+```json
+ [
+     { "id": 2023, "value": 12 },
+     { "id": 2021, "value": 11 },
+     { "id": 2019, "value": 10 },
+     { "id": 2017, "value": 9 },
+     { "id": 2013, "value": 8 },
+     { "id": 2011, "value": 7 },
+     { "id": 2009, "value": 6 },
+     { "id": 2007, "value": 5 },
+     { "id": 2005, "value": 4 },
+     { "id": 2003, "value": 3 }
+ ]
 ```
 
 #### Parameters
 
--   `start` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** start of the slice (optional, default `0`)
--   `size` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** size of the slice (optional, default `10`)
+-   `start` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** <ul><li>the beginning index of the specified portion of the stream</li></ul>
+    <ul><li>l'indice de début de la partie spécifiée du flux</li></ul> (optional, default `1`)
+-   `size` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** <ul><li>the size of the specified portion of the stream</li></ul>
+    <ul><li>la taille de début de la partie spécifiée du flux</li></ul> (optional, default `10`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### sort
 
-Take all `Object` and sort them with dedicated key
+Sort incomming objects based on the value of the given path.
 
-```json
-[{
- { id: 2000, value: 1 },
- { id: 2001, value: 2 },
- { id: 2003, value: 3 },
- { id: 2005, value: 4 },
- { id: 2007, value: 5 },
- { id: 2009, value: 6 },
- { id: 2011, value: 7 },
- { id: 2013, value: 8 },
-}]
-```
+Trie les objets entrants en fonction de la valeur du champ donné par `path`.
 
-Script:
+#### Example / Exemple
+
+##### Script / Scénario
 
 ```ini
+; Import analytics plugin required to use "sort"
+; Importation du plugin analytique nécessaire pour utiliser "sort"
 [use]
 plugin = analytics
 
+; Using "sort" with default settings
+; Utilisation de "sort" avec les paramètres par défaut
 [sort]
-path = value
-reverse = true
+; path = id
+; reverse = false
 ```
 
-Output:
+##### Input / Entrée
 
 ```json
-[
-{ "id": 2013, "value": 8 },
-{ "id": 2011, "value": 7 },
-{ "id": 2009, "value": 6 },
-{ "id": 2007, "value": 5 },
-{ "id": 2005, "value": 4 },
-{ "id": 2003, "value": 3 },
-{ "id": 2001, "value": 2 },
-{ "id": 2000, "value": 1 }
-]
+ [
+     { "id": 2013, "value": 8 },
+     { "id": 2011, "value": 7 },
+     { "id": 2009, "value": 6 },
+     { "id": 2007, "value": 5 },
+     { "id": 2005, "value": 4 },
+     { "id": 2003, "value": 3 },
+     { "id": 2001, "value": 2 },
+     { "id": 2000, "value": 1 }
+ ]
+```
+
+##### Output / Sortie
+
+```json
+ [
+     { "id": 2000, "value": 1 },
+     { "id": 2001, "value": 2 },
+     { "id": 2003, "value": 3 },
+     { "id": 2005, "value": 4 },
+     { "id": 2007, "value": 5 },
+     { "id": 2009, "value": 6 },
+     { "id": 2011, "value": 7 },
+     { "id": 2013, "value": 8 }
+ ]
 ```
 
 #### Parameters
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
--   `reverse` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** reverser order (optional, default `false`)
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element used to as reference for the sort</li></ul>
+    <ul><li>chemin de l'élément utilisé comme référence pour le tri</li></ul> (optional, default `id`)
+-   `reverse` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** <ul><li>sort in ascending or descending order</li></ul>
+    <ul><li>trier par ordre croissant ou décroissant</li></ul> (optional, default `false`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### statistics
 
-Compute some statistics from one or more fields
+Analyse and create statistics from given fields.
 
-#### Parameters
+Analyse et crée des statistiques à partir des champs donnés.
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of the value field (optional, default `value`)
--   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path of statistics in output object (optional, default `_statistics`)
+#### Example / Exemple
 
-#### Examples
+##### Script / Scénario
 
-Input
-
-
-````javascript
-```json
-[
- { a: 1, },
- { a: 1, },
- { a: 2, },
- { a: 3, },
- { a: 3, },
- { a: 3, },
-]
-```
-````
-
-Script
-
-
-````javascript
 ```ini
+; Import analytics plugin required to use "statistics"
+; Importation du plugin analytique nécessaire pour utiliser "statistics"
 [use]
 plugin = analytics
 
+; Using "statistics" with default settings
+; Utilisation de "statistics" avec les paramètres par défaut
 [statistics]
-path = a
-
+; path = value
+; target = _statistics
 ```
-````
 
-Output
+##### Input / Entrée
 
-
-````javascript
 ```json
-[{
-    "a": 1,
-    "stats": {
-        "a": {
-            "sample": 2,
-            "frequency": 1,
-            "percentage": 25,
-            "sum": 4,
-            "count": 3,
-            "min": 1,
-            "max": 2,
-            "mean": 1.3333333333333333,
-            "range": 1,
-            "midrange": 0.5,
-            "variance": 0.2222222222222222,
-            "deviation": 0.4714045207910317,
-            "population": 2
-        }
-    }
-},
-{
-    "a": 1,
-    "stats": {
-        "a": {
-            "sample": 2,
-            "frequency": 1,
-            "percentage": 25,
-            "sum": 4,
-            "count": 3,
-            "min": 1,
-            "max": 2,
-            "mean": 1.3333333333333333,
-            "range": 1,
-            "midrange": 0.5,
-            "variance": 0.2222222222222222,
-            "deviation": 0.4714045207910317,
-            "population": 2
-        }
-     }
-},
-{
-    "a": 2,
-    "stats": {
-        "a": {
-            "sample": 1,
-            "frequency": 0.5,
-            "percentage": 50,
-            "sum": 4,
-            "count": 3,
-            "min": 1,
-            "max": 2,
-            "mean": 1.3333333333333333,
-            "range": 1,
-            "midrange": 0.5,
-            "variance": 0.2222222222222222,
-            "deviation": 0.4714045207910317,
-            "population": 2
-     }
-   }
-}]
+ [
+     { "value": 1 },
+     { "value": 1 },
+     { "value": 2 },
+     { "value": 3 },
+     { "value": 3 },
+     { "value": 3 }
+ ]
 ```
-````
+
+##### Output / Sortie
+
+```json
+ [
+     {
+         "value": 1,
+         "_statistics": {
+             "value": {
+                 "sample": 2,
+                 "frequency": 1,
+                 "percentage": 25,
+                 "sum": 4,
+                 "count": 3,
+                 "min": 1,
+                 "max": 2,
+                 "mean": 1.3333333333333333,
+                 "range": 1,
+                 "midrange": 0.5,
+                 "variance": 0.2222222222222222,
+                 "deviation": 0.4714045207910317,
+                 "population": 2
+             }
+         }
+     },
+     {
+         "value": 1,
+         "_statistics": {
+             "value": {
+                 "sample": 2,
+                 "frequency": 1,
+                 "percentage": 25,
+                 "sum": 4,
+                 "count": 3,
+                 "min": 1,
+                 "max": 2,
+                 "mean": 1.3333333333333333,
+                 "range": 1,
+                 "midrange": 0.5,
+                 "variance": 0.2222222222222222,
+                 "deviation": 0.4714045207910317,
+                 "population": 2
+             }
+         }
+     },
+     {
+         "value": 2,
+         "_statistics": {
+             "value": {
+                 "sample": 1,
+                 "frequency": 0.5,
+                 "percentage": 50,
+                 "sum": 4,
+                 "count": 3,
+                 "min": 1,
+                 "max": 2,
+                 "mean": 1.3333333333333333,
+                 "range": 1,
+                 "midrange": 0.5,
+                 "variance": 0.2222222222222222,
+                 "deviation": 0.4714045207910317,
+                 "population": 2
+             }
+         }
+     }
+ ]
+```
+
+#### Parameters
+
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element used to create the statistics</li></ul>
+    <ul><li>chemin de l'élément utilisé pour créer les statistiques</li></ul> (optional, default `value`)
+-   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the statistics in the returned object</li></ul>
+    <ul><li>chemin des stastistiques dans l'objet retourné</li></ul> (optional, default `_statistics`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### summing
 
-Take special `Object` like `{id, value}` and replace `value` with the sum of
-`value`s
+Create an `id`, `value` pair from two given paths and apply a sum to the value.
 
-```json
-[
- { "id": "A", "value": [1, 1, 1] },
- { "id": "B", "value": [1] },
- { "id": "C", "value": [1, 1, 1, 1] },
-]
-```
+Créer un couple `id`, `value` à partir de chemins et applique une somme sur `value`.
 
-Script:
+#### Example / Exemple
+
+##### Script / Scénario
 
 ```ini
+; Import analytics plugin required to use "summing"
+; Importation du plugin analytique nécessaire pour utiliser "summing"
 [use]
 plugin = analytics
 
+; Using "summing" with default settings
+; Utilisation de "summing" avec les paramètres par défaut
 [summing]
+; id = id
+; value = value
 ```
 
-Output:
+##### Input / Entrée
 
 ```json
-[{
-  "id": "A", "value": 3
-},
-{
-   "id": "B",
-   "value": 1
-},
-{
-   "id": "C",
-  "value": 4
-}]
+ [
+     {
+         "id": 1,
+         "value": [1, 1, 1],
+         "hello": "world"
+     },
+     {
+         "id": 2,
+         "value": [2, 2, 2],
+         "hello": "world"
+     }
+ ]
+```
+
+##### Output / Sortie
+
+```json
+[
+    {
+        "id": 1,
+        "value": 3
+    },
+    {
+        "id": 2,
+        "value": 6
+    }
+]
 ```
 
 #### Parameters
 
--   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for id (optional, default `id`)
--   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for value (optional, default `value`)
+-   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element used to create the new identifier</li></ul>
+    <ul><li>chemin de l'élément utilisé pour créer le nouvel identifiant</li></ul> (optional, default `id`)
+-   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element to be summed</li></ul>
+    <ul><li>chemin de l'élément qui doit être sommé</li></ul> (optional, default `value`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)}** 
 
 ### tune
 
-Take all `Object` and sort them with selected field
+Create and replace the id with a unified id that can be used with [sort](#sort).
 
-```json
-[{
-}]
-```
+Créer et remplacer l'identifiant par un identifiant unifié qui peut être utilisé avec [sort](#sort).
 
-Script:
+#### Example / Exemple
+
+##### Script / Scénario
 
 ```ini
+; Import analytics plugin required to use "tune"
+; Importation du plugin analytique nécessaire pour utiliser "tune"
 [use]
 plugin = analytics
 
+; Using "tune" with default settings
+; Utilisation de "tune" avec les paramètres par défaut
 [tune]
+; path = id
+; method = natural
 ```
 
-Output:
+##### Input / Entrée
 
 ```json
-[
-]
+ [
+     {
+         "id": 1,
+         "value": 1
+     },
+     {
+         "id": 2,
+         "value": 2
+     }
+ ]
+```
+
+##### Output / Sortie
+
+```json
+ [
+     {
+         "id": "0000000000000000001.00000000000000000000",
+         "value": {
+             "id": 1,
+             "value": 1,
+             "label": "static value"
+         }
+     },
+     {
+         "id": "0000000000000000002.00000000000000000000",
+         "value": {
+             "id": 2,
+             "value": 2,
+             "label": "static value"
+         }
+     }
+ ]
 ```
 
 #### Parameters
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** path to use for the sort key (optional, default `id`)
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element used to create the unified identifier</li></ul>
+    <ul><li>chemin de l'élément utilisé pour créer l'identifiant unifié</li></ul> (optional, default `id`)
+-   `method` **(`"natural"` \| `"levenshtein"` \| `"numerical"`)** <ul><li>method used to create the unified identifier</li></ul>
+     <ul><ul><li>natural - Create a normalised identifier that is set to a fixed length</li></ul></ul>
+     <ul><ul><li>levenshtein - Create an identifier based on the Levenshtein algorithm</li></ul></ul>
+     <ul><ul><li>numerical - Create an identifier based on a numeric value</li></ul></ul><ul><li>méthode utilisée pour créer l'identifiant unifié</li></ul>
+     <ul><ul><li>natural - Crée un identifiant normalisé de longueur fixe</li></ul></ul>
+     <ul><ul><li>levenshtein - Crée un identifiant basé sur l'algorithme de Levenshtein</li></ul></ul>
+     <ul><ul><li>numerical - Crée un identifiant basé sur une valeur numérique</li></ul></ul> (optional, default `natural`)
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+Returns **{id: [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), value: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)}** 
 
 ### value
 
-Take `Object` object and getting the value field
+Create a new object from the value of the given `path`.
 
-```json
-[
- { id: 2000, value: 1 },
- { id: 2001, value: 2 },
- { id: 2003, value: 3 },
- { id: 2005, value: 4 },
- { id: 2007, value: 5 },
- { id: 2009, value: 6 },
- { id: 2011, value: 7 },
- { id: 2013, value: 8 },
-]
-```
+Créer un nouvel objet à partir du chemin donné dans `path`.
 
-Script:
+#### Example / Exemple
+
+##### Script / Scénario
 
 ```ini
+; Import analytics plugin required to use "value"
+; Importation du plugin analytique nécessaire pour utiliser "value"
 [use]
 plugin = analytics
 
+; Using "value" with default settings
+; Utilisation de "tune" avec les paramètres par défaut
 [value]
-path = id
+; path = value
 ```
 
-Output:
+##### Input / Entrée
+
+###### Dataset 1 / Jeu de données 1
 
 ```json
-[
-2000,
-2001,
-2003,
-2005,
-2007,
-2009,
-2011,
-2013
-]
+ [
+     { "id": 2000, "value": 1 },
+     { "id": 2001, "value": 2 },
+     { "id": 2003, "value": 3 },
+     { "id": 2005, "value": 4 },
+     { "id": 2007, "value": 5 },
+     { "id": 2009, "value": 6 },
+     { "id": 2011, "value": 7 },
+     { "id": 2013, "value": 8 }
+ ]
+```
+
+###### Dataset 2 / Jeu de données 2
+
+```json
+ [
+     {
+         "id": 1,
+         "value": {
+             "hello": "world"
+         }
+     },
+     {
+         "id": 2,
+         "value": {
+             "hello": "ezs"
+         }
+     },
+     {
+         "id": 3,
+         "value": {
+             "hello": "lodex"
+         }
+     }
+ ]
+```
+
+##### Output / Sortie
+
+###### Dataset 1 / Jeu de données 1
+
+```json
+ [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+ ]
+```
+
+###### Dataset 2 / Jeu de données 2
+
+```json
+ [
+     {
+         "hello": "world"
+     },
+     {
+         "hello": "ezs"
+     },
+     {
+         "hello": "lodex"
+     }
+ ]
 ```
 
 #### Parameters
 
--   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the pah of the value field (optional, default `value`)
+-   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** <ul><li>path of the element used to create the new object</li></ul>
+    <ul><li>chemin de l'élément utilisé pour créer le nouvel objet</li></ul> (optional, default `value`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 

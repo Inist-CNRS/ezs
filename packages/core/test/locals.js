@@ -1,3 +1,17 @@
+import from from 'from';
+
+function flame(data, feed) {
+    if (this.isLast()) {
+        return feed.close();
+    }
+    if (this.isFirst()) {
+        this.input = this.ezs.createStream(this.ezs.objectMode());
+    }
+    const size = Number(this.getParam('size', 10));
+    return feed.flow(from(Array(size).fill(data)));
+}
+
+
 function plus1(data, feed) {
     feed.send(data + 1);
 }
@@ -50,6 +64,13 @@ function slow(data, feed) {
             feed.end();
         }, time2sleep);
     }, time2sleep);
+}
+function slowAtTheEnd(data, feed) {
+    const time2sleep = Number(this.getParam('time', 200));
+    if (this.isLast()) {
+        return setTimeout(() => feed.close(), time2sleep);
+    }
+    return feed.send(data);
 }
 
 function noclose(data, feed) {
@@ -228,6 +249,7 @@ module.exports = {
     decrement,
     stepper,
     slow,
+    slowAtTheEnd,
     noclose,
     aie,
     bad,
@@ -244,4 +266,5 @@ module.exports = {
     splash,
     throttle,
     erraticError,
+    flame,
 };

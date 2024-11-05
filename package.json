@@ -1,6 +1,14 @@
 {
-  "name": "root",
+  "name": "ezs",
   "private": true,
+   "workspaces": [
+     "packages/*"
+  ],
+  "engines": {
+    "node": ">=12.0.0",
+    "yarn": ">= 1.0.0",
+    "npm": "Please use Yarn instead of NPM to install dependencies. See: https://yarnpkg.com/lang/en/docs/install/"
+  },
   "devDependencies": {
     "@babel/cli": "7.13.14",
     "@babel/core": "7.13.15",
@@ -11,7 +19,6 @@
     "@babel/plugin-transform-modules-commonjs": "7.13.8",
     "@babel/preset-env": "7.13.15",
     "@babel/register": "7.13.14",
-    "@shelf/jest-mongodb": "1.2.4",
     "@types/jest": "26.0.22",
     "@types/ramda": "0.27.40",
     "array-parallel": "0.1.3",
@@ -34,7 +41,7 @@
     "nock": "13.0.11",
     "node-fetch": "2.6.7",
     "prettier": "2.3.2",
-    "semver": "7.3.5",
+    "semver": "7.5.2",
     "sleepjs": "3.0.1"
   },
   "scripts": {
@@ -42,11 +49,13 @@
     "release:publish": "lerna publish from-package",
     "commit": "git status && npx git-cz -a",
     "build": "lerna run build",
-    "bootstrap": "lerna bootstrap",
+    "ci:install": "yarn install --ignore-engines --frozen-lockfile && yarn run build",
+    "ci:test": "yarn run test:all",
     "doc": "lerna run doc",
     "lint": "lerna run --no-bail lint",
-    "pretest": "npm run bootstrap",
-    "test": "NODE_ENV=test jest --maxWorkers 4 --verbose",
+    "pretest": "yarn install && yarn run build",
+    "test": "yarn run test:all",
+    "test:all": "NODE_ENV=test jest --maxWorkers 4 --verbose",
     "test:debug": "NODE_ENV=test jest --runInBand --detectOpenHandles",
     "coverage": "NODE_ENV=test jest --ci --runInBand --reporters=default --collectCoverage --coverageReporters=text --coverage",
     "coverage:html": "NODE_ENV=test jest --ci --runInBand --reporters=default --collectCoverage --coverageReporters=html --coverage",

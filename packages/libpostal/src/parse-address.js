@@ -1,28 +1,99 @@
-import postal from '@cymen/node-postal';
-
-const parse = (input) => ({
-    id: input,
-    value: postal.parser
-        .parse_address(String(input).trim())
-        .reduce((obj, cur) => ({ ...obj, [cur.component]: cur.value }), {}),
-});
+import parse from './postal/parse';
 
 /**
- * Takes a string containing an address to return an object.
- * This will contain the different fields present in the address.
+ * Try to parse given addresss.
+ *
+ * Essaye de faire l'analyse grammaticale des adresses données.
+ *
+ * ### Example / Exemple
+ *
+ * #### Script / Scénario
+ *
+ * ```ini
+ * ; Import libpostal plugin required to use "parseAddress"
+ * ; Importation du plugin libpostal nécessaire pour utiliser "parseAddress"
+ * [use]
+ * plugin = libpostal
+ *
+ * ; Using "parseAddress"
+ * ; Utilisation de "parseAddress"
+ * [parseAddress]
+ *
+ * ```
+ *
+ * #### Input / Entrée
+ *
+ * ```json
+ *  [
+ *      "Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238"
+ *  ]
+ * ```
+ *
+ * #### Output / Sortie
+ *
+ * ```json
+ * [
+ *      {
+ *          "id": "Barboncino 781 Franklin Ave, Crown Heights, Brooklyn, NY 11238",
+ *          "value": {
+ *              "house": "barboncino",
+ *              "house_number": "781",
+ *              "road": "franklin ave",
+ *              "suburb": "crown heights",
+ *              "city_district": "brooklyn",
+ *              "state": "ny",
+ *              "postcode": "11238"
+ *          }
+ *      }
+ *  ]
+ * ```
  *
  * @name parseAddress
- * @returns {Object}
+ *
+ * @param {String|String[]|Object} input
+ *
+ * @returns {{
+ *     id: String,
+ *     value: Object
+ * }|{
+ *     id: String,
+ *     value: Object
+ * }[]|Object}
  */
-export default function parseAddress(data, feed) {
-    if (this.isLast()) {
+const parseAddress = (input) => {
+    if (Array.isArray(input)) {
+        return input.map(value => {
+            if (typeof value === 'string') {
+                return parse(value);
+            }
+            return value;
+        });
+    }
+
+    if (typeof input === 'string') {
+        return parse(input);
+    }
+
+    return input;
+};
+
+
+/**
+ * ParseAddress function see documentation at the end.
+ * This part of the doc is used for jsdoc typing
+ * @private
+ * @param data {unknown}
+ * @param feed {Feed}
+ * @param ctx {import('../../core/src/engine').EngineScope}
+ */
+const handleEzsFeed = (data, feed, ctx) => {
+    if (ctx.isLast()) {
         return feed.close();
     }
-    if (Array.isArray(data)) {
-        return feed.send(data.map(parse));
-    }
-    if (typeof data === 'string') {
-        return feed.send(parse(data));
-    }
-    return feed.send(data);
-}
+
+    return feed.send(
+        parseAddress(data)
+    );
+};
+
+export default handleEzsFeed;

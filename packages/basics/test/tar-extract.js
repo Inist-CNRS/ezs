@@ -67,4 +67,34 @@ describe('TARExtract', () => {
                 done();
             });
     });
+    it('should extract Binary content', (done) => {
+        const result = [];
+        fs.createReadStream('./packages/basics/examples/data/test.tar')
+            .pipe(ezs('TARExtract', { path: '**/*.txt', text: false }))
+            .pipe(ezs.catch())
+            .on('data', (chunk) => {
+                const str = chunk.value.toString();
+                assert.equal(str, 'ok\n');
+                result.push(str);
+            })
+            .on('error', done)
+            .on('end', () => {
+                assert.equal(result.length, 10);
+                done();
+            });
+    });
+    it('should ignore Wrong JSON files', (done) => {
+        const result = [];
+        fs.createReadStream('./packages/basics/examples/data/test2.tar')
+            .pipe(ezs('TARExtract', { path: '**/*.json', json: true, compress: false}))
+            .pipe(ezs.catch())
+            .on('data', (chunk) => {
+                result.push(chunk);
+            })
+            .on('error', done)
+            .on('end', () => {
+                assert.equal(result.length, 1);
+                done();
+            });
+    });
 });

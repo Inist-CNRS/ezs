@@ -5,7 +5,7 @@
         "editor.formatOnSave": false,
     },
     "editor.codeActionsOnSave": {
-        "source.fixAll": true
+        "source.fixAll": "explicit"
     },
     "editor.tabSize": 4,
     "prettier.configPath": "./.prettierrc"

@@ -4,10 +4,28 @@ import queue from 'concurrent-queue';
 import { hrtime } from 'process';
 import eos from 'end-of-stream';
 import pWaitFor from 'p-wait-for';
+import stringify from 'json-stringify-safe';
 import Feed from './feed';
 import Shell from './shell';
 
 import SafeTransform from './SafeTransform';
+
+/**
+ * Engine scope object type
+ * @private
+ * @typedef {Object} EngineScope
+ *
+ * @property {Engine} ezs
+ * @property {(d: unknown, c: unknown) => void} emit
+ * @property {() => any} getParams
+ * @property {() => boolean} isFirst
+ * @property {() => number} getIndex
+ * @property {() => boolean} isLast
+ * @property {() => string} getCumulativeTime
+ * @property {() => number} getCumulativeTimeMS
+ * @property {() => number} getCounter
+ * @property {(name: string, defval?: string | string[], chunk?: unknown) => string | string[] | undefined} getParam
+ */
 
 const nanoZero = () => BigInt(0);
 
@@ -25,16 +43,26 @@ function decreaseCounter() {
     counter -= 1;
 }
 
-function createErrorWith(error, index, funcName, chunk) {
+function createErrorWith(error, index, funcName, funcParams, chunk) {
     const stk = String(error.stack).split('\n');
     const prefix = `item #${index} `;
     const erm = stk.shift().replace(prefix, '');
     const msg = `${prefix}[${funcName}] <${erm}>\n\t${stk.slice(0, 10).join('\n\t')}`;
     const err = Error(msg);
     err.sourceError = error;
-    err.sourceChunk = JSON.stringify(chunk);
+    err.sourceChunk = stringify(chunk);
+    err.toJSON = () => ({
+        type: error.type || 'Standard error',
+        scope: error.scope || 'code',
+        date: error.date || new Date(),
+        message: msg.split('\n').shift(),
+        func: funcName,
+        params: funcParams,
+        traceback: stk.slice(0,10),
+        index,
+        chunk,
+    });
     Error.captureStackTrace(err, createErrorWith);
-    debug('ezs')('Caught an', err);
     return err;
 }
 
@@ -61,6 +89,10 @@ export default class Engine extends SafeTransform {
         eos(this, decreaseCounter);
         this.shell = new Shell(ezs, this.environment);
         this.chunk = {};
+        /**
+         * @private
+         * @type {EngineScope}
+         */
         this.scope = {};
         this.scope.getEnv = (name) => (name === undefined ? this.environment : this.environment[name]);
         this.scope.ezs = this.ezs;
@@ -137,22 +169,31 @@ export default class Engine extends SafeTransform {
         }
         const warn = (error) => {
             if (!this.errorWasSent) {
-                this.errorWasSent = true;
-                this.emit('error', createErrorWith(error, currentIndex, this.funcName, chunk));
+              this.errorWasSent = true;
+              const warnErr = createErrorWith(error, currentIndex, this.funcName, this.params, chunk);
+              debug('ezs')('ezs engine emit an', warnErr);
+              this.emit('error', warnErr);
             }
         };
         const push = (data) => {
             if (data === null) {
                 this.nullWasSent = true;
+                this.nullWasSentError = createErrorWith(new Error('As a reminder, the end was recorded at this point'), currentIndex, this.funcName, this.params, chunk);
+            } else if (this.nullWasSent && !this.errorWasSent) {
+                console.warn(createErrorWith(new Error('Oops, that\'s going to crash ?'), currentIndex, this.funcName, this.params, chunk));
+                return warn(this.nullWasSentError);
             }
             if (!this.nullWasSent && this._readableState.ended) {
                 return warn(new Error('No back pressure control ?'));
             }
             if (data instanceof Error) {
-                debug('ezs')(`Ignoring error at item #${currentIndex}`);
-                return this.push(createErrorWith(data, currentIndex, this.funcName, chunk));
+                const ignoreErr = createErrorWith(data, currentIndex, this.funcName, this.params, chunk);
+                debug('ezs')(`Ignoring error at item #${currentIndex}`, ignoreErr);
+                return this.push(ignoreErr);
             }
-            return this.push(data);
+            if (!this.errorWasSent) {
+                return this.push(data);
+            }
         };
         const wait = async () => {
             this.pause();
@@ -160,16 +201,19 @@ export default class Engine extends SafeTransform {
             return this.resume();
         };
         const feed = new Feed(this.ezs, push, done, warn, wait);
+        feed.engine = this;
         try {
             this.chunk = chunk;
             return Promise.resolve(this.func.call(this.scope, chunk, feed, this.scope)).catch((e) => {
-                debug('ezs')(`Async error thrown at item #${currentIndex}, pipeline is broken`);
-                this.emit('error', createErrorWith(e, currentIndex, this.funcName, chunk));
+                const asyncErr = createErrorWith(e, currentIndex, this.funcName, this.params, chunk);
+                debug('ezs')(`Async error thrown at item #${currentIndex}, pipeline is broken`, asyncErr);
+                this.emit('error', asyncErr);
                 done();
             });
         } catch (e) {
-            debug('ezs')(`Sync error thrown at item #${currentIndex}, pipeline carries errors`);
-            this.push(createErrorWith(e, currentIndex, this.funcName, chunk));
+            const syncErr = createErrorWith(e, currentIndex, this.funcName, this.params, chunk);
+            debug('ezs')(`Sync error thrown at item #${currentIndex}, pipeline carries errors`, syncErr);
+            this.push(syncErr);
             return done();
         }
     }

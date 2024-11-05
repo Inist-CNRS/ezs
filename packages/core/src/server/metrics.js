@@ -121,25 +121,41 @@ export const metrics = () => (request, response, next) => {
     return true;
 };
 
-export function metricsHandle(data, feed) {
-    const pathName = this.getParam('pathName', 'default');
-    const bucket = this.getParam('bucket', 'unknow');
+/**
+ * Take `Object`, and throw the same object.
+ *
+ * This statement will only be used if :
+ *  - EZS_METRICS is enabled
+ *  - ezs is running in server mode
+ *
+ * WARNING: avoid setting bucket to "input" or "output", as these labels are used by ezs.
+ * If you do, you risk distorting the associated metrics.
+ *
+ * @name metrics
+ * @see ../server/knownPipeline.js
+ * @param {String} [pathName=auto] to identify the script
+ * @param {String} [bucket=unknow] to identify the moment of measurement
+ * @returns {Object}
+ */
+export const metricsHandle = (pathNameDefault) => (data, feed, ctx) => {
+    const pathName = ctx.getParam('pathName', pathNameDefault);
+    const bucket = ctx.getParam('bucket', 'unknow');
 
-    if (!this.total) {
-        this.total = 0;
+    if (!ctx.total) {
+        ctx.total = 0;
     }
-    if (!this.totalBytes) {
-        this.totalBytes = 0;
+    if (!ctx.totalBytes) {
+        ctx.totalBytes = 0;
     }
-    this.total += 1;
-    this.totalBytes += JSON.stringify(data || '').length;
+    ctx.total += 1;
+    ctx.totalBytes += JSON.stringify(data || '').length;
     ezsStatementChunksTotal.labels(pathName, bucket).inc();
-    if (this.isLast()) {
-        ezsStreamStatementOpen.labels(pathName, bucket).observe(this.getCounter());
-        ezsStreamChunks.labels(pathName, bucket).observe(this.total);
-        ezsStreamSizeBytes.labels(pathName, bucket).observe(this.totalBytes);
-        ezsStreamDurationMicroseconds.labels(pathName, bucket).observe(this.getCumulativeTimeMS());
+    if (ctx.isLast()) {
+        ezsStreamStatementOpen.labels(pathName, bucket).observe(ctx.getCounter());
+        ezsStreamChunks.labels(pathName, bucket).observe(ctx.total);
+        ezsStreamSizeBytes.labels(pathName, bucket).observe(ctx.totalBytes);
+        ezsStreamDurationMicroseconds.labels(pathName, bucket).observe(ctx.getCumulativeTimeMS());
         return feed.close();
     }
     return feed.send(data);
-}
+};

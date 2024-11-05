@@ -2,6 +2,7 @@ import assert from 'assert';
 import fs from 'fs';
 import from from 'from';
 import ezs from '../src';
+import { database } from '../src/statements/combine';
 
 ezs.addPath(__dirname);
 
@@ -209,6 +210,47 @@ describe('combine', () => {
                 done();
             });
     });
+    test('with script #4', (done) => {
+        const input = [
+            { a: 1, b: ['a', 'b'] },
+            { a: 2 },
+            { a: 3, b: 'c' },
+            { a: 4, b: 'y' },
+            { a: 5, b: 'e' },
+            { a: 6, b: 'z' },
+        ];
+        const output = [];
+        const script = `
+            [use]
+            plugin = analytics
+
+            [replace]
+            path = value
+            value = fix({id:'a', value:'aa'},{id:'b', value:'bb'},{id:'c', value:'cc'},{id:'d', value:'dd'},{id:'e', value:'ee'},{id:'f', value:'ff'})
+
+            [exploding]
+            [value]
+        `;
+
+        from(input)
+            .pipe(ezs('combine', { path: 'b', default:'n/a', script }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(output.length, 6);
+                assert.equal(output[0].b[0].value, 'aa');
+                assert.equal(output[0].b[1].value, 'bb');
+                assert.equal(output[1].b, undefined);
+                assert.equal(output[2].b.value, 'cc');
+                assert.equal(output[3].b.value, 'n/a');
+                assert.equal(output[4].b.value, 'ee');
+                assert.equal(output[5].b.value, 'n/a');
+                done();
+            });
+    });
     test('with file', (done) => {
         const input = [
             { a: 1, b: 'a' },
@@ -331,6 +373,7 @@ describe('no combine', () => {
                 done(new Error('Error is the right behavior'));
             });
     });
+
     test.skip('with wrong location', (done) => {
         const input = [
             { a: 1, b: 'a' },
@@ -364,7 +407,7 @@ describe('no combine', () => {
             })
             .on('end', () => {
                 done(new Error('Error is the right behavior'));
-        });
+            });
     });
 });
 
@@ -388,51 +431,18 @@ const cacheScript = `
     [value]
 `;
 
-
-
-test('combine with internal cache with script #1', (done) => {
+const nextTest = (done) => {
     const input = [
-        { a: 1, b: 'a' },
-        { a: 2, b: 'b' },
-        { a: 3, b: 'c' },
-        { a: 4, b: 'd' },
-        { a: 5, b: 'e' },
-        { a: 6, b: 'f' },
+        { a: 11, b: 'a' },
+        { a: 12, b: 'b' },
+        { a: 13, b: 'c' },
+        { a: 14, b: 'd' },
+        { a: 15, b: 'e' },
+        { a: 16, b: 'f' },
     ];
     const output = [];
     from(input)
-        .pipe(ezs('combine', { path: 'b', script: cacheScript }, env))
-        .pipe(ezs.catch())
-        .on('error', done)
-        .on('data', (chunk) => {
-            output.push(chunk);
-        })
-        .on('end', () => {
-            assert.equal(output.length, 6);
-            assert.equal(output[0].b.value, 'aa');
-            assert.equal(output[1].b.value, 'bb');
-            assert.equal(output[2].b.value, 'cc');
-            assert.equal(output[3].b.value, 'dd');
-            assert.equal(output[4].b.value, 'ee');
-            assert.equal(output[5].b.value, 'ff');
-            assert.equal(env.executed, true);
-            env.executed = false;
-            done();
-        });
-});
-
-test('combine with internal cache with script #2', (done) => {
-    const input = [
-        { a: 1, b: 'a' },
-        { a: 2, b: 'b' },
-        { a: 3, b: 'c' },
-        { a: 4, b: 'd' },
-        { a: 5, b: 'e' },
-        { a: 6, b: 'f' },
-    ];
-    const output = [];
-    from(input)
-        .pipe(ezs('combine', { path: 'b', script: cacheScript }, env))
+        .pipe(ezs('combine', { path: 'b', script: cacheScript, cacheName }, env))
         .pipe(ezs.catch())
         .on('error', done)
         .on('data', (chunk) => {
@@ -449,6 +459,37 @@ test('combine with internal cache with script #2', (done) => {
             assert.equal(env.executed, false);
             done();
         });
-});
+};
 
+
+test('combine with internal cache with script', (done) => {
+    const input = [
+        { a: 1, b: 'a' },
+        { a: 2, b: 'b' },
+        { a: 3, b: 'c' },
+        { a: 4, b: 'd' },
+        { a: 5, b: 'e' },
+        { a: 6, b: 'f' },
+    ];
+    const output = [];
+    from(input)
+        .pipe(ezs('combine', { path: 'b', script: cacheScript, cacheName }, env))
+        .pipe(ezs.catch())
+        .on('error', done)
+        .on('data', (chunk) => {
+            output.push(chunk);
+        })
+        .on('end', () => {
+            assert.equal(output.length, 6);
+            assert.equal(output[0].b.value, 'aa');
+            assert.equal(output[1].b.value, 'bb');
+            assert.equal(output[2].b.value, 'cc');
+            assert.equal(output[3].b.value, 'dd');
+            assert.equal(output[4].b.value, 'ee');
+            assert.equal(output[5].b.value, 'ff');
+            assert.equal(env.executed, true);
+            env.executed = false;
+            nextTest(done);
+        });
+});
 

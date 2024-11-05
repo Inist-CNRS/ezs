@@ -1,14 +1,12 @@
 {
   "name": "@ezs/transformers",
   "description": "LODEX transformers statements for EZS",
-  "version": "1.4.3",
+  "version": "1.4.5",
   "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
   "bugs": "https://github.com/Inist-CNRS/ezs/issues",
   "dependencies": {
     "json-6": "1.0.4",
-    "lodash.flatten": "4.4.0",
-    "lodash.get": "4.4.2",
-    "lodash.uniq": "4.5.0",
+    "lodash": "4.17.21",
     "sprintf-js": "1.1.2"
   },
   "directories": {

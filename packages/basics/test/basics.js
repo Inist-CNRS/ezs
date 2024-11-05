@@ -38,6 +38,31 @@ describe('test', () => {
                 done();
             });
     });
+    it('CSVParse #2', (done) => {
+        const res = [];
+        from([
+            'a,b,c\nd,',
+            'e,f\ng,',
+            Buffer.from([0xE2]),
+            Buffer.from([0x82]),
+            Buffer.from([0xAC]),
+            Buffer.from(','),
+            Buffer.from([0xC2]),
+            Buffer.from([0xA2]),
+
+        ])
+            .pipe(ezs('CSVParse'))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.length, 3);
+                assert.equal(res[2][1], '€');
+                assert.equal(res[2][2], '¢');
+                done();
+            });
+    });
 
     it('CSVString#1', (done) => {
         const res = [];
@@ -82,7 +107,7 @@ describe('test', () => {
         from([
             ['a', 'b', 'c'],
             [1, 2, 3],
-            [4, undefined, 6],
+            [null, undefined, ''],
         ])
             .pipe(ezs('CSVObject'))
             .pipe(ezs('CSVString', { format: 'strict' }))
@@ -90,8 +115,11 @@ describe('test', () => {
                 res.push(chunk);
             })
             .on('end', () => {
+                console.log(res);
                 assert.equal(3, res.length);
                 assert.equal('"a";"b";"c"\r\n', res[0]);
+                assert.equal('"1";"2";"3"\r\n', res[1]);
+                assert.equal('"";"";""\r\n', res[2]);
                 done();
             });
     });

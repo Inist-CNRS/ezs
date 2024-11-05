@@ -14,11 +14,13 @@ export default class Catcher extends SafeTransform {
             if (typeof this.func === 'function') {
                 const e = this.func(chunk);
                 if (e instanceof Error) {
-                    this.emit('error', e);
+                    this.emit('error', e); // catch and stop
+                } else if (e === false) {
+                    this.push(chunk); // no catch
                 }
             }
         } else {
-            this.push(chunk);
+            this.push(chunk); // no catch
         }
         done();
     }

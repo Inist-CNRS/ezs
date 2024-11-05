@@ -10,7 +10,9 @@ import each from 'async-each-series';
 const request = (url, parameters) => async () => {
     const response = await fetch(url, parameters);
     if (!response.ok) {
-        throw new Error(response.statusText);
+        const err = new Error(response.statusText);
+        err.body = await response.json();
+        throw err;
     }
     return response;
 };
@@ -60,12 +62,16 @@ export default async function CORHALFetch(data, feed) {
     const url = String(this.getParam('url', 'https://corhal-api.inist.fr'));
     const retries = Number(this.getParam('retries', 5));
     const timeout = Number(this.getParam('timeout')) || 1000;
-    const cURL = new URL(`${url}/mergedDocuments`);
-    cURL.search = new URLSearchParams({ ...data, envelope:true });
+    const cURL = new URL(`${url}/mergedDocuments/_search`);
     const controller = new AbortController();
     const parameters = {
         timeout,
         signal: controller.signal,
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ...data, envelope: true }),
     };
     const options = {
         retries,
@@ -81,7 +87,7 @@ export default async function CORHALFetch(data, feed) {
         }
         if (afterKeyToken) {
             const cURLBis = new URL(`${url}/after/`);
-            cURLBis.search = new URLSearchParams({ envelope:true });
+            cURLBis.search = new URLSearchParams({ envelope: true });
             try {
                 const parametersBis = {
                     timeout,
@@ -90,13 +96,13 @@ export default async function CORHALFetch(data, feed) {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({  afterKeyToken }),
+                    body: JSON.stringify({ afterKeyToken }),
                 };
                 const responseBis = await retry(request(cURLBis.href, parametersBis), options);
-                const { headers:headersBis, body:noticesBis } = await responseBis.json();
+                const { headers: headersBis, body: noticesBis } = await responseBis.json();
                 loop(stream, noticesBis, headersBis['after-key-token']);
-            } catch(e) {
-                console.error(`Error with ${href}`, e.message);
+            } catch (e) {
+                console.error(`Error with ${url}/after/`, e.message, e.body);
                 stream.end();
             }
         } else {
@@ -106,7 +112,7 @@ export default async function CORHALFetch(data, feed) {
     try {
         const output = ezs.createStream(ezs.objectMode());
         const response = await retry(request(cURL.href, parameters), options);
-        const { headers, body:notices } = await response.json();
+        const { headers, body: notices } = await response.json();
         await loop(output, notices, headers['after-key-token']);
         await feed.flow(output);
     } catch (e) {

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/teeft@2.3.0...@ezs/teeft@2.3.1) (2023-09-08)
+
+**Note:** Version bump only for package @ezs/teeft
+
+
+
+
+
 # [2.3.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/teeft@2.2.3...@ezs/teeft@2.3.0) (2023-04-14)
 
 
