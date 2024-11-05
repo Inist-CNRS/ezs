@@ -81,12 +81,8 @@ const collectMetadata = async (dirPath, hostName) => {
                 value: Date.now(),
                 description: 'Infos generate at (timestamp).',
             },
-            'x-daemon': {
-                value: (dirPath !== false),
-                description: 'Webservice mode.',
-            },
-            'x-slave': {
-                value: (dirPath === false),
+            'x-rpc': {
+                value: settings.rpcEnable,
                 description: 'RPC mode.',
             },
             'x-cache': {
