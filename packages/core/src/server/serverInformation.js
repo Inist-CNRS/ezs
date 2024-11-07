@@ -1,5 +1,5 @@
 import debug from 'debug';
-import { FileList } from 'filelist';
+import { fdir as FileScan } from 'fdir';
 import loadJsonFile from 'load-json-file';
 import pathExists from 'path-exists';
 import autocast from 'autocast';
@@ -177,14 +177,25 @@ const collectMetadata = async (dirPath, hostName) => {
     return globalSwagger;
 };
 
-const collectPaths = (ezs, dirPath) => new Promise((resolve) => {
-    const fl = new FileList();
-    fl.exclude(`${dirPath}/**/.*`);
-    fl.exclude(`${dirPath}/**/*.db`);
-    fl.exclude(`${dirPath}/**/~*`);
-    fl.include(`${dirPath}/**/*.ini`);
-    fl.include(`${dirPath}/**/*.ezs`);
-    const localPaths = fl
+const collectPaths = async (ezs, dirPath) => {
+    const files = await new FileScan()
+        .withBasePath()
+        .withFullPaths()
+        .exclude((dirName) =>
+            dirName.startsWith('.') || dirName.startsWith('~')
+        )
+        .globWithOptions([
+            './**/*.ini',
+            './**/*.ezs',
+        ], {
+            ignore: [
+                './**/~*.*',
+                './**/$*.*',
+            ]
+        })
+        .crawl(dirPath)
+        .withPromise();
+    const localPaths = files
         .map((f) => ({
             [f.replace(dirPath, '').replace(/\.\w+/, '')]:
             _.reduce(
@@ -205,8 +216,8 @@ const collectPaths = (ezs, dirPath) => new Promise((resolve) => {
                 ...cur,
             }), {},
         );
-    resolve(_.merge(globalSwaggerPaths, localPaths));
-});
+    return _.merge(globalSwaggerPaths, localPaths);
+};
 
 const collectAll = async (ezs, request) => {
     const infos = await collectMetadata(request.serverPath, request.headers.host);
