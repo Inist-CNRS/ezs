@@ -365,6 +365,42 @@ describe('dispatch through server(s)', () => {
                 }
             });
     });
+
+    it('with an buggy script', (done) => {
+        const script = `
+[use]
+plugin = basics
+
+[assign]
+path = value
+value = update("value.abstract
+
+
+", (item) =>
+
+[expand]
+size = 10
+
+[expand/transit]
+        `;
+        const server = [
+            '127.0.0.1',
+        ];
+        const ten = new Upto(10);
+        let semaphore = true;
+        ten
+            .pipe(ezs('dispatch', { script, server }))
+            .pipe(ezs.catch())
+            .on('error', (error) => {
+                assert(error instanceof Error);
+                if (semaphore) {
+                    semaphore = false;
+                    ten.destroy();
+                    done();
+                }
+            });
+    });
+
     it('with commands in distributed pipeline', (done) => {
         const commands = [
             {

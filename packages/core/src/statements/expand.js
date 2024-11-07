@@ -112,12 +112,13 @@ export default async function expand(data, feed) {
     const size = Number(this.getParam('size', 1));
     const path = this.getParam('path');
     const cacheName = this.getParam('cacheName');
-
-    if (this.isFirst()) {
+    if (!this.store) {
         this.store = {};
         this.buffer = [[]];
         this.bufferIndex = 0;
         this.bufferPromises = [[]];
+    }
+    if (this.isFirst()) {
         if (cacheName && !this.cachePath) {
             const location = this.getParam('location');
             this.cachePath = resolvePath(location || tmpdir(), 'memory', `expand${cacheName}`);
