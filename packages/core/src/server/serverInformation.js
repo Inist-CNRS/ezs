@@ -1,5 +1,5 @@
 import debug from 'debug';
-import dir from 'node-dir';
+import { FileList } from 'filelist';
 import loadJsonFile from 'load-json-file';
 import pathExists from 'path-exists';
 import autocast from 'autocast';
@@ -178,32 +178,34 @@ const collectMetadata = async (dirPath, hostName) => {
 };
 
 const collectPaths = (ezs, dirPath) => new Promise((resolve) => {
-    dir.files(dirPath, (err, files) => {
-        const filenames = err ? [] : files;
-        const localPaths = filenames
-            .filter((f) => (f.search(/\.(ini|ezs)$/) > 0))
-            .map((f) => ({
-                [f.replace(dirPath, '').replace(/\.\w+/, '')]:
-                _.reduce(
-                    ezs.metaFile(f),
-                    (object, value, key) => _.set(
-                        _.pick(
-                            _.set(object, key, autocast(value)),
-                            keyOfPathItemObject,
-                        ),
-                        'post.x-config-filename',
-                        f.replace(dirname(dirPath), ''),
+    const fl = new FileList();
+    fl.exclude(`${dirPath}/**/.*`);
+    fl.exclude(`${dirPath}/**/*.db`);
+    fl.exclude(`${dirPath}/**/~*`);
+    fl.include(`${dirPath}/**/*.ini`);
+    fl.include(`${dirPath}/**/*.ezs`);
+    const localPaths = fl
+        .map((f) => ({
+            [f.replace(dirPath, '').replace(/\.\w+/, '')]:
+            _.reduce(
+                ezs.metaFile(f),
+                (object, value, key) => _.set(
+                    _.pick(
+                        _.set(object, key, autocast(value)),
+                        keyOfPathItemObject,
                     ),
-                    {},
+                    'post.x-config-filename',
+                    f.replace(dirname(dirPath), ''),
                 ),
-            })).reduce(
-                (obj, cur) => ({
-                    ...obj,
-                    ...cur,
-                }), {},
-            );
-        resolve(_.merge(globalSwaggerPaths, localPaths));
-    });
+                {},
+            ),
+        })).reduce(
+            (obj, cur) => ({
+                ...obj,
+                ...cur,
+            }), {},
+        );
+    resolve(_.merge(globalSwaggerPaths, localPaths));
 });
 
 const collectAll = async (ezs, request) => {
