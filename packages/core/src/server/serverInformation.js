@@ -1,5 +1,5 @@
 import debug from 'debug';
-import dir from 'node-dir';
+import { fdir as FileScan } from 'fdir';
 import loadJsonFile from 'load-json-file';
 import pathExists from 'path-exists';
 import autocast from 'autocast';
@@ -177,34 +177,47 @@ const collectMetadata = async (dirPath, hostName) => {
     return globalSwagger;
 };
 
-const collectPaths = (ezs, dirPath) => new Promise((resolve) => {
-    dir.files(dirPath, (err, files) => {
-        const filenames = err ? [] : files;
-        const localPaths = filenames
-            .filter((f) => (f.search(/\.(ini|ezs)$/) > 0))
-            .map((f) => ({
-                [f.replace(dirPath, '').replace(/\.\w+/, '')]:
-                _.reduce(
-                    ezs.metaFile(f),
-                    (object, value, key) => _.set(
-                        _.pick(
-                            _.set(object, key, autocast(value)),
-                            keyOfPathItemObject,
-                        ),
-                        'post.x-config-filename',
-                        f.replace(dirname(dirPath), ''),
+const collectPaths = async (ezs, dirPath) => {
+    const files = await new FileScan()
+        .withBasePath()
+        .withFullPaths()
+        .exclude((dirName) =>
+            dirName.startsWith('.') || dirName.startsWith('~')
+        )
+        .globWithOptions([
+            './**/*.ini',
+            './**/*.ezs',
+        ], {
+            ignore: [
+                './**/~*.*',
+                './**/$*.*',
+            ]
+        })
+        .crawl(dirPath)
+        .withPromise();
+    const localPaths = files
+        .map((f) => ({
+            [f.replace(dirPath, '').replace(/\.\w+/, '')]:
+            _.reduce(
+                ezs.metaFile(f),
+                (object, value, key) => _.set(
+                    _.pick(
+                        _.set(object, key, autocast(value)),
+                        keyOfPathItemObject,
                     ),
-                    {},
+                    'post.x-config-filename',
+                    f.replace(dirname(dirPath), ''),
                 ),
-            })).reduce(
-                (obj, cur) => ({
-                    ...obj,
-                    ...cur,
-                }), {},
-            );
-        resolve(_.merge(globalSwaggerPaths, localPaths));
-    });
-});
+                {},
+            ),
+        })).reduce(
+            (obj, cur) => ({
+                ...obj,
+                ...cur,
+            }), {},
+        );
+    return _.merge(globalSwaggerPaths, localPaths);
+};
 
 const collectAll = async (ezs, request) => {
     const infos = await collectMetadata(request.serverPath, request.headers.host);

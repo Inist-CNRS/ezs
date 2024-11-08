@@ -5627,6 +5627,11 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "2.1.1"
 
+fdir@6.4.2:
+  version "6.4.2"
+  resolved "https://registry.yarnpkg.com/fdir/-/fdir-6.4.2.tgz#ddaa7ce1831b161bc3657bb99cb36e1622702689"
+  integrity sha512-KnhMXsKSPZlAhp7+IjUkRZKPb4fUyccpDrdFXbi4QL1qkmFh9kVY09Yox+n4MaOb3lHZ1Tv829C3oaaXoMYPDQ==
+
 feed@4.2.2:
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/feed/-/feed-4.2.2.tgz#865783ef6ed12579e2c44bbef3c9113bc4956a7e"
@@ -8869,7 +8874,7 @@ min-indent@^1.0.0:
   resolved "https://registry.yarnpkg.com/min-indent/-/min-indent-1.0.1.tgz#a63f681673b30571fbe8bc25686ae746eefa9869"
   integrity sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==
 
-minimatch@^3.0.2, minimatch@^3.0.4, minimatch@^3.1.1:
+minimatch@^3.0.4, minimatch@^3.1.1:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.1.2.tgz#19cd194bfd3e428f049a70817c038d89ab4be35b"
   integrity sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==
@@ -9185,13 +9190,6 @@ node-abort-controller@^1.1.0:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/node-abort-controller/-/node-abort-controller-1.2.1.tgz#1eddb57eb8fea734198b11b28857596dc6165708"
   integrity sha512-79PYeJuj6S9+yOHirR0JBLFOgjB6sQCir10uN6xRx25iD+ZD4ULqgRn3MwWBRaQGB0vEgReJzWwJo42T1R6YbQ==
-
-node-dir@0.1.17:
-  version "0.1.17"
-  resolved "https://registry.yarnpkg.com/node-dir/-/node-dir-0.1.17.tgz#5f5665d93351335caabef8f1c554516cf5f1e4e5"
-  integrity sha512-tmPX422rYgofd4epzrNoOXiE8XFZYOcCq1vD7MAXCDO+O+zndlA2ztdKKMa+EeuBG5tHETpr4ml4RGgpqDCCAg==
-  dependencies:
-    minimatch "^3.0.2"
 
 node-fetch@2.6.7:
   version "2.6.7"
@@ -10041,6 +10039,11 @@ picocolors@^1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/picocolors/-/picocolors-1.1.1.tgz#3d321af3eab939b083c8f929a1d12cda81c26b6b"
   integrity sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==
+
+picomatch@4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-4.0.2.tgz#77c742931e8f3b8820946c76cd0c1f13730d1dab"
+  integrity sha512-M7BAV6Rlcy5u+m6oPhAPFgJTzAioX/6B0DxyvDlo9l8+T3nLKbrczg2WLUyzd45L8RqfUMyGPzekbMvX2Ldkwg==
 
 picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.3.1:
   version "2.3.1"
