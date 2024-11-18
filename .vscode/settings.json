@@ -8,5 +8,18 @@
         "source.fixAll": "explicit"
     },
     "editor.tabSize": 4,
-    "prettier.configPath": "./.prettierrc"
+    "prettier.configPath": "./.prettierrc",
+    "makefile.configureOnOpen": false,
+    "cSpell.words": [
+        "conditor",
+        "Conditor",
+        "corhal",
+        "CORHAL",
+        "preversion",
+        "requêter",
+        "rnsr",
+        "Rnsr",
+        "sparql",
+        "Transpiling"
+    ]
 }
