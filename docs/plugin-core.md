@@ -1,6 +1,7 @@
 # core
 
-Ce plugin propose une série d'instructions natives. Elles sont constamment disponibles car chargées automatiquement.
+Ce plugin propose une série d'instructions natives. Elles sont constamment
+disponibles car chargées automatiquement.
 
 ## installation
 
@@ -10,15 +11,18 @@ npm install @ezs/core
 
 ## détails
 
-Plusieurs instructions permettent de créer des sous flux (sub pipeline), à partir d'un fichier d’instructions ou d'instructions imbriquées. Si elles s'utilisent toutes de la même manière (avec les mêmes paramètres) centaines peuvent apparaître comme similaires mais leur fonctionnement est différent :
+Plusieurs instructions permettent de créer des sous-flux (*sub pipeline*), à
+partir d'un fichier d’instructions ou d'instructions imbriquées. Si elles
+s'utilisent toutes de la même manière (avec les mêmes paramètres) certaines
+peuvent apparaître comme similaires mais leur fonctionnement est différent :
 
-*   \[delegate] : 1 sous flux pour tous les éléments
-*   \[swing] : 1 sous flux pour tous les éléments filtrés selon une condition
-*   \[spaw] : 1 sous flux par élément
-*   \[loop] : 1 sous flux par élément
-*   \[expand] : 1 sous flux pour N éléments (N = size), seul le champ sélectionné est envoyé dans le pipeline
-*   \[combine] : 1 sous flux pour tous les éléments, seul le champ sélectionné est comparé avec le résultat du sous flux
-*   \[singleton] : 1 sous flux pour le premier élément
+*   `[delegate]` : 1 sous-flux pour tous les éléments
+*   `[swing]` : 1 sous-flux pour tous les éléments filtrés selon une condition
+*   `[spawn]` : 1 sous-flux par élément
+*   `[loop]` : 1 sous-flux par élément
+*   `[expand]` : 1 sous-flux pour N éléments (N = size), seul le champ sélectionné est envoyé dans le pipeline
+*   `[combine]` : 1 sous-flux pour tous les éléments, seul le champ sélectionné est comparé avec le résultat du sous-flux
+*   `[singleton]` : 1 sous-flux pour le premier élément
 
 ## usage
 
@@ -65,30 +69,33 @@ Plusieurs instructions permettent de créer des sous flux (sub pipeline), à par
 *   [truncate](#truncate)
 *   [ungroup](#ungroup)
 *   [unpack](#unpack)
-*   [use](#use)
 *   [validate](#validate)
 
 ### assign
 
-Add a new field to an `Object`.
+*   **See**: [exchange](#exchange)
 
-Input file:
+Affecte une valeur à un champ de l'objet courant.
+Si le champ existe déjà, sa valeur est écrasée, sinon il est créé
+
+Entrée:
 
 ```json
 [{
-   "a": 1,
+    "nom": "un",
+    "valeur": 1
 },
 {
-   "a": 2,
+    "nom": "deux",
+    "valeur": 2
 },
 {
-   "a": 3,
+    "nom": "trois",
+    "valeur": 3
 },
 {
-   "a": 4,
-},
-{
-   "a": 5,
+    "nom": "quatre",
+    "valeur": 4
 }]
 ```
 
@@ -96,40 +103,41 @@ Script:
 
 ```ini
 [assign]
-path = b.c
-value = 'X'
-
+path = valeurhttps://goessner.net/articles/JsonPath/index.html#e2
+value = get("valeur").multiply(2)
 ```
 
 Output:
 
 ```json
 [{
-   "a": 1,
-   "b": { "c": "X" },
+    "nom": "un",https://goessner.net/articles/JsonPath/index.html#e2
+    "valeur": 2
 },
 {
-   "a": 2,
-   "b": { "c": "X" },
+    "nom": "deux",
+    "valeur": 4
 },
 {
-   "a": 3,
-   "b": { "c": "X" },
+    "nom": "trois",
+    "valeur": 6
 },
 {
-   "a": 4,
-   "b": { "c": "X" },
-},
-{
-   "a": 5,
-   "b": { "c": "X" },
+    "nom": "quatre",
+    "valeur": 8
 }]
 ```
 
+Le `path` peut être le nom simple d'un champ présent à la racine de l'élément
+traité, ou un chemin en [notation
+pointée](https://goessner.net/articles/JsonPath/index.html#e2), en utilisant
+une syntaxe proche de celle de la fonction
+[`get`](https://lodash.com/docs/4.17.15#get) de Lodash.
+
 #### Parameters
 
-*   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of the new field
-*   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value of the new field
+*   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** chemin du champ à affecter
+*   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** valeur à affecter
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
@@ -1319,26 +1327,6 @@ Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Gl
 Take `String`s or `Buffer`s and throw `Object` builded by JSON.parse on each line.
 
 Returns **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
-
-### use
-
-Take all `String`, concat them and throw just one.
-
-Script:
-
-```ini
-[use]
-plugin = basics
-plugin = analytics
-```
-
-#### Parameters
-
-*   `beginWith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Add value at the begin
-*   `joinWith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** use value to join 2 chunk
-*   `endWith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Add value at the end
-
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**&#x20;
 
 ### validate
 

@@ -1,25 +1,27 @@
 import _ from 'lodash';
 
 /**
- * Add a new field to an `Object`.
+ * Affecte une valeur à un champ de l'objet courant.
+ * Si le champ existe déjà, sa valeur est écrasée, sinon il est créé
  *
- * Input file:
+ * Entrée:
  *
  * ```json
  * [{
- *    "a": 1,
+ *     "nom": "un",
+ *     "valeur": 1
  * },
  * {
- *    "a": 2,
+ *     "nom": "deux",
+ *     "valeur": 2
  * },
  * {
- *    "a": 3,
+ *     "nom": "trois",
+ *     "valeur": 3
  * },
  * {
- *    "a": 4,
- * },
- * {
- *    "a": 5,
+ *     "nom": "quatre",
+ *     "valeur": 4
  * }]
  * ```
  *
@@ -27,40 +29,43 @@ import _ from 'lodash';
  *
  * ```ini
  * [assign]
- * path = b.c
- * value = 'X'
- *
+ * path = valeurhttps://goessner.net/articles/JsonPath/index.html#e2
+ * value = get("valeur").multiply(2)
  * ```
  *
  * Output:
  *
  * ```json
  * [{
- *    "a": 1,
- *    "b": { "c": "X" },
+ *     "nom": "un",https://goessner.net/articles/JsonPath/index.html#e2
+ *     "valeur": 2
  * },
  * {
- *    "a": 2,
- *    "b": { "c": "X" },
+ *     "nom": "deux",
+ *     "valeur": 4
  * },
  * {
- *    "a": 3,
- *    "b": { "c": "X" },
+ *     "nom": "trois",
+ *     "valeur": 6
  * },
  * {
- *    "a": 4,
- *    "b": { "c": "X" },
- * },
- * {
- *    "a": 5,
- *    "b": { "c": "X" },
+ *     "nom": "quatre",
+ *     "valeur": 8
  * }]
  * ```
  *
+ * Le `path` peut être le nom simple d'un champ présent à la racine de l'élément
+ * traité, ou un chemin en [notation
+ * pointée](https://goessner.net/articles/JsonPath/index.html#e2), en utilisant
+ * une syntaxe proche de celle de la fonction
+ * [`get`](https://lodash.com/docs/4.17.15#get) de Lodash.
+ *
  * @name assign
- * @param {String} [path] path of the new field
- * @param {String} [value] value of the new field
+ * @param {String} [path] chemin du champ à affecter
+ * @param {String} [value] valeur à affecter
  * @returns {Object}
+ *
+ * @see [exchange](#exchange)
  */
 export default function assign(data, feed) {
     if (this.isLast()) {
