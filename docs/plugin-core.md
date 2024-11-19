@@ -411,21 +411,56 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### exchange
 
-Take `Object` and throw a new item computed by the `value=` parameter (which
-replace the input one).
+*   **See**: [assign](#assign)
+*   **See**: [extract](#extract)
 
-Input file:
+Remplace tout un objet par un autre (au sens JSON).
+
+Entrée:
+
+````json
+[{
+   "nom": "un",
+   "valeur": 1
+},
+{
+   "nom": "deux",
+   "valeur": 2
+}]
+
+Script:
+
+```ini
+[use] plugin = basics
+
+[JSONParse]
+
+[exchange] value = get("nom")
+
+[dump]
+````
+
+Sortie:
+
+```json
+["un","deux"]
+```
+
+Ici, 'objet `{"nom":"un","valeur":1}` a été remplacé par l'« objet » (au sens
+JSON, une chaîne de caractères, tout autant qu'un nombre, constitue un objet)
+`"un"`.
+
+Note: `assign` ne permet pas de remplacer tout l'objet, mais seulement une de
+ses propriétés.
+
+Entrée:
 
 ```json
 [{
-   "a": "abcdefg",
-   "b": "1234567",
-   "c": "XXXXXXX"
+   "a": "abcdefg", "b": "1234567", "c": "XXXXXXX"
 },
 {
-   "a": "abcdefg",
-   "b": "1234567",
-   "c": "XXXXXXX"
+   "a": "abcdefg", "b": "1234567", "c": "XXXXXXX"
 }]
 ```
 
@@ -449,9 +484,12 @@ Output:
 }]
 ```
 
+Ici, on a remplacé un objet avec trois propriétés par le même objet sans la
+propriété `c`.
+
 #### Parameters
 
-*   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value to replace input object
+*   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** la valeur de remplacement de l'objet courant
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 

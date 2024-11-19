@@ -1,19 +1,51 @@
 /**
- * Take `Object` and throw a new item computed by the `value=` parameter (which
- * replace the input one).
+ * Remplace tout un objet par un autre (au sens JSON).
  *
- * Input file:
+ * Entrée:
  *
  * ```json
  * [{
- *    "a": "abcdefg",
- *    "b": "1234567",
- *    "c": "XXXXXXX"
+ *    "nom": "un",
+ *    "valeur": 1
  * },
  * {
- *    "a": "abcdefg",
- *    "b": "1234567",
- *    "c": "XXXXXXX"
+ *    "nom": "deux",
+ *    "valeur": 2
+ * }]
+ *
+ * Script:
+ *
+ * ```ini
+ * [use] plugin = basics
+ *
+ * [JSONParse]
+ *
+ * [exchange] value = get("nom")
+ *
+ * [dump]
+ * ```
+ *
+ * Sortie:
+ *
+ * ```json
+ * ["un","deux"]
+ * ```
+ *
+ * Ici, 'objet `{"nom":"un","valeur":1}` a été remplacé par l'« objet » (au sens
+ * JSON, une chaîne de caractères, tout autant qu'un nombre, constitue un objet)
+ * `"un"`.
+ *
+ * Note: `assign` ne permet pas de remplacer tout l'objet, mais seulement une de
+ * ses propriétés.
+ *
+ * Entrée:
+ *
+ * ```json
+ * [{
+ *    "a": "abcdefg", "b": "1234567", "c": "XXXXXXX"
+ * },
+ * {
+ *    "a": "abcdefg", "b": "1234567", "c": "XXXXXXX"
  * }]
  * ```
  *
@@ -37,9 +69,15 @@
  * }]
  * ```
  *
+ * Ici, on a remplacé un objet avec trois propriétés par le même objet sans la
+ * propriété `c`.
+ *
  * @name exchange
- * @param {String} [value] value to replace input object
+ * @param {String} [value] la valeur de remplacement de l'objet courant
  * @returns {Object}
+ *
+ * @see [assign](#assign)
+ * @see [extract](#extract)
  */
 export default function exchange(data, feed) {
     if (this.isLast()) {
