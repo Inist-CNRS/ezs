@@ -103,7 +103,7 @@ Script:
 
 ```ini
 [assign]
-path = valeurhttps://goessner.net/articles/JsonPath/index.html#e2
+path = valeur
 value = get("valeur").multiply(2)
 ```
 
@@ -111,7 +111,7 @@ Output:
 
 ```json
 [{
-    "nom": "un",https://goessner.net/articles/JsonPath/index.html#e2
+    "nom": "un",
     "valeur": 2
 },
 {

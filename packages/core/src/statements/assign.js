@@ -29,7 +29,7 @@ import _ from 'lodash';
  *
  * ```ini
  * [assign]
- * path = valeurhttps://goessner.net/articles/JsonPath/index.html#e2
+ * path = valeur
  * value = get("valeur").multiply(2)
  * ```
  *
@@ -37,7 +37,7 @@ import _ from 'lodash';
  *
  * ```json
  * [{
- *     "nom": "un",https://goessner.net/articles/JsonPath/index.html#e2
+ *     "nom": "un",
  *     "valeur": 2
  * },
  * {
@@ -67,6 +67,18 @@ import _ from 'lodash';
  *
  * @see [exchange](#exchange)
  */
+function assignFunction(data, path, value) {
+    if (Array.isArray(path)) {
+        const values = _.take(value, path.length);
+        const assets = _.zipObject(path, values);
+        Object.keys(assets).forEach((key) => {
+            _.set(data, key, assets[key]);
+        });
+    } else {
+        _.set(data, path, value);
+    }
+}
+
 export default function assign(data, feed) {
     if (this.isLast()) {
         return feed.close();
@@ -74,14 +86,6 @@ export default function assign(data, feed) {
     const path = this.getParam('path', []);
     const value = this.getParam('value');
     const vals = Array.isArray(path) && !Array.isArray(value) ? [value] : value;
-    if (Array.isArray(path)) {
-        const values = _.take(vals, path.length);
-        const assets = _.zipObject(path, values);
-        Object.keys(assets).forEach((key) => {
-            _.set(data, key, assets[key]);
-        });
-    } else {
-        _.set(data, path, vals);
-    }
+    assignFunction(data, path, vals);
     return feed.send(data);
 }
