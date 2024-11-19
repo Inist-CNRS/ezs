@@ -350,13 +350,62 @@ Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### env
 
-Send the input object again, while adding new environment field(s) with the
-first `Object` of the feed.
+Crée une variable d'environnement globale à tout le script.
+
+On l'utilise en général au début du script (après `[use]`).
+
+Pour utiliser la variable, il faut employer la fonction `env()`.
+
+Entrée:
+
+```json
+[{
+    "nom": "un",
+    "valeur": 1
+},
+{
+    "nom": "deux",
+    "valeur": 2
+}]
+```
+
+Script:
+
+```ini
+[use]
+plugin = basics
+
+[env]
+path = nom
+value = NOM GÉNÉRIQUE
+
+[JSONParse]
+
+[assign]
+path = nom
+value = env("nom")
+
+[dump]
+indent = true
+```
+
+Sortie:
+
+```json
+[{
+    "nom": "NOM GÉNÉRIQUE",
+    "valeur": 1
+},
+{
+    "nom": "NOM GÉNÉRIQUE",
+    "valeur": 2
+}]
+```
 
 #### Parameters
 
-*   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of the new field
-*   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** value of the new field
+*   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** nom de la variable à créer
+*   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** valeur de la variable
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
