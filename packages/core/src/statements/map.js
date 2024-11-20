@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import debug from 'debug';
 import from from 'from';
 
 /**
@@ -44,7 +45,7 @@ export default function map(data, feed) {
     return output
         .pipe(ezs.catch())
         .on('error', (error) => {
-            console.warn(`WARNING: map ignore a item (${error})`);
+            debug('ezs:warn')('Map ignore a item', error);
             feed.send(error);
         })
         .on('data', (chunk) => {

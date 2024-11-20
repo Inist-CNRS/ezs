@@ -18,7 +18,7 @@ export default function singleton(data, feed) {
     }
     if (this.isFirst()) {
         const { ezs } = this;
-        debug('ezs')('[singleton] starting once with one object.');
+        debug('ezs:debug')('[singleton] starting once with one object.');
         const savedData = { ...data };
         let result = {};
         const input = ezs.createStream(ezs.objectMode());

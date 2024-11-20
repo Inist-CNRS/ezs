@@ -1,3 +1,4 @@
+import debug from 'debug';
 import pool from './pool';
 
 /**
@@ -38,6 +39,7 @@ export default async function exec(data, feed) {
 
     let handle;
     try {
+        debug('ezs:info')(`Startup pool for ${command} with ${concurrency} process`);
         handle = await pool.startup(concurrency, command, args);
         if (!this.resource) {
             this.input = ezs.createStream(ezs.objectMode());

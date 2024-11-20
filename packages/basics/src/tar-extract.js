@@ -3,6 +3,7 @@ import micromatch from 'micromatch';
 import { createGunzip } from 'zlib';
 import getStream from 'get-stream';
 import writeTo from 'stream-write';
+import debug from 'debug';
 
 /**
  * Take the content of a tar file, extract some files.
@@ -61,7 +62,7 @@ export default function TARExtract(data, feed) {
                             () => next(),
                         );
                     } catch (e) {
-                        console.warn(`WARNING: file was ignored (${header.name})`, e);
+                        debug('ezs:warn')(`File was ignored (${header.name})`, e);
                         stream.resume();
                         return next();
                     }

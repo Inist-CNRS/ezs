@@ -40,7 +40,7 @@ export default function unpack(data, feed) {
             const lineParsed = JSON.parse(line);
             return feed.write(lineParsed);
         } catch(e) {
-            debug('ezs')(`[unpack] Syntax error at #${this.getIndex()+1} with <line>${line}</line>`);
+            debug('ezs:warn')(`[unpack] Syntax error at #${this.getIndex()+1} with <line>${line}</line>`);
             return feed.stop(e);
         }
     });

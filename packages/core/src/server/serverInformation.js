@@ -171,7 +171,7 @@ const collectMetadata = async (dirPath, hostName) => {
         }
     }
     catch(e) {
-        debug('ezs')('Unable to load swagger.json', e);
+        debug('ezs:warn')('Unable to load swagger.json', e);
         return globalSwagger;
     }
     return globalSwagger;
@@ -230,7 +230,7 @@ const serverInformation =  (ezs) => (request, response, next) => {
         return next();
     }
     request.catched = true;
-    debug('ezs')(`Create middleware 'serverInformation' for ${request.method} ${request.pathName}`);
+    debug('ezs:info')(`Create middleware 'serverInformation' for ${request.method} ${request.pathName}`);
 
     return collectAll(ezs, request)
         .then(({ infos, paths }) => {

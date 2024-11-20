@@ -103,10 +103,10 @@ export default async function URLStream(data, feed) {
     const onError = (e) => {
         controller.abort();
         if (noerror) {
-            debug('ezs')(`Ignore item #${this.getIndex()} [URLStream] <${e}>`);
+            debug('ezs:info')(`Ignore item #${this.getIndex()} [URLStream] <${e}>`);
             return feed.send(data);
         }
-        debug('ezs')(`Break item #${this.getIndex()} [URLStream] <${e}>`);
+        debug('ezs:warn')(`Break item #${this.getIndex()} [URLStream] <${e}>`);
         return feed.send(e);
     };
     try {

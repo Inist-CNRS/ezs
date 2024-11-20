@@ -37,7 +37,7 @@ class Store {
             this.created = true;
             makeDir.sync(this.directory);
         }
-        debug('ezs')(`DB from ${this.directory}`, (this.created ? 'was created' : 'already exists'));
+        debug('ezs:info')(`DB from ${this.directory}`, (this.created ? 'was created' : 'already exists'));
         this.ready = new Promise((resolve, reject) => {
             if (!handle[this.directory]) {
                 levelup(leveldown(this.directory), {}, (err, db) => {
@@ -97,14 +97,14 @@ class Store {
                 return db.get(key2, (err1, value) => {
                     if (err1) {
                         if (err1.notFound) {
-                            console.error('WARNING', err1);
+                            debug('ezs:warn')('Not Found', err1);
                             return resolve(null);
                         }
                         return reject(err1);
                     }
                     return db.del(key2, (err2) => {
                         if (err2) {
-                            console.error('WARNING', err2);
+                            debug('ezs:warn')('Unable to delete', err2);
                         }
                         return resolve(decodeValue(value));
                     });
@@ -208,10 +208,10 @@ class Store {
 
     async close() {
         const db = await this.connect();
-        debug('ezs')(`DB from ${this.directory} is closing`);
+        debug('ezs:info')(`DB from ${this.directory} is closing`);
         delete handle[this.directory];
         if (!this.persistent) {
-            debug('ezs')(`DB from ${this.directory} is clearing`);
+            debug('ezs:info')(`DB from ${this.directory} is clearing`);
             await db.clear();
             await db.close();
             await del([this.directory], { force: true });

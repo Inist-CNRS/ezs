@@ -9,7 +9,7 @@ import writeTo from 'stream-write';
 import each from 'async-each-series';
 
 const request = (url, parameters) => async (bail, attempt) => {
-    debug('ezs')(`Request #${attempt} to ${url}`);
+    debug('ezs:debug')(`Request #${attempt} to ${url}`);
     const response = await fetch(url, parameters);
     if (!response.ok) {
         const { message } = await response.json();
@@ -87,7 +87,7 @@ export default async function WOSFetch(data, feed) {
     };
     const onError = (e) => {
         controller.abort();
-        debug('ezs')(`Break item #${this.getIndex()} [WOSFetch] <${e}>`);
+        debug('ezs:warn')(`Break item #${this.getIndex()} [WOSFetch] <${e}>`);
         return feed.stop(e);
     };
     const loop = async (stream, Records, reqPerSec, amtPerYear, QueryID, RecordsFound) => {
@@ -98,7 +98,7 @@ export default async function WOSFetch(data, feed) {
             try {
                 await write(stream, Records);
             } catch (e) {
-                console.error('Write Error', e.message);
+                debug('ezs:error')('Write Error', e.message);
                 throw new Error(e);
             }
         }
@@ -127,7 +127,7 @@ export default async function WOSFetch(data, feed) {
             }
             await loop(stream, RecordsBis, reqPerSec, amtPerYear, QueryID, RecordsFound);
         } catch (e) {
-            console.error(`Error with ${cURLBis.href}`, e.message);
+            debug('ezs:error')(`Error with ${cURLBis.href}`, e.message);
             throw new Error(e);
         }
     };
@@ -139,7 +139,7 @@ export default async function WOSFetch(data, feed) {
         const amtPerYear = response.headers.get('x-rec-amtperyear-remaining');
         const QueryID = get(jsonResponse, 'QueryResult.QueryID');
         const RecordsFound = get(jsonResponse, 'QueryResult.RecordsFound');
-        debug('ezs')(`Query #${QueryID} should download ${RecordsFound} notices (Allowed downloads remaining : ${amtPerYear})`);
+        debug('ezs:debug')(`Query #${QueryID} should download ${RecordsFound} notices (Allowed downloads remaining : ${amtPerYear})`);
         await loop(output, [], reqPerSec, amtPerYear, QueryID, RecordsFound);
         await feed.flow(output);
     } catch (e) {

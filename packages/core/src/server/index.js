@@ -83,17 +83,17 @@ function createServer(ezs, serverPort, serverPath, workerId) {
         httpConnectionTotal.inc();
         httpConnectionOpen.inc();
         socket.on('error', (e) => {
-            debug('ezs')('Connection error, the server has stopped the request :', e.message);
+            debug('ezs:error')('Connection error, the server has stopped the request :', e.message);
         });
         socket.on('close', () => {
             httpConnectionOpen.dec();
         });
     });
     signals.forEach((signal) => process.on(signal, () => {
-        debug('ezs')(`Signal received, stoping server with PID ${process.pid}`);
+        debug('ezs:info')(`Signal received, stoping server with PID ${process.pid}`);
         server.shutdown(() => process.exit(0));
     }));
-    debug('ezs')(`Server starting with PID ${process.pid} and listening on port ${serverPort}`);
+    debug('ezs:info')(`Server starting with PID ${process.pid} and listening on port ${serverPort}`);
     return server;
 }
 
@@ -124,7 +124,7 @@ function createCluster(ezs, serverPort, serverPath) {
                     res.end();
                 }
             })).listen(serverPort + 1);
-            debug('ezs')(`Cluster metrics server listening on port ${serverPort+1}`);
+            debug('ezs:info')(`Cluster metrics server listening on port ${serverPort+1}`);
         }
         signals.forEach((signal) => {
             process.on(signal, () => {

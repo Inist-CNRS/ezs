@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import debug from 'debug';
 /**
  * Take `Object`, and check that the object identifier has not already been used previously
  *
@@ -20,14 +21,14 @@ export default async function dedupe(data, feed) {
     }
     if (uri === check) {
         if (ignore) {
-            console.warn(`WARNING: ${path} field not exists, item #${this.getIndex()} was ignored` );
+            debug('ezs:warn')(`${path} field not exists, item #${this.getIndex()} was ignored` );
             return feed.end();
         }
         return feed.send(new Error(`${path} field not exists, enable to dedupe.`));
     }
     if (this.previousURI[uri] === true) {
         if (ignore) {
-            console.warn(`WARNING: ${uri} already exists, item #${this.getIndex()} was ignored` );
+            debug('ezs:warn')(`${uri} already exists, item #${this.getIndex()} was ignored` );
             return feed.end();
         }
         return feed.send(new Error(`Duplicate identifier: ${uri} already exists`));

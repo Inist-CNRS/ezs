@@ -3,7 +3,7 @@ import JSONB from 'json-buffer';
 import { httpRequestErrorTotal }  from './metrics';
 
 const errorHandler = (request, response) => (error, code = 400) => {
-    debug('ezs')('Server has caught an error', code, error);
+    debug('ezs:error')('Server has caught an error', code, error);
     httpRequestErrorTotal.labels(request.pathName).inc();
     if (response.headersSent) {
         return response.end();

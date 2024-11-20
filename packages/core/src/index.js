@@ -1,4 +1,5 @@
 import { PassThrough } from 'readable-stream';
+import debug from 'debug';
 import writeTo from 'stream-write';
 import globalModules from 'global-modules';
 import { resolve } from 'path';
@@ -137,7 +138,7 @@ ezs.createTrap = (file, env) => {
     const input = ezs.createStream(ezs.objectMode());
     ezs.createPipeline(input, ezs.compileCommands(ezs.createCommands({ file }), env))
         .once('error', (e) => {
-            console.warn(`WARNING: the trap failed, ${file} stopped at ${e.message}`);
+            debug('ezs:warn')(`The trap failed, ${file} stopped at ${e.message}`);
         })
         .once('end', () => true)
         .on('data', () => true);

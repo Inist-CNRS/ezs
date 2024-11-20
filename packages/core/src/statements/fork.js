@@ -84,7 +84,7 @@ export default async function fork(data, feed) {
         }
     }
     if (this.isLast()) {
-        debug('ezs')(`${this.getIndex()} chunks have been delegated`);
+        debug('ezs:debug')(`${this.getIndex()} chunks have been delegated`);
         this.input.end();
         if (standalone) {
             feed.close();

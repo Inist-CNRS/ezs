@@ -1,4 +1,5 @@
 import once from 'once';
+import debug from 'debug';
 import retimer from 'retimer';
 
 export default class Feed {
@@ -85,7 +86,7 @@ export default class Feed {
         return new Promise((resolve) => { this.log('Feed.flow.stream.end'); stream.once('end', resolve);});
     }
     log(x) {
-        //console.log(this.engine.funcName, x);
+        debug('ezs:trace')(this.engine.funcName, x);
     }
 
     end() {

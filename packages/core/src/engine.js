@@ -115,7 +115,7 @@ export default class Engine extends SafeTransform {
     _transform(chunk, encoding, done) {
         const start = hrtime.bigint();
         const next = () => {
-            if (debug.enabled('ezs')) {
+            if (debug.enabled('ezs:trace')) {
                 this.ttime += (hrtime.bigint() - start);
             }
             done();
@@ -141,10 +141,10 @@ export default class Engine extends SafeTransform {
         this.index += 1;
         return this.queue(null, () => {
             const stop = hrtime.bigint();
-            if (debug.enabled('ezs')) {
+            if (debug.enabled('ezs:trace')) {
                 const cumulative = nano2sec(stop - this.stime);
                 const elapsed = nano2sec(this.ttime);
-                debug('ezs')(`${cumulative}s cumulative ${elapsed}s elapsed for [${this.funcName}]`);
+                debug('ezs:trace')(`${cumulative}s cumulative ${elapsed}s elapsed for [${this.funcName}]`);
             }
             done();
         });
@@ -171,7 +171,7 @@ export default class Engine extends SafeTransform {
             if (!this.errorWasSent) {
               this.errorWasSent = true;
               const warnErr = createErrorWith(error, currentIndex, this.funcName, this.params, chunk);
-              debug('ezs')('ezs engine emit an', warnErr);
+              debug('ezs:warn')('ezs engine emit an', warnErr);
               this.emit('error', warnErr);
             }
         };
@@ -180,7 +180,7 @@ export default class Engine extends SafeTransform {
                 this.nullWasSent = true;
                 this.nullWasSentError = createErrorWith(new Error('As a reminder, the end was recorded at this point'), currentIndex, this.funcName, this.params, chunk);
             } else if (this.nullWasSent && !this.errorWasSent) {
-                console.warn(createErrorWith(new Error('Oops, that\'s going to crash ?'), currentIndex, this.funcName, this.params, chunk));
+                debug('ezs:warn')(createErrorWith(new Error('Oops, that\'s going to crash ?'), currentIndex, this.funcName, this.params, chunk));
                 return warn(this.nullWasSentError);
             }
             if (!this.nullWasSent && this._readableState.ended) {
@@ -188,7 +188,7 @@ export default class Engine extends SafeTransform {
             }
             if (data instanceof Error) {
                 const ignoreErr = createErrorWith(data, currentIndex, this.funcName, this.params, chunk);
-                debug('ezs')(`Ignoring error at item #${currentIndex}`, ignoreErr);
+                debug('ezs:info')(`Ignoring error at item #${currentIndex}`, ignoreErr);
                 return this.push(ignoreErr);
             }
             if (!this.errorWasSent) {
@@ -206,13 +206,13 @@ export default class Engine extends SafeTransform {
             this.chunk = chunk;
             return Promise.resolve(this.func.call(this.scope, chunk, feed, this.scope)).catch((e) => {
                 const asyncErr = createErrorWith(e, currentIndex, this.funcName, this.params, chunk);
-                debug('ezs')(`Async error thrown at item #${currentIndex}, pipeline is broken`, asyncErr);
+                debug('ezs:error')(`Async error thrown at item #${currentIndex}, pipeline is broken`, asyncErr);
                 this.emit('error', asyncErr);
                 done();
             });
         } catch (e) {
             const syncErr = createErrorWith(e, currentIndex, this.funcName, this.params, chunk);
-            debug('ezs')(`Sync error thrown at item #${currentIndex}, pipeline carries errors`, syncErr);
+            debug('ezs:error')(`Sync error thrown at item #${currentIndex}, pipeline carries errors`, syncErr);
             this.push(syncErr);
             return done();
         }

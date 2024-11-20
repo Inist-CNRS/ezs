@@ -1,4 +1,5 @@
 import { get, set } from 'lodash';
+import debug from 'debug';
 import store from './store';
 
 /**
@@ -29,7 +30,7 @@ export default async function load(data, feed) {
             return feed.close();
         }
         if (!uri) {
-            console.warn(`WARNING: uri was empty, [load] item #${this.getIndex()} was ignored`);
+            debug('ezs:warn')(`uri was empty, [load] item #${this.getIndex()} was ignored`);
             return feed.send(data);
         }
         const value = await this.store.get(uri);
@@ -40,7 +41,7 @@ export default async function load(data, feed) {
         return feed.send(value);
     } catch(e) {
         if (e.code === 'ENOENT') {
-            console.warn(`WARNING: uri not found (${uri}), item #${this.getIndex()} was ignored`, e);
+            debug('ezs:warn')(`uri not found (${uri}), item #${this.getIndex()} was ignored`, e);
             if (target) {
                 set(data, target, undefined);
                 return feed.send(data);
