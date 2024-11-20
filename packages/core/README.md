@@ -485,7 +485,8 @@ Output:
 ```
 
 Ici, on a remplacé un objet avec trois propriétés par le même objet sans la
-propriété `c`.
+propriété `c` (voir la function
+[`omit`](https://lodash.com/docs/4.17.15#omit) de Lodash).
 
 #### Parameters
 
@@ -545,45 +546,53 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### extract
 
-Take `Object` and throw each value of fields
+*   **See**: [assign](#assign)
+*   **See**: [exchange](#exchange)
 
-> **Note**: extract cannot throw `undefined` or `null` values
+Extrait de l'objet courant les valeurs de certains champs, et renvoie
+directement les valeurs dans le flux de sortie.
+
+> **Note**: `extract` ne peut pas fournir des valeurs `undefined` ou `null`.
+
+Entrée:
 
 ```json
 [{
-   "a": "abcdefg",
-   "b": "1234567",
-   "c": "XXXXXXX"
+   "nom": "un",
+   "valeur": 1,
+   "important": false
 },
 {
-   "a": "abcdefg",
-   "b": "1234567",
-   "c": "XXXXXXX"
+   "nom": "deux",
+   "valeur": 2,
+   "important": true
 }]
 ```
 
 Script:
 
 ```ini
+[use]
+plugin = basics
+
+[JSONParse]
+
 [extract]
-path = a
-path = b
+path = valeur
+path = nom
+
+[dump]
 ```
 
-Output:
+Sortie:
 
 ```json
-[
-   "abcdefg",
-   "1234567",
-   "abcdefg",
-   "1234567"
-}]
+[[1,"un"],[2,"deux"]]
 ```
 
 #### Parameters
 
-*   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to extract
+*   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** chemin d'un champ à extraire
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
