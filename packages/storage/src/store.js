@@ -1,44 +1,50 @@
+import loki from 'lokijs';
+import lfsa from 'lokijs/src/loki-fs-structured-adapter';
+import from from 'from';
+
 import { tmpdir } from 'os';
 import { join } from 'path';
 import pathExists from 'path-exists';
 import makeDir from 'make-dir';
-import LRU from 'lru-cache';
-import cacache from 'cacache';
 
 class AbstractStore {
-    constructor(ezs, handle) {
+    constructor(ezs, path) {
         this.ezs = ezs;
-        this.handle = handle;
-        if (ezs.settings.cacheEnable) {
-            this.cache = new LRU(ezs.settings.cache);
-        } else {
-            this.cache = false;
-        }
-    }
 
-    get(key) {
-        const k = JSON.stringify(key);
-        const o = { memoize: this.cache };
-        return cacache.get(this.handle, k, o).then(({ data }) => JSON.parse(String(data)));
-    }
-
-    async put(key, value, score) {
-        const k = JSON.stringify(key);
-        const v = JSON.stringify(value);
-        if (!score) {
-            return cacache.put(this.handle, k, v);
+        const collectionOptions = {
+            unique: ['key']
         }
-        const alreadyExist = await cacache.get.info(this.handle, k);
-        if (!alreadyExist ||
-            !alreadyExist.metadata ||
-            !alreadyExist.metadata.score ||
-            alreadyExist.metadata.score < score) {
-            const o = {
-                metadata: {
-                    score,
+        const adapter = new lfsa();
+        this.db = new loki(`${path}/store.db`, {
+            adapter: adapter,
+            autoload: true,
+            autoloadCallback: () => {
+                const handle = this.db.getCollection('store');
+                if (handle === null) {
+                    this.db.addCollection('store', collectionOptions);
                 }
-            };
-            return cacache.put(this.handle, k, v, o);
+            },
+            autosave: true,
+            autosaveInterval: 4000
+        });
+        this.handle = this.db.addCollection('store', collectionOptions);
+    }
+
+    async get(rawKey) {
+        const key = JSON.stringify(rawKey);
+        const result = this.handle.by('key', key);
+        return result.value;
+    }
+
+    async put(rawKey, value, score = 1) {
+        const key = JSON.stringify(rawKey);
+        const existingDoc = this.handle.by('key', key);
+        if (!existingDoc) {
+            this.handle.insert({key, value, score});
+        } else if (existingDoc.score <= score) {
+            existingDoc.value = value;
+            existingDoc.score = score;
+            this.handle.update(existingDoc);
         }
         return Promise.resolve(true);
     }
@@ -58,34 +64,26 @@ class AbstractStore {
     }
 
     cast() {
-        return cacache.ls.stream(this.handle).pipe(this.ezs( async (data, feed, ctx) => {
+        return from(this.handle.find({})).pipe(this.ezs((data, feed, ctx) => {
             if (ctx.isLast()) {
                 return feed.close();
             }
-            const { key, integrity } = data;
-            try {
-                const value = await cacache.get.byDigest(this.handle, integrity);
-                return feed.send({
-                    id: JSON.parse(key),
-                    value: JSON.parse(value),
-                });
-            }
-            catch (e) {
-                return feed.end();
-            }
+            return feed.send({
+                id: JSON.parse(data.key),
+                value: data.value,
+            });
         }));
     }
 
-    reset() {
-        return cacache.rm.all(this.handle);
+    async reset() {
+        return this.handle.findAndRemove({});
     }
 
     close() {
-        delete this.handle;
+        this.db.close();
         return Promise.resolve(true);
     }
 }
-
 export default async function store(ezs, domain, location) {
 
     const path = join(location || tmpdir(), 'db', domain);
