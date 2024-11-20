@@ -70,7 +70,8 @@
  * ```
  *
  * Ici, on a remplacé un objet avec trois propriétés par le même objet sans la
- * propriété `c`.
+ * propriété `c` (voir la function
+ * [`omit`](https://lodash.com/docs/4.17.15#omit) de Lodash).
  *
  * @name exchange
  * @param {String} [value] la valeur de remplacement de l'objet courant
