@@ -36,7 +36,7 @@ const unknownPipeline = ezs => (request, response, next) => {
         .pipe(ezs('unpack'))
         .pipe(ezs('ungroup'))
         .pipe(ezs('delegate', { commands }, environment))
-        .pipe(ezs.catch(errorHandler(request, response)))
+        .pipe(ezs.catch(errorHandler(ezs, request, response)))
         .pipe(ezs((input, output) => {
             if (!response.headersSent) {
                 response.writeHead(200);

@@ -35,7 +35,7 @@ const knownPipeline = (ezs) => (request, response, next) => {
     const { query } = request.urlParsed;
 
     debug('ezs:info')(`Create middleware 'knownPipeline' for ${method} ${pathName}`);
-    const triggerError = errorHandler(request, response);
+    const triggerError = errorHandler(ezs, request, response);
     const files = ezs.memoize(`knownPipeline>${pathName}`,
         () => pathName
             .slice(1)

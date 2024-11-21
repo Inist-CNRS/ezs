@@ -36,11 +36,11 @@ function methodMatch(values) {
 
 const signals = ['SIGINT', 'SIGTERM'];
 
-function createServer(ezs, serverPort, serverPath, workerId) {
+function createServer(ezs, serverPort, serverPath, worker) {
     const app = connect();
     app.use( async (request, response, next) => {
         const stopTimer = httpRequestDurationMicroseconds.startTimer();
-        request.workerId = workerId;
+        request.workerId = worker.id;
         request.catched = false;
         request.serverPath = serverPath;
         request.urlParsed = parse(request.url, true);
@@ -76,14 +76,20 @@ function createServer(ezs, serverPort, serverPath, workerId) {
         next();
     });
     const server = controlServer(http.createServer(app));
+    server.addListener('error', (error) => {
+        debug('ezs:error')(`Server with PID ${process.pid} fails`, ezs.serializeError(error));
+        worker.kill();
+    });
     server.setTimeout(0); // default value, useful?
     server.requestTimeout = 0; // ezs has its own timeout see feed.timeout
     server.listen(serverPort);
+
     server.addListener('connection', (socket) => {
         httpConnectionTotal.inc();
         httpConnectionOpen.inc();
         socket.on('error', (e) => {
             debug('ezs:error')('Connection error, the server has stopped the request', ezs.serializeError(e));
+            server.disconnect();
         });
         socket.on('close', () => {
             httpConnectionOpen.dec();
@@ -104,8 +110,9 @@ function createCluster(ezs, serverPort, serverPath) {
         for (let i = 0; i < settings.concurrency; i += 1) {
             cluster.fork();
         }
-        cluster.on('exit', () => {
+        cluster.on('exit', (worker, code, signal) => {
             if (!term) {
+                debug('ezs:info')(`Server with PID ${worker.process.pid} died with code=${code} signal=${signal}. restarting...`);
                 cluster.fork();
             }
         });
@@ -136,7 +143,7 @@ function createCluster(ezs, serverPort, serverPath) {
             });
         });
     } else {
-        createServer(ezs, serverPort, serverPath, cluster.worker.id);
+        createServer(ezs, serverPort, serverPath, cluster.worker);
     }
     return cluster;
 }
