@@ -39,7 +39,7 @@ export function isFile(file) {
     try {
         return statSync(file).isFile();
     } catch (e) {
-        debug('ezs:warn')(`Unable to check '${file}'`);
+        debug('ezs:debug')(`Unable to check '${file}'`);
         return false;
     }
 }

@@ -171,7 +171,7 @@ export default class Engine extends SafeTransform {
             if (!this.errorWasSent) {
               this.errorWasSent = true;
               const warnErr = createErrorWith(error, currentIndex, this.funcName, this.params, chunk);
-              debug('ezs:warn')('ezs engine emit an', warnErr);
+              debug('ezs:warn')('ezs engine emit an', this.ezs.serializeError(warnErr));
               this.emit('error', warnErr);
             }
         };
@@ -180,7 +180,7 @@ export default class Engine extends SafeTransform {
                 this.nullWasSent = true;
                 this.nullWasSentError = createErrorWith(new Error('As a reminder, the end was recorded at this point'), currentIndex, this.funcName, this.params, chunk);
             } else if (this.nullWasSent && !this.errorWasSent) {
-                debug('ezs:warn')(createErrorWith(new Error('Oops, that\'s going to crash ?'), currentIndex, this.funcName, this.params, chunk));
+                debug('ezs:warn')('Unstable state', this.ezs.serializeError(createErrorWith(new Error('Oops, that\'s going to crash ?'), currentIndex, this.funcName, this.params, chunk)));
                 return warn(this.nullWasSentError);
             }
             if (!this.nullWasSent && this._readableState.ended) {
@@ -206,13 +206,13 @@ export default class Engine extends SafeTransform {
             this.chunk = chunk;
             return Promise.resolve(this.func.call(this.scope, chunk, feed, this.scope)).catch((e) => {
                 const asyncErr = createErrorWith(e, currentIndex, this.funcName, this.params, chunk);
-                debug('ezs:error')(`Async error thrown at item #${currentIndex}, pipeline is broken`, asyncErr);
+                debug('ezs:error')(`Async error thrown at item #${currentIndex}, pipeline is broken`, this.ezs.serializeError(asyncErr));
                 this.emit('error', asyncErr);
                 done();
             });
         } catch (e) {
             const syncErr = createErrorWith(e, currentIndex, this.funcName, this.params, chunk);
-            debug('ezs:error')(`Sync error thrown at item #${currentIndex}, pipeline carries errors`, syncErr);
+            debug('ezs:error')(`Sync error thrown at item #${currentIndex}, pipeline carries errors`, this.ezs.serializeError(syncErr));
             this.push(syncErr);
             return done();
         }

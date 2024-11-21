@@ -54,7 +54,7 @@ const globalSwaggerPaths = {
 };
 
 
-const collectMetadata = async (dirPath, hostName) => {
+const collectMetadata = async (ezs, dirPath, hostName) => {
     const globalSwagger = {
         openapi: '3.0.0',
         info: {
@@ -171,7 +171,7 @@ const collectMetadata = async (dirPath, hostName) => {
         }
     }
     catch(e) {
-        debug('ezs:warn')('Unable to load swagger.json', e);
+        debug('ezs:warn')('Unable to load swagger.json', ezs.serializeError(e));
         return globalSwagger;
     }
     return globalSwagger;
@@ -220,7 +220,7 @@ const collectPaths = async (ezs, dirPath) => {
 };
 
 const collectAll = async (ezs, request) => {
-    const infos = await collectMetadata(request.serverPath, request.headers.host);
+    const infos = await collectMetadata(ezs, request.serverPath, request.headers.host);
     const paths = await collectPaths(ezs, request.serverPath);
     return ({ infos, paths });
 };

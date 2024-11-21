@@ -23,6 +23,7 @@ const ezs = (name, options, environment) => new Engine(ezs, Statement.get(ezs, n
 const ezsPath = [resolve(__dirname, '../..'), process.cwd(), globalModules];
 const ezsCache = new LRU(settings.cache);
 
+ezs.serializeError = (err) => JSON.stringify(err, Object.getOwnPropertyNames(err).sort());
 ezs.memoize = (key, func) => {
     if (!key || !settings.cacheEnable) {
         return func();
@@ -138,7 +139,7 @@ ezs.createTrap = (file, env) => {
     const input = ezs.createStream(ezs.objectMode());
     ezs.createPipeline(input, ezs.compileCommands(ezs.createCommands({ file }), env))
         .once('error', (e) => {
-            debug('ezs:warn')(`The trap failed, ${file} stopped at ${e.message}`);
+            debug('ezs:warn')(`The trap failed, ${file} stopped`, ezs.serializeError(e));
         })
         .once('end', () => true)
         .on('data', () => true);

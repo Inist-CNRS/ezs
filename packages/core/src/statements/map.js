@@ -45,7 +45,7 @@ export default function map(data, feed) {
     return output
         .pipe(ezs.catch())
         .on('error', (error) => {
-            debug('ezs:warn')('Map ignore a item', error);
+            debug('ezs:warn')('Map ignore a item', ezs.serializeError(error));
             feed.send(error);
         })
         .on('data', (chunk) => {

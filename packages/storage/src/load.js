@@ -11,6 +11,7 @@ import store from './store';
  * @returns {String}
  */
 export default async function load(data, feed) {
+    const { ezs } = this;
     const location = this.getParam('location');
     const pathName = this.getParam('path', 'uri');
     const path = Array.isArray(pathName) ? pathName.shift() : pathName;
@@ -41,7 +42,7 @@ export default async function load(data, feed) {
         return feed.send(value);
     } catch(e) {
         if (e.code === 'ENOENT') {
-            debug('ezs:warn')(`uri not found (${uri}), item #${this.getIndex()} was ignored`, e);
+            debug('ezs:warn')(`uri not found (${uri}), item #${this.getIndex()} was ignored`, ezs.serializeError(e));
             if (target) {
                 set(data, target, undefined);
                 return feed.send(data);

@@ -78,7 +78,7 @@ export default async function CORHALFetch(data, feed) {
     };
     const onError = (e) => {
         controller.abort();
-        debug('ezs:warn')(`Break item #${this.getIndex()} [CORHALFetch] <${e}>`);
+        debug('ezs:warn')(`Break item #${this.getIndex()} [CORHALFetch]`, ezs.serializeError(e));
         return feed.stop(e);
     };
     const loop = async (stream, arr, afterKeyToken) => {
@@ -102,7 +102,7 @@ export default async function CORHALFetch(data, feed) {
                 const { headers: headersBis, body: noticesBis } = await responseBis.json();
                 loop(stream, noticesBis, headersBis['after-key-token']);
             } catch (e) {
-                debug('ezs:error')(`Error with ${url}/after/`, e.message, e.body);
+                debug('ezs:error')(`Error with ${url}/after/`, ezs.serializeError(e));
                 stream.end();
             }
         } else {

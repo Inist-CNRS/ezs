@@ -67,12 +67,12 @@ function createServer(ezs, serverPort, serverPath, workerId) {
     app.use((request, response, next) => {
         if (request.catched === false) {
             const error = new Error(`Unable to create middleware for ${request.method} ${request.pathName}`);
-            errorHandler(request, response)(error, 404);
+            errorHandler(ezs, request, response)(error, 404);
         }
         next();
     });
     app.use((error, request, response, next) => {
-        errorHandler(request, response)(error, 400);
+        errorHandler(ezs, request, response)(error, 400);
         next();
     });
     const server = controlServer(http.createServer(app));
@@ -83,7 +83,7 @@ function createServer(ezs, serverPort, serverPath, workerId) {
         httpConnectionTotal.inc();
         httpConnectionOpen.inc();
         socket.on('error', (e) => {
-            debug('ezs:error')('Connection error, the server has stopped the request :', e.message);
+            debug('ezs:error')('Connection error, the server has stopped the request', ezs.serializeError(e));
         });
         socket.on('close', () => {
             httpConnectionOpen.dec();

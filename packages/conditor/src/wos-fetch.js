@@ -87,7 +87,7 @@ export default async function WOSFetch(data, feed) {
     };
     const onError = (e) => {
         controller.abort();
-        debug('ezs:warn')(`Break item #${this.getIndex()} [WOSFetch] <${e}>`);
+        debug('ezs:warn')(`Break item #${this.getIndex()} [WOSFetch]`, ezs.serializeError(e));
         return feed.stop(e);
     };
     const loop = async (stream, Records, reqPerSec, amtPerYear, QueryID, RecordsFound) => {
@@ -98,7 +98,7 @@ export default async function WOSFetch(data, feed) {
             try {
                 await write(stream, Records);
             } catch (e) {
-                debug('ezs:error')('Write Error', e.message);
+                debug('ezs:error')('Write Error', ezs.serializeError(e));
                 throw new Error(e);
             }
         }
@@ -127,7 +127,7 @@ export default async function WOSFetch(data, feed) {
             }
             await loop(stream, RecordsBis, reqPerSec, amtPerYear, QueryID, RecordsFound);
         } catch (e) {
-            debug('ezs:error')(`Error with ${cURLBis.href}`, e.message);
+            debug('ezs:error')(`Error with ${cURLBis.href}`, ezs.serializeError(e));
             throw new Error(e);
         }
     };

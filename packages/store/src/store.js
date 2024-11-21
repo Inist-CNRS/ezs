@@ -97,14 +97,14 @@ class Store {
                 return db.get(key2, (err1, value) => {
                     if (err1) {
                         if (err1.notFound) {
-                            debug('ezs:warn')('Not Found', err1);
+                            debug('ezs:warn')('Not Found', this.ezs.serializeError(err1));
                             return resolve(null);
                         }
                         return reject(err1);
                     }
                     return db.del(key2, (err2) => {
                         if (err2) {
-                            debug('ezs:warn')('Unable to delete', err2);
+                            debug('ezs:warn')('Unable to delete', this.ezs.serializeError(err2));
                         }
                         return resolve(decodeValue(value));
                     });

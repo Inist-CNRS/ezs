@@ -86,7 +86,7 @@ export default class Feed {
         return new Promise((resolve) => { this.log('Feed.flow.stream.end'); stream.once('end', resolve);});
     }
     log(x) {
-        debug('ezs:trace')(this.engine.funcName, x);
+        debug('ezs:debug')(this.engine.funcName, x);
     }
 
     end() {
