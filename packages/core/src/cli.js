@@ -17,7 +17,7 @@ export default function cli(errlog) {
             verbose: {
                 alias: 'v',
                 default: false,
-                describe: 'Make ezs more verbose/talkative',
+                describe: `Make ezs more talkative, which is equivalent to setting the envar to DEBUG=${VERBOSE}`,
                 type: 'boolean',
             },
             tracer: {

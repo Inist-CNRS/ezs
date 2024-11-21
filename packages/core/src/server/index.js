@@ -40,7 +40,7 @@ function createServer(ezs, serverPort, serverPath, worker) {
     const app = connect();
     app.use( async (request, response, next) => {
         const stopTimer = httpRequestDurationMicroseconds.startTimer();
-        request.workerId = worker.id;
+        request.workerId = worker?.id;
         request.catched = false;
         request.serverPath = serverPath;
         request.urlParsed = parse(request.url, true);
