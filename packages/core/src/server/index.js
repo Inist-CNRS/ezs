@@ -89,7 +89,6 @@ function createServer(ezs, serverPort, serverPath, worker) {
         httpConnectionOpen.inc();
         socket.on('error', (e) => {
             debug('ezs:error')('Connection error, the server has stopped the request', ezs.serializeError(e));
-            server.disconnect();
         });
         socket.on('close', () => {
             httpConnectionOpen.dec();

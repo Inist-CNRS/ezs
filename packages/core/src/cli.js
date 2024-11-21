@@ -20,6 +20,12 @@ export default function cli(errlog) {
                 describe: `Make ezs more talkative, which is equivalent to setting the envar to DEBUG=${VERBOSE}`,
                 type: 'boolean',
             },
+            logs: {
+                alias: 'l',
+                default: false,
+                describe: `Enable logs mode, which is equivalent to setting the envar to DEBUG_COLORS=0 DEBUG=${VERBOSE}`,
+                type: 'boolean',
+            },
             tracer: {
                 alias: 't',
                 default: false,
@@ -66,6 +72,10 @@ export default function cli(errlog) {
     const { argv } = args;
 
     if (argv.verbose) {
+        debug.enable(VERBOSE);
+    }
+    if (argv.logs) {
+        process.env.DEBUG_COLORS = 0;
         debug.enable(VERBOSE);
     }
     if (argv.tracer) {
