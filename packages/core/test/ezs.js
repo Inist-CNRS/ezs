@@ -55,7 +55,7 @@ describe('Build a pipeline', () => {
             });
     });
     it('with debug transformation', (done) => {
-        debug.enable('ezs:*,-ezs:trace');
+        debug.enable('ezs:*');
         const namespaces = debug.disable();
         let res = 0;
         const ten = new Decade();
@@ -84,7 +84,7 @@ describe('Build a pipeline', () => {
                 level: 'log',
             }))
             .pipe(ezs('debug', {
-                text: 'Debug message (level = silent)',
+                text: 'Debug message (level = trace)',
                 level: 'trace',
             }))
             .pipe(ezs('delegate', { script }))
