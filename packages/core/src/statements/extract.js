@@ -1,45 +1,53 @@
 import _ from 'lodash';
 
 /**
- * Take `Object` and throw each value of fields
+ * Extrait de l'objet courant les valeurs de certains champs, et renvoie
+ * directement les valeurs dans le flux de sortie.
  *
- * > **Note**: extract cannot throw `undefined` or `null` values
+ * > **Note**: `extract` ne peut pas fournir des valeurs `undefined` ou `null`.
+ *
+ * Entrée:
  *
  * ```json
  * [{
- *    "a": "abcdefg",
- *    "b": "1234567",
- *    "c": "XXXXXXX"
+ *    "nom": "un",
+ *    "valeur": 1,
+ *    "important": false
  * },
  * {
- *    "a": "abcdefg",
- *    "b": "1234567",
- *    "c": "XXXXXXX"
+ *    "nom": "deux",
+ *    "valeur": 2,
+ *    "important": true
  * }]
  * ```
  *
  * Script:
  *
  * ```ini
+ * [use]
+ * plugin = basics
+ *
+ * [JSONParse]
+ *
  * [extract]
- * path = a
- * path = b
+ * path = valeur
+ * path = nom
+ *
+ * [dump]
  * ```
  *
- * Output:
+ * Sortie:
  *
  * ```json
- * [
- *    "abcdefg",
- *    "1234567",
- *    "abcdefg",
- *    "1234567"
- * }]
+ * [[1,"un"],[2,"deux"]]
  * ```
  *
  * @name extract
- * @param {String} [path] path of field to extract
+ * @param {String} [path] chemin d'un champ à extraire
  * @returns {Object}
+ *
+ * @see [assign](#assign)
+ * @see [exchange](#exchange)
  */
 export default function extract(data, feed) {
     if (this.isLast()) {

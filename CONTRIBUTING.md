@@ -171,8 +171,8 @@ Add the badges (change `sparql` to the name of the package's directory):
 
 ### Hoist devDependencies
 
-We want to use the same dev depencies for all packages, so we can hoist them to
-the root of the lerna repository.
+We want to use the same dev dependencies for all packages, so we can hoist them
+to the root of the lerna repository.
 
 Don't hoist devDependencies like `@ezs/core` (but you shouldn't depend on `@ezs`
 package, see [Use the src files in tests](#use-the-src-files-in-tests)).
@@ -227,3 +227,17 @@ Add the new package in the list of the [root's README](./README.md).
 ### Add the package in the gh-pages
 
 Add the new package in the [documentation side bar](./docs/_sidebar.md).
+
+## Documenting
+
+Write statement instructions in the corresponding function's comments, using
+markdown syntax.
+
+A plugin's general documentation takes place in the `docs` repository, in the
+`plugin-name.md` file.
+
+To generate the documentation, use:
+
+```bash
+npx yarn run doc
+```
