@@ -49,6 +49,7 @@ function createErrorWith(error, index, funcName, funcParams, chunk) {
     const erm = stk.shift().replace(prefix, '');
     const msg = `${prefix}[${funcName}] <${erm}>\n\t${stk.slice(0, 10).join('\n\t')}`;
     const err = Error(msg);
+    err.sourceError = error;
     err.sourceChunk = stringify(chunk);
     err.type = error.type || 'Standard error';
     err.scope = error.scope || 'code';
