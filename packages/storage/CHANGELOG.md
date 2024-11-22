@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@3.2.4...@ezs/storage@3.2.5) (2024-11-22)
+
+**Note:** Version bump only for package @ezs/storage
+
+
+
+
+
 ## [3.2.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@3.2.3...@ezs/storage@3.2.4) (2024-11-05)
 
 **Note:** Version bump only for package @ezs/storage
