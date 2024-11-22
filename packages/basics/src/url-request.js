@@ -81,10 +81,10 @@ export default async function URLRequest(data, feed) {
     const onError = (e) => {
         controller.abort();
         if (noerror) {
-            debug('ezs:info')(`Ignore item #${this.getIndex()} [URLRequest] <${e}>`);
+            debug('ezs:info')(`Ignore item #${this.getIndex()} [URLRequest]`, this.ezs.serializeError(e));
             return feed.send(data);
         }
-        debug('ezs:warn')(`Break item #${this.getIndex()} [URLRequest] <${e}>`);
+        debug('ezs:warn')(`Break item #${this.getIndex()} [URLRequest]`, this.ezs.serializeError(e));
         return feed.send(e);
     };
     try {

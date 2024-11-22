@@ -109,12 +109,14 @@ export default async function URLConnect(data, feed) {
         catch (e) {
             if (!noerror) {
                 debug('ezs:warn')(
-                    `Break item #${this.getIndex()} [URLConnect] <${e}>`,
+                    `Break item #${this.getIndex()} [URLConnect]`,
+                    ezs.serializeError(e),
                 );
                 feed.stop(e);
             } else {
                 debug('ezs:info')(
-                    `Ignore item #${this.getIndex()} [URLConnect] <${e}>`,
+                    `Ignore item #${this.getIndex()} [URLConnect]`,
+                    ezs.serializeError(e),
                 );
             }
             output.end();

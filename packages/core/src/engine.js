@@ -49,19 +49,15 @@ function createErrorWith(error, index, funcName, funcParams, chunk) {
     const erm = stk.shift().replace(prefix, '');
     const msg = `${prefix}[${funcName}] <${erm}>\n\t${stk.slice(0, 10).join('\n\t')}`;
     const err = Error(msg);
-    err.sourceError = error;
     err.sourceChunk = stringify(chunk);
-    err.toJSON = () => ({
-        type: error.type || 'Standard error',
-        scope: error.scope || 'code',
-        date: error.date || new Date(),
-        message: msg.split('\n').shift(),
-        func: funcName,
-        params: funcParams,
-        traceback: stk.slice(0,10),
-        index,
-        chunk,
-    });
+    err.type = error.type || 'Standard error';
+    err.scope = error.scope || 'code';
+    err.date = error.date || new Date();
+    err.message = msg.split('\n').shift();
+    err.func = funcName;
+    err.params = funcParams;
+    err.traceback = stk.slice(0,10);
+    err.index = index;
     Error.captureStackTrace(err, createErrorWith);
     return err;
 }
@@ -188,7 +184,7 @@ export default class Engine extends SafeTransform {
             }
             if (data instanceof Error) {
                 const ignoreErr = createErrorWith(data, currentIndex, this.funcName, this.params, chunk);
-                debug('ezs:info')(`Ignoring error at item #${currentIndex}`, ignoreErr);
+                debug('ezs:info')(`Ignoring error at item #${currentIndex}`, this.ezs.serializeError(ignoreErr));
                 return this.push(ignoreErr);
             }
             if (!this.errorWasSent) {

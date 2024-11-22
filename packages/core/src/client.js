@@ -94,7 +94,7 @@ export const connectServer = (ezs) => (serverOptions, index) => {
             ));
             return output.end();
         }
-        debug('ezs:info')(`http://${hostname}:${port} was stopped properly following ${e}`);
+        debug('ezs:info')(`http://${hostname}:${port} was stopped properly following`, ezs.serializeError(e));
         return 4;
     });
     handle.setNoDelay(false);

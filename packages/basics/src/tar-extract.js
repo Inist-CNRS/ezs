@@ -62,7 +62,7 @@ export default function TARExtract(data, feed) {
                             () => next(),
                         );
                     } catch (e) {
-                        debug('ezs:warn')(`File was ignored (${header.name})`, e);
+                        debug('ezs:warn')(`File was ignored (${header.name})`, ezs.serializeError(e));
                         stream.resume();
                         return next();
                     }
