@@ -36,11 +36,11 @@ function methodMatch(values) {
 
 const signals = ['SIGINT', 'SIGTERM'];
 
-function createServer(ezs, serverPort, serverPath, workerId) {
+function createServer(ezs, serverPort, serverPath, worker) {
     const app = connect();
     app.use( async (request, response, next) => {
         const stopTimer = httpRequestDurationMicroseconds.startTimer();
-        request.workerId = workerId;
+        request.workerId = worker?.id;
         request.catched = false;
         request.serverPath = serverPath;
         request.urlParsed = parse(request.url, true);
@@ -67,33 +67,38 @@ function createServer(ezs, serverPort, serverPath, workerId) {
     app.use((request, response, next) => {
         if (request.catched === false) {
             const error = new Error(`Unable to create middleware for ${request.method} ${request.pathName}`);
-            errorHandler(request, response)(error, 404);
+            errorHandler(ezs, request, response)(error, 404);
         }
         next();
     });
     app.use((error, request, response, next) => {
-        errorHandler(request, response)(error, 400);
+        errorHandler(ezs, request, response)(error, 400);
         next();
     });
     const server = controlServer(http.createServer(app));
+    server.addListener('error', (error) => {
+        debug('ezs:error')(`Server with PID ${process.pid} fails`, ezs.serializeError(error));
+        worker.kill();
+    });
     server.setTimeout(0); // default value, useful?
     server.requestTimeout = 0; // ezs has its own timeout see feed.timeout
     server.listen(serverPort);
+
     server.addListener('connection', (socket) => {
         httpConnectionTotal.inc();
         httpConnectionOpen.inc();
         socket.on('error', (e) => {
-            debug('ezs')('Connection error, the server has stopped the request :', e.message);
+            debug('ezs:error')('Connection error, the server has stopped the request', ezs.serializeError(e));
         });
         socket.on('close', () => {
             httpConnectionOpen.dec();
         });
     });
     signals.forEach((signal) => process.on(signal, () => {
-        debug('ezs')(`Signal received, stoping server with PID ${process.pid}`);
+        debug('ezs:info')(`Signal received, stoping server with PID ${process.pid}`);
         server.shutdown(() => process.exit(0));
     }));
-    debug('ezs')(`Server starting with PID ${process.pid} and listening on port ${serverPort}`);
+    debug('ezs:info')(`Server starting with PID ${process.pid} and listening on port ${serverPort}`);
     return server;
 }
 
@@ -104,8 +109,9 @@ function createCluster(ezs, serverPort, serverPath) {
         for (let i = 0; i < settings.concurrency; i += 1) {
             cluster.fork();
         }
-        cluster.on('exit', () => {
+        cluster.on('exit', (worker, code, signal) => {
             if (!term) {
+                debug('ezs:info')(`Server with PID ${worker.process.pid} died with code=${code} signal=${signal}. restarting...`);
                 cluster.fork();
             }
         });
@@ -124,7 +130,7 @@ function createCluster(ezs, serverPort, serverPath) {
                     res.end();
                 }
             })).listen(serverPort + 1);
-            debug('ezs')(`Cluster metrics server listening on port ${serverPort+1}`);
+            debug('ezs:info')(`Cluster metrics server listening on port ${serverPort+1}`);
         }
         signals.forEach((signal) => {
             process.on(signal, () => {
@@ -136,7 +142,7 @@ function createCluster(ezs, serverPort, serverPath) {
             });
         });
     } else {
-        createServer(ezs, serverPort, serverPath, cluster.worker.id);
+        createServer(ezs, serverPort, serverPath, cluster.worker);
     }
     return cluster;
 }

@@ -17,7 +17,7 @@ function load(ezs, name) {
     const after1 = Object.keys(pluginsList);
     const diff1 = after1.filter((item) => before1.indexOf(item) === -1);
     if (diff1.length > 0) {
-        debug('ezs')(`These statements are registered: ${diff1.join(',')}`);
+        debug('ezs:debug')(`These statements are registered: ${diff1.join(',')}`);
     }
 }
 

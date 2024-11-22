@@ -32,7 +32,7 @@ export default function delegate(data, feed) {
         this.whenFinish = feed.flow(output, { autoclose: true });
     }
     if (this.isLast()) {
-        debug('ezs')(`${this.getIndex()} chunks have been delegated`);
+        debug('ezs:debug')(`${this.getIndex()} chunks have been delegated`);
         this.whenFinish.finally(() => feed.close());
         return this.input.end();
     }

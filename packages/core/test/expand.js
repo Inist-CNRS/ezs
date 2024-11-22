@@ -1,4 +1,5 @@
 import fs from 'fs';
+import debug from 'debug';
 import from from 'from';
 import { PassThrough } from 'stream';
 import ezs from '../src';
@@ -513,7 +514,12 @@ test('with a buggy script', (done) => {
             output.push(chunk);
         })
         .on('error', (e) => {
-            expect(e.message).toEqual(expect.stringContaining('BADVAL is not defined'));
+            try {
+                expect(e.message).toEqual(expect.stringContaining('Lodash'));
+            }
+            catch (ee) {
+                done(ee);
+            }
             expect(output.length).toEqual(0);
             done();
         })

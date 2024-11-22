@@ -115,7 +115,6 @@ describe('test', () => {
                 res.push(chunk);
             })
             .on('end', () => {
-                console.log(res);
                 assert.equal(3, res.length);
                 assert.equal('"a";"b";"c"\r\n', res[0]);
                 assert.equal('"1";"2";"3"\r\n', res[1]);

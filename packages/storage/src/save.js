@@ -1,4 +1,5 @@
 import { get } from 'lodash';
+import debug from 'debug';
 import store from './store';
 
 /**
@@ -33,7 +34,7 @@ export default async function save(data, feed) {
             await this.store.reset();
         }
         if (!uri) {
-            console.warn(`WARNING: uri was empty, [save] item #${this.getIndex()} was ignored`);
+            debug('ezs:warn')(`uri was empty, [save] item #${this.getIndex()} was ignored`);
             return feed.send(data);
         }
         await this.store.put(uri, data, score);

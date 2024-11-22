@@ -9,7 +9,7 @@ const unknownPipeline = ezs => (request, response, next) => {
         return next();
     }
     request.catched = true;
-    debug('ezs')(`Create middleware 'unknownPipeline' for ${request.method} ${request.pathName}`);
+    debug('ezs:info')(`Create middleware 'unknownPipeline' for ${request.method} ${request.pathName}`);
 
     const { headers } = request;
     response.setHeader('Content-Encoding', headers['content-encoding'] || 'identity');
@@ -28,7 +28,7 @@ const unknownPipeline = ezs => (request, response, next) => {
             };
         })
         .reduce((prev, cur) => Object.assign(prev, cur), {});
-    debug('ezs')(
+    debug('ezs:debug')(
         `PID ${process.pid} will execute ${commands.length} commands with ${sizeof(environment)} of global parameters`,
     );
     request
@@ -36,7 +36,7 @@ const unknownPipeline = ezs => (request, response, next) => {
         .pipe(ezs('unpack'))
         .pipe(ezs('ungroup'))
         .pipe(ezs('delegate', { commands }, environment))
-        .pipe(ezs.catch(errorHandler(request, response)))
+        .pipe(ezs.catch(errorHandler(ezs, request, response)))
         .pipe(ezs((input, output) => {
             if (!response.headersSent) {
                 response.writeHead(200);

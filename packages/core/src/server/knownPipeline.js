@@ -34,8 +34,8 @@ const knownPipeline = (ezs) => (request, response, next) => {
     const { headers, fusible, method, pathName } = request;
     const { query } = request.urlParsed;
 
-    debug('ezs')(`Create middleware 'knownPipeline' for ${method} ${pathName}`);
-    const triggerError = errorHandler(request, response);
+    debug('ezs:info')(`Create middleware 'knownPipeline' for ${method} ${pathName}`);
+    const triggerError = errorHandler(ezs, request, response);
     const files = ezs.memoize(`knownPipeline>${pathName}`,
         () => pathName
             .slice(1)
@@ -46,7 +46,7 @@ const knownPipeline = (ezs) => (request, response, next) => {
         triggerError(new Error(`Cannot find ${pathName}`), 404);
         return false;
     }
-    debug('ezs')(
+    debug('ezs:debug')(
         `PID ${process.pid} will execute ${pathName} commands with ${sizeof(query)}B of global parameters`,
     );
 

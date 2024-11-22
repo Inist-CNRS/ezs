@@ -36,7 +36,7 @@ export default function parallel(data, feed) {
         if (!commands || commands.length === 0) {
             return feed.stop(new Error('Invalid parmeter for [parallel]'));
         }
-        debug('ezs')(`[parallel] start with #${concurrency} workers.`);
+        debug('ezs:debug')(`[parallel] start with #${concurrency} workers.`);
         const logger = ezs.createTrap(this.getParam('logger'), this.getEnv());
         const handles = Array(concurrency).fill(true).map(duplexer(ezs, commands, environment, logger));
         this.ins = handles.map((h) => h[0]);

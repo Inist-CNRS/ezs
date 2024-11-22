@@ -1,6 +1,7 @@
 import assert from 'assert';
 import Dir from 'path';
 import from from 'from';
+import debug from 'debug';
 import fs from 'fs';
 import { Readable, PassThrough } from 'stream';
 import ezs from '../src';
@@ -54,40 +55,45 @@ describe('Build a pipeline', () => {
             });
     });
     it('with debug transformation', (done) => {
+        debug.enable('ezs:*');
+        const namespaces = debug.disable();
         let res = 0;
         const ten = new Decade();
+        const script = `
+          [replace]
+          path = a
+          value = z
+          path = b
+          value = self()
+          path = c
+          value = none
+          [debug]
+          path = a
+          path = b
+        `;
         ten
             .pipe(ezs((input, output) => {
                 output.send(input);
             }))
             .pipe(ezs('tracer'))
             .pipe(ezs('debug', {
-                text: 'Debug message (ezs = true)',
-                ezs: true,
-            }))
-            .pipe(ezs('debug', {
                 text: 'Debug message',
             }))
             .pipe(ezs('debug', {
-                text: 'Debug message (ezs = false)',
-                ezs: false,
-            }))
-            .pipe(ezs('debug', {
-                text: 'Debug message (level = log)',
+                text: 'Debug message (unexsiting level)',
                 level: 'log',
             }))
             .pipe(ezs('debug', {
-                text: 'Debug message (level = error)',
+                text: 'Debug message (level = trace)',
+                level: 'trace',
             }))
-            .pipe(ezs('debug', {
-                text: 'Debug message (level = silent)',
-                level: 'silent',
-            }))
+            .pipe(ezs('delegate', { script }))
             .on('data', (chunk) => {
-                res += chunk;
+                res += chunk.b;
             })
             .on('end', () => {
                 assert.strictEqual(res, 45);
+                debug.enable(namespaces);
                 done();
             });
     });

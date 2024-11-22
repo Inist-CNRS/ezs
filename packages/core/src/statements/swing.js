@@ -37,7 +37,7 @@ export default function swing(data, feed) {
         this.whenFinish = feed.flow(output);
     }
     if (this.isLast()) {
-        debug('ezs')(`${this.getIndex()} chunks have been delegated`);
+        debug('ezs:debug')(`${this.getIndex()} chunks have been delegated`);
         this.whenFinish.finally(() => feed.close());
         return this.input.end();
     }

@@ -78,6 +78,7 @@ export default async function URLStream(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
+    const { ezs } = this;
     const url = this.getParam('url');
     const path = this.getParam('path', '*');
     const retries = Number(this.getParam('retries', 5));
@@ -103,10 +104,10 @@ export default async function URLStream(data, feed) {
     const onError = (e) => {
         controller.abort();
         if (noerror) {
-            debug('ezs')(`Ignore item #${this.getIndex()} [URLStream] <${e}>`);
+            debug('ezs:info')(`Ignore item #${this.getIndex()} [URLStream]`, ezs.serializeError(e));
             return feed.send(data);
         }
-        debug('ezs')(`Break item #${this.getIndex()} [URLStream] <${e}>`);
+        debug('ezs:warn')(`Break item #${this.getIndex()} [URLStream]`, ezs.serializeError(e));
         return feed.send(e);
     };
     try {

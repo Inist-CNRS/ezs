@@ -65,11 +65,11 @@ export default function FILESave(data, feed) {
         this.whenFinish = new Promise((resolve, reject) => {
             const output = compress ? this.input.pipe(createWriteStream(filename)) : this.input;
             output.once('error', (err) => {
-                debug('ezs')(`WARNING: ${filename} not saved. ${err}`);
+                debug('ezs:warn')(`File ${filename} not saved.`, this.ezs.serializeError(err));
                 reject(err);
             });
             output.once('close', () => {
-                debug('ezs')(`${filename} saved.`);
+                debug('ezs:info')(`${filename} saved.`);
                 lstat(filename, (err, stat) => {
                     if (err) {
                         return reject(err);

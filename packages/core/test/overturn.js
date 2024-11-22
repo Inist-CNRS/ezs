@@ -205,8 +205,12 @@ test('with a buggy script', (done) => {
             output.push(chunk);
         })
         .on('error', (e) => {
-            expect(e.message).toEqual(expect.stringContaining('BADVAL is not defined'));
-            expect(output.length).toEqual(0);
+            try {
+                expect(e.message).toEqual(expect.stringContaining('Lodash'));
+                expect(output.length).toEqual(0);
+            } catch (ee) {
+                done(ee);
+            }
             done();
         })
         .on('end', () => {

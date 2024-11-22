@@ -74,10 +74,10 @@ export default async function URLFetch(data, feed) {
     } catch (e) {
         controller.abort();
         if (noerror) {
-            debug('ezs')(`Ignore item #${this.getIndex()} [URLFetch] <${e}>`);
+            debug('ezs:info')(`Ignore item #${this.getIndex()} [URLFetch]`, this.ezs.serializeError(e));
             return feed.send(data);
         }
-        debug('ezs')(`Break item #${this.getIndex()} [URLFetch] <${e}>`);
+        debug('ezs:warn')(`Break item #${this.getIndex()} [URLFetch]`, this.ezs.serializeError(e));
         return feed.send(e);
     }
 }

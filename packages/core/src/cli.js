@@ -5,19 +5,25 @@ import yargs from 'yargs';
 import debug from 'debug';
 import ezs from '.';
 import File from './file';
-import { version } from '../package.json';
+import { VERSION, VERBOSE } from './constants';
 import settings from './settings';
 
 export default function cli(errlog) {
     const args = yargs
         .env('EZS')
         .usage('Usage: $0 [options] [<file>|<directory>] [<file2> <file3> ...]')
-        .version(version)
+        .version(VERSION)
         .options({
             verbose: {
                 alias: 'v',
                 default: false,
-                describe: 'Enable debug mode with DEBUG=ezs',
+                describe: `Make ezs more talkative, which is equivalent to setting the envar to DEBUG=${VERBOSE}`,
+                type: 'boolean',
+            },
+            logs: {
+                alias: 'l',
+                default: false,
+                describe: `Enable logs mode, which is equivalent to setting the envar to DEBUG_COLORS=0 DEBUG=${VERBOSE}`,
                 type: 'boolean',
             },
             tracer: {
@@ -66,7 +72,11 @@ export default function cli(errlog) {
     const { argv } = args;
 
     if (argv.verbose) {
-        debug.enable('ezs');
+        debug.enable(VERBOSE);
+    }
+    if (argv.logs) {
+        process.env.DEBUG_COLORS = 0;
+        debug.enable(VERBOSE);
     }
     if (argv.tracer) {
         settings.tracerEnable = true;
@@ -85,7 +95,7 @@ export default function cli(errlog) {
             errlog(`Error: ${argv.daemon} doesn't exists.`);
             process.exit(1);
         }
-        debug('ezs')(`Serving ${serverPath} with ${settings.concurrency} shards`);
+        debug('ezs:debug')(`Serving ${serverPath} with ${settings.concurrency} shards`);
         return ezs.createCluster(settings.port, serverPath);
     }
     if (argv._.length === 0) {
@@ -95,21 +105,21 @@ export default function cli(errlog) {
 
     let input;
     if (argv.env) {
-        debug('ezs')('Reading environment variables...');
+        debug('ezs:info')('Reading environment variables...');
         input = new PassThrough(ezs.objectMode());
         input.write(process.env);
         input.end();
     } else if (argv.file) {
         try {
             const filename = realpathSync(argv.file);
-            debug('ezs')(`Reading file ${filename} ...`);
+            debug('ezs:info')(`Reading file ${filename} ...`);
             input = createReadStream(filename);
         } catch (e) {
             errlog(`Error: ${argv.file} doesn't exists.`);
             process.exit(1);
         }
     } else {
-        debug('ezs')('Reading standard input...');
+        debug('ezs:info')('Reading standard input...');
         input = process.stdin;
         input.resume();
     }

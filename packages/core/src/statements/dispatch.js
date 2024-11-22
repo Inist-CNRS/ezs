@@ -38,7 +38,7 @@ export default function dispatch(data, feed) {
         ) {
             return feed.stop(new Error('Invalid parmeter for [dispatch]'));
         }
-        debug('ezs')(`[dispatch] connect to #${servers.length} servers.`);
+        debug('ezs:debug')(`[dispatch] connect to #${servers.length} servers.`);
         const handles = servers.map(connectServer(ezs));
         this.ins = handles.map((h) => h[0]);
         this.outs = handles.map((h) => h[1]);

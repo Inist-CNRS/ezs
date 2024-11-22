@@ -62,7 +62,7 @@ export default async function URLConnect(data, feed) {
             await retry(
                 async (bail, numberOfTimes) => {
                     if (numberOfTimes > 1) {
-                        debug('ezs')(`Attempts to reconnect (${numberOfTimes})`);
+                        debug('ezs:debug')(`Attempts to reconnect (${numberOfTimes})`);
                     }
                     const controller = new AbortController();
                     const response = await fetch(url, {
@@ -108,13 +108,15 @@ export default async function URLConnect(data, feed) {
         }
         catch (e) {
             if (!noerror) {
-                debug('ezs')(
-                    `Break item #${this.getIndex()} [URLConnect] <${e}>`,
+                debug('ezs:warn')(
+                    `Break item #${this.getIndex()} [URLConnect]`,
+                    ezs.serializeError(e),
                 );
                 feed.stop(e);
             } else {
-                debug('ezs')(
-                    `Ignore item #${this.getIndex()} [URLConnect] <${e}>`,
+                debug('ezs:info')(
+                    `Ignore item #${this.getIndex()} [URLConnect]`,
+                    ezs.serializeError(e),
                 );
             }
             output.end();

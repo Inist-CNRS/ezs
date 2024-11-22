@@ -66,7 +66,7 @@ export const connectServer = (ezs) => (serverOptions, index) => {
     const output = new PassThrough(ezs.objectMode());
     const handle = http.request(serverOptions, (res) => {
         connected = true;
-        debug('ezs')(`http://${hostname}:${port} send code ${res.statusCode}`);
+        debug('ezs:info')(`http://${hostname}:${port} send code ${res.statusCode}`);
         if (res.statusCode === 200) {
             res
                 .pipe(ezs.uncompress(res.headers))
@@ -94,7 +94,7 @@ export const connectServer = (ezs) => (serverOptions, index) => {
             ));
             return output.end();
         }
-        debug('ezs')(`http://${hostname}:${port} was stopped properly following ${e}`);
+        debug('ezs:info')(`http://${hostname}:${port} was stopped properly following`, ezs.serializeError(e));
         return 4;
     });
     handle.setNoDelay(false);

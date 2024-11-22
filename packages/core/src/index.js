@@ -1,4 +1,5 @@
 import { PassThrough } from 'readable-stream';
+import debug from 'debug';
 import writeTo from 'stream-write';
 import globalModules from 'global-modules';
 import { resolve } from 'path';
@@ -22,6 +23,7 @@ const ezs = (name, options, environment) => new Engine(ezs, Statement.get(ezs, n
 const ezsPath = [resolve(__dirname, '../..'), process.cwd(), globalModules];
 const ezsCache = new LRU(settings.cache);
 
+ezs.serializeError = (err) => JSON.stringify(err, Object.getOwnPropertyNames(err).sort());
 ezs.memoize = (key, func) => {
     if (!key || !settings.cacheEnable) {
         return func();
@@ -114,11 +116,11 @@ ezs.createPipeline = (input, commands, trap) => {
     }
     return output
         .pipe(ezs.catch((e) => {
-            trap.write(e.toJSON()); // see engine.js createErrorWith
+            trap.write(JSON.parse(ezs.serializeError(e))); // see engine.js createErrorWith
             return false; // do not catch the error
         }))
         .once('error', (e) => {
-            trap.write(e.toJSON()); // see engine.js createErrorWith
+            trap.write(JSON.parse(ezs.serializeError(e))); // see engine.js createErrorWith
             trap.end();
         })
         .once('end', () => {
@@ -137,7 +139,7 @@ ezs.createTrap = (file, env) => {
     const input = ezs.createStream(ezs.objectMode());
     ezs.createPipeline(input, ezs.compileCommands(ezs.createCommands({ file }), env))
         .once('error', (e) => {
-            console.warn(`WARNING: the trap failed, ${file} stopped at ${e.message}`);
+            debug('ezs:warn')(`The trap failed, ${file} stopped`, ezs.serializeError(e));
         })
         .once('end', () => true)
         .on('data', () => true);

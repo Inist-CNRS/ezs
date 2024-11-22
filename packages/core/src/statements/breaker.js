@@ -17,7 +17,7 @@ export default async function breaker(data, feed) {
     }
     const check = await checkFusible(this.fusible);
     if (!check) {
-        debug('ezs')(`Stream break, ${this.fusible} no longer active.`);
+        debug('ezs:info')(`Stream break, ${this.fusible} no longer active.`);
         return feed.close(data);
     }
     return feed.send(data);

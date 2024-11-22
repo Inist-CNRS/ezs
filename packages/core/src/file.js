@@ -30,8 +30,8 @@ export function useFile(ezs, name) {
     if (plugName2) {
         return plugName2;
     }
-    debug('ezs')(`Unable to find '${name}' from ${plugName1}`);
-    debug('ezs')(`Unable to find '${name}' from ${plugName2}`);
+    debug('ezs:debug')(`Unable to find '${name}' from ${plugName1}`);
+    debug('ezs:debug')(`Unable to find '${name}' from ${plugName2}`);
     return false;
 }
 
@@ -39,7 +39,7 @@ export function isFile(file) {
     try {
         return statSync(file).isFile();
     } catch (e) {
-        debug('ezs')(`Unable to check '${file}'`);
+        debug('ezs:debug')(`Unable to check '${file}'`);
         return false;
     }
 }
@@ -48,7 +48,7 @@ export default function File(ezs, name) {
     try {
         const filename = [findFileIn(ezs.getPath(), name), check(name)].filter(Boolean).shift();
         if (!filename) {
-            debug('ezs')(`Unable to find '${name}' from ${filename}`);
+            debug('ezs:warn')(`Unable to find '${name}' from ${filename}`);
             return false;
         }
         ezs.addPath(dirname(filename));

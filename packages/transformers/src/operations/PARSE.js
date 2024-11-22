@@ -7,7 +7,6 @@ export const parse = value => {
     try {
         return JSON.parse(value);
     } catch (e) {
-        console.error(e);
         return value;
     }
 };

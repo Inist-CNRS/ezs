@@ -112,7 +112,6 @@ export default async function combine(data, feed) {
                 makeDir.sync(this.cachePath);
             }
         }
-        debug('ezs')('[combine] with sub pipeline.');
         const primer = this.getParam('primer', 'n/a');
         const commands = ezs.createCommands({
             file: this.getParam('file'),
@@ -123,6 +122,7 @@ export default async function combine(data, feed) {
             append: this.getParam('append'),
         });
         this.databaseID = hashCoerce.hash({ primer, commands });
+        debug('ezs:debug')(`[combine] with sub pipeline #${this.databaseID}`);
         const input = ezs.createStream(ezs.objectMode());
         this.database = {};
         let stream;

@@ -6,7 +6,7 @@ const serverInformation =  () => (request, response, next) => {
         return next();
     }
     request.catched = true;
-    debug('ezs')(`Create middleware 'serverControl' for ${request.method} ${request.pathName}`);
+    debug('ezs:info')(`Create middleware 'serverControl' for ${request.method} ${request.pathName}`);
     const input = [];
     return request
         .on('error', err => next(err))
