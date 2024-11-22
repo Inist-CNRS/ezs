@@ -116,11 +116,11 @@ ezs.createPipeline = (input, commands, trap) => {
     }
     return output
         .pipe(ezs.catch((e) => {
-            trap.write(e.toJSON()); // see engine.js createErrorWith
+            trap.write(JSON.parse(ezs.serializeError(e))); // see engine.js createErrorWith
             return false; // do not catch the error
         }))
         .once('error', (e) => {
-            trap.write(e.toJSON()); // see engine.js createErrorWith
+            trap.write(JSON.parse(ezs.serializeError(e))); // see engine.js createErrorWith
             trap.end();
         })
         .once('end', () => {

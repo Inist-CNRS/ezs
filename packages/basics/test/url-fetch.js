@@ -44,6 +44,10 @@ httpbin
     .reply(400);
 
 httpbin
+    .get('/status/400')
+    .reply(400);
+
+httpbin
     .post('/status/503')
     .reply(503);
 
