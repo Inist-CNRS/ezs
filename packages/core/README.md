@@ -69,6 +69,7 @@ peuvent apparaître comme similaires mais leur fonctionnement est différent :
 *   [truncate](#truncate)
 *   [ungroup](#ungroup)
 *   [unpack](#unpack)
+*   [use](#use)
 *   [validate](#validate)
 
 ### assign
@@ -229,22 +230,13 @@ Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### debug
 
-Take `Object`, print it (with its number), and throw the same object.
-
-with ezs debug enabled:
-every object will be stringify for printed and all others ezs debug traces will be print
-
-with ezs debug disabled:
-every objects will be inspected (indented and colorized) and print on stderr (error level) or stdout (log level)
-
-if ezs parameter is set, every object are not log (it's a global action)
+Take `Object`, print it (with its index number), and throw the same object.
 
 #### Parameters
 
-*   `level` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** console level : log or error or silent (optional, default `error`)
+*   `level` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** DEBUG ezs level (depends of DEBUG env variable, see cli parameters) (optional, default `info`)
 *   `text` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** text before the dump (optional, default `valueOf`)
 *   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path of field to print
-*   `ezs` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** enable or disable ezs global debug traces
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
@@ -1423,6 +1415,26 @@ Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Gl
 Take `String`s or `Buffer`s and throw `Object` builded by JSON.parse on each line.
 
 Returns **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
+
+### use
+
+Take all `String`, concat them and throw just one.
+
+Script:
+
+```ini
+[use]
+plugin = basics
+plugin = analytics
+```
+
+#### Parameters
+
+*   `beginWith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Add value at the begin
+*   `joinWith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** use value to join 2 chunk
+*   `endWith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Add value at the end
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**&#x20;
 
 ### validate
 

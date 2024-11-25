@@ -2,13 +2,12 @@ import debugGlobal from 'debug';
 import _ from 'lodash';
 
 /**
- * Take `Object`, print it (with its number index), and throw the same object.
+ * Take `Object`, print it (with its index number), and throw the same object.
  *
  * @name debug
- * @param {String} [level=info] DEBUG ezs level (depends of DEBUG env variable)
+ * @param {String} [level=info] DEBUG ezs level (depends of DEBUG env variable, see cli parameters)
  * @param {String} [text=valueOf] text before the dump
  * @param {String} [path] path of field to print
- * @param {Boolean} [namespaces=ezs:*,-ezs:debug,-ezs:trace] set DEBUG namespaces
  * @returns {Object}
  */
 export default function debug(data, feed) {
