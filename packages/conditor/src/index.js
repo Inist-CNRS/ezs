@@ -5,6 +5,7 @@ import getRnsr from './getRnsr';
 import getRnsrInfo from './getRnsrInfo';
 import CORHALFetch from './corhal-fetch';
 import WOSFetch from './wos-fetch';
+import OAFetch from './openalex-fetch';
 
 const funcs = {
     affAlign,
@@ -14,6 +15,7 @@ const funcs = {
     getRnsrInfo,
     CORHALFetch,
     WOSFetch,
+    OAFetch,
 };
 
 export default funcs;
