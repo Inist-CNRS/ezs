@@ -108,8 +108,10 @@ export default async function OAFetch(data, feed) {
         const output = ezs.createStream(ezs.objectMode());
         const response = await retry(request(cURL.href, parameters), options);
         const { results, meta } = await response.json();
-        await loop(output, results, meta?.next_cursor);
-        await feed.flow(output);
+        await Promise.all([
+            loop(output, results, meta?.next_cursor),
+            feed.flow(output),
+        ]);
     } catch (e) {
         onError(e);
     }

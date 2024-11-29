@@ -8,7 +8,7 @@ describe('openalexfetch', () => {
         const input = [
             {
                 filter: 'authorships.author.id:a5000387389',
-                'per-page': 20,
+                'per-page': 200,
             },
         ];
         const output = [];
