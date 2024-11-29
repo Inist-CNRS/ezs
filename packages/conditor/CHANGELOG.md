@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.13.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.13.0...@ezs/conditor@2.13.1) (2024-11-29)
+
+
+### Bug Fixes
+
+* 🐛 loop lock ([81337b9](https://github.com/Inist-CNRS/ezs/commit/81337b92d431209c14ed1303561b74530c8674c7))
+
+
+
+
+
 # [2.13.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.12.4...@ezs/conditor@2.13.0) (2024-11-29)
 
 
