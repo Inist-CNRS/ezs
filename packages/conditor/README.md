@@ -58,6 +58,7 @@ Sachant qu'on appauvrit (casse, accents, tiret, apostrophe) tous les champs.
 *   [CORHALFetch](#corhalfetch)
 *   [getRnsr](#getrnsr)
 *   [getRnsrInfo](#getrnsrinfo)
+*   [OAFetch](#oafetch)
 *   [WOSFetch](#wosfetch)
 
 ### affAlign
@@ -331,6 +332,36 @@ Output:
 #### Parameters
 
 *   `year` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Year of the RNSR to use instead of the last one (optional, default `2023`)
+
+### OAFetch
+
+Take `Object` with OpenAlx API parametrs, throw each chunk from the result
+
+Input:
+
+```json
+[
+  { filter: "authorships.author.id:a5000387389" },
+]
+```
+
+Script:
+
+````ini
+[OAFetch]
+
+Output:
+
+```json
+[{...}, {"a": "b"}, {"a": "c" }]
+````
+
+#### Parameters
+
+*   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (optional, default `1000`)
+*   `retries` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** The maximum amount of times to retry the connection (optional, default `5`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### WOSFetch
 
