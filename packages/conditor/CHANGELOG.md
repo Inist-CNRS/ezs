@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.13.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.12.4...@ezs/conditor@2.13.0) (2024-11-29)
+
+
+### Features
+
+* 🎸 add [OAFetch] ([be91c80](https://github.com/Inist-CNRS/ezs/commit/be91c80e6a631d9ce9ef0a50ebb731e922eb1c33))
+
+
+
+
+
 ## [2.12.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.12.3...@ezs/conditor@2.12.4) (2024-11-22)
 
 **Note:** Version bump only for package @ezs/conditor
