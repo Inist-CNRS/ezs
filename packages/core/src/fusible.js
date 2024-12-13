@@ -55,6 +55,7 @@ export const disableFusible = (fusible) => new Promise((next, cancel) => {
                 return next(true);
             });
         }
+        return next(true);
     });
     return true;
 });
