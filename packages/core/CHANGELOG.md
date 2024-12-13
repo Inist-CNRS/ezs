@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.10.10](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.10.9...@ezs/core@3.10.10) (2024-12-13)
+
+
+### Bug Fixes
+
+* 🐛 avoid lockx ([0959106](https://github.com/Inist-CNRS/ezs/commit/09591061edb3a6fad309128de11f8c6dbb93da24))
+
+
+
+
+
 ## [3.10.9](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.10.8...@ezs/core@3.10.9) (2024-11-29)
 
 **Note:** Version bump only for package @ezs/core
