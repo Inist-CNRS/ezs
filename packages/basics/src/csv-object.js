@@ -4,7 +4,7 @@ function CSVObject(data, feed) {
     }
 
     if (!this.columns) {
-        this.columns = data.map((name) => name.replace(/\./g, ''));
+        this.columns = Array().concat(data).map((name) => String(name).replace(/\./g, ''));
 
         const countCols = {};
         const renamedCols = {};
