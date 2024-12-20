@@ -44,6 +44,7 @@ const toJSONL = (line) => JSON.stringify(line).concat(eol);
  * @param {String} [content] Content to save instead of using input object
  * @param {Boolean} [jsonl=false] Save as json line
  * @param {Boolean} [compress=false] Enable gzip compression
+ * @param {Boolean} [append=false] Enable append mode (add content to an existing file)
  * @returns {Object}
  */
 export default function FILESave(data, feed) {
@@ -51,6 +52,7 @@ export default function FILESave(data, feed) {
         const identifier = String(this.getParam('identifier'));
         const location = path.normalize(this.getParam('location', tmpdir()));
         const compress = this.getParam('compress', false);
+        const flags = Boolean(this.getParam('append', false)) ? 'a' : 'w';
         if (location.indexOf(tmpdir()) !== 0 && location.indexOf(process.cwd()) !== 0) {
             feed.stop(new Error('File location check failed.'));
             return;
@@ -61,7 +63,7 @@ export default function FILESave(data, feed) {
         accessSync(location, constants.R_OK | constants.W_OK);
         const name = compress ? `${identifier}.gz` : identifier;
         const filename = path.resolve(location, name);
-        this.input = compress ? createGzip() : createWriteStream(filename);
+        this.input = compress ? createGzip() : createWriteStream(filename, { flags });
         this.whenFinish = new Promise((resolve, reject) => {
             const output = compress ? this.input.pipe(createWriteStream(filename)) : this.input;
             output.once('error', (err) => {
