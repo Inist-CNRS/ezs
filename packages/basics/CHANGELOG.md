@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.9.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.8.2...@ezs/basics@2.9.0) (2024-12-20)
+
+
+### Features
+
+* 🎸 add append paramater to [filesave] ([b010a75](https://github.com/Inist-CNRS/ezs/commit/b010a754cb6c66ce937c906bc7df56e7c92e1180))
+
+
+
+
+
 ## [2.8.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.8.1...@ezs/basics@2.8.2) (2024-12-20)
 
 
