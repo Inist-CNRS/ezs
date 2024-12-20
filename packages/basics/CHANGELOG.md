@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.8.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.8.1...@ezs/basics@2.8.2) (2024-12-20)
+
+
+### Bug Fixes
+
+* 🐛 avoid crash with bad data ([0a7e997](https://github.com/Inist-CNRS/ezs/commit/0a7e99750c7ef9af175cb2fd7e89789067522826))
+
+
+
+
+
 ## [2.8.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.8.0...@ezs/basics@2.8.1) (2024-11-22)
 
 **Note:** Version bump only for package @ezs/basics
