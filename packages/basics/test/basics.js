@@ -122,6 +122,25 @@ describe('test', () => {
                 done();
             });
     });
+    it('CSVObject Error', (done) => {
+        const res = [];
+        from([
+            true,
+            'vrai',
+            'ok'
+        ])
+            .pipe(ezs('CSVObject'))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(0, res.length);
+                done();
+            });
+    });
+
 
     it('JSONString #0a', (done) => {
         let res = '';
