@@ -113,7 +113,7 @@ describe('FILESave #2', () => {
     });
 });
 
-describe('FILESave #1bis', () => {
+describe('FILESave #3', () => {
     const identifier = Date.now();
     const filenamegz = `/tmp/${identifier}.gz`;
     it('should return stat', (done) => {
@@ -134,6 +134,42 @@ describe('FILESave #1bis', () => {
             });
     });
 });
+
+describe('FILESave #4', () => {
+    const identifier = Date.now();
+    it('should return stat', (done) => {
+        const output = [];
+        from([1])
+            .pipe(ezs('FILESave', {
+                identifier,
+                location: '/tmp',
+                append: true,
+                compress: false,
+                jsonl: false,
+                content: 1
+            }))
+            .pipe(ezs('FILESave', {
+                identifier,
+                location: '/tmp',
+                append: true,
+                compress: false,
+                jsonl: false,
+                content: 1
+            }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                expect(output.length).toBe(1);
+                expect(output[0].size).toBe(2);
+                fs.unlink(output[0].filename, done);
+            });
+    });
+});
+
+
 
 describe('FILESave (delegated)', () => {
     const identifier = Date.now();
