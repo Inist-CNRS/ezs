@@ -260,6 +260,34 @@ describe('URLFetch', () => {
                 done();
             });
     });
+    test('#3qua', (done) => {
+        ezs.use(statements);
+        const input = [
+            { a: 'a' },
+            { a: 'b' },
+            { a: 'c' },
+        ];
+        const output = [];
+        const script = `
+            [URLFetch]
+            url = get('a').replace(/(.*)/, 'https://httpbin.org/status/404')
+            json = true
+            retries = 5
+
+            [exchange]
+            value = get('args')
+        `;
+        from(input)
+            .pipe(ezs('delegate', { script }))
+            .on('data', (e) => {
+                output.push(e);
+            })
+            .on('end', () => {
+                expect(output.length).toBe(3);
+                expect(output[1].message).toEqual(expect.stringContaining('Not Found'));
+                done();
+            });
+    });
     test('#4', (done) => {
         ezs.use(statements);
         const input = [
