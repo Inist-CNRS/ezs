@@ -52,6 +52,10 @@ httpbin
     .reply(503);
 
 httpbin
+    .get('/status/503')
+    .reply(503);
+
+httpbin
     .post('/status/404')
     .reply(404);
 
@@ -205,6 +209,40 @@ describe('URLFetch', () => {
                 done(new Error('Error is the right behavior'));
             });
     });
+    test('#6', (done) => {
+        ezs.use(statements);
+        const input = [
+            { a: 'a' },
+            { a: 'b' },
+            { a: 'c' },
+        ];
+        const script = `
+            [URLFetch]
+            url = get('a').replace(/(.*)/, 'https://httpbin.org/status/503')
+            json = true
+            retries = 2
+            timeout = 10
+
+            [exchange]
+            value = get('args')
+        `;
+        from(input)
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', (e) => {
+                try {
+                    expect(e.message).toEqual(expect.stringContaining('Service Unavailable'));
+
+                } catch(ee) {
+                    return done(ee);
+                }
+                return done();
+            })
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+            });
+    });
+
     test('#3bis', (done) => {
         ezs.use(statements);
         const input = [
