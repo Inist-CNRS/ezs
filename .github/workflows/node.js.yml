@@ -25,9 +25,10 @@ jobs:
     - name: Install libpostal
       run: bash ${GITHUB_WORKSPACE}/.github/workflows/install-libpostal.sh
     - name: enable corepack and set yarn version to latest stable
-        run: |
-          corepack enable
-          yarn set version stable
+      run: |
+        corepack enable
+        yarn set version stable
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
