@@ -35,6 +35,7 @@
   "repository": "Inist-CNRS/ezs.git",
   "scripts": {
     "build": "babel --root-mode upward src --out-dir lib",
+    "doc": "echo 'No documention.'",
     "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
     "prepublish": "npm run build",
     "pretest": "npm run build"
