@@ -7,6 +7,6 @@ value = self()
 
 [replace]
 path = a
-value = compute("a + 1")
+value = fix(self.a + 1)
 
 
