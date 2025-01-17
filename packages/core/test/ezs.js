@@ -443,7 +443,7 @@ describe('Build a pipeline', () => {
 
             [assign]
             path = c
-            value = compute('a * b')
+            value = fix(self.a * self.b)
 
         `;
         const ten = new Decade();
@@ -671,7 +671,7 @@ describe('Build a pipeline', () => {
         let res = 0;
         const ten = new Decade();
         const expr1 = new Expression('self()');
-        const expr2 = new Expression('compute("a * b")');
+        const expr2 = new Expression('fix(self.a * self.b)');
         ten
             .pipe(ezs('replace', {
                 path: 'a',
@@ -697,7 +697,7 @@ describe('Build a pipeline', () => {
     it('with single statement in the  pipeline', (done) => {
         let res = 0;
         const ten = new Decade();
-        const expr = new Expression('compute("a * b")');
+        const expr = new Expression('fix(self.a * self.b)');
         ten
             .pipe(ezs('replace', {
                 path: 'a',
@@ -722,7 +722,7 @@ describe('Build a pipeline', () => {
     it('with singleton in the pipeline (object)', (done) => {
         let res = 0;
         const expr1 = new Expression('self()');
-        const expr2 = new Expression('compute("a * b")');
+        const expr2 = new Expression('fix(self.a * self.b)');
         const ten = new Decade();
         ten
             .pipe(ezs('replace', {
@@ -777,7 +777,7 @@ describe('Build a pipeline', () => {
 
             [assign]
             path = c
-            value = compute("a * b")
+            value = fix(self.a * self.b)
         `;
         const ten = new Decade();
         ten
@@ -825,7 +825,7 @@ describe('Build a pipeline', () => {
 
             [replace]
             path = a
-            value = compute("a + 1")
+            value = fix(self.a + 1)
 
         `;
         const ten = new Decade();
@@ -872,7 +872,7 @@ La description
 
             [replace]
             path = a
-            value = compute("a + 1")
+            value = fix(self.a + 1)
 
         `;
         const meta = ezs.metaString(commands);
