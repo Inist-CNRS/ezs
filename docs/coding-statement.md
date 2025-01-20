@@ -1,6 +1,6 @@
 # Fonctionnement d’une instruction
 
-## Présentation
+## Fonction
 
 La fonction est exécutée pour chaque élément du flux d'entrée, plus une dernière
 fois pour indiquer qu'il n'y a plus d’élément à traiter. À chaque fois, elle
@@ -11,24 +11,24 @@ reçoit deux paramètres : `data` & `feed`.
 Chaque fonction possède un `scope` lui donnant accès à des fonctions dédiées.
 Le `scope` est partagé entre chaque appel pour chaque élément.
 
-## data
+### data
 
 Contient la valeur de l'élément courant du flux, pour un flux texte ou binaire,
 `data` contiendra un `chunk`. Pour un flux d’objets `data` contiendra un objet
 JavaScript.
 
-## feed
+### feed
 
 Est un objet permettant de contrôler le flux en sortie de la fonction. Il permet
 de générer zéro, un ou N élément(s) en sortie. L'objet `feed` propose les
 fonctions suivantes :
 
-### feed.write(something)
+#### feed.write(something)
 
 Permet d'envoyer un élément dans le flux de sortie.
 Cette fonction peut être exécutée plusieurs fois.
 
-### feed.flow(stream, [callback])
+#### feed.flow(stream, [callback])
 
 Permet d'envoyer le contenu d'un *stream* à l'élément suivant.
 
@@ -39,20 +39,20 @@ appel à `feed.end()`.
 
 Cette fonction peut être exécutée plusieurs fois.
 
-### feed.end()
+#### feed.end()
 
 Permet de fermer le flux pour l’élément courant.
 
-### feed.send(something)
+#### feed.send(something)
 
 Permet d’enchaîner `feed.write` et `feed.end` en une seule fonction.
 
-### feed.close()
+#### feed.close()
 
 Permet de fermer définitivement le flux de sortie, plus aucun élément ne pourra
 être envoyé.
 
-### feed.stop(withAnError)
+#### feed.stop(withAnError)
 
 Permet de fermer le flux de sortie en précisant l'erreur ayant provoqué l’arrêt
 impromptu, plus aucun élément ne pourra être envoyé.

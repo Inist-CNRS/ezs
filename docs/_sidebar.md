@@ -7,9 +7,9 @@
 
 - Fonctionnement
 
-  - [d’une instruction](coding-statement.md)
-  - [d’un fichier .ini](coding-ini.md)
-  - [d’un sous flux](coding-sub-pipeline.md)
+  - [Instruction](coding-statement.md)
+  - [Fichier .ini](coding-ini.md)
+  - [Sous flux](coding-sub-pipeline.md)
 
 - Plugins
 
