@@ -1,4 +1,4 @@
-- Usage
+- Présentation
 
   - [Démarrer](quickstart.md)
   - [Plugin](plugin.md)
@@ -10,6 +10,17 @@
   - [Instruction](coding-statement.md)
   - [Fichier .ini](coding-ini.md)
   - [Sous flux](coding-sub-pipeline.md)
+
+- Usage
+
+  - [Serveur de traitement](server.md)
+  - [Ligne de commande](cli.md)
+  - [API](api.md)
+
+- Exemples
+
+  - [Conversion de flux](example-conversions.md)
+  - [Enrichissement par web API](example-enrichments.md)
 
 - Plugins
 
@@ -28,17 +39,6 @@
   - [teeft](plugin-teeft.md)
   - [transformers](plugin-transformers.md)
   - [xslt](plugin-xslt.md)
-
-- Exemples
-
-  - [Conversion de flux](example-conversions.md)
-  - [Enrichissement par web API](example-enrichments.md)
-
-- Avancé
-
-  - [Serveur de traitement](server.md)
-  - [Ligne de commande](cli.md)
-  - [API](api.md)
 
 - **Links**
 - [![Github](https://icongr.am/devicon/github-original.svg)Github](https://github.com/Inist-CNRS/ezs)
