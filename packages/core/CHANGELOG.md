@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.11.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.10.10...@ezs/core@3.11.0) (2025-01-21)
+
+
+### Features
+
+* 🎸 drop useless feature ([0a55722](https://github.com/Inist-CNRS/ezs/commit/0a55722846605f5e07fbcb5ec9eec0dc9250b9ef))
+
+
+
+
+
 ## [3.10.10](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.10.9...@ezs/core@3.10.10) (2024-12-13)
 
 
