@@ -83,16 +83,20 @@ _.chain(objet_courant).get('nom_du_champ').split('--').head().Value()
 
 ### Pour définir une valeur : fix()
 
-Cette fonction spécifique à `ezs` permet notamment de saisir des caractères spéciaux (retour
-chariot), de s'assurer du typage d'une valeur ou de créer un tableau de
-plusieurs valeurs :
+Cette fonction spécifique à `ezs` permet notamment de saisir des caractères spéciaux (retour chariot), de s'assurer du typage d'une valeur, de créer un tableau de plusieurs valeurs  ou même de faire quelques calculs:
 
 ```ini
 [STATEMENT]
+; Assigner un caractère spécial
 param1 = fix('\n')
+; Assigner une chaine de caractères
 param2 = fix('1.234')
+; Assigner un nombre
 param3 = fix(1234)
-param4 = fix('Voici ', 'valeur', ' ', 'concaténée').join('')
+; Assigner une liste de valeurs
+param4 = fix('Voici ', 'valeur', ' ', 'concaténée')
+; Assigner le résulat d'une opération
+param4 = fix(self.total * 2.5)
 ```
 
 ### Pour préfixer ou suffixer une valeur : prepend(), append()
@@ -151,7 +155,7 @@ param2 = env('options.deux')
 
 ### Paramètres  de l'URL
 
-Dans le cas d'un serveur `ezs` les paramètres de requetes HTTP reçues en entrée du script .ini sont disponibles à travers les variables d'environement.
+Dans le cas d'un serveur `ezs` les paramètres de requêtes HTTP reçues en entrée du script .ini sont disponibles à travers les variables d’environnement.
 
 Par exemple, pour la requete : POST /v1/exemple/?param1=val1&param2=val2
 ```ini
@@ -177,7 +181,7 @@ Cette fonction permet de récupérer la valeur de l'objet qui sera envoyée en e
 param1 = self().omit('secret')
 ```
 
-Il peut être parfois utilise d'accèder à l'objet courant sous forme d'une variable. Le mot clé réservé `self.`  permet d’accéder en lecture à l’objet courant.
+Il peut être parfois utilise d’accéder à l'objet courant sous forme d'une variable. Le mot clé réservé `self.`  permet d’accéder en lecture à l’objet courant.
 Idéalement cela permet de récupérer la valeur d’un champ pour l’utiliser comme paramètre d’une fonction.
 
 ```ini

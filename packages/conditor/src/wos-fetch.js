@@ -6,7 +6,6 @@ import { get } from 'lodash';
 import retry from 'async-retry';
 import fetch from 'fetch-with-proxy';
 import writeTo from 'stream-write';
-import each from 'async-each-series';
 
 const request = (url, parameters) => async (bail, attempt) => {
     debug('ezs:debug')(`Request #${attempt} to ${url}`);
@@ -20,11 +19,7 @@ const request = (url, parameters) => async (bail, attempt) => {
 
 const wait = (delay = 0) => new Promise((resolve) => setTimeout(resolve, delay * 1000));
 
-const write = (output, notices) => new Promise((resolve, reject) => each(
-    notices,
-    (notice, next) => writeTo(output, notice, next),
-    (err) => (err ? reject(err) : resolve(true)),
-));
+const write = (output, notice) => new Promise((resolve, reject) => writeTo(output, notice, (err) => (err ? reject(err) : resolve(true))));
 
 /**
  * Take `String` as URL, throw each chunk from the result
@@ -90,13 +85,17 @@ export default async function WOSFetch(data, feed) {
         debug('ezs:warn')(`Break item #${this.getIndex()} [WOSFetch]`, ezs.serializeError(e));
         return feed.stop(e);
     };
+    let RecordsCount = 0;
     const loop = async (stream, Records, reqPerSec, amtPerYear, QueryID, RecordsFound) => {
         if (Number(amtPerYear) <= 1) {
             throw new Error('No more download available');
         }
         if (Records && Records.length > 0) {
             try {
-                await write(stream, Records);
+                const RecordsToWrite = Records.map(record => write(stream, record));
+                await Promise.all(RecordsToWrite);
+                RecordsCount += RecordsToWrite.length;
+                debug('ezs:debug')('Recovered', RecordsCount, '/', RecordsFound);
             } catch (e) {
                 debug('ezs:error')('Write Error', ezs.serializeError(e));
                 throw new Error(e);
@@ -109,13 +108,12 @@ export default async function WOSFetch(data, feed) {
         try {
             const RecordsBis = await retry(async (bail, attempt) => {
                 const dataBis = { ...data };
-                const randomStep = Math.floor(Math.random() * step) + 1;
-                dataBis.count = randomStep;
+                dataBis.count = step;
                 dataBis.firstRecord = firstRecord;
                 if (firstRecord > RecordsFound) {
                     return [];
                 }
-                firstRecord += randomStep; // for the next loop
+                firstRecord += step; // for the next loop
                 cURLBis.search = new URLSearchParams(dataBis);
                 await wait(reqPerSec);
                 const responseBis = await request(cURLBis.href, parameters)(bail, attempt);
@@ -140,8 +138,8 @@ export default async function WOSFetch(data, feed) {
         const QueryID = get(jsonResponse, 'QueryResult.QueryID');
         const RecordsFound = get(jsonResponse, 'QueryResult.RecordsFound');
         debug('ezs:debug')(`Query #${QueryID} should download ${RecordsFound} notices (Allowed downloads remaining : ${amtPerYear})`);
+        feed.flow(output);
         await loop(output, [], reqPerSec, amtPerYear, QueryID, RecordsFound);
-        await feed.flow(output);
     } catch (e) {
         onError(e);
     }
