@@ -26,3 +26,17 @@ Options :
 
 for more information, find our manual at https://github.com/Inist-CNRS/ezs
 ```
+
+
+
+## Exemples: 
+
+
+```bash
+$ cat ./input.csv | ezs -v mon-script.ini
+
+$ curl http://exemple.com/data.txt | ezs ./data2json.ini | jq .
+```
+
+
+
