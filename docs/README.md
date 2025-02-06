@@ -1,8 +1,8 @@
-<div id="ezs-illustration">
-  ![ezs-illustration](./ezs-illustration.png)
-</div>
+<div id="ezs-illustration"></div>
 
-# NodeJS streaming processing system.
+![ezs-illustration](./ezs-illustration.png)
+
+# JSON streaming processing system.
 
 ## Présentation
 
