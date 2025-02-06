@@ -1,6 +1,6 @@
 ![ezs-illustration](./ezs-illustration.png)
 
-# JSON streaming processing system.
+# NodeJS streaming processing system.
 
 ## Présentation
 
