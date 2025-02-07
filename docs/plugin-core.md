@@ -1469,7 +1469,7 @@ Script:
 path = a
 rule = required|number
 
-path = a
+path = b
 rule = required|string
 ```
 
