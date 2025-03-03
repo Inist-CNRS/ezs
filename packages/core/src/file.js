@@ -48,7 +48,7 @@ export default function File(ezs, name) {
     try {
         const filename = [findFileIn(ezs.getPath(), name), check(name)].filter(Boolean).shift();
         if (!filename) {
-            debug('ezs:warn')(`Unable to find '${name}' from ${filename}`);
+            debug('ezs:warn')(`Unable to find '${name}' from ${ezs.getPath()}`);
             return false;
         }
         ezs.addPath(dirname(filename));
