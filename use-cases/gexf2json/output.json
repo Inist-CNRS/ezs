@@ -1,0 +1,62 @@
+[{
+    "id": "0",
+    "value": {
+        "label": "Gephi",
+        "targets": [
+            {
+                "id": "1"
+            },
+            {
+                "id": "2"
+            },
+            {
+                "id": "3"
+            }
+        ]
+    },
+    "attributes": {
+        "url": "http://gephi.org",
+        "indegree": "1"
+    }
+},
+{
+    "id": "1",
+    "value": {
+        "label": "Webatlas",
+        "targets": [
+            {
+                "id": "0"
+            }
+        ]
+    },
+    "attributes": {
+        "url": "http://webatlas.fr",
+        "indegree": "2"
+    }
+},
+{
+    "id": "2",
+    "value": {
+        "label": "RTGI",
+        "targets": [
+            {
+                "id": "1"
+            }
+        ]
+    },
+    "attributes": {
+        "url": "http://rtgi.fr",
+        "indegree": "1"
+    }
+},
+{
+    "id": "3",
+    "value": {
+        "label": "BarabasiLab"
+    },
+    "attributes": {
+        "url": "http://barabasilab.com",
+        "indegree": "1",
+        "frog": "false"
+    }
+}]

@@ -1,0 +1,261 @@
+[{
+    "title": "Rocky",
+    "year": "1976",
+    "director/firstNane": "John G.",
+    "director/LastNane": "Avildsen",
+    "actors": "Sylvester Stallone/Talia Shire/Carl Weathers/Burt Young",
+    "rating": "8,1",
+    "imdb": "http://www.imdb.com/title/tt0075148/"
+},
+{
+    "title": "Rocky 2",
+    "year": "1979",
+    "director/firstNane": "Sylvester",
+    "director/LastNane": "Stallone",
+    "actors": "Sylvester Stallone/Talia Shire/Carl Weathers/Burt Young/Burgess Meredith/Tony Burton/Frank Stallone/Stu Nahan",
+    "rating": "7,2",
+    "imdb": "http://www.imdb.com/title/tt0079817/"
+},
+{
+    "title": "Rocky 3",
+    "year": "1982",
+    "director/firstNane": "Sylvester",
+    "director/LastNane": "Stallone",
+    "actors": "Sylvester Stallone/Talia Shire/Carl Weathers/Burt Young/Burgess Meredith/Mister T./Hulk Hogan/Tony Burton",
+    "rating": "6,7",
+    "imdb": "http://www.imdb.com/title/tt0084602/"
+},
+{
+    "title": "Last Action Hero",
+    "year": "1993",
+    "director/firstNane": "John",
+    "director/LastNane": "McTierman",
+    "actors": "Arnold Schwarzenegger/Austin O'Brien/Charles Dance/Bridget Wilson-Sampras",
+    "rating": "6,2",
+    "imdb": "http://www.imdb.com/title/tt0107362/"
+},
+{
+    "title": "Terminator",
+    "year": "1984",
+    "director/firstNane": "James",
+    "director/LastNane": "Cameron",
+    "actors": "Arnold Schwarzenegger/Michael Biehn/Linda Hamilton",
+    "rating": "8,1",
+    "imdb": "http://www.imdb.com/title/tt0088247/"
+},
+{
+    "title": "Terminator 2",
+    "year": "1991",
+    "director/firstNane": "James",
+    "director/LastNane": "Cameron",
+    "actors": "Arnold Schwarzenegger/Linda Hamilton/Edward Furlong/Robert Patrick",
+    "rating": "8,5",
+    "imdb": "http://www.imdb.com/title/tt0103064/"
+},
+{
+    "title": "Terminator 3",
+    "year": "2003",
+    "director/firstNane": "Jonathan",
+    "director/LastNane": "Mostow",
+    "actors": "Arnold Schwarzenegger/Nick Stahl/Claire Danes/Kristanna Loken",
+    "rating": "6,4",
+    "imdb": "http://www.imdb.com/title/tt0181852/"
+},
+{
+    "title": "Terminator Salvation",
+    "year": "2009",
+    "director/firstNane": "Joseph",
+    "director/LastNane": "McGinty Nichol",
+    "actors": "Christian Bale/Sam Worthington/Anton Yelchin/Bryce Dallas Howard",
+    "rating": "6,6",
+    "imdb": "http://www.imdb.com/title/tt0438488/"
+},
+{
+    "title": "Total Recall",
+    "year": "1990",
+    "director/firstNane": "Paul",
+    "director/LastNane": "Verhoeven",
+    "actors": "Arnold Schwarzenegger/Sharon Stone/Michael Ironside/Rachel Ticotin/Ronny Cox",
+    "rating": "7,5",
+    "imdb": "http://www.imdb.com/title/tt0100802/"
+},
+{
+    "title": "RoboCop",
+    "year": "1987",
+    "director/firstNane": "Paul",
+    "director/LastNane": "Verhoeven",
+    "actors": "Peter Weller/Nancy Allen/Ronny Cox/Kurtwood Smith/Miguel Ferrer",
+    "rating": "7,5",
+    "imdb": "http://www.imdb.com/title/tt0093870/"
+},
+{
+    "title": "Ghostbusters",
+    "year": "1984",
+    "director/firstNane": "Ivan",
+    "director/LastNane": "Reitman",
+    "actors": "Bill Murray/Dan Aykroyd/Sigourney Weaver/Harold Ramis/Rick Moranis/Ernie Hudson/Annie Potts/William Atherton",
+    "rating": "7,8",
+    "imdb": "http://www.imdb.com/title/tt0087332/"
+},
+{
+    "title": "Alien",
+    "year": "1979",
+    "director/firstNane": "Ridley",
+    "director/LastNane": "Scott",
+    "actors": "Sigourney Weaver/John Hurt/Ian Holm/Harry Dean Stanton/Tom Skerritt/Yaphet Kotto/Veronica Cartwright",
+    "rating": "8,5",
+    "imdb": "http://www.imdb.com/title/tt0078748/"
+},
+{
+    "title": "Avatar",
+    "year": "2009",
+    "director/firstNane": "James",
+    "director/LastNane": "Cameron",
+    "actors": "Sam Worthington/Zoe Saldana/Sigourney Weaver/Michelle Rodriguez/Giovanni Ribisi",
+    "rating": "7,9",
+    "imdb": "http://www.imdb.com/title/tt0499549/"
+},
+{
+    "title": "Lucy",
+    "year": "2014",
+    "director/firstNane": "Luc",
+    "director/LastNane": "Besson",
+    "actors": "Scarlett Johansson/Morgan Freeman/Choi Min-sik",
+    "rating": "6,4",
+    "imdb": "http://www.imdb.com/title/tt2872732/"
+},
+{
+    "title": "Le Cinquième Élément",
+    "year": "1997",
+    "director/firstNane": "Luc",
+    "director/LastNane": "Besson",
+    "actors": "Bruce Willis/Milla Jovovich/Ian Holm/Gary Oldman/Chris Tucker",
+    "rating": "7,7",
+    "imdb": "http://www.imdb.com/title/tt0119116/"
+},
+{
+    "title": "Léon",
+    "year": "1994",
+    "director/firstNane": "Luc",
+    "director/LastNane": "Besson",
+    "actors": "Jean Reno/Gary Oldman/Natalie Portman/Danny Aiello",
+    "rating": "8,6",
+    "imdb": "http://www.imdb.com/title/tt0110413/"
+},
+{
+    "title": "2001: A Space Odyssey",
+    "year": "1968",
+    "director/firstNane": "Stanley",
+    "director/LastNane": "Kubrick",
+    "actors": "Keir Dullea/Gary Lockwood/William Sylvester/Daniel Richter/Leonard Rossiter/Douglas Rain",
+    "rating": "8,3",
+    "imdb": "http://www.imdb.com/title/tt0062622/"
+},
+{
+    "title": "Prometheus",
+    "year": "2012",
+    "director/firstNane": "Ridley",
+    "director/LastNane": "Scott",
+    "actors": "Noomi Rapace/Michael Fassbender/Guy Pearce/Idris Elba/Logan Marshall-Green/Charlize Theron",
+    "rating": "7",
+    "imdb": "http://www.imdb.com/title/tt1446714/"
+},
+{
+    "title": "Her",
+    "year": "2013",
+    "director/firstNane": "Spike",
+    "director/LastNane": "Jonze",
+    "actors": "Joaquin Phoenix/Scarlett Johansson/Olivia Wilde/Amy Adams/Rooney Mara",
+    "rating": "8",
+    "imdb": "http://www.imdb.com/title/tt1798709/"
+},
+{
+    "title": "Kingdom of Heaven",
+    "year": "2005",
+    "director/firstNane": "Ridley",
+    "director/LastNane": "Scott",
+    "actors": "Orlando Bloom/Eva Green/Jeremy Irons/Liam Neeson",
+    "rating": "7,2",
+    "imdb": "http://www.imdb.com/title/tt0320661/"
+},
+{
+    "title": "Edge of Tomorrow",
+    "year": "2014",
+    "director/firstNane": "Doug",
+    "director/LastNane": "Liman",
+    "actors": "Emily Blunt/Tom Cruise/Bill Paxton/Charlotte Riley/Jonas Armstrong",
+    "rating": "7,9",
+    "imdb": "http://www.imdb.com/title/tt1631867/"
+},
+{
+    "title": "Oblivion",
+    "year": "2013",
+    "director/firstNane": "Joseph",
+    "director/LastNane": "Kosinski",
+    "actors": "Tom Cruise/Nikolaj Coster-Waldau/Morgan Freeman/Olga Kurylenko/Melissa Leo/Andrea Riseborough",
+    "rating": "7",
+    "imdb": "http://www.imdb.com/title/tt1483013/"
+},
+{
+    "title": "Star Wars Episode IV: A New Hope",
+    "year": "1977",
+    "director/firstNane": "George",
+    "director/LastNane": "Lucas",
+    "actors": "Mark Hamill/Harrison Ford/Carrie Fisher/Peter Cushing/Alec Guinness/Anthony Daniels/Kenny Baker/David Prowse/Peter Mayhew",
+    "rating": "8,7",
+    "imdb": "http://www.imdb.com/title/tt0076759/"
+},
+{
+    "title": "Star Wars Episode V: The Empire Strikes Back",
+    "year": "1980",
+    "director/firstNane": "Irvin",
+    "director/LastNane": "Kershner",
+    "actors": "Mark Hamill/Harrison Ford/Carrie Fisher/Billy Dee Williams/Anthony Daniels/David Prowse/Kenny Baker/Peter Mayhew/Frank Oz",
+    "rating": "8,8",
+    "imdb": "http://www.imdb.com/title/tt0080684/"
+},
+{
+    "title": "Star Wars Episode VI: Return of the Jedi",
+    "year": "1983",
+    "director/firstNane": "Richard",
+    "director/LastNane": "Marquand",
+    "actors": "Mark Hamill/Harrison Ford/Carrie Fisher/Billy Dee Williams/Anthony Daniels/David Prowse/Kenny Baker/Peter Mayhew/Frank Oz",
+    "rating": "8,4",
+    "imdb": "http://www.imdb.com/title/tt0086190/"
+},
+{
+    "title": "Star Wars Episode I: The Phantom Menace",
+    "year": "1999",
+    "director/firstNane": "George",
+    "director/LastNane": "Lucas",
+    "actors": "Liam Neeson/Ewan McGregor/Natalie Portman/Jake Lloyd/Ian McDiarmid/Pernilla August",
+    "rating": "6,5",
+    "imdb": "http://www.imdb.com/title/tt0120915/"
+},
+{
+    "title": "Star Wars Episode II: Attack of the Clones",
+    "year": "2002",
+    "director/firstNane": "George",
+    "director/LastNane": "Lucas",
+    "actors": "Ewan McGregor/Natalie Portman/Hayden Christensen/Christopher Lee/Samuel L. Jackson",
+    "rating": "6,7",
+    "imdb": "http://www.imdb.com/title/tt0121765/"
+},
+{
+    "title": "Star Wars Episode III: Revenge of the Sith",
+    "year": "2005",
+    "director/firstNane": "George",
+    "director/LastNane": "Lucas",
+    "actors": "Ewan McGregor/Natalie Portman/Hayden Christensen/Ian McDiarmid/Samuel L. Jackson",
+    "rating": "7,6",
+    "imdb": "http://www.imdb.com/title/tt0121766/"
+},
+{
+    "title": "Dracula",
+    "year": "1992",
+    "director/firstNane": "Francis Ford",
+    "director/LastNane": "Coppola",
+    "actors": "Gary Oldman/Winona Ryder/Anthony Hopkins/Keanu Reeves",
+    "rating": "7,5",
+    "imdb": "http://www.imdb.com/title/tt0103874/"
+}]
