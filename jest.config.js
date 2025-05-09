@@ -16,6 +16,7 @@ const options = {
         'testAll.js',
         '/data/',
         '<rootDir>/packages/xslt',
+        '<rootDir>/packages/libpostal',
     ],
     collectCoverage: true,
     coveragePathIgnorePatterns: ['/node_modules/', '/test/', '/lib/', '/lodex/src/reducers/'],
