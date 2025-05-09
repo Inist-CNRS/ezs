@@ -2,7 +2,7 @@
 import debug from 'debug';
 import { URL, URLSearchParams } from 'url';
 import AbortController from 'node-abort-controller';
-import { get } from 'lodash';
+import { get, pick } from 'lodash';
 import retry from 'async-retry';
 import fetch from 'fetch-with-proxy';
 import writeTo from 'stream-write';
@@ -64,9 +64,6 @@ export default async function WOSFetch(data, feed) {
     const retries = Number(this.getParam('retries', 5));
     const timeout = Number(this.getParam('timeout')) || 1000;
     const cURL = new URL(url);
-    data.count = 0;
-    data.firstRecord = 1;
-    cURL.search = new URLSearchParams(data);
     let firstRecord = 1;
     const controller = new AbortController();
     const headers = {
@@ -74,8 +71,13 @@ export default async function WOSFetch(data, feed) {
     };
     const parameters = {
         timeout,
-        headers,
         signal: controller.signal,
+        method: 'POST',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ...data, count: 0, firstRecord: 1 }),
     };
     const options = {
         retries,
@@ -107,7 +109,7 @@ export default async function WOSFetch(data, feed) {
         const cURLBis = new URL(`${url}/query/${QueryID}`);
         try {
             const RecordsBis = await retry(async (bail, attempt) => {
-                const dataBis = { ...data };
+                const dataBis = pick(data, ['sortField', 'viewField', 'optionView', 'optionOther', 'links'])
                 dataBis.count = step;
                 dataBis.firstRecord = firstRecord;
                 if (firstRecord > RecordsFound) {
@@ -116,7 +118,12 @@ export default async function WOSFetch(data, feed) {
                 firstRecord += step; // for the next loop
                 cURLBis.search = new URLSearchParams(dataBis);
                 await wait(reqPerSec);
-                const responseBis = await request(cURLBis.href, parameters)(bail, attempt);
+                const parametersBis = {
+                    timeout,
+                    signal: controller.signal,
+                    headers,
+                };
+                const responseBis = await request(cURLBis.href, parametersBis)(bail, attempt);
                 const jsonResponseBis = await responseBis.json();
                 return get(jsonResponseBis, 'Records.records.REC', []);
             }, options);
