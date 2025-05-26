@@ -439,7 +439,7 @@ describe('fork)', () => {
         ;
     });
 
-    it('#7 (wrong trap & standalone)', (done) => {
+    it('#8 (wrong trap & standalone)', (done) => {
         const script = `
             [slow]
             time = 100
@@ -481,6 +481,48 @@ describe('fork)', () => {
 
 
 
+
+    it('#9 (trap & standalone &empty)', (done) => {
+        const script = `
+            [transit]
+
+            [remove]
+            test = get('a').isInteger()
+
+        `;
+        const env = {
+            trap: false,
+        };
+        // attendre que l'erreur dans le "fork" tombe dans le piége
+        setTimeout(
+            () => {
+                expect(env.trap).toEqual(true);
+                expect(env.message).toEqual(expect.stringContaining('No data'));
+                done();
+            },
+            1000,
+        );
+        from([
+            { a: 1, b: 9 },
+            { a: 2, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+        ])
+            .pipe(ezs(
+                'fork', {
+                    script,
+                    standalone: true,
+                    logger: './trap.ini',
+                },
+                env,
+            ))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', () => true)
+            .on('end', () => true)
+        ;
+    });
 
 
 

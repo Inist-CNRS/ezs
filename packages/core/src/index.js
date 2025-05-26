@@ -114,6 +114,7 @@ ezs.createPipeline = (input, commands, trap) => {
     if (!trap || !trap.write) {
         return output;
     }
+    let isEmpty = true;
     return output
         .pipe(ezs.catch((e) => {
             trap.write(JSON.parse(ezs.serializeError(e))); // see engine.js createErrorWith
@@ -123,7 +124,11 @@ ezs.createPipeline = (input, commands, trap) => {
             trap.write(JSON.parse(ezs.serializeError(e))); // see engine.js createErrorWith
             trap.end();
         })
+        .on('data', () => isEmpty = false)
         .once('end', () => {
+            if (isEmpty) {
+                trap.write(JSON.parse(ezs.serializeError(new Error('No data came out of the pipeline')))); // see engine.js createErrorWith
+            }
             trap.end();
         });
 };
