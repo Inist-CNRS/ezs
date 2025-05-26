@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.11.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.11.1...@ezs/core@3.11.2) (2025-05-26)
+
+
+### Bug Fixes
+
+* 🐛 add log for empty result ([a2c8c8f](https://github.com/Inist-CNRS/ezs/commit/a2c8c8fb4ac1a175c387e72a1faa2083e4449065))
+* 🐛 unit tests ([4db05a8](https://github.com/Inist-CNRS/ezs/commit/4db05a819ba6681ea306a185f22d3442ab07bd73))
+
+
+
+
+
 ## [3.11.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.11.0...@ezs/core@3.11.1) (2025-03-03)
 
 **Note:** Version bump only for package @ezs/core
