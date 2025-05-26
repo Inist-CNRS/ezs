@@ -467,7 +467,7 @@ describe('fork)', () => {
                 'fork', {
                     script,
                     standalone: true,
-                    logger: './trap.ini',
+                    logger: './badtrap.ini',
                 },
                 env,
             ))
