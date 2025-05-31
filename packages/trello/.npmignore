@@ -1,0 +1,5 @@
+coverage/
+bench/
+examples/
+test/
+.nyc_output/
