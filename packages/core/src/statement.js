@@ -1,6 +1,7 @@
 import debug from 'debug';
-import { useFile } from './file';
-import transit from './statements/transit';
+import importSync from 'import-sync';
+import { useFile } from './file.js';
+import transit from './statements/transit.js';
 
 const pluginsList = {};
 
@@ -13,7 +14,7 @@ function load(ezs, name) {
         );
     }
     // eslint-disable-next-line
-    ezs.use(require(fileName));
+    ezs.use(importSync(fileName));
     const after1 = Object.keys(pluginsList);
     const diff1 = after1.filter((item) => before1.indexOf(item) === -1);
     if (diff1.length > 0) {

@@ -3,10 +3,10 @@ import { realpathSync, createReadStream } from 'fs';
 import { PassThrough } from 'readable-stream';
 import yargs from 'yargs';
 import debug from 'debug';
-import ezs from '.';
-import File from './file';
-import { VERSION, VERBOSE } from './constants';
-import settings from './settings';
+import ezs from './index.js';
+import File from './file.js';
+import { VERSION, VERBOSE } from './constants.js';
+import settings from './settings.js';
 
 export default function cli(errlog) {
     const args = yargs

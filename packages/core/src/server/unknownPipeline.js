@@ -1,7 +1,7 @@
 import debug from 'debug';
 import sizeof from 'object-sizeof';
-import Parameter from '../parameter';
-import errorHandler from './errorHandler';
+import Parameter from '../parameter.js';
+import errorHandler from './errorHandler.js';
 
 const unknownPipeline = ezs => (request, response, next) => {
 

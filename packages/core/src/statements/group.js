@@ -1,4 +1,4 @@
-import settings from '../settings';
+import settings from '../settings.js';
 
 /**
  * Take all `chunk`s, and throw them grouped by `length`.

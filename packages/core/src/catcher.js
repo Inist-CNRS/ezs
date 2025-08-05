@@ -1,4 +1,4 @@
-import SafeTransform from './SafeTransform';
+import SafeTransform from './SafeTransform.js';
 
 export default class Catcher extends SafeTransform {
     constructor(func) {

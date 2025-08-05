@@ -1,5 +1,8 @@
 import os from 'os';
 import autocast from 'autocast';
+import globalModules from 'global-modules';
+import { resolve } from 'path';
+import filedirname from 'filedirname';
 
 const cpus = os.cpus().length;
 const concurrency = Number(process.env.EZS_CONCURRENCY || cpus);
@@ -13,6 +16,9 @@ const nShards = Number(process.env.EZS_NSHARDS || 16);
 const cacheDelay = Number(process.env.EZS_CACHE_DELAY || 3600);
 const continueDelay = Number(process.env.EZS_CONTINUE_DELAY || 5);
 const pipelineDelay = Number(process.env.EZS_PIPELINE_DELAY || 300);
+const [, dirname] = filedirname();
+const pluginPaths = [resolve(dirname, '../..'), process.cwd(), globalModules];
+
 const settings = {
     highWaterMark: {
         object: nShards,
@@ -45,6 +51,7 @@ const settings = {
         || 'EZS Web Services (set EZS_TITLE to change this defautl value)'),
     description: String(process.env.EZS_DESCRIPTION
         || 'Consume or generate data from many various ways. (set EZS_DESCRIPTION to change this default value)'),
+    pluginPaths,
 };
 
 export default settings;

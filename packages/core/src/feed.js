@@ -3,8 +3,7 @@ import debug from 'debug';
 import retimer from 'retimer';
 
 export default class Feed {
-    constructor(ezs, push, done, error, wait) {
-        this.ezs = ezs;
+    constructor(timeout, push, done, error, wait) {
         this.push = push;
         this.done = once(done);
         this.error = once(error);
@@ -16,7 +15,7 @@ export default class Feed {
             });
         });
         this.wait = wait;
-        this.timeout = Number(this.ezs.settings.feed.timeout);
+        this.timeout = Number(timeout);
     }
 
     write(something) {

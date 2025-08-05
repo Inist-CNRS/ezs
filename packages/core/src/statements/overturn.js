@@ -1,6 +1,6 @@
 import { resolve  as resolvePath } from 'path';
-import generate from 'nanoid/async/generate';
-import nolookalikes from 'nanoid-dictionary/nolookalikes';
+import generate from 'nanoid/async/generate.js';
+import nolookalikes from 'nanoid-dictionary/nolookalikes.js';
 import { tmpdir } from 'os';
 import _ from 'lodash';
 import cacache from 'cacache';

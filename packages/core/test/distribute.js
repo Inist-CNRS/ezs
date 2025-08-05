@@ -1,0 +1,676 @@
+import assert from 'assert';
+import from from 'from';
+import { Readable } from 'stream';
+import ezs from '../src/index.js';
+
+ezs.use(require('./locals'));
+
+ezs.addPath(__dirname);
+
+ezs.settings.servePath = __dirname;
+
+beforeAll(() => {
+    ezs.settings.cacheEnable = true;
+});
+afterAll(() => {
+    ezs.settings.cacheEnable = false;
+});
+
+class Upto extends Readable {
+    constructor(m) {
+        super({ objectMode: true });
+        this.i = 0;
+        this.m = m;
+    }
+
+    _read() {
+        this.i += 1;
+        if (this.i >= this.m) {
+            this.push(null);
+        } else {
+            this.push(this.i);
+        }
+    }
+}
+describe('distribute through file(s)', () => {
+    describe('simple statements, one server', () => {
+        const script = `
+            [use]
+            plugin = packages/core/test/locals
+
+            [increment]
+            step = 3
+
+            [decrement]
+            step = 2
+        `;
+        const commands = [
+            {
+                name: 'use',
+                args: {
+                    plugin: 'packages/core/test/locals',
+                },
+            },
+            {
+                name: 'increment',
+                args: {
+                    step: 3,
+                },
+            },
+            {
+                name: 'decrement',
+                args: {
+                    step: 2,
+                },
+            },
+        ];
+
+        it('with object', (done) => {
+            let res = 0;
+            const ten = new Upto(10);
+            ten
+                .pipe(ezs('debug',  { text: 'before distribute' }))
+                .pipe(ezs('distribute', { commands }))
+                .pipe(ezs('debug',  { text: 'after distribute' }))
+                .on('data', (chunk) => {
+                    res += chunk;
+                })
+                .on('end', () => {
+                    assert.strictEqual(res, 54);
+                    done();
+                });
+        });
+
+        it.only('with script', (done) => {
+            let res = 0;
+            const ten = new Upto(10);
+            ten
+                .pipe(ezs('distribute', {
+                    script,
+                }, { toto: 1, titi: 'truc' }))
+                .on('data', (chunk) => {
+                    res += chunk;
+                })
+                .on('end', () => {
+                    assert.strictEqual(res, 54);
+                    done();
+                });
+        });
+
+        it('with file', (done) => {
+            let res = 0;
+            const ten = new Upto(10);
+            ten
+                .pipe(ezs('distribute', {
+                    file: './script.ini',
+                }))
+                .on('data', (chunk) => {
+                    res += chunk;
+                })
+                .on('end', () => {
+                    assert.strictEqual(res, 54);
+                    done();
+                });
+        });
+
+        it('with script', (done) => {
+            let res = 0;
+            const ten = new Upto(10);
+            ten
+                .pipe(ezs('distribute', {
+                    script,
+                }))
+                .on('data', (chunk) => {
+                    res += chunk;
+                })
+                .on('end', () => {
+                    assert.strictEqual(res, 54);
+                    done();
+                });
+        });
+
+        it('with commands', (done) => {
+            let res = 0;
+            const ten = new Upto(10);
+            ten
+                .pipe(ezs('distribute', {
+                    commands,
+                }))
+                .on('data', (chunk) => {
+                    res += chunk;
+                })
+                .on('end', () => {
+                    assert.strictEqual(res, 54);
+                    done();
+                });
+        });
+    });
+
+    it('simple statements, but with different parameter', (done) => {
+        let res = 0;
+        const commands = [
+            {
+                name: 'increment',
+                args: {
+                    step: 3,
+                },
+            },
+            {
+                name: 'decrement',
+                args: {
+                    step: 2,
+                },
+            },
+        ];
+        const ten = new Upto(10);
+        ten
+            .pipe(ezs('distribute', { commands }))
+            .on('data', (chunk) => {
+                res += chunk;
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 54);
+                done();
+            });
+    });
+
+    it('with commands using args contains UTF8 parameter', (done) => {
+        const res = [];
+        const commands = [
+            {
+                name: 'replace',
+                args: {
+                    path: 'id',
+                    value: 'Les Châtiments',
+                },
+            },
+        ];
+        const ten = new Upto(10);
+        ten
+            .pipe(ezs('distribute', { commands }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.strictEqual(res[0].id, 'Les Châtiments');
+                assert.strictEqual(res[1].id, 'Les Châtiments');
+                assert.strictEqual(res[2].id, 'Les Châtiments');
+                done();
+            });
+    });
+
+    it('with commands using global parameter', (done) => {
+        let res = 0;
+        const commands = [
+            {
+                name: 'stepper',
+                args: {
+                    step: 4,
+                },
+            },
+        ];
+        const ten = new Upto(10);
+        ten
+            .pipe(ezs('distribute', { commands }))
+            .on('data', (chunk) => {
+                res += chunk;
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 81);
+                done();
+            });
+    });
+
+    it('with buggy statements', (done) => {
+        const commands = [
+            {
+                name: 'increment',
+                args: {
+                    step: 2,
+                },
+            },
+            {
+                name: 'boum',
+                args: {
+                    step: 2,
+                },
+            },
+        ];
+        const ten = new Upto(10);
+        ten
+            .pipe(ezs('distribute', { commands }))
+            .pipe(ezs.catch())
+            .on('error', (error) => {
+                assert.ok(error instanceof Error);
+                done();
+            });
+    });
+
+    it('with an unknowed statement', (done) => {
+        const commands = [
+            {
+                name: 'increment',
+                args: {
+                    step: 2,
+                },
+            },
+            {
+                name: 'turlututu',
+                args: {
+                    step: 2,
+                },
+            },
+        ];
+        const ten = new Upto(10);
+        let semaphore = true;
+        ten
+            .pipe(ezs('distribute', { commands }))
+            .pipe(ezs.catch())
+            .on('error', (error) => {
+                assert(error instanceof Error);
+                if (semaphore) {
+                    semaphore = false;
+                    ten.destroy();
+                    done();
+                }
+            });
+    });
+    it('with commands in distributed pipeline', (done) => {
+        const commands = [
+            {
+                name: 'increment',
+                mode: 'detachable',
+                args: {
+                    step: 3,
+                },
+            },
+            {
+                name: 'decrement',
+                mode: 'detachable',
+                args: {
+                    step: 2,
+                },
+            },
+        ];
+        let res = 0;
+        const ten = new Upto(10);
+        ten
+            .pipe(ezs('distribute', { commands }))
+            .on('data', (chunk) => {
+                res += chunk;
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 54);
+                done();
+            });
+    });
+
+    it('with a lot of commands in distribute pipeline', (done) => {
+        const commands = [
+            {
+                name: 'replace',
+                mode: 'detachable',
+                args: {
+                    path: 'a',
+                    value: 1,
+                },
+            },
+        ];
+        let res = 0;
+        const ten = new Upto(50001);
+        ten
+            .pipe(ezs('replace', { path: 'a', value: '2' }))
+            .pipe(ezs('distribute', { commands })) // ~ 9 seconds
+            .on('data', (chunk) => {
+                res += chunk.a;
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 50000);
+                done();
+            });
+    }, 1000000);
+
+    it('with stuck/unstuck simple pipeline', (done) => {
+        const script = `
+
+            [replace]
+            path = a
+            value = 7
+
+            [assign]
+            path = b
+            value = 6
+
+            [assign]
+            path = c
+            value = env('k')
+
+            [env]
+            path = l
+            value = get('b')
+
+            [assign]
+            path = d
+            value = env('l')
+
+
+            [transit]
+        `;
+        const env = {
+            k: 5,
+        };
+        const res = [];
+        from([
+            { a: 1, b: 9 },
+            { a: 2, b: 9 },
+            { a: 3, b: 9 },
+            { a: 4, b: 9 },
+            { a: 5, b: 9 },
+        ])
+            .pipe(ezs('distribute', { script }, env))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(5, res.length);
+                assert.equal(7, res[0].a);
+                assert.equal(6, res[0].b);
+                assert.equal(5, res[0].c);
+                assert.equal(7, res[1].a);
+                assert.equal(6, res[1].b);
+                assert.equal(5, res[1].c);
+                assert.equal(7, res[2].a);
+                assert.equal(6, res[2].b);
+                assert.equal(5, res[2].c);
+                done();
+            });
+    });
+
+    it('an array of array in a pipeline', (done) => {
+        const script = `
+            [transit]
+        `;
+        const res = [];
+        from([
+            [1, 1, 1, 1],
+            [2, 2, 2, 2],
+            [3, 3, 3, 3],
+            [4, 4, 4, 4],
+            [5, 5, 5, 5],
+        ])
+            .pipe(ezs('distribute', { script }))
+            .on('data', (chunk) => {
+                assert(Array.isArray(chunk));
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(5, res.length);
+                assert.equal(4, res[0].length);
+                assert.equal(4, res[1].length);
+                assert.equal(4, res[2].length);
+                assert.equal(4, res[3].length);
+                assert.equal(4, res[4].length);
+                assert.equal(1, res[0][0]);
+                assert.equal(1, res[0][1]);
+                assert.equal(1, res[0][2]);
+                assert.equal(1, res[0][3]);
+                assert.equal(2, res[1][0]);
+                assert.equal(2, res[1][1]);
+                assert.equal(2, res[1][2]);
+                assert.equal(2, res[1][3]);
+                assert.equal(5, res[4][0]);
+                assert.equal(5, res[4][1]);
+                assert.equal(5, res[4][2]);
+                assert.equal(5, res[4][3]);
+                done();
+            });
+    });
+
+    /**/
+    describe('nested statements', () => {
+
+        it('baseline', (done) => {
+            const script = `
+            [use]
+            plugin = packages/core/test/locals
+
+            [increment]
+            step = 1
+
+            [decrement]
+            step = 1
+        `;
+            let res = 0;
+            const ten = new Upto(10);
+            ten
+                .pipe(ezs('distribute', { script }))
+                .on('data', (chunk) => {
+                    res += chunk;
+                })
+                .on('end', () => {
+                    assert.strictEqual(res, 45);
+                    done();
+                });
+        });
+
+        it('same result with complex nested commands', (done) => {
+            const script = `
+            [use]
+            plugin = packages/core/test/locals
+
+            [increment]
+            step = 1
+
+            [distribute]
+
+            [distribute/increment]
+            step = 1
+
+            [distribute/increment]
+            step = 1
+
+            [distribute]
+
+            [distribute/decrement]
+            step = 1
+
+            [distribute/decrement]
+            step = 1
+
+            [decrement]
+            step = 1
+        `;
+            let res = 0;
+            const ten = new Upto(10);
+            ten
+                .pipe(ezs('distribute', { script }))
+                .on('data', (chunk) => {
+                    res += chunk;
+                })
+                .on('end', () => {
+                    assert.strictEqual(res, 45);
+                    done();
+                });
+        });
+        it('same result with deep nested commands', (done) => {
+            const script = `
+            [use]
+            plugin = packages/core/test/locals
+
+            [increment]
+            step = 1
+
+            [distribute]
+
+            [distribute/distribute]
+
+            [distribute/distribute/increment]
+            step = 1
+
+            [distribute/increment]
+            step = 1
+
+            [distribute]
+
+            [distribute/distribute]
+            [distribute/distribute/distribute]
+            [distribute/distribute/distribute/decrement]
+            step = 1
+
+            [distribute/decrement]
+            step = 1
+
+            [decrement]
+            step = 1
+        `;
+            let res = 0;
+            const ten = new Upto(10);
+            ten
+                .pipe(ezs('distribute', { script }))
+                .on('data', (chunk) => {
+                    res += chunk;
+                })
+                .on('end', () => {
+                    assert.strictEqual(res, 45);
+                    done();
+                });
+        });
+
+
+        it('other result with complex nested commands', (done) => {
+            const script = `
+            [use]
+            plugin = packages/core/test/locals
+
+            [increment]
+            step = 1
+
+            [distribute]
+
+            [distribute/increment]
+            step = 2
+
+            [distribute/increment]
+            step = 2
+
+            [distribute]
+
+            [distribute/decrement]
+            step = 1
+
+            [x/distribute]
+            [x/x/decrement]
+            step = 1
+
+            [decrement]
+            step = 1
+        `;
+            let res = 0;
+            const ten = new Upto(10);
+            ten
+                .pipe(ezs('distribute', { script }))
+                .on('data', (chunk) => {
+                    res += chunk;
+                })
+                .on('end', () => {
+                    assert.strictEqual(res, 63);
+                    done();
+                });
+        });
+    });
+    it('with buggy statement', (done) => {
+        const commands = [
+            {
+                name: 'plouf',
+                args: {
+                    step: 2,
+                },
+            },
+        ];
+        from([
+            { a: 1, b: 9 },
+            { a: 2, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+        ])
+            .pipe(ezs('distribute', {
+                path: 'b',
+                value: 9,
+                commands,
+            }))
+            .pipe(ezs.catch())
+            .on('error', (error) => {
+                assert.ok(error instanceof Error);
+                done();
+            });
+    });
+
+    it('with endless statement', (done) => {
+        ezs.settings.feed.timeout = (15 * 1000);
+        const commands = [
+            {
+                name: 'noclose',
+            },
+        ];
+        from([
+            { a: 1, b: 9 },
+            { a: 2, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+        ])
+            .pipe(ezs('distribute', {
+                path: 'b',
+                value: 9,
+                commands,
+            }))
+            .pipe(ezs.catch())
+            .on('error', (e) => {
+                try {
+                    expect(e.message).toEqual(expect.stringContaining('The pipe has not received any data'));
+                    done();
+                } catch(ee) {
+                    done(ee);
+                }
+            });
+    }, 30000);
+
+
+    it('with self reference in the shell', (done) => {
+        const script = `
+
+            [replace]
+            path = a
+            value = get('a')
+            path = b
+            value = get('b').map((item) => _.get(self, 'b.0').concat(':').concat(item))
+
+        `;
+        const res = [];
+        from([
+            { a: 1, b: ['a', 'b'] },
+            { a: 2, b: ['c', 'd'] },
+            { a: 3, b: ['e', 'f'] },
+            { a: 4, b: ['g', 'h'] },
+            { a: 5, b: ['i', 'j'] },
+        ])
+            .pipe(ezs('distribute', { script }))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.length, 5);
+                assert.equal(res[0].a, 1);
+                assert.equal(res[0].b[0], 'a:a');
+                assert.equal(res[0].b[1], 'a:b');
+                assert.equal(res[4].a, 5);
+                assert.equal(res[4].b[0], 'i:i');
+                assert.equal(res[4].b[1], 'i:j');
+
+                done();
+            });
+    });
+});

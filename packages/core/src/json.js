@@ -1,4 +1,4 @@
-import Expression from './expression';
+import Expression from './expression.js';
 
 function parse(data) {
     return JSON.parse(data, (key, value) => {

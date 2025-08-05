@@ -1,8 +1,8 @@
 import { PassThrough } from 'readable-stream';
 import http from 'http';
 import debug from 'debug';
-import Parameter from './parameter';
-import settings from './settings';
+import Parameter from './parameter.js';
+import settings from './settings.js';
 
 export const agent = new http.Agent({
     maxSockets: 0,

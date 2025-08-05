@@ -1,10 +1,16 @@
 import { readFileSync, statSync } from 'fs';
 import { dirname, resolve } from 'path';
+import module from 'module';
 import debug from 'debug';
+import filedirname from 'filedirname';
+
+const [currentFilename] = filedirname();
+
+const req = module.createRequire(currentFilename);
 
 function check(name) {
     try {
-        return require.resolve(name);
+        return req.resolve(name);
     } catch (e) {
         return null;
     }

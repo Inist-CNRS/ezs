@@ -1,26 +1,23 @@
 import { PassThrough } from 'readable-stream';
 import debug from 'debug';
 import writeTo from 'stream-write';
-import globalModules from 'global-modules';
-import { resolve } from 'path';
 import LRU from 'lru-cache';
-import Engine from './engine';
-import Script, { parseCommand } from './script';
-import File from './file';
-import Output from './output';
-import Commands from './commands';
-import Catcher from './catcher';
-import Statements from './statements';
-import Statement from './statement';
-import Meta from './meta';
-import Server from './server';
-import settings from './settings';
-import { compressStream, uncompressStream } from './compactor';
+import Engine from './engine.js';
+import Script, { parseCommand } from './script.js';
+import File from './file.js';
+import Output from './output.js';
+import Commands from './commands.js';
+import Catcher from './catcher.js';
+import Statements from './statements/index.js';
+import Statement from './statement.js';
+import Meta from './meta.js';
+import Server from './server/index.js';
+import settings from './settings.js';
+import { compressStream, uncompressStream } from './compactor.js';
 
 const onlyOne = (item) => (Array.isArray(item) ? item.shift() : item);
 
 const ezs = (name, options, environment) => new Engine(ezs, Statement.get(ezs, name, options), options, environment);
-const ezsPath = [resolve(__dirname, '../..'), process.cwd(), globalModules];
 const ezsCache = new LRU(settings.cache);
 
 ezs.serializeError = (err) => JSON.stringify(err, Object.getOwnPropertyNames(err).sort());
@@ -48,7 +45,7 @@ ezs.bytesMode = () => ({
     highWaterMark: ezs.settings.highWaterMark.bytes,
 });
 ezs.encodingMode = () => ({
-    'Content-Encoding': settings.encoding,
+    'Content-Encoding': ezs.settings.encoding,
 });
 ezs.metaString = (commands, options) => ezs.memoize(`ezs.metaFile>${commands}`, () => new Meta(ezs, commands, options));
 ezs.metaFile = (filename, options) => ezs.memoize(`ezs.metaFile>${filename}`, () => new Meta(ezs, ezs.loadScript(filename), options));
@@ -57,8 +54,8 @@ ezs.parseFile = (filename) => Script(ezs.loadScript(filename));
 ezs.catch = (func) => new Catcher(func);
 ezs.toBuffer = (options) => new Output(options);
 ezs.use = (plugin) => Statement.set(ezs, plugin);
-ezs.addPath = (p) => ezsPath.push(p);
-ezs.getPath = () => ezsPath;
+ezs.addPath = (p) => ezs.settings.pluginPaths.push(p);
+ezs.getPath = () => ezs.settings.pluginPaths;
 ezs.getCache = () => ezsCache;
 ezs.loadScript = (file) => ezs.memoize(`ezs.loadScript>${file}`, () => File(ezs, file));
 ezs.compileScript = (script) => new Commands(ezs.parseString(script));
@@ -124,7 +121,7 @@ ezs.createPipeline = (input, commands, trap) => {
             trap.write(JSON.parse(ezs.serializeError(e))); // see engine.js createErrorWith
             trap.end();
         })
-        .on('data', () => isEmpty = false)
+        .on('data', () => { isEmpty = false; })
         .once('end', () => {
             if (isEmpty) {
                 trap.write(JSON.parse(ezs.serializeError(new Error('No data came out of the pipeline')))); // see engine.js createErrorWith
@@ -132,8 +129,8 @@ ezs.createPipeline = (input, commands, trap) => {
             trap.end();
         });
 };
-ezs.compress = (options) => compressStream(ezs, options);
-ezs.uncompress = (options) => uncompressStream(ezs, options);
+ezs.compress = (options) => compressStream(ezs, options || ezs.encodingMode());
+ezs.uncompress = (options) => uncompressStream(ezs, options || ezs.encodingMode());
 ezs.createStream = (options) => new PassThrough(options);
 ezs.createServer = (port, path) => Server.createServer(ezs, port, path);
 ezs.createCluster = (port, path) => Server.createCluster(ezs, port, path);
@@ -143,13 +140,11 @@ ezs.createTrap = (file, env) => {
     }
     const input = ezs.createStream(ezs.objectMode());
     ezs.createPipeline(input, ezs.compileCommands(ezs.createCommands({ file }), env))
-        .once('error', (e) => {
-            debug('ezs:warn')(`The trap failed, ${file} stopped`, ezs.serializeError(e));
-        })
+        .once('error', (e) => debug('ezs:warn')(`The trap failed, ${file} stopped`, ezs.serializeError(e)))
         .once('end', () => true)
         .on('data', () => true);
     return input;
 };
 ezs.use(Statements);
 
-module.exports = ezs;
+export default ezs;

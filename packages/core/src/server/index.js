@@ -5,25 +5,25 @@ import eos from 'end-of-stream';
 import controlServer from 'http-shutdown';
 import { parse } from 'url';
 import debug from 'debug';
-import knownPipeline from './knownPipeline';
-import unknownPipeline from './unknownPipeline';
-import serverInformation from './serverInformation';
-import serverControl from './serverControl';
-import errorHandler from './errorHandler';
-import settings from '../settings';
-import { RX_FILENAME } from '../constants';
+import knownPipeline from './knownPipeline.js';
+import unknownPipeline from './unknownPipeline.js';
+import serverInformation from './serverInformation.js';
+import serverControl from './serverControl.js';
+import errorHandler from './errorHandler.js';
+import settings from '../settings.js';
+import { RX_FILENAME } from '../constants.js';
 import {
     metrics,
     httpConnectionTotal,
     httpConnectionOpen,
     httpRequestDurationMicroseconds,
     aggregatorRegistry,
-} from './metrics';
+} from './metrics.js';
 import {
     createFusible,
     enableFusible,
     disableFusible
-} from '../fusible';
+} from '../fusible.js';
 
 function isPipeline() {
     const f = this.pathName.match(RX_FILENAME);

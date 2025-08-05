@@ -1,10 +1,10 @@
 import { access, constants, writeFile, unlink } from 'fs';
 import { resolve, normalize } from 'path';
 import { tmpdir } from 'os';
-import generate from 'nanoid/async/generate';
-import nolookalikes from 'nanoid-dictionary/nolookalikes';
+import generate from 'nanoid/async/generate.js';
+import nolookalikes from 'nanoid-dictionary/nolookalikes.js';
 
-import { checksum } from './statements/identify';
+import { checksum } from './statements/identify.js';
 
 const location = tmpdir();
 const extension = '.sid';

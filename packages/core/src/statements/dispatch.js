@@ -1,6 +1,6 @@
 import merge from 'merge2';
 import debug from 'debug';
-import { inspectServers, connectServer } from '../client';
+import { inspectServers, connectServer } from '../client.js';
 
 /**
  * Dispatch processing to an external pipeline on one or more servers.

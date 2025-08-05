@@ -5,11 +5,11 @@ import { PassThrough } from 'readable-stream';
 import { pipeline } from 'stream';
 import once from 'once';
 import _ from 'lodash';
-import { metricsHandle } from './metrics';
-import errorHandler from './errorHandler';
-import { isFile } from '../file';
-import breaker from '../statements/breaker';
-import settings from '../settings';
+import { metricsHandle } from './metrics.js';
+import errorHandler from './errorHandler.js';
+import { isFile } from '../file.js';
+import breaker from '../statements/breaker.js';
+import settings from '../settings.js';
 
 const dispositionFrom = ({ extension }) => (extension ? `attachment; filename="dump.${extension}"` : 'inline');
 
