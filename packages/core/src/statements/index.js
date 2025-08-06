@@ -14,7 +14,6 @@ import shuffle from './shuffle.js';
 import env from './env.js';
 import group from './group.js';
 import ungroup from './ungroup.js';
-import dispatch from './dispatch.js';
 import parallel from './parallel.js';
 import spawn from './spawn.js';
 import delegate from './delegate.js';
@@ -56,7 +55,6 @@ export default {
     env,
     group,
     ungroup,
-    dispatch,
     parallel,
     tracer,
     spawn,

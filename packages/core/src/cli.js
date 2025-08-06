@@ -38,12 +38,6 @@ export default function cli(errlog) {
                 describe: 'Enable metrics mode',
                 type: 'boolean',
             },
-            rpc: {
-                alias: 'r',
-                default: false,
-                describe: 'Enable RPC mode',
-                type: 'boolean',
-            },
             daemon: {
                 alias: 'd',
                 describe: 'Launch daemon on a directory containing commands script',
@@ -83,9 +77,6 @@ export default function cli(errlog) {
     }
     if (argv.metrics) {
         settings.metricsEnable = true;
-    }
-    if (argv.rpc) {
-        settings.rpcEnable = true;
     }
     if (argv.daemon) {
         let serverPath;
@@ -156,6 +147,7 @@ export default function cli(errlog) {
         statements.unshift(ezs('metrics', { stage: 'cli', bucket: 'input' }));
         statements.push(ezs('metrics', { stage: 'cli', bucket: 'output' }));
     }
+    //const output = input.pipe(ezs(mainStatement, { commands }, environment))
     const output = ezs.createPipeline(input, statements)
         .pipe(ezs.catch())
         .on('error', (e) => {

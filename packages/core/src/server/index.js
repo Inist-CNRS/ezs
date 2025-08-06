@@ -6,7 +6,6 @@ import controlServer from 'http-shutdown';
 import { parse } from 'url';
 import debug from 'debug';
 import knownPipeline from './knownPipeline.js';
-import unknownPipeline from './unknownPipeline.js';
 import serverInformation from './serverInformation.js';
 import serverControl from './serverControl.js';
 import errorHandler from './errorHandler.js';
@@ -60,9 +59,6 @@ function createServer(ezs, serverPort, serverPath, worker) {
     }
     app.use(serverInformation(ezs));
     app.use(serverControl(ezs));
-    if (settings.rpcEnable) {
-        app.use(unknownPipeline(ezs));
-    }
     app.use(knownPipeline(ezs));
     app.use((request, response, next) => {
         if (request.catched === false) {

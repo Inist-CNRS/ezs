@@ -74,14 +74,12 @@ const knownPipeline = (ezs) => (request, response, next) => {
     }
 
     const {
-        server,
-        delegate,
+        mainStatement,
         tracerEnable,
         metricsEnable,
     } = settings;
-    const execMode = server ? 'dispatch' : delegate;
     const environment = { ...query, headers, request: { fusible, method, pathName } };
-    const statements = files.map((file) => ezs(execMode, { file, server }, environment));
+    const statements = files.map((file) => ezs(mainStatement, { file }, environment));
     const prepend2Pipeline = ezs.parseCommand(onlyOne(prepend));
     if (prepend2Pipeline) {
         statements.unshift(ezs.createCommand(prepend2Pipeline, environment));
