@@ -18,7 +18,7 @@ import dispatch from './dispatch.js';
 import parallel from './parallel.js';
 import spawn from './spawn.js';
 import delegate from './delegate.js';
-import distribute from './distribute.js';
+import detach from './detach.js';
 import singleton from './singleton.js';
 import tracer from './tracer.js';
 import truncate from './truncate.js';
@@ -61,7 +61,7 @@ export default {
     tracer,
     spawn,
     delegate,
-    distribute,
+    detach,
     singleton,
     truncate,
     validate,

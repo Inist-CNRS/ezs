@@ -2,6 +2,7 @@ import debug from 'debug';
 import path from 'path';
 import { Worker } from 'worker_threads';
 import filedirname from 'filedirname';
+import JSONezs from '../json.js';
 
 const [, dirname] = filedirname();
 /**
@@ -12,25 +13,23 @@ const [, dirname] = filedirname();
  * @name delegate
  * @param {String} [file] the external pipeline is described in a file
  * @param {String} [script] the external pipeline is described in a string of characters
- * @param {String} [commands] the external pipeline is described in a object
- * @param {String} [command] the external pipeline is described in a URL-like command
  * @param {String} [logger] A dedicaded pipeline described in a file to trap or log errors
  * @returns {Object}
  */
-export default function distribute(data, feed) {
+export default function detach(data, feed) {
     const { ezs } = this;
     if (this.isFirst()) {
         this.input = ezs.createStream(ezs.objectMode());
 
 
-        const workerFile = path.resolve(dirname, './distribute-worker.js');
+        const workerFile = path.resolve(dirname, './detach-worker.js');
         const workerData = {
             file: this.getParam('file'),
             script: this.getParam('script'),
-            command: this.getParam('command'),
-            commands: this.getParam('commands'),
-            prepend: this.getParam('prepend', 'debug'),
-            append: this.getParam('append', 'debug'),
+            commandString: JSONezs.stringify(this.getParam('command')),
+            commandsString: JSONezs.stringify(this.getParam('commands')),
+            prepend: this.getParam('prepend'),
+            append: this.getParam('append'),
             environment: this.getEnv(),
             loggerParam: this.getParam('logger'),
             settings: ezs.settings,
@@ -55,14 +54,12 @@ export default function distribute(data, feed) {
             .pipe(ezs('group'))
             .pipe(ezs('pack'))
             .pipe(ezs.compress())
-            .pipe(ezs('debug', {text: 'after group/pack main'}))
             .pipe(this.worker.stdin);
         const output = this.worker.stdout
             .pipe(ezs.uncompress())
             .pipe(ezs('unpack'))
-            .pipe(ezs('ungroup'))
-            .pipe(ezs('debug', {text: 'after unpack/ungroup main'}));
-        this.whenFinish = feed.flow(output, { autoclose: true });
+            .pipe(ezs('ungroup'));
+        this.whenFinish = feed.flow(output, { autoclose: true, emptyclose: false });
     }
     if (this.isLast()) {
         debug('ezs:debug')(`${this.getIndex()} chunks have been delegated`);
@@ -72,8 +69,5 @@ export default function distribute(data, feed) {
         });
         return this.input.end();
     }
-    this.whenReady.then(() => {
-        debug('ezs:debug')(`to worker ${data}`);
-        return ezs.writeTo(this.input, data, () => feed.end());
-    });
+    this.whenReady.then(() => ezs.writeTo(this.input, data, () => feed.end()));
 }

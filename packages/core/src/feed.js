@@ -32,7 +32,8 @@ export default class Feed {
     }
 
     flow(stream, options = {}) {
-        const { autoclose = false } = options;
+        const { autoclose = false, emptyclose = true } = options;
+        let empty = true;
         let closed = false;
         let autoCloseWanted = false;
         if (this.timeout > 0) {
@@ -55,6 +56,7 @@ export default class Feed {
         });
 
         stream.on('data', async (data) => {
+            empty = false;
             if (this.timer) {
                 this.timer.reschedule(this.timeout);
             }
@@ -76,6 +78,10 @@ export default class Feed {
             return this.stop(e);
         });
         stream.once('end', () => {
+            if (!emptyclose && empty) {
+                debug('ezs:warn')(`The [${this.engine.funcName}] stream is empty and ended; it will be closed when the timeout expires. (~ ${this.timeout} msec)`);
+                return;
+            }
             this.log('Feed.flow.stream.end');
             if (this.timer) {
                 this.timer.clear();
