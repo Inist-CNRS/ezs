@@ -43,7 +43,7 @@ const settings = {
     feed: {
         timeout: (pipelineDelay * 1000)
     },
-    mainStatement: String(process.env.EZS_MAIN_STATEMENT|| 'delegate'),
+    mainStatement: String(process.env.EZS_MAIN_STATEMENT || 'delegate'),
     title: String(process.env.EZS_TITLE
         || 'EZS Web Services (set EZS_TITLE to change this defautl value)'),
     description: String(process.env.EZS_DESCRIPTION
