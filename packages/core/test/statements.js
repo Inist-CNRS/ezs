@@ -340,6 +340,30 @@ describe('statements', () => {
             });
     });
 
+    it('pack/unpack#1', (done) => {
+        const res = [];
+        from([
+            'lorem',
+            'Lorem',
+            'loren',
+            'korem',
+            'olrem',
+            'toto',
+            'titi',
+            'truc',
+            'lorem',
+        ])
+            .pipe(ezs('pack', { path: 'toto' }))
+            .pipe(ezs('unpack', { path: 'toto' }))
+            .on('data', (chunk) => {
+                assert(!Array.isArray(chunk));
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert(res.length === 9);
+                done();
+            });
+    });
     it('unpack#1', (done) => {
         const res = [];
         from([
