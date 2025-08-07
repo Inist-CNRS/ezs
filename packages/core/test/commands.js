@@ -169,7 +169,7 @@ describe('create command', () => {
         };
         assert.throws(() => (ezs.createCommand(command, environment)));
     });
-    it('with invalid property #2', () => {
+    it.skip('with invalid property #2', () => { // now, unknow command is trigger at the run
         const command = {
             name: 'toto',
             use: '',

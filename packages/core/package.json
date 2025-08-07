@@ -22,7 +22,6 @@
     "from": "0.1.7",
     "global-modules": "2.0.0",
     "http-shutdown": "1.2.2",
-    "import-sync": "2.2.3",
     "json-buffer": "3.0.1",
     "json-stringify-safe": "5.0.1",
     "load-json-file": "6.2.0",

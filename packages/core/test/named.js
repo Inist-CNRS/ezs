@@ -25,12 +25,23 @@ describe('load named function', () => {
             });
     });
     it('unknown statement', (done) => {
-        try {
-            ezs('unknown');
-        } catch(error) {
-            assert.ok(error instanceof Error);
-            done();
-        }
+        from([
+            { a: 1, b: 9 },
+            { a: 2, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+            { a: 1, b: 9 },
+        ])
+            .pipe(ezs('unknown'))
+            .pipe(ezs.catch())
+            .on('error', (error) => {
+                assert.ok(error instanceof Error);
+                done();
+            })
+            .on('end', () => {
+                done(new Error('unexpected behavior'));
+            });
+
     });
 
     it('invalid statement #1', (done) => {
