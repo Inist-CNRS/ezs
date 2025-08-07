@@ -4,7 +4,8 @@ import sizeof from 'object-sizeof';
 import { PassThrough } from 'readable-stream';
 import { pipeline } from 'stream';
 import once from 'once';
-import _ from 'lodash';
+import merge from 'lodash/merge.js';
+import cloneDeep from 'lodash/cloneDeep.js';
 import { metricsHandle } from './metrics';
 import errorHandler from './errorHandler';
 import { isFile } from '../file';
@@ -51,7 +52,7 @@ const knownPipeline = (ezs) => (request, response, next) => {
     );
 
     const meta = ezs.memoize(`executePipeline>${files}`,
-        () => files.map((file) => ezs.metaFile(file)).reduce((prev, cur) => _.merge(cur, prev), {}));
+        () => files.map((file) => ezs.metaFile(file)).reduce((prev, cur) => merge(cur, prev), {}));
     const contentEncoding = encodingFrom(headers);
     const contentDisposition = dispositionFrom(meta);
     const contentType = typeFrom(meta);
@@ -73,12 +74,19 @@ const knownPipeline = (ezs) => (request, response, next) => {
         return true;
     }
     const {
-        delegate,
+        mainStatement,
         tracerEnable,
         metricsEnable,
     } = settings;
     const environment = { ...query, headers, request: { fusible, method, pathName } };
-    const statements = files.map((file) => ezs(delegate, { file }, environment));
+    const statements = files.map((file) => {
+        debug('ezs:debug')(`${file} will be process by [${mainStatement}]`);
+        // parseCommand returns the same object for the same string
+        // but here, we want to modify the parameters, so the object must be cloned
+        const mainCommand = cloneDeep(ezs.parseCommand(mainStatement));
+        mainCommand.args.file = file; // Mandatory parameter
+        return ezs.createCommand(mainCommand, environment);
+    });
     const prepend2Pipeline = ezs.parseCommand(onlyOne(prepend));
     if (prepend2Pipeline) {
         statements.unshift(ezs.createCommand(prepend2Pipeline, environment));
@@ -98,7 +106,6 @@ const knownPipeline = (ezs) => (request, response, next) => {
     }
     statements.unshift(ezs(breaker, { fusible }));
     statements.push(ezs(breaker, { fusible }));
-
     const rawStream = new PassThrough();
     let emptyStream = true;
     const responseToBeContinued = setInterval(() => response.writeContinue(), settings.response.checkInterval);
