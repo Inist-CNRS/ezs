@@ -38,12 +38,6 @@ export default function cli(errlog) {
                 describe: 'Enable metrics mode',
                 type: 'boolean',
             },
-            rpc: {
-                alias: 'r',
-                default: false,
-                describe: 'Enable RPC mode',
-                type: 'boolean',
-            },
             daemon: {
                 alias: 'd',
                 describe: 'Launch daemon on a directory containing commands script',
@@ -83,9 +77,6 @@ export default function cli(errlog) {
     }
     if (argv.metrics) {
         settings.metricsEnable = true;
-    }
-    if (argv.rpc) {
-        settings.rpcEnable = true;
     }
     if (argv.daemon) {
         let serverPath;

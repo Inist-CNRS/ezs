@@ -81,10 +81,6 @@ const collectMetadata = async (ezs, dirPath, hostName) => {
                 value: Date.now(),
                 description: 'Infos generate at (timestamp).',
             },
-            'x-rpc': {
-                value: settings.rpcEnable,
-                description: 'RPC mode.',
-            },
             'x-cache': {
                 value: settings.cacheEnable,
                 description: 'Read files and calculate parameters only once.',

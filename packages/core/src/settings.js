@@ -8,7 +8,6 @@ const port = Number(process.env.EZS_PORT || 31976);
 const cacheEnable = Boolean(autocast(process.env.EZS_CACHE));
 const tracerEnable = Boolean(autocast(process.env.EZS_TRACER));
 const metricsEnable = Boolean(autocast(process.env.EZS_METRICS));
-const rpcEnable = Boolean(autocast(process.env.EZS_RPC));
 const nShards = Number(process.env.EZS_NSHARDS || 16);
 const cacheDelay = Number(process.env.EZS_CACHE_DELAY || 3600);
 const continueDelay = Number(process.env.EZS_CONTINUE_DELAY || 5);
@@ -24,10 +23,8 @@ const settings = {
     concurrency,
     encoding,
     port,
-    server: process.env.EZS_SERVER ? String(process.env.EZS_SERVER).split(',').map((h) => h.trim()) : null,
     tracerEnable,
     metricsEnable,
-    rpcEnable,
     cacheEnable,
     cacheDelay,
     cache: {
