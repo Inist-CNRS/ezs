@@ -1,5 +1,5 @@
 import debug from 'debug';
-import { disableFusible } from '../fusible';
+import { disableFusible } from '../fusible.js';
 
 const serverInformation =  () => (request, response, next) => {
     if (!request.methodMatch(['DELETE']) || request.pathName !== '/') {

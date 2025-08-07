@@ -3,10 +3,10 @@ import { realpathSync, createReadStream } from 'fs';
 import { PassThrough } from 'readable-stream';
 import yargs from 'yargs';
 import debug from 'debug';
-import ezs from '.';
-import File from './file';
-import { VERSION, VERBOSE } from './constants';
-import settings from './settings';
+import ezs from './index.js';
+import File from './file.js';
+import { VERSION, VERBOSE } from './constants.js';
+import settings from './settings.js';
 
 export default function cli(errlog) {
     const args = yargs
@@ -36,12 +36,6 @@ export default function cli(errlog) {
                 alias: 'm',
                 default: false,
                 describe: 'Enable metrics mode',
-                type: 'boolean',
-            },
-            rpc: {
-                alias: 'r',
-                default: false,
-                describe: 'Enable RPC mode',
                 type: 'boolean',
             },
             daemon: {
@@ -83,9 +77,6 @@ export default function cli(errlog) {
     }
     if (argv.metrics) {
         settings.metricsEnable = true;
-    }
-    if (argv.rpc) {
-        settings.rpcEnable = true;
     }
     if (argv.daemon) {
         let serverPath;
@@ -156,6 +147,7 @@ export default function cli(errlog) {
         statements.unshift(ezs('metrics', { stage: 'cli', bucket: 'input' }));
         statements.push(ezs('metrics', { stage: 'cli', bucket: 'output' }));
     }
+    //const output = input.pipe(ezs(mainStatement, { commands }, environment))
     const output = ezs.createPipeline(input, statements)
         .pipe(ezs.catch())
         .on('error', (e) => {

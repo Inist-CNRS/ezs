@@ -1,5 +1,5 @@
 import assert from 'assert';
-import SafeTransform from './SafeTransform';
+import SafeTransform from './SafeTransform.js';
 
 export default class Tag extends SafeTransform {
     constructor(tagname, func) {

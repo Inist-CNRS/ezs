@@ -1,6 +1,6 @@
 import { parse, unescape } from 'querystring';
 import autocast from 'autocast';
-import Expression from './expression';
+import Expression from './expression.js';
 
 const regex = {
     section: /^\s*\[\s*([^\]]*)\s*\]\s*$/,

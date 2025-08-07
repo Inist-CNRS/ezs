@@ -3,8 +3,7 @@ import debug from 'debug';
 import retimer from 'retimer';
 
 export default class Feed {
-    constructor(ezs, push, done, error, wait) {
-        this.ezs = ezs;
+    constructor(timeout, push, done, error, wait) {
         this.push = push;
         this.done = once(done);
         this.error = once(error);
@@ -16,7 +15,7 @@ export default class Feed {
             });
         });
         this.wait = wait;
-        this.timeout = Number(this.ezs.settings.feed.timeout);
+        this.timeout = Number(timeout);
     }
 
     write(something) {
@@ -33,7 +32,8 @@ export default class Feed {
     }
 
     flow(stream, options = {}) {
-        const { autoclose = false } = options;
+        const { autoclose = false, emptyclose = true } = options;
+        let empty = true;
         let closed = false;
         let autoCloseWanted = false;
         if (this.timeout > 0) {
@@ -56,6 +56,7 @@ export default class Feed {
         });
 
         stream.on('data', async (data) => {
+            empty = false;
             if (this.timer) {
                 this.timer.reschedule(this.timeout);
             }
@@ -77,7 +78,12 @@ export default class Feed {
             return this.stop(e);
         });
         stream.once('end', () => {
-            this.log('Feed.flow.stream.end');
+            if (!emptyclose && empty) {
+                // see noclose unit test for detail
+                debug('ezs:warn')(`The [${this.engine.funcName}] stream is empty and ended; it will be closed when the timeout expires. (~ ${this.timeout} msec)`);
+                return;
+            }
+            this.log(`Feed.flow.stream.end (empty:${empty})`);
             if (this.timer) {
                 this.timer.clear();
             }

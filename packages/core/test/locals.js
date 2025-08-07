@@ -1,4 +1,5 @@
 import from from 'from';
+import _ from 'lodash';
 
 function flame(data, feed) {
     if (this.isLast()) {
@@ -241,8 +242,35 @@ function erraticError(data, feed) {
         }
     }, 1);
 }
+function objet(data, feed) {
+    if (this.isLast()) {
+        return feed.close();
+    }
+    const index = this.getIndex()
+    feed.send({ index });
+}
+
+
+
+function fibonacci(n) {
+    if (n <= 1) return n;
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+function CPUintensive(data, feed) {
+    if (this.isLast()) {
+        return feed.close();
+    }
+    const indexes = Array().concat(this.getParam('index', 1)).map(Number);
+    const level = Number(this.getParam('level', 1));
+    if (indexes.includes(this.getIndex())) {
+        _.set(data, 'computation', fibonacci(level));
+    }
+    feed.send(data);
+}
 
 module.exports = {
+    objet,
     plus1,
     boum,
     increment,
@@ -267,4 +295,5 @@ module.exports = {
     throttle,
     erraticError,
     flame,
+    CPUintensive,
 };

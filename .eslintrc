@@ -17,6 +17,7 @@
         "import/no-extraneous-dependencies": "off",
         "no-param-reassign": ["error", { "props": false }],
         "semi": ["error", "always"],
-        "quotes": ["error", "single", { "avoidEscape": false }]
+        "quotes": ["error", "single", { "avoidEscape": false }],
+        "import/extensions": ["error", "always"]
     }
 }

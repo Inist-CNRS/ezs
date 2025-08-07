@@ -5,11 +5,11 @@ import { PassThrough } from 'readable-stream';
 import { pipeline } from 'stream';
 import once from 'once';
 import _ from 'lodash';
-import { metricsHandle } from './metrics';
-import errorHandler from './errorHandler';
-import { isFile } from '../file';
-import breaker from '../statements/breaker';
-import settings from '../settings';
+import { metricsHandle } from './metrics.js';
+import errorHandler from './errorHandler.js';
+import { isFile } from '../file.js';
+import breaker from '../statements/breaker.js';
+import settings from '../settings.js';
 
 const dispositionFrom = ({ extension }) => (extension ? `attachment; filename="dump.${extension}"` : 'inline');
 
@@ -74,14 +74,17 @@ const knownPipeline = (ezs) => (request, response, next) => {
     }
 
     const {
-        server,
-        delegate,
+        mainStatement,
         tracerEnable,
         metricsEnable,
     } = settings;
-    const execMode = server ? 'dispatch' : delegate;
     const environment = { ...query, headers, request: { fusible, method, pathName } };
-    const statements = files.map((file) => ezs(execMode, { file, server }, environment));
+    const statements = files.map((file) => {
+        debug('ezs:debug')(`${file} will be process by [${mainStatement}]`);
+        const mainCommand = ezs.parseCommand(mainStatement);
+        mainCommand.args.file = file; // Mandatory parameter
+        return ezs.createCommand(mainCommand, environment);
+    });
     const prepend2Pipeline = ezs.parseCommand(onlyOne(prepend));
     if (prepend2Pipeline) {
         statements.unshift(ezs.createCommand(prepend2Pipeline, environment));

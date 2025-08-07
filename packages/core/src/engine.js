@@ -5,10 +5,9 @@ import { hrtime } from 'process';
 import eos from 'end-of-stream';
 import pWaitFor from 'p-wait-for';
 import stringify from 'json-stringify-safe';
-import Feed from './feed';
-import Shell from './shell';
-
-import SafeTransform from './SafeTransform';
+import Feed from './feed.js';
+import Shell from './shell.js';
+import SafeTransform from './SafeTransform.js';
 
 /**
  * Engine scope object type
@@ -50,7 +49,7 @@ function createErrorWith(error, index, funcName, funcParams, chunk) {
     const msg = `${prefix}[${funcName}] <${erm}>\n\t${stk.slice(0, 10).join('\n\t')}`;
     const err = Error(msg);
     err.sourceError = error;
-    err.sourceChunk = stringify(chunk);
+    err.sourceChunk = Buffer.isBuffer() ? 'Buffer' : stringify(chunk);
     err.type = error.type || 'Standard error';
     err.scope = error.scope || 'code';
     err.date = error.date || new Date();
@@ -197,7 +196,7 @@ export default class Engine extends SafeTransform {
             await pWaitFor(() => (this.isReady()), { interval: 20 });
             return this.resume();
         };
-        const feed = new Feed(this.ezs, push, done, warn, wait);
+        const feed = new Feed(this.ezs.settings.feed.timeout, push, done, warn, wait);
         feed.engine = this;
         try {
             this.chunk = chunk;

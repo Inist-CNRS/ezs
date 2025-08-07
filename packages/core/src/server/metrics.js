@@ -7,7 +7,7 @@ import {
     AggregatorRegistry,
     collectDefaultMetrics,
 } from 'prom-client';
-import settings from '../settings';
+import settings from '../settings.js';
 
 
 

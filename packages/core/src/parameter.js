@@ -1,4 +1,4 @@
-import JSONezs from './json';
+import JSONezs from './json.js';
 
 function encode(string) {
     return Buffer.from(string).toString('base64');

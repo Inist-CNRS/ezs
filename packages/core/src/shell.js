@@ -1,7 +1,7 @@
 import vm from 'vm';
 import autocast from 'autocast';
 import _ from 'lodash';
-import mixins from './mixins';
+import mixins from './mixins.js';
 
 const generateCode = (expressionValue) => {
     const js = [];

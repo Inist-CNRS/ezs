@@ -5,10 +5,10 @@ import pathExists from 'path-exists';
 import autocast from 'autocast';
 import { dirname, resolve as pathResolve } from 'path';
 import _ from 'lodash';
-import settings from '../settings';
+import settings from '../settings.js';
 import {
     VERSION, STARTED_AT,
-} from '../constants';
+} from '../constants.js';
 
 const keyOfPathItemObject = [ // https://swagger.io/specification/
     '$ref',
@@ -80,10 +80,6 @@ const collectMetadata = async (ezs, dirPath, hostName) => {
             'x-timestamp': {
                 value: Date.now(),
                 description: 'Infos generate at (timestamp).',
-            },
-            'x-rpc': {
-                value: settings.rpcEnable,
-                description: 'RPC mode.',
             },
             'x-cache': {
                 value: settings.cacheEnable,
