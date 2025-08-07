@@ -36,6 +36,7 @@ import expand from './expand';
 import overturn from './overturn';
 import fork from './fork';
 import breaker from './breaker';
+import detach from './detach';
 
 export default {
     extract,
@@ -76,4 +77,5 @@ export default {
     overturn,
     fork,
     breaker,
+    detach,
 };
