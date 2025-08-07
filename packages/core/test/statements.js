@@ -1,6 +1,6 @@
 import assert from 'assert';
 import from from 'from';
-import ezs from '../src';
+import ezs from '../src/index.js';
 
 describe('statements', () => {
     it('group#1', (done) => {
@@ -48,6 +48,31 @@ describe('statements', () => {
                 assert(res[1][0] === 'korem');
                 assert(res[2].length === 2);
                 assert(res[2][0] === 'titi');
+                done();
+            });
+    });
+    it('group/ungroup#1', (done) => {
+        const res = [];
+        from([
+            'lorem',
+            'Lorem',
+            'loren',
+            'korem',
+            'olrem',
+            'toto',
+            'titi',
+            'truc',
+            'lorem',
+        ])
+            .pipe(ezs('group', { size: 3, path: 'toto' }))
+            .pipe(ezs('validate', { path: 'toto', rule: 'required' }))
+            .pipe(ezs('ungroup', { path: 'toto' }))
+            .on('data', (chunk) => {
+                assert(!Array.isArray(chunk));
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert(res.length === 9);
                 done();
             });
     });
@@ -315,6 +340,30 @@ describe('statements', () => {
             });
     });
 
+    it('pack/unpack#1', (done) => {
+        const res = [];
+        from([
+            'lorem',
+            'Lorem',
+            'loren',
+            'korem',
+            'olrem',
+            'toto',
+            'titi',
+            'truc',
+            'lorem',
+        ])
+            .pipe(ezs('pack', { path: 'toto' }))
+            .pipe(ezs('unpack', { path: 'toto' }))
+            .on('data', (chunk) => {
+                assert(!Array.isArray(chunk));
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert(res.length === 9);
+                done();
+            });
+    });
     it('unpack#1', (done) => {
         const res = [];
         from([
