@@ -1,6 +1,6 @@
 import assert from 'assert';
 import from from 'from';
-import ezs from '../src';
+import ezs from '../src/index.js';
 
 describe('statements', () => {
     it('group#1', (done) => {
