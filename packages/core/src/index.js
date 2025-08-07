@@ -1,8 +1,6 @@
 import { PassThrough } from 'readable-stream';
 import debug from 'debug';
 import writeTo from 'stream-write';
-import globalModules from 'global-modules';
-import { resolve } from 'path';
 import LRU from 'lru-cache';
 import Engine from './engine';
 import Script, { parseCommand } from './script';
@@ -20,7 +18,6 @@ import { compressStream, uncompressStream } from './compactor';
 const onlyOne = (item) => (Array.isArray(item) ? item.shift() : item);
 
 const ezs = (name, options, environment) => new Engine(ezs, Statement.get(ezs, name, options), options, environment);
-const ezsPath = [resolve(__dirname, '../..'), process.cwd(), globalModules];
 const ezsCache = new LRU(settings.cache);
 
 ezs.serializeError = (err) => JSON.stringify(err, Object.getOwnPropertyNames(err).sort());
@@ -57,8 +54,8 @@ ezs.parseFile = (filename) => Script(ezs.loadScript(filename));
 ezs.catch = (func) => new Catcher(func);
 ezs.toBuffer = (options) => new Output(options);
 ezs.use = (plugin) => Statement.set(ezs, plugin);
-ezs.addPath = (p) => ezsPath.push(p);
-ezs.getPath = () => ezsPath;
+ezs.addPath = (p) => ezs.settings.pluginPaths.push(p);
+ezs.getPath = () => ezs.settings.pluginPaths;
 ezs.getCache = () => ezsCache;
 ezs.loadScript = (file) => ezs.memoize(`ezs.loadScript>${file}`, () => File(ezs, file));
 ezs.compileScript = (script) => new Commands(ezs.parseString(script));

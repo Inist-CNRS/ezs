@@ -17,6 +17,7 @@
     "deep-object-diff": "1.1.0",
     "end-of-stream": "1.4.4",
     "fdir": "6.4.2",
+    "filedirname": "3.4.0",
     "filename-regex": "2.0.1",
     "from": "0.1.7",
     "global-modules": "2.0.0",
