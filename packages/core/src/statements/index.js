@@ -36,6 +36,7 @@ import expand from './expand.js';
 import overturn from './overturn.js';
 import fork from './fork.js';
 import breaker from './breaker.js';
+import detach from './detach.js';
 
 export default {
     extract,
@@ -76,4 +77,5 @@ export default {
     overturn,
     fork,
     breaker,
+    detach,
 };
