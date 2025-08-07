@@ -206,34 +206,32 @@ describe(' through server(s)', () => {
 
 
     it('text.ini #1', (done) => {
-        const data = 'azertyuiopqsdfghjklmw<xcvbn,;';
-        const stream = from([
-            data,
-        ]);
+        const data = 'aaaaa|bbbbb';
+        const stream = from(data.split('|'));
         fetch('http://127.0.0.1:33333/transit.ini,text.ini', { method: 'POST', body: stream })
             .then((res) => {
                 assert.equal(res.headers.get('content-type'), 'text/plain');
                 return res.text();
             })
-            .then((text) => {
-                assert.equal(text.slice(2, -2), data);
+            .then((text) => JSON.parse(text))
+            .then((arr) => {
+                assert.equal(arr[0], 'aaaaabbbbb');
                 done();
             })
             .catch(done);
     });
 
     it('text.ini #2', (done) => {
-        const data = 'azertyuiopqsdfghjklmw<xcvbn,;';
-        const stream = from([
-            data,
-        ]);
+        const data = 'aaaaa|bbbbb';
+        const stream = from(data.split('|'));
         fetch('http://127.0.0.1:33333/transit,text', { method: 'POST', body: stream })
             .then((res) => {
                 assert.equal(res.headers.get('content-type'), 'text/plain');
                 return res.text();
             })
-            .then((text) => {
-                assert.equal(text.slice(2, -2), data);
+            .then((text) => JSON.parse(text))
+            .then((arr) => {
+                assert.equal(arr[0], 'aaaaabbbbb');
                 done();
             })
             .catch(done);
