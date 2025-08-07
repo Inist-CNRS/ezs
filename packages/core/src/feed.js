@@ -79,10 +79,11 @@ export default class Feed {
         });
         stream.once('end', () => {
             if (!emptyclose && empty) {
+                // see noclose unit test for detail
                 debug('ezs:warn')(`The [${this.engine.funcName}] stream is empty and ended; it will be closed when the timeout expires. (~ ${this.timeout} msec)`);
                 return;
             }
-            this.log('Feed.flow.stream.end');
+            this.log(`Feed.flow.stream.end (empty:${empty})`);
             if (this.timer) {
                 this.timer.clear();
             }

@@ -10,18 +10,21 @@ const [, dirname] = filedirname();
  *
  * > **Note**: works like {@link spawn}, but each chunk share the same external pipeline.
  *
- * @name delegate
+ * @name detach
  * @param {String} [file] the external pipeline is described in a file
  * @param {String} [script] the external pipeline is described in a string of characters
+ * @param {String} [commands] the external pipeline is described in a object
+ * @param {String} [command] the external pipeline is described in a URL-like command
  * @param {String} [logger] A dedicaded pipeline described in a file to trap or log errors
+ * @param {String} [encoder=pack] The statement to encode each chunk to a string
+ * @param {String} [decoder=unpack] The statement to decode each chunk as a string
  * @returns {Object}
  */
 export default function detach(data, feed) {
     const { ezs } = this;
     if (this.isFirst()) {
         this.input = ezs.createStream(ezs.objectMode());
-
-
+        ;
         const workerFile = path.resolve(dirname, './detach-worker.js');
         const workerData = {
             file: this.getParam('file'),
@@ -30,6 +33,8 @@ export default function detach(data, feed) {
             commandsString: JSONezs.stringify(this.getParam('commands')),
             prepend: this.getParam('prepend'),
             append: this.getParam('append'),
+            encoder: this.getParam('encoder', 'pack'),
+            decoder: this.getParam('decoder', 'unpack'),
             environment: this.getEnv(),
             loggerParam: this.getParam('logger'),
             settings: ezs.settings,
@@ -51,18 +56,14 @@ export default function detach(data, feed) {
             });
         });
         this.input
-            .pipe(ezs('group'))
-            .pipe(ezs('pack'))
-            .pipe(ezs.compress())
+            .pipe(ezs.createCommand(workerData.encoder))
             .pipe(this.worker.stdin);
         const output = this.worker.stdout
-            .pipe(ezs.uncompress())
-            .pipe(ezs('unpack'))
-            .pipe(ezs('ungroup'));
+            .pipe(ezs.createCommand(workerData.decoder));
         this.whenFinish = feed.flow(output, { autoclose: true, emptyclose: false });
     }
     if (this.isLast()) {
-        debug('ezs:debug')(`${this.getIndex()} chunks have been delegated`);
+        debug('ezs:debug')(`${this.getIndex()} chunks have been detached`);
         this.whenFinish.finally(() => {
             feed.close();
             return this.worker.terminate();

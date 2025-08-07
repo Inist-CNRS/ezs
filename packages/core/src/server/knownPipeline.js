@@ -79,7 +79,12 @@ const knownPipeline = (ezs) => (request, response, next) => {
         metricsEnable,
     } = settings;
     const environment = { ...query, headers, request: { fusible, method, pathName } };
-    const statements = files.map((file) => ezs(mainStatement, { file }, environment));
+    const statements = files.map((file) => {
+        debug('ezs:debug')(`${file} will be process by [${mainStatement}]`);
+        const mainCommand = ezs.parseCommand(mainStatement);
+        mainCommand.args.file = file; // Mandatory parameter
+        return ezs.createCommand(mainCommand, environment);
+    });
     const prepend2Pipeline = ezs.parseCommand(onlyOne(prepend));
     if (prepend2Pipeline) {
         statements.unshift(ezs.createCommand(prepend2Pipeline, environment));

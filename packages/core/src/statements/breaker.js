@@ -4,7 +4,7 @@ import { checkFusible } from '../fusible.js';
  * Break the stream  if the control file cannot be checked
  *
  *
- * @name delegate
+ * @name breaker
  * @param {String} [fusible] file to check
  * @returns {Object}
  */

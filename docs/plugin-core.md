@@ -31,13 +31,13 @@ peuvent apparaître comme similaires mais leur fonctionnement est différent :
 #### Table of Contents
 
 *   [assign](#assign)
+*   [breaker](#breaker)
 *   [combine](#combine)
 *   [concat](#concat)
 *   [debug](#debug)
 *   [dedupe](#dedupe)
 *   [delegate](#delegate)
-*   [delegate](#delegate-1)
-*   [dispatch](#dispatch)
+*   [detach](#detach)
 *   [dump](#dump)
 *   [env](#env)
 *   [exchange](#exchange)
@@ -139,6 +139,16 @@ une syntaxe proche de celle de la fonction
 
 *   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** chemin du champ à affecter
 *   `value` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** valeur à affecter
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
+
+### breaker
+
+Break the stream  if the control file cannot be checked
+
+#### Parameters
+
+*   `fusible` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** file to check
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
@@ -255,16 +265,6 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### delegate
 
-Break the stream  if the control file cannot be checked
-
-#### Parameters
-
-*   `fusible` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** file to check
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
-
-### delegate
-
 Delegate processing to an external pipeline.
 
 > **Note**: works like [spawn](#spawn), but each chunk share the same external pipeline.
@@ -279,9 +279,11 @@ Delegate processing to an external pipeline.
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
-### dispatch
+### detach
 
-Dispatch processing to an external pipeline on one or more servers.
+Delegate processing to an external pipeline.
+
+> **Note**: works like [spawn](#spawn), but each chunk share the same external pipeline.
 
 #### Parameters
 
@@ -289,6 +291,9 @@ Dispatch processing to an external pipeline on one or more servers.
 *   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
 *   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
 *   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
+*   `logger` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** A dedicaded pipeline described in a file to trap or log errors
+*   `encoder` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The statement to encode each chunk to a string (optional, default `pack`)
+*   `decoder` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The statement to decode each chunk as a string (optional, default `unpack`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
@@ -1469,7 +1474,7 @@ Script:
 path = a
 rule = required|number
 
-path = b
+path = a
 rule = required|string
 ```
 

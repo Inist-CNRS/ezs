@@ -11,6 +11,8 @@ const {
     commandsString,
     prepend,
     append,
+    encoder, // default pack
+    decoder, // default unpack
     environment,
     loggerParam,
     settings,
@@ -30,29 +32,24 @@ const commandsCreated = ezs.createCommands({
 });
 const statements = ezs.compileCommands(commandsCreated, environment);
 const logger = ezs.createTrap(loggerParam, environment);
-statements.unshift(ezs('ungroup'));
-statements.unshift(ezs('unpack'));
-statements.push(ezs('group'));
-statements.push(ezs('pack'));
+statements.unshift(ezs.createCommand(workerData.decoder));
+statements.push(ezs.createCommand(workerData.encoder));
 
-const rawStream = ezs.createStream();
-
-const decodedStream = rawStream
-    .pipe(ezs.uncompress());
+const rawStream = ezs.createStream(ezs.bytesMode);
 
 const outputStream = ezs.createStream();
 outputStream.pipe(process.stdout);
 
-const transformedStream = ezs.createPipeline(decodedStream, statements, logger)
+const transformedStream = ezs.createPipeline(rawStream, statements, logger)
     .once('unpipe', () => {
         process.stdin.unpipe(rawStream);
         rawStream.end();
     })
     .pipe(ezs.catch())
     .once('error', (e) => {
+        console.error(e);
         outputStream.unpipe(process.stdout);
         rawStream.destroy();
-        decodedStream.destroy();
         transformedStream.destroy();
         process.exit(1);
     });
@@ -60,10 +57,10 @@ const transformedStream = ezs.createPipeline(decodedStream, statements, logger)
 pipeline(
     transformedStream,
     ezs.toBuffer(),
-    ezs.compress(),
     outputStream,
     (e) => {
         if (e) {
+            console.error(e);
             outputStream.unpipe(process.stdout);
             process.exit(1);
         }

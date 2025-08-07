@@ -5,8 +5,9 @@ import { resolve } from 'path';
 import filedirname from 'filedirname';
 
 const cpus = os.cpus().length;
+const mainStatement = String(process.env.EZS_MAIN_STATEMENT || 'delegate'); // or detach?encoder=transit&decoder=transit
 const concurrency = Number(process.env.EZS_CONCURRENCY || cpus);
-const encoding = String(process.env.EZS_ENCODING); // || 'gzip');
+const encoding = String(process.env.EZS_ENCODING  || 'no encoding specified'); // || 'gzip');
 const port = Number(process.env.EZS_PORT || 31976);
 const cacheEnable = Boolean(autocast(process.env.EZS_CACHE));
 const tracerEnable = Boolean(autocast(process.env.EZS_TRACER));
@@ -43,7 +44,7 @@ const settings = {
     feed: {
         timeout: (pipelineDelay * 1000)
     },
-    mainStatement: String(process.env.EZS_MAIN_STATEMENT || 'delegate'),
+    mainStatement,
     title: String(process.env.EZS_TITLE
         || 'EZS Web Services (set EZS_TITLE to change this defautl value)'),
     description: String(process.env.EZS_DESCRIPTION

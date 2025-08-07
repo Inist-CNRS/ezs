@@ -339,7 +339,6 @@ describe('statements', () => {
                 done();
             });
     });
-
     it('pack/unpack#1', (done) => {
         const res = [];
         from([
