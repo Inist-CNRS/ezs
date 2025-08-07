@@ -129,6 +129,26 @@ export default class Engine extends SafeTransform {
             this.push(chunk);
             return next();
         }
+        this.queuing(chunk, next);
+    }
+
+    _flush(done) {
+        if (this.nullWasSent) {
+            return done();
+        }
+        this.index += 1;
+        return this.queuing(null, () => {
+            const stop = hrtime.bigint();
+            if (debug.enabled('ezs:trace')) {
+                const cumulative = nano2sec(stop - this.stime);
+                const elapsed = nano2sec(this.ttime);
+                debug('ezs:trace')(`${cumulative}s cumulative ${elapsed}s elapsed for [${this.funcName}]`);
+            }
+            done();
+        });
+    }
+
+    queuing(chunk, next) {
         if (this.func) {
             return this.queue(chunk, next);
         } else {
@@ -149,22 +169,6 @@ export default class Engine extends SafeTransform {
                     return next();
                 });
         }
-    }
-
-    _flush(done) {
-        if (this.nullWasSent) {
-            return done();
-        }
-        this.index += 1;
-        return this.queue(null, () => {
-            const stop = hrtime.bigint();
-            if (debug.enabled('ezs:trace')) {
-                const cumulative = nano2sec(stop - this.stime);
-                const elapsed = nano2sec(this.ttime);
-                debug('ezs:trace')(`${cumulative}s cumulative ${elapsed}s elapsed for [${this.funcName}]`);
-            }
-            done();
-        });
     }
 
     isReady() {
