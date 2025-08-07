@@ -63,7 +63,8 @@ ezs.getCache = () => ezsCache;
 ezs.loadScript = (file) => ezs.memoize(`ezs.loadScript>${file}`, () => File(ezs, file));
 ezs.compileScript = (script) => new Commands(ezs.parseString(script));
 ezs.parseCommand = (command) => ezs.memoize(`ezs.parseCommand>${command}`, () => parseCommand(command));
-ezs.createCommand = (command, environment) => {
+ezs.createCommand = (commandIN, environment) => {
+    const command = typeof commandIN === 'object' ? commandIN : ezs.parseCommand(commandIN);
     if (!command.name) {
         throw new Error(`Bad command : ${command.name}`);
     }

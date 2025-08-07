@@ -3,6 +3,7 @@ import autocast from 'autocast';
 
 const cpus = os.cpus().length;
 const concurrency = Number(process.env.EZS_CONCURRENCY || cpus);
+const mainStatement = String(process.env.EZS_MAIN_STATEMENT || 'delegate'); // or detach?encoder=transit&decoder=transit
 const encoding = String(process.env.EZS_ENCODING || 'gzip');
 const port = Number(process.env.EZS_PORT || 31976);
 const cacheEnable = Boolean(autocast(process.env.EZS_CACHE));
@@ -37,7 +38,7 @@ const settings = {
     feed: {
         timeout: (pipelineDelay * 1000)
     },
-    delegate: String(process.env.EZS_DELEGATE || 'delegate'),
+    mainStatement,
     title: String(process.env.EZS_TITLE
         || 'EZS Web Services (set EZS_TITLE to change this defautl value)'),
     description: String(process.env.EZS_DESCRIPTION
