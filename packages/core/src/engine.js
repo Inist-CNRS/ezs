@@ -5,10 +5,10 @@ import { hrtime } from 'process';
 import eos from 'end-of-stream';
 import pWaitFor from 'p-wait-for';
 import stringify from 'json-stringify-safe';
-import Feed from './feed';
-import Shell from './shell';
+import Feed from './feed.js';
+import Shell from './shell.js';
 
-import SafeTransform from './SafeTransform';
+import SafeTransform from './SafeTransform.js';
 
 /**
  * Engine scope object type

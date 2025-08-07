@@ -1,6 +1,6 @@
 import debug from 'debug';
-import { useFile } from './file';
-import transit from './statements/transit';
+import { useFile } from './file.js';
+import transit from './statements/transit.js';
 
 const pluginsList = {};
 
