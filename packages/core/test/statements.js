@@ -51,6 +51,31 @@ describe('statements', () => {
                 done();
             });
     });
+    it('group/ungroup#1', (done) => {
+        const res = [];
+        from([
+            'lorem',
+            'Lorem',
+            'loren',
+            'korem',
+            'olrem',
+            'toto',
+            'titi',
+            'truc',
+            'lorem',
+        ])
+            .pipe(ezs('group', { size: 3, path: 'toto' }))
+            .pipe(ezs('validate', { path: 'toto', rule: 'required' }))
+            .pipe(ezs('ungroup', { path: 'toto' }))
+            .on('data', (chunk) => {
+                assert(!Array.isArray(chunk));
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert(res.length === 9);
+                done();
+            });
+    });
     it('ungroup#1', (done) => {
         const res = [];
         from([

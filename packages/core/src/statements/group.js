@@ -1,4 +1,5 @@
 import settings from '../settings';
+import set  from 'lodash/set.js';
 
 /**
  * Take all `chunk`s, and throw them grouped by `length`.
@@ -36,19 +37,22 @@ import settings from '../settings';
  * ```
  *
  * @name group
- * @param {Number} [length] Size of each partition
+ * @param {Number} [size] Size of each partition (alias: length)
+ * @param {String} [path] path to set with the array
  * @returns {String}
  */
 export default function group(data, feed) {
     const len = Number(this.getParam('length', settings.highWaterMark.object));
     const size = Number(this.getParam('size', len));
+    const path = [].concat(this.getParam('path', [])).filter(Boolean).shift();
 
     if (this.isFirst()) {
         this.buffer = [];
     }
     if (this.isLast()) {
         if (this.buffer && this.buffer.length > 0) {
-            feed.write(Array.from(this.buffer));
+            const buf = Array.from(this.buffer);
+            feed.write(!path ? buf : set({}, path, buf));
         }
         return feed.close();
     }
@@ -56,7 +60,7 @@ export default function group(data, feed) {
     if (this.buffer.length >= size) {
         const buf = Array.from(this.buffer);
         this.buffer = [];
-        return feed.send(buf);
+        return feed.send(!path ? buf : set({}, path, buf));
     }
     return feed.end();
 }
