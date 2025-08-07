@@ -1,4 +1,5 @@
 import debug from 'debug';
+import importSync from 'import-sync';
 import { useFile } from './file';
 import transit from './statements/transit';
 
@@ -12,8 +13,7 @@ function load(ezs, name) {
             `'${name}' is not loaded. It was not found (try to install it).`,
         );
     }
-    // eslint-disable-next-line
-    ezs.use(require(fileName));
+    ezs.use(importSync(fileName));
     const after1 = Object.keys(pluginsList);
     const diff1 = after1.filter((item) => before1.indexOf(item) === -1);
     if (diff1.length > 0) {
