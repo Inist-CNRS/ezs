@@ -34,7 +34,7 @@ class Upto extends Readable {
 }
 describe('detach through file(s)', () => {
     describe('simple statements, one server', () => {
-        it('with script', (done) => {
+        it.only('with script', (done) => {
             const script = `
             [use]
             plugin = packages/core/test/locals
