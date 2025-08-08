@@ -16,12 +16,14 @@ const {
     environment,
     loggerParam,
     settings,
+    plugins,
 } = workerData;
 
 const command = JSONezs.parse(commandString);
 const commands = JSONezs.parse(commandsString);
 
 ezs.settings = settings;
+ezs.pluginsFiles(plugins);
 const commandsCreated = ezs.createCommands({
     file,
     script,
@@ -32,8 +34,8 @@ const commandsCreated = ezs.createCommands({
 });
 const statements = ezs.compileCommands(commandsCreated, environment);
 const logger = ezs.createTrap(loggerParam, environment);
-statements.unshift(ezs.createCommand(workerData.decoder));
-statements.push(ezs.createCommand(workerData.encoder));
+statements.unshift(ezs.createCommand(decoder));
+statements.push(ezs.createCommand(encoder));
 
 const rawStream = ezs.createStream(ezs.bytesMode);
 

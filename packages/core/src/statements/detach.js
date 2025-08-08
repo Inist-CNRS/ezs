@@ -38,6 +38,7 @@ export default function detach(data, feed) {
             environment: this.getEnv(),
             loggerParam: this.getParam('logger'),
             settings: ezs.settings,
+            plugins: ezs.useFiles(),
         };
         this.worker = new Worker(workerFile, {
             workerData,
