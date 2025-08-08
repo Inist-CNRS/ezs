@@ -23,7 +23,10 @@ const command = JSONezs.parse(commandString);
 const commands = JSONezs.parse(commandsString);
 
 ezs.settings = settings;
+<<<<<<< HEAD
 ezs.pluginsFiles(plugins);
+=======
+>>>>>>> 8818b9f00c1c90fb0513e3cf2351c40b7ef3a1ff
 const commandsCreated = ezs.createCommands({
     file,
     script,
@@ -34,8 +37,13 @@ const commandsCreated = ezs.createCommands({
 });
 const statements = ezs.compileCommands(commandsCreated, environment);
 const logger = ezs.createTrap(loggerParam, environment);
+<<<<<<< HEAD
 statements.unshift(ezs.createCommand(decoder));
 statements.push(ezs.createCommand(encoder));
+=======
+statements.unshift(ezs.createCommand(workerData.decoder));
+statements.push(ezs.createCommand(workerData.encoder));
+>>>>>>> 8818b9f00c1c90fb0513e3cf2351c40b7ef3a1ff
 
 const rawStream = ezs.createStream(ezs.bytesMode);
 
