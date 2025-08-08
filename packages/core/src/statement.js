@@ -3,12 +3,13 @@ import { useFile } from './file.js';
 import transit from './statements/transit.js';
 
 const pluginsModules = {};
+const pluginsFiles = [];
 const pluginsList = {};
 
 function set(ezs, plugin) {
     if (typeof plugin !== 'object') {
         throw new Error(
-            "Statement is not loaded. It's not a valid plugin (should be an object).",
+            'Statement is not loaded. It\'s not a valid plugin (should be an object).',
         );
     }
     const pluginList = plugin.default ? plugin.default : plugin; // ES6 hack
@@ -35,6 +36,7 @@ function load(ezs, name) {
         );
     }
     if (!pluginsModules[fileName]) {
+        pluginsFiles.push(fileName);
         pluginsModules[fileName] = import(fileName);
         pluginsModules[fileName].then((funcs) => {
             set(ezs, funcs);
@@ -93,9 +95,14 @@ function exists(ezs, pluginName) {
     return pluginsList[pluginName] !== undefined;
 }
 
+function list() {
+    return pluginsFiles;
+}
+
 export default {
     get,
     set,
     load,
     exists,
+    list,
 };
