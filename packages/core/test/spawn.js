@@ -273,7 +273,7 @@ describe('spawn through file(s)', () => {
     });
 
 
-    it('with an unknowed statement', (done) => {
+    it('with an unknown statement', (done) => {
         const commands = [
             {
                 name: 'increment',
@@ -289,17 +289,15 @@ describe('spawn through file(s)', () => {
             },
         ];
         const ten = new Upto(10);
-        let semaphore = true;
         ten
             .pipe(ezs('spawn', { commands }))
             .pipe(ezs.catch())
             .on('error', (error) => {
-                assert(error instanceof Error);
-                if (semaphore) {
-                    semaphore = false;
-                    ten.destroy();
-                    done();
-                }
+                assert.ok(error instanceof Error);
+                done();
+            })
+            .on('end', () => {
+                done(new Error('unexpected behavior'));
             });
     });
     it('with commands in distributed pipeline', (done) => {

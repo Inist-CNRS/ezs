@@ -1,5 +1,6 @@
 /* eslint no-underscore-dangle: ["error", { "allow": ["_readableState"] }] */
 import debug from 'debug';
+import { types } from 'util';
 import queue from 'concurrent-queue';
 import { hrtime } from 'process';
 import eos from 'end-of-stream';
@@ -66,8 +67,8 @@ function createErrorWith(error, index, funcName, funcParams, chunk) {
 export default class Engine extends SafeTransform {
     constructor(ezs, func, params, environment) {
         super(ezs.objectMode());
-        this.func = func;
-        this.funcName = String(func.name || 'unamed');
+        this.funcName = 'Not yet defined';
+        this.funcPromise = types.isPromise(func) ? func : Promise.resolve(func);
         this.index = 0;
         this.ttime = nanoZero();
         this.stime = hrtime.bigint();
@@ -128,7 +129,7 @@ export default class Engine extends SafeTransform {
             this.push(chunk);
             return next();
         }
-        return this.queue(chunk, next);
+        this.queuing(chunk, next);
     }
 
     _flush(done) {
@@ -136,7 +137,7 @@ export default class Engine extends SafeTransform {
             return done();
         }
         this.index += 1;
-        return this.queue(null, () => {
+        return this.queuing(null, () => {
             const stop = hrtime.bigint();
             if (debug.enabled('ezs:trace')) {
                 const cumulative = nano2sec(stop - this.stime);
@@ -145,6 +146,29 @@ export default class Engine extends SafeTransform {
             }
             done();
         });
+    }
+
+    queuing(chunk, next) {
+        if (this.func) {
+            return this.queue(chunk, next);
+        } else {
+            this.funcPromise
+                .then((func) => {
+                    if (typeof func != 'function'){
+                        this.emit('error', new Error(
+                            `'  ${func}' is not loaded. It's not a valid statement function.`,
+                        ));
+                        return next();
+                    }
+                    this.func = func;
+                    this.funcName = String(func.name || 'unamed');
+                    return this.queue(chunk, next);
+                })
+                .catch( (e) => {
+                    this.emit('error', e);
+                    return next();
+                });
+        }
     }
 
     isReady() {

@@ -232,7 +232,7 @@ describe('fork)', () => {
             .on('end', () => done());
     });
 
-    it('#4', (done) => {
+    it('#4 unknown statement', (done) => {
         const script = `
             [fake]
         `;
@@ -257,10 +257,13 @@ describe('fork)', () => {
             });
     });
 
-    it('#4 (standalone)', (done) => {
+    it('#4 unknown statement (standalone)', (done) => {
         const script = `
             [fake]
         `;
+        const env = {
+            trap: false,
+        };
         from([
             { a: 1, b: 9 },
             { a: 2, b: 9 },
@@ -268,18 +271,27 @@ describe('fork)', () => {
             { a: 1, b: 9 },
             { a: 1, b: 9 },
         ])
-            .pipe(ezs('fork', {
-                script,
-                standalone: true,
-            }))
+            .pipe(ezs(
+                'fork',
+                {
+                    script,
+                    logger: './trap.ini',
+                    standalone: true,
+                },
+                env,
+            ))
             .pipe(ezs.catch())
-            .on('error', (e) => {
-                expect(e.message).toEqual(expect.stringContaining('fake'));
-                done();
-            })
+            .on('error', done)
             .on('data', () => true)
             .on('end', () => {
-                done(new Error('Error is the right behavior'));
+                setTimeout(
+                    () => {
+                        expect(env.trap).toEqual(true);
+                        expect(env.message).toEqual(expect.stringContaining('fake'));
+                        done();
+                    },
+                    500,
+                );
             });
     });
 
