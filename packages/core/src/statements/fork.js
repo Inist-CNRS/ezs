@@ -1,5 +1,6 @@
 import debug from 'debug';
-import { clone, set } from 'lodash';
+import clone from 'lodash/clone.js'
+import set from 'lodash/set.js';
 
 import breaker from './breaker.js';
 import {

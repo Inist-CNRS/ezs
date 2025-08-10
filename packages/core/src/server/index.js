@@ -17,12 +17,12 @@ import {
     httpConnectionOpen,
     httpRequestDurationMicroseconds,
     aggregatorRegistry,
-} from './metrics';
+} from './metrics.js';
 import {
     createFusible,
     enableFusible,
     disableFusible
-} from '../fusible';
+} from '../fusible.js';
 
 function isPipeline() {
     const f = this.pathName.match(RX_FILENAME);
