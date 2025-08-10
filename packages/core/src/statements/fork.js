@@ -1,12 +1,12 @@
 import debug from 'debug';
 import { clone, set } from 'lodash';
 
-import breaker from './breaker';
+import breaker from './breaker.js';
 import {
     createFusible,
     enableFusible,
     disableFusible
-} from '../fusible';
+} from '../fusible.js';
 
 
 

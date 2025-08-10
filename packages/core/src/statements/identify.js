@@ -1,7 +1,7 @@
 import  { createHash } from 'crypto';
 import _ from 'lodash';
-import generate from 'nanoid/async/generate';
-import nolookalikes from 'nanoid-dictionary/nolookalikes';
+import generate from 'nanoid/async/generate.js';
+import nolookalikes from 'nanoid-dictionary/nolookalikes.js';
 
 export const validKey = (input) =>
     Boolean(input) &&
