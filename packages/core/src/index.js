@@ -150,4 +150,5 @@ ezs.createTrap = (file, env) => {
 };
 ezs.use(Statements);
 
-module.exports = ezs;
+//module.exports = ezs;
+export default ezs;

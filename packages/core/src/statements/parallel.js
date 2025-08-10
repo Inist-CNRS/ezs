@@ -1,6 +1,6 @@
 import merge from 'merge2';
 import debug from 'debug';
-import settings from '../settings';
+import settings from '../settings.js';
 
 export const duplexer = (ezs, commands, environment, logger) => () => {
     const input = ezs.createStream(ezs.objectMode());

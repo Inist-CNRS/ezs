@@ -1,4 +1,4 @@
-import breaker from './breaker';
+import breaker from './breaker.js';
 
 async function loopFunc(data, feed) {
     const { ezs } = this;
