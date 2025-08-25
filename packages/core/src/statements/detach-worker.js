@@ -23,7 +23,7 @@ const command = JSONezs.parse(commandString);
 const commands = JSONezs.parse(commandsString);
 
 ezs.settings = settings;
-ezs.pluginsFiles(plugins);
+ezs.useFiles(plugins);
 const commandsCreated = ezs.createCommands({
     file,
     script,

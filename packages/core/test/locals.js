@@ -242,7 +242,7 @@ function erraticError(data, feed) {
     }, 1);
 }
 
-module.exports = {
+export default {
     plus1,
     boum,
     increment,
