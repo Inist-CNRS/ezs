@@ -1,6 +1,6 @@
 import from from 'from';
-import ezs from '../../core';
-import analytics from '../../analytics';
+import ezs from '../../core/src';
+import analytics from '../../analytics/src';
 import statements from '../src';
 import pool from '../src/pool';
 
