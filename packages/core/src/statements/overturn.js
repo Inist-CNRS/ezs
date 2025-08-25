@@ -1,11 +1,11 @@
 import { resolve  as resolvePath } from 'path';
-import generate from 'nanoid/async/generate';
-import nolookalikes from 'nanoid-dictionary/nolookalikes';
 import { tmpdir } from 'os';
 import _ from 'lodash';
 import cacache from 'cacache';
 import makeDir from 'make-dir';
 import pathExists from 'path-exists';
+import generate from 'nanoid/async/generate.js';
+import nolookalikes from 'nanoid-dictionary/nolookalikes.js';
 
 /**
  * Takes an `Object` and substitute twice a field with the corresponding value found in a external pipeline

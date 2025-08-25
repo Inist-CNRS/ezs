@@ -3,7 +3,7 @@ import ezs from '../src';
 import Commands from '../src/commands';
 
 describe('analsye commands', () => {
-    it('with simple pipeline', (done) => {
+    it('with simple pipeline #1', (done) => {
         const commands = `
             [use]
             plugin = test/locals
@@ -33,7 +33,7 @@ describe('analsye commands', () => {
         assert.equal(commandsAnalysed[2].cmds.length, 2);
         done();
     });
-    it('with simple pipeline', (done) => {
+    it('with simple pipeline #2', (done) => {
         const commands = `
 
             [package:increment]
@@ -54,6 +54,20 @@ describe('analsye commands', () => {
         assert.equal(commandsParsed[1].use, 'package');
         assert.equal(commandsParsed[2].use, '');
         assert.equal(commandsParsed[3].use, '');
+        done();
+    });
+    it('with parameters', (done) => {
+        const script = `
+
+            [assign]
+            step = 3
+
+        `;
+        const commandsParsed = ezs.createCommands({ script, prepend: 'transit', append: 'dump?indent=true' });
+        assert.equal(commandsParsed.length, 3);
+        assert.equal(commandsParsed[0].name, 'transit');
+        assert.equal(commandsParsed[1].name, 'assign');
+        assert.equal(commandsParsed[2].name, 'dump');
         done();
     });
     it('with nested pipeline', (done) => {

@@ -1,6 +1,6 @@
 import debug from 'debug';
 import JSONB from 'json-buffer';
-import { httpRequestErrorTotal }  from './metrics';
+import { httpRequestErrorTotal }  from './metrics.js';
 
 const errorHandler = (ezs, request, response) => (error, code = 400) => {
     const stringError = ezs.serializeError(error);
