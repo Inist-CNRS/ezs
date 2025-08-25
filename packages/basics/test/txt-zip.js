@@ -1,9 +1,10 @@
-const assert = require('assert');
-const from = require('from');
-const pako = require('pako');
-const ezs = require('../../core/src');
+import assert from 'assert';
+import from from 'from';
+import pako from 'pako';
+import ezs from '../../core/src';
+import ezsBasics from '../src';
 
-ezs.use(require('../src'));
+ezs.use(ezsBasics);
 
 describe('txt-zip', () => {
     it('should zip a stream containing a string', (done) => {

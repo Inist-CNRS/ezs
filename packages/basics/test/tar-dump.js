@@ -1,8 +1,9 @@
-const assert = require('assert');
-const from = require('from');
-const ezs = require('../../core/src');
+import assert from 'assert';
+import from from 'from';
+import ezs from '../../core/src';
+import ezsBasics from '../src';
 
-ezs.use(require('../src'));
+ezs.use(ezsBasics);
 
 describe('TARDump', () => {
     const input = [

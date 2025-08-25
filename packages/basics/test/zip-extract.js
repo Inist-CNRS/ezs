@@ -1,8 +1,10 @@
-const assert = require('assert');
-const fs = require('fs');
-const ezs = require('../../core/src');
+import assert from 'assert';
+import fs from 'fs';
+import from from 'from';
+import ezs from '../../core/src';
+import ezsBasics from '../src';
 
-ezs.use(require('../src'));
+ezs.use(ezsBasics);
 
 describe('ZIPExtract', () => {
     it('should extract JSON content', (done) => {

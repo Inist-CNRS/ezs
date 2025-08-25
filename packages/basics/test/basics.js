@@ -1,9 +1,12 @@
-const assert = require('assert');
-const from = require('from');
-const { PassThrough } = require('stream');
-const ezs = require('../../core/src');
+import assert from 'assert';
+import { PassThrough } from 'stream';
+import fs from 'fs';
+import from from 'from';
+import ezs from '../../core/src';
+import statements from '../src';
 
-ezs.use(require('../src'));
+ezs.use(statements);
+
 
 describe('test', () => {
     it('CSVObject #1', (done) => {
