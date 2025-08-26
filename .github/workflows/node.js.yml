@@ -47,7 +47,6 @@ jobs:
     - name: Testing all packages
       env:
         LD_LIBRARY_PATH: '/deps/lib'
-        DEBUG: 'ezs:*'
       run: yarn run ci:test
 
     - name: Coveralls Parallel
