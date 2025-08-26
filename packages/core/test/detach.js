@@ -11,9 +11,11 @@ ezs.settings.servePath = __dirname;
 
 beforeAll(() => {
     ezs.settings.cacheEnable = true;
+    ezs.settings.feed.timeout = (60*1000);
 });
 afterAll(() => {
     ezs.settings.cacheEnable = false;
+    ezs.settings.feed.timeout = (30*1000);
 });
 
 class Upto extends Readable {
