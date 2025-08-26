@@ -11,11 +11,9 @@ ezs.settings.servePath = __dirname;
 
 beforeAll(() => {
     ezs.settings.cacheEnable = true;
-    ezs.settings.feed.timeout = (60*1000);
 });
 afterAll(() => {
     ezs.settings.cacheEnable = false;
-    ezs.settings.feed.timeout = (30*1000);
 });
 
 class Upto extends Readable {
@@ -145,6 +143,7 @@ describe('detach through file(s)', () => {
                 .pipe(ezs.catch())
                 .once('error', (error) => {
                     assert.ok(error instanceof Error);
+                    ezs.settings.feed.timeout = (30 * 1000);
                     done();
                 });
         });
@@ -168,6 +167,7 @@ describe('detach through file(s)', () => {
                 .once('error', (error) => {
                     assert(error instanceof Error);
                     ten.destroy();
+                    ezs.settings.feed.timeout = (30 * 1000);
                     done();
                 });
         });
@@ -217,6 +217,7 @@ describe('detach through file(s)', () => {
                 }))
                 .pipe(ezs.catch())
                 .on('error', (e) => {
+                    ezs.settings.feed.timeout = (30 * 1000);
                     try {
                         expect(e.message).toEqual(expect.stringContaining('The pipe has not received any data'));
                         done();
