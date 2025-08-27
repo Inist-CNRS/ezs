@@ -54,7 +54,11 @@
     "transformer"
   ],
   "license": "MIT",
-  "main": "./lib/index.js",
+  "type": "module",
+  "exports": {
+    "import": "./src/index.js",
+    "require": "./lib/index.js"
+  },
   "publishConfig": {
     "access": "public"
   },

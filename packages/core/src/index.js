@@ -54,6 +54,12 @@ ezs.parseFile = (filename) => Script(ezs.loadScript(filename));
 ezs.catch = (func) => new Catcher(func);
 ezs.toBuffer = (options) => new Output(options);
 ezs.use = (plugin) => Statement.set(ezs, plugin);
+ezs.useFiles = (files) => {
+    if (files) {
+        files.map(file=> Statement.load(ezs, file));
+    }
+    return Statement.list();
+};
 ezs.addPath = (p) => ezs.settings.pluginPaths.push(p);
 ezs.getPath = () => ezs.settings.pluginPaths;
 ezs.getCache = () => ezsCache;

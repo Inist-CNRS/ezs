@@ -25,8 +25,8 @@ function findFileIn(paths, name) {
 export function useFile(ezs, name) {
     const names = [
         name,
-        '@ezs/'.concat(name.replace(/^@ezs\//, '')),
-        'ezs-'.concat(name.replace(/^ezs-/, '')),
+        '@ezs/'.concat(String(name).replace(/^@ezs\//, '')),
+        'ezs-'.concat(String(name).replace(/^ezs-/, '')),
     ];
     const plugName1 = names.map((n) => check(n)).filter(Boolean).shift();
     const plugName2 = names.map((n) => findFileIn(ezs.getPath(), n)).filter(Boolean).shift();
