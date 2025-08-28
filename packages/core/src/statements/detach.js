@@ -22,9 +22,8 @@ const [, dirname] = filedirname();
  */
 export default function detach(data, feed) {
     const { ezs } = this;
-    if (this.isFirst()) {
+    if (!this.input) {
         this.input = ezs.createStream(ezs.objectMode());
-        ;
         const workerFile = path.resolve(dirname, './detach-worker.js');
         const workerData = {
             file: this.getParam('file'),
