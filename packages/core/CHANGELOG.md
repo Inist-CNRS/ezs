@@ -3,6 +3,43 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.11.2...@ezs/core@4.0.0) (2025-08-29)
+
+
+### Bug Fixes
+
+* 🐛 bug with less data than the concurrency size ([21dd1f8](https://github.com/Inist-CNRS/ezs/commit/21dd1f8cfa573baff572e8340a18df4f49910158))
+* 🐛 dynamic importx ([04ffe17](https://github.com/Inist-CNRS/ezs/commit/04ffe176b6e0e118cd7a3c1aa3be23304d8c6923))
+* 🐛 fix json import for node 12 to 16 ([501becb](https://github.com/Inist-CNRS/ezs/commit/501becbb0dfff5b4a49b12006e0832603d97e669))
+* 🐛 tests ([cf96dd0](https://github.com/Inist-CNRS/ezs/commit/cf96dd09ee14c5ea983b548a145e490b5de2a5da))
+* 🐛 tests ([e08ece1](https://github.com/Inist-CNRS/ezs/commit/e08ece1efa6f5b826dad0149ee7d264f5a3c9dbb))
+* 🐛 timeout for workers ([99eb0ab](https://github.com/Inist-CNRS/ezs/commit/99eb0abb6f0198e417429cce59d0c1f7c92d6747))
+* 🐛 transfert plugins list ([5fcdb27](https://github.com/Inist-CNRS/ezs/commit/5fcdb27bebd0f48756178d87d69fd4337e4077ec))
+* 🐛 use settings to store plugin paths ([1035ed3](https://github.com/Inist-CNRS/ezs/commit/1035ed3c84d034e4eb2fa55a490cc97f1c990990))
+* 🐛 worker_threads impose esm by default ([52875c9](https://github.com/Inist-CNRS/ezs/commit/52875c9957cab43f63e0731e5ccaa735da139f33))
+
+
+### Features
+
+* 🎸 add [detach] ([107b032](https://github.com/Inist-CNRS/ezs/commit/107b0321a987ecdfb0f1746f9739fdb66cc9ccd7))
+* 🎸 new way to choose the main statement ([4b8e816](https://github.com/Inist-CNRS/ezs/commit/4b8e816a25b65e84e9186c0f1eec13097d02dda7))
+* add "path=" paramter to [group] and [ungroup] ([24feb2f](https://github.com/Inist-CNRS/ezs/commit/24feb2f1b203befef743257d6df1a7d71bd0f187))
+* add "path=" to [pack] and [unpack] ([45b8b5e](https://github.com/Inist-CNRS/ezs/commit/45b8b5e3c229a623d957a7acb25a71ac386e1295))
+
+
+### Performance Improvements
+
+* ⚡️ to avoid displaying buffers ([76bead2](https://github.com/Inist-CNRS/ezs/commit/76bead2933cbf017e6c821d8840ea4db9506de41))
+
+
+### BREAKING CHANGES
+
+* 🧨 type:module
+
+
+
+
+
 ## [3.11.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@3.11.1...@ezs/core@3.11.2) (2025-05-26)
 
 
