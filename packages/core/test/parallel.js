@@ -501,5 +501,121 @@ describe('parallel through worker(s)', () => {
                 done();
             });
     });
+
+    it('with more data', (done) => {
+        const script = `
+            [parallel] 
+            concurrency = 5
+
+            [parallel/transit]
+
+        `;
+        const size = 10;
+        const res = [];
+        from(Array(size).fill(true))
+            .pipe(ezs('delegate', { script }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(size, res.length);
+                done();
+            });
+    });
+
+
+    it('with less data', (done) => {
+        const script = `
+            [parallel] 
+            concurrency = 20
+
+            [parallel/transit]
+
+        `;
+        const size = 10;
+        const res = [];
+        from(Array(size).fill(true))
+            .pipe(ezs('delegate', { script }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(size, res.length);
+                done();
+            });
+    });
+
+    it('with more data & detach', (done) => {
+        const script = `
+            [parallel] 
+            concurrency = 5
+
+            [parallel/detach]
+            [parallel/detach/transit]
+
+        `;
+        const size = 10;
+        const res = [];
+        from(Array(size).fill(true))
+            .pipe(ezs('delegate', { script }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(size, res.length);
+                done();
+            });
+    });
+
+
+
+    it('with less data & detach', (done) => {
+        const script = `
+            [parallel] 
+            concurrency = 20
+
+            [parallel/detach]
+            [parallel/detach/transit]
+
+        `;
+        const size = 10;
+        const res = [];
+        from(Array(size).fill(true))
+            .pipe(ezs('delegate', { script }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(size, res.length);
+                done();
+            });
+    });
+
+    it('with less data & parallel', (done) => {
+        const script = `
+            [parallel] 
+            concurrency = 20
+
+            [parallel/parallel]
+            [parallel/parallel/transit]
+
+        `;
+        const size = 10;
+        const res = [];
+        from(Array(size).fill(true))
+            .pipe(ezs('delegate', { script }))
+            .on('data', (chunk) => {
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(size, res.length);
+                done();
+            });
+    });
+
+
+
+
+
     /**/
 });
