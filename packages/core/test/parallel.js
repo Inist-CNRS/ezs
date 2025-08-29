@@ -504,7 +504,7 @@ describe('parallel through worker(s)', () => {
 
     it('with more data', (done) => {
         const script = `
-            [parallel] 
+            [parallel]
             concurrency = 5
 
             [parallel/transit]
@@ -526,7 +526,7 @@ describe('parallel through worker(s)', () => {
 
     it('with less data', (done) => {
         const script = `
-            [parallel] 
+            [parallel]
             concurrency = 20
 
             [parallel/transit]
@@ -547,7 +547,7 @@ describe('parallel through worker(s)', () => {
 
     it('with more data & detach', (done) => {
         const script = `
-            [parallel] 
+            [parallel]
             concurrency = 5
 
             [parallel/detach]
@@ -571,7 +571,7 @@ describe('parallel through worker(s)', () => {
 
     it('with less data & detach', (done) => {
         const script = `
-            [parallel] 
+            [parallel]
             concurrency = 20
 
             [parallel/detach]
@@ -593,7 +593,7 @@ describe('parallel through worker(s)', () => {
 
     it('with less data & parallel', (done) => {
         const script = `
-            [parallel] 
+            [parallel]
             concurrency = 20
 
             [parallel/parallel]
