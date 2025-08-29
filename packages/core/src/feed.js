@@ -45,7 +45,7 @@ export default class Feed {
 
         stream.on('finish', () => {
             closed = true;
-        this.log(`Feed.flow.stream.finish ${stream.isPaused()}`);
+            this.log(`Feed.flow.stream.finish ${stream.isPaused()}`);
             if (autoclose) {
                 if (stream.isPaused()) {
                     autoCloseWanted = true;

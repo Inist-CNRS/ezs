@@ -85,6 +85,18 @@ const collectMetadata = async (ezs, dirPath, hostName) => {
                 value: settings.cacheEnable,
                 description: 'Read files and calculate parameters only once.',
             },
+             'x-metrics': {
+                value: settings.metricsEnable,
+                 description: 'Collect and expose some metrics on /metrics',
+            },
+             'x-feed-timeout': {
+                value: settings.feed.timeout,
+                 description: 'timeout for data to flow through a pipeline',
+            },
+            'x-main-statement': {
+                value: settings.mainStatement,
+                description: 'Statement for the main script.',
+            },
         },
         servers: [
             {
