@@ -1,11 +1,29 @@
-import merge from 'merge2';
 import debug from 'debug';
 import settings from '../settings.js';
 
-export const duplexer = (ezs, commands, environment, logger) => () => {
+const unused = 'UNUSED';
+
+export const duplexer = (ezs, commands, environment, logger, funnel) => () => {
     const input = ezs.createStream(ezs.objectMode());
     const streams = ezs.compileCommands(commands, environment);
-    const output = ezs.createPipeline(input, streams, logger);
+    const output = new Promise((resolve) => ezs.createPipeline(input, streams, logger)
+        .pipe(ezs((data, feed, ctx) => {
+            if (ctx.isLast()) {
+                feed.close();
+                resolve(true);
+                return;
+            }
+            return ezs.writeTo(funnel, data, () => {
+                feed.end();
+            });
+        }))
+        .pipe(ezs.catch())
+        .on('error', (e) => {
+            if (e instanceof Error && e.message !== unused) {
+                funnel.write(e)
+            }
+            resolve(true);
+        }));
     const duplex = [input, output];
     return duplex;
 };
@@ -38,26 +56,31 @@ export default function parallel(data, feed) {
         }
         debug('ezs:debug')(`[parallel] start with #${concurrency} workers.`);
         const logger = ezs.createTrap(this.getParam('logger'), this.getEnv());
-        const handles = Array(concurrency).fill(true).map(duplexer(ezs, commands, environment, logger));
+        const funnel = ezs.createStream(ezs.objectMode());
+        const handles = Array(concurrency).fill(true).map(duplexer(ezs, commands, environment, logger, funnel));
         this.ins = handles.map((h) => h[0]);
-        this.outs = handles.map((h) => h[1]);
-        const funnel = merge(this.outs, ezs.objectMode())
-            .on('queueDrain', () => {
-                funnel.destroy();
-            })
-            .on('error', (e) => feed.write(e))
-            .on('data', (d) => feed.write(d));
-        this.whenFinish = new Promise((resolve) => {
-            funnel.on('close', resolve);
+        this.use = Array(concurrency).fill(false);
+        Promise.all(handles.map((h) => h[1])).finally(() => {
+            funnel.end();
         });
+        this.whenFinish = feed.flow(funnel);
     }
     if (this.isLast()) {
-        this.whenFinish.then(() => feed.close()); // reject is never called
-        this.ins.forEach((handle) => handle.end());
+        this.whenFinish.finally(() => {
+            feed.close()
+        });
+        this.ins.forEach((handle, index) => {
+            if (!this.use[index]) {
+                handle.end(new Error(unused));
+            } else {
+                handle.end();
+            }
+        });
     } else {
         if (this.lastIndex >= this.ins.length) {
             this.lastIndex = 0;
         }
+        this.use[this.lastIndex] = true;
         const check = ezs.writeTo(this.ins[this.lastIndex], data, () => feed.end());
         if (!check) {
             this.lastIndex += 1;
