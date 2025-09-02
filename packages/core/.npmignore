@@ -4,4 +4,5 @@
 
 # White list only the required files
 !lib/**/*
+!src/**/*
 !bin/*
