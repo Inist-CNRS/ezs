@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@4.0.1...@ezs/core@4.0.2) (2025-09-08)
+
+
+### Bug Fixes
+
+* 🐛 The require function does not exist in esm ([d74b2b4](https://github.com/Inist-CNRS/ezs/commit/d74b2b4e348490c449ccdc7a1c353259fdab62c4))
+
+
+
+
+
 ## [4.0.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@4.0.0...@ezs/core@4.0.1) (2025-09-02)
 
 **Note:** Version bump only for package @ezs/core
