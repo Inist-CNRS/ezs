@@ -1,6 +1,7 @@
 import assert from 'assert';
 import ezs from '../src';
 import Commands from '../src/commands';
+import JSONezs from '../src/json';
 
 describe('analsye commands', () => {
     it('with simple pipeline #1', (done) => {
@@ -26,6 +27,36 @@ describe('analsye commands', () => {
         `;
         const commandsParsed = ezs.parseString(commands);
         const cmdp = new Commands(commandsParsed);
+        const commandsAnalysed = cmdp.analyse();
+        assert.equal(commandsAnalysed.length, 3);
+        assert.equal(commandsAnalysed[0].cmds.length, 2);
+        assert.equal(commandsAnalysed[1].cmds.length, 2);
+        assert.equal(commandsAnalysed[2].cmds.length, 2);
+        done();
+    });
+    it('with simple pipeline #1 (encode/decode)', (done) => {
+        const commands = `
+            [use]
+            plugin = test/locals
+
+            [increment]
+            step = fix(1)
+
+            [increment?parallel]
+            step = fix(1 + 1)
+
+            [increment?parallel]
+            step = fix(1).thru(x => x+2)
+
+            [increment]
+            step = 3
+
+            [increment]
+            step = 3
+
+        `;
+        const commandsParsed = JSONezs.stringify(ezs.parseString(commands));
+        const cmdp = new Commands(JSONezs.parse(commandsParsed));
         const commandsAnalysed = cmdp.analyse();
         assert.equal(commandsAnalysed.length, 3);
         assert.equal(commandsAnalysed[0].cmds.length, 2);
