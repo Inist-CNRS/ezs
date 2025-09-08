@@ -4,6 +4,7 @@ import semver from 'semver';
 import from from 'from';
 import fetch from 'node-fetch';
 import { PassThrough } from 'stream';
+import zlib from 'zlib';
 import ezs from '../src';
 
 ezs.use(require('./locals'));
@@ -438,6 +439,26 @@ describe(' through server(s)', () => {
                     output.push(chunk);
                 });
                 res.on('end', () => {
+                    assert.equal(output.join(''), '123456789');
+                    done();
+                });
+            });
+            stream.pipe(req);
+        });
+
+        it('baseline (Gzip)', (done) => {
+            const stream = from(['1', '2', '3', '4', '5', '6', '7', '8', '9']);
+            const output = [];
+            const localOptions = options();
+            localOptions['headers']['Accept-Encoding'] = 'gzip'
+            const req = http.request(localOptions, (res) => {
+                const res2 = res.pipe(zlib.createGunzip());
+                res2.setEncoding('utf8');
+                res2.on('error', done);
+                res2.on('data', (chunk) => {
+                    output.push(chunk);
+                });
+                res2.on('end', () => {
                     assert.equal(output.join(''), '123456789');
                     done();
                 });
