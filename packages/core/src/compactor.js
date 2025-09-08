@@ -1,28 +1,20 @@
 import { PassThrough } from 'readable-stream';
 import debug from 'debug';
 
-const resolve = (name) => {
+const chooseZ = async () => {
     try {
-        require.resolve(name);
-        return true;
+        return await import('zlib');
     } catch (e) {
-        return false;
+        debug('ezs:debug')('Unable to load zlib', e);
+        return null;
     }
-};
+}
 
-const chooseZ = () => {
-    if (resolve('zlib')) {
-        // eslint-disable-next-line
-        return require('zlib');
-    }
-    return null;
-};
-
-const z = chooseZ();
+const z = await chooseZ();
 
 export function compressStream(ezs, opts = {}) {
     const encoding = opts['Content-Encoding'] || opts['content-encoding'] || 'identity';
-    if (z && typeof z.createGunzip === 'function' && encoding === 'gzip') {
+    if (z && typeof z.createGzip === 'function' && encoding === 'gzip') {
         debug('ezs:debug')('ezs will use zlib to compress stream.');
         return z.createGzip();
     }
