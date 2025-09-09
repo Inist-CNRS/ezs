@@ -64,6 +64,14 @@ describe('analsye commands', () => {
         assert.equal(commandsAnalysed[2].cmds.length, 2);
         done();
     });
+    it('check encode', (done) => {
+        assert.equal(JSONezs.stringify(null), null);
+        assert.equal(JSONezs.stringify(), undefined);
+        assert.equal(JSONezs.stringify(false), false);
+        assert.equal(JSONezs.stringify(''), '');
+        done();
+    });
+
     it('with simple pipeline #2', (done) => {
         const commands = `
 
