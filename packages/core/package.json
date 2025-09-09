@@ -1,7 +1,7 @@
 {
   "name": "@ezs/core",
   "description": "A wrapper to build Stream transformers with functional style",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
   "bin": {
     "ezs": "./bin/ezs"
@@ -55,21 +55,21 @@
   "license": "MIT",
   "type": "module",
   "exports": {
-    "." : {
-        "import": "./src/index.js",
-        "require": "./lib/index.js"
+    ".": {
+      "import": "./src/index.js",
+      "require": "./lib/index.js"
     },
-    "./fusible" : {
-        "import": "./src/fusible.js",
-        "require": "./lib/fusible.js"
+    "./fusible": {
+      "import": "./src/fusible.js",
+      "require": "./lib/fusible.js"
     },
-    "./json" : {
-        "import": "./src/json.js",
-        "require": "./lib/json.js"
+    "./json": {
+      "import": "./src/json.js",
+      "require": "./lib/json.js"
     },
-    "./cli" : {
-        "import": "./src/cli.js",
-        "require": "./lib/cli.js"
+    "./cli": {
+      "import": "./src/cli.js",
+      "require": "./lib/cli.js"
     }
   },
   "publishConfig": {
