@@ -55,8 +55,22 @@
   "license": "MIT",
   "type": "module",
   "exports": {
-    "import": "./src/index.js",
-    "require": "./lib/index.js"
+    "." : {
+        "import": "./src/index.js",
+        "require": "./lib/index.js"
+    },
+    "./fusible" : {
+        "import": "./src/fusible.js",
+        "require": "./lib/fusible.js"
+    },
+    "./json" : {
+        "import": "./src/json.js",
+        "require": "./lib/json.js"
+    },
+    "./cli" : {
+        "import": "./src/cli.js",
+        "require": "./lib/cli.js"
+    }
   },
   "publishConfig": {
     "access": "public"
