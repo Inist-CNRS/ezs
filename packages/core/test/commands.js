@@ -64,7 +64,12 @@ describe('analsye commands', () => {
         assert.equal(commandsAnalysed[2].cmds.length, 2);
         done();
     });
-    it('check encode', (done) => {
+    it('check encode/decode', (done) => {
+        assert.equal(JSONezs.parse(null), null);
+        assert.equal(JSONezs.parse(), undefined);
+        assert.equal(JSONezs.parse(false), false);
+        assert.equal(JSONezs.parse(''), '');
+
         assert.equal(JSONezs.stringify(null), null);
         assert.equal(JSONezs.stringify(), undefined);
         assert.equal(JSONezs.stringify(false), false);
