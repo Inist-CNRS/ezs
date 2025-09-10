@@ -14,8 +14,8 @@
 
 - Usage
 
-  - [Serveur de traitement](server.md)
-  - [Ligne de commande](cli.md)
+  - [Ligne de commandes](cli.md)
+  - [Serveur de traitements](server.md)
   - [API](api.md)
 
 - Exemples
