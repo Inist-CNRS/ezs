@@ -10,6 +10,7 @@
   - [Instruction](coding-statement.md)
   - [Fichier .ini](coding-ini.md)
   - [Sous flux](coding-sub-pipeline.md)
+  - [Mode server](coding-server.md)
 
 - Usage
 

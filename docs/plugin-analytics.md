@@ -54,10 +54,10 @@ Aggregate by id and count
 
 ```json
 [{
-         { id: 'x', value: 2 },
-         { id: 't', value: 2 },
-         { id: 'x', value: 3 },
-         { id: 'x', value: 5 },
+         { key: 'x', value: 2 },
+         { key: 't', value: 2 },
+         { key: 'x', value: 3 },
+         { key: 'x', value: 5 },
 }]
 ```
 
@@ -68,7 +68,7 @@ Script:
 plugin = analytics
 
 [aggregate]
-path = id
+id = key
 
 ```
 
