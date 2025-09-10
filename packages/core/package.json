@@ -53,7 +53,6 @@
     "transformer"
   ],
   "license": "MIT",
-  "type": "module",
   "exports": {
     ".": {
       "import": "./src/index.js",
