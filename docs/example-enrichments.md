@@ -53,8 +53,7 @@ noerror = true
 }
 ```
 
-Chaque élément du champ `cities` est envoyé au web service quel que soit son
-contenu. Charge au web service de savoir les traiter.
+Chaque élément du champ `cities` est envoyé au web service quel que soit son contenu. Charge au web service de savoir les traiter.
 
 ### Configuration
 

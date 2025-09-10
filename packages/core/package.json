@@ -70,6 +70,10 @@
     "./cli": {
       "import": "./src/cli.js",
       "require": "./lib/cli.js"
+    },
+    "./statements": {
+      "import": "./src/statements/index.js",
+      "require": "./lib/statements/index.js"
     }
   },
   "publishConfig": {
