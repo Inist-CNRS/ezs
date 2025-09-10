@@ -53,7 +53,7 @@ noerror = true
 }
 ```
 
-xxxxxxxxxx [use]plugin = basics​[CSVParse]separator = ,​[CSVObject][CSVString]format = strictini
+Chaque élément du champ `cities` est envoyé au web service quel que soit son contenu. Charge au web service de savoir les traiter.
 
 ### Configuration
 
