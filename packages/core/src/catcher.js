@@ -17,7 +17,7 @@ export default class Catcher extends SafeTransform {
                     this.emit('error', e); // catch and stop
                 } else if (e === false) {
                     this.push(chunk); // no catch
-                } else if (e)  { // convert to standard data
+                } else if (e && e !== true)  { // convert to standard data
                     this.push(e);
                 }
             }
