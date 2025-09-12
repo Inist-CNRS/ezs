@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@4.0.3...@ezs/core@4.0.4) (2025-09-12)
+
+
+### Bug Fixes
+
+* 🐛 [detach] with CJS ([6f83e65](https://github.com/Inist-CNRS/ezs/commit/6f83e65dba612fb4d27523c49cdb64490807140b))
+* 🐛 cjs cannot import module ([6559ee8](https://github.com/Inist-CNRS/ezs/commit/6559ee8c623d0ac5f8449825f1b61c771a3da9db))
+
+
+
+
+
 ## [4.0.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@4.0.2...@ezs/core@4.0.3) (2025-09-09)
 
 
