@@ -1,8 +1,8 @@
 import { workerData } from 'worker_threads';
 import { pipeline } from 'stream';
 import process from 'process';
-import ezs from '../index.js';
-import JSONezs from '../json.js';
+import ezs from '@ezs/core';
+import JSONezs from '@ezs/core/json';
 
 const {
     file,
