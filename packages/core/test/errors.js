@@ -137,7 +137,23 @@ describe('Catch error in a pipeline', () => {
                     assert.equal(0, counter);
                     done();
                 });
-        });
+        }
+    );
+    it('with errors in every chunk transformed in simple object', (done) => {
+        let counter = 0;
+        const ten = new Decade();
+        ten
+            .pipe(ezs('boum'))
+            .pipe(ezs.catch((err) => err.message))
+            .on('data', (msg) => {
+                counter += 1;
+            })
+            .on('end', () => {
+                assert.equal(9, counter);
+                done();
+            });
+    });
+
     it('catch & get error', (done) => {
         let counter = 0;
         const ten = new Decade();
@@ -220,7 +236,7 @@ describe('Catch error in a pipeline', () => {
                 done();
             });
     });
-    it.only('with circular refs', (done) => {
+    it('with circular refs', (done) => {
         const commands = `
             [assign]
             path = value

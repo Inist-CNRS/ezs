@@ -200,8 +200,8 @@ Une erreur de données est une erreur qui vient remplacer la données attendue e
 Elle **n’arrête pas** le flux de données, il conviendra de récupérer les erreurs une à une.
 
 la fonction `ezs.catch` permet d’extraire les erreurs des données d’un flux. Une
-fois extraites des données, il est possible d’arrêter le flux ou de continuer
-sans les erreurs.
+fois extraites des données, il est possible d’arrêter le flux, de continuer
+sans les erreurs ou encore de transformer l'erreur en données standard.
 
 ```js
 // Example #1
@@ -216,6 +216,12 @@ process.stdin
     .pipe(ezs('truncate', { length: 100 }))
     .pipe(ezs((d, f) => f.send(new Error('Badaboum')))))
     .pipe(ezs.catch(e => console.error('Warning:', e))) // catch errors in chunks to display them without breaking the pipeline
+// Example #3
+process.stdin
+    .pipe(ezs('truncate', { length: 100 }))
+    .pipe(ezs((d, f) => f.send(new Error('Badaboum')))))
+    .pipe(ezs.catch(e => e.message)) // convert error to string
+    .pipe(process.stdout);
 ```
 
 ### Les erreurs de traitement

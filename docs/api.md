@@ -42,6 +42,12 @@ process.stdin
     .pipe(ezs('truncate', { length: 100 }))
     .pipe(ezs((d, f) => f.send(new Error('Badaboum')))))
     .pipe(ezs.catch(e => console.error('Warning:', e))) // catch errors in chunks to display them without breaking the pipeline
+// Example #3
+process.stdin
+    .pipe(ezs('truncate', { length: 100 }))
+    .pipe(ezs((d, f) => f.send(new Error('Badaboum')))))
+    .pipe(ezs.catch(e => e.message)) // convert error to string
+    .pipe(process.stdout);
 ```
 
 ## ezs.toBuffer(options : Object)
