@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@4.0.4...@ezs/core@4.0.5) (2025-09-12)
+
+
+### Bug Fixes
+
+* 🐛 missing one use case ([e20210a](https://github.com/Inist-CNRS/ezs/commit/e20210a3d4e8bdf4c50f4e43e0dc0d842fcb643b))
+
+
+
+
+
 ## [4.0.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@4.0.3...@ezs/core@4.0.4) (2025-09-12)
 
 
