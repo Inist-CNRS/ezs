@@ -236,7 +236,7 @@ describe('Catch error in a pipeline', () => {
                 done();
             });
     });
-    it.only('with circular refs', (done) => {
+    it('with circular refs', (done) => {
         const commands = `
             [assign]
             path = value
