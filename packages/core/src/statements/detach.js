@@ -5,6 +5,16 @@ import filedirname from 'filedirname';
 import JSONezs from '../json.js';
 
 const [, dirname] = filedirname();
+
+// The execution program used by the thread ( worker) uses the runtime specified in the package.json file, so it will switch to esm mode.
+// Therefore, if ezs is executed in CJS, the file used will be the one in the lib path, i.e., in CJS, and it will be incompatible.
+// There are two possible options:
+// - always use the esm file
+// - use a file with the cjs extension to force the use of commonjs.
+// To avoid confusion, the file is moved to the bin directory.
+
+const workerFile = path.resolve(dirname, '../../bin/detach-worker.js');
+
 /**
  * Delegate processing to an external pipeline.
  *
@@ -24,7 +34,6 @@ export default function detach(data, feed) {
     const { ezs } = this;
     if (!this.input) {
         this.input = ezs.createStream(ezs.objectMode());
-        const workerFile = path.resolve(dirname, './detach-worker.js');
         const workerData = {
             file: this.getParam('file'),
             script: this.getParam('script'),

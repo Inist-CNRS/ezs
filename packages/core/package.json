@@ -82,9 +82,9 @@
   "repository": "Inist-CNRS/ezs.git",
   "runkitExampleFilename": "./examples/runkit-example.js",
   "scripts": {
-    "#pretest": "npm run build",
     "build": "babel --root-mode upward src --out-dir lib",
-    "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-core.md --section=usage && cp ../../docs/plugin-core.md ./README.md",
+    "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-core.md --section=usage",
+    "postdoc": "cp ../../docs/plugin-core.md ./README.md",
     "lint": "eslint --ext=.js ./test/*.js ./src/*.js ./src/statements/*.js",
     "postversion": "git push && git push --tags",
     "prepublish": "npm run build"
