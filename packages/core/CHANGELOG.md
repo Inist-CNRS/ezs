@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@4.0.5...@ezs/core@4.1.0) (2025-09-15)
+
+
+### Features
+
+* 🎸 add [catch] ([69216d8](https://github.com/Inist-CNRS/ezs/commit/69216d8e8e22120e5279e52ca1bfd5d5010ba3fb))
+
+
+
+
+
 ## [4.0.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@4.0.4...@ezs/core@4.0.5) (2025-09-12)
 
 
