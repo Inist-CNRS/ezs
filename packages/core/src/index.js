@@ -17,7 +17,22 @@ import { compressStream, uncompressStream } from './compactor.js';
 
 const onlyOne = (item) => (Array.isArray(item) ? item.shift() : item);
 
-const ezs = (name, options, environment) => new Engine(ezs, Statement.get(ezs, name, options), options, environment);
+const ezs = (name, options, environment) => {
+    if (name === 'catch') {
+        return new Catcher((e) => {
+            if (Boolean(options['ignore']) === true) {
+                return true;
+            }
+            if (Boolean(options['emit']) === true) {
+                return e;
+            }
+            return JSON.parse(JSON.stringify(e,
+                Object.getOwnPropertyNames(e)
+            ));
+        });
+    }
+    return new Engine(ezs, Statement.get(ezs, name, options), options, environment);
+}
 const ezsCache = new LRU(settings.cache);
 
 ezs.serializeError = (err) => JSON.stringify(err, Object.getOwnPropertyNames(err).sort());
