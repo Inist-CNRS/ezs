@@ -267,4 +267,109 @@ describe('Catch error in a pipeline', () => {
 
     });
 
+
+    it('[catch] nothing', (done) => {
+        let counter = 0;
+        const commands = `
+
+            [transit]
+            [catch]
+        `;
+        const ten = new Decade();
+        ten
+            .pipe(ezs((input, output) => {
+                output.send({ val: input });
+            }))
+            .pipe(ezs('delegate', { script: commands }))
+            .on('error', (err) => done(err))
+            .on('data', (d) => {
+                counter += 1;
+            })
+            .on('end', () => {
+                assert.equal(10, counter);
+                done();
+            });
+    });
+    it('[catch] ignore', (done) => {
+        let counter = 0;
+        const commands = `
+
+            [boum]
+
+            [catch]
+            ignore = true
+        `;
+        const ten = new Decade();
+        ten
+            .pipe(ezs((input, output) => {
+                output.send({ val: input });
+            }))
+            .pipe(ezs('delegate', { script: commands }))
+            .on('error', (err) => done(err))
+            .on('data', (d) => {
+                counter += 1;
+            })
+            .on('end', () => {
+                assert.equal(0, counter);
+                done();
+            });
+    });
+    it('[catch] convert', (done) => {
+        let counter = 0;
+        const commands = `
+
+            [boum]
+
+            [catch]
+            convert = true
+        `;
+        const ten = new Decade();
+        ten
+            .pipe(ezs((input, output) => {
+                output.send({ val: input });
+            }))
+            .pipe(ezs('delegate', { script: commands }))
+            .on('error', (err) => done(err))
+            .on('data', (d) => {
+                assert.equal('Boum!', d.sourceError.message);
+                assert.equal('data', d.scope);
+                counter += 1;
+            })
+            .on('end', () => {
+                assert.equal(10, counter);
+                done();
+            });
+    });
+    it('[catch] emit', (done) => {
+        let counter = 0;
+        const commands = `
+            [use]
+            plugin =  packages/core/test/locals
+
+            [boum]
+
+            [catch]
+            emit  = true
+        `;
+        const ten = new Decade();
+        ten
+            .pipe(ezs((input, output) => {
+                output.send({ val: input });
+            }))
+            .pipe(ezs('delegate', { script: commands }))
+            .on('error', (err) => {
+                assert.equal(0, counter);
+                done();
+            })
+            .on('data', (d) => {
+                counter += 1;
+            })
+            .on('end', () => {
+                done(new Error('this is not the expected behavior'));
+            });
+    });
+
+
+
+
 });
