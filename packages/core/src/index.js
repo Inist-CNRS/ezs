@@ -17,7 +17,7 @@ import { compressStream, uncompressStream } from './compactor.js';
 
 const onlyOne = (item) => (Array.isArray(item) ? item.shift() : item);
 
-const ezs = (name, options, environment) => {
+const ezs = (name, options = {}, environment) => {
     if (name === 'catch') {
         return new Catcher((e) => {
             if (Boolean(options['ignore']) === true) {
