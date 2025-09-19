@@ -340,6 +340,26 @@ describe('Catch error in a pipeline', () => {
                 done();
             });
     });
+    it('[catch] convert BIS', (done) => {
+        let counter = 0;
+        const ten = new Decade();
+        ten
+            .pipe(ezs((input, output) => {
+                output.send({ val: input });
+            }))
+            .pipe(ezs('boum'))
+            .pipe(ezs('catch'))
+            .on('error', (err) => done(err))
+            .on('data', (d) => {
+                assert.equal('Boum!', d.sourceError.message);
+                assert.equal('data', d.scope);
+                counter += 1;
+            })
+            .on('end', () => {
+                assert.equal(10, counter);
+                done();
+            });
+    });
     it('[catch] emit', (done) => {
         let counter = 0;
         const commands = `
