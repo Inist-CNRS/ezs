@@ -21,6 +21,7 @@
 - Exemples
 
   - [Conversion de flux](example-conversions.md)
+  - [Parallèlisation de traitements](example-parallel.md)
   - [Enrichissement par web API](example-enrichments.md)
 
 - Plugins
