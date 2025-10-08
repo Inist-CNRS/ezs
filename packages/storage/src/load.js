@@ -41,7 +41,7 @@ export default async function load(data, feed) {
         }
         return feed.send(value);
     } catch(e) {
-        if (e.code === 'ENOENT') {
+        if (e.code === 'ENOENT' || e.message.includes('Key not found')) {
             debug('ezs:warn')(`uri not found (${uri}), item #${this.getIndex()} was ignored`, ezs.serializeError(e));
             if (target) {
                 set(data, target, undefined);
