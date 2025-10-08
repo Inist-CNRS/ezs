@@ -1,4 +1,5 @@
 import from from 'from';
+import semver from 'semver';
 import ezs from '../../core/src';
 import statements from '../src';
 
@@ -14,6 +15,13 @@ const data = [
 ];
 
 describe('storage:', () => {
+    if (semver.lt(process.version, '22.0.0')) {
+        it('skip tests for node < 22', () => {
+            expect(true).toBeTruthy();
+        });
+        return;
+    }
+
     it('save and load #1', (done) => {
         const input = [...data];
         const output = [];

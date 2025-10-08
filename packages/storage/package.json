@@ -2,6 +2,9 @@
   "name": "@ezs/storage",
   "description": "Storage statements for EZS",
   "version": "3.2.5",
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
   "bugs": "https://github.com/Inist-CNRS/ezs/issues",
   "dependencies": {
