@@ -1,16 +1,8 @@
 import parallel from 'array-parallel';
-import semver from 'semver';
 import ezs from '../../core/src';
 import storeFactory from '../src/store';
 
 describe('With one store', () => {
-    if (semver.lt(process.version, '22.0.0')) {
-        it('skip tests for node < 22', () => {
-            expect(true).toBeTruthy();
-        });
-        return;
-    }
-
     it('put distinct values', async (done) => {
         const store = await storeFactory(ezs, 'test_store1');
         await Promise.all([
@@ -88,13 +80,6 @@ describe('With one store', () => {
 });
 
 describe('With shared store #1', () => {
-    if (semver.lt(process.version, '22.0.0')) {
-        it('skip tests for node < 22', () => {
-            expect(true).toBeTruthy();
-        });
-        return;
-    }
-
     it('run 3 times the same instructions', async (alldone) => {
         const store1 = await storeFactory(ezs, 'test_store3');
         const store2 = await storeFactory(ezs, 'test_store3');
@@ -146,13 +131,6 @@ describe('With shared store #1', () => {
 });
 
 describe('With shared store #2', () => {
-    if (semver.lt(process.version, '22.0.0')) {
-        it('skip tests for node < 22', () => {
-            expect(true).toBeTruthy();
-        });
-        return;
-    }
-
     it('run 3 times the different instructions', async (alldone) => {
         const store1 = await storeFactory(ezs, 'test_store4');
         const store2 = await storeFactory(ezs, 'test_store4');
@@ -205,13 +183,6 @@ describe('With shared store #2', () => {
 
 
 describe('With shared store #2', () => {
-    if (semver.lt(process.version, '22.0.0')) {
-        it('skip tests for node < 22', () => {
-            expect(true).toBeTruthy();
-        });
-        return;
-    }
-
     it('run 3 times stream instructions', async (alldone) => {
         const store1 = await storeFactory(ezs, 'test_store5');
         const store2 = await storeFactory(ezs, 'test_store5');
@@ -271,13 +242,6 @@ describe('With shared store #2', () => {
 });
 
 describe('With simple store', () => {
-    if (semver.lt(process.version, '22.0.0')) {
-        it('skip tests for node < 22', () => {
-            expect(true).toBeTruthy();
-        });
-        return;
-    }
-
     it('put and get values', async (done) => {
         const store = await storeFactory(ezs, 'test_storeX');
         await store.put(1, 'A');
