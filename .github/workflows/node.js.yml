@@ -5,13 +5,12 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -21,48 +20,61 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Install libpostal
-      run: bash ${GITHUB_WORKSPACE}/.github/workflows/install-libpostal.sh
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'yarn'
+      - uses: actions/checkout@v3
+      - name: Install libpostal
+        run: bash ${GITHUB_WORKSPACE}/.github/workflows/install-libpostal.sh
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "yarn"
 
-    - name: Install dependencies
-      env:
-        CXXFLAGS: '-I/deps/include'
-        LDFLAGS: '-L/deps/lib'
-      run: yarn run ci:install
+      - name: Install dependencies (Node.js >= 22)
+        if: ${{ matrix.node-version == '22.x' || matrix.node-version == '24.x' }}
+        env:
+          CXXFLAGS: "-I/deps/include"
+          LDFLAGS: "-L/deps/lib"
+        run: yarn run ci:install
 
-    - name: Rebuild node-postal (Mainly use to NodeJS 20)
-      env:
-        CXXFLAGS: '-I/deps/include'
-        LDFLAGS: '-L/deps/lib'
-      run: |
-        cd node_modules/node-postal
-        yarn run install
+      - name: Install dependencies (Node.js < 22) - Skip @ezs/storage
+        if: ${{ matrix.node-version != '22.x' && matrix.node-version != '24.x' }}
+        env:
+          CXXFLAGS: "-I/deps/include"
+          LDFLAGS: "-L/deps/lib"
+        run: |
+          # Temporarily move storage package outside packages/ to exclude it from workspaces glob
+          mv packages/storage disabled-packages-storage
+          yarn ci:install
+          # Restore storage package location
+          mv disabled-packages-storage packages/storage
 
-    - name: Testing all packages
-      env:
-        LD_LIBRARY_PATH: '/deps/lib'
-        DEBUG: 'ezs:error,ezs:warn'
-      run: yarn run ci:test
+      - name: Rebuild node-postal (Mainly use to NodeJS 20)
+        env:
+          CXXFLAGS: "-I/deps/include"
+          LDFLAGS: "-L/deps/lib"
+        run: |
+          cd node_modules/node-postal
+          yarn run install
 
-    - name: Coveralls Parallel
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        flag-name: run-${{ matrix.node-version }}
-        parallel: true
+      - name: Testing all packages
+        env:
+          LD_LIBRARY_PATH: "/deps/lib"
+          DEBUG: "ezs:error,ezs:warn"
+        run: yarn run ci:test
+
+      - name: Coveralls Parallel
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: run-${{ matrix.node-version }}
+          parallel: true
 
   finish:
     needs: test
     runs-on: ubuntu-latest
     steps:
-    - name: Coveralls Finished
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.github_token }}
-        parallel-finished: true
+      - name: Coveralls Finished
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.github_token }}
+          parallel-finished: true
