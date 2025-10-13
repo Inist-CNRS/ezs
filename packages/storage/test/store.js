@@ -80,7 +80,6 @@ describe('With one store', () => {
 });
 
 describe('With shared store #1', () => {
-
     it('run 3 times the same instructions', async (alldone) => {
         const store1 = await storeFactory(ezs, 'test_store3');
         const store2 = await storeFactory(ezs, 'test_store3');
@@ -184,7 +183,6 @@ describe('With shared store #2', () => {
 
 
 describe('With shared store #2', () => {
-
     it('run 3 times stream instructions', async (alldone) => {
         const store1 = await storeFactory(ezs, 'test_store5');
         const store2 = await storeFactory(ezs, 'test_store5');
@@ -263,6 +261,68 @@ describe('With simple store', () => {
         // call #2 (with cache)
         expect(await store.get(1)).toEqual('A');
         done();
+    });
+
+    it('put and get values (cache operations coverage)', async () => {
+        // First, create a store WITHOUT cache to put data in database
+        ezs.settings.cacheEnable = false;
+        const store1 = await storeFactory(ezs, 'test_cache_coverage');
+        await store1.put('key1', 'value1'); // This goes to DB but not to cache
+
+        // Now enable cache and create a new store instance
+        ezs.settings.cacheEnable = true;
+        const store2 = await storeFactory(ezs, 'test_cache_coverage'); // Same domain, so same DB
+
+        // Test get with cache miss (covers line 74)
+        // The key exists in DB but not in cache, so it will:
+        // 1. Miss the cache (line 58-62)
+        // 2. Read from DB (line 65)
+        // 3. Cache the result (line 74) <- THIS IS WHAT WE WANT TO COVER
+        const result1 = await store2.get('key1');
+        expect(result1).toEqual('value1');
+
+        // Test get with cache hit (should read from cache now)
+        const result2 = await store2.get('key1');
+        expect(result2).toEqual('value1');
+
+        // Test put with cache (covers line 94 - without score)
+        await store2.put('key2', 'value2');
+
+        // Test put with score and cache (covers line 107 - with score)
+        await store2.put('key3', 'value3', 10);
+
+        // Test reset with cache (covers line 180)
+        await store2.reset();
+
+        // Verify reset worked
+        await expect(store2.get('key1')).rejects.toThrow('Key not found');
+
+        // Cleanup
+        ezs.settings.cacheEnable = false;
+    });
+
+    it('put with score and cache enabled', async () => {
+        // Enable cache for the entire test
+        ezs.settings.cacheEnable = true;
+        const store = await storeFactory(ezs, 'test_cache_score');
+
+        // Test put with score and cache (covers cache.set in put method)
+        await store.put('scored_key', 'value_with_score', 10);
+
+        // Test that higher score overwrites (and uses cache)
+        await store.put('scored_key', 'better_value', 20);
+
+        const result = await store.get('scored_key');
+        expect(result).toEqual('better_value');
+
+        // Test that lower score doesn't overwrite
+        await store.put('scored_key', 'worse_value', 5);
+
+        const result2 = await store.get('scored_key');
+        expect(result2).toEqual('better_value'); // Should still be the better value
+
+        // Cleanup
+        ezs.settings.cacheEnable = false;
     });
 
 });

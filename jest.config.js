@@ -27,8 +27,9 @@ const options = {
     testTimeout: 8000,
 };
 
-if (semver.lt(process.version, '14.0.0')) {
+if (semver.lt(process.version, '22.0.0')) {
     // lmdb package require node 14 (optional chaining)
+    // better-sqlite3 require node 22
     options.testPathIgnorePatterns.push('storage/test');
 }
 
