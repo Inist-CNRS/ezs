@@ -792,6 +792,90 @@ describe('Build a pipeline', () => {
                 done();
             });
     });
+    it('with single statement to compute data #1', (done) => {
+        let res = 0;
+        const commands = `
+
+            [replace]
+            path = a
+            value = self()
+
+            [singleton]
+
+            [singleton/identify]
+            path = TEMP
+
+            [singleton/exchange]
+            value = self().omit(['TEMP'])
+        `;
+        const ten = new Decade();
+        ten
+            .pipe(ezs('delegate', { script: commands }))
+            .on('data', (chunk) => {
+                if (chunk.TEMP) {
+                    res += 1;
+                }
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 0);
+                done();
+            });
+    });
+
+    it('with single statement to compute data #2', (done) => {
+        let res = 0;
+        const commands = `
+
+            [replace]
+            path = a
+            value = self()
+
+            [singleton]
+
+            [singleton/identify]
+            path = TEMP
+        `;
+        const ten = new Decade();
+        ten
+            .pipe(ezs('delegate', { script: commands }))
+            .on('data', (chunk) => {
+                if (chunk.TEMP) {
+                    res += 1;
+                }
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 9);
+                done();
+            });
+    });
+
+    it('with single statement to compute data #3', (done) => {
+        let res = 0;
+        const commands = `
+
+            [replace]
+            path = a
+            value = self()
+
+            [singleton]
+            merge = false
+
+            [singleton/identify]
+            path = TEMP
+        `;
+        const ten = new Decade();
+        ten
+            .pipe(ezs('delegate', { script: commands }))
+            .on('data', (chunk) => {
+                if (chunk.TEMP) {
+                    res += 1;
+                }
+            })
+            .on('end', () => {
+                assert.strictEqual(res, 1);
+                done();
+            });
+    });
 
     it('convert to number to object', (done) => {
         let res = 0;
