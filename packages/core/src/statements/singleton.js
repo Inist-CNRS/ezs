@@ -5,6 +5,7 @@ import { addedDiff } from 'deep-object-diff';
  * Takes only the first  `Object` delegate processing to a external pipeline
  *
  * @name singleton
+ * @param {Boolean} [merge=true] The additional content created with the first object is added to all objects.
  * @param {String} [file] the external pipeline is described in a file
  * @param {String} [script] the external pipeline is described in a string of characters
  * @param {String} [commands] the external pipeline is described in a object
@@ -17,8 +18,10 @@ export default function singleton(data, feed) {
         return feed.close();
     }
     if (this.isFirst()) {
+
         const { ezs } = this;
         debug('ezs:debug')('[singleton] starting once with one object.');
+        const merge = Boolean(this.getParam('merge', 'true'));
         const savedData = { ...data };
         let result = {};
         const input = ezs.createStream(ezs.objectMode());
@@ -39,10 +42,14 @@ export default function singleton(data, feed) {
                 result = Object.assign(result, chunk);
             })
             .on('end', () => {
-                this.addedResult = addedDiff(savedData, result);
-                feed.send(Object.assign(data, this.addedResult));
+                if (merge) {
+                    this.addedResult = addedDiff(savedData, result);
+                    feed.send(Object.assign(data, this.addedResult));
+                } else {
+                    feed.send(result);
+                }
             });
-        input.write(data);
+        input.write({...data});
         return input.end();
     }
     return feed.send(Object.assign(data, this.addedResult));
