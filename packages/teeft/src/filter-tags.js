@@ -1,15 +1,16 @@
-/*
+/**
  * Check that a `text` begins with any of the `tags`.
  *
  * @param {Array<string>} tags
  * @param {string} text
  * @returns {Boolean}
+ * @private
  */
 export function beginsWith(tags, text) {
-    return tags.some(tag => text.startsWith(tag));
+    return tags.some((tag) => text?.startsWith(tag));
 }
 
-/*
+/**
  * Check if some of the `texts` begins with any of the `tags`.
  *
  * Returns true if texts is not defined (when a term is not tagged, for example
@@ -18,11 +19,12 @@ export function beginsWith(tags, text) {
  * @param {Array<string>} tags
  * @param {Array<string>} texts
  * @returns {Boolean}
+ * @private
  */
 export function someBeginsWith(tags, texts) {
     if (!texts) return true;
     if (!texts.length) return true;
-    return texts.some(text => beginsWith(tags, text));
+    return texts.some((text) => beginsWith(tags, text));
 }
 
 /**
@@ -38,22 +40,22 @@ export default function TeeftFilterTags(data, feed) {
         return feed.close();
     }
     const lang = this.getParam('lang', 'nolang');
-    const tagsToKeep = this.getParam('tags',
+    const tagsToKeep = this.getParam(
+        'tags',
         // eslint-disable-next-line no-nested-ternary
         lang === 'nolang'
             ? []
             : lang === 'en'
-                ? ['JJ', 'NN']
-                : ['ADJ', 'NOM', 'UNK']
+            ? ['JJ', 'NN']
+            : ['ADJ', 'NOM', 'UNK']
     );
 
     const docIn = data;
     const dataArray = docIn.terms;
-    const newTerms = dataArray
-        .filter(w => someBeginsWith(tagsToKeep, w.tag));
+    const newTerms = dataArray.filter((w) => someBeginsWith(tagsToKeep, w.tag));
     const docOut = {
         ...docIn,
-        terms: newTerms
+        terms: newTerms,
     };
     feed.write(docOut);
     feed.end();
