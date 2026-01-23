@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/teeft@2.3.2...@ezs/teeft@2.3.3) (2026-01-23)
+
+
+### Bug Fixes
+
+* **teeft:** someBeginsWith ([61e10ba](https://github.com/Inist-CNRS/ezs/commit/61e10ba081201b9bd7316af1dc3bd0a30cade834))
+
+
+
+
+
 ## [2.3.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/teeft@2.3.1...@ezs/teeft@2.3.2) (2024-11-05)
 
 **Note:** Version bump only for package @ezs/teeft
