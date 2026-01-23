@@ -69,7 +69,6 @@ peuvent apparaître comme similaires mais leur fonctionnement est différent :
 *   [truncate](#truncate)
 *   [ungroup](#ungroup)
 *   [unpack](#unpack)
-*   [use](#use)
 *   [validate](#validate)
 
 ### assign
@@ -1166,6 +1165,7 @@ Takes only the first  `Object` delegate processing to a external pipeline
 
 #### Parameters
 
+*   `merge` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** The additional content created with the first object is added to all objects. (optional, default `true`)
 *   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
 *   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
 *   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
@@ -1433,26 +1433,6 @@ Take `String`s or `Buffer`s and throw `Object` builded by JSON.parse on each lin
 *   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** path to get in the serialize object (default: none)
 
 Returns **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
-
-### use
-
-Take all `String`, concat them and throw just one.
-
-Script:
-
-```ini
-[use]
-plugin = basics
-plugin = analytics
-```
-
-#### Parameters
-
-*   `beginWith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Add value at the begin
-*   `joinWith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** use value to join 2 chunk
-*   `endWith` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Add value at the end
-
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**&#x20;
 
 ### validate
 
