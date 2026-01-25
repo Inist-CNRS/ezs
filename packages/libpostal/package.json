@@ -5,7 +5,7 @@
   "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
   "bugs": "https://github.com/Inist-CNRS/ezs/issues",
   "dependencies": {
-    "lodash": "4.17.21",
+    "lodash": "4.17.23",
     "node-postal": "1.2.0"
   },
   "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/libpostal#readme",
