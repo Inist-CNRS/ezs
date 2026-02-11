@@ -22,6 +22,7 @@ import URLPagination from './url-pagination';
 import URLString from './url-string';
 import URLStream from './url-stream';
 import URLConnect from './url-connect';
+import DataURLParse from './dataurl-parse';
 import TXTZip from './txt-zip';
 import ZIPExtract from './zip-extract';
 import TARExtract from './tar-extract';
@@ -56,6 +57,7 @@ const funcs = {
     URLString,
     URLStream,
     URLConnect,
+    DataURLParse,
     TXTZip,
     ZIPExtract,
     TARExtract,

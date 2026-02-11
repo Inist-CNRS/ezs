@@ -6,6 +6,9 @@ import retry from 'async-retry';
 import request from './request';
 
 
+const createObjectURL = (arrayBuffer, mimeType = 'application/octet-stream') =>
+    `data:${mimeType};base64,${Buffer.from(arrayBuffer).toString('base64')}`;
+
 /**
  * Add a new field to an `Object`, with the returned content of URL.
  *
@@ -16,6 +19,7 @@ import request from './request';
  * @param {String} [path] if present select value to send (by POST)
  * @param {String} [target] choose the key to set
  * @param {String} [json=false] parse as JSON the content of URL
+ * @param {String} [dataurl=false] encode content into DATA Url
  * @param {Number} [timeout=1000] timeout in milliseconds
  * @param {String} [mimetype="application/json"] mimetype for value of path  (if presents)
  * @param {Boolean} [noerror=false] ignore all errors, the target field will remain undefined
@@ -26,13 +30,14 @@ export default async function URLFetch(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
-    const url = this.getParam('url');
+    const location = this.getParam('url');
     const path = this.getParam('path');
     const target = []
         .concat(this.getParam('target'))
         .filter(Boolean)
         .shift();
     const json = Boolean(this.getParam('json', false));
+    const dataurl = Boolean(this.getParam('dataurl', false));
     const retries = Number(this.getParam('retries', 5));
     const noerror = Boolean(this.getParam('noerror', false));
     const timeout = Number(this.getParam('timeout')) || 1000;
@@ -62,9 +67,16 @@ export default async function URLFetch(data, feed) {
         set(parameters, 'headers.content-type', mimetype);
     }
     try {
-        const response = await retry(request(url, parameters), options);
-        const func = json ? 'json' : 'text';
-        const value = await response[func]();
+        const response = await retry(request(location, parameters), options);
+        let value;
+        if (json) {
+            value = await response.json();
+        } else if (dataurl) {
+            const content = await response.arrayBuffer();
+            value = createObjectURL(content, response.headers.get('content-type'));
+        } else {
+            value = await response.text();
+        }
         if (target) {
             const result = typeof data === 'object' ? { ...data } : { input: data };
             set(result, target, value);

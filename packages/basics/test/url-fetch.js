@@ -33,6 +33,20 @@ httpbin
         },
     });
 httpbin
+    .get('/get?a=d')
+    .reply(200, [
+        {
+            args: {
+                a: 'a',
+            },
+        },
+        {
+            args: {
+                a: 'b',
+            },
+        }
+    ]);
+httpbin
     .post('/post/1')
     .reply(200, (uri, requestBody) => requestBody);
 httpbin
@@ -62,7 +76,6 @@ httpbin
 httpbin
     .get('/status/404')
     .reply(404);
-
 
 describe('URLFetch', () => {
     test('#1', (done) => {
@@ -182,6 +195,92 @@ describe('URLFetch', () => {
                 done();
             });
     });
+    test('get datarul', (done) => {
+        ezs.use(statements);
+        const input = [
+            'a',
+        ];
+        const output = [];
+        const script = `
+            [URLFetch]
+            url = https://httpbin.org/get?a=
+            dataurl = true
+            retries = 1
+            target = r
+        `;
+        from(input)
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                expect(output.length).toBe(1);
+                expect(output[0].r).toEqual('data:application/json;base64,eyJhcmdzIjp7ImEiOiIifX0=');
+                done();
+            });
+    });
+    test('get & parse dataurl', (done) => {
+        ezs.use(statements);
+        const input = [
+            'd',
+        ];
+        const output = [];
+        const script = `
+            [URLFetch]
+            url = https://httpbin.org/get?a=d
+            dataurl = true
+            retries = 1
+            target = r
+            [exchange]
+            value = get('r')
+            [debug]
+            text = avant
+            [DataURLParse]
+            [JSONParse]
+            separator = *
+            [debug]
+        `;
+        from(input)
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                expect(output.length).toBe(2);
+                expect(output[0].args.a).toEqual('a');
+                expect(output[1].args.a).toEqual('b');
+                done();
+            });
+    });
+    test('data url error', (done) => {
+        ezs.use(statements);
+        const input = [
+            { a: 'a' },
+            { a: 'b' },
+            { a: 'c' },
+        ];
+        const script = `
+            [DataURLParse]
+        `;
+        from(input)
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', (e) => {
+                 try {
+                    expect(e.message).toEqual(expect.stringContaining('Invalid Data URL'));
+                } catch(ee) {
+                    return done(ee);
+                }
+                done();
+            })
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+            });
+    });
     test('#3', (done) => {
         ezs.use(statements);
         const input = [
@@ -232,7 +331,6 @@ describe('URLFetch', () => {
             .on('error', (e) => {
                 try {
                     expect(e.message).toEqual(expect.stringContaining('Service Unavailable'));
-
                 } catch(ee) {
                     return done(ee);
                 }
