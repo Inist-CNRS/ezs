@@ -19,6 +19,7 @@ npm install @ezs/basics
 *   [CSVObject](#csvobject)
 *   [CSVParse](#csvparse)
 *   [CSVString](#csvstring)
+*   [DataURLParse](#dataurlparse)
 *   [FILELoad](#fileload)
 *   [FILEMerge](#filemerge)
 *   [FILESave](#filesave)
@@ -214,6 +215,16 @@ a;b;c
 *   `header` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** first line contains key name (optional, default `true`)
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**&#x20;
+
+### DataURLParse
+
+Take an URL `String`, parse it as a data URLs, return `Object`.
+
+See:
+
+*   <https://developer.mozilla.org/fr/docs/Web/URI/Reference/Schemes/data>
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### FILELoad
 
@@ -742,6 +753,7 @@ Or if no target is specified, the output will be the returned content of URL.
 *   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** if present select value to send (by POST)
 *   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** choose the key to set
 *   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** parse as JSON the content of URL (optional, default `false`)
+*   `dataurl` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** encode content into DATA Url (optional, default `false`)
 *   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** timeout in milliseconds (optional, default `1000`)
 *   `mimetype` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** mimetype for value of path  (if presents) (optional, default `"application/json"`)
 *   `noerror` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** ignore all errors, the target field will remain undefined (optional, default `false`)
