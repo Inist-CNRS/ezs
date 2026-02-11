@@ -73,7 +73,7 @@ export default async function URLFetch(data, feed) {
             value = await response.json();
         } else if (dataurl) {
             const content = await response.arrayBuffer();
-            value = createObjectURL(content, response.headers.get('content-type') || 'application/octet-stream');
+            value = createObjectURL(content, response.headers.get('content-type'));
         } else {
             value = await response.text();
         }
