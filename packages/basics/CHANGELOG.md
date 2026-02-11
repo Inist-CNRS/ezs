@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.10.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.9.2...@ezs/basics@2.10.0) (2026-02-11)
+
+
+### Features
+
+* 🎸 introduce data urls ([d569832](https://github.com/Inist-CNRS/ezs/commit/d569832668a2023afd32b8e590834c908970aecc))
+
+
+### Performance Improvements
+
+* ⚡️ redundant codex ([b4ce789](https://github.com/Inist-CNRS/ezs/commit/b4ce789824b8bab2023ce69a32e16fc868b68c56))
+
+
+
+
+
 ## [2.9.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.9.1...@ezs/basics@2.9.2) (2025-08-29)
 
 **Note:** Version bump only for package @ezs/basics
