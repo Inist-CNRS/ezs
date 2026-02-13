@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.10.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.10.0...@ezs/basics@2.10.1) (2026-02-13)
+
+
+### Bug Fixes
+
+* 🐛 add default value for identifier ([68af7f8](https://github.com/Inist-CNRS/ezs/commit/68af7f89fe37c4d34d3e97e932bd1d520634a9c3))
+
+
+
+
+
 # [2.10.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.9.2...@ezs/basics@2.10.0) (2026-02-11)
 
 
