@@ -89,6 +89,29 @@ describe('FILESave #1ter', () => {
     });
 });
 
+describe('FILESave with no identifier', () => {
+    it('should generate random file name', (done) => {
+        const output = [];
+        from([1])
+            .pipe(ezs('FILESave', {
+                location: '/tmp',
+                compress: false,
+            }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                output.push(chunk);
+            })
+            .on('end', () => {
+                expect(output.length).toBe(1);
+                expect(output[0].size).toBe(1);
+                expect(output[0].filename.split('-').length).toBe(5);
+                fs.unlink(output[0].filename, done);
+            });
+    });
+});
+
+
 
 describe('FILESave #2', () => {
     const identifier = Date.now();

@@ -6,6 +6,7 @@ import pathExists from 'path-exists';
 import makeDir from 'make-dir';
 import writeTo from 'stream-write';
 import debug from 'debug';
+import uuid from 'uuid-random';
 
 const eol = '\n';
 const toJSONL = (line) => JSON.stringify(line).concat(eol);
@@ -40,7 +41,7 @@ const toJSONL = (line) => JSON.stringify(line).concat(eol);
  *
  * @name FILESave
  * @param {String} [location=TMPDIR] Directory location
- * @param {String} [identifier] File name
+ * @param {String} [identifier] File name (if not set, it will be generated automatically)
  * @param {String} [content] Content to save instead of using input object
  * @param {Boolean} [jsonl=false] Save as json line
  * @param {Boolean} [compress=false] Enable gzip compression
@@ -49,7 +50,7 @@ const toJSONL = (line) => JSON.stringify(line).concat(eol);
  */
 export default function FILESave(data, feed) {
     if (this.isFirst()) {
-        const identifier = String(this.getParam('identifier'));
+        const identifier = String(this.getParam('identifier', uuid()));
         const location = path.normalize(this.getParam('location', tmpdir()));
         const compress = this.getParam('compress', false);
         const flags = Boolean(this.getParam('append', false)) ? 'a' : 'w';
