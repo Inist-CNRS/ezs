@@ -48,6 +48,7 @@ const write = (output, notices) => new Promise((resolve, reject) => each(
  * @name OAFetch
  * @param {Number} [timeout=1000] Timeout in milliseconds
  * @param {Number} [retries=5] The maximum amount of times to retry the connection
+ * @param {String} [url=https://api.openalex.org/works] The OpenAlex URL 
  * @returns {Object}
  */
 export default async function OAFetch(data, feed) {
@@ -55,7 +56,7 @@ export default async function OAFetch(data, feed) {
         return feed.close();
     }
     const { ezs } = this;
-    const url = String(this.getParam('url', 'https://api.openalex.org'));
+    const url = String(this.getParam('url', 'https://api.openalex.org/works'));
     const retries = Number(this.getParam('retries', 5));
     const timeout = Number(this.getParam('timeout')) || 1000;
     const queryparams = new URLSearchParams({
@@ -63,7 +64,7 @@ export default async function OAFetch(data, feed) {
         ...data,
         cursor: '*',
     });
-    const stringURL = `${url}/works?${queryparams}`;
+    const stringURL = `${url}?${queryparams}`;
     const cURL = new URL(stringURL);
     const controller = new AbortController();
     const parameters = {
@@ -85,7 +86,7 @@ export default async function OAFetch(data, feed) {
         }
         if (afterKeyToken) {
             queryparams.set('cursor', afterKeyToken);
-            const stringURLBis = `${url}/works?${queryparams}`;
+            const stringURLBis = `${url}?${queryparams}`;
             const cURLBis = new URL(stringURLBis);
             const parametersBis = {
                 timeout,
