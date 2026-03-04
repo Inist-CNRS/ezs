@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.10.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.10.1...@ezs/basics@2.10.2) (2026-03-04)
+
+
+### Bug Fixes
+
+* 🐛 support  searchPArams ([00baaae](https://github.com/Inist-CNRS/ezs/commit/00baaae35a3869118364209dc3e1683978456bba))
+
+
+
+
+
 ## [2.10.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.10.0...@ezs/basics@2.10.1) (2026-02-13)
 
 
