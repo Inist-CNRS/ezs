@@ -17,6 +17,7 @@ function URLParse(data, feed) {
         pathname: u.pathname,
         search: u.search,
         hash: u.hash,
+        searchParams: Object.fromEntries(new URLSearchParams(u.search || '')),
     });
 }
 
