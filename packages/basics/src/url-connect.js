@@ -32,7 +32,7 @@ export default async function URLConnect(data, feed) {
     const streaming = Boolean(this.getParam('streaming', false));
     const retries = Number(this.getParam('retries', 5));
     const noerror = Boolean(this.getParam('noerror', false));
-    const method = ['POST'].concat(this.getParam('method')).filter(item => !restMethods.includes(item)).pop();
+    const method = ['POST'].concat(this.getParam('method')).filter(item => restMethods.includes(item)).pop();
     const json = this.getParam('json', true);
     const encoder = this.getParam('encoder', 'dump');
     const { ezs } = this;
