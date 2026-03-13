@@ -738,6 +738,7 @@ Useful to send JSON data to an API and get results.
 *   `noerror` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Ignore all errors (optional, default `false`)
 *   `retries` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** The maximum amount of times to retry the connection (optional, default `5`)
 *   `encoder` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The statement to encode each chunk to a string (optional, default `dump`)
+*   `method` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The method to use for the HTTP request (optional, default `POST`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
