@@ -58,6 +58,7 @@ describe('URLConnect', () => {
             .pipe(ezs('URLConnect', {
                 url: 'http://127.0.0.1:33331/transit.ini',
                 timeout: 5000,
+                method: 'TOTO', // utilisera POST car non autorisé
             }))
             .pipe(ezs.catch())
             .on('error', done)

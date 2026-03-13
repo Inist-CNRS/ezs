@@ -8,6 +8,7 @@ import retry from 'async-retry';
 import getStream from 'get-stream';
 import fetch from 'fetch-with-proxy';
 
+const restMethods = ['POST', 'GET', 'DELETE', 'PUT', 'PATCH', 'HEAD', 'OPTIONS' , 'TRACE'];
 /**
  * Take an `Object` and send it to an URL.
  *
@@ -23,6 +24,7 @@ import fetch from 'fetch-with-proxy';
  * @param {Boolean} [noerror=false] Ignore all errors
  * @param {Number} [retries=5] The maximum amount of times to retry the connection
  * @param {String} [encoder=dump] The statement to encode each chunk to a string
+ * @param {String} [method=POST] The method to use for the HTTP request
  * @returns {Object}
  */
 export default async function URLConnect(data, feed) {
@@ -30,6 +32,7 @@ export default async function URLConnect(data, feed) {
     const streaming = Boolean(this.getParam('streaming', false));
     const retries = Number(this.getParam('retries', 5));
     const noerror = Boolean(this.getParam('noerror', false));
+    const method = ['POST'].concat(this.getParam('method')).filter(item => !restMethods.includes(item)).pop();
     const json = this.getParam('json', true);
     const encoder = this.getParam('encoder', 'dump');
     const { ezs } = this;
@@ -54,7 +57,7 @@ export default async function URLConnect(data, feed) {
         }
         const parameters = {
             timeout,
-            method: 'POST',
+            method,
             body: bodyIn,
             headers,
         };
