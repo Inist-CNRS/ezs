@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.11.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.10.2...@ezs/basics@2.11.0) (2026-03-13)
+
+
+### Bug Fixes
+
+* 🐛 enable HTTP method change ([ebf0cf4](https://github.com/Inist-CNRS/ezs/commit/ebf0cf47622d1653eb27573a67de8fe32cf32f4d))
+
+
+### Features
+
+* 🎸 oups ([e4a0a8c](https://github.com/Inist-CNRS/ezs/commit/e4a0a8c9712de768c40f55a3773bf67e4ec9eacd))
+
+
+
+
+
 ## [2.10.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.10.1...@ezs/basics@2.10.2) (2026-03-04)
 
 
