@@ -35,10 +35,12 @@ peuvent apparaître comme similaires mais leur fonctionnement est différent :
 *   [combine](#combine)
 *   [concat](#concat)
 *   [debug](#debug)
+*   [decode](#decode)
 *   [dedupe](#dedupe)
 *   [delegate](#delegate)
 *   [detach](#detach)
 *   [dump](#dump)
+*   [encode](#encode)
 *   [env](#env)
 *   [exchange](#exchange)
 *   [expand](#expand)
@@ -250,6 +252,17 @@ Take `Object`, print it (with its index number), and throw the same object.
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
+### decode
+
+Take an `String`, decode with specific mode
+
+#### Parameters
+
+*   `mode` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** mode to use (base64, uri, uuid, bigint) (optional, default `base64`)
+*   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the path of field to decode (optional, default `value`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
+
 ### dedupe
 
 Take `Object`, and check that the object identifier has not already been used previously
@@ -344,6 +357,17 @@ Output:
 *   `indent` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** indent JSON (optional, default `false`)
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**&#x20;
+
+### encode
+
+Take an `String`, encode with specific mode
+
+#### Parameters
+
+*   `mode` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** mode to use (base64, uri, uuid) (optional, default `base64`)
+*   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the path of field to encode (optional, default `value`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ### env
 

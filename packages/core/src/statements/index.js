@@ -37,6 +37,8 @@ import overturn from './overturn.js';
 import fork from './fork.js';
 import breaker from './breaker.js';
 import detach from './detach.js';
+import encode from './encode.js';
+import decode from './decode.js';
 
 export default {
     extract,
@@ -78,4 +80,6 @@ export default {
     fork,
     breaker,
     detach,
+    encode,
+    decode,
 };

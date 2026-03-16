@@ -1,9 +1,11 @@
 import assert from 'assert';
+import debug from 'debug';
 import from from 'from';
 import { Readable } from 'stream';
 import ezs from '../src';
 
 ezs.use(require('./locals'));
+debug.enable('ezs:debug');
 
 class Decade extends Readable {
     constructor() {
