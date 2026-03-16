@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@4.1.4...@ezs/core@4.2.0) (2026-03-16)
+
+
+### Features
+
+* 🎸 add encode/decode statement ([9c489c7](https://github.com/Inist-CNRS/ezs/commit/9c489c7e9580e0fd4a311f605418c67c69fb757b))
+
+
+
+
+
 ## [4.1.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@4.1.3...@ezs/core@4.1.4) (2026-02-13)
 
 **Note:** Version bump only for package @ezs/core
