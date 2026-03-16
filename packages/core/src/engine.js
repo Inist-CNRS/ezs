@@ -45,20 +45,22 @@ function decreaseCounter() {
 }
 
 function createErrorWith(error, index, funcName, funcParams, chunk) {
-    const stk = String(error.stack).split('\n');
+    const stk = String(error.stack).split('\n').slice(0, 6);
     const prefix = `item #${index} `;
     const erm = stk.shift().replace(prefix, '');
-    const msg = `${prefix}[${funcName}] <${erm}>\n\t${stk.slice(0, 10).join('\n\t')}`;
-    const err = Error(msg);
+    const msg = `${prefix}[${funcName}] <${erm}>`;
+    const err = Error();
+    if (debug.enabled('ezs:debug')) {
+        err.sourceChunk = Buffer.isBuffer(chunk) ? 'Buffer' : stringify(chunk);
+        err.traceback = stk;
+    }
     err.sourceError = error;
-    err.sourceChunk = Buffer.isBuffer(chunk) ? 'Buffer' : stringify(chunk);
     err.type = error.type || 'Standard error';
     err.scope = error.scope || 'code';
     err.date = error.date || new Date();
-    err.message = msg.split('\n').shift();
+    err.message = msg;
     err.func = funcName;
     err.params = funcParams;
-    err.traceback = stk.slice(0,10);
     err.index = index;
     Error.captureStackTrace(err, createErrorWith);
     return err;
