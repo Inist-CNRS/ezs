@@ -43,20 +43,12 @@ jobs:
       - name: Build
         run: bun run build
 
-      - name: Rebuild node-postal
-        env:
-          CXXFLAGS: "-I/deps/include"
-          LDFLAGS: "-L/deps/lib"
-        run: |
-          cd node_modules/node-postal
-          bun install
-
       - name: Testing all packages
         env:
           LD_LIBRARY_PATH: "/deps/lib"
           DEBUG: "ezs:error,ezs:warn"
           NODE_ENV: test
-        # Note : 'bun run' appellera Jest, qui s'exécutera sur Node 24 
+        # Note : 'bun run' appellera Jest, qui s'exécutera sur Node 24
         # si celui-ci a été installé à l'étape précédente.
         run: bun run ci:test
 
