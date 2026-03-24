@@ -5,9 +5,7 @@
     "packages/*"
   ],
   "engines": {
-    "node": ">=14.0.0",
-    "yarn": ">= 1.0.0",
-    "npm": "Please use Yarn instead of NPM to install dependencies. See: https://yarnpkg.com/lang/en/docs/install/"
+    "npm": "Please use bun instead of NPM to install dependencies."
   },
   "devDependencies": {
     "@babel/cli": "7.28.0",
@@ -45,21 +43,21 @@
     "sleepjs": "3.0.1"
   },
   "scripts": {
-    "release:version": "lerna version --exact --conventional-commits",
-    "release:publish": "lerna publish from-package",
-    "commit": "git status && npx git-cz -a",
-    "build": "yarn workspaces run build",
-    "ci:install": "yarn install --ignore-engines --frozen-lockfile && yarn run build",
-    "ci:test": "yarn run test:all",
-    "doc": "yarn workspaces run doc",
-    "lint": "yarn workspaces run --no-bail lint",
-    "pretest": "yarn install && yarn run build",
-    "test": "yarn run test:all",
-    "test:all": "NODE_ENV=test jest --maxWorkers 4 --verbose",
-    "test:debug": "NODE_ENV=test jest --runInBand --detectOpenHandles",
-    "coverage": "NODE_ENV=test jest --ci --runInBand --reporters=default --collectCoverage --coverageReporters=text --coverage",
-    "coverage:html": "NODE_ENV=test jest --ci --runInBand --reporters=default --collectCoverage --coverageReporters=html --coverage",
-    "coveralls": "cat ./coverage/lcov.info | coveralls"
+      "release:version": "lerna version --exact --conventional-commits",
+      "release:publish": "lerna publish from-package",
+      "commit": "git status && bunx git-cz -a",
+      "build": "bun run --filter \"*\" build",
+      "ci:install": "bun install --frozen-lockfile && bun run build",
+      "ci:test": "bun run test:all",
+      "doc": "bun run --filter \"*\" doc",
+      "lint": "bun run --filter \"*\" lint",
+      "pretest": "bun install && bun run build",
+      "test": "bun run test:all",
+      "test:all": "NODE_ENV=test jest --maxWorkers 4 --verbose",
+      "test:debug": "NODE_ENV=test jest --runInBand --detectOpenHandles",
+      "coverage": "NODE_ENV=test jest --ci --runInBand --reporters=default --collectCoverage --coverageReporters=text --coverage",
+      "coverage:html": "NODE_ENV=test jest --ci --runInBand --reporters=default --collectCoverage --coverageReporters=html --coverage",
+      "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "config": {
     "commitizen": {
