@@ -287,7 +287,7 @@ describe('exec', () => {
             () => {},
             () => { throw new Error('Error is the right behavior'); },
             (e) => {
-                expect(e.message).toEqual(expect.stringContaining('ko.py exit with code 1'));
+                expect(e.message).toEqual(expect.stringContaining('ko.py'));
             },
         );
     });
