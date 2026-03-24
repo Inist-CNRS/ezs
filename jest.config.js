@@ -1,8 +1,6 @@
 const semver = require('semver');
-const { defaults } = require('jest-config');
 
 const options = {
-    ...defaults,
     testMatch: [
         '**/test?(s)/**/*.[jt]s?(x)',
         '**/__tests__/**/*.[jt]s?(x)',

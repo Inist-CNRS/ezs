@@ -216,7 +216,7 @@ describe('URLStream', () => {
                 url: 'http://127.0.0.1:55544',
             }))
             .pipe(ezs.catch())
-            .on('error', (e) => {
+            .once('error', (e) => {
                 expect(() => {
                     throw e.sourceError;
                 }).toThrow('Invalid JSON (Unexpected "\\n" at position 4 in state STOP)');

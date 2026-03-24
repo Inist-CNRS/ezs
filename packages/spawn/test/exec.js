@@ -9,12 +9,19 @@ ezs.use(analytics);
 
 pool.config.cwd = __dirname;
 
+const streamToPromise = (stream, onData, onEnd, onError) => new Promise((resolve, reject) => {
+    stream
+        .on('error', onError ? (e) => { try { onError(e); resolve(); } catch(err) { reject(err); } } : reject)
+        .on('data', (chunk) => { try { onData(chunk); } catch(e) { reject(e); } })
+        .on('end', () => { try { onEnd(); resolve(); } catch(e) { reject(e); } });
+});
+
 describe('exec', () => {
     afterAll(async () => {
         await pool.shutdown();
     });
 
-    test('cat', (done) => {
+    test('cat', () => {
         ezs.use(statements);
         const input = [
             { a: 1, b: 'a' },
@@ -26,19 +33,13 @@ describe('exec', () => {
         ];
         const output = [];
         const script = `
-
             [exec]
             command = cat
-
         `;
-        from(input)
-            .pipe(ezs('delegate', { script }))
-            .pipe(ezs.catch())
-            .on('error', done)
-            .on('data', (chunk) => {
-                output.push(chunk);
-            })
-            .on('end', () => {
+        return streamToPromise(
+            from(input).pipe(ezs('delegate', { script })).pipe(ezs.catch()),
+            (chunk) => output.push(chunk),
+            () => {
                 expect(output.length).toEqual(6);
                 expect(output[0].b).toEqual('a');
                 expect(output[1].b).toEqual('b');
@@ -46,10 +47,11 @@ describe('exec', () => {
                 expect(output[3].b).toEqual('d');
                 expect(output[4].b).toEqual('e');
                 expect(output[5].b).toEqual('f');
-                done();
-            });
+            },
+        );
     });
-    test('sort', (done) => {
+
+    test('sort', () => {
         ezs.use(statements);
         const input = [
             { a: 1, b: 'a' },
@@ -66,15 +68,10 @@ describe('exec', () => {
             command = sort
             args = --reverse
         `;
-        from(input)
-            .pipe(ezs('delegate', { script }))
-            .pipe(ezs.catch())
-            .on('error', done)
-            .on('data', (chunk) => {
-                output.push(chunk);
-            })
-            .on('end', () => {
-                done();
+        return streamToPromise(
+            from(input).pipe(ezs('delegate', { script })).pipe(ezs.catch()),
+            (chunk) => output.push(chunk),
+            () => {
                 expect(output.length).toEqual(6);
                 expect(output[0].b).toEqual('f');
                 expect(output[1].b).toEqual('e');
@@ -82,9 +79,11 @@ describe('exec', () => {
                 expect(output[3].b).toEqual('c');
                 expect(output[4].b).toEqual('b');
                 expect(output[5].b).toEqual('a');
-            });
+            },
+        );
     });
-    test('cmd.sh', (done) => {
+
+    test('cmd.sh', () => {
         ezs.use(statements);
         const input = [
             { a: 1, b: 'a' },
@@ -96,7 +95,6 @@ describe('exec', () => {
         ];
         const output = [];
         const script = `
-
             [exec]
             path = b
             command = ./cmd.sh
@@ -105,16 +103,11 @@ describe('exec', () => {
             value = get('A')
             path = b
             value = get('B')
-
         `;
-        from(input)
-            .pipe(ezs('delegate', { script }))
-            .pipe(ezs.catch())
-            .on('error', done)
-            .on('data', (chunk) => {
-                output.push(chunk);
-            })
-            .on('end', () => {
+        return streamToPromise(
+            from(input).pipe(ezs('delegate', { script })).pipe(ezs.catch()),
+            (chunk) => output.push(chunk),
+            () => {
                 expect(output.length).toEqual(6);
                 expect(output[0].b).toEqual('A');
                 expect(output[1].b).toEqual('B');
@@ -122,10 +115,11 @@ describe('exec', () => {
                 expect(output[3].b).toEqual('D');
                 expect(output[4].b).toEqual('E');
                 expect(output[5].b).toEqual('F');
-                done();
-            });
+            },
+        );
     });
-    test('cmd.sh (concurrency = 0)', (done) => {
+
+    test('cmd.sh (concurrency = 0)', () => {
         ezs.use(statements);
         const input = [
             { a: 1, b: 'a' },
@@ -137,7 +131,6 @@ describe('exec', () => {
         ];
         const output = [];
         const script = `
-
             [exec]
             path = b
             command = ./cmd.sh
@@ -147,16 +140,11 @@ describe('exec', () => {
             value = get('A')
             path = b
             value = get('B')
-
         `;
-        from(input)
-            .pipe(ezs('delegate', { script }))
-            .pipe(ezs.catch())
-            .on('error', done)
-            .on('data', (chunk) => {
-                output.push(chunk);
-            })
-            .on('end', () => {
+        return streamToPromise(
+            from(input).pipe(ezs('delegate', { script })).pipe(ezs.catch()),
+            (chunk) => output.push(chunk),
+            () => {
                 expect(output.length).toEqual(6);
                 expect(output[0].b).toEqual('A');
                 expect(output[1].b).toEqual('B');
@@ -164,10 +152,11 @@ describe('exec', () => {
                 expect(output[3].b).toEqual('D');
                 expect(output[4].b).toEqual('E');
                 expect(output[5].b).toEqual('F');
-                done();
-            });
+            },
+        );
     });
-    test('cmd.py', (done) => {
+
+    test('cmd.py', () => {
         ezs.use(statements);
         const input = [
             { a: 1, b: 'a' },
@@ -194,14 +183,10 @@ describe('exec', () => {
             path = b
             value = get('value')
         `;
-        from(input)
-            .pipe(ezs('delegate', { script }))
-            .pipe(ezs.catch())
-            .on('error', done)
-            .on('data', (chunk) => {
-                output.push(chunk);
-            })
-            .on('end', () => {
+        return streamToPromise(
+            from(input).pipe(ezs('delegate', { script })).pipe(ezs.catch()),
+            (chunk) => output.push(chunk),
+            () => {
                 expect(output.length).toEqual(6);
                 expect(output[0].b).toEqual('A');
                 expect(output[1].b).toEqual('B');
@@ -209,10 +194,11 @@ describe('exec', () => {
                 expect(output[3].b).toEqual('D');
                 expect(output[4].b).toEqual('E');
                 expect(output[5].b).toEqual('F');
-                done();
-            });
+            },
+        );
     });
-    test('cmd.py (with expand) size 10', (done) => {
+
+    test('cmd.py (with expand) size 10', () => {
         ezs.use(statements);
         const input = [
             { a: 1, b: 'a' },
@@ -230,14 +216,10 @@ describe('exec', () => {
             [expand/exec]
             command = ./cmd.py
         `;
-        from(input)
-            .pipe(ezs('delegate', { script }))
-            .pipe(ezs.catch())
-            .on('error', done)
-            .on('data', (chunk) => {
-                output.push(chunk);
-            })
-            .on('end', () => {
+        return streamToPromise(
+            from(input).pipe(ezs('delegate', { script })).pipe(ezs.catch()),
+            (chunk) => output.push(chunk),
+            () => {
                 expect(output.length).toEqual(6);
                 expect(output[0].b).toEqual('A');
                 expect(output[1].b).toEqual('B');
@@ -245,10 +227,11 @@ describe('exec', () => {
                 expect(output[3].b).toEqual('D');
                 expect(output[4].b).toEqual('E');
                 expect(output[5].b).toEqual('F');
-                done();
-            });
+            },
+        );
     });
-    test('cmd.py (with expand) size 3', (done) => {
+
+    test('cmd.py (with expand) size 3', () => {
         ezs.use(statements);
         const input = [
             { a: 1, b: 'a' },
@@ -266,14 +249,10 @@ describe('exec', () => {
             [expand/exec]
             command = ./cmd.py
         `;
-        from(input)
-            .pipe(ezs('delegate', { script }))
-            .pipe(ezs.catch())
-            .on('error', done)
-            .on('data', (chunk) => {
-                output.push(chunk);
-            })
-            .on('end', () => {
+        return streamToPromise(
+            from(input).pipe(ezs('delegate', { script })).pipe(ezs.catch()),
+            (chunk) => output.push(chunk),
+            () => {
                 expect(output.length).toEqual(6);
                 expect(output[0].b).toEqual('A');
                 expect(output[1].b).toEqual('B');
@@ -281,10 +260,11 @@ describe('exec', () => {
                 expect(output[3].b).toEqual('D');
                 expect(output[4].b).toEqual('E');
                 expect(output[5].b).toEqual('F');
-                done();
-            });
+            },
+        );
     });
-    test('bad file', (done) => {
+
+    test('bad file', () => {
         ezs.use(statements);
         const input = [
             { a: 1, b: 'a' },
@@ -302,19 +282,17 @@ describe('exec', () => {
             path = b
             value = get('b.value')
         `;
-        from(input)
-            .pipe(ezs('delegate', { script }))
-            .pipe(ezs.catch())
-            .on('error', (e) => {
+        return streamToPromise(
+            from(input).pipe(ezs('delegate', { script })).pipe(ezs.catch()),
+            () => {},
+            () => { throw new Error('Error is the right behavior'); },
+            (e) => {
                 expect(e.message).toEqual(expect.stringContaining('ko.py exit with code 1'));
-                done();
-            })
-            .on('end', () => {
-                done(new Error('Error is the right behavior'));
-            });
+            },
+        );
     });
 
-    test('nonexisting file', (done) => {
+    test('nonexisting file', () => {
         ezs.use(statements);
         const input = [
             { a: 1, b: 'a' },
@@ -328,16 +306,14 @@ describe('exec', () => {
             [exec]
             command = ./fake_command
         `;
-        from(input)
-            .pipe(ezs('delegate', { script }))
-            .pipe(ezs.catch())
-            .on('error', (e) => {
+        return streamToPromise(
+            from(input).pipe(ezs('delegate', { script })).pipe(ezs.catch()),
+            () => {},
+            () => { throw new Error('Error is the right behavior'); },
+            (e) => {
                 expect(e.message).toEqual(expect.stringContaining('ENOENT'));
-                done();
-            })
-            .on('end', () => {
-                done(new Error('Error is the right behavior'));
-            });
+            },
+        );
     });
 
     describe('exec (with preload)', () => {
@@ -379,13 +355,11 @@ describe('exec', () => {
                 .on('end', () => resolve(output));
         };
         beforeAll(async () => {
-            // // fire pool and wait
             await new Promise(call);
             await new Promise((r) => setTimeout(r, 30000));
         }, 60000);
 
-        test('slow.py (1)', async (done) => {
-            // X calls ...
+        test('slow.py (1)', async () => {
             await Promise.all([
                 await new Promise(call),
                 await new Promise(call),
@@ -400,7 +374,6 @@ describe('exec', () => {
             expect(output[3].b).toEqual('D');
             expect(output[4].b).toEqual('E');
             expect(output[5].b).toEqual('F');
-            done();
         }, 60000);
     });
 });
