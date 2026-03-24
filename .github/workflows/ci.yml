@@ -1,0 +1,78 @@
+name: CI (Bun & Node 24)
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # On définit nos deux environnements cibles
+        runtime: [bun, node24]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install libpostal
+        run: bash ${GITHUB_WORKSPACE}/.github/workflows/install-libpostal.sh
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      # Si on est sur le runner Node 24, on installe Node par-dessus Bun
+      - name: Setup Node.js 24
+        if: ${{ matrix.runtime == 'node24' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        env:
+          CXXFLAGS: "-I/deps/include"
+          LDFLAGS: "-L/deps/lib"
+        # On utilise Bun pour installer les dépendances dans les deux cas (gain de temps)
+        run: bun install --frozen-lockfile
+
+      - name: Build
+        run: bun run build
+
+      - name: Rebuild node-postal
+        env:
+          CXXFLAGS: "-I/deps/include"
+          LDFLAGS: "-L/deps/lib"
+        run: |
+          cd node_modules/node-postal
+          bun install
+
+      - name: Testing all packages
+        env:
+          LD_LIBRARY_PATH: "/deps/lib"
+          DEBUG: "ezs:error,ezs:warn"
+          NODE_ENV: test
+        # Note : 'bun run' appellera Jest, qui s'exécutera sur Node 24 
+        # si celui-ci a été installé à l'étape précédente.
+        run: bun run ci:test
+
+      - name: Coveralls Parallel
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: run-${{ matrix.runtime }}
+          parallel: true
+
+  finish:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Coveralls Finished
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel-finished: true
