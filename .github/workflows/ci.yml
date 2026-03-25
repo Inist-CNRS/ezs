@@ -1,4 +1,4 @@
-name: CI (Bun & Node 24)
+name: CI 100% Bun
 
 on:
   push:
@@ -9,11 +9,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        # On définit nos deux environnements cibles
-        runtime: [bun, node24]
 
     steps:
       - uses: actions/checkout@v4
@@ -26,45 +21,26 @@ jobs:
         with:
           bun-version: latest
 
-      # Si on est sur le runner Node 24, on installe Node par-dessus Bun
-      - name: Setup Node.js 24
-        if: ${{ matrix.runtime == 'node24' }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24
-
       - name: Install dependencies
         env:
           CXXFLAGS: "-I/deps/include"
           LDFLAGS: "-L/deps/lib"
-        # On utilise Bun pour installer les dépendances dans les deux cas (gain de temps)
         run: bun install --frozen-lockfile
 
       - name: Build
         run: bun run build
 
-      - name: Testing all packages
+      - name: Run Tests with Bun Test
         env:
           LD_LIBRARY_PATH: "/deps/lib"
           DEBUG: "ezs:error,ezs:warn"
           NODE_ENV: test
-        # Note : 'bun run' appellera Jest, qui s'exécutera sur Node 24
-        # si celui-ci a été installé à l'étape précédente.
-        run: bun run ci:test
+        # --coverage génère automatiquement un dossier ./coverage/
+        run: bun test --coverage
 
-      - name: Coveralls Parallel
+      - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          flag-name: run-${{ matrix.runtime }}
-          parallel: true
-
-  finish:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Coveralls Finished
-        uses: coverallsapp/github-action@v2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          parallel-finished: true
+          # Bun génère du LCOV par défaut dans le dossier coverage
+          file: ./coverage/lcov.info
