@@ -47,10 +47,14 @@ export default async function URLFetch(data, feed) {
         .join('\n'));
     const mimetype = String(this.getParam('mimetype', 'application/json'));
     const controller = new AbortController();
+    const controllerTimeout = setTimeout(() => {
+        controller.abort();
+        debug('ezs:info')(`The timeout period has expired; the request has been aborted`);
+        return feed.send(new Error(`Response timeout over ${timeout}ms`));
+    }, timeout);
     const key = Array.isArray(path) ? path.shift() : path;
     const body = get(data, key);
     const parameters = {
-        timeout,
         headers,
         signal: controller.signal,
     };
@@ -77,6 +81,7 @@ export default async function URLFetch(data, feed) {
         } else {
             value = await response.text();
         }
+        clearTimeout(controllerTimeout);
         if (target) {
             const result = typeof data === 'object' ? { ...data } : { input: data };
             set(result, target, value);
@@ -84,6 +89,8 @@ export default async function URLFetch(data, feed) {
         }
         return feed.send(value);
     } catch (e) {
+        console.error('>>><', e);
+        clearTimeout(controllerTimeout);
         controller.abort();
         if (noerror) {
             debug('ezs:info')(`Ignore item #${this.getIndex()} [URLFetch]`, this.ezs.serializeError(e));

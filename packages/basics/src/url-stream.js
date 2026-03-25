@@ -1,4 +1,5 @@
 import debug from 'debug';
+import { Readable } from 'stream';
 import { URL, URLSearchParams } from 'url';
 import AbortController from 'node-abort-controller';
 import JSONStream from 'JSONStream';
@@ -112,9 +113,11 @@ export default async function URLStream(data, feed) {
     };
     try {
         const response = await retry(request(cURL.href, parameters), options);
+        const bodyStream = Readable.fromWeb(response.body);
         const output = path
-            ? response.body.pipe(JSONStream.parse(path))
-            : response.body;
+            ? bodyStream.pipe(JSONStream.parse(path))
+            : bodyStream;
+
         output.once('error', onError);
         await feed.flow(output);
     } catch (e) {
