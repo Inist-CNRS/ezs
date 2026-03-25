@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-import 'app-module-path/cwd.js';
-import cli from '../src/cli.js';
-
-cli(console.error);
+#!/usr/bin/env sh
+DIR=$(cd "$(dirname "$(readlink -f "$0")")" && pwd)
+exec ${EZS_RUNTIME:-node} "$DIR/ezs.js" "$@"
