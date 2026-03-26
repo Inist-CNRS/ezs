@@ -397,7 +397,8 @@ Script:
 plugin = analytics
 
 [exploding]
-
+id = arrival
+value = departure
 ```
 
 Output:
