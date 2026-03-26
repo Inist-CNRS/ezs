@@ -84,7 +84,7 @@ export default async function URLStream(data, feed) {
     const path = this.getParam('path', '*');
     const retries = Number(this.getParam('retries', 5));
     const noerror = Boolean(this.getParam('noerror', false));
-    const timeout = Number(this.getParam('timeout')) || 1000;
+    const timeout = Number(this.getParam('timeout', 5000));
     const headers = parseHeaders([]
         .concat(this.getParam('header'))
         .filter(Boolean)

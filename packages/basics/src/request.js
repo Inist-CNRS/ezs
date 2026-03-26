@@ -8,7 +8,6 @@ const request = (url, parameters) => async (bail) => {
             // useless to retry
             return bail(err);
         }
-        console.error('>>>>>>>>>>>>>>>>>>>>>><<<<<', err);
         throw err;
     }
     return response;

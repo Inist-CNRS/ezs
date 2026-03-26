@@ -1,4 +1,5 @@
 import JSONStream from 'JSONStream';
+import { Readable } from 'stream';
 import from from 'from';
 import debug from 'debug';
 import writeTo from 'stream-write';
@@ -6,7 +7,6 @@ import AbortController from 'node-abort-controller';
 import parseHeaders from 'parse-headers';
 import retry from 'async-retry';
 import getStream from 'get-stream';
-import fetch from 'fetch-with-proxy';
 
 const restMethods = ['POST', 'GET', 'DELETE', 'PUT', 'PATCH', 'HEAD', 'OPTIONS' , 'TRACE'];
 /**
@@ -20,7 +20,7 @@ const restMethods = ['POST', 'GET', 'DELETE', 'PUT', 'PATCH', 'HEAD', 'OPTIONS' 
  * @param {String} [url] URL to fetch
  * @param {String} [streaming=false] Direct connection to the Object Stream server (disables the retries setting)
  * @param {String} [json=false] Parse as JSON the content of URL
- * @param {Number} [timeout=1000] Timeout in milliseconds
+ * @param {Number} [timeout=5000] Timeout in milliseconds
  * @param {Boolean} [noerror=false] Ignore all errors
  * @param {Number} [retries=5] The maximum amount of times to retry the connection
  * @param {String} [encoder=dump] The statement to encode each chunk to a string
@@ -37,7 +37,7 @@ export default async function URLConnect(data, feed) {
     const encoder = this.getParam('encoder', 'dump');
     const { ezs } = this;
     if (this.isFirst()) {
-        const timeout = Number(this.getParam('timeout')) || 1000;
+        const timeout = Number(this.getParam('timeout', 5000));
         const headers = parseHeaders([]
             .concat(this.getParam('header'))
             .filter(Boolean)
@@ -68,10 +68,18 @@ export default async function URLConnect(data, feed) {
                         debug('ezs:debug')(`Attempts to reconnect (${numberOfTimes})`);
                     }
                     const controller = new AbortController();
+                    const controllerTimeout = setTimeout(() => {
+                        controller.abort();
+                        debug('ezs:info')(`The timeout period has expired; the request has been aborted`);
+                        return feed.send(new Error(`Response timeout over ${timeout}ms`));
+                    }, timeout);
+
                     const response = await fetch(url, {
                         ...parameters,
                         signal: controller.signal,
                     });
+                    clearTimeout(controllerTimeout);
+
 
                     if (!response.ok) {
                         const err = new Error(response.statusText);
@@ -80,8 +88,9 @@ export default async function URLConnect(data, feed) {
                         throw err;
                     }
 
+                    const bodyStream = Readable.fromWeb(response.body);
                     if (streaming) {
-                        const bodyOut = json ? response.body.pipe(JSONStream.parse('*')) : response.body;
+                        const bodyOut = json ? bodyStream.pipe(JSONStream.parse('*')) : bodyStream;
                         bodyOut.once('error', (e) => {
                             controller.abort();
                             output.emit('error', e);
@@ -89,7 +98,7 @@ export default async function URLConnect(data, feed) {
                         return bodyOut.pipe(output);
                     }
                     if (json) {
-                        const bodyOutRaw = await getStream(response.body);
+                        const bodyOutRaw = await getStream(bodyStream);
                         if (bodyOutRaw === '') {
                             throw new Error('URL returned an empty response');
                         }
@@ -102,7 +111,7 @@ export default async function URLConnect(data, feed) {
                         }
                         return from(bodyOutArray).pipe(output);
                     }
-                    return response.body.pipe(output);
+                    return bodyStream.pipe(output);
                 },
                 {
                     retries: streaming ? 0 : retries,
