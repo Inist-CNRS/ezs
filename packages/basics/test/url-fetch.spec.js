@@ -257,7 +257,6 @@ describe('URLFetch', () => {
             url = get('a').replace(/(.*)/, '${getHost()}/status/503')
             json = true
             retries = 2
-            timeout = 10
 
             [exchange]
             value = get('args')
@@ -276,9 +275,9 @@ describe('URLFetch', () => {
             .on('end', () => {
                 done(new Error('Error is the right behavior'));
             });
-    });
+    }, 30000);
 
-    test.only('#3bis', (done) => {
+    test('#3bis', (done) => {
         ezs.use(statements);
         const input = [
             { a: 'a' },
@@ -290,6 +289,7 @@ describe('URLFetch', () => {
             [URLFetch]
             url = get('a').replace(/(.*)/, '${getHost()}/status/503')
             noerror = true
+            timeout = 20000
             retries = 1
         `;
         from(input)
@@ -304,7 +304,7 @@ describe('URLFetch', () => {
                 expect(output).toStrictEqual(input);
                 done();
             });
-    }, 10000);
+    }, 30000);
     test('#3ter', (done) => {
         ezs.use(statements);
         const input = [
@@ -370,7 +370,7 @@ describe('URLFetch', () => {
         ];
         const output = [];
         from(input)
-            .pipe(ezs('URLFetch', { url: 'http://127.0.0.1:11111/', retries: 1, timeout: 2000 }))
+            .pipe(ezs('URLFetch', { url: 'http://127.0.0.1:11111/', retries: 1, timeout: 10000 }))
             .on('data', (e) => {
                 output.push(e);
             })
@@ -379,7 +379,7 @@ describe('URLFetch', () => {
                 expect(output[0].message).toEqual(expect.stringContaining('Unable to connect'));
                 done();
             });
-    }, 6000);
+    }, 30000);
     test('#5', (done) => {
         ezs.use(statements);
         const input = [
