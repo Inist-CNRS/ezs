@@ -231,7 +231,7 @@ describe('detach through file(s)', () => {
 
     });
     describe('advanced  statements', () => {
-        it.skip('with a lot of data', (done) => {
+        it('with a lot of data', (done) => {
             const script = `
             [use]
             plugin = packages/core/test/locals

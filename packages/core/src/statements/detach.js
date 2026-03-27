@@ -2,6 +2,7 @@ import debug from 'debug';
 import path from 'path';
 import { Worker } from 'worker_threads';
 import filedirname from 'filedirname';
+import net from 'net';
 import JSONezs from '../json.js';
 
 const [, dirname] = filedirname();
@@ -40,8 +41,6 @@ export default function detach(data, feed) {
     const { ezs } = this;
     if (!this.input) {
         this.input = ezs.createStream(ezs.objectMode());
-        const { port1: stdinPort1, port2: stdinPort2 } = new MessageChannel();
-        const { port1: stdoutPort1, port2: stdoutPort2 } = new MessageChannel();
         const workerData = {
             file: this.getParam('file'),
             script: this.getParam('script'),
@@ -55,35 +54,43 @@ export default function detach(data, feed) {
             loggerParam: this.getParam('logger'),
             settings: ezs.settings,
             plugins: ezs.useFiles(),
-            stdinPort: stdinPort2,
-            stdoutPort: stdoutPort2,
         };
-
+        const toWorker = this.input.pipe(ezs.createCommand(workerData.encoder));
+        const fromWorker = ezs.createCommand(workerData.decoder);
         this.worker = new Worker(workerFile, {
             workerData,
-            transferList: [stdinPort2, stdoutPort2],
         });
         this.worker.on('exit', (code) => {
             if (code !== 0) feed.stop(new Error(`Worker stopped with exit code ${code}`));
         });
-        this.whenReady =  new Promise((resolve, reject) => {
-            this.worker.once('online', resolve);
-            this.worker.once('error', (err) => {
-                debug('ezs:error')('Worker crash', this.ezs.serializeError(err));
-                // exit event will stop the feed;
-                reject(err);
+        this.whenFinish = new Promise((resolve, reject) => {
+            this.worker.on('message', ({ stdinPort, stdoutPort }) => {
+                const stdinSocket = net.connect(stdinPort, '127.0.0.1', () => {
+                    toWorker.pipe(stdinSocket);
+                });
+
+                const stdoutSocket = net.connect(stdoutPort, '127.0.0.1', () => {
+                    const output = stdoutSocket.pipe(fromWorker);
+                    resolve(feed.flow(output, { autoclose: true, emptyclose: false }));
+                });
+
+                this.worker.on('exit', () => {
+                    stdinSocket.destroy();
+                    stdoutSocket.destroy();
+                    reject();
+                });
+            });
+
+            this.whenReady = new Promise((resolve, reject) => {
+                this.worker.once('online', resolve);
+                this.worker.once('error', (err) => {
+                    debug('ezs:error')('Worker crash', this.ezs.serializeError(err));
+                    // exit event will stop the feed;
+                    reject(err);
+                });
             });
         });
-        const toWorker = this.input.pipe(ezs.createCommand(workerData.encoder));
-        pipeToWorker(toWorker, stdinPort1);
 
-        const output = ezs.createCommand(workerData.decoder);
-        stdoutPort1.on('message', ({ type, chunk }) => {
-            if (type === 'data')  output.write(Buffer.from(chunk));
-            else if (type === 'end')   output.end();
-            else if (type === 'error') output.destroy(new Error(chunk));
-        });
-        this.whenFinish = feed.flow(output, { autoclose: true, emptyclose: false });
     }
     if (this.isLast()) {
         debug('ezs:debug')(`${this.getIndex()} chunks have been detached`);
