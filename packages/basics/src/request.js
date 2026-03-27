@@ -1,7 +1,4 @@
-import fetch from 'fetch-with-proxy';
-
 const request = (url, parameters) => async (bail) => {
-
     const response = await fetch(url, parameters);
     if (!response.ok) { // response.status >= 200 && response.status < 300
         const err = new Error(response.statusText);

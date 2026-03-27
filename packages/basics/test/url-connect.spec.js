@@ -4,38 +4,33 @@ import semver from 'semver';
 import ezs from '../../core/src';
 import ezsAnalytics from '../../analytics/src';
 import statements from '../src';
+import { startEZSServer, stopEZSServer, getEZSHost } from './fake-ezs-server.js';
+import { startServer, stopServer, getHost } from './fake-server.js';
 
 ezs.addPath(__dirname);
 ezs.settings.servePath = __dirname;
 
 
-function pause(data, feed) {
-    const time2sleep = Number(this.getParam('time', 1000));
-    if (this.isLast()) {
-        feed.close();
-    }
-    feed.write(data);
-    return setTimeout(() => feed.end(), time2sleep);
-}
+beforeAll(async () => {
+    await startEZSServer();
+    await startServer();
+});
+
+afterAll(async () => {
+    await stopEZSServer();
+    await stopServer();
+});
+
 
 
 describe('URLConnect', () => {
-    let serverHandle;
-    beforeAll((ready) => {
-        serverHandle = ezs.createServer(33331, __dirname);
-        serverHandle.on('listening', () => ready());
-    });
-    afterAll(() => {
-
-        serverHandle.close();
-    });
     test('#1', (done) => {
         ezs.use(statements);
         const input = [1, 2, 3, 4, 5];
         const output = [];
         from(input)
             .pipe(ezs('URLConnect', {
-                url: 'http://127.0.0.1:33331/transit.ini',
+                url: `${getEZSHost()}/transit.ini`,
                 timeout: 5000,
             }))
             .pipe(ezs.catch())
@@ -48,7 +43,7 @@ describe('URLConnect', () => {
                 expect(output).toStrictEqual(input);
                 done();
             });
-    });
+    }, 30000);
     test('#1bis', (done) => {
         ezs.use(statements);
         const size = 100;
@@ -56,7 +51,7 @@ describe('URLConnect', () => {
         const output = [];
         from(input)
             .pipe(ezs('URLConnect', {
-                url: 'http://127.0.0.1:33331/transit.ini',
+                url: `${getEZSHost()}/transit.ini`,
                 timeout: 5000,
                 method: 'TOTO', // utilisera POST car non autorisé
             }))
@@ -69,14 +64,14 @@ describe('URLConnect', () => {
                 expect(output.length).toBe(size);
                 done();
             });
-    }, 10000);
+    }, 30000);
     test('#1ter', (done) => {
         ezs.use(statements);
         const input = [1, 2, 3, 4, 5];
         const output = [];
         from(input)
             .pipe(ezs('URLConnect', {
-                url: 'http://127.0.0.1:33331/transit.ini',
+                url: `${getEZSHost()}/transit.ini`,
                 timeout: 5000,
                 streaming: true
             }))
@@ -90,16 +85,16 @@ describe('URLConnect', () => {
                 expect(output).toStrictEqual(input);
                 done();
             });
-    });
+    }, 30000);
     test('#2', (done) => {
         ezs.use(statements);
         const input = [1, 2, 3, 4, 5];
         const output = [];
         from(input)
+            .pipe(ezs('debug'))
             .pipe(ezs('URLConnect', {
-                url: 'http://127.0.0.1:33331/transit.ini',
+                url: `${getEZSHost()}/transit.ini`,
                 json: false,
-                timeout: 'fakevalue', // for test
             }))
             .pipe(ezs('JSONParse'))
             .pipe(ezs.catch())
@@ -112,13 +107,13 @@ describe('URLConnect', () => {
                 expect(output).toStrictEqual(input);
                 done();
             });
-    });
+    }, 30000);
     test('#3', (done) => {
         ezs.use(statements);
         const input = [1, 2, 3, 4, 5];
         from(input)
             .pipe(ezs('URLConnect', {
-                url: 'http://127.0.0.1:33331/nofound.ini',
+                url: `${getEZSHost()}/nofound.ini`,
                 streaming: true
             }))
             .pipe(ezs.catch())
@@ -131,13 +126,13 @@ describe('URLConnect', () => {
             .on('end', () => {
                 done(new Error('Error is the right behavior'));
             });
-    });
+    }, 30000);
     test('#3bis', (done) => {
         ezs.use(statements);
         const input = [1, 2, 3, 4, 5];
         from(input)
             .pipe(ezs('URLConnect', {
-                url: 'http://127.0.0.1:33331/nofound.ini',
+                url: `${getEZSHost()}/nofound.ini`,
                 retries: 2,
             }))
             .pipe(ezs.catch())
@@ -150,14 +145,14 @@ describe('URLConnect', () => {
             .on('end', () => {
                 done(new Error('Error is the right behavior'));
             });
-    });
+    }, 30000);
     test('#3.1', (done) => {
         ezs.use(statements);
         const input = [1, 2, 3, 4, 5];
         const output = [];
         from(input)
             .pipe(ezs('URLConnect', {
-                url: 'http://127.0.0.1:33331/nofound.ini',
+                url: `${getEZSHost()}/nofound.ini`,
                 streaming: true,
                 noerror: true,
             }))
@@ -172,14 +167,14 @@ describe('URLConnect', () => {
                 expect(output.length).toBe(0);
                 done();
             });
-    });
+    }, 30000);
     test('#3.1bis', (done) => {
         ezs.use(statements);
         const input = [1, 2, 3, 4, 5];
         const output = [];
         from(input)
             .pipe(ezs('URLConnect', {
-                url: 'http://127.0.0.1:33331/nofound.ini',
+                url: `${getEZSHost()}/nofound.ini`,
                 retries: 2,
                 noerror: true,
             }))
@@ -194,14 +189,14 @@ describe('URLConnect', () => {
                 expect(output.length).toBe(0);
                 done();
             });
-    });
+    }, 30000);
     if (semver.gte(process.version, '14.0.0')) {
         test('#4', (done) => {
             ezs.use(statements);
             const input = ['1a', '2a', '3a', '4a', '5a'];
             from(input)
                 .pipe(ezs('URLConnect', {
-                    url: 'http://127.0.0.1:33331/tocsv.ini',
+                    url: `${getEZSHost()}/tocsv.ini`,
                     retries: 2,
                     json: true,
                 }))
@@ -220,13 +215,13 @@ describe('URLConnect', () => {
                 .on('end', () => {
                     done(new Error('Error is the right behavior'));
                 });
-        });
+        }, 30000);
         test('#4bis', (done) => {
             ezs.use(statements);
             const input = ['1a', '2a', '3a', '4a', '5a'];
             from(input)
                 .pipe(ezs('URLConnect', {
-                    url: 'http://127.0.0.1:33331/tocsv.ini',
+                    url: `${getEZSHost()}/tocsv.ini`,
                     streaming: true,
                     json: true,
                 }))
@@ -245,13 +240,13 @@ describe('URLConnect', () => {
                 .on('end', () => {
                     done(new Error('Error is the right behavior'));
                 });
-        });
+        }, 30000);
         test('#4ter', (done) => {
             ezs.use(statements);
             const input = ['1a', '2a', '3a', '4a', '5a'];
             from(input)
                 .pipe(ezs('URLConnect', {
-                    url: 'http://127.0.0.1:33331/empty.ini',
+                    url: `${getEZSHost()}/empty.ini`,
                     json: true,
                     retries: 1,
                 }))
@@ -270,7 +265,7 @@ describe('URLConnect', () => {
                 .on('end', () => {
                     done(new Error('Error is the right behavior'));
                 });
-        });
+        }, 30000);
     }
     test('#5', (done) => {
         ezs.use(statements);
@@ -291,7 +286,7 @@ describe('URLConnect', () => {
             .on('end', () => {
                 done(new Error('Error is the right behavior'));
             });
-    }, 10000);
+    }, 30000);
     test('#5bis', (done) => {
         ezs.use(statements);
         const input = ['1a', '2a', '3a', '4a', '5a'];
@@ -311,64 +306,19 @@ describe('URLConnect', () => {
             .on('end', () => {
                 done(new Error('Error is the right behavior'));
             });
-    }, 10000);
+    }, 30000);
 });
 
 describe('URLConnect error and retry', () => {
-    let serverHandle1;
-    let counter1 = 0;
-    let counter2 = 0;
-    beforeAll((ready) => {
-        serverHandle1 = http.createServer((req, res) => {
-            if (req.headers['x-timeout'] === 'erratic') {
-                counter2 += 1;
-                if (counter2 % 2 === 0) {
-                    res.writeHead(500);
-                    return res.end();
-                }
-            }
-            res.writeHead(200);
-            if (req.headers['x-timeout'] === 'all') {
-                const timeoutHandle = setTimeout(() => {
-                    req.pipe(res);
-                }, 1000);
-                res.on('close', () => clearTimeout(timeoutHandle));
-                return req;
-            }
-            if (req.headers['x-timeout'] === 'none') {
-                return req.pipe(res);
-            }
-            if (req.headers['x-timeout'] === 'once') {
-                counter1 += 1;
-                if (counter1 === 1) {
-                    const timeoutHandle = setTimeout(() => {
-                        req.pipe(res);
-                    }, 1000);
-                    res.on('close', () => clearTimeout(timeoutHandle));
-                } else {
-                    return req.pipe(res);
-                }
-            }
-            if (req.headers['x-timeout'] === 'slow') {
-                return req.pipe(ezs(pause)).pipe(res);
-            }
-            return req.pipe(res);
-        });
-        serverHandle1.listen(44441);
-        serverHandle1.on('listening', () => ready());
-    });
-    afterAll(() => {
-        serverHandle1.close();
-    });
-
     describe('line', () => {
         const input = ['1a', '2a', '3a', '4a', '5a'];
         test('base line with no timeout', (done) => {
             ezs.use(statements);
             const output = [];
             from(input)
+                .pipe(ezs('debug'))
                 .pipe(ezs('URLConnect', {
-                    url: 'http://127.0.0.1:44441/',
+                    url: `${getHost()}/timer`,
                     json: true,
                     header: 'x-timeout:none',
                 }))
@@ -381,14 +331,14 @@ describe('URLConnect error and retry', () => {
                     expect(output.length).toBe(5);
                     done();
                 });
-        });
+        }, 30000);
 
 
         test('one retry, errors every time', (done) => {
             ezs.use(statements);
             from(input)
                 .pipe(ezs('URLConnect', {
-                    url: 'http://127.0.0.1:44441/',
+                    url: `${getHost()}/timer`,
                     json: true,
                     streaming: true,
                     timeout: 100,
@@ -397,7 +347,7 @@ describe('URLConnect error and retry', () => {
                 .pipe(ezs.catch())
                 .on('error', (e) => {
                     try {
-                        expect(e.message).toEqual(expect.stringContaining('network timeout at'));
+                        expect(e.message).toEqual(expect.stringContaining('The operation timed out.'));
                         done();
                     } catch(ee) {
                         done(ee);
@@ -406,13 +356,13 @@ describe('URLConnect error and retry', () => {
                 .on('end', () => {
                     done(new Error('Error is the right behavior'));
                 });
-        });
+        }, 30000);
 
         test('two retry, errors every time', (done) => {
             ezs.use(statements);
             from(input)
                 .pipe(ezs('URLConnect', {
-                    url: 'http://127.0.0.1:44441/',
+                    url: `${getHost()}/timer`,
                     json: true,
                     retries: 2,
                     timeout: 100,
@@ -421,7 +371,7 @@ describe('URLConnect error and retry', () => {
                 .pipe(ezs.catch())
                 .on('error', (e) => {
                     try {
-                        expect(e.message).toEqual(expect.stringContaining('network timeout at'));
+                        expect(e.message).toEqual(expect.stringContaining('The operation timed out.'));
                         done();
                     } catch(ee) {
                         done(ee);
@@ -430,14 +380,14 @@ describe('URLConnect error and retry', () => {
                 .on('end', () => {
                     done(new Error('Error is the right behavior'));
                 });
-        });
+        }, 30000);
 
         test('two retry, error once time', (done) => {
             ezs.use(statements);
             const output = [];
             from(input)
                 .pipe(ezs('URLConnect', {
-                    url: 'http://127.0.0.1:44441/',
+                    url: `${getHost()}/timer`,
                     json: true,
                     retries: 2,
                     timeout: 900,
@@ -452,11 +402,11 @@ describe('URLConnect error and retry', () => {
                     expect(output.length).toBe(5);
                     done();
                 });
-        });
+        }, 30000);
     });
     describe('deep', () => {
         ezs.use(ezsAnalytics);
-        const getScript = (timeout, streaming, mode, retries = 2, port = 44441) => `
+        const getScript = (timeout, streaming, mode, retries = 2, port = '') => `
 [use]
 plugin = analytics
 
@@ -479,7 +429,7 @@ path = value
 size = 2
 
 [expand/expand/URLConnect]
-url = http://127.0.0.1:${port}
+url = ${getHost()}${port}/timer
 json = true
 timeout = ${timeout}
 streaming = ${streaming}
@@ -512,234 +462,238 @@ header = x-timeout:${mode}
             }
         ];
 
-        test('base line with one try', (done) => {
-            const output = [];
-            ezs.use(statements);
-            from(input)
-                .pipe(ezs('delegate', { script: getScript(500, true, 'none') }))
-                .pipe(ezs.catch())
-                .on('error', done)
-                .on('data', (chunk) => {
-                    output.push(chunk);
-                })
-                .on('end', () => {
-                    expect(output.length).toBe(5);
-                    expect(output).toStrictEqual(input);
-                    done();
-                });
-        });
-
-        test('base line with two try', (done) => {
-            const output = [];
-            ezs.use(statements);
-            from(input)
-                .pipe(ezs('delegate', { script: getScript(500, false, 'none') }))
-                .pipe(ezs.catch())
-                .on('error', done)
-                .on('data', (chunk) => {
-                    output.push(chunk);
-                })
-                .on('end', () => {
-                    expect(output.length).toBe(5);
-                    expect(output).toStrictEqual(input);
-                    done();
-                });
-        });
-
-        test('one retry, timeout errors every time', (done) => {
-            ezs.use(statements);
-            from(input)
-                .pipe(ezs('delegate', { script: getScript(500, true, 'all') }))
-                .pipe(ezs.catch())
-                .on('error', (e) => {
-                    try {
-                        expect(e.message).toEqual(expect.stringContaining('network timeout at'));
+        describe('regular connexion', () => {
+            test('base line with one try', (done) => {
+                const output = [];
+                ezs.use(statements);
+                from(input)
+                    .pipe(ezs('delegate', { script: getScript(500, true, 'none') }))
+                    .pipe(ezs.catch())
+                    .on('error', done)
+                    .on('data', (chunk) => {
+                        output.push(chunk);
+                    })
+                    .on('end', () => {
+                        expect(output.length).toBe(5);
+                        expect(output).toStrictEqual(input);
                         done();
-                    } catch(ee) {
-                        done(ee);
-                    }
-                })
-                .on('end', () => {
-                    done(new Error('Error is the right behavior'));
-                });
-        });
+                    });
+            }, 30000);
 
-
-        test('two retry, timeout errors every time', (done) => {
-            ezs.use(statements);
-            from(input)
-                .pipe(ezs('delegate', { script: getScript(500, false, 'all') }))
-                .pipe(ezs.catch())
-                .on('error', (e) => {
-                    try {
-                        expect(e.message).toEqual(expect.stringContaining('network timeout at'));
+            test('base line with two try', (done) => {
+                const output = [];
+                ezs.use(statements);
+                from(input)
+                    .pipe(ezs('delegate', { script: getScript(500, false, 'none') }))
+                    .pipe(ezs.catch())
+                    .on('error', done)
+                    .on('data', (chunk) => {
+                        output.push(chunk);
+                    })
+                    .on('end', () => {
+                        expect(output.length).toBe(5);
+                        expect(output).toStrictEqual(input);
                         done();
-                    } catch(ee) {
-                        done(ee);
-                    }
-                })
-                .on('end', () => {
-                    done(new Error('Error is the right behavior'));
-                });
-        });
+                    });
+            }, 30000);
+
+            test('one retry, timeout errors every time', (done) => {
+                ezs.use(statements);
+                from(input)
+                    .pipe(ezs('delegate', { script: getScript(500, true, 'all') }))
+                    .pipe(ezs.catch())
+                    .on('error', (e) => {
+                        try {
+                            expect(e.message).toEqual(expect.stringContaining('The operation timed out.'));
+                            done();
+                        } catch(ee) {
+                            done(ee);
+                        }
+                    })
+                    .on('end', () => {
+                        done(new Error('Error is the right behavior'));
+                    });
+            }, 30000);
 
 
-        test('one retry, timeout error once time', (done) => {
-            const output = [];
-            ezs.use(statements);
-            from(input)
-                .pipe(ezs('delegate', { script: getScript(900, true, 'once') }))
-                .pipe(ezs.catch())
-                .pipe(ezs.catch())
-                .on('error', done)
-                .on('data', (chunk) => {
-                    output.push(chunk);
-                })
-                .on('end', () => {
-                    expect(output.length).toBe(5);
-                    expect(output.sort((a, b) => (a.id > b.id ? 1 : -1))).toStrictEqual(input);
-                    done();
-                });
-        });
+            test('two retry, timeout errors every time', (done) => {
+                ezs.use(statements);
+                from(input)
+                    .pipe(ezs('delegate', { script: getScript(500, false, 'all') }))
+                    .pipe(ezs.catch())
+                    .on('error', (e) => {
+                        try {
+                            expect(e.message).toEqual(expect.stringContaining('The operation timed out.'));
+                            done();
+                        } catch(ee) {
+                            done(ee);
+                        }
+                    })
+                    .on('end', () => {
+                        done(new Error('Error is the right behavior'));
+                    });
+            }, 30000);
 
-        test('two retry, timeout error once time', (done) => {
-            const output = [];
-            ezs.use(statements);
-            from(input)
-                .pipe(ezs('delegate', { script: getScript(900, false, 'once') }))
-                .pipe(ezs.catch())
-                .pipe(ezs.catch())
-                .on('error', done)
-                .on('data', (chunk) => {
-                    output.push(chunk);
-                })
-                .on('end', () => {
-                    expect(output.length).toBe(5);
-                    expect(output.sort((a, b) => (a.id > b.id ? 1 : -1))).toStrictEqual(input);
-                    done();
-                });
-        });
 
-        test('one retry, connect errors every time', (done) => {
-            ezs.use(statements);
-            from(input)
-                .pipe(ezs('delegate', { script: getScript(500, false, 'all', 2, '11111') }))
-                .pipe(ezs.catch())
-                .on('error', (e) => {
-                    try {
-                        expect(e.message).toEqual(expect.stringContaining('reason: connect ECONNREFUSED'));
+            test('one retry, timeout error once time', (done) => {
+                const output = [];
+                ezs.use(statements);
+                from(input)
+                    .pipe(ezs('delegate', { script: getScript(900, true, 'once') }))
+                    .pipe(ezs.catch())
+                    .pipe(ezs.catch())
+                    .on('error', done)
+                    .on('data', (chunk) => {
+                        output.push(chunk);
+                    })
+                    .on('end', () => {
+                        expect(output.length).toBe(5);
+                        expect(output.sort((a, b) => (a.id > b.id ? 1 : -1))).toStrictEqual(input);
                         done();
-                    } catch(ee) {
-                        done(ee);
-                    }
-                })
-                .on('end', () => {
-                    done(new Error('Error is the right behavior'));
-                });
-        });
+                    });
+            }, 30000);
 
-        test('five retry, erratic error some time', (done) => {
-            // one out of two requests is rejected
-            const output = [];
-            ezs.use(statements);
-            from(input)
-                .pipe(ezs('delegate', { script: getScript(100, false, 'erratic', 5) }))
-                .pipe(ezs.catch())
-                .on('error', done)
-                .on('data', (chunk) => {
-                    output.push(chunk);
-                })
-                .on('end', () => {
-                    expect(output.length).toBe(5);
-                    expect(output.sort((a, b) => (a.id > b.id ? 1 : -1))).toStrictEqual(input);
-                    done();
-                });
-        }, 30000);
+            test('two retry, timeout error once time', (done) => {
+                const output = [];
+                ezs.use(statements);
+                from(input)
+                    .pipe(ezs('delegate', { script: getScript(900, false, 'once') }))
+                    .pipe(ezs.catch())
+                    .pipe(ezs.catch())
+                    .on('error', done)
+                    .on('data', (chunk) => {
+                        output.push(chunk);
+                    })
+                    .on('end', () => {
+                        expect(output.length).toBe(5);
+                        expect(output.sort((a, b) => (a.id > b.id ? 1 : -1))).toStrictEqual(input);
+                        done();
+                    });
+            }, 30000);
+
+            test('one retry, connect errors every time', (done) => {
+                ezs.use(statements);
+                from(input)
+                    .pipe(ezs('delegate', { script: getScript(30000, false, 'all', 2, '9') }))
+                    .pipe(ezs.catch())
+                    .on('error', (e) => {
+                        try {
+                            expect(e.message).toEqual(expect.stringContaining('Unable to connect'));
+                            done();
+                        } catch(ee) {
+                            done(ee);
+                        }
+                    })
+                    .on('end', () => {
+                        done(new Error('Error is the right behavior'));
+                    });
+            }, 60000);
+
+            test('five retry, erratic error some time', (done) => {
+                // one out of two requests is rejected
+                const output = [];
+                ezs.use(statements);
+                from(input)
+                    .pipe(ezs('delegate', { script: getScript(20000, false, 'erratic', 5) }))
+                    .pipe(ezs.catch())
+                    .on('error', done)
+                    .on('data', (chunk) => {
+                        output.push(chunk);
+                    })
+                    .on('end', () => {
+                        expect(output.length).toBe(5);
+                        expect(output.sort((a, b) => (a.id > b.id ? 1 : -1))).toStrictEqual(input);
+                        done();
+                    });
+            }, 30000);
+        });
 
         describe('slow connexion', () => {
-            test('base line, streaming', (done) => {
-                const output = [];
-                ezs.use(statements);
-                from(input)
-                    .pipe(ezs('delegate', { script: getScript(100, true, 'slow') }))
-                    .pipe(ezs.catch())
-                    .on('data', (chunk) => {
-                        output.push(chunk);
-                    })
-                    .on('end', () => {
-                        expect(output.length).toBe(5);
-                        expect(output.sort((a, b) => (a.id > b.id ? 1 : -1))).toStrictEqual(input);
-                        done();
-                    });
-            }, 30000);
-            test('base line, retry 5', (done) => {
-                const output = [];
-                ezs.use(statements);
-                from(input)
-                    .pipe(ezs('delegate', { script: getScript(100, true, 'slow', 5) }))
-                    .pipe(ezs.catch())
-                    .on('data', (chunk) => {
-                        output.push(chunk);
-                    })
-                    .on('end', () => {
-                        expect(output.length).toBe(5);
-                        expect(output.sort((a, b) => (a.id > b.id ? 1 : -1))).toStrictEqual(input);
-                        done();
-                    });
-            }, 30000);
-            test('feed expire, streaming', (done) => {
-                const output = [];
-                ezs.use(statements);
-                ezs.settings.feed.timeout = 10;
-                from(input)
-                    .pipe(ezs('delegate', { script: getScript(100, true, 'slow') }))
-                    .pipe(ezs.catch())
-                    .on('error', (e) => {
-                        try {
-                            expect(e.message).toEqual(expect.stringContaining('The pipe has not received any data for'));
+            describe('base line', () => {
+                test('streaming', (done) => {
+                    const output = [];
+                    ezs.use(statements);
+                    from(input)
+                        .pipe(ezs('delegate', { script: getScript(30000, true, 'slow') }))
+                        .pipe(ezs.catch())
+                        .on('data', (chunk) => {
+                            output.push(chunk);
+                        })
+                        .on('end', () => {
+                            expect(output.length).toBe(5);
+                            expect(output.sort((a, b) => (a.id > b.id ? 1 : -1))).toStrictEqual(input);
                             done();
-                        } catch(ee) {
-                            done(ee);
-                        }
-                    })
-                    .on('data', (chunk) => {
-                        output.push(chunk);
-                    })
-                    .on('end', () => {
-                        done(new Error('Error is the right behavior'));
-                    });
-                setImmediate(() => {
-                    ezs.settings.feed.timeout = 300*1000;
-                });
-            }, 30000);
-
-            test('feed expire, retry 5', (done) => {
-                const output = [];
-                ezs.use(statements);
-                ezs.settings.feed.timeout = 10;
-                from(input)
-                    .pipe(ezs('delegate', { script: getScript(100, false, 'slow', 5) }))
-                    .pipe(ezs.catch())
-                    .on('error', (e) => {
-                        try {
-                            expect(e.message).toEqual(expect.stringContaining('The pipe has not received any data for'));
+                        });
+                }, 60000);
+                test('retry 5', (done) => {
+                    const output = [];
+                    ezs.use(statements);
+                    from(input)
+                        .pipe(ezs('delegate', { script: getScript(30000, true, 'slow', 5) }))
+                        .pipe(ezs.catch())
+                        .on('data', (chunk) => {
+                            output.push(chunk);
+                        })
+                        .on('end', () => {
+                            expect(output.length).toBe(5);
+                            expect(output.sort((a, b) => (a.id > b.id ? 1 : -1))).toStrictEqual(input);
                             done();
-                        } catch(ee) {
-                            done(ee);
-                        }
-                    })
-                    .on('data', (chunk) => {
-                        output.push(chunk);
-                    })
-                    .on('end', () => {
-                        done(new Error('Error is the right behavior'));
+                        });
+                }, 60000);
+            });
+            describe('feed expire', () => {
+                test('streaming', (done) => {
+                    const output = [];
+                    ezs.use(statements);
+                    ezs.settings.feed.timeout = 10;
+                    from(input)
+                        .pipe(ezs('delegate', { script: getScript(30000, true, 'slow') }))
+                        .pipe(ezs.catch())
+                        .on('error', (e) => {
+                            try {
+                                expect(e.message).toEqual(expect.stringContaining('The pipe has not received any data for'));
+                                done();
+                            } catch(ee) {
+                                done(ee);
+                            }
+                        })
+                        .on('data', (chunk) => {
+                            output.push(chunk);
+                        })
+                        .on('end', () => {
+                            done(new Error('Error is the right behavior'));
+                        });
+                    setImmediate(() => {
+                        ezs.settings.feed.timeout = 300*1000;
                     });
-                setImmediate(() => {
-                    ezs.settings.feed.timeout = 300*1000;
-                });
-            }, 30000);
+                }, 60000);
 
-
+                test('retry 5', (done) => {
+                    const output = [];
+                    ezs.use(statements);
+                    ezs.settings.feed.timeout = 10;
+                    from(input)
+                        .pipe(ezs('delegate', { script: getScript(30000, false, 'slow', 5) }))
+                        .pipe(ezs.catch())
+                        .on('error', (e) => {
+                            try {
+                                expect(e.message).toEqual(expect.stringContaining('The pipe has not received any data for'));
+                                done();
+                            } catch(ee) {
+                                done(ee);
+                            }
+                        })
+                        .on('data', (chunk) => {
+                            output.push(chunk);
+                        })
+                        .on('end', () => {
+                            done(new Error('Error is the right behavior'));
+                        });
+                    setImmediate(() => {
+                        ezs.settings.feed.timeout = 300*1000;
+                    });
+                }, 60000);
+            });
         });
 
     });

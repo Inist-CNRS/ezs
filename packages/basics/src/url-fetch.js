@@ -1,6 +1,5 @@
 import debug from 'debug';
 import { get, set } from 'lodash';
-import AbortController from 'node-abort-controller';
 import parseHeaders from 'parse-headers';
 import retry from 'async-retry';
 import request from './request';
@@ -20,7 +19,7 @@ const createObjectURL = (arrayBuffer, mimeType = 'application/octet-stream') =>
  * @param {String} [target] choose the key to set
  * @param {String} [json=false] parse as JSON the content of URL
  * @param {String} [dataurl=false] encode content into DATA Url
- * @param {Number} [timeout=1000] timeout in milliseconds
+ * @param {Number} [timeout=5000] timeout in milliseconds
  * @param {String} [mimetype="application/json"] mimetype for value of path  (if presents)
  * @param {Boolean} [noerror=false] ignore all errors, the target field will remain undefined
  * @param {Number} [retries=5] The maximum amount of times to retry the connection
@@ -40,7 +39,7 @@ export default async function URLFetch(data, feed) {
     const dataurl = Boolean(this.getParam('dataurl', false));
     const retries = Number(this.getParam('retries', 5));
     const noerror = Boolean(this.getParam('noerror', false));
-    const timeout = Number(this.getParam('timeout')) || 1000;
+    const timeout = Number(this.getParam('timeout', 5000));
     const headers = parseHeaders([]
         .concat(this.getParam('header'))
         .filter(Boolean)
@@ -50,9 +49,11 @@ export default async function URLFetch(data, feed) {
     const key = Array.isArray(path) ? path.shift() : path;
     const body = get(data, key);
     const parameters = {
-        timeout,
         headers,
-        signal: controller.signal,
+        signal: AbortSignal.any([
+            controller.signal,
+            AbortSignal.timeout(timeout),
+        ]),
     };
     const options = {
         retries,

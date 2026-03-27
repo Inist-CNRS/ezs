@@ -7,5 +7,3 @@ const funcs = {
 };
 
 export default funcs;
-
-module.exports = funcs;

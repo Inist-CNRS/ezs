@@ -1,6 +1,6 @@
 import debug from 'debug';
+import { Readable } from 'stream';
 import { URL, URLSearchParams } from 'url';
-import AbortController from 'node-abort-controller';
 import JSONStream from 'JSONStream';
 import parseHeaders from 'parse-headers';
 import retry from 'async-retry';
@@ -69,7 +69,7 @@ import request from './request';
  * @name URLStream
  * @param {String} [url] URL to fetch (by default input string is taken)
  * @param {String} [path="*"] choose the path to split JSON result
- * @param {Number} [timeout=1000] Timeout in milliseconds
+ * @param {Number} [timeout=5000] Timeout in milliseconds
  * @param {Boolean} [noerror=false] Ignore all errors, the target field will remain undefined
  * @param {Number} [retries=5] The maximum amount of times to retry the connection
  * @returns {Object}
@@ -83,7 +83,7 @@ export default async function URLStream(data, feed) {
     const path = this.getParam('path', '*');
     const retries = Number(this.getParam('retries', 5));
     const noerror = Boolean(this.getParam('noerror', false));
-    const timeout = Number(this.getParam('timeout')) || 1000;
+    const timeout = Number(this.getParam('timeout', 5000));
     const headers = parseHeaders([]
         .concat(this.getParam('header'))
         .filter(Boolean)
@@ -91,9 +91,11 @@ export default async function URLStream(data, feed) {
     const cURL = new URL(url || data);
     const controller = new AbortController();
     const parameters = {
-        timeout,
         headers,
-        signal: controller.signal,
+        signal: AbortSignal.any([
+            controller.signal,
+            AbortSignal.timeout(timeout),
+        ]),
     };
     const options = {
         retries,
@@ -112,9 +114,11 @@ export default async function URLStream(data, feed) {
     };
     try {
         const response = await retry(request(cURL.href, parameters), options);
+        const bodyStream = Readable.fromWeb(response.body);
         const output = path
-            ? response.body.pipe(JSONStream.parse(path))
-            : response.body;
+            ? bodyStream.pipe(JSONStream.parse(path))
+            : bodyStream;
+
         output.once('error', onError);
         await feed.flow(output);
     } catch (e) {
