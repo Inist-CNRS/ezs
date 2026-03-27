@@ -1,9 +1,11 @@
-import { workerData } from 'worker_threads';
+import { workerData, parentPort } from 'worker_threads';
 import { pipeline } from 'stream';
 import process from 'process';
 import ezs from '@ezs/core';
 import JSONezs from '@ezs/core/json';
-import { Readable, Writable } from 'stream';
+import { PassThrough } from 'stream';
+import net from 'net';
+
 
 const {
     file,
@@ -18,28 +20,25 @@ const {
     loggerParam,
     settings,
     plugins,
-    stdinPort,
-    stdoutPort,
 } = workerData;
 
 
-const stdin = new Readable({ read() {} });
-stdinPort.on('message', ({ type, chunk }) => {
-    if (type === 'data')  stdin.push(Buffer.from(chunk));
-    else if (type === 'end')   stdin.push(null);
-    else if (type === 'error') stdin.destroy(new Error(chunk));
+const stdin = new PassThrough();
+const stdinServer = net.createServer((socket) => {
+  socket.pipe(stdin);
+});
+const stdout = new PassThrough();
+const stdoutServer = net.createServer((socket) => {
+    stdout.pipe(socket);
 });
 
-// Remplace process.stdout
-const stdout = new Writable({
-    write(chunk, _encoding, callback) {
-        stdoutPort.postMessage({ type: 'data', chunk });
-        callback();
-    },
-    final(callback) {
-        stdoutPort.postMessage({ type: 'end' });
-        callback();
-    }
+stdinServer.listen(0, '127.0.0.1', () => {
+  const { port: stdinPort } = stdinServer.address();
+
+    stdoutServer.listen(0, '127.0.0.1', () => {
+        const { port: stdoutPort } = stdoutServer.address();
+        parentPort.postMessage({ stdinPort, stdoutPort });
+    });
 });
 
 const command = JSONezs.parse(commandString);
