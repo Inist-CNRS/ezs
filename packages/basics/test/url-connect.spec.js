@@ -347,7 +347,7 @@ describe('URLConnect error and retry', () => {
                 .pipe(ezs.catch())
                 .on('error', (e) => {
                     try {
-                        expect(e.message).toEqual(expect.stringContaining('Response timeout'));
+                        expect(e.message).toEqual(expect.stringContaining('The operation timed out.'));
                         done();
                     } catch(ee) {
                         done(ee);
@@ -356,7 +356,7 @@ describe('URLConnect error and retry', () => {
                 .on('end', () => {
                     done(new Error('Error is the right behavior'));
                 });
-        });
+        }, 30000);
 
         test('two retry, errors every time', (done) => {
             ezs.use(statements);
@@ -371,7 +371,7 @@ describe('URLConnect error and retry', () => {
                 .pipe(ezs.catch())
                 .on('error', (e) => {
                     try {
-                        expect(e.message).toEqual(expect.stringContaining('Response timeout'));
+                        expect(e.message).toEqual(expect.stringContaining('The operation timed out.'));
                         done();
                     } catch(ee) {
                         done(ee);
@@ -380,7 +380,7 @@ describe('URLConnect error and retry', () => {
                 .on('end', () => {
                     done(new Error('Error is the right behavior'));
                 });
-        });
+        }, 30000);
 
         test('two retry, error once time', (done) => {
             ezs.use(statements);
@@ -402,7 +402,7 @@ describe('URLConnect error and retry', () => {
                     expect(output.length).toBe(5);
                     done();
                 });
-        });
+        }, 30000);
     });
     describe('deep', () => {
         ezs.use(ezsAnalytics);
@@ -504,7 +504,7 @@ header = x-timeout:${mode}
                     .pipe(ezs.catch())
                     .on('error', (e) => {
                         try {
-                            expect(e.message).toEqual(expect.stringContaining('Response timeout'));
+                            expect(e.message).toEqual(expect.stringContaining('The operation timed out.'));
                             done();
                         } catch(ee) {
                             done(ee);
@@ -523,7 +523,7 @@ header = x-timeout:${mode}
                     .pipe(ezs.catch())
                     .on('error', (e) => {
                         try {
-                            expect(e.message).toEqual(expect.stringContaining('Response timeout'));
+                            expect(e.message).toEqual(expect.stringContaining('The operation timed out.'));
                             done();
                         } catch(ee) {
                             done(ee);
@@ -625,7 +625,7 @@ header = x-timeout:${mode}
                             done();
                         });
                 }, 60000);
-                test.skip('retry 5', (done) => {
+                test('retry 5', (done) => {
                     const output = [];
                     ezs.use(statements);
                     from(input)

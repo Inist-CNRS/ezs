@@ -1,7 +1,6 @@
 import { set } from 'lodash';
 import debug from 'debug';
 import { URL, URLSearchParams } from 'url';
-import AbortController from 'node-abort-controller';
 import parseHeaders from 'parse-headers';
 import retry from 'async-retry';
 import request from './request';
@@ -67,14 +66,12 @@ export default async function URLRequest(data, feed) {
         .filter(Boolean);
     const cURL = new URL(url || data);
     const controller = new AbortController();
-    const controllerTimeout = setTimeout(() => {
-        controller.abort();
-        debug('ezs:info')(`The timeout period has expired; the request has been aborted`);
-        return feed.send(new Error(`Response timeout over ${timeout}ms`));
-    }, timeout);
     const parameters = {
         headers,
-        signal: controller.signal,
+        signal: AbortSignal.any([
+            controller.signal,
+            AbortSignal.timeout(timeout),
+        ]),
     };
     const options = {
         retries,
@@ -83,7 +80,6 @@ export default async function URLRequest(data, feed) {
         cURL.search = new URLSearchParams(data);
     }
     const onError = (e) => {
-        clearTimeout(controllerTimeout);
         controller.abort();
         if (noerror) {
             debug('ezs:info')(`Ignore item #${this.getIndex()} [URLRequest]`, this.ezs.serializeError(e));
@@ -96,7 +92,6 @@ export default async function URLRequest(data, feed) {
         const response = await retry(request(cURL.href, parameters), options);
         const func = json ? 'json' : 'text';
         const value = await response[func]();
-        clearTimeout(controllerTimeout);
         if (target) {
             const result = typeof data === 'object' ? { ...data } : { url: data };
             set(result, target, value);

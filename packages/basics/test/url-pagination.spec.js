@@ -257,18 +257,17 @@ describe('URLPagination', () => {
             .pipe(ezs.catch())
             .on('error', (e) => {
                 try {
-                    expect(e.message).toEqual(expect.stringContaining('Response timeout'));
-                    expect(e.message).toEqual(expect.stringContaining('over 100ms'));
+                    expect(e.message).toEqual(expect.stringContaining('The operation timed out.'));
                     done();
                 } catch (err) {
                     done(err);
                 }
             })
-            .on('data', () => {
-                done(new Error('Error is the right behavior'));
+            .on('data', (a) => {
+                done(new Error('Error is the right behavior 1'));
             })
             .on('end', () => {
-                done(new Error('Error is the right behavior'));
+                done(new Error('Error is the right behavior 2'));
             });
-    });
+    }, 30000);
 });
