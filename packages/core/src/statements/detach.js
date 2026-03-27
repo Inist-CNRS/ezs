@@ -6,6 +6,12 @@ import JSONezs from '../json.js';
 
 const [, dirname] = filedirname();
 
+function pipeToWorker(readable, port) {
+    readable.on('data', (chunk) => port.postMessage({ type: 'data', chunk }));
+    readable.on('end', ()        => port.postMessage({ type: 'end' }));
+    readable.on('error', (err)   => port.postMessage({ type: 'error', message: err.message }));
+}
+
 // The execution program used by the thread ( worker) uses the runtime specified in the package.json file, so it will switch to esm mode.
 // Therefore, if ezs is executed in CJS, the file used will be the one in the lib path, i.e., in CJS, and it will be incompatible.
 // There are two possible options:
@@ -34,6 +40,8 @@ export default function detach(data, feed) {
     const { ezs } = this;
     if (!this.input) {
         this.input = ezs.createStream(ezs.objectMode());
+        const { port1: stdinPort1, port2: stdinPort2 } = new MessageChannel();
+        const { port1: stdoutPort1, port2: stdoutPort2 } = new MessageChannel();
         const workerData = {
             file: this.getParam('file'),
             script: this.getParam('script'),
@@ -47,11 +55,13 @@ export default function detach(data, feed) {
             loggerParam: this.getParam('logger'),
             settings: ezs.settings,
             plugins: ezs.useFiles(),
+            stdinPort: stdinPort2,
+            stdoutPort: stdoutPort2,
         };
+
         this.worker = new Worker(workerFile, {
             workerData,
-            stdin: true,
-            stdout: true,
+            transferList: [stdinPort2, stdoutPort2],
         });
         this.worker.on('exit', (code) => {
             if (code !== 0) feed.stop(new Error(`Worker stopped with exit code ${code}`));
@@ -64,11 +74,15 @@ export default function detach(data, feed) {
                 reject(err);
             });
         });
-        this.input
-            .pipe(ezs.createCommand(workerData.encoder))
-            .pipe(this.worker.stdin);
-        const output = this.worker.stdout
-            .pipe(ezs.createCommand(workerData.decoder));
+        const toWorker = this.input.pipe(ezs.createCommand(workerData.encoder));
+        pipeToWorker(toWorker, stdinPort1);
+
+        const output = ezs.createCommand(workerData.decoder);
+        stdoutPort1.on('message', ({ type, chunk }) => {
+            if (type === 'data')  output.write(Buffer.from(chunk));
+            else if (type === 'end')   output.end();
+            else if (type === 'error') output.destroy(new Error(chunk));
+        });
         this.whenFinish = feed.flow(output, { autoclose: true, emptyclose: false });
     }
     if (this.isLast()) {
