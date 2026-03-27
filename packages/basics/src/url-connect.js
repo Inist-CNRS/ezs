@@ -3,7 +3,6 @@ import { Readable } from 'stream';
 import from from 'from';
 import debug from 'debug';
 import writeTo from 'stream-write';
-import AbortController from 'node-abort-controller';
 import parseHeaders from 'parse-headers';
 import retry from 'async-retry';
 import getStream from 'get-stream';
@@ -68,18 +67,13 @@ export default async function URLConnect(data, feed) {
                         debug('ezs:debug')(`Attempts to reconnect (${numberOfTimes})`);
                     }
                     const controller = new AbortController();
-                    const controllerTimeout = setTimeout(() => {
-                        controller.abort();
-                        debug('ezs:info')(`The timeout period has expired; the request has been aborted`);
-                        return feed.send(new Error(`Response timeout over ${timeout}ms`));
-                    }, timeout);
-
                     const response = await fetch(url, {
                         ...parameters,
-                        signal: controller.signal,
+                        signal: AbortSignal.any([
+                            controller.signal,
+                            AbortSignal.timeout(timeout),
+                        ]),
                     });
-                    clearTimeout(controllerTimeout);
-
 
                     if (!response.ok) {
                         const err = new Error(response.statusText);

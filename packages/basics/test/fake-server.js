@@ -104,7 +104,7 @@ export function startServer() {
                 timeoutID1 = setTimeout(() => {
                     res.writeHead(200, { 'Content-Type': 'application/json' });
                     res.end(JSON.stringify({ total: 10 }));
-                }, 1000);
+                }, 10000);
                 return;
             }
 
