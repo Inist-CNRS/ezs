@@ -4,7 +4,11 @@ import process from 'process';
 import ezs from '@ezs/core';
 import JSONezs from '@ezs/core/json';
 import { PassThrough } from 'stream';
+import { randomUUID } from 'crypto';
+import os from 'os';
 import net from 'net';
+import path from 'path';
+import fs from 'fs';
 
 
 const {
@@ -24,21 +28,36 @@ const {
 
 
 const stdin = new PassThrough();
-const stdinServer = net.createServer((socket) => {
-  socket.pipe(stdin);
-});
 const stdout = new PassThrough();
-const stdoutServer = net.createServer((socket) => {
-    stdout.pipe(socket);
+
+const uid = randomUUID();
+const socketIn  = path.join(os.tmpdir(), `worker-stdin-${uid}.sock`);
+const socketOut = path.join(os.tmpdir(), `worker-stdout-${uid}.sock`);
+
+// Nettoyage si les sockets existent déjà
+if (fs.existsSync(socketIn))  fs.unlinkSync(socketIn);
+if (fs.existsSync(socketOut)) fs.unlinkSync(socketOut);
+
+
+const createServer = (socketPath, onConnection) => new Promise((resolve) => {
+    const server = net.createServer(onConnection);
+    server.listen(socketPath, () => resolve(server));
 });
 
-stdinServer.listen(0, '127.0.0.1', () => {
-  const { port: stdinPort } = stdinServer.address();
 
-    stdoutServer.listen(0, '127.0.0.1', () => {
-        const { port: stdoutPort } = stdoutServer.address();
-        parentPort.postMessage({ stdinPort, stdoutPort });
-    });
+const [stdinServer, stdoutServer] = await Promise.all([
+  createServer(socketIn,  (socket) => { socket.pipe(stdin); }),
+  createServer(socketOut, (socket) => { stdout.pipe(socket); }),
+]);
+
+parentPort.postMessage({ socketIn, socketOut });
+
+
+process.on('exit', () => {
+    stdinServer.close();
+    stdoutServer.close();
+    if (fs.existsSync(socketIn))  fs.unlinkSync(socketIn);
+    if (fs.existsSync(socketOut)) fs.unlinkSync(socketOut);
 });
 
 const command = JSONezs.parse(commandString);
