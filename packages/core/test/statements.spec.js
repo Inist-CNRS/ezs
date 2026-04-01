@@ -168,7 +168,7 @@ describe('statements', () => {
                 done();
             });
     });
-    it('concat#2', (done) => {
+    it.only('concat#2', (done) => {
         const result = [];
         from([
             Buffer.from([0xE2]),

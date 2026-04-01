@@ -46,7 +46,9 @@ export default function concat(data, feed) {
     }
     if (this.isLast()) {
         this.buffer.push(this.decoder.end());
-        feed.send(beginWith.concat(this.buffer.filter(Boolean).join(joinWith)).concat(endWith));
+        const output = beginWith.concat(this.buffer.filter(Boolean).join(joinWith)).concat(endWith);
+        console.error({beginWith, joinWith, endWith, output}, this.buffer, JSON.stringify(output));
+        feed.send(output);
         return feed.close();
     }
     const value = Buffer.isBuffer(data) ? this.decoder.write(data) : data;
