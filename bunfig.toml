@@ -1,0 +1,6 @@
+[test]
+pathIgnorePatterns = [
+    "packages/libpostal/**",
+    "packages/sparql/**",
+    "packages/xslt/**"
+]
