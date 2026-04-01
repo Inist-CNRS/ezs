@@ -44,10 +44,11 @@ export default function concat(data, feed) {
     if (this.buffer === undefined) {
         this.buffer = [];
     }
+    console.error('bugbun#1', {beginWith, joinWith, endWith, data }, this.buffer);
     if (this.isLast()) {
         this.buffer.push(this.decoder.end());
         const output = beginWith.concat(this.buffer.filter(Boolean).join(joinWith)).concat(endWith);
-        console.error('bugbun', {beginWith, joinWith, endWith, output}, this.buffer, JSON.stringify(output));
+        console.error('bugbun#2', {beginWith, joinWith, endWith, output}, this.buffer, JSON.stringify(output));
         feed.send(output);
         return feed.close();
     }
