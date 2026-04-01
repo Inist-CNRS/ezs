@@ -13,9 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install libpostal
-        run: bash ${GITHUB_WORKSPACE}/.github/workflows/install-libpostal.sh
-
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
