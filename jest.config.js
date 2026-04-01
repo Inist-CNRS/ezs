@@ -1,8 +1,4 @@
-const semver = require('semver');
-const { defaults } = require('jest-config');
-
 const options = {
-    ...defaults,
     testMatch: [
         '**/test?(s)/**/*.[jt]s?(x)',
         '**/__tests__/**/*.[jt]s?(x)',
@@ -26,11 +22,4 @@ const options = {
     ],
     testTimeout: 8000,
 };
-
-if (semver.lt(process.version, '22.0.0')) {
-    // lmdb package require node 14 (optional chaining)
-    // better-sqlite3 require node 22
-    options.testPathIgnorePatterns.push('storage/test');
-}
-
 module.exports = options;

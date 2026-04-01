@@ -3,7 +3,7 @@ import { join } from 'path';
 import pathExists from 'path-exists';
 import makeDir from 'make-dir';
 import LRU from 'lru-cache';
-import Database from 'better-sqlite3';
+import { Database } from 'bun:sqlite';
 
 class AbstractStore {
     constructor(ezs, dbPath) {
@@ -14,7 +14,7 @@ class AbstractStore {
         this.db = new Database(join(dbPath, 'store.db'));
 
         // Initialize schema
-        const schema = `
+        this.db.exec(`
             CREATE TABLE IF NOT EXISTS store_entries (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 key TEXT NOT NULL UNIQUE,
@@ -32,8 +32,7 @@ class AbstractStore {
             BEGIN
                 UPDATE store_entries SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
             END;
-        `;
-        this.db.exec(schema);
+        `);
 
         // Prepare statements for better performance
         this.getStmt = this.db.prepare('SELECT value FROM store_entries WHERE key = ?');

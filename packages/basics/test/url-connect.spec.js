@@ -150,7 +150,7 @@ describe('URLConnect', () => {
         ezs.use(statements);
         const input = [1, 2, 3, 4, 5];
         const output = [];
-        from(input)
+        const stream = from(input)
             .pipe(ezs('URLConnect', {
                 url: `${getEZSHost()}/nofound.ini`,
                 streaming: true,
@@ -165,6 +165,7 @@ describe('URLConnect', () => {
             })
             .on('end', () => {
                 expect(output.length).toBe(0);
+                stream.destroy();
                 done();
             });
     }, 30000);
@@ -172,7 +173,7 @@ describe('URLConnect', () => {
         ezs.use(statements);
         const input = [1, 2, 3, 4, 5];
         const output = [];
-        from(input)
+        const stream = from(input)
             .pipe(ezs('URLConnect', {
                 url: `${getEZSHost()}/nofound.ini`,
                 retries: 2,
@@ -187,6 +188,7 @@ describe('URLConnect', () => {
             })
             .on('end', () => {
                 expect(output.length).toBe(0);
+                stream.destroy();
                 done();
             });
     }, 30000);
@@ -194,7 +196,7 @@ describe('URLConnect', () => {
         test('#4', (done) => {
             ezs.use(statements);
             const input = ['1a', '2a', '3a', '4a', '5a'];
-            from(input)
+            const stream = from(input)
                 .pipe(ezs('URLConnect', {
                     url: `${getEZSHost()}/tocsv.ini`,
                     retries: 2,
@@ -203,6 +205,7 @@ describe('URLConnect', () => {
                 .pipe(ezs.catch())
                 .on('error', (e) => {
                     try {
+                        stream.destroy();
                         expect(e.message).toEqual(expect.stringContaining('URL returned an invalid JSON response'));
                         done();
                     } catch(ee) {

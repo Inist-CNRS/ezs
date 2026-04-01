@@ -60,13 +60,13 @@ export default async function URLConnect(data, feed) {
             body: bodyIn,
             headers,
         };
+        const controller = new AbortController();
         try {
             await retry(
                 async (bail, numberOfTimes) => {
                     if (numberOfTimes > 1) {
                         debug('ezs:debug')(`Attempts to reconnect (${numberOfTimes})`);
                     }
-                    const controller = new AbortController();
                     const response = await fetch(url, {
                         ...parameters,
                         signal: AbortSignal.any([
@@ -113,6 +113,7 @@ export default async function URLConnect(data, feed) {
             );
         }
         catch (e) {
+            controller.abort();
             if (!noerror) {
                 debug('ezs:warn')(
                     `Break item #${this.getIndex()} [URLConnect]`,
