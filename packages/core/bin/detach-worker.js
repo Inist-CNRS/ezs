@@ -105,7 +105,7 @@ pipeline(
         if (e) {
             console.error(e);
             outputStream.unpipe(stdout);
-            process.exit(1);
+            process.exit(2);
         }
     }
 );
@@ -116,9 +116,10 @@ stdin
         rawStream.end();
     })
     .once('error', (e) => {
+        console.error(e);
         stdin.unpipe(rawStream);
         rawStream.end();
-        process.exit(1);
+        process.exit(3);
     })
     .once('end', () => {
         rawStream.end();
