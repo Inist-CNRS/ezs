@@ -123,7 +123,7 @@ ezs.createCommands = (params) => {
         commands.push(append2Pipeline);
     }
     if (!commands || commands.length === 0) {
-        throw new Error('Invalid parmeter for createCommands');
+        throw new Error(`Invalid parmeter for createCommands - ${JSON.stringify(params)}`);
     }
     return commands;
 };

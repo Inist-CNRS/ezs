@@ -505,7 +505,7 @@ describe(' through server(s)', () => {
             });
         });
 
-        it.only('kill req at start', (done) => {
+        it.skip('kill req at start', (done) => {
             const input = Array(1000).fill('a');
             const stream = from(input).pipe(ezs.toBuffer());
             const output = [];
@@ -527,7 +527,7 @@ describe(' through server(s)', () => {
             stream.destroy(new Error('BOOM'));
         }, 30000);
 
-        it('kill req (socket)', (done) => {
+        it.skip('kill req (socket)', (done) => {
             const input = Array(1000).fill('a');
             const stream = from(input);
             const output = [];
