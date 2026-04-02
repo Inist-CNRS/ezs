@@ -18,7 +18,7 @@ function set(ezs, plugin) {
             if (pluginsList[pluginName] === undefined) {
                 pluginsList[pluginName] = pluginList[pluginName];
             } else {
-                debug('ezs:warn')(`Statement '${pluginName}' already registered, skipping.`);
+                debug('ezs:debug')(`Statement '${pluginName}' already registered, skipping.`);
             }
         } else if (typeof pluginList[pluginName] === 'object') {
             ezs.use(pluginList[pluginName]);
