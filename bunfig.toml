@@ -4,6 +4,7 @@ workspaces = true
 [test]
 pathIgnorePatterns = [
     "packages/libpostal/**",
+    "packages/istex/**",
     "packages/sparql/**",
     "packages/xslt/**"
 ]
