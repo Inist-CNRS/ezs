@@ -36,8 +36,8 @@ export function useFile(ezs, name) {
     if (plugName2) {
         return plugName2;
     }
-    debug('ezs:debug')(`Unable to find '${name}' from ${plugName1}`);
-    debug('ezs:debug')(`Unable to find '${name}' from ${plugName2}`);
+    debug('ezs:warn')(`Unable to find '${name}' from ${plugName1} in paths ${JSON.stringify(ezs.getPath())}`);
+    debug('ezs:warn')(`Unable to find '${name}' from ${plugName2} in paths ${JSON.stringify(ezs.getPath())}`);
     return false;
 }
 
@@ -45,7 +45,7 @@ export function isFile(file) {
     try {
         return statSync(file).isFile();
     } catch (e) {
-        debug('ezs:debug')(`Unable to check '${file}'`);
+        debug('ezs:warn')(`Unable to check '${file}'`);
         return false;
     }
 }
