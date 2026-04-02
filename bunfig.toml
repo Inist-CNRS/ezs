@@ -1,3 +1,6 @@
+[install]
+workspaces = true
+
 [test]
 pathIgnorePatterns = [
     "packages/libpostal/**",

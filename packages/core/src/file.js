@@ -12,7 +12,6 @@ function check(name) {
     try {
         return req.resolve(name);
     } catch (e) {
-        debug('ezs:warn')(`req.resolve failed with '${name}'`);
         return null;
     }
 }
@@ -42,8 +41,7 @@ export function useFile(ezs, name) {
     if (plugName2) {
         return plugName2;
     }
-    debug('ezs:warn')(`Unable to find '${name}' from ${plugName1} in paths ${JSON.stringify(ezs.getPath())}`);
-    debug('ezs:warn')(`Unable to find '${name}' from ${plugName2} in paths ${JSON.stringify(ezs.getPath())}`);
+    debug('ezs:warn')(`Unable to find '${name}' in paths ${JSON.stringify(ezs.getPath())}`);
     return false;
 }
 
