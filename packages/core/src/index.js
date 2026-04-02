@@ -1,5 +1,6 @@
 import { PassThrough } from 'readable-stream';
 import debug from 'debug';
+import uniq from 'lodash/uniq';
 import writeTo from 'stream-write';
 import LRU from 'lru-cache';
 import Engine from './engine.js';
@@ -76,7 +77,7 @@ ezs.useFiles = (files) => {
     return Statement.list();
 };
 ezs.addPath = (p) => ezs.settings.pluginPaths.push(p);
-ezs.getPath = () => ezs.settings.pluginPaths;
+ezs.getPath = () => uniq(ezs.settings.pluginPaths);
 ezs.getCache = () => ezsCache;
 ezs.loadScript = (file) => File(ezs, file);
 ezs.compileScript = (script) => new Commands(ezs.parseString(script));

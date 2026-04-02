@@ -12,6 +12,7 @@ function check(name) {
     try {
         return req.resolve(name);
     } catch (e) {
+        debug('ezs:warn')(`req.resolve failed with '${name}'`);
         return null;
     }
 }
@@ -31,6 +32,7 @@ export function useFile(ezs, name) {
         'ezs-'.concat(String(name).replace(/^ezs-/, '')),
         '@ezs/'.concat(String(bname).replace(/^@ezs\//, '')),
         'ezs-'.concat(String(bname).replace(/^ezs-/, '')),
+        String(bname).concat('/src/'),
     ];
     const plugName1 = names.map((n) => check(n)).filter(Boolean).shift();
     const plugName2 = names.map((n) => findFileIn(ezs.getPath(), n)).filter(Boolean).shift();

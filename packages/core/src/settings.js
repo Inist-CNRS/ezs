@@ -18,9 +18,9 @@ const continueDelay = Number(process.env.EZS_CONTINUE_DELAY || 5);
 const pipelineDelay = Number(process.env.EZS_PIPELINE_DELAY || 300);
 const [, dirname] = filedirname();
 const pluginPaths = [
-    resolve(dirname, '../..'), 
-    resolve(dirname, '../../node_modules'), 
-    process.cwd(), 
+    resolve(dirname, '../..'),
+    resolve(dirname, '../../node_modules'),
+    process.cwd(),
     resolve(process.cwd(), './node_modules'),
     globalModules
 ];
