@@ -1,5 +1,5 @@
 import { readFileSync, statSync } from 'fs';
-import { dirname, resolve } from 'path';
+import { basename, dirname, resolve } from 'path';
 import debug from 'debug';
 import module from 'module';
 import filedirname from 'filedirname';
@@ -23,10 +23,14 @@ function findFileIn(paths, name) {
         .shift();
 }
 export function useFile(ezs, name) {
+    const bname = basename(name);
     const names = [
         name,
+        bname,
         '@ezs/'.concat(String(name).replace(/^@ezs\//, '')),
         'ezs-'.concat(String(name).replace(/^ezs-/, '')),
+        '@ezs/'.concat(String(bname).replace(/^@ezs\//, '')),
+        'ezs-'.concat(String(bname).replace(/^ezs-/, '')),
     ];
     const plugName1 = names.map((n) => check(n)).filter(Boolean).shift();
     const plugName2 = names.map((n) => findFileIn(ezs.getPath(), n)).filter(Boolean).shift();

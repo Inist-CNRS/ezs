@@ -191,7 +191,6 @@ describe('statements', () => {
                 result.push(chunk);
             })
             .on('end', () => {
-                console.error('result', JSON.stringify(result[0]));
                 assert.equal(result.length, 1);
                 assert.equal(result[0], '<€|¢>');
                 done();

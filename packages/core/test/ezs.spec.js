@@ -55,7 +55,6 @@ describe('Build a pipeline', () => {
             });
     });
     it('with debug transformation', (done) => {
-        debug.enable('ezs:*');
         const namespaces = debug.disable();
         let res = 0;
         const ten = new Decade();
