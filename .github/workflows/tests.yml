@@ -21,6 +21,7 @@ jobs:
 
       - name: Run tests
         env:
-          DEBUG: "ezs:error,ezs:warn"
           NODE_ENV: test
-        run: bun test
+        run: |
+          export DEBUG="ezs:error,ezs:warn"
+          bun test
