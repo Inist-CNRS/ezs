@@ -58,21 +58,6 @@ const segmentSentences = (str) => {
     return sentences;
 };
 
-const sentencesStatement = (data, feed, ctx) => {
-    if (ctx.isLast()) {
-        return feed.close();
-    }
-    const path = ctx.getParam('path', '');
-    const value = path ? get(data, path) : data;
-    const str = Array.isArray(value)
-        ? value.map((item) => (typeof item === 'string' ? item : '')).join(' ')
-        : value;
-    const sentences = str ? segmentSentences(str) : [];
-
-    feed.write(path ? { ...data, [path]: sentences }: sentences);
-    return feed.end();
-};
-
 /**
  * Take a `String` and split it into an array of sentences.
  *
@@ -91,10 +76,21 @@ const sentencesStatement = (data, feed, ctx) => {
  * > 📗 When the path is not given, the input data is considered as a string,
  * > allowing to apply `inflection` on a string stream.
  *
- * @name sentences
+ * @name STRSentences
  * @param {string} [path=""] path of the field to segment
  * @returns {string[]}
  */
-export default {
-    sentences: sentencesStatement,
+export default function (data, feed, ctx) {
+    if (ctx.isLast()) {
+        return feed.close();
+    }
+    const path = ctx.getParam('path', '');
+    const value = path ? get(data, path) : data;
+    const str = Array.isArray(value)
+        ? value.map((item) => (typeof item === 'string' ? item : '')).join(' ')
+        : value;
+    const sentences = str ? segmentSentences(str) : [];
+
+    feed.write(path ? { ...data, [path]: sentences }: sentences);
+    return feed.end();
 };
