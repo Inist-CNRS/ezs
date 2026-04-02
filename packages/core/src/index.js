@@ -78,7 +78,7 @@ ezs.useFiles = (files) => {
 ezs.addPath = (p) => ezs.settings.pluginPaths.push(p);
 ezs.getPath = () => ezs.settings.pluginPaths;
 ezs.getCache = () => ezsCache;
-ezs.loadScript = (file) => ezs.memoize(`ezs.loadScript>${file}`, () => File(ezs, file));
+ezs.loadScript = (file) => File(ezs, file);
 ezs.compileScript = (script) => new Commands(ezs.parseString(script));
 ezs.parseCommand = (command) => ezs.memoize(`ezs.parseCommand>${command}`, () => parseCommand(command));
 ezs.createCommand = (commandIN, environment) => {
@@ -123,7 +123,7 @@ ezs.createCommands = (params) => {
         commands.push(append2Pipeline);
     }
     if (!commands || commands.length === 0) {
-        throw new Error(`Invalid parmeter for createCommands - ${JSON.stringify(params)}`);
+        throw new Error(`Invalid parmeter for createCommands - ${JSON.stringify({params})}`);
     }
     return commands;
 };
