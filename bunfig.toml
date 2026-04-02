@@ -10,6 +10,7 @@ coverageThreshold = { lines = 0.8, functions = 0.95, statements = 0.95 }
 coverageSkipTestFiles = true
 
 coveragePathIgnorePatterns = [
+    "*/*/lib/**",
     "*/*/test/**",
     "packages/transformers/**",
     "packages/conditor/**",

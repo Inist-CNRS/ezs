@@ -392,7 +392,7 @@ describe(' through server(s)', () => {
                     output.push(chunk);
                 });
                 res.on('end', () => {
-                    assert.equal(output[0], 'a');
+                    assert.equal(output.join('')[0], 'a');
                     assert.equal(output.join('').length, size);
                     done();
                 });
