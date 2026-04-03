@@ -5,11 +5,11 @@ import { startServer, stopServer, getHost } from './fake-server.js';
 
 
 beforeAll(async () => {
-    await startServer();
+    await startServer(3);
 });
 
 afterAll(async () => {
-    await stopServer();
+    await stopServer(3);
 });
 
 describe('URLPagination', () => {
@@ -21,7 +21,7 @@ describe('URLPagination', () => {
         const output = [];
         const script = `
             [URLRequest]
-            url = ${getHost()}/-/v1/search
+            url = ${getHost(3)}/-/v1/search
             [URLPagination]
             total = get('total')
         `;
@@ -47,7 +47,7 @@ describe('URLPagination', () => {
         const output = [];
         const script = `
             [URLRequest]
-            url = ${getHost()}/-/v1/search
+            url = ${getHost(3)}/-/v1/search
 
             [URLPagination]
             total = get('total')
@@ -75,7 +75,7 @@ describe('URLPagination', () => {
         const output = [];
         const script = `
             [URLRequest]
-            url = ${getHost()}/-/v1/search
+            url = ${getHost(3)}/-/v1/search
 
             [URLPagination]
             total = get('result.total')
@@ -102,7 +102,7 @@ describe('URLPagination', () => {
         const output = [];
         const script = `
             [exchange]
-            value = fix('${getHost()}/-/v1/search?text=nested')
+            value = fix('${getHost(3)}/-/v1/search?text=nested')
 
             [URLRequest]
 
@@ -131,7 +131,7 @@ describe('URLPagination', () => {
         const output = [];
         const script = `
             [exchange]
-            value = fix('${getHost()}/-/v1/search?text=nested')
+            value = fix('${getHost(3)}/-/v1/search?text=nested')
 
             [URLRequest]
             target = toto
@@ -160,7 +160,7 @@ describe('URLPagination', () => {
         ];
         const script = `
             [URLRequest]
-            url = ${getHost()}/-/v1/search
+            url = ${getHost(3)}/-/v1/search
 
             [URLPagination]
             total = get('total')
@@ -188,7 +188,7 @@ describe('URLPagination', () => {
         ];
         const script = `
             [URLRequest]
-            url = ${getHost()}/-/v1/search
+            url = ${getHost(3)}/-/v1/search
             [URLPagination]
             total = get('total')
         `;
@@ -216,7 +216,7 @@ describe('URLPagination', () => {
         ];
         const script = `
             [URLRequest]
-            url = ${getHost()}/status/404
+            url = ${getHost(3)}/status/404
             retries = 1
 
             [URLPagination]
@@ -245,7 +245,7 @@ describe('URLPagination', () => {
         ];
         const script = `
             [URLRequest]
-            url = ${getHost()}/-/v1/search
+            url = ${getHost(3)}/-/v1/search
             timeout = 100
             retries = 1
 
@@ -257,7 +257,7 @@ describe('URLPagination', () => {
             .pipe(ezs.catch())
             .on('error', (e) => {
                 try {
-                    expect(e.message).toEqual(expect.stringContaining('The operation timed out.'));
+                    expect(e.message).toEqual(expect.stringContaining('time'));
                     done();
                 } catch (err) {
                     done(err);

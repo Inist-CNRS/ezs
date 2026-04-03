@@ -68,6 +68,7 @@ export default function detach(data, feed) {
         this.whenFinish = whenWorkerReady
             .then(({ socketIn, socketOut }) => Promise.all([connect(socketIn), connect(socketOut)]))
             .then(([stdinSocket, stdoutSocket]) => {
+
                 toWorker.pipe(stdinSocket);
                 const output = stdoutSocket.pipe(fromWorker);
 
@@ -90,7 +91,7 @@ export default function detach(data, feed) {
         debug('ezs:debug')(`${this.getIndex()} chunks have been detached`);
         this.whenFinish.finally(() => {
             feed.close();
-            return this.worker.terminate();
+            // return this.worker.terminate();
         });
         return this.input.end();
     }

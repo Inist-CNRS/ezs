@@ -7,11 +7,11 @@ import { startServer, stopServer, getHost } from './fake-server.js';
 
 
 beforeAll(async () => {
-    await startServer();
+    await startServer(2);
 });
 
 afterAll(async () => {
-    await stopServer();
+    await stopServer(2);
 });
 
 describe('URLFetch', () => {
@@ -25,7 +25,7 @@ describe('URLFetch', () => {
         const output = [];
         const script = `
             [URLFetch]
-            url = get('a').replace(/(.*)/, '${getHost()}/get?a=$1')
+            url = get('a').replace(/(.*)/, '${getHost(2)}/get?a=$1')
             json = true
             retries = 1
             target = x
@@ -56,7 +56,7 @@ describe('URLFetch', () => {
         const output = [];
         const script = `
             [URLFetch]
-            url = get('a').replace(/(.*)/, '${getHost()}/get?a=$1')
+            url = get('a').replace(/(.*)/, '${getHost(2)}/get?a=$1')
             json = true
             retries = 1
 
@@ -86,7 +86,7 @@ describe('URLFetch', () => {
         const output = [];
         const script = `
             [URLFetch]
-            url = get('a').replace(/(.*)/, '${getHost()}/get?a=$1')
+            url = get('a').replace(/(.*)/, '${getHost(2)}/get?a=$1')
             json = false
             retries = 1
             target = r
@@ -113,7 +113,7 @@ describe('URLFetch', () => {
         const output = [];
         const script = `
             [URLFetch]
-            url = ${getHost()}/get?a=
+            url = ${getHost(2)}/get?a=
             json = false
             retries = 1
             target = r
@@ -140,7 +140,7 @@ describe('URLFetch', () => {
         const output = [];
         const script = `
             [URLFetch]
-            url = ${getHost()}/get?a=
+            url = ${getHost(2)}/get?a=
             dataurl = true
             retries = 1
             target = r
@@ -166,7 +166,7 @@ describe('URLFetch', () => {
         const output = [];
         const script = `
             [URLFetch]
-            url = ${getHost()}/get?a=d
+            url = ${getHost(2)}/get?a=d
             dataurl = true
             retries = 1
             target = r
@@ -227,7 +227,7 @@ describe('URLFetch', () => {
         ];
         const script = `
             [URLFetch]
-            url = get('a').replace(/(.*)/, '${getHost()}/status/400')
+            url = get('a').replace(/(.*)/, '${getHost(2)}/status/400')
             json = true
             retries = 1
 
@@ -254,7 +254,7 @@ describe('URLFetch', () => {
         ];
         const script = `
             [URLFetch]
-            url = get('a').replace(/(.*)/, '${getHost()}/status/503')
+            url = get('a').replace(/(.*)/, '${getHost(2)}/status/503')
             json = true
             retries = 2
 
@@ -287,7 +287,7 @@ describe('URLFetch', () => {
         const output = [];
         const script = `
             [URLFetch]
-            url = get('a').replace(/(.*)/, '${getHost()}/status/503')
+            url = get('a').replace(/(.*)/, '${getHost(2)}/status/503')
             noerror = true
             timeout = 20000
             retries = 1
@@ -315,7 +315,7 @@ describe('URLFetch', () => {
         const output = [];
         const script = `
             [URLFetch]
-            url = get('a').replace(/(.*)/, '${getHost()}/status/404')
+            url = get('a').replace(/(.*)/, '${getHost(2)}/status/404')
             json = true
             retries = 1
 
@@ -343,7 +343,7 @@ describe('URLFetch', () => {
         const output = [];
         const script = `
             [URLFetch]
-            url = get('a').replace(/(.*)/, '${getHost()}/status/404')
+            url = get('a').replace(/(.*)/, '${getHost(2)}/status/404')
             json = true
             retries = 5
 
@@ -376,7 +376,8 @@ describe('URLFetch', () => {
             })
             .on('end', () => {
                 expect(output.length).toBe(3);
-                expect(output[0].message).toEqual(expect.stringContaining('Unable to connect'));
+                //expect(output[0].message).toEqual(expect.stringContaining('Unable to connect')); // bun
+                expect(output[0].message).toEqual(expect.stringContaining('ECONNREFUSED')); // node
                 done();
             });
     }, 30000);
@@ -390,7 +391,7 @@ describe('URLFetch', () => {
         const output = [];
         from(input)
             .pipe(ezs('URLFetch', {
-                url: `${getHost()}/post/1`,
+                url: `${getHost(2)}/post/1`,
                 path: 'a',
                 json: true,
             }))
@@ -415,7 +416,7 @@ describe('URLFetch', () => {
         const output = [];
         from(input)
             .pipe(ezs('URLFetch', {
-                url: `${getHost()}/post/2`,
+                url: `${getHost(2)}/post/2`,
                 path: ['a', 'b'],
                 mimetype: 'text/plain',
             }))

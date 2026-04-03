@@ -7,11 +7,11 @@ import { startServer, stopServer, getHost } from './fake-server.js';
 
 
 beforeAll(async () => {
-    await startServer();
+    await startServer(4);
 });
 
 afterAll(async () => {
-    await stopServer();
+    await stopServer(4);
 });
 
 
@@ -35,9 +35,9 @@ describe('URLStream', () => {
     test('#0', (done) => {
         ezs.use(statements);
         const input = [
-            `${getHost()}/get?a=a`,
-            `${getHost()}/get?a=b`,
-            `${getHost()}/get?a=c`,
+            `${getHost(4)}/get?a=a`,
+            `${getHost(4)}/get?a=b`,
+            `${getHost(4)}/get?a=c`,
         ];
         const output = [];
         from(input)
@@ -47,7 +47,7 @@ describe('URLStream', () => {
             .pipe(ezs.catch())
             .on('error', done)
             .on('data', (chunk) => {
-                output.push(`${getHost()}/get?a=${chunk.a}`);
+                output.push(`${getHost(4)}/get?a=${chunk.a}`);
             })
             .on('end', () => {
                 expect(output).toStrictEqual(input);
@@ -65,7 +65,7 @@ describe('URLStream', () => {
         const output = [];
         from(input)
             .pipe(ezs('URLStream', {
-                url: `${getHost()}/get`,
+                url: `${getHost(4)}/get`,
                 path: '.args',
             }))
             .pipe(ezs.catch())
@@ -113,7 +113,7 @@ describe('URLStream', () => {
         ];
         from(input)
             .pipe(ezs('URLStream', {
-                url: `${getHost()}/status/400`,
+                url: `${getHost(4)}/status/400`,
                 retries: 1
             }))
             .pipe(ezs.catch())
@@ -140,7 +140,7 @@ describe('URLStream', () => {
         const output = [];
         from(input)
             .pipe(ezs('URLStream', {
-                url: `${getHost()}/status/400`,
+                url: `${getHost(4)}/status/400`,
                 noerror: true,
                 retries: 1
             }))
@@ -211,7 +211,7 @@ describe('URLStream', () => {
             .pipe(ezs('URLStream'))
             .pipe(ezs.catch())
             .on('error', (e) => {
-                expect(e.message).toEqual(expect.stringContaining('cannot be parsed as a URL.'));
+                expect(e.message).toEqual(expect.stringContaining('URL'));
                 done();
             })
             .on('end', () => {

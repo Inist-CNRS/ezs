@@ -7,10 +7,10 @@ ezs.settings.servePath = __dirname;
 
 const PORT = 3333;
 
-let httpServer = null;
-let timeoutID1;
-let counter1 = 0;
-let counter2 = 0;
+const httpServer = [];
+const timeoutID1 = [];
+const counter1 = [];
+const counter2 = [];
 
 
 function pause(data, feed) {
@@ -24,11 +24,13 @@ function pause(data, feed) {
 
 
 
-export function startServer() {
+export function startServer(seed = 0) {
     return new Promise((resolve, reject) => {
-        if (httpServer?.listening) return resolve(httpServer);
+        if (httpServer[seed]?.listening) return resolve(httpServer[seed]);
 
-        httpServer = http.createServer((req, res) => {
+        counter1[seed] = 0;
+        counter2[seed] = 0;
+        httpServer[seed] = http.createServer((req, res) => {
             const { url, method } = req;
 
             // GET /get?a=*
@@ -101,7 +103,7 @@ export function startServer() {
 
             // GET /-/v1/search?text=timeout (délai de 1000ms)
             if (method === 'GET' && url === '/-/v1/search?text=timeout') {
-                timeoutID1 = setTimeout(() => {
+                timeoutID1[seed] = setTimeout(() => {
                     res.writeHead(200, { 'Content-Type': 'application/json' });
                     res.end(JSON.stringify({ total: 10 }));
                 }, 10000);
@@ -110,8 +112,8 @@ export function startServer() {
 
             if (method === 'POST' && url === '/timer') {
                 if (req.headers['x-timeout'] === 'erratic') {
-                    counter2 += 1;
-                    if (counter2 % 2 === 0) {
+                    counter2[seed] += 1;
+                    if (counter2[seed] % 2 === 0) {
                         res.writeHead(500);
                         return res.end();
                     }
@@ -128,8 +130,8 @@ export function startServer() {
                     return req.pipe(res);
                 }
                 if (req.headers['x-timeout'] === 'once') {
-                    counter1 += 1;
-                    if (counter1 === 1) {
+                    counter1[seed] += 1;
+                    if (counter1[seed] === 1) {
                         const timeoutHandle = setTimeout(() => {
                             req.pipe(res);
                         }, 1000);
@@ -148,34 +150,34 @@ export function startServer() {
             res.end();
         });
 
-        httpServer.once('error', reject);
-        httpServer.listen(PORT, () => resolve(httpServer));
+        httpServer[seed].once('error', reject);
+        httpServer[seed].listen(PORT + seed, () => resolve(httpServer[seed]));
     });
 }
 
-export function stopServer() {
-    clearTimeout(timeoutID1);
+export function stopServer(seed = 0) {
+    clearTimeout(timeoutID1[seed]);
     return new Promise((resolve, reject) => {
-        if (!httpServer?.listening) return resolve();
-        httpServer.closeAllConnections();
+        if (!httpServer[seed]?.listening) return resolve();
+        httpServer[seed].closeAllConnections();
         try {
-            httpServer.close(() => {
-                httpServer = null;
-                counter1 = 0;
-                counter2 = 0;
+            httpServer[seed].close(() => {
+                httpServer[seed] = null;
+                counter1[seed] = 0;
+                counter2[seed] = 0;
                 resolve();
             });
         } catch (err) {
             // Serveur déjà arrêté, on ignore l'erreur
-            httpServer = null;
-            counter1 = 0;
-            counter2 = 0;
+            httpServer[seed] = null;
+            counter1[seed] = 0;
+            counter2[seed] = 0;
             resolve();
         }
     });
 }
 
-export function getHost() {
-    return `http://localhost:${PORT}`;
+export function getHost(seed = 0) {
+    return `http://localhost:${PORT + seed}`;
 }
 
