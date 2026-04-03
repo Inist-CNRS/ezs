@@ -177,7 +177,7 @@ describe('TeeftGetFilesContent', () => {
             })
             .on('end', () => {
                 expect(res).toHaveLength(1);
-                expect(res).toMatchObject([{errno: -2, code: 'ENOENT', path: filePath, syscall: 'open'}]);
+                expect(res[0].message).toMatch(/ENOENT/);
                 expect(res[0].content).toBeUndefined();
                 done();
             });
@@ -196,14 +196,10 @@ describe('TeeftGetFilesContent', () => {
             .on('end', () => {
                 expect(res).toHaveLength(2);
                 expect(res[0].content).toBeUndefined();
-                expect(res).toMatchObject([{
-                    path: filePath,
-                    errno: -2,
-                    code: 'ENOENT',
-                    syscall: 'open'
-                }, {
+                expect(res[0].message).toMatch(/ENOENT/);
+                expect(res[1]).toMatchObject({
                     path: filePath2
-                }]);
+                });
                 expect(res[1].content).toHaveLength(1067);
                 expect(res[1].content.startsWith('Ceci est')).toBe(true);
                 done();

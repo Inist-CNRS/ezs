@@ -1,5 +1,5 @@
 import fs from 'fs';
-import ezs from '../../core/lib';
+import ezs from '../../core/src/index.js';
 import statements from '../src';
 
 ezs.addPath(__dirname);

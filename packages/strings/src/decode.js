@@ -22,7 +22,7 @@ import { get, set } from 'lodash';
  * Script:
  *
  * ```ini
- * [decode]
+ * [STRDecode]
  * path = value
  * from = 1
  * to = one
@@ -50,7 +50,7 @@ import { get, set } from 'lodash';
  *
  * See `encode`.
  *
- * @name decode
+ * @name STRDecode
  * @param {string} path - The path of the string to be decoded, within data.
  * @param {string[]} from - An array of strings to replace with.
  * @param {string[]} to - An array of strings to be replaced.

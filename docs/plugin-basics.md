@@ -734,7 +734,7 @@ Useful to send JSON data to an API and get results.
 *   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fetch
 *   `streaming` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Direct connection to the Object Stream server (disables the retries setting) (optional, default `false`)
 *   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Parse as JSON the content of URL (optional, default `false`)
-*   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (optional, default `1000`)
+*   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (optional, default `5000`)
 *   `noerror` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Ignore all errors (optional, default `false`)
 *   `retries` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** The maximum amount of times to retry the connection (optional, default `5`)
 *   `encoder` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The statement to encode each chunk to a string (optional, default `dump`)
@@ -755,7 +755,7 @@ Or if no target is specified, the output will be the returned content of URL.
 *   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** choose the key to set
 *   `json` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** parse as JSON the content of URL (optional, default `false`)
 *   `dataurl` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** encode content into DATA Url (optional, default `false`)
-*   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** timeout in milliseconds (optional, default `1000`)
+*   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** timeout in milliseconds (optional, default `5000`)
 *   `mimetype` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** mimetype for value of path  (if presents) (optional, default `"application/json"`)
 *   `noerror` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** ignore all errors, the target field will remain undefined (optional, default `false`)
 *   `retries` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** The maximum amount of times to retry the connection (optional, default `5`)
@@ -883,7 +883,7 @@ Output:
 *   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fetch
 *   `json` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** parse result as json (optional, default `true`)
 *   `target` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** choose the key to set
-*   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (optional, default `1000`)
+*   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (optional, default `5000`)
 *   `noerror` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Ignore all errors, the target field will remain undefined (optional, default `false`)
 *   `retries` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** The maximum amount of times to retry the connection (optional, default `5`)
 *   `insert` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** a header response value in the result
@@ -952,7 +952,7 @@ Output:
 
 *   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** URL to fetch (by default input string is taken)
 *   `path` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** choose the path to split JSON result (optional, default `"*"`)
-*   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (optional, default `1000`)
+*   `timeout` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Timeout in milliseconds (optional, default `5000`)
 *   `noerror` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Ignore all errors, the target field will remain undefined (optional, default `false`)
 *   `retries` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** The maximum amount of times to retry the connection (optional, default `5`)
 

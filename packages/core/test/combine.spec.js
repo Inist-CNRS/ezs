@@ -2,7 +2,6 @@ import assert from 'assert';
 import fs from 'fs';
 import from from 'from';
 import ezs from '../src';
-import { database } from '../src/statements/combine';
 
 ezs.addPath(__dirname);
 

@@ -1,8 +1,24 @@
-import { workerData } from 'worker_threads';
+import { workerData, parentPort } from 'worker_threads';
 import { pipeline } from 'stream';
 import process from 'process';
 import ezs from '@ezs/core';
 import JSONezs from '@ezs/core/json';
+import { PassThrough } from 'stream';
+import { randomUUID } from 'crypto';
+import os from 'os';
+import net from 'net';
+import path from 'path';
+import fs from 'fs';
+
+process.on('uncaughtException', (e) => {
+    console.error('[uncaughtException]', e);
+    process.exit(8);
+});
+
+process.on('unhandledRejection', (reason) => {
+    console.error('[unhandledRejection]', reason);
+    process.exit(9);
+});
 
 const {
     file,
@@ -18,6 +34,64 @@ const {
     settings,
     plugins,
 } = workerData;
+
+
+const stdin = new PassThrough();
+const stdout = new PassThrough();
+
+const uid = randomUUID();
+const socketIn  = path.join(os.tmpdir(), `worker-stdin-${uid}.sock`);
+const socketOut = path.join(os.tmpdir(), `worker-stdout-${uid}.sock`);
+
+// Nettoyage si les sockets existent déjà
+if (fs.existsSync(socketIn))  fs.unlinkSync(socketIn);
+if (fs.existsSync(socketOut)) fs.unlinkSync(socketOut);
+
+
+const createServer = (socketPath, onConnection) => new Promise((resolve) => {
+    const server = net.createServer(onConnection);
+    server.listen(socketPath, () => resolve(server));
+});
+
+
+const [stdinServer, stdoutServer] = await Promise.all([
+    createServer(socketIn,  (socket) => {
+        socket.pipe(stdin);
+        socket.once('error', (e) =>  process.exit(5));
+        socket.once('end', () => stdin.end());
+        socket.once('close', () => cleanupIn());
+    }),
+    createServer(socketOut, (socket) => {
+        stdout.pipe(socket);
+        socket.once('error', (e) =>  process.exit(6));
+        stdout.once('end', () => socket.end());
+        socket.once('close', () => cleanupOut());
+    }),
+]);
+
+let stdinCleaned = false;
+const cleanupIn = () => {
+    if (stdinCleaned) return;
+    stdinCleaned = true;
+    stdinServer.close();
+    if (fs.existsSync(socketIn)) fs.unlinkSync(socketIn);
+};
+
+let stdoutCleaned = false;
+const cleanupOut = () => {
+    if (stdoutCleaned) return;
+    stdoutCleaned = true;
+    stdoutServer.close();
+    if (fs.existsSync(socketOut)) fs.unlinkSync(socketOut);
+};
+
+process.on('exit', (code) => {
+    cleanupIn();
+    cleanupOut();
+});
+
+parentPort.postMessage({ socketIn, socketOut });
+
 
 const command = JSONezs.parse(commandString);
 const commands = JSONezs.parse(commandsString);
@@ -40,20 +114,19 @@ statements.push(ezs.createCommand(encoder));
 const rawStream = ezs.createStream(ezs.bytesMode);
 
 const outputStream = ezs.createStream();
-outputStream.pipe(process.stdout);
+outputStream.pipe(stdout);
 
 const transformedStream = ezs.createPipeline(rawStream, statements, logger)
     .once('unpipe', () => {
-        process.stdin.unpipe(rawStream);
+        stdin.unpipe(rawStream);
         rawStream.end();
     })
     .pipe(ezs.catch())
     .once('error', (e) => {
-        console.error(e);
-        outputStream.unpipe(process.stdout);
+        outputStream.unpipe(stdout);
         rawStream.destroy();
         transformedStream.destroy();
-        process.exit(1);
+        process.exit(2);
     });
 
 pipeline(
@@ -62,25 +135,24 @@ pipeline(
     outputStream,
     (e) => {
         if (e) {
-            console.error(e);
-            outputStream.unpipe(process.stdout);
-            process.exit(1);
+            outputStream.unpipe(stdout);
+            process.exit(3);
         }
     }
 );
 
-process.stdin
+stdin
     .once('aborted', () => {
-        process.stdin.unpipe(rawStream);
+        stdin.unpipe(rawStream);
         rawStream.end();
     })
     .once('error', (e) => {
-        process.stdin.unpipe(rawStream);
+        stdin.unpipe(rawStream);
         rawStream.end();
-        process.exit(1);
+        process.exit(4);
     })
     .once('end', () => {
         rawStream.end();
     });
-process.stdin.pipe(rawStream);
-process.stdin.resume();
+stdin.pipe(rawStream);
+stdin.resume();
