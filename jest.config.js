@@ -31,6 +31,11 @@ const options = {
     verbose: true,
     silent: false,
     testEnvironment: 'node',
+    globals: {
+        AbortController: globalThis.AbortController,
+        AbortSignal: globalThis.AbortSignal,
+        fetch: globalThis.fetch,
+    },
 };
 
 if (semver.lt(process.version, '22.0.0')) {

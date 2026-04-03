@@ -170,16 +170,17 @@ describe('URLStream', () => {
                 retries: 1,
             }))
             .pipe(ezs.catch())
-            .on('error', (e) => {
-                expect(() => {
-                    throw e.sourceError;
-                }).toThrow('request to http://unknow/?a=a failed, reason: getaddrinfo EAI_AGAIN unknow');
+            .once('error', (e) => {
+                expect(e.message).toEqual(expect.stringContaining('fetch failed'));
                 done();
+            })
+            .on('data', (x) => {
+                done(new Error('Error is the right behavior'));
             })
             .on('end', () => {
                 done(new Error('Error is the right behavior'));
             });
-    }, 10000);
+    }, 30000);
     test('#4', (done) => {
         ezs.use(statements);
         const input = [
