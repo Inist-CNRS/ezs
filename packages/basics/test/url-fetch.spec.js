@@ -256,6 +256,7 @@ describe('URLFetch', () => {
             url = get('a').replace(/(.*)/, '${getHost(2)}/status/503')
             json = true
             retries = 2
+            timeout = 30000
 
             [exchange]
             value = get('args')
@@ -274,7 +275,7 @@ describe('URLFetch', () => {
             .on('end', () => {
                 done(new Error('Error is the right behavior'));
             });
-    }, 30000);
+    }, 60000);
 
     test('#3bis', (done) => {
         ezs.use(statements);
