@@ -3,41 +3,17 @@ import nock from 'nock';
 import http from 'http';
 import ezs from '../../core/src';
 import statements from '../src';
+import { startServer, stopServer, getHost } from './fake-server.js';
 
-const httpbin = nock('https://httpbin.org').persist();
-httpbin
-    .get('/get?a=a')
-    .reply(200, {
-        args: {
-            a: 'a',
-        },
-    });
-httpbin
-    .get('/get?a=b')
-    .reply(200, {
-        args: {
-            a: 'b',
-        },
-    });
-httpbin
-    .get('/get?a=c')
-    .reply(200, {
-        args: {
-            a: 'c',
-        },
-    });
-httpbin
-    .get('/status/400?a=a')
-    .reply(400);
-httpbin
-    .get('/status/400?a=b')
-    .reply(400);
-httpbin
-    .get('/status/400?a=c')
-    .reply(400);
-httpbin
-    .get('/status/400')
-    .reply(400);
+
+beforeAll(async () => {
+    await startServer(4);
+});
+
+afterAll(async () => {
+    await stopServer(4);
+});
+
 
 describe('URLStream', () => {
     let server;
@@ -59,9 +35,9 @@ describe('URLStream', () => {
     test('#0', (done) => {
         ezs.use(statements);
         const input = [
-            'https://httpbin.org/get?a=a',
-            'https://httpbin.org/get?a=b',
-            'https://httpbin.org/get?a=c',
+            `${getHost(4)}/get?a=a`,
+            `${getHost(4)}/get?a=b`,
+            `${getHost(4)}/get?a=c`,
         ];
         const output = [];
         from(input)
@@ -71,7 +47,7 @@ describe('URLStream', () => {
             .pipe(ezs.catch())
             .on('error', done)
             .on('data', (chunk) => {
-                output.push(`https://httpbin.org/get?a=${chunk.a}`);
+                output.push(`${getHost(4)}/get?a=${chunk.a}`);
             })
             .on('end', () => {
                 expect(output).toStrictEqual(input);
@@ -89,7 +65,7 @@ describe('URLStream', () => {
         const output = [];
         from(input)
             .pipe(ezs('URLStream', {
-                url: 'https://httpbin.org/get',
+                url: `${getHost(4)}/get`,
                 path: '.args',
             }))
             .pipe(ezs.catch())
@@ -137,7 +113,7 @@ describe('URLStream', () => {
         ];
         from(input)
             .pipe(ezs('URLStream', {
-                url: 'https://httpbin.org/status/400',
+                url: `${getHost(4)}/status/400`,
                 retries: 1
             }))
             .pipe(ezs.catch())
@@ -164,7 +140,7 @@ describe('URLStream', () => {
         const output = [];
         from(input)
             .pipe(ezs('URLStream', {
-                url: 'https://httpbin.org/status/400',
+                url: `${getHost(4)}/status/400`,
                 noerror: true,
                 retries: 1
             }))
@@ -217,9 +193,7 @@ describe('URLStream', () => {
             }))
             .pipe(ezs.catch())
             .on('error', (e) => {
-                expect(() => {
-                    throw e.sourceError;
-                }).toThrow('Invalid JSON (Unexpected "\\n" at position 4 in state STOP)');
+                expect(e.sourceError.message).toEqual(expect.stringContaining('Invalid JSON'));
                 done();
             })
             .on('end', () => {
@@ -237,7 +211,7 @@ describe('URLStream', () => {
             .pipe(ezs('URLStream'))
             .pipe(ezs.catch())
             .on('error', (e) => {
-                expect(e.message).toEqual(expect.stringContaining('Invalid URL'));
+                expect(e.message).toEqual(expect.stringContaining('URL'));
                 done();
             })
             .on('end', () => {

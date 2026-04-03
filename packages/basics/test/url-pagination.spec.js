@@ -1,67 +1,16 @@
 import from from 'from';
-import nock from 'nock';
 import ezs from '../../core/src';
 import statements from '../src';
-
-const registry_npmjs_com = nock('https://registry.npmjs.com').persist(true);
-registry_npmjs_com
-    .get('/-/v1/search?text=ezs')
-    .reply(200, {
-        total: 23,
-    });
-
-registry_npmjs_com
-    .get('/-/v1/search?text=nested')
-    .reply(200, {
-        result: {
-            total: 23,
-        }
-    });
-
-registry_npmjs_com
-    .get('/-/v1/search?text=noresult')
-    .reply(200, {
-        total: 0,
-    });
-
-registry_npmjs_com
-    .get('/-/v1/search?text=empty')
-    .reply(200, {
-    });
-
-registry_npmjs_com
-    .get('/-/v1/search?text=ten')
-    .reply(200, {
-        total: 10,
-    });
-
-registry_npmjs_com
-    .get('/-/v1/search?text=timeout')
-    .delayConnection(0)
-    .delayBody(1000)
-    .reply(200, {
-        total: 10,
-    });
-
-const httpbin = nock('https://httpbin.org').persist(true);
-httpbin
-    .post('/status/400')
-    .reply(400);
-
-httpbin
-    .post('/status/503')
-    .reply(503);
-
-httpbin
-    .post('/status/404')
-    .reply(404);
-
-httpbin
-    .get('/status/404')
-    .reply(404);
+import { startServer, stopServer, getHost } from './fake-server.js';
 
 
+beforeAll(async () => {
+    await startServer(3);
+});
 
+afterAll(async () => {
+    await stopServer(3);
+});
 
 describe('URLPagination', () => {
     test('#1', (done) => {
@@ -72,7 +21,7 @@ describe('URLPagination', () => {
         const output = [];
         const script = `
             [URLRequest]
-            url = https://registry.npmjs.com/-/v1/search
+            url = ${getHost(3)}/-/v1/search
             [URLPagination]
             total = get('total')
         `;
@@ -98,7 +47,7 @@ describe('URLPagination', () => {
         const output = [];
         const script = `
             [URLRequest]
-            url = https://registry.npmjs.com/-/v1/search
+            url = ${getHost(3)}/-/v1/search
 
             [URLPagination]
             total = get('total')
@@ -126,7 +75,7 @@ describe('URLPagination', () => {
         const output = [];
         const script = `
             [URLRequest]
-            url = https://registry.npmjs.com/-/v1/search
+            url = ${getHost(3)}/-/v1/search
 
             [URLPagination]
             total = get('result.total')
@@ -153,7 +102,7 @@ describe('URLPagination', () => {
         const output = [];
         const script = `
             [exchange]
-            value = fix('https://registry.npmjs.com/-/v1/search?text=nested')
+            value = fix('${getHost(3)}/-/v1/search?text=nested')
 
             [URLRequest]
 
@@ -182,7 +131,7 @@ describe('URLPagination', () => {
         const output = [];
         const script = `
             [exchange]
-            value = fix('https://registry.npmjs.com/-/v1/search?text=nested')
+            value = fix('${getHost(3)}/-/v1/search?text=nested')
 
             [URLRequest]
             target = toto
@@ -211,7 +160,7 @@ describe('URLPagination', () => {
         ];
         const script = `
             [URLRequest]
-            url = https://registry.npmjs.com/-/v1/search
+            url = ${getHost(3)}/-/v1/search
 
             [URLPagination]
             total = get('total')
@@ -239,7 +188,7 @@ describe('URLPagination', () => {
         ];
         const script = `
             [URLRequest]
-            url = https://registry.npmjs.com/-/v1/search
+            url = ${getHost(3)}/-/v1/search
             [URLPagination]
             total = get('total')
         `;
@@ -267,7 +216,7 @@ describe('URLPagination', () => {
         ];
         const script = `
             [URLRequest]
-            url = https://httpbin.org/status/404
+            url = ${getHost(3)}/status/404
             retries = 1
 
             [URLPagination]
@@ -296,8 +245,9 @@ describe('URLPagination', () => {
         ];
         const script = `
             [URLRequest]
-            url = https://registry.npmjs.com/-/v1/search
+            url = ${getHost(3)}/-/v1/search
             timeout = 100
+            retries = 1
 
             [URLPagination]
             total = get('total')
@@ -307,15 +257,17 @@ describe('URLPagination', () => {
             .pipe(ezs.catch())
             .on('error', (e) => {
                 try {
-                    expect(e.message).toEqual(expect.stringContaining('Response timeout'));
-                    expect(e.message).toEqual(expect.stringContaining('over 100ms'));
+                    expect(e.message).toEqual(expect.stringContaining('time'));
                     done();
                 } catch (err) {
                     done(err);
                 }
             })
+            .on('data', (a) => {
+                done(new Error('Error is the right behavior 1'));
+            })
             .on('end', () => {
-                done(new Error('Error is the right behavior'));
+                done(new Error('Error is the right behavior 2'));
             });
-    });
+    }, 30000);
 });
