@@ -248,6 +248,7 @@ describe('fork)', () => {
             }))
             .pipe(ezs.catch())
             .on('error', (e) => {
+                console.error('Error message', e)
                 expect(e.message).toEqual(expect.stringContaining('fake'));
                 done();
             })

@@ -27,4 +27,4 @@ jobs:
           NODE_ENV: test
         run: |
           export DEBUG="ezs:error,ezs:warn"
-          bun test
+          bun test --only-failures
