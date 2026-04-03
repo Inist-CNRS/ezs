@@ -42,11 +42,13 @@ jobs:
           CXXFLAGS: "-I/deps/include"
           LDFLAGS: "-L/deps/lib"
         run: |
-          # Temporarily move storage package outside packages/ to exclude it from workspaces glob
+          # Temporarily move storage & store packages outside packages/ to exclude it from workspaces glob
           mv packages/storage disabled-packages-storage
+          mv packages/store disabled-packages-store
           yarn ci:install
           # Restore storage package location
           mv disabled-packages-storage packages/storage
+          mv disabled-packages-store packages/store
 
       - name: Rebuild node-postal (Mainly use to NodeJS 20)
         env:
