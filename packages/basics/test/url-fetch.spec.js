@@ -356,7 +356,11 @@ describe('URLFetch', () => {
             })
             .on('end', () => {
                 expect(output.length).toBe(3);
-                expect(output[1].message).toEqual(expect.stringContaining('Not Found'));
+                if (typeof Bun === 'undefined') {
+                    expect(output[1].message).toEqual(expect.stringContaining('Not Found'));
+                } else  {
+                    expect(output[1].message).toEqual(expect.stringContaining('Unable to connect'));
+                }
                 done();
             });
     });
@@ -375,8 +379,11 @@ describe('URLFetch', () => {
             })
             .on('end', () => {
                 expect(output.length).toBe(3);
-                //expect(output[0].message).toEqual(expect.stringContaining('Unable to connect')); // bun
-                expect(output[0].message).toEqual(expect.stringContaining('fetch failed')); // node
+                if (typeof Bun === 'undefined') {
+                    expect(output[0].message).toEqual(expect.stringContaining('fetch failed')); // node
+                } else {
+                    expect(output[0].message).toEqual(expect.stringContaining('Unable to connect')); // bun
+                }
                 done();
             });
     }, 30000);

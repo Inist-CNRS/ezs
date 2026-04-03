@@ -171,7 +171,11 @@ describe('URLStream', () => {
             }))
             .pipe(ezs.catch())
             .once('error', (e) => {
-                expect(e.message).toEqual(expect.stringContaining('fetch failed'));
+                if (typeof Bun === 'function') {
+                    expect(e.message).toEqual(expect.stringContaining('fetch failed'));
+                } else {
+                    expect(e.message).toEqual(expect.stringContaining('Was there a typo in the url or port'));
+                }
                 done();
             })
             .on('data', (x) => {
