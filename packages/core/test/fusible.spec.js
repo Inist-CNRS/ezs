@@ -9,16 +9,16 @@ test('fusible', async () => {
     const fusible = await createFusible();
     expect(fusible).toMatch(/.+/);
     const isEnable = await enableFusible(fusible);
-    expect(isEnable).toBeTruthy();
+    expect(isEnable).toBe(true);
     const isCheckOK = await checkFusible(fusible);
-    expect(isCheckOK).toBeTruthy();
+    expect(isCheckOK).toBe(true);
     const isDisable = await disableFusible(fusible);
-    expect(isDisable).toBeTruthy();
+    expect(isDisable).toBe(true);
     const isDisableBIS = await disableFusible(fusible);
-    expect(isDisableBIS).toBeTruthy();
+    expect(isDisableBIS).toBe(true);
     const isCheckKO = await checkFusible(fusible);
-    expect(isCheckKO).not.toBeTruthy();
+    expect(isCheckKO).toBe(false);
     const isCheckKOBIS = await checkFusible();
-    expect(isCheckKOBIS).not.toBeTruthy();
+    expect(isCheckKOBIS).toBe(false);
 });
 
