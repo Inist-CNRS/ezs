@@ -104,7 +104,6 @@ export default async function URLStream(data, feed) {
         cURL.search = new URLSearchParams(data);
     }
     const onError = (e) => {
-        controller.abort();
         if (noerror) {
             debug('ezs:info')(`Ignore item #${this.getIndex()} [URLStream]`, ezs.serializeError(e));
             return feed.send(data);
@@ -123,5 +122,6 @@ export default async function URLStream(data, feed) {
         await feed.flow(output);
     } catch (e) {
         onError(e);
+        controller.abort();
     }
 }

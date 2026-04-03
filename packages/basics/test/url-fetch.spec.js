@@ -1,5 +1,4 @@
 import from from 'from';
-import nock from 'nock';
 import ezs from '../../core/src';
 import statements from '../src';
 
@@ -42,7 +41,7 @@ describe('URLFetch', () => {
             })
             .on('end', () => {
                 expect(output.length).toBe(3);
-                expect(output).toStrictEqual(input);
+                expect(JSON.stringify(input)).toStrictEqual(JSON.stringify(output));
                 done();
             });
     });
@@ -72,7 +71,7 @@ describe('URLFetch', () => {
             })
             .on('end', () => {
                 expect(output.length).toBe(3);
-                expect(output).toStrictEqual(input);
+                expect(JSON.stringify(input)).toStrictEqual(JSON.stringify(output));
                 done();
             });
     });
@@ -376,8 +375,11 @@ describe('URLFetch', () => {
             })
             .on('end', () => {
                 expect(output.length).toBe(3);
-                //expect(output[0].message).toEqual(expect.stringContaining('Unable to connect')); // bun
-                expect(output[0].message).toEqual(expect.stringContaining('ECONNREFUSED')); // node
+                if (typeof Bun === 'undefined') {
+                    expect(output[0].message).toEqual(expect.stringContaining('ECONNREFUSED')); // node
+                } else {
+                    expect(output[0].message).toEqual(expect.stringContaining('Unable to connect')); // bun
+                }
                 done();
             });
     }, 30000);

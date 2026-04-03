@@ -67,8 +67,10 @@ export default async function URLConnect(data, feed) {
                     if (numberOfTimes > 1) {
                         debug('ezs:debug')(`Attempts to reconnect (${numberOfTimes})`);
                     }
+                    const hasBody = parameters.body !== undefined;
                     const response = await fetch(url, {
                         ...parameters,
+                        ...(hasBody && { duplex: 'half' }),
                         signal: AbortSignal.any([
                             controller.signal,
                             AbortSignal.timeout(timeout),
@@ -86,8 +88,8 @@ export default async function URLConnect(data, feed) {
                     if (streaming) {
                         const bodyOut = json ? bodyStream.pipe(JSONStream.parse('*')) : bodyStream;
                         bodyOut.once('error', (e) => {
-                            controller.abort();
                             output.emit('error', e);
+                            //controller.abort();
                         });
                         return bodyOut.pipe(output);
                     }
