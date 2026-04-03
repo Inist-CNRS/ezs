@@ -5,11 +5,11 @@ import statements from '../src';
 
 ezs.use(statements);
 
-describe('sentences', () => {
+describe('STRSentences', () => {
     it('should return an array', (done) => {
         let res = [];
         from([{ value: '' }])
-            .pipe(ezs('sentences', { path: 'value' }))
+            .pipe(ezs('STRSentences', { path: 'value' }))
             .on('data', (data) => {
                 res = [...res, data];
             })
@@ -19,10 +19,10 @@ describe('sentences', () => {
             });
     });
 
-    it('should generate two sentences', (done) => {
+    it('should generate two STRSentences', (done) => {
         let res = [];
         from([{ value: 'After all. These are two sentences.' }])
-            .pipe(ezs('sentences', { path: 'value' }))
+            .pipe(ezs('STRSentences', { path: 'value' }))
             .on('data', (data) => {
                 res = [...res, data];
             })
@@ -37,7 +37,7 @@ describe('sentences', () => {
     it('should use input as a string when no path given', (done) => {
         let res = [];
         from(['After all. These are two sentences.'])
-            .pipe(ezs('sentences'))
+            .pipe(ezs('STRSentences'))
             .on('data', (data) => {
                 res = [...res, data];
             })
@@ -52,7 +52,7 @@ describe('sentences', () => {
     it('should take path parameter into account', (done) => {
         let res = [];
         from([{ other: 'After all. These are two sentences.' }])
-            .pipe(ezs('sentences', { path: 'other' }))
+            .pipe(ezs('STRSentences', { path: 'other' }))
             .on('data', (data) => {
                 res = [...res, data];
             })
@@ -64,10 +64,10 @@ describe('sentences', () => {
             });
     });
 
-    it('should generate three sentences', (done) => {
+    it('should generate three STRSentences', (done) => {
         let res = [];
         from([{ value: 'And now. Three sentences. Indeed.' }])
-            .pipe(ezs('sentences', { path: 'value' }))
+            .pipe(ezs('STRSentences', { path: 'value' }))
             .on('data', (data) => {
                 res = [...res, data];
             })
@@ -82,7 +82,7 @@ describe('sentences', () => {
     it('should return an empty array when input is not a string', (done) => {
         let res = [];
         from([{ value: {} }, { value: 1 }, { value: true }])
-            .pipe(ezs('sentences', { path: 'value' }))
+            .pipe(ezs('STRSentences', { path: 'value' }))
             .on('data', (data) => {
                 res = [...res, data];
             })
@@ -99,7 +99,7 @@ describe('sentences', () => {
     it('should generate two sentences with other endings', (done) => {
         let res = [];
         from([{ value: 'Is it? It is!' }])
-            .pipe(ezs('sentences', { path: 'value' }))
+            .pipe(ezs('STRSentences', { path: 'value' }))
             .on('data', (data) => {
                 res = [...res, data];
             })
@@ -112,7 +112,7 @@ describe('sentences', () => {
     it('should not split initials in the middle of a sentence', (done) => {
         let res = [];
         from([{ value: 'My name is Bond, J. Bond.' }])
-            .pipe(ezs('sentences', { path: 'value' }))
+            .pipe(ezs('STRSentences', { path: 'value' }))
             .on('data', (data) => {
                 res = [...res, data];
             })
@@ -127,7 +127,7 @@ describe('sentences', () => {
     it('should not split initials at the beginning of a sentence', (done) => {
         let res = [];
         from([{ value: 'C. Norris, that means Chuck Norris.' }])
-            .pipe(ezs('sentences', { path: 'value' }))
+            .pipe(ezs('STRSentences', { path: 'value' }))
             .on('data', (data) => {
                 res = [...res, data];
             })
@@ -142,7 +142,7 @@ describe('sentences', () => {
     it('should return an array already segmented', (done) => {
         let res = [];
         from([{ value: ['Sentence 1.', 'Sentence 2.'] }])
-            .pipe(ezs('sentences', { path: 'value' }))
+            .pipe(ezs('STRSentences', { path: 'value' }))
             .on('data', (data) => {
                 res = [...res, data];
             })
@@ -157,7 +157,7 @@ describe('sentences', () => {
     it('should segment again an array wrongly segmented', (done) => {
         let res = [];
         from([{ value: ['Sentence', '1. Sentence 2.'] }])
-            .pipe(ezs('sentences', { path: 'value' }))
+            .pipe(ezs('STRSentences', { path: 'value' }))
             .on('data', (data) => {
                 res = [...res, data];
             })
@@ -172,7 +172,7 @@ describe('sentences', () => {
     it('should treat a number as an empty string', (done) => {
         let res = [];
         from([{ value: ['Sentence', 2, '1. Sentence 2.'] }])
-            .pipe(ezs('sentences', { path: 'value' }))
+            .pipe(ezs('STRSentences', { path: 'value' }))
             .on('data', (data) => {
                 res = [...res, data];
             })
@@ -187,7 +187,7 @@ describe('sentences', () => {
     it.skip('should not split abbreviations in a sentence', (done) => {
         let res = [];
         from([{ value: 'Born in the U.S.A.' }])
-            .pipe(ezs('sentences', { path: 'value' }))
+            .pipe(ezs('STRSentences', { path: 'value' }))
             .on('data', (data) => {
                 res = [...res, data];
             })
@@ -200,7 +200,7 @@ describe('sentences', () => {
     it.skip('should not split abbreviations at the end of a sentence', (done) => {
         let res = [];
         from([{ value: 'Don\'t use T.N.T. inside buildings.' }])
-            .pipe(ezs('sentences', { path: 'value' }))
+            .pipe(ezs('STRSentences', { path: 'value' }))
             .on('data', (data) => {
                 res = [...res, data];
             })

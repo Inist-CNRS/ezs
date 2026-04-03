@@ -5,7 +5,7 @@ import statements from '../src';
 
 ezs.use(statements);
 
-describe('decode', () => {
+describe('STRDecode', () => {
     it('should decode a field of an object', (done) => {
         let res = [];
         from([
@@ -13,7 +13,7 @@ describe('decode', () => {
                 value: 'Flow control based five MW wind turbine',
             },
         ])
-            .pipe(ezs('decode', { path: 'value', from: ['5'], to: ['five'] }))
+            .pipe(ezs('STRDecode', { path: 'value', from: ['5'], to: ['five'] }))
             .on('data', (data) => {
                 res = res.concat(data);
             })
@@ -31,7 +31,7 @@ describe('decode', () => {
     it('should decode a string', (done) => {
         let res = [];
         from(['Flow control based five MW wind turbine'])
-            .pipe(ezs('decode', { from: ['5'], to: ['five'] }))
+            .pipe(ezs('STRDecode', { from: ['5'], to: ['five'] }))
             .on('data', (data) => {
                 res = res.concat(data);
             })
@@ -46,7 +46,7 @@ describe('decode', () => {
     it('should return an error when from and to have not the same length', (done) => {
         let res = [];
         from(['Flow control based five MW wind turbine'])
-            .pipe(ezs('decode', { from: ['1', '5'], to: ['five'] }))
+            .pipe(ezs('STRDecode', { from: ['1', '5'], to: ['five'] }))
             .on('data', (data) => {
                 res = res.concat(data);
             })
@@ -68,7 +68,7 @@ describe('decode', () => {
             'Motion Characteristics of onezero MW Superconducting Floating Offshore Wind Turbine',
         ])
             .pipe(
-                ezs('decode', {
+                ezs('STRDecode', {
                     from: ['0', '1', '5'],
                     to: ['zero', 'one', 'five'],
                 })
@@ -94,7 +94,7 @@ describe('decode', () => {
             'Motion Characteristics of <one<zero MW',
         ])
             .pipe(
-                ezs('decode', {
+                ezs('STRDecode', {
                     from: ['0', '1', '5'],
                     to: ['zero', 'one', 'five'],
                     prefix: '<',
@@ -119,7 +119,7 @@ describe('decode', () => {
             'Motion Characteristics of one>zero> MW',
         ])
             .pipe(
-                ezs('decode', {
+                ezs('STRDecode', {
                     from: ['0', '1', '5'],
                     to: ['zero', 'one', 'five'],
                     suffix: '>',
@@ -144,7 +144,7 @@ describe('decode', () => {
             'Motion Characteristics of <one><zero> MW',
         ])
             .pipe(
-                ezs('decode', {
+                ezs('STRDecode', {
                     from: ['0', '1', '5'],
                     to: ['zero', 'one', 'five'],
                     prefix: '<',
@@ -168,7 +168,7 @@ describe('decode', () => {
     it('should work with digits instead of strings from', (done) => {
         let res = [];
         from(['Flow control based five MW wind turbine'])
-            .pipe(ezs('decode', { from: [5], to: ['five'] }))
+            .pipe(ezs('STRDecode', { from: [5], to: ['five'] }))
             .on('data', (data) => {
                 res = res.concat(data);
             })
@@ -183,7 +183,7 @@ describe('decode', () => {
     it('should work with digits instead of strings to', (done) => {
         let res = [];
         from(['Flow control based 5 MW wind turbine'])
-            .pipe(ezs('decode', { to: [5], from: ['five'] }))
+            .pipe(ezs('STRDecode', { to: [5], from: ['five'] }))
             .on('data', (data) => {
                 res = res.concat(data);
             })
@@ -198,7 +198,7 @@ describe('decode', () => {
     it('should have a side effect', (done) => {
         let res = [];
         from(['Flow control based 6 MW wind turbine'])
-            .pipe(ezs('decode', { from: [5, 4, 3, 2, 1], to: [6, 5, 4, 3, 2] }))
+            .pipe(ezs('STRDecode', { from: [5, 4, 3, 2, 1], to: [6, 5, 4, 3, 2] }))
             .on('data', (data) => {
                 res = res.concat(data);
             })
@@ -213,7 +213,7 @@ describe('decode', () => {
     it('should work with strings, not only characters', (done) => {
         let res = [];
         from(['Flow control based ten MW wind turbine'])
-            .pipe(ezs('decode', { from: ['10'], to: ['ten'] }))
+            .pipe(ezs('STRDecode', { from: ['10'], to: ['ten'] }))
             .on('data', (data) => {
                 res = res.concat(data);
             })
