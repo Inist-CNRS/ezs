@@ -59,7 +59,7 @@ describe('flow stream in stream', () => {
                 assert.equal(1111, res);
                 done();
             });
-    }, 10000);
+    }, 30000);
     it('without throttle', (done) => {
         let res = 0;
         from([

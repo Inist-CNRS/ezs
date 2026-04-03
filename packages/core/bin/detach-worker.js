@@ -10,6 +10,15 @@ import net from 'net';
 import path from 'path';
 import fs from 'fs';
 
+process.on('uncaughtException', (e) => {
+    console.error('[uncaughtException]', e);
+    process.exit(8);
+});
+
+process.on('unhandledRejection', (reason) => {
+    console.error('[unhandledRejection]', reason);
+    process.exit(9);
+});
 
 const {
     file,
@@ -46,19 +55,43 @@ const createServer = (socketPath, onConnection) => new Promise((resolve) => {
 
 
 const [stdinServer, stdoutServer] = await Promise.all([
-  createServer(socketIn,  (socket) => { socket.pipe(stdin); }),
-  createServer(socketOut, (socket) => { stdout.pipe(socket); }),
+    createServer(socketIn,  (socket) => {
+        socket.pipe(stdin);
+        socket.once('error', (e) =>  process.exit(5));
+        socket.once('end', () => stdin.end());
+        socket.once('close', () => cleanupIn());
+    }),
+    createServer(socketOut, (socket) => {
+        stdout.pipe(socket);
+        socket.once('error', (e) =>  process.exit(6));
+        stdout.once('end', () => socket.end());
+        socket.once('close', () => cleanupOut());
+    }),
 ]);
+
+let stdinCleaned = false;
+const cleanupIn = () => {
+    if (stdinCleaned) return;
+    stdinCleaned = true;
+    stdinServer.close();
+    if (fs.existsSync(socketIn)) fs.unlinkSync(socketIn);
+};
+
+let stdoutCleaned = false;
+const cleanupOut = () => {
+    if (stdoutCleaned) return;
+    stdoutCleaned = true;
+    stdoutServer.close();
+    if (fs.existsSync(socketOut)) fs.unlinkSync(socketOut);
+};
+
+process.on('exit', (code) => {
+    cleanupIn();
+    cleanupOut();
+});
 
 parentPort.postMessage({ socketIn, socketOut });
 
-
-process.on('exit', () => {
-    stdinServer.close();
-    stdoutServer.close();
-    if (fs.existsSync(socketIn))  fs.unlinkSync(socketIn);
-    if (fs.existsSync(socketOut)) fs.unlinkSync(socketOut);
-});
 
 const command = JSONezs.parse(commandString);
 const commands = JSONezs.parse(commandsString);
@@ -90,11 +123,10 @@ const transformedStream = ezs.createPipeline(rawStream, statements, logger)
     })
     .pipe(ezs.catch())
     .once('error', (e) => {
-        console.error(e);
         outputStream.unpipe(stdout);
         rawStream.destroy();
         transformedStream.destroy();
-        process.exit(1);
+        process.exit(2);
     });
 
 pipeline(
@@ -103,9 +135,8 @@ pipeline(
     outputStream,
     (e) => {
         if (e) {
-            console.error(e);
             outputStream.unpipe(stdout);
-            process.exit(2);
+            process.exit(3);
         }
     }
 );
@@ -116,10 +147,9 @@ stdin
         rawStream.end();
     })
     .once('error', (e) => {
-        console.error(e);
         stdin.unpipe(rawStream);
         rawStream.end();
-        process.exit(3);
+        process.exit(4);
     })
     .once('end', () => {
         rawStream.end();

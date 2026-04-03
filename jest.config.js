@@ -28,6 +28,9 @@ const options = {
         '/node_modules/(?!quick-lru)'
     ],
     testTimeout: 8000,
+    verbose: true,
+    silent: false,
+    testEnvironment: 'node',
 };
 
 if (semver.lt(process.version, '22.0.0')) {
