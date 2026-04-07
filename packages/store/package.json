@@ -5,6 +5,7 @@
   "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
   "bugs": "https://github.com/Inist-CNRS/ezs/issues",
   "dependencies": {
+    "better-sqlite3": "^12.4.1",
     "debug": "4.3.4",
     "del": "6.0.0",
     "leveldown": "6.1.1",

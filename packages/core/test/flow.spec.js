@@ -49,7 +49,7 @@ describe('flow stream in stream', () => {
             1000,
         ])
             .pipe(ezs(flowtest))
-            .pipe(ezs('throttle', { milliseconds: 1 }))
+            .pipe(ezs('throttleMilli', { milliseconds: 1 }))
             .pipe(ezs.catch())
             .on('error', done)
             .on('data', () => {
@@ -155,7 +155,7 @@ describe('flow stream in stream', () => {
         ])
             .pipe(ezs(flowtestwitherror))
             .pipe(ezs.catch())
-            .pipe(ezs('throttle', { milliseconds: 100 }))
+            .pipe(ezs('throttleMilli', { milliseconds: 100 }))
             .on('error', (err) => {
                 assert.ok(err instanceof Error);
                 assert.equal(res, 0);

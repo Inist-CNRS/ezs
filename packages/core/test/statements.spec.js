@@ -161,6 +161,8 @@ describe('statements', () => {
                 joinWith: '|',
                 endWith: '>',
             }))
+            .pipe(ezs.catch())
+            .on('error', done)
             .on('data', (chunk) => {
                 assert.equal(chunk, '<aa|bb|cc|dd|ee|ff>');
             })
@@ -183,6 +185,8 @@ describe('statements', () => {
                 joinWith: '|',
                 endWith: '>',
             }))
+            .pipe(ezs.catch())
+            .on('error', done)
             .on('data', (chunk) => {
                 result.push(chunk);
             })

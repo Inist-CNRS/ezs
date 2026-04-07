@@ -4,24 +4,6 @@ import { transform } from 'inflection';
 const transformer = (transformations) => (str) =>
     str && typeof str === 'string' ? transform(str, transformations) : str;
 
-const inflection = (data, feed, ctx) => {
-    if (ctx.isLast()) {
-        return feed.close();
-    }
-    const transformations = []
-        .concat(ctx.getParam('transform', []))
-        .filter(Boolean);
-    const path = ctx.getParam('path', '');
-    const string = path ? get(data, path, '') : data;
-    const process = transformer(transformations);
-    const result = Array.isArray(string)
-        ? string.map((item) => process(item))
-        : process(string);
-
-    feed.write(path ? { ...data, [path]: result } : result);
-    return feed.end();
-};
-
 /**
  * Take a `String` and inflect it with or more transformers from this list
  *  pluralize, singularize, camelize, underscore, humanize, capitalize,
@@ -36,7 +18,7 @@ const inflection = (data, feed, ctx) => {
  * Script:
  *
  * ```ini
- * [inflection]
+ * [STRInflection]
  * path = value
  * transform = pluralize
  * transform = capitalize
@@ -54,11 +36,27 @@ const inflection = (data, feed, ctx) => {
  *
  * see https://www.npmjs.com/package/inflection
  *
- * @name inflection
+ * @name STRInflection
  * @param {string} [path=""] path of the field to segment
  * @param {string} [transform] name of a transformer
  * @returns {string[]}
  */
-export default {
-    inflection,
+export default function inflection (data, feed, ctx) {
+    if (ctx.isLast()) {
+        return feed.close();
+    }
+    const transformations = []
+        .concat(ctx.getParam('transform', []))
+        .filter(Boolean);
+    const path = ctx.getParam('path', '');
+    const string = path ? get(data, path, '') : data;
+    const process = transformer(transformations);
+    const result = Array.isArray(string)
+        ? string.map((item) => process(item))
+        : process(string);
+
+    feed.write(path ? { ...data, [path]: result } : result);
+    return feed.end();
 };
+
+

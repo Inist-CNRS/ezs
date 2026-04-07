@@ -45,9 +45,9 @@ function decreaseCounter() {
 }
 
 function createErrorWith(error, index, funcName, funcParams, chunk) {
-    const stk = String(error.stack).split('\n').slice(0, 6);
+    const stk = String(error.stack || error.message).split('\n').slice(0, 6);
     const prefix = `item #${index} `;
-    const erm = stk.shift().replace(prefix, '');
+    const erm = stk.length > 0 ? stk.shift().replace(prefix, '') : error.message;
     const msg = `${prefix}[${funcName}] <${erm}>`;
     const err = Error();
     if (debug.enabled('ezs:debug')) {

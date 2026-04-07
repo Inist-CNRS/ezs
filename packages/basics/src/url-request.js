@@ -1,7 +1,6 @@
 import { set } from 'lodash';
 import debug from 'debug';
 import { URL, URLSearchParams } from 'url';
-import AbortController from 'node-abort-controller';
 import parseHeaders from 'parse-headers';
 import retry from 'async-retry';
 import request from './request';
@@ -39,7 +38,7 @@ import request from './request';
  * @param {String} [url] URL to fetch
  * @param {Boolean} [json=true] parse result as json
  * @param {String} [target] choose the key to set
- * @param {Number} [timeout=1000] Timeout in milliseconds
+ * @param {Number} [timeout=5000] Timeout in milliseconds
  * @param {Boolean} [noerror=false] Ignore all errors, the target field will remain undefined
  * @param {Number} [retries=5] The maximum amount of times to retry the connection
  * @param {String} [insert] a header response value in the result
@@ -57,7 +56,7 @@ export default async function URLRequest(data, feed) {
         .shift();
     const retries = Number(this.getParam('retries', 5));
     const noerror = Boolean(this.getParam('noerror', false));
-    const timeout = Number(this.getParam('timeout')) || 1000;
+    const timeout = Number(this.getParam('timeout', 5000));
     const headers = parseHeaders([]
         .concat(this.getParam('header'))
         .filter(Boolean)
@@ -68,9 +67,11 @@ export default async function URLRequest(data, feed) {
     const cURL = new URL(url || data);
     const controller = new AbortController();
     const parameters = {
-        timeout,
         headers,
-        signal: controller.signal,
+        signal: AbortSignal.any([
+            controller.signal,
+            AbortSignal.timeout(timeout),
+        ]),
     };
     const options = {
         retries,

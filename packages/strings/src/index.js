@@ -1,15 +1,13 @@
-import decode from './decode';
-import encode from './encode';
-import inflection from './inflection';
-import sentences from './sentences';
+import STRDecode from './decode';
+import STREncode from './encode';
+import STRInflection from './inflection';
+import STRSentences from './sentences';
 
 const funcs = {
-    decode,
-    encode,
-    inflection,
-    sentences,
+    STRDecode,
+    STREncode,
+    STRInflection,
+    STRSentences,
 };
 
 export default funcs;
-
-module.exports = funcs;

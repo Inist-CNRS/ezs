@@ -66,14 +66,6 @@ const funcs = {
     FILESave,
     FILELoad,
     FILEMerge,
-    // aliases
-    bufferify: BUFObject.BUFObject,
-    concat: TXTConcat.TXTConcat,
-    standardize: OBJStandardize.OBJStandardize,
-    split: TXTParse.TXTParse,
-    segmenter: TXTParse.TXTParse,
 };
 
 export default funcs;
-
-module.exports = funcs;
