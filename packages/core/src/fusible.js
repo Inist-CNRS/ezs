@@ -1,8 +1,7 @@
 import { access, constants, writeFile, unlink } from 'fs';
 import { resolve, normalize } from 'path';
 import { tmpdir } from 'os';
-import generate from 'nanoid/async/generate.js';
-import nolookalikes from 'nanoid-dictionary/nolookalikes.js';
+import { randomUUID } from 'crypto';
 
 import { checksum } from './statements/identify.js';
 
@@ -10,7 +9,7 @@ const location = tmpdir();
 const extension = '.sid';
 
 export const createFusible = async () => {
-    const fusible = await generate(nolookalikes, 16);
+    const fusible = randomUUID();
     return fusible;
 };
 
@@ -33,7 +32,7 @@ export const enableFusible = (fusible) => new Promise((next, cancel) => {
     checkFusible(fusible).then((check) => {
         if (!check) {
             const fileContent = checksum(fusible);
-            writeFile(fusibleFile, fileContent, (err) => {
+            return writeFile(fusibleFile, fileContent, (err) => {
                 if (err) {
                     return cancel(err);
                 }
@@ -48,7 +47,7 @@ export const disableFusible = (fusible) => new Promise((next, cancel) => {
     const fusibleFile = resolve(normalize(location), fusible + extension);
     checkFusible(fusible).then((check) => {
         if (check) {
-            unlink(fusibleFile, (err) => {
+            return unlink(fusibleFile, (err) => {
                 if (err) {
                     return cancel(err);
                 }

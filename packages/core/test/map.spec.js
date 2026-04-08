@@ -119,7 +119,7 @@ describe('map', () => {
             path = b
             [map/map]
             path = t
-            [map/map/throttle]
+            [map/map/throttleMilli]
             milliseconds = 2000
 
             [map/map/exchange]

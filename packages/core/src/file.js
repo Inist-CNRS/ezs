@@ -1,5 +1,5 @@
 import { readFileSync, statSync } from 'fs';
-import { dirname, resolve } from 'path';
+import { basename, dirname, resolve } from 'path';
 import debug from 'debug';
 import module from 'module';
 import filedirname from 'filedirname';
@@ -23,10 +23,15 @@ function findFileIn(paths, name) {
         .shift();
 }
 export function useFile(ezs, name) {
+    const bname = basename(name);
     const names = [
         name,
+        bname,
         '@ezs/'.concat(String(name).replace(/^@ezs\//, '')),
         'ezs-'.concat(String(name).replace(/^ezs-/, '')),
+        '@ezs/'.concat(String(bname).replace(/^@ezs\//, '')),
+        'ezs-'.concat(String(bname).replace(/^ezs-/, '')),
+        String(bname).concat('/src/'),
     ];
     const plugName1 = names.map((n) => check(n)).filter(Boolean).shift();
     const plugName2 = names.map((n) => findFileIn(ezs.getPath(), n)).filter(Boolean).shift();
@@ -36,8 +41,7 @@ export function useFile(ezs, name) {
     if (plugName2) {
         return plugName2;
     }
-    debug('ezs:debug')(`Unable to find '${name}' from ${plugName1}`);
-    debug('ezs:debug')(`Unable to find '${name}' from ${plugName2}`);
+    debug('ezs:warn')(`Unable to find '${name}' in paths ${JSON.stringify(ezs.getPath())}`);
     return false;
 }
 
@@ -45,7 +49,7 @@ export function isFile(file) {
     try {
         return statSync(file).isFile();
     } catch (e) {
-        debug('ezs:debug')(`Unable to check '${file}'`);
+        debug('ezs:warn')(`Unable to check '${file}'`);
         return false;
     }
 }

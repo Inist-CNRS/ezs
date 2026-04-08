@@ -20,7 +20,7 @@ import { get, set } from 'lodash';
  * Script:
  *
  * ```ini
- * [encode]
+ * [STREncode]
  * path = value
  * from = 1
  * to = one
@@ -50,9 +50,9 @@ import { get, set } from 'lodash';
  *
  * > ⚠ You must give as much `from` as `to`.
  *
- * See `decode` to invert the processus.
+ * See `STRDecode` to invert the processus.
  *
- * @name encode
+ * @name STREncode
  * @param {string} path - The path of the string to be encoded, within data.
  * @param {string[]} from - An array of strings to replace.
  * @param {string[]} to - An array of strings to replace with.

@@ -5,11 +5,11 @@ import statements from '../src';
 
 ezs.use(statements);
 
-describe('inflection', () => {
+describe('STRInflection', () => {
     it('should return input #1', (done) => {
         let res = [];
         from([''])
-            .pipe(ezs('inflection'))
+            .pipe(ezs('STRInflection'))
             .on('data', (data) => {
                 res = [...res, data];
             })
@@ -22,7 +22,7 @@ describe('inflection', () => {
     it('should return empty for unexisting property', (done) => {
         let res = [];
         from([{ term: 'truc' }])
-            .pipe(ezs('inflection', { path: 'value' }))
+            .pipe(ezs('STRInflection', { path: 'value' }))
             .on('data', (data) => {
                 res = [...res, data];
             })
@@ -35,7 +35,7 @@ describe('inflection', () => {
     it('should return input when no transform', (done) => {
         let res = [];
         from([{ term: 'Trucs' }])
-            .pipe(ezs('inflection', { path: 'term' }))
+            .pipe(ezs('STRInflection', { path: 'term' }))
             .on('data', (data) => {
                 res = [...res, data];
             })
@@ -48,7 +48,7 @@ describe('inflection', () => {
     it('should transform #1: singularize', (done) => {
         let res = [];
         from([{ term: 'Trucs' }])
-            .pipe(ezs('inflection', { path: 'term', transform: 'singularize' }))
+            .pipe(ezs('STRInflection', { path: 'term', transform: 'singularize' }))
             .on('data', (data) => {
                 res = [...res, data];
             })
@@ -62,7 +62,7 @@ describe('inflection', () => {
         let res = [];
         from([{ term: 'all job' }])
             .pipe(
-                ezs('inflection', {
+                ezs('STRInflection', {
                     path: 'term',
                     transform: ['pluralize', 'capitalize', 'dasherize'],
                 })
@@ -80,7 +80,7 @@ describe('inflection', () => {
         let res = [];
         from([{ term: 'loess' }])
             .pipe(
-                ezs('inflection', {
+                ezs('STRInflection', {
                     path: 'term',
                     transform: ['singularize', 'humanize'],
                 })
@@ -98,7 +98,7 @@ describe('inflection', () => {
         let res = [];
         from([{ term: ['apples', 'sciences'] }])
             .pipe(
-                ezs('inflection', {
+                ezs('STRInflection', {
                     path: 'term',
                     transform: ['singularize', 'humanize'],
                 })

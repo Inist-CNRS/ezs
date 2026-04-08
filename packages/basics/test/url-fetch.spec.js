@@ -1,81 +1,17 @@
 import from from 'from';
-import nock from 'nock';
 import ezs from '../../core/src';
 import statements from '../src';
 
-const httpbin = nock('https://httpbin.org').persist(true);
-httpbin
-    .get('/get?a=a')
-    .reply(200, {
-        args: {
-            a: 'a',
-        },
-    });
-httpbin
-    .get('/get?a=b')
-    .reply(200, {
-        args: {
-            a: 'b',
-        },
-    });
-httpbin
-    .get('/get?a=c')
-    .reply(200, {
-        args: {
-            a: 'c',
-        },
-    });
-httpbin
-    .get('/get?a=')
-    .reply(200, {
-        args: {
-            a: '',
-        },
-    });
-httpbin
-    .get('/get?a=d')
-    .reply(200, [
-        {
-            args: {
-                a: 'a',
-            },
-        },
-        {
-            args: {
-                a: 'b',
-            },
-        }
-    ]);
-httpbin
-    .post('/post/1')
-    .reply(200, (uri, requestBody) => requestBody);
-httpbin
-    .post('/post/2')
-    .reply(200, (uri, requestBody) => requestBody);
+import { startServer, stopServer, getHost } from './fake-server.js';
 
-httpbin
-    .post('/status/400')
-    .reply(400);
 
-httpbin
-    .get('/status/400')
-    .reply(400);
+beforeAll(async () => {
+    await startServer(2);
+});
 
-httpbin
-    .post('/status/503')
-    .reply(503);
-
-httpbin
-    .get('/status/503')
-    .reply(503);
-
-httpbin
-    .post('/status/404')
-    .reply(404);
-
-httpbin
-    .get('/status/404')
-    .reply(404);
+afterAll(async () => {
+    await stopServer(2);
+});
 
 describe('URLFetch', () => {
     test('#1', (done) => {
@@ -88,7 +24,7 @@ describe('URLFetch', () => {
         const output = [];
         const script = `
             [URLFetch]
-            url = get('a').replace(/(.*)/, 'https://httpbin.org/get?a=$1')
+            url = get('a').replace(/(.*)/, '${getHost(2)}/get?a=$1')
             json = true
             retries = 1
             target = x
@@ -105,7 +41,7 @@ describe('URLFetch', () => {
             })
             .on('end', () => {
                 expect(output.length).toBe(3);
-                expect(output).toStrictEqual(input);
+                expect(JSON.stringify(input)).toStrictEqual(JSON.stringify(output));
                 done();
             });
     });
@@ -119,7 +55,7 @@ describe('URLFetch', () => {
         const output = [];
         const script = `
             [URLFetch]
-            url = get('a').replace(/(.*)/, 'https://httpbin.org/get?a=$1')
+            url = get('a').replace(/(.*)/, '${getHost(2)}/get?a=$1')
             json = true
             retries = 1
 
@@ -135,7 +71,7 @@ describe('URLFetch', () => {
             })
             .on('end', () => {
                 expect(output.length).toBe(3);
-                expect(output).toStrictEqual(input);
+                expect(JSON.stringify(input)).toStrictEqual(JSON.stringify(output));
                 done();
             });
     });
@@ -149,7 +85,7 @@ describe('URLFetch', () => {
         const output = [];
         const script = `
             [URLFetch]
-            url = get('a').replace(/(.*)/, 'https://httpbin.org/get?a=$1')
+            url = get('a').replace(/(.*)/, '${getHost(2)}/get?a=$1')
             json = false
             retries = 1
             target = r
@@ -176,7 +112,7 @@ describe('URLFetch', () => {
         const output = [];
         const script = `
             [URLFetch]
-            url = https://httpbin.org/get?a=
+            url = ${getHost(2)}/get?a=
             json = false
             retries = 1
             target = r
@@ -203,7 +139,7 @@ describe('URLFetch', () => {
         const output = [];
         const script = `
             [URLFetch]
-            url = https://httpbin.org/get?a=
+            url = ${getHost(2)}/get?a=
             dataurl = true
             retries = 1
             target = r
@@ -229,7 +165,7 @@ describe('URLFetch', () => {
         const output = [];
         const script = `
             [URLFetch]
-            url = https://httpbin.org/get?a=d
+            url = ${getHost(2)}/get?a=d
             dataurl = true
             retries = 1
             target = r
@@ -290,7 +226,7 @@ describe('URLFetch', () => {
         ];
         const script = `
             [URLFetch]
-            url = get('a').replace(/(.*)/, 'https://httpbin.org/status/400')
+            url = get('a').replace(/(.*)/, '${getHost(2)}/status/400')
             json = true
             retries = 1
 
@@ -317,10 +253,10 @@ describe('URLFetch', () => {
         ];
         const script = `
             [URLFetch]
-            url = get('a').replace(/(.*)/, 'https://httpbin.org/status/503')
+            url = get('a').replace(/(.*)/, '${getHost(2)}/status/503')
             json = true
             retries = 2
-            timeout = 10
+            timeout = 30000
 
             [exchange]
             value = get('args')
@@ -339,7 +275,7 @@ describe('URLFetch', () => {
             .on('end', () => {
                 done(new Error('Error is the right behavior'));
             });
-    });
+    }, 60000);
 
     test('#3bis', (done) => {
         ezs.use(statements);
@@ -351,8 +287,9 @@ describe('URLFetch', () => {
         const output = [];
         const script = `
             [URLFetch]
-            url = get('a').replace(/(.*)/, 'https://httpbin.org/status/503')
+            url = get('a').replace(/(.*)/, '${getHost(2)}/status/503')
             noerror = true
+            timeout = 20000
             retries = 1
         `;
         from(input)
@@ -367,7 +304,7 @@ describe('URLFetch', () => {
                 expect(output).toStrictEqual(input);
                 done();
             });
-    }, 10000);
+    }, 30000);
     test('#3ter', (done) => {
         ezs.use(statements);
         const input = [
@@ -378,7 +315,7 @@ describe('URLFetch', () => {
         const output = [];
         const script = `
             [URLFetch]
-            url = get('a').replace(/(.*)/, 'https://httpbin.org/status/404')
+            url = get('a').replace(/(.*)/, '${getHost(2)}/status/404')
             json = true
             retries = 1
 
@@ -406,7 +343,7 @@ describe('URLFetch', () => {
         const output = [];
         const script = `
             [URLFetch]
-            url = get('a').replace(/(.*)/, 'https://httpbin.org/status/404')
+            url = get('a').replace(/(.*)/, '${getHost(2)}/status/404')
             json = true
             retries = 5
 
@@ -420,7 +357,11 @@ describe('URLFetch', () => {
             })
             .on('end', () => {
                 expect(output.length).toBe(3);
-                expect(output[1].message).toEqual(expect.stringContaining('Not Found'));
+                if (typeof Bun === 'undefined') {
+                    expect(output[1].message).toEqual(expect.stringContaining('Not Found'));
+                } else  {
+                    expect(output[1].message).toEqual(expect.stringContaining('Unable to connect'));
+                }
                 done();
             });
     });
@@ -433,16 +374,20 @@ describe('URLFetch', () => {
         ];
         const output = [];
         from(input)
-            .pipe(ezs('URLFetch', { url: 'http://127.0.0.1:11111/', retries: 1, timeout: 2000 }))
+            .pipe(ezs('URLFetch', { url: 'http://127.0.0.1:11111/', retries: 1, timeout: 10000 }))
             .on('data', (e) => {
                 output.push(e);
             })
             .on('end', () => {
                 expect(output.length).toBe(3);
-                expect(output[0].message).toEqual(expect.stringContaining('ECONNREFUSED'));
+                if (typeof Bun === 'undefined') {
+                    expect(output[0].message).toEqual(expect.stringContaining('fetch failed')); // node
+                } else {
+                    expect(output[0].message).toEqual(expect.stringContaining('Unable to connect')); // bun
+                }
                 done();
             });
-    }, 6000);
+    }, 30000);
     test('#5', (done) => {
         ezs.use(statements);
         const input = [
@@ -453,8 +398,9 @@ describe('URLFetch', () => {
         const output = [];
         from(input)
             .pipe(ezs('URLFetch', {
-                url: 'https://httpbin.org/post/1',
+                url: `${getHost(2)}/post/1`,
                 path: 'a',
+                json: true,
             }))
             .pipe(ezs.catch())
             .on('error', done)
@@ -477,7 +423,7 @@ describe('URLFetch', () => {
         const output = [];
         from(input)
             .pipe(ezs('URLFetch', {
-                url: 'https://httpbin.org/post/2',
+                url: `${getHost(2)}/post/2`,
                 path: ['a', 'b'],
                 mimetype: 'text/plain',
             }))

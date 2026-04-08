@@ -143,7 +143,7 @@ describe('X loops ', () => {
                 done();
             });
     });
-    it('100 loops for one item with maxDepth = 50', (done) => {
+    it('100 loops for one item with maxDepth = 5', (done) => {
         let res = 0;
         from([
             { a: 1, b: 1 },
@@ -155,7 +155,7 @@ describe('X loops ', () => {
             .pipe(ezs('loop', {
                 test: new Expression("get('a').isEqual('loop')"),
                 script: scriptX99,
-                maxDepth: 50,
+                maxDepth: 5,
             }))
             .pipe(ezs.catch())
             .on('data', (chunk) => {

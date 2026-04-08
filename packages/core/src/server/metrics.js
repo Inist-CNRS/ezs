@@ -89,7 +89,9 @@ export const metrics = () => (request, response, next) => {
     }
     if (!collected) {
         collected = true;
-        collectDefaultMetrics();
+        if (typeof Bun === 'undefined') {
+            collectDefaultMetrics(); // https://github.com/oven-sh/bun/pull/25446
+        }
     }
 
     if (request.catched || request.pathName !== '/metrics') {

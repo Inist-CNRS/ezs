@@ -14,6 +14,9 @@ const options = {
         'locals.js',
         'testOne.js',
         'testAll.js',
+        'fake-ezs-server.js',
+        'fake-server.js',
+        'testAll.js',
         '/data/',
         '<rootDir>/packages/xslt',
         '<rootDir>/packages/libpostal',
@@ -25,6 +28,10 @@ const options = {
         '/node_modules/(?!quick-lru)'
     ],
     testTimeout: 8000,
+    verbose: true,
+    silent: false,
+    testEnvironment: 'node',
+    setupFiles: ['./jest.setup.js'],
 };
 
 if (semver.lt(process.version, '22.0.0')) {

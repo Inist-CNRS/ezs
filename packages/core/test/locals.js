@@ -217,7 +217,7 @@ function splash(data, feed) {
         .catch(() => feed.end());
 }
 
-function throttle(data, feed) {
+function throttleMilli(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
@@ -264,7 +264,7 @@ export default {
     plof,
     splish,
     splash,
-    throttle,
+    throttleMilli,
     erraticError,
     flame,
 };

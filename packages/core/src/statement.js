@@ -15,7 +15,11 @@ function set(ezs, plugin) {
     const pluginList = plugin.default ? plugin.default : plugin; // ES6 hack
     Object.keys(pluginList).forEach((pluginName) => {
         if (typeof pluginList[pluginName] === 'function') {
-            pluginsList[pluginName] = pluginList[pluginName];
+            if (pluginsList[pluginName] === undefined) {
+                pluginsList[pluginName] = pluginList[pluginName];
+            } else {
+                debug('ezs:debug')(`Statement '${pluginName}' already registered, skipping.`);
+            }
         } else if (typeof pluginList[pluginName] === 'object') {
             ezs.use(pluginList[pluginName]);
         } else {
