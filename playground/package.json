@@ -1,0 +1,48 @@
+{
+	"name": "ezs-playground",
+	"version": "1.3.7",
+	"private": true,
+	"dependencies": {
+		"@ezs/analytics": "^2.3.6",
+		"@ezs/basics": "^2.9.2",
+		"@ezs/core": "^4.1.2",
+		"base-64": "^1.0.0",
+		"body-parser": "^2.2.2",
+		"dotenv": "^17.2.3",
+		"express": "^5.2.1",
+		"output-interceptor": "^4.1.0",
+		"query-string": "^9.3.1",
+		"react": "^18",
+		"react-ace": "^14.0.1",
+		"semantic-ui-css": "^2.5.0",
+		"semantic-ui-react": "^2.1.5"
+	},
+	"scripts": {
+		"start": "PORT=3000 node server/index.mjs",
+		"prestart": "npm run build",
+		"app:start": "react-scripts start",
+		"build": "react-scripts build",
+		"app:test": "react-scripts test",
+		"app:eject": "react-scripts eject",
+		"api:start": "node server/index.mjs --exec nodemon",
+		"dev": "run-p api:start app:start",
+		"prod": "PORT=3000 node server/index.mjs",
+		"postversion": "git push && git push --tags"
+	},
+	"proxy": "http://localhost:3001",
+	"eslintConfig": {
+		"extends": "react-app"
+	},
+	"browserslist": [
+		">0.2%",
+		"not dead",
+		"not ie <= 11",
+		"not op_mini all"
+	],
+	"devDependencies": {
+		"nodemon": "^3.1.11",
+		"npm-run-all": "^4.1.5",
+		"react-dom": "^18",
+		"react-scripts": "^5.0.1"
+	}
+}
