@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.9](https://github.com/Inist-CNRS/ezs/compare/@ezs/loterre@2.0.8...@ezs/loterre@2.0.9) (2026-04-08)
+
+
+### Bug Fixes
+
+* remove useless cjs lines ([c545d6f](https://github.com/Inist-CNRS/ezs/commit/c545d6ff1f8e700f2c383930fab86f3aa8b8f76a))
+
+
+
+
+
 ## [2.0.8](https://github.com/Inist-CNRS/ezs/compare/@ezs/loterre@2.0.7...@ezs/loterre@2.0.8) (2025-01-13)
 
 **Note:** Version bump only for package @ezs/loterre

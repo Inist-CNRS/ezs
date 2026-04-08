@@ -1,11 +1,11 @@
 {
   "name": "@ezs/loterre",
   "description": "Loterre statements for EZS",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
   "bugs": "https://github.com/Inist-CNRS/ezs/issues",
   "dependencies": {
-    "@ezs/store": "2.0.6",
+    "@ezs/store": "2.0.7",
     "lodash": "4.18.1"
   },
   "directories": {

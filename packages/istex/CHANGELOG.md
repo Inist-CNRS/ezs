@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.12](https://github.com/Inist-CNRS/ezs/compare/@ezs/istex@1.5.11...@ezs/istex@1.5.12) (2026-04-08)
+
+
+### Bug Fixes
+
+* remove useless cjs lines ([c545d6f](https://github.com/Inist-CNRS/ezs/commit/c545d6ff1f8e700f2c383930fab86f3aa8b8f76a))
+
+
+
+
+
 ## [1.5.11](https://github.com/Inist-CNRS/ezs/compare/@ezs/istex@1.5.10...@ezs/istex@1.5.11) (2025-01-13)
 
 **Note:** Version bump only for package @ezs/istex

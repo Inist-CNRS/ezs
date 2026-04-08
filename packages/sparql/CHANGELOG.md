@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.6](https://github.com/Inist-CNRS/ezs/compare/@ezs/sparql@1.2.5...@ezs/sparql@1.2.6) (2026-04-08)
+
+
+### Bug Fixes
+
+* remove useless cjs lines ([c545d6f](https://github.com/Inist-CNRS/ezs/commit/c545d6ff1f8e700f2c383930fab86f3aa8b8f76a))
+
+
+
+
+
 ## [1.2.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/sparql@1.2.4...@ezs/sparql@1.2.5) (2025-01-13)
 
 **Note:** Version bump only for package @ezs/sparql

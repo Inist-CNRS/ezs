@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.10](https://github.com/Inist-CNRS/ezs/compare/@ezs/spawn@1.4.9...@ezs/spawn@1.4.10) (2026-04-08)
+
+
+### Bug Fixes
+
+* 🐛 remove useless cjs lines ([6dfc905](https://github.com/Inist-CNRS/ezs/commit/6dfc9056404e7177cf559dd72a4183fe2d9369e6))
+
+
+
+
+
 ## [1.4.9](https://github.com/Inist-CNRS/ezs/compare/@ezs/spawn@1.4.8...@ezs/spawn@1.4.9) (2025-08-29)
 
 **Note:** Version bump only for package @ezs/spawn

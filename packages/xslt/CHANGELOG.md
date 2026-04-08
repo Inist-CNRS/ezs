@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.33](https://github.com/Inist-CNRS/ezs/compare/@ezs/xslt@1.3.32...@ezs/xslt@1.3.33) (2026-04-08)
+
+
+### Bug Fixes
+
+* remove useless cjs lines ([c545d6f](https://github.com/Inist-CNRS/ezs/commit/c545d6ff1f8e700f2c383930fab86f3aa8b8f76a))
+
+
+
+
+
 ## [1.3.32](https://github.com/Inist-CNRS/ezs/compare/@ezs/xslt@1.3.31...@ezs/xslt@1.3.32) (2024-11-05)
 
 **Note:** Version bump only for package @ezs/xslt

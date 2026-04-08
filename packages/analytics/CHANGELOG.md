@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.7](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@2.3.6...@ezs/analytics@2.3.7) (2026-04-08)
+
+
+### Bug Fixes
+
+* remove useless cjs lines ([c545d6f](https://github.com/Inist-CNRS/ezs/commit/c545d6ff1f8e700f2c383930fab86f3aa8b8f76a))
+
+
+
+
+
 ## [2.3.6](https://github.com/Inist-CNRS/ezs/compare/@ezs/analytics@2.3.5...@ezs/analytics@2.3.6) (2025-09-12)
 
 **Note:** Version bump only for package @ezs/analytics

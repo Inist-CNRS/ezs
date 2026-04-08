@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.12.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.11.0...@ezs/basics@2.12.0) (2026-04-08)
+
+
+### Bug Fixes
+
+* remove useless cjs lines ([c545d6f](https://github.com/Inist-CNRS/ezs/commit/c545d6ff1f8e700f2c383930fab86f3aa8b8f76a))
+
+
+### Features
+
+* 🎸 use native functions ([ce0cab0](https://github.com/Inist-CNRS/ezs/commit/ce0cab02bc620915771d51587797a2c5d8a3ead5))
+
+
+
+
+
 # [2.11.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.10.2...@ezs/basics@2.11.0) (2026-03-13)
 
 

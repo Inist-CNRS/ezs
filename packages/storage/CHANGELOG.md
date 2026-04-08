@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.7](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@3.2.6...@ezs/storage@3.2.7) (2026-04-08)
+
+
+### Bug Fixes
+
+* 🐛 remove useless cjs lines ([6dfc905](https://github.com/Inist-CNRS/ezs/commit/6dfc9056404e7177cf559dd72a4183fe2d9369e6))
+
+
+
+
+
 ## [3.2.6](https://github.com/Inist-CNRS/ezs/compare/@ezs/storage@3.2.5...@ezs/storage@3.2.6) (2025-10-13)
 
 **Note:** Version bump only for package @ezs/storage

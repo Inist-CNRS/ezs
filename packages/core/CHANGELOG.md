@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.2.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@4.2.0...@ezs/core@4.2.1) (2026-04-08)
+
+
+### Bug Fixes
+
+* 🐛 Minor fixes revealed by Bun ([ed04405](https://github.com/Inist-CNRS/ezs/commit/ed04405353bad688cb6cd7d5d0e48e2491c8e099))
+
+
+
+
+
 # [4.2.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@4.1.4...@ezs/core@4.2.0) (2026-03-16)
 
 
