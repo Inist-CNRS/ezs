@@ -22,12 +22,12 @@ plugin = strings
 
 #### Table of Contents
 
-*   [decode](#decode)
-*   [encode](#encode)
-*   [inflection](#inflection)
-*   [sentences](#sentences)
+*   [STRDecode](#strdecode)
+*   [STREncode](#strencode)
+*   [STRInflection](#strinflection)
+*   [STRSentences](#strsentences)
 
-### decode
+### STRDecode
 
 Decodes a given string using a provided mapping, replacing strings that
 match values (to)in the mapping with their corresponding keys (from). Optionally, a
@@ -50,7 +50,7 @@ Input:
 Script:
 
 ```ini
-[decode]
+[STRDecode]
 path = value
 from = 1
 to = one
@@ -86,7 +86,7 @@ See `encode`.
 *   `prefix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** A string to be removed from the beginning of each replaced substring. (optional, default `""`)
 *   `suffix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** A string to be removed from the end of each replaced substring. (optional, default `""`)
 
-### encode
+### STREncode
 
 Encodes a given string using a provided mapping, replacing characters that
 match keys in the mapping with their corresponding values. Optionally, a
@@ -107,7 +107,7 @@ Input:
 Script:
 
 ```ini
-[encode]
+[STREncode]
 path = value
 from = 1
 to = one
@@ -137,7 +137,7 @@ Output:
 
 > ⚠ You must give as much `from` as `to`.
 
-See `decode` to invert the processus.
+See `STRDecode` to invert the processus.
 
 #### Parameters
 
@@ -147,7 +147,7 @@ See `decode` to invert the processus.
 *   `prefix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** A string to be added to the beginning of each replaced substring. (optional, default `""`)
 *   `suffix` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** A string to be added to the end of each replaced substring. (optional, default `""`)
 
-### inflection
+### STRInflection
 
 Take a `String` and inflect it with or more transformers from this list
 pluralize, singularize, camelize, underscore, humanize, capitalize,
@@ -162,7 +162,7 @@ Input:
 Script:
 
 ```ini
-[inflection]
+[STRInflection]
 path = value
 transform = pluralize
 transform = capitalize
@@ -187,7 +187,7 @@ see <https://www.npmjs.com/package/inflection>
 
 Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>**&#x20;
 
-### sentences
+### STRSentences
 
 Take a `String` and split it into an array of sentences.
 
