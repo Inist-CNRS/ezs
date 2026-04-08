@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@ezs/analytics": "../packages/analytics",
+    "@ezs/basics": "../packages/basics",
+    "@ezs/core": "../packages/core",
+    "@ezs/teeft": "../packages/teeft"
+  }
+}
