@@ -8,7 +8,7 @@
   "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
   "bugs": "https://github.com/Inist-CNRS/ezs/issues",
   "dependencies": {
-    "better-sqlite3": "^12.4.1",
+    "better-sqlite3": "12.8.0",
     "debug": "4.3.3",
     "lodash": "4.18.1",
     "lru-cache": "5.1.1",
