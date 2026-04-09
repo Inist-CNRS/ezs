@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [18.x, 20.x, 22.x, 24.x]
+        node-version: [20.x, 22.x, 24.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -29,26 +29,11 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "yarn"
 
-      - name: Install dependencies (Node.js >= 22)
-        if: ${{ matrix.node-version == '22.x' || matrix.node-version == '24.x' }}
+      - name: Install dependencies
         env:
           CXXFLAGS: "-I/deps/include"
           LDFLAGS: "-L/deps/lib"
         run: yarn run ci:install
-
-      - name: Install dependencies (Node.js < 22) - Skip @ezs/storage
-        if: ${{ matrix.node-version != '22.x' && matrix.node-version != '24.x' }}
-        env:
-          CXXFLAGS: "-I/deps/include"
-          LDFLAGS: "-L/deps/lib"
-        run: |
-          # Temporarily move storage & store packages outside packages/ to exclude it from workspaces glob
-          mv packages/storage disabled-packages-storage
-          mv packages/store disabled-packages-store
-          yarn ci:install
-          # Restore storage package location
-          mv disabled-packages-storage packages/storage
-          mv disabled-packages-store packages/store
 
       - name: Rebuild node-postal (Mainly use to NodeJS 20)
         env:
