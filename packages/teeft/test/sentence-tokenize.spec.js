@@ -8,33 +8,43 @@ ezs.use(statements);
 describe('sentence-tokenize', () => {
     it('should correctly segment sentences', (done) => {
         let res = [];
-        from([{
-            path: '/path/1',
-            content: 'Je ne suis pas sûr. Il faut un tableau.',
-        }])
+        from([
+            {
+                path: '/path/1',
+                content: 'Je ne suis pas sûr. Il faut un tableau.',
+            },
+        ])
             .pipe(ezs('TeeftSentenceTokenize'))
             // .pipe(ezs('debug'))
             .on('data', (chunk) => {
                 res = res.concat(chunk);
             })
             .on('end', () => {
-                expect(res).toEqual([{
-                    path: '/path/1',
-                    sentences: ['Je ne suis pas sûr.', 'Il faut un tableau.']
-                }]);
+                expect(res).toEqual([
+                    {
+                        path: '/path/1',
+                        sentences: [
+                            'Je ne suis pas sûr.',
+                            'Il faut un tableau.',
+                        ],
+                    },
+                ]);
                 done();
             });
     });
 
     it('should correctly segment sentences in several strings', (done) => {
         let res = [];
-        from([{
-            path: '/path/1',
-            content: 'Il faut un tableau.',
-        }, {
-            path: '/path/2',
-            content: 'Et ça j\'en suis sûr. Maintenant!',
-        }])
+        from([
+            {
+                path: '/path/1',
+                content: 'Il faut un tableau.',
+            },
+            {
+                path: '/path/2',
+                content: "Et ça j'en suis sûr. Maintenant!",
+            },
+        ])
             .pipe(ezs('TeeftSentenceTokenize'))
             // .pipe(ezs('debug'))
             .on('data', (chunk) => {
@@ -45,13 +55,11 @@ describe('sentence-tokenize', () => {
                     {
                         path: '/path/1',
                         sentences: ['Il faut un tableau.'],
-                    }, {
+                    },
+                    {
                         path: '/path/2',
-                        sentences: [
-                            'Et ça j\'en suis sûr.',
-                            'Maintenant!',
-                        ],
-                    }
+                        sentences: ["Et ça j'en suis sûr.", 'Maintenant!'],
+                    },
                 ]);
                 done();
             });
@@ -59,13 +67,16 @@ describe('sentence-tokenize', () => {
 
     it('should work with empty sentences', (done) => {
         let res = [];
-        from([{
-            path: '/path/1',
-            content: '',
-        }, {
-            path: '/path/2',
-            content: 'Et ça j\'en suis sûr. Maintenant!',
-        }])
+        from([
+            {
+                path: '/path/1',
+                content: '',
+            },
+            {
+                path: '/path/2',
+                content: "Et ça j'en suis sûr. Maintenant!",
+            },
+        ])
             .pipe(ezs('TeeftSentenceTokenize'))
             // .pipe(ezs('debug'))
             .on('data', (chunk) => {
@@ -76,13 +87,11 @@ describe('sentence-tokenize', () => {
                     {
                         path: '/path/1',
                         sentences: [],
-                    }, {
+                    },
+                    {
                         path: '/path/2',
-                        sentences: [
-                            'Et ça j\'en suis sûr.',
-                            'Maintenant!',
-                        ]
-                    }
+                        sentences: ["Et ça j'en suis sûr.", 'Maintenant!'],
+                    },
                 ]);
                 done();
             });
@@ -90,26 +99,58 @@ describe('sentence-tokenize', () => {
 
     it('should work with fake sentences', (done) => {
         let res = [];
-        from([{
-            path: '/path/1',
-            content: '.',
-        }, {
-            path: '/path/2',
-            content: '?',
-        }])
+        from([
+            {
+                path: '/path/1',
+                content: '.',
+            },
+            {
+                path: '/path/2',
+                content: '?',
+            },
+        ])
             .pipe(ezs('TeeftSentenceTokenize'))
             // .pipe(ezs('debug'))
             .on('data', (chunk) => {
                 res = res.concat(chunk);
             })
             .on('end', () => {
-                expect(res).toEqual([{
-                    path: '/path/1',
-                    sentences: ['.'],
-                }, {
-                    path: '/path/2',
-                    sentences: ['?'],
-                }]);
+                expect(res).toEqual([
+                    {
+                        path: '/path/1',
+                        sentences: ['.'],
+                    },
+                    {
+                        path: '/path/2',
+                        sentences: ['?'],
+                    },
+                ]);
+                done();
+            });
+    });
+
+    it('should work without ending punctuation sign', (done) => {
+        let res = [];
+        from([
+            {
+                path: '/path/1',
+                content:
+                    'Scolarisation des enfants du voyage et de familles non sédentaires',
+            },
+        ])
+            .pipe(ezs('TeeftSentenceTokenize'))
+            .on('data', (chunk) => {
+                res = res.concat(chunk);
+            })
+            .on('end', () => {
+                expect(res).toEqual([
+                    {
+                        path: '/path/1',
+                        sentences: [
+                            'Scolarisation des enfants du voyage et de familles non sédentaires',
+                        ],
+                    },
+                ]);
                 done();
             });
     });
