@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.5](https://github.com/Inist-CNRS/ezs/compare/@ezs/teeft@2.3.4...@ezs/teeft@2.3.5) (2026-04-28)
+
+
+### Bug Fixes
+
+* **teeft:** Sentences without ending punctuation mark. ([d6a57bd](https://github.com/Inist-CNRS/ezs/commit/d6a57bdefa4efa184a7ec39457822039b46b5431))
+
+
+
+
+
 ## [2.3.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/teeft@2.3.3...@ezs/teeft@2.3.4) (2026-04-08)
 
 

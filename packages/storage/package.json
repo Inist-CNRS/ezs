@@ -1,9 +1,8 @@
 {
   "name": "@ezs/storage",
   "description": "Storage statements for EZS",
-  "version": "3.2.7",
-  "engines": {
-  },
+  "version": "3.2.8",
+  "engines": {},
   "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
   "bugs": "https://github.com/Inist-CNRS/ezs/issues",
   "dependencies": {

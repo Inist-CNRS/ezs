@@ -1,11 +1,11 @@
 {
   "name": "@ezs/analytics",
   "description": "Analytics statements for EZS",
-  "version": "2.3.7",
+  "version": "2.3.8",
   "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
   "bugs": "https://github.com/Inist-CNRS/ezs/issues",
   "dependencies": {
-    "@ezs/store": "2.0.7",
+    "@ezs/store": "2.0.8",
     "async-each-series": "1.1.0",
     "fast-sort": "2.1.1",
     "lodash": "4.18.1",
