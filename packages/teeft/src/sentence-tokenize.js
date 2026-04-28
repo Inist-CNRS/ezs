@@ -3,14 +3,14 @@ const sentencesCutter = (input) => {
         return [];
     }
     const regex = /(["'‘“'"[({⟨][^.?!]+[.?!]["'’”'"\])}⟩]|[^.?!]+[.?!\s]+)\s?/g;
-    const tokens = input.match(regex);
+    const tokens = (input + ' ').match(regex);
 
     if (!tokens) {
         return [input];
     }
 
     // remove unnecessary white space
-    return tokens.filter(Boolean).map(s => s.trim());
+    return tokens.filter(Boolean).map((s) => s.trim());
 };
 
 /**
