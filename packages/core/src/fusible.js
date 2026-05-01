@@ -72,7 +72,7 @@ export const watchFusible = (fusible, func) => new Promise((next) => {
             }
         }
     });
-    return next(handle);
+    return next(() => unwatchFile(fusibleFile));
 });
 
 

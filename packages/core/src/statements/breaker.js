@@ -1,5 +1,5 @@
 import debug from 'debug';
-import { checkFusible } from '../fusible.js';
+import { checkFusible, watchFusible } from '../fusible.js';
 /**
  * Break the stream  if the control file cannot be checked
  *
@@ -9,18 +9,23 @@ import { checkFusible } from '../fusible.js';
  */
 export default async function breaker(data, feed) {
     if (this.isFirst()) {
+        this.ended = false;
         this.fusible = this.getParam('fusible');
         this.handle  = await watchFusible(this.fusible, () => {
-            debug('ezs:info')(`Stream cancel, ${this.fusible} no longer active.`);
-            return feed.close();
+            if (!this.ended) {
+                debug('ezs:info')(`Stream cancel, ${this.fusible} no longer active.`);
+                return feed.close();
+            }
         });
     }
     if (this.isLast()) {
-        this.handle.close();
+        this.ended = true;
+        this.handle();
         return feed.close();
     }
     const check = await checkFusible(this.fusible);
     if (!check) {
+        this.ended = true;
         debug('ezs:info')(`Stream break, ${this.fusible} no longer active.`);
         return feed.close(data);
     }
