@@ -20,7 +20,9 @@ export default async function breaker(data, feed) {
     }
     if (this.isLast()) {
         this.ended = true;
-        this.handle();
+        if (this.handle) {
+            this.handle();
+        }
         return feed.close();
     }
     const check = await checkFusible(this.fusible);
