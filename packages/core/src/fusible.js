@@ -1,4 +1,4 @@
-import { access, constants, writeFile, unlink } from 'fs';
+import { access, constants, writeFile, unlink, watchFile, unwatchFile } from 'fs';
 import { resolve, normalize } from 'path';
 import { tmpdir } from 'os';
 import { randomUUID } from 'crypto';
@@ -58,4 +58,21 @@ export const disableFusible = (fusible) => new Promise((next, cancel) => {
     });
     return true;
 });
+
+export const watchFusible = (fusible, func) => new Promise((next) => {
+    if (!fusible) {
+        return next(false);
+    }
+    const fusibleFile = resolve(normalize(location), fusible + extension);
+    const handle = watchFile(fusibleFile, { persistent: false }, (curr, prev) => {
+        if (curr.nlink === 0) {
+            unwatchFile(fusibleFile);
+            if (typeof func === 'function') {
+                func();
+            }
+        }
+    });
+    return next(() => unwatchFile(fusibleFile));
+});
+
 

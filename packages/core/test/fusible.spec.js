@@ -2,7 +2,8 @@ import {
     createFusible,
     enableFusible,
     checkFusible,
-    disableFusible
+    disableFusible,
+    watchFusible,
 } from '../src/fusible';
 
 test('fusible', async () => {
@@ -20,5 +21,24 @@ test('fusible', async () => {
     expect(isCheckKO).toBe(false);
     const isCheckKOBIS = await checkFusible();
     expect(isCheckKOBIS).toBe(false);
+    const isNotCorrect = await watchFusible()
+    expect(isNotCorrect).toBe(false);
 });
 
+test('fusible (watch)', async () => {
+    const fusible = await createFusible();
+    expect(fusible).toMatch(/.+/);
+
+    let isWatched = false;
+    watchFusible(fusible, () => {
+        isWatched = true;
+    });
+
+    const isDisable = await disableFusible(fusible);
+    expect(isDisable).toBe(true);
+
+    setTimeout(() => {
+        expect(isWatched).toBe(true);
+    }, 6000);  // Wait for the watch event, should be > 5007
+
+});
