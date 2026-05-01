@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.2.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@4.2.1...@ezs/core@4.2.2) (2026-05-01)
+
+
+### Bug Fixes
+
+* 🐛 breaks the pipe even if no data is flowing anymore ([a88bd77](https://github.com/Inist-CNRS/ezs/commit/a88bd774c58a71973d01dec22449490c5f641ca2))
+* 🐛 fix tests ([3d74beb](https://github.com/Inist-CNRS/ezs/commit/3d74beb34c325f4b611698e810f31c781bfc2c89))
+* 🐛 fix tests bis ([18661f7](https://github.com/Inist-CNRS/ezs/commit/18661f7b426d5d8b42d28dad77ae7d0c482ca8c2))
+* 🐛 improve coverage ([00d3cfa](https://github.com/Inist-CNRS/ezs/commit/00d3cfa3132f800ed0be935366ced5b7ccb50972))
+
+
+
+
+
 ## [4.2.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@4.2.0...@ezs/core@4.2.1) (2026-04-08)
 
 

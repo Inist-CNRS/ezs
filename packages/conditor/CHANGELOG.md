@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.13.8](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.13.7...@ezs/conditor@2.13.8) (2026-05-01)
+
+**Note:** Version bump only for package @ezs/conditor
+
+
+
+
+
 ## [2.13.7](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.13.6...@ezs/conditor@2.13.7) (2026-04-08)
 
 
