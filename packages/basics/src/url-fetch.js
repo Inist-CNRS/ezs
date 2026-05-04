@@ -86,11 +86,12 @@ export default async function URLFetch(data, feed) {
         return feed.send(value);
     } catch (e) {
         controller.abort();
+        const standardError = new Error(e.message);  // use standard error (not DOMException)
         if (noerror) {
-            debug('ezs:info')(`Ignore item #${this.getIndex()} [URLFetch]`, this.ezs.serializeError(e));
+            debug('ezs:info')(`Ignore item #${this.getIndex()} [URLFetch]`, this.ezs.serializeError(standardError));
             return feed.send(data);
         }
-        debug('ezs:warn')(`Break item #${this.getIndex()} [URLFetch]`, this.ezs.serializeError(e));
-        return feed.send(e);
+        debug('ezs:warn')(`Break item #${this.getIndex()} [URLFetch]`, this.ezs.serializeError(standardError));
+        return feed.send(standardError);
     }
 }

@@ -45,7 +45,7 @@ async function mergeWith(data, feed) {
 
         delete store[id];
         if (obj === undefined || obj === null) {
-            throw new Error('id was corrupted');
+            throw new Error(`id was corrupted with  ${id}`);
         }
         const source = _.get(obj, path);
         if (cachePath && source) {
@@ -145,14 +145,28 @@ export default async function expand(data, feed) {
                     store: this.store,
                     cachePath: this.cachePath,
                 }))
-                .pipe(ezs.catch((e) => feed.write(e))) // avoid to break pipeline at each error
+                .pipe(ezs.catch((e) => {
+                    const obj = this.store[e.sourceID];
+                    delete this.store[e.sourceID];
+                    if (obj) {
+                        _.set(obj, path, e);
+                        feed.write(obj);
+                    }
+                })) // avoid to break pipeline at each error
                 .once('end', () => {
                     delete this.buffer[this.bufferIndex];
                 });
             this.bufferPromises[this.bufferIndex] = await feed.flow(output);
         }
         await Promise.all(this.bufferPromises);
-        Object.keys(this.store).forEach(key => feed.write(this.store[key]));
+        Object.keys(this.store).forEach(key => {
+            const obj = this.store[key];
+            delete this.store[key];
+            if (obj) {
+                _.set(obj, path, new Error('The value has not been processed'));
+                feed.write(obj);
+            }
+        });
         return feed.close();
     }
 
@@ -197,7 +211,15 @@ export default async function expand(data, feed) {
                 store: this.store,
                 cachePath: this.cachePath,
             }))
-            .pipe(ezs.catch((e) => feed.write(e)))  // avoid to break pipeline at each error
+            .pipe(ezs.catch((e) => {
+                    const obj = this.store[e.sourceID];
+                    delete this.store[e.sourceID];
+                    if (obj) {
+                        _.set(obj, path, e);
+                        feed.write(obj);
+                    }
+                })) // avoid to break pipeline at each error
+
             .once('end', () => {
                 delete this.buffer[index];
             });

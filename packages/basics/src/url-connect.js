@@ -116,18 +116,13 @@ export default async function URLConnect(data, feed) {
         }
         catch (e) {
             controller.abort();
-            if (!noerror) {
-                debug('ezs:warn')(
-                    `Break item #${this.getIndex()} [URLConnect]`,
-                    ezs.serializeError(e),
-                );
-                feed.stop(e);
-            } else {
-                debug('ezs:info')(
-                    `Ignore item #${this.getIndex()} [URLConnect]`,
-                    ezs.serializeError(e),
-                );
+            const standardError = new Error(e.message);  // use standard error (not DOMException)
+            if (noerror) {
+                debug('ezs:info')(`Ignore item #${this.getIndex()} [URLConnect]`, this.ezs.serializeError(standardError));
+                return feed.send(data);
             }
+            debug('ezs:warn')(`Break item #${this.getIndex()} [URLConnect]`, this.ezs.serializeError(standardError));
+            feed.send(standardError);
             output.end();
         };
         return;

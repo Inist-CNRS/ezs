@@ -104,12 +104,13 @@ export default async function URLStream(data, feed) {
         cURL.search = new URLSearchParams(data);
     }
     const onError = (e) => {
+        const standardError = new Error(e.message);  // use standard error (not DOMException)        
         if (noerror) {
-            debug('ezs:info')(`Ignore item #${this.getIndex()} [URLStream]`, ezs.serializeError(e));
+            debug('ezs:info')(`Ignore item #${this.getIndex()} [URLStream]`, ezs.serializeError(standardError));
             return feed.send(data);
         }
-        debug('ezs:warn')(`Break item #${this.getIndex()} [URLStream]`, ezs.serializeError(e));
-        return feed.send(e);
+        debug('ezs:warn')(`Break item #${this.getIndex()} [URLStream]`, ezs.serializeError(standardError));
+        return feed.send(standardError);
     };
     try {
         const response = await retry(request(cURL.href, parameters), options);

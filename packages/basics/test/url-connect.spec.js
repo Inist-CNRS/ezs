@@ -312,6 +312,102 @@ describe('URLConnect', () => {
     }, 30000);
 });
 
+
+describe('URLConnect inside expand', () => {
+    const input = [{id:1, value:'a'}, {id:2, value: 'b'}, {id:3, value:'c'}, {id:4, value:'c'}, {id:5, value:'e'}];
+    const getScript = (noerror) => `
+                [expand]
+                path = value
+                size = 2
+                [expand/URLConnect]
+                retries = 0
+                timeout = 1
+                noerror = ${noerror}
+                url = ${getHost(1)}/timer
+                header = x-timeout:slow
+    `
+    test('throw error', (done) => {
+        ezs.use(statements);
+        from(input)
+            .pipe(ezs('delegate', {
+                script: getScript('false'),
+            }))
+            .pipe(ezs.catch())
+            .on('error', (e) => {
+                 try {
+                     expect(e.message).toEqual(expect.stringContaining('<Error: [URLConnect]'));
+                     done();
+                 } catch(ee) {
+                     done(ee);
+                 }
+                done();
+            })
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+            });
+    }, 30000);
+    test('inject error #1', (done) => {
+        ezs.use(statements);
+        const output = [];
+        from(input)
+            .pipe(ezs('delegate', {
+                script: getScript('true'),
+            }))
+            .on('data', (d) => {
+                output.push(d);
+            })
+            .on('error', (e) => {
+                done(e);
+            })
+            .on('end', () => {
+                expect(output.length).toBe(5);
+                const outputSorted = output.sort((a, b) => a.id - b.id);
+                expect(outputSorted[0].value.message).toEqual(expect.stringContaining('timeout'));
+                expect(outputSorted[1].value.message).toEqual(expect.stringContaining('The value has not been processed'));
+                expect(outputSorted[2].value.message).toEqual(expect.stringContaining('timeout'));
+                expect(outputSorted[3].value.message).toEqual(expect.stringContaining('The value has not been processed'));
+                expect(outputSorted[4].value.message).toEqual(expect.stringContaining('timeout'));
+                done();
+            });
+    }, 30000);
+    test('inject error #2', (done) => {
+        ezs.use(statements);
+        const script = `
+                [expand]
+                path = value
+                size = 2
+                [expand/URLConnect]
+                retries = 0
+                noerror = true
+                url: http://127.0.0.1:11111/
+    `;
+        const output = [];
+        from(input)
+            .pipe(ezs('delegate', {
+                script,
+            }))
+            .on('data', (d) => {
+                output.push(d);
+            })
+            .on('error', (e) => {
+                done(e);
+            })
+            .on('end', () => {
+                expect(output.length).toBe(5);
+                const outputSorted = output.sort((a, b) => a.id - b.id);
+                expect(outputSorted[0].value.message).toEqual(expect.stringContaining('fetch failed'));
+                expect(outputSorted[1].value.message).toEqual(expect.stringContaining('The value has not been processed'));
+                expect(outputSorted[2].value.message).toEqual(expect.stringContaining('fetch failed'));
+                expect(outputSorted[3].value.message).toEqual(expect.stringContaining('The value has not been processed'));
+                expect(outputSorted[4].value.message).toEqual(expect.stringContaining('fetch failed'));
+                done();
+            });
+    }, 30000);
+
+
+
+});
+
 describe('URLConnect error and retry', () => {
     describe('line', () => {
         const input = ['1a', '2a', '3a', '4a', '5a'];
