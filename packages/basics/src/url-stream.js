@@ -70,7 +70,7 @@ import request from './request';
  * @param {String} [url] URL to fetch (by default input string is taken)
  * @param {String} [path="*"] choose the path to split JSON result
  * @param {Number} [timeout=5000] Timeout in milliseconds
- * @param {Boolean} [noerror=false] Ignore all errors, the target field will remain undefined
+ * @param {Boolean} [noerror=false] to avoid interrupting the pipeline and instead send the errors into the stream
  * @param {Number} [retries=5] The maximum amount of times to retry the connection
  * @returns {Object}
  */
@@ -103,26 +103,21 @@ export default async function URLStream(data, feed) {
     if (url) {
         cURL.search = new URLSearchParams(data);
     }
-    const onError = (e) => {
-        const standardError = new Error(e.message);  // use standard error (not DOMException)        
-        if (noerror) {
-            debug('ezs:info')(`Ignore item #${this.getIndex()} [URLStream]`, ezs.serializeError(standardError));
-            return feed.send(data);
-        }
-        debug('ezs:warn')(`Break item #${this.getIndex()} [URLStream]`, ezs.serializeError(standardError));
-        return feed.send(standardError);
-    };
     try {
         const response = await retry(request(cURL.href, parameters), options);
         const bodyStream = Readable.fromWeb(response.body);
         const output = path
             ? bodyStream.pipe(JSONStream.parse(path))
             : bodyStream;
-
-        output.once('error', onError);
         await feed.flow(output);
     } catch (e) {
-        onError(e);
         controller.abort();
+        const standardError = new Error(e.message);  // use standard error (not DOMException)
+        if (noerror) {
+            debug('ezs:info')(`Ignore item #${this.getIndex()} [URLStream]`, ezs.serializeError(standardError));
+            return feed.send(standardError);
+        }
+        debug('ezs:warn')(`Break item #${this.getIndex()} [URLStream]`, ezs.serializeError(standardError));
+        return feed.stop(standardError);
     }
 }

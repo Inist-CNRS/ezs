@@ -156,16 +156,15 @@ describe('URLConnect', () => {
                 streaming: true,
                 noerror: true,
             }))
-            .pipe(ezs.catch())
-            .on('error', () => {
+            .on('error', (e) => {
                 done(new Error('Error should be ignored'));
             })
             .on('data', (chunk) => {
                 output.push(chunk);
             })
             .on('end', () => {
-                expect(output.length).toBe(0);
-                stream.destroy();
+                expect(output.length).toBe(1);
+                expect(output[0].message).toEqual(expect.stringContaining('Not Found'));
                 done();
             });
     }, 30000);
@@ -179,16 +178,15 @@ describe('URLConnect', () => {
                 retries: 2,
                 noerror: true,
             }))
-            .pipe(ezs.catch())
-            .on('error', () => {
-                done(new Error('Error should be ignored'));
+            .on('error', (e) => {
+                done(e);
             })
             .on('data', (chunk) => {
                 output.push(chunk);
             })
             .on('end', () => {
-                expect(output.length).toBe(0);
-                stream.destroy();
+                expect(output.length).toBe(1);
+                expect(output[0].message).toEqual(expect.stringContaining('Not Found'));
                 done();
             });
     }, 30000);

@@ -20,7 +20,7 @@ const restMethods = ['POST', 'GET', 'DELETE', 'PUT', 'PATCH', 'HEAD', 'OPTIONS' 
  * @param {String} [streaming=false] Direct connection to the Object Stream server (disables the retries setting)
  * @param {String} [json=false] Parse as JSON the content of URL
  * @param {Number} [timeout=5000] Timeout in milliseconds
- * @param {Boolean} [noerror=false] Ignore all errors
+ * @param {Boolean} [noerror=false] to avoid interrupting the pipeline and instead send the errors into the stream
  * @param {Number} [retries=5] The maximum amount of times to retry the connection
  * @param {String} [encoder=dump] The statement to encode each chunk to a string
  * @param {String} [method=POST] The method to use for the HTTP request
@@ -116,14 +116,14 @@ export default async function URLConnect(data, feed) {
         }
         catch (e) {
             controller.abort();
+            output.end();
             const standardError = new Error(e.message);  // use standard error (not DOMException)
             if (noerror) {
-                debug('ezs:info')(`Ignore item #${this.getIndex()} [URLConnect]`, this.ezs.serializeError(standardError));
-                return feed.send(data);
+                debug('ezs:info')(`Ignore item #${this.getIndex()} [URLConnect]`, ezs.serializeError(standardError));
+                return feed.send(standardError);
             }
-            debug('ezs:warn')(`Break item #${this.getIndex()} [URLConnect]`, this.ezs.serializeError(standardError));
-            feed.send(standardError);
-            output.end();
+            debug('ezs:warn')(`Break item #${this.getIndex()} [URLConnect]`, ezs.serializeError(standardError));
+            return feed.stop(standardError);
         };
         return;
     }

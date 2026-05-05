@@ -21,7 +21,7 @@ const createObjectURL = (arrayBuffer, mimeType = 'application/octet-stream') =>
  * @param {String} [dataurl=false] encode content into DATA Url
  * @param {Number} [timeout=5000] timeout in milliseconds
  * @param {String} [mimetype="application/json"] mimetype for value of path  (if presents)
- * @param {Boolean} [noerror=false] ignore all errors, the target field will remain undefined
+ * @param {Boolean} [noerror=false] to avoid interrupting the pipeline and instead send the errors into the stream
  * @param {Number} [retries=5] The maximum amount of times to retry the connection
  * @returns {Object}
  */
@@ -89,9 +89,9 @@ export default async function URLFetch(data, feed) {
         const standardError = new Error(e.message);  // use standard error (not DOMException)
         if (noerror) {
             debug('ezs:info')(`Ignore item #${this.getIndex()} [URLFetch]`, this.ezs.serializeError(standardError));
-            return feed.send(data);
+            return feed.send(standardError);
         }
         debug('ezs:warn')(`Break item #${this.getIndex()} [URLFetch]`, this.ezs.serializeError(standardError));
-        return feed.send(standardError);
+        return feed.stop(standardError);
     }
 }
