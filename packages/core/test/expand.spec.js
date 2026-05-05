@@ -510,21 +510,14 @@ test('with a buggy script', (done) => {
     from(input)
         .pipe(ezs('expand', { path: 'b', script }))
         .pipe(ezs.catch())
+        .on('error', done)
         .on('data', (chunk) => {
             output.push(chunk);
         })
-        .on('error', (e) => {
-            try {
-                expect(e.message).toEqual(expect.stringContaining('Lodash'));
-            }
-            catch (ee) {
-                done(ee);
-            }
-            expect(output.length).toEqual(0);
-            done();
-        })
         .on('end', () => {
-            done(new Error('Error is the right behavior'));
+            expect(output.length).toEqual(6);
+            expect(output[0].b.message).toEqual(expect.stringContaining('Lodash'));
+            done();
         });
 });
 test('with no script', (done) => {
@@ -662,7 +655,7 @@ test('with a script that loses some items', (done) => {
             expect(output[2].b).toEqual('D');
             expect(output[3].b).toEqual('E');
             expect(output[4].b).toEqual('F');
-            expect(output[5].b).toEqual('c');
+            expect(output[5].b.message).toEqual(expect.stringContaining('The value has not been processed'));
             done();
         });
 });
@@ -698,12 +691,12 @@ test('with a script that loses all items', (done) => {
         })
         .on('end', () => {
             expect(output.length).toEqual(6);
-            expect(output[0].b).toEqual('c');
-            expect(output[1].b).toEqual('c');
-            expect(output[2].b).toEqual('c');
-            expect(output[3].b).toEqual('c');
-            expect(output[4].b).toEqual('c');
-            expect(output[5].b).toEqual('c');
+            expect(output[0].b.message).toEqual(expect.stringContaining('The value has not been processed'));
+            expect(output[1].b.message).toEqual(expect.stringContaining('The value has not been processed'));
+            expect(output[2].b.message).toEqual(expect.stringContaining('The value has not been processed'));
+            expect(output[3].b.message).toEqual(expect.stringContaining('The value has not been processed'));
+            expect(output[4].b.message).toEqual(expect.stringContaining('The value has not been processed'));
+            expect(output[5].b.message).toEqual(expect.stringContaining('The value has not been processed'));
             done();
         });
 });
@@ -885,8 +878,8 @@ describe('with sub script and brute force write', () => {
 
         Promise.all(Array(size).fill(true).map(() => func(script)))
             .then((r) => {
-                const e = r.map(x => x.filter(y => (y instanceof Error)).pop()).filter(Boolean).pop();
-                expect(e.message).toEqual(expect.stringContaining('Erratic Error'));
+                const i = r.map(x => x.filter(y => (y.b instanceof Error)).pop()).filter(Boolean).pop();
+                expect(i.b.message).toEqual(expect.stringContaining('Erratic Error'));
                 done();
             })
             .catch(done);
@@ -983,8 +976,8 @@ describe('with sub script and brute force write', () => {
                 expect(r[0].b).toEqual('A');
                 expect(r[1].b).toEqual('B');
                 expect(r[2].b).toEqual('C');
-                expect(r[3].b).toEqual('d');
-                expect(r[4].b).toEqual('e');
+                expect(r[3].b.message).toEqual(expect.stringContaining('The value has not been processed'));
+                expect(r[4].b.message).toEqual(expect.stringContaining('The value has not been processed'));
                 done();
             })
             .catch(done);

@@ -162,7 +162,10 @@ export default async function expand(data, feed) {
         Object.keys(this.store).forEach(key => {
             const obj = this.store[key];
             delete this.store[key];
-            if (obj) {
+            if (obj === undefined || obj === null) {
+                feed.stop(new Error(`id was corrupted with`));
+            }
+            else {
                 _.set(obj, path, new Error('The value has not been processed'));
                 feed.write(obj);
             }
@@ -212,13 +215,16 @@ export default async function expand(data, feed) {
                 cachePath: this.cachePath,
             }))
             .pipe(ezs.catch((e) => {
-                    const obj = this.store[e.sourceID];
-                    delete this.store[e.sourceID];
-                    if (obj) {
-                        _.set(obj, path, e);
-                        feed.write(obj);
-                    }
-                })) // avoid to break pipeline at each error
+                const obj = this.store[e.sourceID];
+                delete this.store[e.sourceID];
+                if (obj === undefined || obj === null) {
+                    feed.stop(new Error(`id was corrupted with`));
+                }
+                else  {
+                    _.set(obj, path, e);
+                    feed.write(obj);
+                }
+            })) // avoid to break pipeline at each error
 
             .once('end', () => {
                 delete this.buffer[index];
