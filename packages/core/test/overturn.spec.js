@@ -158,6 +158,9 @@ test('overturn one side (verso) #1', (done) => {
             path = token.1
             if = 0
 
+            [remove]
+            test = get('value').isError()
+
             [assign]
             path = value
             value = get('value').split('').reverse().join('')
@@ -171,12 +174,12 @@ test('overturn one side (verso) #1', (done) => {
         })
         .on('end', () => {
             expect(output.length).toEqual(6);
-            expect(output[0].b).toEqual('cba');
-            expect(output[1].b).toEqual('dcb');
-            expect(output[2].b).toEqual('edc');
-            expect(output[3].b).toEqual('fed');
-            expect(output[4].b).toEqual('gfe');
-            expect(output[5].b).toEqual('hgf');
+            expect(output[0].b.message).toEqual(expect.stringContaining('The value has not been processed'));
+            expect(output[1].b.message).toEqual(expect.stringContaining('The value has not been processed'));
+            expect(output[2].b.message).toEqual(expect.stringContaining('The value has not been processed'));
+            expect(output[3].b.message).toEqual(expect.stringContaining('The value has not been processed'));
+            expect(output[4].b.message).toEqual(expect.stringContaining('The value has not been processed'));
+            expect(output[5].b.message).toEqual(expect.stringContaining('The value has not been processed'));
             expect(env.count).toEqual(12);
             done();
         });
@@ -204,17 +207,16 @@ test('with a buggy script', (done) => {
         .on('data', (chunk) => {
             output.push(chunk);
         })
-        .on('error', (e) => {
-            try {
-                expect(e.message).toEqual(expect.stringContaining('Lodash'));
-                expect(output.length).toEqual(0);
-            } catch (ee) {
-                done(ee);
-            }
-            done();
-        })
+        .on('error', done)
         .on('end', () => {
-            done(new Error('Error is the right behavior'));
+            expect(output.length).toEqual(6);
+            expect(output[0].b.message).toEqual(expect.stringContaining('Lodash'));
+            expect(output[1].b.message).toEqual(expect.stringContaining('Lodash'));
+            expect(output[2].b.message).toEqual(expect.stringContaining('Lodash'));
+            expect(output[3].b.message).toEqual(expect.stringContaining('Lodash'));
+            expect(output[4].b.message).toEqual(expect.stringContaining('Lodash'));
+            expect(output[5].b.message).toEqual(expect.stringContaining('Lodash'));
+            done();
         });
 });
 

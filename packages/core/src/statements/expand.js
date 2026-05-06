@@ -41,18 +41,18 @@ async function mergeWith(data, feed) {
     const { id, value } = data;
     const path = this.getParam('path');
     try {
-        const obj = store[id];
+        const originData = store[id];
 
         delete store[id];
-        if (obj === undefined || obj === null) {
+        if (originData === undefined || originData === null) {
             throw new Error(`id was corrupted with  ${id}`);
         }
-        const source = _.get(obj, path);
+        const source = _.get(originData, path);
         if (cachePath && source) {
             await cachePut(cachePath, source, value);
         }
-        _.set(obj, path, value);
-        return feed.send(obj);
+        _.set(originData, path, value);
+        return feed.send(originData);
     } catch (e) {
         // avoid to break the pipe
         return feed.send(e);
@@ -146,11 +146,11 @@ export default async function expand(data, feed) {
                     cachePath: this.cachePath,
                 }))
                 .pipe(ezs.catch((e) => {
-                    const obj = this.store[e.sourceID];
+                    const originData = this.store[e.sourceID];
                     delete this.store[e.sourceID];
-                    if (obj) {
-                        _.set(obj, path, e);
-                        feed.write(obj);
+                    if (originData) {
+                        _.set(originData, path, e);
+                        feed.write(originData);
                     }
                 })) // avoid to break pipeline at each error
                 .once('end', () => {
@@ -160,14 +160,14 @@ export default async function expand(data, feed) {
         }
         await Promise.all(this.bufferPromises);
         Object.keys(this.store).forEach(key => {
-            const obj = this.store[key];
+            const originData = this.store[key];
             delete this.store[key];
-            if (obj === undefined || obj === null) {
+            if (originData === undefined || originData === null) {
                 feed.stop(new Error(`id was corrupted with`));
             }
             else {
-                _.set(obj, path, new Error('The value has not been processed'));
-                feed.write(obj);
+                _.set(originData, path, new Error('The value has not been processed'));
+                feed.write(originData);
             }
         });
         return feed.close();
@@ -215,14 +215,14 @@ export default async function expand(data, feed) {
                 cachePath: this.cachePath,
             }))
             .pipe(ezs.catch((e) => {
-                const obj = this.store[e.sourceID];
+                const originData = this.store[e.sourceID];
                 delete this.store[e.sourceID];
-                if (obj === undefined || obj === null) {
+                if (originData === undefined || originData === null) {
                     feed.stop(new Error(`id was corrupted with`));
                 }
                 else  {
-                    _.set(obj, path, e);
-                    feed.write(obj);
+                    _.set(originData, path, e);
+                    feed.write(originData);
                 }
             })) // avoid to break pipeline at each error
 

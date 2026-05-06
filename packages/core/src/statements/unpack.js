@@ -5,6 +5,12 @@ import { StringDecoder } from 'string_decoder';
 
 const eol = '\n';
 
+const deserializeError = (stringError) => {
+    const objError = JSON.parse(stringError);
+    return Object.assign(new Error(objError.message), objError);
+}
+const reviver = (key, val) => val?.__Error ? deserializeError(val.__Error) : val;
+
 /**
  * Take `String`s or `Buffer`s and throw `Object` builded by JSON.parse on each line.
  *
@@ -22,7 +28,7 @@ export default function unpack(data, feed) {
         const lastchunk = [this.remainder, this.decoder.end()].filter(Boolean).join('');
         if (lastchunk) {
             try {
-                const lineParsed = JSON.parse(lastchunk);
+                const lineParsed = JSON.parse(lastchunk, reviver);
                 const lineValue = !path ? lineParsed : get(lineParsed, path, []);
                 feed.write(lineValue);
             } catch(e) {
@@ -47,7 +53,7 @@ export default function unpack(data, feed) {
     this.remainder = lines.pop();
     lines.filter(Boolean).forEach((line) => {
         try {
-            const lineParsed = JSON.parse(line);
+            const lineParsed = JSON.parse(line, reviver);
             const lineValue = !path ? lineParsed : get(lineParsed, path, []);
             return feed.write(lineValue);
         } catch(e) {
