@@ -14,5 +14,6 @@ export default function pack(data, feed) {
     }
     const path = [].concat(this.getParam('path', [])).filter(Boolean).shift();
     const value = !path ? data : set({}, path, data);
-    return feed.send(JSON.stringify(value).concat(eol));
+    const replacer = (key, val) => val instanceof Error ? { '__Error': this.ezs.serializeError(val) } : val;
+    return feed.send(JSON.stringify(value, replacer).concat(eol));
 }

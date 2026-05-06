@@ -111,23 +111,22 @@ describe('URLStream', () => {
             { a: 'b' },
             { a: 'c' },
         ];
+        let nberrors = 0;
         from(input)
             .pipe(ezs('URLStream', {
                 url: `${getHost(4)}/status/400`,
-                retries: 1
+                retries: 1,
             }))
-            .pipe(ezs.catch())
             .on('error', (e) => {
-                expect(() => {
-                    throw e.sourceError;
-                }).toThrow('Received status code 400 (BAD REQUEST)');
+                nberrors+=1;
+                expect(e.message).toEqual(expect.stringContaining('Bad Request'));
                 done();
             })
             .on('data', () => {
                 done(new Error('Error is the right behavior'));
             })
             .on('end', () => {
-                done(new Error('Error is the right behavior'));
+                expect(nberrors).toEqual(1);
             });
     });
     test('#2bis', (done) => {
@@ -142,9 +141,8 @@ describe('URLStream', () => {
             .pipe(ezs('URLStream', {
                 url: `${getHost(4)}/status/400`,
                 noerror: true,
-                retries: 1
+                retries: 1,
             }))
-            .pipe(ezs.catch())
             .on('error', () => {
                 done(new Error('Error should be ignored'));
             })
@@ -152,8 +150,10 @@ describe('URLStream', () => {
                 output.push(chunk);
             })
             .on('end', () => {
-                expect(output).toStrictEqual(input);
                 expect(output.length).toBe(3);
+                expect(output[0].message).toEqual(expect.stringContaining('Bad Request'));
+                expect(output[1].message).toEqual(expect.stringContaining('Bad Request'));
+                expect(output[2].message).toEqual(expect.stringContaining('Bad Request'));
                 done();
             });
     });

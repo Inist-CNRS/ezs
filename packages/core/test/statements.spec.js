@@ -460,6 +460,36 @@ describe('statements', () => {
                 done();
             });
     });
+    it.only('pack/unpack with errors', (done) => {
+        const res = [];
+        from([
+            'lorem',
+            new Error('Lorem'),
+            'loren',
+            'korem',
+            'olrem',
+            new Error('toto'),
+            'titi',
+            'truc',
+            'lorem',
+        ])
+            .pipe(ezs('pack', { path: 'toto' }))
+            .pipe(ezs('unpack', { path: 'toto' }))
+            .on('data', (chunk) => {
+                assert(!Array.isArray(chunk));
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert(res.length === 9);
+                assert.equal(res[0], 'lorem');
+                assert.equal(res[1].message, 'Lorem');
+                assert.equal(res[2], 'loren');
+                assert.equal(res[3], 'korem');
+                assert.equal(res[4], 'olrem');
+                assert.equal(res[5].message, 'toto');
+                done();
+            });
+    });
     it('truncate#1', (done) => {
         const res = [];
         from(['aa', 'bb', 'cc', 'dd', 'ee'])

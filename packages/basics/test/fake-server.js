@@ -62,7 +62,7 @@ export function startServer(seed = 0) {
             // Statuts d'erreur GET + POST
             const statusRoutes = [400, 503, 404];
             for (const code of statusRoutes) {
-                if (url === `/status/${code}` && (method === 'GET' || method === 'POST')) {
+                if (url.startsWith(`/status/${code}`) && (method === 'GET' || method === 'POST')) {
                     res.writeHead(code);
                     return res.end();
                 }

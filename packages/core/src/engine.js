@@ -54,6 +54,7 @@ function createErrorWith(error, index, funcName, funcParams, chunk) {
         err.sourceChunk = Buffer.isBuffer(chunk) ? 'Buffer' : stringify(chunk);
         err.traceback = stk;
     }
+    err.sourceID = chunk?.id; // for error inside sub pipeline (expand, combine, etc.)
     err.sourceError = error;
     err.type = error.type || 'Standard error';
     err.scope = error.scope || 'code';

@@ -39,7 +39,7 @@ import request from './request';
  * @param {Boolean} [json=true] parse result as json
  * @param {String} [target] choose the key to set
  * @param {Number} [timeout=5000] Timeout in milliseconds
- * @param {Boolean} [noerror=false] Ignore all errors, the target field will remain undefined
+ * @param {Boolean} [noerror=false] to avoid interrupting the pipeline and instead send the errors into the stream
  * @param {Number} [retries=5] The maximum amount of times to retry the connection
  * @param {String} [insert] a header response value in the result
  * @returns {Object}
@@ -79,15 +79,6 @@ export default async function URLRequest(data, feed) {
     if (url) {
         cURL.search = new URLSearchParams(data);
     }
-    const onError = (e) => {
-        controller.abort();
-        if (noerror) {
-            debug('ezs:info')(`Ignore item #${this.getIndex()} [URLRequest]`, this.ezs.serializeError(e));
-            return feed.send(data);
-        }
-        debug('ezs:warn')(`Break item #${this.getIndex()} [URLRequest]`, this.ezs.serializeError(e));
-        return feed.send(e);
-    };
     try {
         const response = await retry(request(cURL.href, parameters), options);
         const func = json ? 'json' : 'text';
@@ -101,6 +92,13 @@ export default async function URLRequest(data, feed) {
         inserts.forEach(i => set(value, i, response.headers.get(i)));
         return feed.send(value);
     } catch (e) {
-        onError(e);
+        controller.abort();
+        const standardError = new Error(e.message);  // use standard error (not DOMException)
+        if (noerror) {
+            debug('ezs:info')(`Ignore item #${this.getIndex()} [URLRequest]`, this.ezs.serializeError(standardError));
+            return feed.send(standardError);
+        }
+        debug('ezs:warn')(`Break item #${this.getIndex()} [URLRequest]`, this.ezs.serializeError(standardError));
+        return feed.stop(standardError);
     }
 }

@@ -41,18 +41,18 @@ async function mergeWith(data, feed) {
     const { id, value } = data;
     const path = this.getParam('path');
     try {
-        const obj = store[id];
+        const originData = store[id];
 
         delete store[id];
-        if (obj === undefined || obj === null) {
-            throw new Error('id was corrupted');
+        if (originData === undefined || originData === null) {
+            throw new Error(`id was corrupted with  ${id}`);
         }
-        const source = _.get(obj, path);
+        const source = _.get(originData, path);
         if (cachePath && source) {
             await cachePut(cachePath, source, value);
         }
-        _.set(obj, path, value);
-        return feed.send(obj);
+        _.set(originData, path, value);
+        return feed.send(originData);
     } catch (e) {
         // avoid to break the pipe
         return feed.send(e);
@@ -145,14 +145,31 @@ export default async function expand(data, feed) {
                     store: this.store,
                     cachePath: this.cachePath,
                 }))
-                .pipe(ezs.catch((e) => feed.write(e))) // avoid to break pipeline at each error
+                .pipe(ezs.catch((e) => {
+                    const originData = this.store[e.sourceID];
+                    delete this.store[e.sourceID];
+                    if (originData) {
+                        _.set(originData, path, e);
+                        feed.write(originData);
+                    }
+                })) // avoid to break pipeline at each error
                 .once('end', () => {
                     delete this.buffer[this.bufferIndex];
                 });
             this.bufferPromises[this.bufferIndex] = await feed.flow(output);
         }
         await Promise.all(this.bufferPromises);
-        Object.keys(this.store).forEach(key => feed.write(this.store[key]));
+        Object.keys(this.store).forEach(key => {
+            const originData = this.store[key];
+            delete this.store[key];
+            if (originData === undefined || originData === null) {
+                feed.stop(new Error(`id was corrupted with`));
+            }
+            else {
+                _.set(originData, path, new Error('The value has not been processed'));
+                feed.write(originData);
+            }
+        });
         return feed.close();
     }
 
@@ -197,7 +214,18 @@ export default async function expand(data, feed) {
                 store: this.store,
                 cachePath: this.cachePath,
             }))
-            .pipe(ezs.catch((e) => feed.write(e)))  // avoid to break pipeline at each error
+            .pipe(ezs.catch((e) => {
+                const originData = this.store[e.sourceID];
+                delete this.store[e.sourceID];
+                if (originData === undefined || originData === null) {
+                    feed.stop(new Error(`id was corrupted with`));
+                }
+                else  {
+                    _.set(originData, path, e);
+                    feed.write(originData);
+                }
+            })) // avoid to break pipeline at each error
+
             .once('end', () => {
                 delete this.buffer[index];
             });

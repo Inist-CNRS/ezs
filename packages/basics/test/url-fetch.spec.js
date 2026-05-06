@@ -294,14 +294,13 @@ describe('URLFetch', () => {
         `;
         from(input)
             .pipe(ezs('delegate', { script }))
-            .pipe(ezs.catch())
             .on('error', done)
             .on('data', (chunk) => {
                 output.push(chunk);
             })
             .on('end', () => {
                 expect(output.length).toBe(3);
-                expect(output).toStrictEqual(input);
+                expect(output[0].message).toEqual(expect.stringContaining('Service Unavailable'));
                 done();
             });
     }, 30000);
@@ -324,13 +323,12 @@ describe('URLFetch', () => {
         `;
         from(input)
             .pipe(ezs('delegate', { script }))
-            .on('data', (e) => {
-                output.push(e);
+            .on('error', (e) => {
+                expect(e.message).toEqual(expect.stringContaining('Not Found'));
+                done();
             })
             .on('end', () => {
-                expect(output.length).toBe(3);
-                expect(output[1].message).toEqual(expect.stringContaining('Not Found'));
-                done();
+                done(new Error('Error is the right behavior'));
             });
     });
     test('#3qua', (done) => {
@@ -352,17 +350,16 @@ describe('URLFetch', () => {
         `;
         from(input)
             .pipe(ezs('delegate', { script }))
-            .on('data', (e) => {
-                output.push(e);
-            })
-            .on('end', () => {
-                expect(output.length).toBe(3);
+            .on('error', (e) => {
                 if (typeof Bun === 'undefined') {
-                    expect(output[1].message).toEqual(expect.stringContaining('Not Found'));
+                    expect(e.message).toEqual(expect.stringContaining('Not Found'));
                 } else  {
-                    expect(output[1].message).toEqual(expect.stringContaining('Unable to connect'));
+                    expect(e.message).toEqual(expect.stringContaining('Unable to connect'));
                 }
                 done();
+            })
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
             });
     });
     test('#4', (done) => {
@@ -374,18 +371,21 @@ describe('URLFetch', () => {
         ];
         const output = [];
         from(input)
-            .pipe(ezs('URLFetch', { url: 'http://127.0.0.1:11111/', retries: 1, timeout: 10000 }))
-            .on('data', (e) => {
-                output.push(e);
-            })
-            .on('end', () => {
-                expect(output.length).toBe(3);
+            .pipe(ezs('URLFetch', {
+                url: 'http://127.0.0.1:11111/',
+                retries: 1,
+                timeout: 10000,
+            }))
+            .on('error', (e) => {
                 if (typeof Bun === 'undefined') {
-                    expect(output[0].message).toEqual(expect.stringContaining('fetch failed')); // node
+                    expect(e.message).toEqual(expect.stringContaining('fetch failed')); // node
                 } else {
-                    expect(output[0].message).toEqual(expect.stringContaining('Unable to connect')); // bun
+                    expect(e.message).toEqual(expect.stringContaining('Unable to connect')); // bun
                 }
                 done();
+            })
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
             });
     }, 30000);
     test('#5', (done) => {

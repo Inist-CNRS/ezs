@@ -117,7 +117,7 @@ export default async function overturn(data, feed) {
                     location,
                 }, this.getEnv()))
                 .pipe(ezs('pack'))
-                .pipe(ezs.catch((e) => true)) // ignore all errors at the first call
+            //                .pipe(ezs.catch((e) => true)) // ignore all errors at the first call
                 .once('error', reject)
                 .pipe(cacache.put.stream(
                     this.cachePath,
