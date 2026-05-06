@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.12.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.12.0...@ezs/basics@2.12.1) (2026-05-06)
+
+
+### Bug Fixes
+
+* 🐛 change unit tests for the new behavior ([0934315](https://github.com/Inist-CNRS/ezs/commit/0934315d71414f74e73810065e308a8bd3eb09f0))
+* 🐛 noerror option works the same way everywhere ([a50a9a7](https://github.com/Inist-CNRS/ezs/commit/a50a9a7b0725df254656c5e01a3874ea9e66cd77))
+
+
+
+
+
 # [2.12.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.11.0...@ezs/basics@2.12.0) (2026-04-08)
 
 

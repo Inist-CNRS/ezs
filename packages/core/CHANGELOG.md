@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.2.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@4.2.2...@ezs/core@4.2.3) (2026-05-06)
+
+
+### Bug Fixes
+
+* 🐛 change unit tests for the new behavior ([49ab8e7](https://github.com/Inist-CNRS/ezs/commit/49ab8e72d876ea066df6147320d38d852e8612e3))
+* 🐛 noerror option works the same way everywhere ([a50a9a7](https://github.com/Inist-CNRS/ezs/commit/a50a9a7b0725df254656c5e01a3874ea9e66cd77))
+* 🐛 pack/unpack support Error inside fields ([91e7f9d](https://github.com/Inist-CNRS/ezs/commit/91e7f9dcb3430ca952a610ea83e5c18cccd29f88))
+
+
+
+
+
 ## [4.2.2](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@4.2.1...@ezs/core@4.2.2) (2026-05-01)
 
 
