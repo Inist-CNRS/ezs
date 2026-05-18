@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.14.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.13.8...@ezs/conditor@2.14.0) (2026-05-18)
+
+
+### Features
+
+* **conditor:** Make 2026 version of RNSR the default one ([fa5a035](https://github.com/Inist-CNRS/ezs/commit/fa5a035c4b900ba7630cf39c7fdd51c96bae6278))
+
+
+
+
+
 ## [2.13.8](https://github.com/Inist-CNRS/ezs/compare/@ezs/conditor@2.13.7...@ezs/conditor@2.13.8) (2026-05-01)
 
 **Note:** Version bump only for package @ezs/conditor
