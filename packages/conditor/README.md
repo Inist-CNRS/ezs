@@ -107,7 +107,7 @@ Output:
 
 #### Parameters
 
-*   `year` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Year of the RNSR to use instead of the last one (optional, default `2023`)
+*   `year` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Year of the RNSR to use instead of the last one (among `2020`, `2021`, `2023`, `2026`) (optional, default `2026`)
 
 ### compareRnsr
 
@@ -255,7 +255,7 @@ Output:
 
 #### Parameters
 
-*   `year` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Year of the RNSR to use instead of the last one (optional, default `2023`)
+*   `year` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Year of the RNSR to use instead of the last one (optional, default `2026`)
 
 ### getRnsrInfo
 
@@ -331,7 +331,7 @@ Output:
 
 #### Parameters
 
-*   `year` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Year of the RNSR to use instead of the last one (optional, default `2023`)
+*   `year` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Year of the RNSR to use instead of the last one (optional, default `2026`)
 
 ### OAFetch
 
