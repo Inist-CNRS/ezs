@@ -26,7 +26,7 @@
     "stream-write": "^1.0.1",
     "unidecode": "0.1.8"
   },
-  "gitHead": "bc1be6636627b450c72d59ec404c43d87d7a42aa",
+  "gitHead": "7a87b777c40dab0d94d94b19cd015b005108d55d",
   "homepage": "https://github.com/Inist-CNRS/ezs/packages/conditor#readme",
   "keywords": [
     "affiliations",
