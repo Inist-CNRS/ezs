@@ -14,7 +14,7 @@ describe('getRnsrInfo', () => {
     beforeAll(async () => {
         const csvExamples = await fs.promises.readFile(
             `${__dirname}/corpus_test_juillet2021.csv`,
-            { encoding: 'utf-8' },
+            { encoding: 'utf-8' }
         );
         examples = CSV.parse(csvExamples, '\t');
     });
@@ -106,62 +106,73 @@ describe('getRnsrInfo', () => {
             })
             .on('end', () => {
                 expect(res.length).toBe(1);
-                expect(res[0].value).toEqual([{
-                    an_fermeture: '',
-                    annee_creation: '1999',
-                    code_postal: '69364',
-                    etabAssoc: [{
-                        etab: {
-                            libelle: 'Centre national de la recherche scientifique',
-                            libelleAppauvri: 'centre national de la recherche scientifique',
-                            sigle: 'CNRS',
-                            sigleAppauvri: 'cnrs',
-                        },
-                        label: 'UMR',
-                        labelAppauvri: 'umr',
-                        numero: '5667',
-                    }, {
-                        etab: {
-                            libelle: 'Ecole Normale Supérieure de Lyon',
-                            libelleAppauvri: 'ecole normale superieure de lyon',
-                            sigle: 'ENS LYON',
-                            sigleAppauvri: 'ens lyon',
-                        },
-                        label: 'UM',
-                        labelAppauvri: 'um',
-                        numero: '20',
-                    }, {
-                        etab: {
-                            libelle: 'Université Claude Bernard Lyon 1',
-                            libelleAppauvri: 'universite claude bernard lyon 1',
-                            sigle: 'LYON 1',
-                            sigleAppauvri: 'lyon 1',
-                        },
-                        label: 'UMR',
-                        labelAppauvri: 'umr',
-                        numero: '5667',
-                    }, {
-                        etab: {
-                            libelle:
-                                "Institut national de recherche pour l'agriculture, l'alimentation et l'environnement",
-                            libelleAppauvri:
-                                'institut national de recherche pour l agriculture, l alimentation et l environnement',
-                            sigle: 'INRAE',
-                            sigleAppauvri: 'inrae',
-                        },
-                        label: 'UMR',
-                        labelAppauvri: 'umr',
-                        numero: '0879',
+                expect(res[0].value).toEqual([
+                    {
+                        an_fermeture: '',
+                        annee_creation: '1999',
+                        code_postal: '69364',
+                        etabAssoc: [
+                            {
+                                etab: {
+                                    libelle:
+                                        'Centre national de la recherche scientifique',
+                                    libelleAppauvri:
+                                        'centre national de la recherche scientifique',
+                                    sigle: 'CNRS',
+                                    sigleAppauvri: 'cnrs',
+                                },
+                                label: 'UMR',
+                                labelAppauvri: 'umr',
+                                numero: '5667',
+                            },
+                            {
+                                etab: {
+                                    libelle: 'Ecole Normale Supérieure de Lyon',
+                                    libelleAppauvri:
+                                        'ecole normale superieure de lyon',
+                                    sigle: 'ENS LYON',
+                                    sigleAppauvri: 'ens lyon',
+                                },
+                                label: 'UM',
+                                labelAppauvri: 'um',
+                                numero: '20',
+                            },
+                            {
+                                etab: {
+                                    libelle: 'Université Claude Bernard Lyon 1',
+                                    libelleAppauvri:
+                                        'universite claude bernard lyon 1',
+                                    sigle: 'LYON 1',
+                                    sigleAppauvri: 'lyon 1',
+                                },
+                                label: 'UMR',
+                                labelAppauvri: 'umr',
+                                numero: '5667',
+                            },
+                            {
+                                etab: {
+                                    libelle:
+                                        "Institut national de recherche pour l'agriculture, l'alimentation et l'environnement",
+                                    libelleAppauvri:
+                                        'institut national de recherche pour l agriculture, l alimentation et l environnement',
+                                    sigle: 'INRAE',
+                                    sigleAppauvri: 'inrae',
+                                },
+                                label: 'UMR',
+                                labelAppauvri: 'umr',
+                                numero: '0879',
+                            },
+                        ],
+                        intitule: 'REPRODUCTION ET DEVELOPPEMENT DES PLANTES',
+                        intituleAppauvri:
+                            'reproduction et developpement des plantes',
+                        num_nat_struct: '200317442A',
+                        sigle: 'RDP',
+                        sigleAppauvri: 'rdp',
+                        ville_postale: 'LYON CEDEX 07',
+                        ville_postale_appauvrie: 'lyon cedex 07',
                     },
-                    ],
-                    intitule: 'REPRODUCTION ET DEVELOPPEMENT DES PLANTES',
-                    intituleAppauvri: 'reproduction et developpement des plantes',
-                    num_nat_struct: '200317442A',
-                    sigle: 'RDP',
-                    sigleAppauvri: 'rdp',
-                    ville_postale: 'LYON CEDEX 07',
-                    ville_postale_appauvrie: 'lyon cedex 07',
-                }]);
+                ]);
                 done();
             });
     });
@@ -179,53 +190,61 @@ describe('getRnsrInfo', () => {
             })
             .on('end', () => {
                 expect(res.length).toBe(1);
-                expect(res[0].value).toEqual([{
-                    an_fermeture: '',
-                    annee_creation: '2014',
-                    code_postal: '75015',
-                    etabAssoc: [
-                        {
-                            etab: {
-                                libelle: 'Centre national de la recherche scientifique',
-                                libelleAppauvri: 'centre national de la recherche scientifique',
-                                sigle: 'CNRS',
-                                sigleAppauvri: 'cnrs',
+                expect(res[0].value).toEqual([
+                    {
+                        an_fermeture: '',
+                        annee_creation: '2014',
+                        code_postal: '75015',
+                        etabAssoc: [
+                            {
+                                etab: {
+                                    libelle:
+                                        'Centre national de la recherche scientifique',
+                                    libelleAppauvri:
+                                        'centre national de la recherche scientifique',
+                                    sigle: 'CNRS',
+                                    sigleAppauvri: 'cnrs',
+                                },
+                                label: 'UMR',
+                                labelAppauvri: 'umr',
+                                numero: '8253',
                             },
-                            label: 'UMR',
-                            labelAppauvri: 'umr',
-                            numero: '8253',
-                        },
-                        {
-                            etab: {
-                                libelle: 'Institut national de la sante et de la recherche medicale',
-                                libelleAppauvri: 'institut national de la sante et de la recherche medicale',
-                                sigle: 'INSERM',
-                                sigleAppauvri: 'inserm',
+                            {
+                                etab: {
+                                    libelle:
+                                        'Institut national de la sante et de la recherche medicale',
+                                    libelleAppauvri:
+                                        'institut national de la sante et de la recherche medicale',
+                                    sigle: 'INSERM',
+                                    sigleAppauvri: 'inserm',
+                                },
+                                label: 'U',
+                                labelAppauvri: 'u',
+                                numero: '1151',
                             },
-                            label: 'U',
-                            labelAppauvri: 'u',
-                            numero: '1151',
-                        },
-                        {
-                            etab: {
-                                libelle: 'Université Paris Cité',
-                                libelleAppauvri: 'universite paris cite',
-                                sigle: 'U PARIS Cité',
-                                sigleAppauvri: 'u paris cite',
+                            {
+                                etab: {
+                                    libelle: 'Université Paris Cité',
+                                    libelleAppauvri: 'universite paris cite',
+                                    sigle: 'U PARIS Cité',
+                                    sigleAppauvri: 'u paris cite',
+                                },
+                                label: 'UM',
+                                labelAppauvri: 'um',
+                                numero: '111',
                             },
-                            label: 'UM',
-                            labelAppauvri: 'um',
-                            numero: '111',
-                        },
-                    ],
-                    intitule: 'Institut Necker Enfants Malades - Centre de médecine moléculaire',
-                    intituleAppauvri: 'institut necker enfants malades   centre de medecine moleculaire',
-                    num_nat_struct: '201420755D',
-                    sigle: 'INEM',
-                    sigleAppauvri: 'inem',
-                    ville_postale: 'PARIS',
-                    ville_postale_appauvrie: 'paris',
-                }]);
+                        ],
+                        intitule:
+                            'Institut Necker Enfants Malades - Centre de médecine moléculaire',
+                        intituleAppauvri:
+                            'institut necker enfants malades   centre de medecine moleculaire',
+                        num_nat_struct: '201420755D',
+                        sigle: 'INEM',
+                        sigleAppauvri: 'inem',
+                        ville_postale: 'PARIS',
+                        ville_postale_appauvrie: 'paris',
+                    },
+                ]);
                 done();
             });
     });
@@ -243,49 +262,63 @@ describe('getRnsrInfo', () => {
             })
             .on('end', () => {
                 expect(res.length).toBe(1);
-                expect(res[0].value).toEqual([{
-                    an_fermeture: '',
-                    annee_creation: '2010',
-                    code_postal: '91191',
-                    etabAssoc: [{
-                        etab: {
-                            libelle: 'Centre national de la recherche scientifique',
-                            libelleAppauvri: 'centre national de la recherche scientifique',
-                            sigle: 'CNRS',
-                            sigleAppauvri: 'cnrs',
-                        },
-                        label: 'UMR',
-                        labelAppauvri: 'umr',
-                        numero: '8212',
-                    }, {
-                        etab: {
-                            libelle: 'Université Versailles Saint-Quentin-en-Yvelines',
-                            libelleAppauvri: 'universite versailles saint quentin en yvelines',
-                            sigle: 'VERSAILLES',
-                            sigleAppauvri: 'versailles',
-                        },
-                        label: 'UMR',
-                        labelAppauvri: 'umr',
-                        numero: '8212',
-                    }, {
-                        etab: {
-                            libelle: "Commissariat à l'énergie atomique et aux énergies alternatives",
-                            libelleAppauvri: 'commissariat a l energie atomique et aux energies alternatives',
-                            sigle: 'CEA',
-                            sigleAppauvri: 'cea',
-                        },
-                        label: 'UMR',
-                        labelAppauvri: 'umr',
-                        numero: '8212',
-                    }],
-                    intitule: "Laboratoire des Sciences du Climat et de l'Environnement UMR 8212",
-                    intituleAppauvri: 'laboratoire des sciences du climat et de l environnement umr 8212',
-                    num_nat_struct: '200611689J',
-                    sigle: 'LSCE',
-                    sigleAppauvri: 'lsce',
-                    ville_postale: 'GIF SUR YVETTE CEDEX',
-                    ville_postale_appauvrie: 'gif sur yvette cedex',
-                }]);
+                expect(res[0].value).toEqual([
+                    {
+                        an_fermeture: '',
+                        annee_creation: '2010',
+                        code_postal: '91191',
+                        etabAssoc: [
+                            {
+                                etab: {
+                                    libelle:
+                                        'Centre national de la recherche scientifique',
+                                    libelleAppauvri:
+                                        'centre national de la recherche scientifique',
+                                    sigle: 'CNRS',
+                                    sigleAppauvri: 'cnrs',
+                                },
+                                label: 'UMR',
+                                labelAppauvri: 'umr',
+                                numero: '8212',
+                            },
+                            {
+                                etab: {
+                                    libelle:
+                                        'Université Versailles Saint-Quentin-en-Yvelines',
+                                    libelleAppauvri:
+                                        'universite versailles saint quentin en yvelines',
+                                    sigle: 'VERSAILLES',
+                                    sigleAppauvri: 'versailles',
+                                },
+                                label: 'UMR',
+                                labelAppauvri: 'umr',
+                                numero: '8212',
+                            },
+                            {
+                                etab: {
+                                    libelle:
+                                        "Commissariat à l'énergie atomique et aux énergies alternatives",
+                                    libelleAppauvri:
+                                        'commissariat a l energie atomique et aux energies alternatives',
+                                    sigle: 'CEA',
+                                    sigleAppauvri: 'cea',
+                                },
+                                label: 'UMR',
+                                labelAppauvri: 'umr',
+                                numero: '8212',
+                            },
+                        ],
+                        intitule:
+                            "Laboratoire des Sciences du Climat et de l'Environnement UMR 8212",
+                        intituleAppauvri:
+                            'laboratoire des sciences du climat et de l environnement umr 8212',
+                        num_nat_struct: '200611689J',
+                        sigle: 'LSCE',
+                        sigleAppauvri: 'lsce',
+                        ville_postale: 'GIF SUR YVETTE CEDEX',
+                        ville_postale_appauvrie: 'gif sur yvette cedex',
+                    },
+                ]);
                 done();
             });
     });
@@ -303,49 +336,137 @@ describe('getRnsrInfo', () => {
             })
             .on('end', () => {
                 expect(res.length).toBe(1);
-                expect(res[0].value).toEqual([{
-                    an_fermeture: 0,
-                    annee_creation: 2010,
-                    code_postal: 91191,
-                    etabAssoc: [{
-                        etab: {
-                            libelle: 'Centre national de la recherche scientifique',
-                            libelleAppauvri: 'centre national de la recherche scientifique',
-                            sigle: 'CNRS',
-                            sigleAppauvri: 'cnrs',
-                        },
-                        label: 'UMR',
-                        labelAppauvri: 'umr',
-                        numero: 8212,
-                    }, {
-                        etab: {
-                            libelle: 'Université Versailles Saint-Quentin-en-Yvelines',
-                            libelleAppauvri: 'universite versailles saint quentin en yvelines',
-                            sigle: 'VERSAILLES',
-                            sigleAppauvri: 'versailles',
-                        },
-                        label: 'UMR',
-                        labelAppauvri: 'umr',
-                        numero: 8212,
-                    }, {
-                        etab: {
-                            libelle: "Commissariat à l'énergie atomique et aux énergies alternatives",
-                            libelleAppauvri: 'commissariat a l energie atomique et aux energies alternatives',
-                            sigle: 'CEA',
-                            sigleAppauvri: 'cea',
-                        },
-                        label: 'UMR',
-                        labelAppauvri: 'umr',
-                        numero: 8212,
-                    }],
-                    intitule: "Laboratoire des Sciences du Climat et de l'Environnement UMR 8212",
-                    intituleAppauvri: 'laboratoire des sciences du climat et de l environnement umr 8212',
-                    num_nat_struct: '200611689J',
-                    sigle: 'LSCE',
-                    sigleAppauvri: 'lsce',
-                    ville_postale: 'GIF SUR YVETTE CEDEX',
-                    ville_postale_appauvrie: 'gif sur yvette cedex',
-                }]);
+                expect(res[0].value).toEqual([
+                    {
+                        an_fermeture: 0,
+                        annee_creation: 2010,
+                        code_postal: 91191,
+                        etabAssoc: [
+                            {
+                                etab: {
+                                    libelle:
+                                        'Centre national de la recherche scientifique',
+                                    libelleAppauvri:
+                                        'centre national de la recherche scientifique',
+                                    sigle: 'CNRS',
+                                    sigleAppauvri: 'cnrs',
+                                },
+                                label: 'UMR',
+                                labelAppauvri: 'umr',
+                                numero: 8212,
+                            },
+                            {
+                                etab: {
+                                    libelle:
+                                        'Université Versailles Saint-Quentin-en-Yvelines',
+                                    libelleAppauvri:
+                                        'universite versailles saint quentin en yvelines',
+                                    sigle: 'VERSAILLES',
+                                    sigleAppauvri: 'versailles',
+                                },
+                                label: 'UMR',
+                                labelAppauvri: 'umr',
+                                numero: 8212,
+                            },
+                            {
+                                etab: {
+                                    libelle:
+                                        "Commissariat à l'énergie atomique et aux énergies alternatives",
+                                    libelleAppauvri:
+                                        'commissariat a l energie atomique et aux energies alternatives',
+                                    sigle: 'CEA',
+                                    sigleAppauvri: 'cea',
+                                },
+                                label: 'UMR',
+                                labelAppauvri: 'umr',
+                                numero: 8212,
+                            },
+                        ],
+                        intitule:
+                            "Laboratoire des Sciences du Climat et de l'Environnement UMR 8212",
+                        intituleAppauvri:
+                            'laboratoire des sciences du climat et de l environnement umr 8212',
+                        num_nat_struct: '200611689J',
+                        sigle: 'LSCE',
+                        sigleAppauvri: 'lsce',
+                        ville_postale: 'GIF SUR YVETTE CEDEX',
+                        ville_postale_appauvrie: 'gif sur yvette cedex',
+                    },
+                ]);
+                done();
+            });
+    });
+
+    it('should return all correct identifier(s) - using RNSR 2026', (done) => {
+        let res = [];
+        const input = examples
+            .map((ex, i) => ({ id: i, value: { year: ex[2], address: ex[0] } }))
+            .filter((ex) => ex.id === 1); // choose correct case
+
+        from(input)
+            .pipe(ezs('getRnsrInfo', { year: 2026 }))
+            .on('data', (data) => {
+                res = [...res, data];
+            })
+            .on('end', () => {
+                expect(res.length).toBe(1);
+                expect(res[0].value).toEqual([
+                    {
+                        an_fermeture: 0,
+                        annee_creation: 2010,
+                        code_postal: 91191,
+                        etabAssoc: [
+                            {
+                                etab: {
+                                    libelle:
+                                        'Centre national de la recherche scientifique',
+                                    libelleAppauvri:
+                                        'centre national de la recherche scientifique',
+                                    sigle: 'CNRS',
+                                    sigleAppauvri: 'cnrs',
+                                },
+                                label: 'UMR',
+                                labelAppauvri: 'umr',
+                                numero: 8212,
+                            },
+                            {
+                                etab: {
+                                    libelle:
+                                        'Université Versailles Saint-Quentin-en-Yvelines',
+                                    libelleAppauvri:
+                                        'universite versailles saint quentin en yvelines',
+                                    sigle: 'VERSAILLES',
+                                    sigleAppauvri: 'versailles',
+                                },
+                                label: 'UMR',
+                                labelAppauvri: 'umr',
+                                numero: 8212,
+                            },
+                            {
+                                etab: {
+                                    libelle:
+                                        "Commissariat à l'énergie atomique et aux énergies alternatives",
+                                    libelleAppauvri:
+                                        'commissariat a l energie atomique et aux energies alternatives',
+                                    sigle: 'CEA',
+                                    sigleAppauvri: 'cea',
+                                },
+                                label: 'UMR',
+                                labelAppauvri: 'umr',
+                                numero: 8212,
+                            },
+                        ],
+                        intitule:
+                            "Laboratoire des Sciences du Climat et de l'Environnement UMR 8212",
+                        intituleAppauvri:
+                            'laboratoire des sciences du climat et de l environnement umr 8212',
+                        num_nat_struct: '200611689J',
+                        sigle: 'LSCE',
+                        sigleAppauvri: 'lsce',
+                        ville_postale: 'GIF SUR YVETTE CEDEX',
+                        ville_postale_appauvrie: 'gif sur yvette cedex',
+                    },
+                ]);
                 done();
             });
     });

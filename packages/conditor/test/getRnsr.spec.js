@@ -14,7 +14,7 @@ describe('getRnsr', () => {
     beforeAll(async () => {
         const csvExamples = await fs.promises.readFile(
             `${__dirname}/corpus_test_juillet2021.csv`,
-            { encoding: 'utf-8' },
+            { encoding: 'utf-8' }
         );
         examples = CSV.parse(csvExamples, '\t');
     });
@@ -122,7 +122,7 @@ describe('getRnsr', () => {
                 const expectedArray = examples[i][1].split(',');
                 expect(data.id).toBe(i);
                 expect(
-                    intersection(data.value, expectedArray).length,
+                    intersection(data.value, expectedArray).length
                 ).toBeGreaterThanOrEqual(1);
                 done();
             });
@@ -150,7 +150,7 @@ describe('getRnsr', () => {
                 expect(data.id).toBe(i);
                 expect(data.value).toEqual(expectedArray);
                 expect(
-                    intersection(data.value, expectedArray).length,
+                    intersection(data.value, expectedArray).length
                 ).toBeGreaterThanOrEqual(1);
                 done();
             });
@@ -177,7 +177,7 @@ describe('getRnsr', () => {
                 const expectedArray = examples[i][1].split(',');
                 expect(data.value).toEqual(expectedArray);
                 expect(
-                    intersection(data.value, expectedArray).length,
+                    intersection(data.value, expectedArray).length
                 ).toBeGreaterThanOrEqual(1);
                 done();
             });
@@ -203,7 +203,7 @@ describe('getRnsr', () => {
                 const expectedArray = examples[0][1].split(',');
                 expect(data.id).toBe(0);
                 expect(
-                    intersection(data.value, expectedArray).length,
+                    intersection(data.value, expectedArray).length
                 ).toBeGreaterThanOrEqual(1);
                 done();
             });
@@ -246,7 +246,7 @@ describe('getRnsr', () => {
             .on('end', () => {
                 res.forEach((r) => {
                     expect(
-                        intersection(r.value, expected[r.id].value).length,
+                        intersection(r.value, expected[r.id].value).length
                     ).toBeGreaterThanOrEqual(1);
                 });
                 done();
@@ -296,7 +296,7 @@ describe('getRnsr', () => {
                 expect(res.length).toBe(input.length);
                 res.forEach((r) => {
                     expect(r.value).toEqual(
-                        expect.arrayContaining(expected[r.id].value),
+                        expect.arrayContaining(expected[r.id].value)
                     );
                 });
                 done();
@@ -322,7 +322,7 @@ describe('getRnsr', () => {
                 expect(res.length).toBe(input.length);
                 res.forEach((r) => {
                     expect(r.value).toEqual(
-                        expect.arrayContaining(expected[r.id].value),
+                        expect.arrayContaining(expected[r.id].value)
                     );
                 });
                 done();
@@ -348,7 +348,7 @@ describe('getRnsr', () => {
                 expect(res.length).toBe(input.length);
                 res.forEach((r) => {
                     expect(r.value).toEqual(
-                        expect.arrayContaining(expected[r.id].value),
+                        expect.arrayContaining(expected[r.id].value)
                     );
                 });
                 done();
@@ -374,7 +374,33 @@ describe('getRnsr', () => {
                 expect(res.length).toBe(input.length);
                 res.forEach((r) => {
                     expect(r.value).toEqual(
-                        expect.arrayContaining(expected[r.id].value),
+                        expect.arrayContaining(expected[r.id].value)
+                    );
+                });
+                done();
+            });
+    });
+
+    it('should return all correct identifier(s) - using RNSR 2026', (done) => {
+        let res = [];
+        const input = examples
+            .map((ex, i) => ({ id: i, value: { year: ex[2], address: ex[0] } }))
+            .filter((ex) => [1, 2, 3, 12, 15, 17, 18, 21].includes(ex.id)); // keep correct cases
+
+        const expected = examples.map((ex, i) => ({
+            id: i,
+            value: ex[1].split(','),
+        }));
+        from(input)
+            .pipe(ezs('getRnsr', { year: 2026 }))
+            .on('data', (data) => {
+                res = [...res, data];
+            })
+            .on('end', () => {
+                expect(res.length).toBe(input.length);
+                res.forEach((r) => {
+                    expect(r.value).toEqual(
+                        expect.arrayContaining(expected[r.id].value)
                     );
                 });
                 done();
