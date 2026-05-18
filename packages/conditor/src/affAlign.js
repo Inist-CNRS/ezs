@@ -43,18 +43,22 @@ const existedInYears = (years) => (structure) => {
     return any(isValidYear(createdAt, closedAt), years);
 };
 
-const addRnsrFromYearsInAffiliation = (years) => (affiliations, affiliation) => {
-    const isInAddress = isIn(depleteString(affiliation.address));
-    const conditorRnsr = RNSR.structures.structure
-        .filter(existedInYears(years))
-        .filter(isInAddress)
-        .map((s) => s.num_nat_struct);
-    const affiliationRnsr = { ...affiliation, conditorRnsr };
-    return [...affiliations, affiliationRnsr];
-};
+const addRnsrFromYearsInAffiliation =
+    (years) => (affiliations, affiliation) => {
+        const isInAddress = isIn(depleteString(affiliation.address));
+        const conditorRnsr = RNSR.structures.structure
+            .filter(existedInYears(years))
+            .filter(isInAddress)
+            .map((s) => s.num_nat_struct);
+        const affiliationRnsr = { ...affiliation, conditorRnsr };
+        return [...affiliations, affiliationRnsr];
+    };
 
 const addRnsrFromYearsInAuthor = (years) => (authors, author) => {
-    const affiliationsRnsr = author.affiliations.reduce(addRnsrFromYearsInAffiliation(years), []);
+    const affiliationsRnsr = author.affiliations.reduce(
+        addRnsrFromYearsInAffiliation(years),
+        []
+    );
     const authorRnsr = { ...author, affiliations: affiliationsRnsr };
     return [...authors, authorRnsr];
 };
@@ -115,12 +119,12 @@ const getYear = pipe(slice(0, 4), Number);
  * ```
  *
  * @export
- * @param {number} [year=2023] Year of the RNSR to use instead of the last one
+ * @param {number} [year=2026] Year of the RNSR to use instead of the last one (among `2020`, `2021`, `2023`, `2026`)
  * @name affAlign
  */
 export default async function affAlign(data, feed) {
     if (this.isFirst()) {
-        const rnsrYear = this.getParam('year', 2023);
+        const rnsrYear = this.getParam('year', 2026);
         RNSR = await getRnsrYear(rnsrYear);
     }
     if (this.isLast()) {
@@ -135,7 +139,10 @@ export default async function affAlign(data, feed) {
     const xPublicationDate = data.xPublicationDate || [];
     /** @private @type number[] */
     const xPublicationYears = xPublicationDate.map(getYear);
-    const authors = data.authors.reduce(addRnsrFromYearsInAuthor(xPublicationYears), []);
+    const authors = data.authors.reduce(
+        addRnsrFromYearsInAuthor(xPublicationYears),
+        []
+    );
     const notice = { ...data, authors };
     feed.write(notice);
     return feed.end();

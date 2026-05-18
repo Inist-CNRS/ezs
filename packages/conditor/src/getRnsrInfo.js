@@ -73,12 +73,12 @@ import { depleteString } from './strings';
  * ```
  *
  * @export
- * @param {number} [year=2023] Year of the RNSR to use instead of the last one
+ * @param {number} [year=2026] Year of the RNSR to use instead of the last one
  * @name getRnsrInfo
  */
 export default async function getRnsrInfo(data, feed) {
     if (this.isFirst()) {
-        const rnsrYear = this.getParam('year', 2023);
+        const rnsrYear = this.getParam('year', 2026);
         this.RNSR = await getRnsrYear(rnsrYear);
     }
     if (this.isLast()) {
@@ -88,16 +88,26 @@ export default async function getRnsrInfo(data, feed) {
         return feed.send(new Error('getRnsrInfo: input should be an object'));
     }
     if (data.id === undefined) {
-        return feed.send(new Error('getRnsrInfo: input objects should contain an id field'));
+        return feed.send(
+            new Error('getRnsrInfo: input objects should contain an id field')
+        );
     }
     if (data.value === undefined) {
-        return feed.send(new Error('getRnsrInfo: input objects should contain a value field'));
+        return feed.send(
+            new Error('getRnsrInfo: input objects should contain a value field')
+        );
     }
     if (typeof data.value !== 'object') {
-        return feed.send(new Error('getRnsrInfo: input value should be an object'));
+        return feed.send(
+            new Error('getRnsrInfo: input value should be an object')
+        );
     }
     if (data.value.address === undefined) {
-        return feed.send(new Error('getRnsrInfo: input value objects should contain an address field'));
+        return feed.send(
+            new Error(
+                'getRnsrInfo: input value objects should contain an address field'
+            )
+        );
     }
     const { id, value } = data;
     const { address, year } = value;
