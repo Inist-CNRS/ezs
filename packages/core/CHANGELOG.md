@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.2.4](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@4.2.3...@ezs/core@4.2.4) (2026-06-04)
+
+
+### Bug Fixes
+
+* prevent multiple HTTP 100 Continue responses causing socket errors ([9cc009b](https://github.com/Inist-CNRS/ezs/commit/9cc009b64ed97e3776ba2c5385a3afdb1ff06507))
+
+
+
+
+
 ## [4.2.3](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@4.2.2...@ezs/core@4.2.3) (2026-05-06)
 
 
