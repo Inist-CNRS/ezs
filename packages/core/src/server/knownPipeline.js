@@ -108,11 +108,16 @@ const knownPipeline = (ezs) => (request, response, next) => {
     statements.push(ezs(breaker, { fusible }));
     const rawStream = new PassThrough();
     let emptyStream = true;
-    const responseToBeContinued = setInterval(() => response.writeContinue(), settings.response.checkInterval);
-    const responseStarted = once(() => clearInterval(responseToBeContinued));
+    const responseStarted = once(() => {});
+    const sendContinue = once(() => {
+        if (response.writeContinue) {
+            response.writeContinue();
+        }
+    });
 
     statements.push(ezs((data, feed) => {
         if (!response.headersSent) {
+            sendContinue();
             response.writeHead(200);
         }
         responseStarted();
