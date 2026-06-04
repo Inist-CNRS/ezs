@@ -108,14 +108,14 @@ const knownPipeline = (ezs) => (request, response, next) => {
     statements.push(ezs(breaker, { fusible }));
     const rawStream = new PassThrough();
     let emptyStream = true;
-    const responseToBeContinued = setInterval(() => response.writeContinue(), settings.response.checkInterval);
-    const responseStarted = once(() => clearInterval(responseToBeContinued));
 
     statements.push(ezs((data, feed) => {
         if (!response.headersSent) {
+            if (request.headers['expect'] === '100-continue') {
+                response.writeContinue();
+            }
             response.writeHead(200);
         }
-        responseStarted();
         emptyStream = false;
         return feed.send(data);
     }));
@@ -134,7 +134,6 @@ const knownPipeline = (ezs) => (request, response, next) => {
         .pipe(ezs.catch((e) => e))
         .on('error', (e) => {
             outputStream.unpipe(response);
-            responseStarted();
             triggerError(e, 400);
             rawStream.destroy();
             decodedStream.destroy();
@@ -149,7 +148,6 @@ const knownPipeline = (ezs) => (request, response, next) => {
         (e) => {
             if (e) {
                 outputStream.unpipe(response);
-                responseStarted();
                 triggerError(e, 500);
             }
         }
