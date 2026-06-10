@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.13.0](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.12.1...@ezs/basics@2.13.0) (2026-06-10)
+
+
+### Features
+
+* 🎸 add delete option to [FILELoad] ([9754a26](https://github.com/Inist-CNRS/ezs/commit/9754a266f967f08b2b60982a1f732a3408012150))
+
+
+
+
+
 ## [2.12.1](https://github.com/Inist-CNRS/ezs/compare/@ezs/basics@2.12.0...@ezs/basics@2.12.1) (2026-05-06)
 
 
