@@ -300,6 +300,41 @@ describe('FILESave #2bis', () => {
 });
 
 
+describe('FILESave #4', () => {
+    const identifier = Date.now();
+    const filenamegz = `/tmp/${identifier}.gz`;
+    const script = `
+        [FILESave]
+        identifier = ${identifier}
+        location = /tmp
+        compress = true
+
+        [exchange]
+        value = get('filename')
+        [FILELoad]
+        compress = true
+        location = /tmp
+        delete = true
+        `;
+
+    it('should return the same', (done) => {
+        const output = [];
+        from([1])
+            .pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', done)
+            .on('data', (chunk) => {
+                output.push(Number(chunk));
+            })
+            .on('end', () => {
+                expect(output.length).toBe(1);
+                expect(output[0]).toStrictEqual(1);
+                expect(fs.existsSync(filenamegz)).toBe(false);
+                done();
+            });
+    });
+});
+
 
 
 describe('FILESave errors', () => {
