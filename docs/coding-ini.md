@@ -185,6 +185,18 @@ Il peut être parfois utilise d’accéder à l'objet courant sous forme d'une v
 Idéalement cela permet de récupérer la valeur d’un champ pour l’utiliser comme paramètre d’une fonction.
 
 ```ini
-[STATEMENT]
-param1 = get('mapping').filter({'English name': self.enLabel}).first().get('alpha-2 code')
+
+### Pour accéder à Lodash : _
+
+Cette fonction permet d'utiliser toutes les fonctions Lodash
+
+```ini
+; ici on sélectionne un champ de l'objet courant dont le nom du champ est dans une variable environment
+[STATEMENT1]
+param1 = get(_.env('toto'))
+
+; ici param1 et param2 auront la valeur du champ field1, seul différe la manière de l'obtenir  
+[STATEMENT2]
+param1 = fix(_.get(self, 'field1'))
+param2 = get('field1')
 ```
