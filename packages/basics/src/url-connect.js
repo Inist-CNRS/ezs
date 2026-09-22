@@ -6,8 +6,18 @@ import writeTo from 'stream-write';
 import parseHeaders from 'parse-headers';
 import retry from 'async-retry';
 import getStream from 'get-stream';
+import { convertError } from './request';
 
-const restMethods = ['POST', 'GET', 'DELETE', 'PUT', 'PATCH', 'HEAD', 'OPTIONS' , 'TRACE'];
+const restMethods = [
+    'POST',
+    'GET',
+    'DELETE',
+    'PUT',
+    'PATCH',
+    'HEAD',
+    'OPTIONS',
+    'TRACE',
+];
 /**
  * Take an `Object` and send it to an URL.
  *
@@ -31,16 +41,18 @@ export default async function URLConnect(data, feed) {
     const streaming = Boolean(this.getParam('streaming', false));
     const retries = Number(this.getParam('retries', 5));
     const noerror = Boolean(this.getParam('noerror', false));
-    const method = ['POST'].concat(this.getParam('method')).filter(item => restMethods.includes(item)).pop();
+    const method = ['POST']
+        .concat(this.getParam('method'))
+        .filter((item) => restMethods.includes(item))
+        .pop();
     const json = this.getParam('json', true);
     const encoder = this.getParam('encoder', 'dump');
     const { ezs } = this;
     if (this.isFirst()) {
         const timeout = Number(this.getParam('timeout', 5000));
-        const headers = parseHeaders([]
-            .concat(this.getParam('header'))
-            .filter(Boolean)
-            .join('\n'));
+        const headers = parseHeaders(
+            [].concat(this.getParam('header')).filter(Boolean).join('\n')
+        );
         this.input = ezs.createStream(ezs.objectMode());
         const output = ezs.createStream(ezs.objectMode());
         this.whenFinish = feed.flow(output);
@@ -65,7 +77,9 @@ export default async function URLConnect(data, feed) {
             await retry(
                 async (bail, numberOfTimes) => {
                     if (numberOfTimes > 1) {
-                        debug('ezs:debug')(`Attempts to reconnect (${numberOfTimes})`);
+                        debug('ezs:debug')(
+                            `Attempts to reconnect (${numberOfTimes})`
+                        );
                     }
                     const hasBody = parameters.body !== undefined;
                     const response = await fetch(url, {
@@ -86,7 +100,9 @@ export default async function URLConnect(data, feed) {
 
                     const bodyStream = Readable.fromWeb(response.body);
                     if (streaming) {
-                        const bodyOut = json ? bodyStream.pipe(JSONStream.parse('*')) : bodyStream;
+                        const bodyOut = json
+                            ? bodyStream.pipe(JSONStream.parse('*'))
+                            : bodyStream;
                         bodyOut.once('error', (e) => {
                             output.emit('error', e);
                             //controller.abort();
@@ -101,9 +117,10 @@ export default async function URLConnect(data, feed) {
                         let bodyOutArray;
                         try {
                             bodyOutArray = JSON.parse(bodyOutRaw);
-                        }
-                        catch (e) {
-                            throw new Error(`URL returned an invalid JSON response (${bodyOutRaw})`);
+                        } catch (e) {
+                            throw new Error(
+                                `URL returned an invalid JSON response (${bodyOutRaw})`
+                            );
                         }
                         return from(bodyOutArray).pipe(output);
                     }
@@ -113,18 +130,23 @@ export default async function URLConnect(data, feed) {
                     retries: streaming ? 0 : retries,
                 }
             );
-        }
-        catch (e) {
+        } catch (e) {
             controller.abort();
             output.end();
-            const standardError = new Error(e.message);  // use standard error (not DOMException)
+            const standardError = convertError(e); // use standard error (not DOMException)
             if (noerror) {
-                debug('ezs:info')(`Ignore item #${this.getIndex()} [URLConnect]`, ezs.serializeError(standardError));
+                debug('ezs:info')(
+                    `Ignore item #${this.getIndex()} [URLConnect]`,
+                    ezs.serializeError(standardError)
+                );
                 return feed.send(standardError);
             }
-            debug('ezs:warn')(`Break item #${this.getIndex()} [URLConnect]`, ezs.serializeError(standardError));
+            debug('ezs:warn')(
+                `Break item #${this.getIndex()} [URLConnect]`,
+                ezs.serializeError(standardError)
+            );
             return feed.stop(standardError);
-        };
+        }
         return;
     }
     if (this.isLast()) {

@@ -8,18 +8,20 @@ const request = (url, parameters) => async (bail) => {
         });
     } catch (raw) {
         // Normalise l'erreur quelle que soit la source (undici, DOMException, etc.)
-        const err = raw instanceof Error
-            ? raw
-            : Object.assign(new Error(raw?.message ?? String(raw)), {
-                name: raw?.name ?? 'FetchError',
-                cause: raw,
-            });
+        const err =
+            raw instanceof Error
+                ? raw
+                : Object.assign(new Error(raw?.message ?? String(raw)), {
+                      name: raw?.name ?? 'FetchError',
+                      cause: raw,
+                  });
         if (err.name === 'AbortError' || err.name === 'TimeoutError') {
             return bail(err);
         }
         throw err;
     }
-    if (!response.ok) { // response.status >= 200 && response.status < 300
+    if (!response.ok) {
+        // response.status >= 200 && response.status < 300
         const err = new Error(response.statusText);
         const text = await response.text();
         err.responseText = text;
@@ -30,5 +32,14 @@ const request = (url, parameters) => async (bail) => {
         throw err;
     }
     return response;
+};
+export const convertError = (e) => {
+    let err = e;
+    while (err.cause) err = err.cause;
+    const message =
+        e != err
+            ? `${e.message} : ${err.message} ${err.code || ''}`
+            : `${e.message} ${e.code || ''}`;
+    return new Error(message.trim());
 };
 export default request;

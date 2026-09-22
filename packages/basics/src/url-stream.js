@@ -4,9 +4,7 @@ import { URL, URLSearchParams } from 'url';
 import JSONStream from 'JSONStream';
 import parseHeaders from 'parse-headers';
 import retry from 'async-retry';
-import request from './request';
-
-
+import request, { convertError } from './request';
 
 /**
  * Take `String` as URL, throw each chunk from the result or
@@ -84,10 +82,9 @@ export default async function URLStream(data, feed) {
     const retries = Number(this.getParam('retries', 5));
     const noerror = Boolean(this.getParam('noerror', false));
     const timeout = Number(this.getParam('timeout', 5000));
-    const headers = parseHeaders([]
-        .concat(this.getParam('header'))
-        .filter(Boolean)
-        .join('\n'));
+    const headers = parseHeaders(
+        [].concat(this.getParam('header')).filter(Boolean).join('\n')
+    );
     const cURL = new URL(url || data);
     const controller = new AbortController();
     const parameters = {
@@ -112,12 +109,18 @@ export default async function URLStream(data, feed) {
         await feed.flow(output);
     } catch (e) {
         controller.abort();
-        const standardError = new Error(e.message);  // use standard error (not DOMException)
+        const standardError = convertError(e); // use standard error (not DOMException)
         if (noerror) {
-            debug('ezs:info')(`Ignore item #${this.getIndex()} [URLStream]`, ezs.serializeError(standardError));
+            debug('ezs:info')(
+                `Ignore item #${this.getIndex()} [URLStream]`,
+                ezs.serializeError(standardError)
+            );
             return feed.send(standardError);
         }
-        debug('ezs:warn')(`Break item #${this.getIndex()} [URLStream]`, ezs.serializeError(standardError));
+        debug('ezs:warn')(
+            `Break item #${this.getIndex()} [URLStream]`,
+            ezs.serializeError(standardError)
+        );
         return feed.stop(standardError);
     }
 }

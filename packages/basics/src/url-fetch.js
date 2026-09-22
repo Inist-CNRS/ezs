@@ -2,8 +2,7 @@ import debug from 'debug';
 import { get, set } from 'lodash';
 import parseHeaders from 'parse-headers';
 import retry from 'async-retry';
-import request from './request';
-
+import request, { convertError } from './request';
 
 const createObjectURL = (arrayBuffer, mimeType = 'application/octet-stream') =>
     `data:${mimeType};base64,${Buffer.from(arrayBuffer).toString('base64')}`;
@@ -31,19 +30,15 @@ export default async function URLFetch(data, feed) {
     }
     const location = this.getParam('url');
     const path = this.getParam('path');
-    const target = []
-        .concat(this.getParam('target'))
-        .filter(Boolean)
-        .shift();
+    const target = [].concat(this.getParam('target')).filter(Boolean).shift();
     const json = Boolean(this.getParam('json', false));
     const dataurl = Boolean(this.getParam('dataurl', false));
     const retries = Number(this.getParam('retries', 5));
     const noerror = Boolean(this.getParam('noerror', false));
     const timeout = Number(this.getParam('timeout', 5000));
-    const headers = parseHeaders([]
-        .concat(this.getParam('header'))
-        .filter(Boolean)
-        .join('\n'));
+    const headers = parseHeaders(
+        [].concat(this.getParam('header')).filter(Boolean).join('\n')
+    );
     const mimetype = String(this.getParam('mimetype', 'application/json'));
     const controller = new AbortController();
     const key = Array.isArray(path) ? path.shift() : path;
@@ -63,7 +58,7 @@ export default async function URLFetch(data, feed) {
         set(
             parameters,
             'body',
-            Buffer.isBuffer(body) ? body : JSON.stringify(body),
+            Buffer.isBuffer(body) ? body : JSON.stringify(body)
         );
         set(parameters, 'headers.content-type', mimetype);
     }
@@ -74,24 +69,34 @@ export default async function URLFetch(data, feed) {
             value = await response.json();
         } else if (dataurl) {
             const content = await response.arrayBuffer();
-            value = createObjectURL(content, response.headers.get('content-type'));
+            value = createObjectURL(
+                content,
+                response.headers.get('content-type')
+            );
         } else {
             value = await response.text();
         }
         if (target) {
-            const result = typeof data === 'object' ? { ...data } : { input: data };
+            const result =
+                typeof data === 'object' ? { ...data } : { input: data };
             set(result, target, value);
             return feed.send(result);
         }
         return feed.send(value);
     } catch (e) {
         controller.abort();
-        const standardError = new Error(e.message);  // use standard error (not DOMException)
+        const standardError = convertError(e); // use standard error (not DOMException)
         if (noerror) {
-            debug('ezs:info')(`Ignore item #${this.getIndex()} [URLFetch]`, this.ezs.serializeError(standardError));
+            debug('ezs:info')(
+                `Ignore item #${this.getIndex()} [URLFetch]`,
+                this.ezs.serializeError(standardError)
+            );
             return feed.send(standardError);
         }
-        debug('ezs:warn')(`Break item #${this.getIndex()} [URLFetch]`, this.ezs.serializeError(standardError));
+        debug('ezs:warn')(
+            `Break item #${this.getIndex()} [URLFetch]`,
+            this.ezs.serializeError(standardError)
+        );
         return feed.stop(standardError);
     }
 }
