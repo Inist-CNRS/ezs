@@ -3,9 +3,7 @@ import debug from 'debug';
 import { URL, URLSearchParams } from 'url';
 import parseHeaders from 'parse-headers';
 import retry from 'async-retry';
-import request from './request';
-
-
+import request, { convertError } from './request';
 
 /**
  * Take `Object` as parameters of URL, throw each chunk from the result
@@ -50,20 +48,14 @@ export default async function URLRequest(data, feed) {
     }
     const url = this.getParam('url');
     const json = Boolean(this.getParam('json', true));
-    const target = []
-        .concat(this.getParam('target'))
-        .filter(Boolean)
-        .shift();
+    const target = [].concat(this.getParam('target')).filter(Boolean).shift();
     const retries = Number(this.getParam('retries', 5));
     const noerror = Boolean(this.getParam('noerror', false));
     const timeout = Number(this.getParam('timeout', 5000));
-    const headers = parseHeaders([]
-        .concat(this.getParam('header'))
-        .filter(Boolean)
-        .join('\n'));
-    const inserts = []
-        .concat(this.getParam('insert'))
-        .filter(Boolean);
+    const headers = parseHeaders(
+        [].concat(this.getParam('header')).filter(Boolean).join('\n')
+    );
+    const inserts = [].concat(this.getParam('insert')).filter(Boolean);
     const cURL = new URL(url || data);
     const controller = new AbortController();
     const parameters = {
@@ -84,21 +76,28 @@ export default async function URLRequest(data, feed) {
         const func = json ? 'json' : 'text';
         const value = await response[func]();
         if (target) {
-            const result = typeof data === 'object' ? { ...data } : { url: data };
+            const result =
+                typeof data === 'object' ? { ...data } : { url: data };
             set(result, target, value);
-            inserts.forEach(i => set(result, i, response.headers.get(i)));
+            inserts.forEach((i) => set(result, i, response.headers.get(i)));
             return feed.send(result);
         }
-        inserts.forEach(i => set(value, i, response.headers.get(i)));
+        inserts.forEach((i) => set(value, i, response.headers.get(i)));
         return feed.send(value);
     } catch (e) {
         controller.abort();
-        const standardError = new Error(e.message);  // use standard error (not DOMException)
+        const standardError = convertError(e); // use standard error (not DOMException)
         if (noerror) {
-            debug('ezs:info')(`Ignore item #${this.getIndex()} [URLRequest]`, this.ezs.serializeError(standardError));
+            debug('ezs:info')(
+                `Ignore item #${this.getIndex()} [URLRequest]`,
+                this.ezs.serializeError(standardError)
+            );
             return feed.send(standardError);
         }
-        debug('ezs:warn')(`Break item #${this.getIndex()} [URLRequest]`, this.ezs.serializeError(standardError));
+        debug('ezs:warn')(
+            `Break item #${this.getIndex()} [URLRequest]`,
+            this.ezs.serializeError(standardError)
+        );
         return feed.stop(standardError);
     }
 }

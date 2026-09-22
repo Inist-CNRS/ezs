@@ -4,7 +4,6 @@ import statements from '../src';
 
 import { startServer, stopServer, getHost } from './fake-server.js';
 
-
 beforeAll(async () => {
     await startServer(2);
 });
@@ -16,11 +15,7 @@ afterAll(async () => {
 describe('URLFetch', () => {
     test('#1', (done) => {
         ezs.use(statements);
-        const input = [
-            { a: 'a' },
-            { a: 'b' },
-            { a: 'c' },
-        ];
+        const input = [{ a: 'a' }, { a: 'b' }, { a: 'c' }];
         const output = [];
         const script = `
             [URLFetch]
@@ -41,17 +36,15 @@ describe('URLFetch', () => {
             })
             .on('end', () => {
                 expect(output.length).toBe(3);
-                expect(JSON.stringify(input)).toStrictEqual(JSON.stringify(output));
+                expect(JSON.stringify(input)).toStrictEqual(
+                    JSON.stringify(output)
+                );
                 done();
             });
     });
     test('#2', (done) => {
         ezs.use(statements);
-        const input = [
-            { a: 'a' },
-            { a: 'b' },
-            { a: 'c' },
-        ];
+        const input = [{ a: 'a' }, { a: 'b' }, { a: 'c' }];
         const output = [];
         const script = `
             [URLFetch]
@@ -71,17 +64,15 @@ describe('URLFetch', () => {
             })
             .on('end', () => {
                 expect(output.length).toBe(3);
-                expect(JSON.stringify(input)).toStrictEqual(JSON.stringify(output));
+                expect(JSON.stringify(input)).toStrictEqual(
+                    JSON.stringify(output)
+                );
                 done();
             });
     });
     test('#2bis', (done) => {
         ezs.use(statements);
-        const input = [
-            { a: 'a' },
-            { a: 'b' },
-            { a: 'c' },
-        ];
+        const input = [{ a: 'a' }, { a: 'b' }, { a: 'c' }];
         const output = [];
         const script = `
             [URLFetch]
@@ -106,9 +97,7 @@ describe('URLFetch', () => {
     });
     test('#2ter', (done) => {
         ezs.use(statements);
-        const input = [
-            'a',
-        ];
+        const input = ['a'];
         const output = [];
         const script = `
             [URLFetch]
@@ -133,9 +122,7 @@ describe('URLFetch', () => {
     });
     test('get datarul', (done) => {
         ezs.use(statements);
-        const input = [
-            'a',
-        ];
+        const input = ['a'];
         const output = [];
         const script = `
             [URLFetch]
@@ -153,15 +140,15 @@ describe('URLFetch', () => {
             })
             .on('end', () => {
                 expect(output.length).toBe(1);
-                expect(output[0].r).toEqual('data:application/json;base64,eyJhcmdzIjp7ImEiOiIifX0=');
+                expect(output[0].r).toEqual(
+                    'data:application/json;base64,eyJhcmdzIjp7ImEiOiIifX0='
+                );
                 done();
             });
     });
     test('get & parse dataurl', (done) => {
         ezs.use(statements);
-        const input = [
-            'd',
-        ];
+        const input = ['d'];
         const output = [];
         const script = `
             [URLFetch]
@@ -194,11 +181,7 @@ describe('URLFetch', () => {
     });
     test('data url error', (done) => {
         ezs.use(statements);
-        const input = [
-            { a: 'a' },
-            { a: 'b' },
-            { a: 'c' },
-        ];
+        const input = [{ a: 'a' }, { a: 'b' }, { a: 'c' }];
         const script = `
             [DataURLParse]
         `;
@@ -206,9 +189,11 @@ describe('URLFetch', () => {
             .pipe(ezs('delegate', { script }))
             .pipe(ezs.catch())
             .on('error', (e) => {
-                 try {
-                    expect(e.message).toEqual(expect.stringContaining('Invalid Data URL'));
-                } catch(ee) {
+                try {
+                    expect(e.message).toEqual(
+                        expect.stringContaining('Invalid Data URL')
+                    );
+                } catch (ee) {
                     return done(ee);
                 }
                 done();
@@ -219,11 +204,7 @@ describe('URLFetch', () => {
     });
     test('#3', (done) => {
         ezs.use(statements);
-        const input = [
-            { a: 'a' },
-            { a: 'b' },
-            { a: 'c' },
-        ];
+        const input = [{ a: 'a' }, { a: 'b' }, { a: 'c' }];
         const script = `
             [URLFetch]
             url = get('a').replace(/(.*)/, '${getHost(2)}/status/400')
@@ -246,11 +227,7 @@ describe('URLFetch', () => {
     });
     test('#6', (done) => {
         ezs.use(statements);
-        const input = [
-            { a: 'a' },
-            { a: 'b' },
-            { a: 'c' },
-        ];
+        const input = [{ a: 'a' }, { a: 'b' }, { a: 'c' }];
         const script = `
             [URLFetch]
             url = get('a').replace(/(.*)/, '${getHost(2)}/status/503')
@@ -266,8 +243,10 @@ describe('URLFetch', () => {
             .pipe(ezs.catch())
             .on('error', (e) => {
                 try {
-                    expect(e.message).toEqual(expect.stringContaining('Service Unavailable'));
-                } catch(ee) {
+                    expect(e.message).toEqual(
+                        expect.stringContaining('Service Unavailable')
+                    );
+                } catch (ee) {
                     return done(ee);
                 }
                 return done();
@@ -279,11 +258,7 @@ describe('URLFetch', () => {
 
     test('#3bis', (done) => {
         ezs.use(statements);
-        const input = [
-            { a: 'a' },
-            { a: 'b' },
-            { a: 'c' },
-        ];
+        const input = [{ a: 'a' }, { a: 'b' }, { a: 'c' }];
         const output = [];
         const script = `
             [URLFetch]
@@ -300,17 +275,15 @@ describe('URLFetch', () => {
             })
             .on('end', () => {
                 expect(output.length).toBe(3);
-                expect(output[0].message).toEqual(expect.stringContaining('Service Unavailable'));
+                expect(output[0].message).toEqual(
+                    expect.stringContaining('Service Unavailable')
+                );
                 done();
             });
     }, 30000);
     test('#3ter', (done) => {
         ezs.use(statements);
-        const input = [
-            { a: 'a' },
-            { a: 'b' },
-            { a: 'c' },
-        ];
+        const input = [{ a: 'a' }, { a: 'b' }, { a: 'c' }];
         const output = [];
         const script = `
             [URLFetch]
@@ -333,11 +306,7 @@ describe('URLFetch', () => {
     });
     test('#3qua', (done) => {
         ezs.use(statements);
-        const input = [
-            { a: 'a' },
-            { a: 'b' },
-            { a: 'c' },
-        ];
+        const input = [{ a: 'a' }, { a: 'b' }, { a: 'c' }];
         const output = [];
         const script = `
             [URLFetch]
@@ -352,9 +321,13 @@ describe('URLFetch', () => {
             .pipe(ezs('delegate', { script }))
             .on('error', (e) => {
                 if (typeof Bun === 'undefined') {
-                    expect(e.message).toEqual(expect.stringContaining('Not Found'));
-                } else  {
-                    expect(e.message).toEqual(expect.stringContaining('Unable to connect'));
+                    expect(e.message).toEqual(
+                        expect.stringContaining('Not Found')
+                    );
+                } else {
+                    expect(e.message).toEqual(
+                        expect.stringContaining('Unable to connect')
+                    );
                 }
                 done();
             })
@@ -364,23 +337,53 @@ describe('URLFetch', () => {
     });
     test('#4', (done) => {
         ezs.use(statements);
-        const input = [
-            { a: 'a' },
-            { a: 'b' },
-            { a: 'c' },
-        ];
+        const input = [{ a: 'a' }, { a: 'b' }, { a: 'c' }];
         const output = [];
         from(input)
-            .pipe(ezs('URLFetch', {
-                url: 'http://127.0.0.1:11111/',
-                retries: 1,
-                timeout: 10000,
-            }))
+            .pipe(
+                ezs('URLFetch', {
+                    url: 'http://127.0.0.1:11111/',
+                    retries: 1,
+                    timeout: 10000,
+                })
+            )
             .on('error', (e) => {
                 if (typeof Bun === 'undefined') {
-                    expect(e.message).toEqual(expect.stringContaining('fetch failed')); // node
+                    expect(e.message).toEqual(
+                        expect.stringContaining('fetch failed')
+                    ); // node
                 } else {
-                    expect(e.message).toEqual(expect.stringContaining('Unable to connect')); // bun
+                    expect(e.message).toEqual(
+                        expect.stringContaining('Unable to connect')
+                    ); // bun
+                }
+                done();
+            })
+            .on('end', () => {
+                done(new Error('Error is the right behavior'));
+            });
+    }, 30000);
+    test('#4bis', (done) => {
+        ezs.use(statements);
+        const input = [{ a: 'a' }, { a: 'b' }, { a: 'c' }];
+        const output = [];
+        from(input)
+            .pipe(
+                ezs('URLFetch', {
+                    url: 'http://machin.truc.fr/',
+                    retries: 1,
+                    timeout: 10000,
+                })
+            )
+            .on('error', (e) => {
+                if (typeof Bun === 'undefined') {
+                    expect(e.message).toEqual(
+                        expect.stringContaining('fetch failed')
+                    ); // node
+                } else {
+                    expect(e.message).toEqual(
+                        expect.stringContaining('Unable to connect')
+                    ); // bun
                 }
                 done();
             })
@@ -390,18 +393,16 @@ describe('URLFetch', () => {
     }, 30000);
     test('#5', (done) => {
         ezs.use(statements);
-        const input = [
-            { a: 'a' },
-            { a: 'b' },
-            { a: 'c' },
-        ];
+        const input = [{ a: 'a' }, { a: 'b' }, { a: 'c' }];
         const output = [];
         from(input)
-            .pipe(ezs('URLFetch', {
-                url: `${getHost(2)}/post/1`,
-                path: 'a',
-                json: true,
-            }))
+            .pipe(
+                ezs('URLFetch', {
+                    url: `${getHost(2)}/post/1`,
+                    path: 'a',
+                    json: true,
+                })
+            )
             .pipe(ezs.catch())
             .on('error', done)
             .on('data', (chunk) => {
@@ -422,11 +423,13 @@ describe('URLFetch', () => {
         ];
         const output = [];
         from(input)
-            .pipe(ezs('URLFetch', {
-                url: `${getHost(2)}/post/2`,
-                path: ['a', 'b'],
-                mimetype: 'text/plain',
-            }))
+            .pipe(
+                ezs('URLFetch', {
+                    url: `${getHost(2)}/post/2`,
+                    path: ['a', 'b'],
+                    mimetype: 'text/plain',
+                })
+            )
             .pipe(ezs.catch())
             .on('error', done)
             .on('data', (chunk) => {
@@ -434,7 +437,9 @@ describe('URLFetch', () => {
             })
             .on('end', () => {
                 expect(output.length).toBe(3);
-                expect(output).toStrictEqual(input.map(x => ({ a: x.a.toString()})));
+                expect(output).toStrictEqual(
+                    input.map((x) => ({ a: x.a.toString() }))
+                );
                 done();
             });
     }, 6000);
