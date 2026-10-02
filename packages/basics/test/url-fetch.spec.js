@@ -377,13 +377,9 @@ describe('URLFetch', () => {
             )
             .on('error', (e) => {
                 if (typeof Bun === 'undefined') {
-                    expect(e.message).toEqual(
-                        expect.stringContaining('fetch failed')
-                    ); // node
+                    expect(e.message).toContain('fetch failed');
                 } else {
-                    expect(e.message).toEqual(
-                        expect.stringContaining('Unable to connect')
-                    ); // bun
+                    expect(e.message).toContain('Unable to connect');
                 }
                 done();
             })
