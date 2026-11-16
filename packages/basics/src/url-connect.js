@@ -94,6 +94,7 @@ export default async function URLConnect(data, feed) {
                     if (!response.ok) {
                         const err = new Error(response.statusText);
                         const text = await response.text();
+                        err.status = response.status;
                         err.responseText = text;
                         throw err;
                     }

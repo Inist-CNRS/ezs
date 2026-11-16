@@ -278,6 +278,10 @@ describe('URLFetch', () => {
                 expect(output[0].message).toEqual(
                     expect.stringContaining('Service Unavailable')
                 );
+                // the status explains the error to the user of the statement
+                expect(ezs.serializeError(output[0])).toEqual(
+                    expect.stringContaining('"status":503')
+                );
                 done();
             });
     }, 30000);
