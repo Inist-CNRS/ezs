@@ -6,7 +6,7 @@ import { index } from 'cacache';
  *
  * > **Note**: works like {@link delegate}, but each chunk use its own external pipeline
  *
- * @name spawn
+ * @name reduce
  * @param {String} [file] the external pipeline is described in a file
  * @param {String} [script] the external pipeline is described in a string of characters
  * @param {String} [commands] the external pipeline is described in an object
