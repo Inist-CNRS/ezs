@@ -22,7 +22,7 @@ L'ordonnancement des sections correspond à l’ordonnancement des traitements.
 
 ### Note
 
-> Les paramètres en entêtes du fichier (non rattaché à une section) ne sont pas
+> Les paramètres en en-tête du fichier (non rattachés à une section) ne sont pas
 > utilisés directement par ezs, mais ils peuvent servir de métadonnées à
 > destination de l’application ou du programme en charge de son exécution
 

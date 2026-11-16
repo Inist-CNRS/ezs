@@ -22,11 +22,15 @@ const options = {
         '<rootDir>/packages/libpostal',
     ],
     collectCoverage: true,
-    coveragePathIgnorePatterns: ['/node_modules/', '/test/', '/lib/', '/lodex/src/reducers/'],
-    coverageReporters: ['lcov', 'text-summary'],
-    transformIgnorePatterns: [
-        '/node_modules/(?!quick-lru)'
+    coveragePathIgnorePatterns: [
+        '/node_modules/',
+        '/test/',
+        '/lib/',
+        '/lodex/src/reducers/',
+        '<rootDir>/packages/libpostal/',
     ],
+    coverageReporters: ['lcov', 'text-summary'],
+    transformIgnorePatterns: ['/node_modules/(?!quick-lru)'],
     testTimeout: 8000,
     verbose: true,
     silent: false,

@@ -34,7 +34,7 @@ Permet d'envoyer le contenu d'un *stream* à l'élément suivant.
 
 Chaque *chunk* est envoyé séparément. Quand le stream s'arrête ("end"),
 l'élément courant est fermé, sauf si une fonction de *callback* est passée en
-argument. Dans ce cas, il faudra fermer l'élement courant explicitement via un
+argument. Dans ce cas, il faudra fermer l'élément courant explicitement via un
 appel à `feed.end()`.
 
 Cette fonction peut être exécutée plusieurs fois.
@@ -81,7 +81,7 @@ function count(data, feed) {
     return feed.end();
 }
 
-// avec une fonction fléchée, c'est le troisème argument
+// avec une fonction fléchée, c'est le troisième argument
 const count = (data, feed, ctx) => {
     if (!ctx.count) {
         ctx.count = 0;
@@ -196,10 +196,10 @@ const plouf = (data, feed, ctx) => {
 
 ### Les erreurs de données
 
-Une erreur de données est une erreur qui vient remplacer la données attendue en sortie de l'instruction.
+Une erreur de données est une erreur qui vient remplacer la donnée attendue en sortie de l'instruction.
 Elle **n’arrête pas** le flux de données, il conviendra de récupérer les erreurs une à une.
 
-la fonction `ezs.catch` permet d’extraire les erreurs des données d’un flux. Une
+La fonction `ezs.catch` permet d’extraire les erreurs des données d’un flux. Une
 fois extraites des données, il est possible d’arrêter le flux, de continuer
 sans les erreurs ou encore de transformer l'erreur en données standard.
 
@@ -239,4 +239,4 @@ Ce type d’erreur se gère avec le mécanisme standard des erreurs de stream.
 ```
 
 > En cas d’erreur, `ezs` transmet les erreurs d’instruction en instruction
-> jusqu’à la fin du _pipeline_. Ce n’est pas cas avec les Class Stream
+> jusqu’à la fin du _pipeline_. Ce n’est pas le cas avec les Class Stream

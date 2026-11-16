@@ -1,6 +1,6 @@
 # basics
 
-Ce plugin propose une série d'instructions transformer plusieurs formats `text` (xml, json, cvs, etc.) en flux d'objets Javascript
+Ce plugin propose une série d'instructions pour transformer plusieurs formats `text` (xml, json, csv, etc.) en flux d'objets JavaScript
 
 ## installation
 

@@ -2,7 +2,7 @@
 
 ## Présentation
 
-Ce plugin est propose une série d'instructions pour utiliser libpostal
+Ce plugin propose une série d'instructions pour utiliser libpostal
 
 ## installation
 

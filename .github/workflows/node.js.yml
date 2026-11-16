@@ -4,64 +4,50 @@
 name: Node.js CI
 
 on:
-  push:
-    branches: [master]
-  pull_request:
-    branches: [master]
+    push:
+        branches: [master]
+    pull_request:
+        branches: [master]
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+    test:
+        runs-on: ubuntu-latest
 
-    strategy:
-      fail-fast: false
-      matrix:
-        node-version: [20.x, 22.x, 24.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        strategy:
+            fail-fast: false
+            matrix:
+                node-version: [20.x, 22.x, 24.x]
+                # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install libpostal
-        run: bash ${GITHUB_WORKSPACE}/.github/workflows/install-libpostal.sh
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "yarn"
+        steps:
+            - uses: actions/checkout@v3
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: 'yarn'
 
-      - name: Install dependencies
-        env:
-          CXXFLAGS: "-I/deps/include"
-          LDFLAGS: "-L/deps/lib"
-        run: yarn run ci:install
+            - name: Install dependencies
+              run: yarn run ci:install
 
-      - name: Rebuild node-postal (Mainly use to NodeJS 20)
-        env:
-          CXXFLAGS: "-I/deps/include"
-          LDFLAGS: "-L/deps/lib"
-        run: |
-          cd node_modules/node-postal
-          yarn run install
+            - name: Testing all packages
+              env:
+                  DEBUG: 'ezs:error,ezs:warn'
+              run: yarn run ci:test
 
-      - name: Testing all packages
-        env:
-          LD_LIBRARY_PATH: "/deps/lib"
-          DEBUG: "ezs:error,ezs:warn"
-        run: yarn run ci:test
+            - name: Coveralls Parallel
+              uses: coverallsapp/github-action@master
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  flag-name: run-${{ matrix.node-version }}
+                  parallel: true
 
-      - name: Coveralls Parallel
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          flag-name: run-${{ matrix.node-version }}
-          parallel: true
-
-  finish:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Coveralls Finished
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.github_token }}
-          parallel-finished: true
+    finish:
+        needs: test
+        runs-on: ubuntu-latest
+        steps:
+            - name: Coveralls Finished
+              uses: coverallsapp/github-action@master
+              with:
+                  github-token: ${{ secrets.github_token }}
+                  parallel-finished: true

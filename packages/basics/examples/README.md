@@ -4,7 +4,7 @@
 npm install -g ezs
 ```
 
-## Run exemples
+## Run examples
 
 ```bash
 ./csv-to-json.ezs < data/csv

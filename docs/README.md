@@ -30,7 +30,7 @@ Streaming](https://spark.apache.org/streaming/).
   paquets NPM,
 - un usage des instructions via des fichiers au format `.ini`
   ([DSL](https://fr.wikipedia.org/wiki/Domain-specific_programming_language))
-- un server web de transformation de données
+- un serveur web de transformation de données
 - un usage des instructions à distance via un mode
   [RPC](https://fr.wikipedia.org/wiki/Remote_procedure_call)
 

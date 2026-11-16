@@ -182,7 +182,7 @@ noerror = true
 
 ```
 
-## Sous chemin avec valeur multiple (objet dans valeur multiple
+## Sous chemin avec valeur multiple (objet dans valeur multiple)
 
 ### Données
 
@@ -239,5 +239,5 @@ timeout = 3000
 ## Notes
 
 - L'imbrication d'instructions peut également s'écrire avec des points (ou tout
-  autre caractères). Exemple: `[expand/expand/expand/exploding]` =\>
+  autre caractère). Exemple: `[expand/expand/expand/exploding]` =\>
   `[./././exploding]`
