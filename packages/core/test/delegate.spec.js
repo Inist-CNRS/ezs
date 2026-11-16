@@ -62,8 +62,7 @@ describe('delegate through file(s)', () => {
         it('with object', (done) => {
             let res = 0;
             const ten = new Upto(10);
-            ten
-                .pipe(ezs('delegate', { commands }))
+            ten.pipe(ezs('delegate', { commands }))
                 // .pipe(ezs('debug'))
                 .on('data', (chunk) => {
                     res += chunk;
@@ -77,10 +76,15 @@ describe('delegate through file(s)', () => {
         it('with script', (done) => {
             let res = 0;
             const ten = new Upto(10);
-            ten
-                .pipe(ezs('delegate', {
-                    script,
-                }, { toto: 1, titi: 'truc' }))
+            ten.pipe(
+                ezs(
+                    'delegate',
+                    {
+                        script,
+                    },
+                    { toto: 1, titi: 'truc' }
+                )
+            )
                 .on('data', (chunk) => {
                     res += chunk;
                 })
@@ -93,10 +97,11 @@ describe('delegate through file(s)', () => {
         it('with file', (done) => {
             let res = 0;
             const ten = new Upto(10);
-            ten
-                .pipe(ezs('delegate', {
+            ten.pipe(
+                ezs('delegate', {
                     file: './script.ini',
-                }))
+                })
+            )
                 .on('data', (chunk) => {
                     res += chunk;
                 })
@@ -109,10 +114,11 @@ describe('delegate through file(s)', () => {
         it('with script', (done) => {
             let res = 0;
             const ten = new Upto(10);
-            ten
-                .pipe(ezs('delegate', {
+            ten.pipe(
+                ezs('delegate', {
                     script,
-                }))
+                })
+            )
                 .on('data', (chunk) => {
                     res += chunk;
                 })
@@ -125,10 +131,11 @@ describe('delegate through file(s)', () => {
         it('with commands', (done) => {
             let res = 0;
             const ten = new Upto(10);
-            ten
-                .pipe(ezs('delegate', {
+            ten.pipe(
+                ezs('delegate', {
                     commands,
-                }))
+                })
+            )
                 .on('data', (chunk) => {
                     res += chunk;
                 })
@@ -156,8 +163,7 @@ describe('delegate through file(s)', () => {
             },
         ];
         const ten = new Upto(10);
-        ten
-            .pipe(ezs('delegate', { commands }))
+        ten.pipe(ezs('delegate', { commands }))
             .on('data', (chunk) => {
                 res += chunk;
             })
@@ -179,8 +185,7 @@ describe('delegate through file(s)', () => {
             },
         ];
         const ten = new Upto(10);
-        ten
-            .pipe(ezs('delegate', { commands }))
+        ten.pipe(ezs('delegate', { commands }))
             .on('data', (chunk) => {
                 res.push(chunk);
             })
@@ -203,8 +208,7 @@ describe('delegate through file(s)', () => {
             },
         ];
         const ten = new Upto(10);
-        ten
-            .pipe(ezs('delegate', { commands }))
+        ten.pipe(ezs('delegate', { commands }))
             .on('data', (chunk) => {
                 res += chunk;
             })
@@ -230,8 +234,7 @@ describe('delegate through file(s)', () => {
             },
         ];
         const ten = new Upto(10);
-        ten
-            .pipe(ezs('delegate', { commands }))
+        ten.pipe(ezs('delegate', { commands }))
             .pipe(ezs.catch())
             .on('error', (error) => {
                 assert.ok(error instanceof Error);
@@ -256,8 +259,7 @@ describe('delegate through file(s)', () => {
         ];
         const ten = new Upto(10);
         let semaphore = true;
-        ten
-            .pipe(ezs('delegate', { commands }))
+        ten.pipe(ezs('delegate', { commands }))
             .pipe(ezs.catch())
             .on('error', (error) => {
                 assert(error instanceof Error);
@@ -287,8 +289,7 @@ describe('delegate through file(s)', () => {
         ];
         let res = 0;
         const ten = new Upto(10);
-        ten
-            .pipe(ezs('delegate', { commands }))
+        ten.pipe(ezs('delegate', { commands }))
             .on('data', (chunk) => {
                 res += chunk;
             })
@@ -311,8 +312,7 @@ describe('delegate through file(s)', () => {
         ];
         let res = 0;
         const ten = new Upto(50001);
-        ten
-            .pipe(ezs('replace', { path: 'a', value: '2' }))
+        ten.pipe(ezs('replace', { path: 'a', value: '2' }))
             .pipe(ezs('delegate', { commands })) // ~ 9 seconds
             .on('data', (chunk) => {
                 res += chunk.a;
@@ -422,7 +422,6 @@ describe('delegate through file(s)', () => {
 
     /**/
     describe('nested statements', () => {
-
         it('baseline', (done) => {
             const script = `
             [use]
@@ -436,8 +435,7 @@ describe('delegate through file(s)', () => {
         `;
             let res = 0;
             const ten = new Upto(10);
-            ten
-                .pipe(ezs('delegate', { script }))
+            ten.pipe(ezs('delegate', { script }))
                 .on('data', (chunk) => {
                     res += chunk;
                 })
@@ -476,8 +474,7 @@ describe('delegate through file(s)', () => {
         `;
             let res = 0;
             const ten = new Upto(10);
-            ten
-                .pipe(ezs('delegate', { script }))
+            ten.pipe(ezs('delegate', { script }))
                 .on('data', (chunk) => {
                     res += chunk;
                 })
@@ -519,8 +516,7 @@ describe('delegate through file(s)', () => {
         `;
             let res = 0;
             const ten = new Upto(10);
-            ten
-                .pipe(ezs('delegate', { script }))
+            ten.pipe(ezs('delegate', { script }))
                 .on('data', (chunk) => {
                     res += chunk;
                 })
@@ -529,7 +525,6 @@ describe('delegate through file(s)', () => {
                     done();
                 });
         });
-
 
         it('other result with complex nested commands', (done) => {
             const script = `
@@ -561,8 +556,7 @@ describe('delegate through file(s)', () => {
         `;
             let res = 0;
             const ten = new Upto(10);
-            ten
-                .pipe(ezs('delegate', { script }))
+            ten.pipe(ezs('delegate', { script }))
                 .on('data', (chunk) => {
                     res += chunk;
                 })
@@ -588,11 +582,13 @@ describe('delegate through file(s)', () => {
             { a: 1, b: 9 },
             { a: 1, b: 9 },
         ])
-            .pipe(ezs('delegate', {
-                path: 'b',
-                value: 9,
-                commands,
-            }))
+            .pipe(
+                ezs('delegate', {
+                    path: 'b',
+                    value: 9,
+                    commands,
+                })
+            )
             .pipe(ezs.catch())
             .on('error', (error) => {
                 assert.ok(error instanceof Error);
@@ -601,7 +597,7 @@ describe('delegate through file(s)', () => {
     });
 
     it('with endless statement', (done) => {
-        ezs.settings.feed.timeout = (15 * 1000);
+        ezs.settings.feed.timeout = 15 * 1000;
         const commands = [
             {
                 name: 'noclose',
@@ -614,22 +610,27 @@ describe('delegate through file(s)', () => {
             { a: 1, b: 9 },
             { a: 1, b: 9 },
         ])
-            .pipe(ezs('delegate', {
-                path: 'b',
-                value: 9,
-                commands,
-            }))
+            .pipe(
+                ezs('delegate', {
+                    path: 'b',
+                    value: 9,
+                    commands,
+                })
+            )
             .pipe(ezs.catch())
             .on('error', (e) => {
                 try {
-                    expect(e.message).toEqual(expect.stringContaining('The pipe has not received any data'));
+                    expect(e.message).toEqual(
+                        expect.stringContaining(
+                            'The pipe has not received any data'
+                        )
+                    );
                     done();
-                } catch(ee) {
+                } catch (ee) {
                     done(ee);
                 }
             });
     }, 30000);
-
 
     it('with self reference in the shell', (done) => {
         const script = `

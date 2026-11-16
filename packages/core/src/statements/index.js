@@ -15,6 +15,7 @@ import env from './env.js';
 import group from './group.js';
 import ungroup from './ungroup.js';
 import parallel from './parallel.js';
+import reduce from './reduce.js';
 import spawn from './spawn.js';
 import delegate from './delegate.js';
 import singleton from './singleton.js';
@@ -58,6 +59,7 @@ export default {
     group,
     ungroup,
     parallel,
+    reduce,
     tracer,
     spawn,
     delegate,

@@ -49,7 +49,7 @@ locales.
 Le programme suivant affiche chaque `chunk` dans la console.
 
 ```js
-import ezs from '@ezs/core':
+import ezs from '@ezs/core';
 
 process.stdin.setEncoding('utf8');
 process.stdin
@@ -57,7 +57,7 @@ process.stdin
         if (ctx.isLast()) {
             return feed.close();
         }
-        console.log(input.toString());
+        console.log(data.toString());
         feed.end();
    }));
 process.stdin.resume();
@@ -65,7 +65,7 @@ process.stdin.resume();
 
 Dans l'exemple ci-avant :
 
-  -  `data` contient une valeur en transit dans le pipeline. Cette valeur dépend de ce qui circule dans le flux de données (un buffer, un objet, une chaîne de caractère, un nombre, une date, etc.).
+  -  `data` contient une valeur en transit dans le pipeline. Cette valeur dépend de ce qui circule dans le flux de données (un buffer, un objet, une chaîne de caractères, un nombre, une date, etc.).
   -  `feed` est un objet qui propose plusieurs _helpers_ pour contrôler le flux de données (envoyer au suivant, arrêter, gérer une erreur, brancher un sous pipeline)
   - `ctx` est un *scope* qui propose plusieurs _helpers_ permettant d’identifier les différents moments d'une exécution au  fil de l'eau (premier appel, dernier appel, etc.).
 

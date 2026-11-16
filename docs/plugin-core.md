@@ -63,6 +63,7 @@ peuvent apparaître comme similaires mais leur fonctionnement est différent :
 *   [shuffle](#shuffle)
 *   [singleton](#singleton)
 *   [spawn](#spawn)
+*   [spawn](#spawn-1)
 *   [swing](#swing)
 *   [throttle](#throttle)
 *   [time](#time)
@@ -1194,6 +1195,22 @@ Takes only the first  `Object` delegate processing to a external pipeline
 *   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
 *   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a object
 *   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a URL-like command
+*   `logger` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** A dedicaded pipeline described in a file to trap or log errors
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
+
+### spawn
+
+Delegate each value form array input to an external pipeline, throw each chunk from the result.
+
+> **Note**: works like [delegate](#delegate), but each chunk use its own external pipeline
+
+#### Parameters
+
+*   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a file
+*   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in a string of characters
+*   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in an object
+*   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in an URL-like command
 *   `logger` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** A dedicaded pipeline described in a file to trap or log errors
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;

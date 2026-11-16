@@ -14,7 +14,7 @@ let transformer = ezs(function(input, output) {
 ## ezs.use(module: Function) : None
 
 Adding bundle of statements.
-See the avaible modules here : <https://www.npmjs.com/browse/keyword/ezs>
+See the available modules here : <https://www.npmjs.com/browse/keyword/ezs>
 
 ```js
 import ezs from '@ezs/core';

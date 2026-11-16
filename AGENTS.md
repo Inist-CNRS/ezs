@@ -55,7 +55,6 @@ packages/core/bin/ezs <your-script.ini>
 
 * **Monorepo:** The project is a monorepo, with individual packages located in the `packages/` directory.
 * **Yarn Workspaces:** Yarn workspaces are used to manage dependencies across the monorepo.
-* **Yarn Workspaces:** Yarn workspaces are used to manage dependencies across the monorepo.
 * **Linting:** The project uses ESLint for code linting. You can run the linter with `yarn lint`.
 
 ### Committing

@@ -19,7 +19,7 @@ Pour utiliser un plugin, il faut commencer par installer le paquet npm concerné
 Exemple :
 
 ```bash
-npm install @es/basics
+npm install @ezs/basics
 npm install @ezs/analytics
 ```
 
@@ -31,9 +31,9 @@ via la fonction `use`.
 ### nodejs
 
 ```js
-import ezs from '@ezs/core':
-import basics from '@ezs/basics':
-import analytics from '@ezs/analytics':
+import ezs from '@ezs/core';
+import basics from '@ezs/basics';
+import analytics from '@ezs/analytics';
 
 ezs.use(basics);
 ezs.use(analytics);

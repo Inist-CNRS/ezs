@@ -26,7 +26,7 @@ There are tools to ease conventional commits:
 If you just fixed a bug in `packages/core`, you can use:
 
 ```bash
-git commit -m "fix (core): Chuck Norris got it!"
+git commit -m "fix(core): Chuck Norris got it!"
 ```
 
 where the optional `(core)` part says that the fix concerns the core package.
@@ -38,7 +38,7 @@ where the optional `(core)` part says that the fix concerns the core package.
 If you just added a feature in `packages/foo`:
 
 ```bash
-git commit -m "feat (foo): Add marvelous new feature bar"
+git commit -m "feat(foo): Add marvelous new feature bar"
 ```
 
 > **Note**: that will imply that
@@ -50,9 +50,9 @@ git commit -m "feat (foo): Add marvelous new feature bar"
 If you introduced a breaking change in `packages/bar`:
 
 ```bash
-git commit -m 'fix (bar): Fixed issue #4
+git commit -m 'fix(bar): Fixed issue #4
 
-BREAKING_CHANGE: baz function has changed parameters
+BREAKING CHANGE: baz function has changed parameters
 '
 ```
 
@@ -60,7 +60,7 @@ BREAKING_CHANGE: baz function has changed parameters
 
 Use [jest](https://jestjs.io) to create tests.
 
-Put your tests files into a package's `__tests__`, or `test` directory.
+Put your test files into a package's `__tests__`, or `test` directory.
 
 Then, you can run all tests via
 
@@ -84,7 +84,7 @@ dependency to a new package.
 
 Ex: `npx lerna create @ezs/package`.
 
-Each time you use a package-specific lerna command, don't forget to precise
+Each time you use a package-specific lerna command, don't forget to specify
 which package is targeted, with the `--scope=@ezs/package` option.
 
 ## Install
@@ -120,7 +120,7 @@ npm run release:publish
 
 ## Use @ezs organization
 
-When create a new package, name it with `@ezs/package` (where `package` is the package's name).
+When creating a new package, name it with `@ezs/package` (where `package` is the package's name).
 
 ## Importing an existing package
 
