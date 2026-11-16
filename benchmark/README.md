@@ -8,7 +8,7 @@ Ce benchmark consiste à mesurer les  temps de réponse et de traitement ezs en 
 
 Le programme `stress.sh` permet de lancer et mesurer  la rapidité d'un traitement sur un script donné (paramètre 3)  en fonction d'un nombre de documents à traiter (paramètre 1) et d'un nombre de répétitions en parallèle  (paramètre 2). Le paramètre 4 permet de modifier la configuration du serveur et notamment, la manière dont celui-ci va exécuter le script donné (paramètre 3).
 
-Il est également possible de faire varier d'autres paramètres de configuration du serveur, mais ces changements seront à faire en modifiant les variables d'environnements avant de lancer le programme `stress.sh`.
+Il est également possible de faire varier d'autres paramètres de configuration du serveur, mais ces changements seront à faire en modifiant les variables d'environnement avant de lancer le programme `stress.sh`.
 
 C'est également le cas, pour évaluer les résultats avec une version différente de Node.js. À noter que contrairement à d'autres variables d'environnement, la sortie contiendra toujours la version de Node.js utilisée.
 
@@ -48,18 +48,18 @@ Le serveur EZS peut être configuré en ligne de commandes ou avec des variables
 #### EZS_RUNTIME
 
 
-Permet de modifier le runtime utiliser pour démarrer le serveur (node vs bun)
+Permet de modifier le runtime utilisé pour démarrer le serveur (node vs bun)
 
 #### EZS_MAIN_STATEMENT
 
 Permet de modifier l'instruction qui sera utilisée pour exécuter le script demandé. Par défaut,  [delegate] est utilisé
-Ce paramètre peut-être modifier directment par le programme ` stress.sh`
+Ce paramètre peut être modifié directement par le programme `stress.sh`
 
 #### EZS_NSHARDS
 
 Permet de modifier le nombre de documents en mémoire tampon.
 
-Ce paramètre à peu d'influence.
+Ce paramètre a peu d'influence.
 
 #### EZS_CONCURRENCY
 
@@ -69,7 +69,7 @@ Ce paramètre est par défaut égal au nombre de CPUs disponibles sur la machine
 
 #### EZS_ENCODING
 
-Permet de modifier l'encodage des données lors d'un échange externe (requête http client/serveur & serveur/client) et interne échange entre threads ou en entre process. Par défaut, Gzip est utilisé pour encoder les données
+Permet de modifier l'encodage des données lors d'un échange externe (requête http client/serveur & serveur/client) et un échange interne entre threads ou entre process. Par défaut, Gzip est utilisé pour encoder les données
 
 # Résultats
 
@@ -77,11 +77,11 @@ Permet de modifier l'encodage des données lors d'un échange externe (requête 
 
 Concernant le script,  l'usage conjoint des instructions [parallel] et [detach] améliore significativement les performances à mesure que le nombre de documents à traiter est important. Avec peu de documents et peu de trafic, l'usage par défaut reste rapide, ce qui est logique dans le  sens où l'usage de [parallel] et [detach] a pour objectif de paralléliser le traitement de plusieurs documents en même temps.
 
-Bun est souvent plus rapide, mais il explose par moment (core dump), node est stable, avec une différence de vitesse qui beaucoup moins marquée depuis la version ezs@5
+Bun est souvent plus rapide, mais il explose par moment (core dump), node est stable, avec une différence de vitesse beaucoup moins marquée depuis la version ezs@5
 
 ## ezs@5 avec Node version 24, et Bun
 
-| Date       | Heure    | Documents | Requetes | Script | Statement                                 | Runtime    | Temps      | CPU (sys) | CPU (usr) |
+| Date       | Heure    | Documents | Requêtes | Script | Statement                                 | Runtime    | Temps      | CPU (sys) | CPU (usr) |
 | ---------- | -------- | --------- | -------- | ------ | ----------------------------------------- | ---------- | ---------- | --------- | --------- |
 | 2026-04-07 | 18:10:26 | **1**     | **1**    | **en** | **delegate**                              | **1.3.11** | **0,421**  | 0,013     | 0,002     |
 | 2026-04-07 | 18:10:33 | 1         | 1        | en     | detach?encoder=concat&decoder=transit     | 1.3.11     | 0,547      | 0,008     | 0,006     |
@@ -247,7 +247,7 @@ Bun est souvent plus rapide, mais il explose par moment (core dump), node est st
 
 
 ## avec Node version 24, et Bun
-| Date       | Heure    | Documents | Requetes | Script | Statement                             | Runtime | Temps  | CPU (sys) | CPU (usr) |
+| Date       | Heure    | Documents | Requêtes | Script | Statement                             | Runtime | Temps  | CPU (sys) | CPU (usr) |
 |------------|----------|-----------|----------|--------|---------------------------------------|---------|--------|-----------|-----------|
 | **2026-03-23** | **22:15:58** | **1**         | **1**        | **pl**     | **detach?encoder=concat&decoder=transit** | **Bun**   | **0.05**   | **0.01**      | **0.00**      |
 | 2026-03-23 | 22:16:05 | 1         | 1        | pd     | detach?encoder=concat&decoder=transit | Bun   | 0.05   | 0.01      | 0.01      |
@@ -413,7 +413,7 @@ Bun est souvent plus rapide, mais il explose par moment (core dump), node est st
 
 ## avec Node version 20, et la configuration par défaut du serveur ezs.
 
-| Date           | Heure        | Documents | Requetes | Script | Statement                                 | NodeJS       | Temps     | CPU (sys) | CPU (usr) |
+| Date           | Heure        | Documents | Requêtes | Script | Statement                                 | NodeJS       | Temps     | CPU (sys) | CPU (usr) |
 | -------------- | ------------ | --------- | -------- | ------ | ----------------------------------------- | ------------ | --------- | --------- | --------- |
 | **2025-08-31** | **10:06:32** | **1**     | **1**    | **en** | **delegate**                              | **v20.18.2** | **0,92**  | 0,01      | 0,01      |
 | *2025-08-31*   | *10:06:49*   | *1*       | *1*      | *pd*   | *delegate*                                | *v20.18.2*   | *1,04*    | 0,01      | 0,01      |
@@ -502,7 +502,7 @@ Bun est souvent plus rapide, mais il explose par moment (core dump), node est st
 
 ## avec Node version 24, et la configuration par défaut du serveur ezs.
 
-| Date           | Heure        | Documents | Requetes | Script | Statement                             | NodeJS      | Temps      | CPU (sys) | CPU (usr) |
+| Date           | Heure        | Documents | Requêtes | Script | Statement                             | NodeJS      | Temps      | CPU (sys) | CPU (usr) |
 | -------------- | ------------ | --------- | -------- | ------ | ------------------------------------- | ----------- | ---------- | --------- | --------- |
 | **2025-09-01** | **11:03:40** | **1**     | **1**    | **en** | **delegate**                          | **v24.6.0** | **0,876**  | 0,003     | 0,01      |
 | 2025-09-01     | 11:03:44     | 1         | 1        | en     | detach?encoder=concat&decoder=transit | v24.6.0     | 1,192      | 0,008     | 0,007     |
@@ -589,7 +589,7 @@ Bun est souvent plus rapide, mais il explose par moment (core dump), node est st
 
 EZS_ENCODING=none
 
-| Date           | Heure        | Documents | Requetes | Script | Statement                             | NodeJS      | Temps      | CPU (sys) | CPU (usr) |
+| Date           | Heure        | Documents | Requêtes | Script | Statement                             | NodeJS      | Temps      | CPU (sys) | CPU (usr) |
 | -------------- | ------------ | --------- | -------- | ------ | ------------------------------------- | ----------- | ---------- | --------- | --------- |
 | **2025-09-01** | **12:28:07** | **1**     | **1**    | **en** | **delegate**                          | **v24.6.0** | **0,52**   | 0,004     | 0,007     |
 | 2025-09-01     | 12:28:10     | 1         | 1        | en     | detach?encoder=concat&decoder=transit | v24.6.0     | 0,694      | 0,009     | 0,005     |

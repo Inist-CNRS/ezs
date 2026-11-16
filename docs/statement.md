@@ -2,7 +2,7 @@
 
 ## Présentation
 
-Un instruction est une fonction JavaScript qui permet de traiter chaque élément
+Une instruction est une fonction JavaScript qui permet de traiter chaque élément
 d’un flux (stream). `@ezs/core` se charge de la rendre compatible avec les
 `stream`s NodeJS.
 
@@ -31,7 +31,7 @@ process.stdin
     .pipe(process.stdout);
 ```
 
-### dans fichier .ini
+### dans un fichier .ini
 
 ```ini
 [use]
@@ -72,7 +72,7 @@ process.stdin
     .pipe(ezs(print1, { message: 'Le contenu #1 est' }))
     .pipe(ezs(print2, { message: 'Le contenu #2 est' }))
     .on('error', (e) => {
-        // ezs ne casse pas le pipeline, si erreur il y a dans une instrucion ezs
+        // ezs ne casse pas le pipeline, si erreur il y a dans une instruction ezs
         // elle sera attrapée après le pipe de la dernière instruction
     })
     .pipe(process.stdout);

@@ -1,6 +1,6 @@
 # `@ezs/strings`
 
-Des intructions pour manipuler des chaînes de caratères.
+Des instructions pour manipuler des chaînes de caractères.
 
 ## installation
 

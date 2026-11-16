@@ -1,14 +1,14 @@
 # Fonctionnement d’un fichier .ini
 
-Par nature un fichier `.ini` est descriptif, il est composé d'une liste de [sections]. Chaque section possède éventuellement des paramètres décrit avec un nom et une valeur.  `ezs` considère chaque section comme une instruction, les listes des sections comme l'ordonnancement d'une suite de traitements.
+Par nature un fichier `.ini` est descriptif, il est composé d'une liste de [sections]. Chaque section possède éventuellement des paramètres décrits avec un nom et une valeur.  `ezs` considère chaque section comme une instruction, les listes des sections comme l'ordonnancement d'une suite de traitements.
 
-Les paramètres des section sont les paramètres des instructions. Dans un fichier .ini standard, les paramètres sont des valeurs statiques mais `ezs` propose également un paramétrage dynamique et contextuel des traitements. Cela permet d’adapter les traitements aux données reçues ou de paramétrer les traitements avec des variables d’environnement Toutes les valeurs des paramètres d’une section peuvent être dynamiques ou statiques.
+Les paramètres des sections sont les paramètres des instructions. Dans un fichier .ini standard, les paramètres sont des valeurs statiques mais `ezs` propose également un paramétrage dynamique et contextuel des traitements. Cela permet d’adapter les traitements aux données reçues ou de paramétrer les traitements avec des variables d’environnement. Toutes les valeurs des paramètres d’une section peuvent être dynamiques ou statiques.
 
 ## Nom de l'instruction
 
 Le nom de chaque section du fichier .ini correspond au nom d'une fonction de traitement ([une instruction](statement)).
 
-Les fonctions disponibles varient en fonction des [plugins](plugin) qui sont installés et déclarés en début de fichier. Par défaut, seules fonctions [core](plugin-core) sont disponibles.
+Les fonctions disponibles varient en fonction des [plugins](plugin) qui sont installés et déclarés en début de fichier. Par défaut, seules les fonctions [core](plugin-core) sont disponibles.
 
 Pour charger d'autres fonctions on utilisera l'instruction `[use]`. Exemple:  
 
@@ -17,7 +17,7 @@ Pour charger d'autres fonctions on utilisera l'instruction `[use]`. Exemple:
 plugin = basics
 plugin = analytics
 ```
-Dans cette exemple, on chargera les plugins [basics](plugin-basics) et [analytics](plugin-analytics) ce qui permettra d'utiliser dans le fichier .ini toutes les fonctions de ces deux plugins.
+Dans cet exemple, on chargera les plugins [basics](plugin-basics) et [analytics](plugin-analytics) ce qui permettra d'utiliser dans le fichier .ini toutes les fonctions de ces deux plugins.
 
 
 ## Valeurs statiques
@@ -89,19 +89,19 @@ Cette fonction spécifique à `ezs` permet notamment de saisir des caractères s
 [STATEMENT]
 ; Assigner un caractère spécial
 param1 = fix('\n')
-; Assigner une chaine de caractères
+; Assigner une chaîne de caractères
 param2 = fix('1.234')
 ; Assigner un nombre
 param3 = fix(1234)
 ; Assigner une liste de valeurs
 param4 = fix('Voici ', 'valeur', ' ', 'concaténée')
-; Assigner le résulat d'une opération
+; Assigner le résultat d'une opération
 param4 = fix(self.total * 2.5)
 ```
 
 ### Pour préfixer ou suffixer une valeur : prepend(), append()
 
-Ces fonctions spécifiques à `ezs` permettent notamment d'ajouter un prefixe (ou un suffixe) à une chaîne de caractères :
+Ces fonctions spécifiques à `ezs` permettent notamment d'ajouter un préfixe (ou un suffixe) à une chaîne de caractères :
 
 ```ini
 [STATEMENT]
@@ -111,7 +111,7 @@ param2 = get('path').prepend('Valeur champ path:')
 
 ### Pour accéder à des variables d'environnement: env()
 
-Cette fonction spécifique à `ezs` permet de récupérer la valeur d'une variable d’environnement. Les variables d'environnements disponibles sont  :
+Cette fonction spécifique à `ezs` permet de récupérer la valeur d'une variable d’environnement. Les variables d'environnement disponibles sont  :
 
 #### Variables d'environnement externes
 ```bash
@@ -155,16 +155,16 @@ param2 = env('options.deux')
 
 ### Paramètres  de l'URL
 
-Dans le cas d'un serveur `ezs` les paramètres de requêtes HTTP reçues en entrée du script .ini sont disponibles à travers les variables d’environnement.
+Dans le cas d'un serveur `ezs` les paramètres de requête HTTP reçus en entrée du script .ini sont disponibles à travers les variables d’environnement.
 
-Par exemple, pour la requete : POST /v1/exemple/?param1=val1&param2=val2
+Par exemple, pour la requête : POST /v1/exemple/?param1=val1&param2=val2
 ```ini
 [STATEMENT]
 param1 = env('param1')
 param2 = env('param2')
 ```
 
-Il est également possible d'accèder aux entetes et aux paramètres de la requete HTTP . Exemple :
+Il est également possible d'accéder aux en-têtes et aux paramètres de la requête HTTP. Exemple :
 ```ini
 [STATEMENT]
 param1 = env('headers.x-token')
@@ -181,7 +181,7 @@ Cette fonction permet de récupérer la valeur de l'objet qui sera envoyée en e
 param1 = self().omit('secret')
 ```
 
-Il peut être parfois utilise d’accéder à l'objet courant sous forme d'une variable. Le mot clé réservé `self.`  permet d’accéder en lecture à l’objet courant.
+Il peut être parfois utile d’accéder à l'objet courant sous forme d'une variable. Le mot clé réservé `self.`  permet d’accéder en lecture à l’objet courant.
 Idéalement cela permet de récupérer la valeur d’un champ pour l’utiliser comme paramètre d’une fonction.
 
 ```ini
@@ -191,10 +191,10 @@ param1 = get('mapping').filter({'English name': self.enLabel}).first().get('alph
 ```
 ### Pour accéder aux variables d’environnement : env()
 
-Cette fonction permet d’accéder aux variables environnement du script exécuté 
+Cette fonction permet d’accéder aux variables d’environnement du script exécuté
 
 ```ini
-; ici on sélectionne un champ de l'objet courant dont le nom du champ est dans une variable environment
+; ici on sélectionne un champ de l'objet courant dont le nom du champ est dans une variable d'environnement
 [STATEMENT1]
 param1 = get(env('toto'))
 ```
@@ -205,7 +205,7 @@ Cette fonction permet d'utiliser toutes les fonctions Lodash
 
 
 ```ini
-; ici param1 et param2 auront la valeur du champ field1, seul différe la manière de l'obtenir  
+; ici param1 et param2 auront la valeur du champ field1, seule diffère la manière de l'obtenir
 [STATEMENT2]
 param1 = fix(_.get(self, 'field1'))
 param2 = get('field1')

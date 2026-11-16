@@ -3,9 +3,9 @@
 Le système de flux proposé par Node.js permet un traitement en continu d'un ensemble de données. Plusieurs instructions sont donc exécutées en même temps en fonction du nombre d'items présents dans un flux de traitement.
 Il est possible d'aller plus loin pour traiter un  maximum d'éléments en même temps.
 
-Voici plusieurs exemples montrant comme traiter un fichier `shared.ini` contenant des instructions en essayant de maximiser le nombre d'objet à traiter en même temps.
+Voici plusieurs exemples montrant comme traiter un fichier `shared.ini` contenant des instructions en essayant de maximiser le nombre d'objets à traiter en même temps.
 
-Les performances varient selon les techniques, une benchmark compartatif est disponible à cette adresse : https://github.com/touv/ezs-benchmark/tree/main
+Les performances varient selon les techniques, un benchmark comparatif est disponible à cette adresse : https://github.com/touv/ezs-benchmark/tree/main
 
 La troisième méthode est la plus rapide.
 
@@ -54,7 +54,7 @@ indent = true
 ```
 
 
-## On ventille les objets dans 5 sous-flux différents qui s'excute chacun dans un thread séparé
+## On ventile les objets dans 5 sous-flux différents qui s'exécutent chacun dans un thread séparé
 ``` ini
 [use]
 plugin = @ezs/basics

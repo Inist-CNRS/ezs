@@ -18,7 +18,7 @@ field = tag
 with = >
 ```
 
-Comme cette série d'instructions fonctionne uniqument sur un seul champ (et non sur la totalité comme les autres plugins),
+Comme cette série d'instructions fonctionne uniquement sur un seul champ (et non sur la totalité comme les autres plugins),
 elle génère en sortie un champ "technique" nommé `$origin` qui contient l'objet tel qu'il était avant d'appliquer un traitement.
 
 Ce champ peut être facilement supprimé :

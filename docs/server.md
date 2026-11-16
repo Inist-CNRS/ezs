@@ -13,13 +13,13 @@ ezs -d  ./my_ini-files/
 
 ### GET /
 
-Cette route produit un fichier `swagger.json` qui liste toutes routes disponibles dans le serveur. Chaque route doit correspondre à un fichier .ini du répertoire indiqué au lancement.
+Cette route produit un fichier `swagger.json` qui liste toutes les routes disponibles dans le serveur. Chaque route doit correspondre à un fichier .ini du répertoire indiqué au lancement.
 
 L'usage d'une interface Swagger (swagger-ui) permet de tester le serveur.
 
 ### DELETE /
 
-Cette route permet d'arreter un traintement en cours à partir de l'indetifiant de traitment `x-request-id` fourni dans l'entête HTTP de chaque réponse HTTP.
+Cette route permet d'arrêter un traitement en cours à partir de l'identifiant de traitement `x-request-id` fourni dans l'entête HTTP de chaque réponse HTTP.
 L'identifiant est à fournir dans un fichier JSON:
 
 ```json
@@ -29,12 +29,12 @@ L'identifiant est à fournir dans un fichier JSON:
 ```
 ### GET /metrics
 
-Cette route est activée avec l'option `--metrics`, elle permet de surveiller l'activité du serveru avec [Prometheus](https://prometheus.io/docs/introduction/overview/)
+Cette route est activée avec l'option `--metrics`, elle permet de surveiller l'activité du serveur avec [Prometheus](https://prometheus.io/docs/introduction/overview/)
 
 
 ### POST /nom_du_fichier.ini
 
-Cette route permet de lancer le traitment sur les données envoyées avec le fichier .ini indiqué dans le nom de la route.
+Cette route permet de lancer le traitement sur les données envoyées avec le fichier .ini indiqué dans le nom de la route.
 
 
 ## Interface de tests
@@ -49,13 +49,13 @@ Le serveur EZS peut être configuré en ligne de commandes ou avec des variables
 #### EZS_MAIN_STATEMENT
 
 Permet de modifier l'instruction qui sera utilisée pour exécuter le script demandé. Par défaut,  [delegate] est utilisé
-Ce paramètre peut-être modifier directement par le programme ` stress.sh`
+Ce paramètre peut être modifié directement par le programme `stress.sh`
 
 #### EZS_NSHARDS
 
 Permet de modifier le nombre de documents en mémoire tampon.
 
-Ce paramètre à peu d'influence.
+Ce paramètre a peu d'influence.
 
 #### EZS_CONCURRENCY
 
@@ -65,5 +65,5 @@ Ce paramètre est par défaut égal au nombre de CPUs disponibles sur la machine
 
 #### EZS_ENCODING
 
-Permet de modifier l'encodage des données lors d'un échange externe (requête http client/serveur & serveur/client) et interne échange entre threads ou en entre process. Par défaut, Gzip est utilisé pour encoder les données
+Permet de modifier l'encodage des données lors d'un échange externe (requête http client/serveur & serveur/client) et un échange interne entre threads ou entre process. Par défaut, Gzip est utilisé pour encoder les données
 

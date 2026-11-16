@@ -4,11 +4,11 @@
 Les fichiers .ini peuvent être transformés en webservice. Plus globalement, ezs propose de transformer un répertoire et son arborescence en site web proposant une API REST.
 Chaque fichier devient un point d'entrée pour un service de transformation de données en streaming.
 
-Les fichiers sont appelés via une méthode POST, le contenu de la requête alimenté en entrée la chaîne de traitements décrite dans le fichier .ini.
+Les fichiers sont appelés via une méthode POST, le contenu de la requête alimente en entrée la chaîne de traitements décrite dans le fichier .ini.
 
 
 
-## Démarage
+## Démarrage
 
 Un serveur `ezs` se lance sur un répertoire donné, chaque fichier .ini de ce répertoire deviendra un point d'entrée pour le traitement de données
 
