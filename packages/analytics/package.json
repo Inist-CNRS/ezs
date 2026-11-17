@@ -1,42 +1,42 @@
 {
-  "name": "@ezs/analytics",
-  "description": "Analytics statements for EZS",
-  "version": "2.3.8",
-  "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
-  "bugs": "https://github.com/Inist-CNRS/ezs/issues",
-  "dependencies": {
-    "@ezs/store": "2.0.8",
-    "async-each-series": "1.1.0",
-    "fast-sort": "2.1.1",
-    "lodash": "4.18.1",
-    "make-dir": "3.1.0",
-    "node-object-hash": "2.3.10",
-    "path-exists": "4.0.0",
-    "tempy": "1.0.1"
-  },
-  "directories": {
-    "test": "test"
-  },
-  "gitHead": "bc1be6636627b450c72d59ec404c43d87d7a42aa",
-  "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/analytics#readme",
-  "keywords": [
-    "ezs"
-  ],
-  "license": "MIT",
-  "main": "./lib/index.js",
-  "peerDependencies": {
-    "@ezs/core": "*"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "repository": "Inist-CNRS/ezs.git",
-  "scripts": {
-    "build": "babel --root-mode upward src --out-dir lib",
-    "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-analytics.md --section=usage && cp ../../docs/plugin-analytics.md ./README.md",
-    "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
-    "prepublish": "npm run build",
-    "pretest": "npm run build",
-    "preversion": "npm run doc"
-  }
+    "name": "@ezs/analytics",
+    "description": "Analytics statements for EZS",
+    "version": "2.3.9",
+    "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
+    "bugs": "https://github.com/Inist-CNRS/ezs/issues",
+    "dependencies": {
+        "@ezs/store": "2.0.8",
+        "async-each-series": "1.1.0",
+        "fast-sort": "2.1.1",
+        "lodash": "4.18.1",
+        "make-dir": "3.1.0",
+        "node-object-hash": "2.3.10",
+        "path-exists": "4.0.0",
+        "tempy": "1.0.1"
+    },
+    "directories": {
+        "test": "test"
+    },
+    "gitHead": "bc1be6636627b450c72d59ec404c43d87d7a42aa",
+    "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/analytics#readme",
+    "keywords": [
+        "ezs"
+    ],
+    "license": "MIT",
+    "main": "./lib/index.js",
+    "peerDependencies": {
+        "@ezs/core": "*"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": "Inist-CNRS/ezs.git",
+    "scripts": {
+        "build": "babel --root-mode upward src --out-dir lib",
+        "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-analytics.md --section=usage && cp ../../docs/plugin-analytics.md ./README.md",
+        "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
+        "prepublish": "npm run build",
+        "pretest": "npm run build",
+        "preversion": "npm run doc"
+    }
 }

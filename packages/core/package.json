@@ -1,92 +1,92 @@
 {
-  "name": "@ezs/core",
-  "description": "A wrapper to build Stream transformers with functional style",
-  "version": "4.2.5",
-  "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
-  "bin": {
-    "ezs": "./bin/ezs"
-  },
-  "bugs": "https://github.com/Inist-CNRS/ezs/issues",
-  "dependencies": {
-    "app-module-path": "2.2.0",
-    "autocast": "0.0.4",
-    "cacache": "16.1.0",
-    "concurrent-queue": "7.0.2",
-    "connect": "3.7.0",
-    "debug": "4.3.3",
-    "deep-object-diff": "1.1.0",
-    "end-of-stream": "1.4.4",
-    "fdir": "6.4.2",
-    "filedirname": "3.4.0",
-    "filename-regex": "2.0.1",
-    "from": "0.1.7",
-    "global-modules": "2.0.0",
-    "http-shutdown": "1.2.2",
-    "json-buffer": "3.0.1",
-    "json-stringify-safe": "5.0.1",
-    "load-json-file": "6.2.0",
-    "lodash": "4.18.1",
-    "lru-cache": "5.1.1",
-    "make-dir": "^4.0.0",
-    "nanoid": "2.1.8",
-    "nanoid-dictionary": "2.0.0",
-    "node-object-hash": "2.3.10",
-    "object-sizeof": "1.6.1",
-    "once": "1.4.0",
-    "p-wait-for": "3.1.0",
-    "path-exists": "4.0.0",
-    "picomatch": "4.0.7",
-    "prom-client": "14.0.0",
-    "readable-stream": "3.6.0",
-    "retimer": "^3.0.0",
-    "stream-write": "1.0.1",
-    "validatorjs": "3.18.1",
-    "yargs": "15.4.1"
-  },
-  "directories": {
-    "test": "test"
-  },
-  "gitHead": "483fb747db3ae5d72ffeb49dc29fa44fe4dbde84",
-  "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/core#readme",
-  "keywords": [
-    "stream",
-    "transformer"
-  ],
-  "license": "MIT",
-  "type": "module",
-  "exports": {
-    ".": {
-      "import": "./src/index.js",
-      "require": "./lib/index.js"
+    "name": "@ezs/core",
+    "description": "A wrapper to build Stream transformers with functional style",
+    "version": "4.2.6",
+    "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
+    "bin": {
+        "ezs": "./bin/ezs"
     },
-    "./fusible": {
-      "import": "./src/fusible.js",
-      "require": "./lib/fusible.js"
+    "bugs": "https://github.com/Inist-CNRS/ezs/issues",
+    "dependencies": {
+        "app-module-path": "2.2.0",
+        "autocast": "0.0.4",
+        "cacache": "16.1.0",
+        "concurrent-queue": "7.0.2",
+        "connect": "3.7.0",
+        "debug": "4.3.3",
+        "deep-object-diff": "1.1.0",
+        "end-of-stream": "1.4.4",
+        "fdir": "6.4.2",
+        "filedirname": "3.4.0",
+        "filename-regex": "2.0.1",
+        "from": "0.1.7",
+        "global-modules": "2.0.0",
+        "http-shutdown": "1.2.2",
+        "json-buffer": "3.0.1",
+        "json-stringify-safe": "5.0.1",
+        "load-json-file": "6.2.0",
+        "lodash": "4.18.1",
+        "lru-cache": "5.1.1",
+        "make-dir": "^4.0.0",
+        "nanoid": "2.1.8",
+        "nanoid-dictionary": "2.0.0",
+        "node-object-hash": "2.3.10",
+        "object-sizeof": "1.6.1",
+        "once": "1.4.0",
+        "p-wait-for": "3.1.0",
+        "path-exists": "4.0.0",
+        "picomatch": "4.0.7",
+        "prom-client": "14.0.0",
+        "readable-stream": "3.6.0",
+        "retimer": "^3.0.0",
+        "stream-write": "1.0.1",
+        "validatorjs": "3.18.1",
+        "yargs": "15.4.1"
     },
-    "./json": {
-      "import": "./src/json.js",
-      "require": "./lib/json.js"
+    "directories": {
+        "test": "test"
     },
-    "./cli": {
-      "import": "./src/cli.js",
-      "require": "./lib/cli.js"
+    "gitHead": "483fb747db3ae5d72ffeb49dc29fa44fe4dbde84",
+    "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/core#readme",
+    "keywords": [
+        "stream",
+        "transformer"
+    ],
+    "license": "MIT",
+    "type": "module",
+    "exports": {
+        ".": {
+            "import": "./src/index.js",
+            "require": "./lib/index.js"
+        },
+        "./fusible": {
+            "import": "./src/fusible.js",
+            "require": "./lib/fusible.js"
+        },
+        "./json": {
+            "import": "./src/json.js",
+            "require": "./lib/json.js"
+        },
+        "./cli": {
+            "import": "./src/cli.js",
+            "require": "./lib/cli.js"
+        },
+        "./statements": {
+            "import": "./src/statements/index.js",
+            "require": "./lib/statements/index.js"
+        }
     },
-    "./statements": {
-      "import": "./src/statements/index.js",
-      "require": "./lib/statements/index.js"
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": "Inist-CNRS/ezs.git",
+    "runkitExampleFilename": "./examples/runkit-example.js",
+    "scripts": {
+        "build": "babel --root-mode upward src --out-dir lib",
+        "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-core.md --section=usage",
+        "postdoc": "cp ../../docs/plugin-core.md ./README.md",
+        "lint": "eslint --ext=.js ./test/*.js ./src/*.js ./src/statements/*.js",
+        "postversion": "git push && git push --tags",
+        "prepublish": "npm run build"
     }
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "repository": "Inist-CNRS/ezs.git",
-  "runkitExampleFilename": "./examples/runkit-example.js",
-  "scripts": {
-    "build": "babel --root-mode upward src --out-dir lib",
-    "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-core.md --section=usage",
-    "postdoc": "cp ../../docs/plugin-core.md ./README.md",
-    "lint": "eslint --ext=.js ./test/*.js ./src/*.js ./src/statements/*.js",
-    "postversion": "git push && git push --tags",
-    "prepublish": "npm run build"
-  }
 }
