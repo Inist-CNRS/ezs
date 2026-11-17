@@ -24,6 +24,7 @@ const request = (url, parameters) => async (bail) => {
         // response.status >= 200 && response.status < 300
         const err = new Error(response.statusText);
         const text = await response.text();
+        err.status = response.status;
         err.responseText = text;
         if ([400, 401, 402, 403, 404].indexOf(response.status) >= 0) {
             // useless to retry
@@ -40,6 +41,16 @@ export const convertError = (e) => {
         e != err
             ? `${e.message} : ${err.message} ${err.code || ''}`
             : `${e.message} ${e.code || ''}`;
-    return new Error(message.trim());
+    const standardError = new Error(message.trim());
+    // the status and the answer of the server explain the error
+    const status = e.status || err.status;
+    const responseText = e.responseText || err.responseText;
+    if (status) {
+        standardError.status = status;
+    }
+    if (responseText) {
+        standardError.responseText = responseText;
+    }
+    return standardError;
 };
 export default request;

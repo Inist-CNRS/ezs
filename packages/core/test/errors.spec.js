@@ -395,3 +395,20 @@ describe('Catch error in a pipeline', () => {
 
 
 });
+
+describe('serializeError', () => {
+    it('keeps the properties of the error at the source', () => {
+        const source = Object.assign(new Error('Service Unavailable'), {
+            status: 503,
+            responseText: 'Maintenance',
+        });
+        const error = Object.assign(new Error('item #1 [URLFetch] <Error: Service Unavailable>'), {
+            sourceError: source,
+        });
+        const serialized = JSON.parse(ezs.serializeError(error));
+        assert.strictEqual(serialized.message, error.message);
+        assert.strictEqual(serialized.sourceError.message, 'Service Unavailable');
+        assert.strictEqual(serialized.sourceError.status, 503);
+        assert.strictEqual(serialized.sourceError.responseText, 'Maintenance');
+    });
+});

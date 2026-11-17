@@ -35,7 +35,16 @@ const ezs = (name, options = {}, environment) => {
 }
 const ezsCache = new LRU(settings.cache);
 
-ezs.serializeError = (err) => JSON.stringify(err, Object.getOwnPropertyNames(err).sort());
+// the names of the properties of the error and of the errors at its source,
+// whose status or answer explains it
+const getErrorPropertyNames = (err) => {
+    const names = new Set();
+    for (let error = err; error && typeof error === 'object'; error = error.sourceError) {
+        Object.getOwnPropertyNames(error).forEach((name) => names.add(name));
+    }
+    return Array.from(names).sort();
+};
+ezs.serializeError = (err) => JSON.stringify(err, getErrorPropertyNames(err));
 ezs.memoize = (key, func) => {
     if (!key || !settings.cacheEnable) {
         return func();
