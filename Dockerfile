@@ -1,9 +1,8 @@
-FROM node:12
+FROM node:20
 
 RUN mkdir /app
 WORKDIR /app
 
-COPY lerna.json ./
 COPY babel.config.js ./
 COPY jest.config.js ./
 

@@ -4,7 +4,8 @@
 
 This repository contains a JavaScript monorepo for the **EZS** project, a tool
 for processing data streams using a pipeline of instructions.  
-The project is managed with Lerna and Yarn workspaces.
+The project uses Yarn workspaces. Lerna is only used by the two release scripts
+(`release:version` and `release:publish`).
 
 The core package, `@ezs/core`, provides a set of "native instructions" that
 can be used to build complex data processing pipelines. These instructions
@@ -75,13 +76,14 @@ Example of a feature commit in `packages/foo`:
 git commit -m "feat(foo): Add a new feature to the foo package"
 ```
 
-### Lerna Workflows
+### Adding a package
 
-[Lerna](https://lerna.js.org/) is used to manage the monorepo.
+Create the package under `packages/<name>/` with its own `package.json`, add
+`packages/<name>` to the `workspaces` list in the root `package.json`, then run
+`yarn install`.
 
-* **Creating a new package:** `npx lerna create @ezs/package`
-* **Adding a dependency to a package:** `npx lerna add <dependency> --scope=@ezs/package`
-* **Bootstrapping packages:** `npx lerna bootstrap`
+To add a dependency to an existing package, use
+`yarn workspace @ezs/<name> add <dependency>`.
 
 ### Publishing
 
