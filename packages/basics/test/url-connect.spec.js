@@ -7,6 +7,14 @@ import statements from '../src';
 import { startEZSServer, stopEZSServer, getEZSHost } from './fake-ezs-server.js';
 import { startServer, stopServer, getHost } from './fake-server.js';
 
+// En haut du fichier, après les imports
+const NETWORK_ERROR =
+    /fetch failed|ENOTFOUND|EAI_AGAIN|ECONNREFUSED|getaddrinfo|Unable to connect/;
+
+const expectNetworkError = (e) => {
+    expect(`${e.message} ${e.cause?.code ?? ''}`).toMatch(NETWORK_ERROR);
+};
+
 ezs.addPath(__dirname);
 ezs.settings.servePath = __dirname;
 
@@ -393,11 +401,11 @@ describe('URLConnect inside expand', () => {
             .on('end', () => {
                 expect(output.length).toBe(5);
                 const outputSorted = output.sort((a, b) => a.id - b.id);
-                expect(outputSorted[0].value.message).toEqual(expect.stringContaining('fetch failed'));
+                expectNetworkError(outputSorted[0].value);
                 expect(outputSorted[1].value.message).toEqual(expect.stringContaining('The value has not been processed'));
-                expect(outputSorted[2].value.message).toEqual(expect.stringContaining('fetch failed'));
+                expectNetworkError(outputSorted[2].value);
                 expect(outputSorted[3].value.message).toEqual(expect.stringContaining('The value has not been processed'));
-                expect(outputSorted[4].value.message).toEqual(expect.stringContaining('fetch failed'));
+                expectNetworkError(outputSorted[4].value);
                 done();
             });
     }, 30000);

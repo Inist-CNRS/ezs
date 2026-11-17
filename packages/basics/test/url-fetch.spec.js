@@ -4,6 +4,14 @@ import statements from '../src';
 
 import { startServer, stopServer, getHost } from './fake-server.js';
 
+// En haut du fichier, après les imports
+const NETWORK_ERROR =
+    /fetch failed|ENOTFOUND|EAI_AGAIN|ECONNREFUSED|getaddrinfo|Unable to connect/;
+
+const expectNetworkError = (e) => {
+    expect(`${e.message} ${e.cause?.code ?? ''}`).toMatch(NETWORK_ERROR);
+};
+
 beforeAll(async () => {
     await startServer(2);
 });
@@ -352,16 +360,12 @@ describe('URLFetch', () => {
                 })
             )
             .on('error', (e) => {
-                if (typeof Bun === 'undefined') {
-                    expect(e.message).toEqual(
-                        expect.stringContaining('fetch failed')
-                    ); // node
-                } else {
-                    expect(e.message).toEqual(
-                        expect.stringContaining('Unable to connect')
-                    ); // bun
+                try {
+                    expectNetworkError(e);
+                } catch (ee) {
+                    return done(ee);
                 }
-                done();
+                return done();
             })
             .on('end', () => {
                 done(new Error('Error is the right behavior'));
@@ -374,18 +378,18 @@ describe('URLFetch', () => {
         from(input)
             .pipe(
                 ezs('URLFetch', {
-                    url: 'http://machin.truc.fr/',
+                    url: 'http://machin.truc.invalid/',
                     retries: 1,
                     timeout: 10000,
                 })
             )
             .on('error', (e) => {
-                if (typeof Bun === 'undefined') {
-                    expect(e.message).toContain('fetch failed');
-                } else {
-                    expect(e.message).toContain('Unable to connect');
+                try {
+                    expectNetworkError(e);
+                } catch (ee) {
+                    return done(ee);
                 }
-                done();
+                return done();
             })
             .on('end', () => {
                 done(new Error('Error is the right behavior'));

@@ -5,6 +5,13 @@ import ezs from '../../core/src';
 import statements from '../src';
 import { startServer, stopServer, getHost } from './fake-server.js';
 
+// En haut du fichier, après les imports
+const NETWORK_ERROR =
+    /fetch failed|ENOTFOUND|EAI_AGAIN|ECONNREFUSED|getaddrinfo|Unable to connect/;
+
+const expectNetworkError = (e) => {
+    expect(`${e.message} ${e.cause?.code ?? ''}`).toMatch(NETWORK_ERROR);
+};
 
 beforeAll(async () => {
     await startServer(4);
@@ -171,12 +178,12 @@ describe('URLStream', () => {
             }))
             .pipe(ezs.catch())
             .once('error', (e) => {
-                if (typeof Bun === 'function') {
-                    expect(e.message).toEqual(expect.stringContaining('Was there a typo in the url or port'));
-                } else {
-                    expect(e.message).toEqual(expect.stringContaining('fetch failed'));
+                try {
+                    expectNetworkError(e);
+                } catch (ee) {
+                    return done(ee);
                 }
-                done();
+                return done();
             })
             .on('data', (x) => {
                 done(new Error('Error is the right behavior'));
