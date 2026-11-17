@@ -26,7 +26,7 @@ describe('output', () => {
             .on('data', (data) => { res += data; })
             .on('end', () => {
                 expect(res).toHaveLength(104);
-                expect(res).toBe("{\n    \"meta\":{\n    },\n    \"data\":[\n    {\n    \"a\": 1,\n    \"b\": 2\n},\n    {\n    \"a\": 3,\n    \"b\": 4\n}]}\n    ");
+                expect(res).toBe('{\n    "meta":{\n    },\n    "data":[\n    {\n    "a": 1,\n    "b": 2\n},\n    {\n    "a": 3,\n    "b": 4\n}]}\n    ');
                 done();
             });
     });

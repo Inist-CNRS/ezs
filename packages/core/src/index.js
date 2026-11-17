@@ -20,10 +20,10 @@ const onlyOne = (item) => (Array.isArray(item) ? item.shift() : item);
 const ezs = (name, options = {}, environment) => {
     if (name === 'catch') {
         return new Catcher((e) => {
-            if (Boolean(options['ignore']) === true) {
+            if (Boolean(options.ignore) === true) {
                 return true;
             }
-            if (Boolean(options['emit']) === true) {
+            if (Boolean(options.emit) === true) {
                 return e;
             }
             return JSON.parse(JSON.stringify(e,
@@ -32,7 +32,7 @@ const ezs = (name, options = {}, environment) => {
         });
     }
     return new Engine(ezs, Statement.get(ezs, name, options), options, environment);
-}
+};
 const ezsCache = new LRU(settings.cache);
 
 // the names of the properties of the error and of the errors at its source,
@@ -180,5 +180,5 @@ ezs.createTrap = (file, env) => {
 };
 ezs.use(Statements);
 
-//module.exports = ezs;
+// module.exports = ezs;
 export default ezs;

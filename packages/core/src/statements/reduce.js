@@ -1,6 +1,6 @@
 import debug from 'debug';
-import { duplexer } from './parallel.js';
 import { index } from 'cacache';
+import { duplexer } from './parallel.js';
 /**
  * Delegate each value form array input to an external pipeline, throw each chunk from the result.
  *

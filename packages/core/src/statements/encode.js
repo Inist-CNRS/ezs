@@ -17,7 +17,7 @@ export default function encode(data, feed) {
         return feed.close();
     }
     if (mode === 'base64') {
-        _.set(data, path, Buffer.from(value).toString('base64'))
+        _.set(data, path, Buffer.from(value).toString('base64'));
     }
     if (mode === 'uri') {
         _.set(data, path, encodeURI(value));

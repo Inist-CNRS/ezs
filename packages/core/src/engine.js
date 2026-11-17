@@ -154,24 +154,24 @@ export default class Engine extends SafeTransform {
     queuing(chunk, next) {
         if (this.func) {
             return this.queue(chunk, next);
-        } else {
-            this.funcPromise
-                .then((func) => {
-                    if (typeof func != 'function'){
-                        this.emit('error', new Error(
-                            `'  ${func}' is not loaded. It's not a valid statement function.`,
-                        ));
-                        return next();
-                    }
-                    this.func = func;
-                    this.funcName = String(func.name || 'unamed');
-                    return this.queue(chunk, next);
-                })
-                .catch( (e) => {
-                    this.emit('error', e);
+        } 
+        this.funcPromise
+            .then((func) => {
+                if (typeof func !== 'function'){
+                    this.emit('error', new Error(
+                        `'  ${func}' is not loaded. It's not a valid statement function.`,
+                    ));
                     return next();
-                });
-        }
+                }
+                this.func = func;
+                this.funcName = String(func.name || 'unamed');
+                return this.queue(chunk, next);
+            })
+            .catch( (e) => {
+                this.emit('error', e);
+                return next();
+            });
+        
     }
 
     isReady() {
@@ -193,10 +193,10 @@ export default class Engine extends SafeTransform {
         }
         const warn = (error) => {
             if (!this.errorWasSent) {
-              this.errorWasSent = true;
-              const warnErr = createErrorWith(error, currentIndex, this.funcName, this.params, chunk);
-              debug('ezs:warn')('ezs engine emit an', this.ezs.serializeError(warnErr));
-              this.emit('error', warnErr);
+                this.errorWasSent = true;
+                const warnErr = createErrorWith(error, currentIndex, this.funcName, this.params, chunk);
+                debug('ezs:warn')('ezs engine emit an', this.ezs.serializeError(warnErr));
+                this.emit('error', warnErr);
             }
         };
         const push = (data) => {

@@ -122,7 +122,7 @@ describe('flow stream in stream', () => {
             });
     }, 10000);
 
-  it('with error #2', (done) => {
+    it('with error #2', (done) => {
         let res = 0;
         from([
             1,

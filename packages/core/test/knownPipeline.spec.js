@@ -141,7 +141,7 @@ describe(' through server(s)', () => {
                         res.body.on('end', () => {
                             assert.equal(output.length, 0);
                             done();
-                        })
+                        });
                     })
                     .catch(done);
             });
@@ -158,7 +158,7 @@ describe(' through server(s)', () => {
                         res.body.on('end', () => {
                             assert.equal(output.length, 0);
                             done();
-                        })
+                        });
                     })
                     .catch(done);
             });
@@ -450,8 +450,8 @@ describe(' through server(s)', () => {
             const stream = from(['1', '2', '3', '4', '5', '6', '7', '8', '9']);
             const output = [];
             const localOptions = options();
-            localOptions['headers']['Content-Encoding'] = 'gzip'
-            localOptions['headers']['Accept-Encoding'] = 'gzip'
+            localOptions.headers['Content-Encoding'] = 'gzip';
+            localOptions.headers['Accept-Encoding'] = 'gzip';
             const req = http.request(localOptions, (res) => {
                 const res2 = res.pipe(zlib.createGunzip());
                 res2.setEncoding('utf8');
@@ -471,7 +471,7 @@ describe(' through server(s)', () => {
             const stream = from(['1', '2', '3', '4', '5', '6', '7', '8', '9']);
             const output = [];
             const localOptions = options();
-            localOptions['headers']['Accept-Encoding'] = 'gzip'
+            localOptions.headers['Accept-Encoding'] = 'gzip';
             const req = http.request(localOptions, (res) => {
                 const res2 = res.pipe(zlib.createGunzip());
                 res2.setEncoding('utf8');

@@ -9,7 +9,7 @@ const pluginsList = {};
 function set(ezs, plugin) {
     if (typeof plugin !== 'object') {
         throw new Error(
-            "Statement is not loaded. It's not a valid plugin (should be an object)."
+            'Statement is not loaded. It\'s not a valid plugin (should be an object).'
         );
     }
     const pluginList = plugin.default ? plugin.default : plugin; // ES6 hack

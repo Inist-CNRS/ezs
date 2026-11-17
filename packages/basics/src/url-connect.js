@@ -106,7 +106,7 @@ export default async function URLConnect(data, feed) {
                             : bodyStream;
                         bodyOut.once('error', (e) => {
                             output.emit('error', e);
-                            //controller.abort();
+                            // controller.abort();
                         });
                         return bodyOut.pipe(output);
                     }

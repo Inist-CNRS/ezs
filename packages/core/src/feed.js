@@ -66,7 +66,7 @@ export default class Feed {
                 this.log(`Feed.flow.stream.resumewith ${data} and ${closed}/${autoCloseWanted}`);
                 stream.resume();
                 if (autoCloseWanted) {
-                    this.close()
+                    this.close();
                 }
             }
         });
@@ -85,6 +85,7 @@ export default class Feed {
         });
         return new Promise((resolve) => { this.log('Feed.flow.stream.end'); stream.once('end', resolve);});
     }
+
     log(x) {
         debug('ezs:debug')(this.engine.funcName, x);
     }

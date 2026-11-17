@@ -132,5 +132,5 @@ describe('encode/decode', () => {
                 done();
             });
     });
-})
+});
 

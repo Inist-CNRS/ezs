@@ -3,7 +3,7 @@ const sentencesCutter = (input) => {
         return [];
     }
     const regex = /(["'‘“'"[({⟨][^.?!]+[.?!]["'’”'"\])}⟩]|[^.?!]+[.?!\s]+)\s?/g;
-    const tokens = (input + ' ').match(regex);
+    const tokens = (`${input  } `).match(regex);
 
     if (!tokens) {
         return [input];

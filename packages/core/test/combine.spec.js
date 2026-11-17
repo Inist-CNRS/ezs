@@ -111,7 +111,7 @@ describe('combine', () => {
         `;
 
         from(input)
-                .pipe(ezs('combine', { path: 'b', script, default: 'n/a' }))
+            .pipe(ezs('combine', { path: 'b', script, default: 'n/a' }))
             .pipe(ezs.catch())
             .on('error', done)
             .on('data', (chunk) => {

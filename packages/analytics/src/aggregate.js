@@ -43,7 +43,7 @@ export default function aggregate(data, feed) {
         this.store = {};
     }
     if (this.isLast()) {
-        for (let key in this.store) {
+        for (const key in this.store) {
             feed.write(core(JSON.parse(key), this.store[key]));
         }
         feed.close();

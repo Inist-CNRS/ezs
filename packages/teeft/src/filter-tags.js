@@ -46,8 +46,8 @@ export default function TeeftFilterTags(data, feed) {
         lang === 'nolang'
             ? []
             : lang === 'en'
-            ? ['JJ', 'NN']
-            : ['ADJ', 'NOM', 'UNK']
+                ? ['JJ', 'NN']
+                : ['ADJ', 'NOM', 'UNK']
     );
 
     const docIn = data;

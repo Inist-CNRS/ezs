@@ -30,7 +30,7 @@ describe('ISTEXFilesContent', () => {
             .get('/document/87699D0C2000000000000000000000000F3B3363?sid=test')
             .reply(404, {
                 id: '87699D0C2000000000000000000000000F3B3363',
-                _error: "Ce document n'existe pas.",
+                _error: 'Ce document n\'existe pas.',
             });
 
         from([{ source: 'https://api.istex.fr/document/87699D0C2000000000000000000000000F3B3363?sid=test' }])

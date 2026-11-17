@@ -17,7 +17,7 @@ export default function decode(data, feed) {
         return feed.close();
     }
     if (mode === 'base64') {
-        _.set(data, path, Buffer.from(value, 'base64').toString())
+        _.set(data, path, Buffer.from(value, 'base64').toString());
     }
     if (mode === 'uri') {
         _.set(data, path, decodeURI(value));

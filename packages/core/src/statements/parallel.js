@@ -20,7 +20,7 @@ export const duplexer = (ezs, commands, environment, logger, funnel) => () => {
         .pipe(ezs.catch())
         .on('error', (e) => {
             if (e instanceof Error && e.message !== unused) {
-                funnel.write(e)
+                funnel.write(e);
             }
             resolve(true);
         }));
@@ -67,7 +67,7 @@ export default function parallel(data, feed) {
     }
     if (this.isLast()) {
         this.whenFinish.finally(() => {
-            feed.close()
+            feed.close();
         });
         this.ins.forEach((handle, index) => {
             if (!this.use[index]) {
