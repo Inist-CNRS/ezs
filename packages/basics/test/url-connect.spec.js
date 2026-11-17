@@ -359,7 +359,7 @@ describe('URLConnect', () => {
         from(input)
             .pipe(
                 ezs('URLConnect', {
-                    url: 'http://127.0.0.1:33331/undefined.ini',
+                    url: `${getEZSHost(1)}/undefined.ini`,
                     json: true,
                     retries: 1,
                 })
@@ -390,7 +390,7 @@ describe('URLConnect', () => {
         from(input)
             .pipe(
                 ezs('URLConnect', {
-                    url: 'http://127.0.0.1:33331/undefined.ini',
+                    url: `${getEZSHost(1)}/undefined.ini`,
                     streaming: true,
                 })
             )
