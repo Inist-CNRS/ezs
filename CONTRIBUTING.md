@@ -31,7 +31,7 @@ git commit -m "fix(core): Chuck Norris got it!"
 
 where the optional `(core)` part says that the fix concerns the core package.
 
-> **Note**: in this case, the lerna version will increase the patch version.
+> **Note**: in this case, the package version will increase the patch version.
 
 #### Add a feature
 
@@ -41,8 +41,7 @@ If you just added a feature in `packages/foo`:
 git commit -m "feat(foo): Add marvelous new feature bar"
 ```
 
-> **Note**: that will imply that
-> `npx lerna version --exact --conventional-commits` will increase at least
+> **Note**: that will imply that `npm run release:version` will increase at least
 > the minor version of the package.
 
 #### Breaking change
@@ -75,35 +74,32 @@ directly on the test file.
 npx jest packages/my-package/test/my-test.spec.js
 ```
 
-## Use lerna
+## Add a new package
 
-Use [lerna](https://lerna.js.org/) to
-[create](https://github.com/lerna/lerna/tree/v4.0.0/commands/create) a new
-package, [add](https://github.com/lerna/lerna/tree/v4.0.0/commands/add) a
-dependency to a new package.
+Create the package in `packages/<name>/` with its own `package.json`, add
+`packages/<name>` to the `workspaces` list in the root `package.json`, then
+install the dependencies (see [Install](#install)).
 
-Ex: `npx lerna create @ezs/package`.
+To add a dependency to an existing package, use:
 
-Each time you use a package-specific lerna command, don't forget to specify
-which package is targeted, with the `--scope=@ezs/package` option.
+```bash
+yarn workspace @ezs/<name> add <dependency>
+```
 
 ## Install
 
-To install the dependencies of the packages, use
-[bootstrap](https://github.com/lerna/lerna/tree/v4.0.0/commands/bootstrap).
+Install all dependencies (packages and root devDependencies) with:
 
 ```bash
-npx lerna bootstrap
+yarn install
 ```
-
-To install devDependencies (at root level), use `npm install`.
 
 ## Transpiling
 
-If you use [babel](https://babeljs.io) to transpile your code, use
+If you use [babel](https://babeljs.io) to transpile your code, use:
 
 ```bash
-npx lerna run build
+yarn build
 ```
 
 ## Publishing
@@ -133,15 +129,15 @@ within the npm organization.
 git clone https://github.com/touv/node-ezs ../old-ezs/core
 ```
 
-### Import the package with lerna
+### Import the package
 
-```bash
-npx lerna import ../old-ezs/core --flatten --preserve-commit
-```
+Copy `../old-ezs/core` into `packages/core`, and add `packages/core` to the
+`workspaces` list in the root `package.json` (see
+[Add a new package](#add-a-new-package)).
 
 ### Remove package-lock
 
-Because it seems that `lerna bootstrap` does not remove old packages.
+Remove the stale lockfile from the imported package.
 
 ```bash
 rm packages/core/package-lock.json
@@ -179,19 +175,14 @@ Add the badges (change `sparql` to the name of the package's directory):
 ### Hoist devDependencies
 
 We want to use the same dev dependencies for all packages, so we can hoist them
-to the root of the lerna repository.
+to the root of the repository.
 
 Don't hoist devDependencies like `@ezs/core` (but you shouldn't depend on `@ezs`
 package, see [Use the src files in tests](#use-the-src-files-in-tests)).
 
 ### Install package dependencies
 
-To install the dependencies of the packages, use
-[bootstrap](https://github.com/lerna/lerna/tree/master/commands/bootstrap).
-
-```bash
-npx lerna bootstrap
-```
+Run `yarn install` from the repository root (see [Install](#install)).
 
 ### Use the src files in tests
 
@@ -224,7 +215,7 @@ packages' root.
 To lint a single package (say `@ezs/analytics`), use:
 
 ```bash
-npx lerna run lint --scope=@ezs/analytics
+yarn workspace @ezs/analytics lint
 ```
 
 ### List the new package
