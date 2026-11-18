@@ -143,22 +143,25 @@ const knownPipeline = (ezs) => (request, response, next) => {
             done();
         },
     });
-    const fail = (e) => {
+    // the only way out on error: the first one wins, the next ones
+    // (such as the output closed below) are ignored
+    const fail = (e, code = 400) => {
         if (failed) {
             return;
         }
         failed = true;
         rawStream.destroy();
         decodedStream.destroy();
-        if (response.headersSent && packedOutput) {
+        if (code === 400 && response.headersSent && packedOutput) {
             // too late for an error status: the error is the last line of the output
             errorStream.push(packLine(ezs, e, append2Pipeline.args.path));
             errorStream.push(null);
             return;
         }
         outputStream.unpipe(response);
-        triggerError(e, 400);
         errorStream.destroy();
+        bufferStream.destroy(); // eslint-disable-line no-use-before-define
+        triggerError(e, code);
     };
     errorStream.on('error', fail);
     const bufferStream = ezs.toBuffer();
@@ -174,12 +177,7 @@ const knownPipeline = (ezs) => (request, response, next) => {
         bufferStream,
         ezs.compress(response.getHeaders()),
         outputStream,
-        (e) => {
-            if (e) {
-                outputStream.unpipe(response);
-                triggerError(e, 500);
-            }
-        }
+        (e) => e && fail(e, 500),
     );
 
     request

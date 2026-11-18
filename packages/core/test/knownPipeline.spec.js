@@ -148,14 +148,20 @@ describe(' through server(s)', () => {
             it('buggy5.ini', failAfterHeaders('buggy5.ini'));
 
             // with pack, the error is the last line, and unpack throws it
-            const failInPack = (script, message) => (done) => {
+            const failInPack = (script, message, encoding, unpackParams) => (done) => {
                 const output = [];
                 const input = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-                fetch(`http://127.0.0.1:33333/${script}`, { method: 'POST', body: from(input) })
+                fetch(`http://127.0.0.1:33333/${script}`, {
+                    method: 'POST',
+                    body: from(input),
+                    headers: { 'Accept-Encoding': encoding },
+                })
                     .then((res) => {
                         assert.equal(res.status, 200);
+                        // the error line must not break the compressed stream
+                        assert.equal(res.headers.get('content-encoding'), encoding);
                         res.body
-                            .pipe(ezs('unpack'))
+                            .pipe(ezs('unpack', unpackParams))
                             .pipe(ezs.catch())
                             .on('data', (chunk) => output.push(chunk))
                             .on('error', (e) => {
@@ -167,8 +173,10 @@ describe(' through server(s)', () => {
                     })
                     .catch(done);
             };
-            it('buggy6.ini (pack, error thrown)', failInPack('buggy6.ini', 'Plaf!'));
-            it('buggy7.ini (pack, error sent)', failInPack('buggy7.ini', 'Plof!'));
+            it('buggy6.ini (pack, error thrown, gzip)', failInPack('buggy6.ini', 'Plaf!', 'gzip'));
+            it('buggy6.ini (pack, error thrown)', failInPack('buggy6.ini', 'Plaf!', 'identity'));
+            it('buggy7.ini (pack, error sent, gzip)', failInPack('buggy7.ini', 'Plof!', 'gzip'));
+            it('buggy8.ini (pack with a path)', failInPack('buggy8.ini', 'Plof!', 'gzip', { path: 'value' }));
         });
     }
 
