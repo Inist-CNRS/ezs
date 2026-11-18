@@ -9,6 +9,9 @@ export default class Feed {
         this.done = once(done);
         this.error = once(error);
         this.seal = once(() => {
+            if (this.timer) {
+                this.timer.clear();
+            }
             // ensure that all current writing operations are completed
             setImmediate(() => {
                 push(null);
@@ -39,7 +42,8 @@ export default class Feed {
         if (this.timeout > 0) {
             this.timer = retimer(() => {
                 this.stop(new Error(`The pipe has not received any data for ${this.timeout} milliseconds.`));
-                return stream.end();
+                // a plain Readable (e.g. a database cursor) has no end()
+                return typeof stream.end === 'function' ? stream.end() : stream.destroy();
             }, this.timeout);
         }
 
@@ -70,12 +74,8 @@ export default class Feed {
                 }
             }
         });
-        stream.once('error', (e) => {
-            if (this.timer) {
-                this.timer.clear();
-            }
-            return this.stop(e);
-        });
+        // keep listening: a stream can emit more than one error, and one without listener crashes the process
+        stream.on('error', (e) => this.stop(e));
         stream.once('end', () => {
             this.log('Feed.flow.stream.end');
             if (this.timer) {

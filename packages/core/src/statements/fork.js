@@ -63,7 +63,7 @@ export default async function fork(data, feed) {
         if (standalone) {
             output
                 .on('data', () => true)
-                .once('error', async () => {
+                .on('error', async () => {
                     await disableFusible(this.fusible);
                 })
                 .once('end', async () => {
@@ -72,7 +72,7 @@ export default async function fork(data, feed) {
         } else {
             this.whenFinish = new Promise((resolve) => output
                 .pipe(ezs.catch((e) => feed.write(e))) // avoid to break pipeline at each error
-                .once('error', async (e) => {
+                .on('error', async (e) => {
                     await disableFusible(this.fusible);
                     feed.stop(e);
                 })
