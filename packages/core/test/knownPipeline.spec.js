@@ -170,6 +170,8 @@ describe(' through server(s)', () => {
                                 // unpack catches what this listener throws: report it to jest
                                 try {
                                     const before = [1, 2, 3, 4, 5, 6];
+                                    // the 200 status means some data came first
+                                    assert.ok(output.length > 0);
                                     assert.deepEqual(output, allDataFirst ? before : before.slice(0, output.length));
                                     assert.ok(ezs.serializeError(e).includes(message));
                                     done();

@@ -7,7 +7,7 @@ import once from 'once';
 import merge from 'lodash/merge.js';
 import cloneDeep from 'lodash/cloneDeep.js';
 import { metricsHandle } from './metrics.js';
-import errorHandler from './errorHandler.js';
+import errorHandler, { reportError } from './errorHandler.js';
 import { isFile } from '../file.js';
 import breaker from '../statements/breaker.js';
 import { packLine } from '../statements/pack.js';
@@ -154,6 +154,7 @@ const knownPipeline = (ezs) => (request, response, next) => {
         decodedStream.destroy();
         if (code === 400 && response.headersSent && packedOutput) {
             // too late for an error status: the error is the last line of the output
+            reportError(ezs, request)(e, code);
             errorStream.push(packLine(ezs, e, append2Pipeline.args.path));
             errorStream.push(null);
             return;
