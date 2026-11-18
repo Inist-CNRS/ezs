@@ -7,7 +7,8 @@ const errorHandler = (ezs, request, response) => (error, code = 400) => {
     debug('ezs:error')(`Server has caught an error #${code}`, stringError);
     httpRequestErrorTotal.labels(request.pathName).inc();
     if (response.headersSent) {
-        return response.end();
+        // too late for an error status: a broken connection tells the client
+        return response.destroy();
     }
     const bodyResponse = JSONB.stringify(JSON.parse(stringError));
     response.writeHead(code, {

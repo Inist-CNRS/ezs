@@ -128,40 +128,47 @@ describe(' through server(s)', () => {
                     })
                     .catch(done);
             });
-            it('buggy4.ini', (done) => {
-                const output = [];
+            // the error comes after the first data: too late for an error status
+            const failAfterHeaders = (script) => (done) => {
                 const input = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-                const stream = from(input);
-                fetch('http://127.0.0.1:33333/buggy4.ini', { method: 'POST', body: stream })
+                fetch(`http://127.0.0.1:33333/${script}`, { method: 'POST', body: from(input) })
                     .then((res) => {
-                        res.body.on('data', (chunk) => {
-                            output.push(chunk);
-                        });
-                        res.body.on('error', done);
-                        res.body.on('end', () => {
-                            assert.equal(output.length, 0);
+                        assert.equal(res.status, 200);
+                        res.body.on('data', () => true);
+                        res.body.on('error', (e) => {
+                            // the connection is broken, not ended as if all was fine
+                            assert.equal(e.message, 'Premature close');
                             done();
                         });
+                        res.body.on('end', () => done(new Error('The response should not end cleanly')));
                     })
                     .catch(done);
-            });
-            it('buggy5.ini', (done) => {
+            };
+            it('buggy4.ini', failAfterHeaders('buggy4.ini'));
+            it('buggy5.ini', failAfterHeaders('buggy5.ini'));
+
+            // with pack, the error is the last line, and unpack throws it
+            const failInPack = (script, message) => (done) => {
                 const output = [];
                 const input = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-                const stream = from(input);
-                fetch('http://127.0.0.1:33333/buggy5.ini', { method: 'POST', body: stream })
+                fetch(`http://127.0.0.1:33333/${script}`, { method: 'POST', body: from(input) })
                     .then((res) => {
-                        res.body.on('data', (chunk) => {
-                            output.push(chunk);
-                        });
-                        res.body.on('error', done);
-                        res.body.on('end', () => {
-                            assert.equal(output.length, 0);
-                            done();
-                        });
+                        assert.equal(res.status, 200);
+                        res.body
+                            .pipe(ezs('unpack'))
+                            .pipe(ezs.catch())
+                            .on('data', (chunk) => output.push(chunk))
+                            .on('error', (e) => {
+                                assert.deepEqual(output, [1, 2, 3, 4, 5, 6]);
+                                assert.ok(ezs.serializeError(e).includes(message));
+                                done();
+                            })
+                            .on('end', () => done(new Error('unpack should throw the error')));
                     })
                     .catch(done);
-            });
+            };
+            it('buggy6.ini (pack, error thrown)', failInPack('buggy6.ini', 'Plaf!'));
+            it('buggy7.ini (pack, error sent)', failInPack('buggy7.ini', 'Plof!'));
         });
     }
 
