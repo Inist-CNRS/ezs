@@ -148,7 +148,9 @@ describe(' through server(s)', () => {
             it('buggy5.ini', failAfterHeaders('buggy5.ini'));
 
             // with pack, the error is the last line, and unpack throws it
-            const failInPack = (script, message, encoding, unpackParams) => (done) => {
+            // an error sent as an item (plof) comes after all the data before it, but
+            // an error thrown by feed.stop (plaf) can overtake the data still in progress
+            const failInPack = (script, message, encoding, { unpackParams, allDataFirst = true } = {}) => (done) => {
                 const output = [];
                 const input = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
                 fetch(`http://127.0.0.1:33333/${script}`, {
@@ -165,18 +167,24 @@ describe(' through server(s)', () => {
                             .pipe(ezs.catch())
                             .on('data', (chunk) => output.push(chunk))
                             .on('error', (e) => {
-                                assert.deepEqual(output, [1, 2, 3, 4, 5, 6]);
-                                assert.ok(ezs.serializeError(e).includes(message));
-                                done();
+                                // unpack catches what this listener throws: report it to jest
+                                try {
+                                    const before = [1, 2, 3, 4, 5, 6];
+                                    assert.deepEqual(output, allDataFirst ? before : before.slice(0, output.length));
+                                    assert.ok(ezs.serializeError(e).includes(message));
+                                    done();
+                                } catch (assertion) {
+                                    done(assertion);
+                                }
                             })
                             .on('end', () => done(new Error('unpack should throw the error')));
                     })
                     .catch(done);
             };
-            it('buggy6.ini (pack, error thrown, gzip)', failInPack('buggy6.ini', 'Plaf!', 'gzip'));
-            it('buggy6.ini (pack, error thrown)', failInPack('buggy6.ini', 'Plaf!', 'identity'));
+            it('buggy6.ini (pack, error thrown, gzip)', failInPack('buggy6.ini', 'Plaf!', 'gzip', { allDataFirst: false }));
+            it('buggy6.ini (pack, error thrown)', failInPack('buggy6.ini', 'Plaf!', 'identity', { allDataFirst: false }));
             it('buggy7.ini (pack, error sent, gzip)', failInPack('buggy7.ini', 'Plof!', 'gzip'));
-            it('buggy8.ini (pack with a path)', failInPack('buggy8.ini', 'Plof!', 'gzip', { path: 'value' }));
+            it('buggy8.ini (pack with a path)', failInPack('buggy8.ini', 'Plof!', 'gzip', { unpackParams: { path: 'value' } }));
         });
     }
 
