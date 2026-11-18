@@ -8,8 +8,9 @@ const eol = '\n';
  * @private
  */
 export const packLine = (ezs, data, path) => {
-    const value = !path ? data : set({}, path, data);
-    const replacer = (key, val) => val instanceof Error ? { '__Error': ezs.serializeError(val) } : val;
+    const key = [].concat(path || []).filter(Boolean).shift();
+    const value = !key ? data : set({}, key, data);
+    const replacer = (k, val) => val instanceof Error ? { '__Error': ezs.serializeError(val) } : val;
     return JSON.stringify(value, replacer).concat(eol);
 };
 
@@ -24,6 +25,5 @@ export default function pack(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
-    const path = [].concat(this.getParam('path', [])).filter(Boolean).shift();
-    return feed.send(packLine(this.ezs, data, path));
+    return feed.send(packLine(this.ezs, data, this.getParam('path')));
 }
