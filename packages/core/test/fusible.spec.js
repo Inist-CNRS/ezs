@@ -21,7 +21,7 @@ test('fusible', async () => {
     expect(isCheckKO).toBe(false);
     const isCheckKOBIS = await checkFusible();
     expect(isCheckKOBIS).toBe(false);
-    const isNotCorrect = await watchFusible()
+    const isNotCorrect = await watchFusible();
     expect(isNotCorrect).toBe(false);
 });
 

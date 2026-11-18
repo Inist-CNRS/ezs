@@ -1,22 +1,23 @@
-"use strict";
-import {toKbart} from "@istex/istex-exchange";
-import hl from "highland";
-import istexExchange from "./istex-exchange";
+'use strict';
+
+import {toKbart} from '@istex/istex-exchange';
+import hl from 'highland';
+import istexExchange from './istex-exchange';
 
 
 function ISTEXToKbart (data, feed) {
-  if (this.isLast()) {
-    return feed.close();
-  }
-  const source = data === istexExchange.TRIGGER_HEADER ? [] : [data];
+    if (this.isLast()) {
+        return feed.close();
+    }
+    const source = data === istexExchange.TRIGGER_HEADER ? [] : [data];
 
-  hl(source)
-    .through(toKbart({header: this.isFirst()}))
-    .stopOnError((err) => {feed.stop(err)})
-    .each((kbartLine) => {feed.write(kbartLine)})
-    .done(() => {feed.end()});
+    hl(source)
+        .through(toKbart({header: this.isFirst()}))
+        .stopOnError((err) => {feed.stop(err);})
+        .each((kbartLine) => {feed.write(kbartLine);})
+        .done(() => {feed.end();});
 }
 
 export default {
-  ISTEXToKbart
+    ISTEXToKbart
 };

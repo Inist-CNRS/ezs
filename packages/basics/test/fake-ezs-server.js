@@ -5,7 +5,7 @@ import ezs from '../../core/src';
 ezs.addPath(__dirname);
 ezs.settings.servePath = __dirname;
 
-const PORT = 4444
+const PORT = 4444;
 
 const httpServer = [];
 

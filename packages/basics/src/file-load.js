@@ -67,5 +67,5 @@ export default async function FILELoad(data, feed) {
         await streamClosed;
         await fs.promises.unlink(filename);
     }
-    return;
+    
 }

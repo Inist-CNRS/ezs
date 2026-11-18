@@ -8,7 +8,7 @@ const eol = '\n';
 const deserializeError = (stringError) => {
     const objError = JSON.parse(stringError);
     return Object.assign(new Error(objError.message), objError);
-}
+};
 const reviver = (key, val) => val?.__Error ? deserializeError(val.__Error) : val;
 
 /**

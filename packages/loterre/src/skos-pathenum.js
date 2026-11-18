@@ -41,14 +41,14 @@ async function getBroaderAndNarrower(data, feed) {
         }
         const store = this.getEnv();
         const concept = data.value[0];
-        const paths = Array()
+        const paths = []
             .concat(this.getParam('path'))
             .filter(path => has(concept, path));
-        const uriPath = Array()
+        const uriPath = []
             .concat(this.getParam('uri', 'rdf$about'))
             .filter(Boolean)
             .shift();
-        const labelPath = Array()
+        const labelPath = []
             .concat(this.getParam('label', 'skos$prefLabel'))
             .filter(Boolean)
             .shift();

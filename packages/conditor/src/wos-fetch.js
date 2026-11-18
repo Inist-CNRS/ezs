@@ -109,7 +109,7 @@ export default async function WOSFetch(data, feed) {
         const cURLBis = new URL(`${url}/query/${QueryID}`);
         try {
             const RecordsBis = await retry(async (bail, attempt) => {
-                const dataBis = pick(data, ['sortField', 'viewField', 'optionView', 'optionOther', 'links'])
+                const dataBis = pick(data, ['sortField', 'viewField', 'optionView', 'optionOther', 'links']);
                 dataBis.count = step;
                 dataBis.firstRecord = firstRecord;
                 if (firstRecord > RecordsFound) {

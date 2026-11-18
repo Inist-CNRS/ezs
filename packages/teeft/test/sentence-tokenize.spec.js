@@ -42,7 +42,7 @@ describe('sentence-tokenize', () => {
             },
             {
                 path: '/path/2',
-                content: "Et ça j'en suis sûr. Maintenant!",
+                content: 'Et ça j\'en suis sûr. Maintenant!',
             },
         ])
             .pipe(ezs('TeeftSentenceTokenize'))
@@ -58,7 +58,7 @@ describe('sentence-tokenize', () => {
                     },
                     {
                         path: '/path/2',
-                        sentences: ["Et ça j'en suis sûr.", 'Maintenant!'],
+                        sentences: ['Et ça j\'en suis sûr.', 'Maintenant!'],
                     },
                 ]);
                 done();
@@ -74,7 +74,7 @@ describe('sentence-tokenize', () => {
             },
             {
                 path: '/path/2',
-                content: "Et ça j'en suis sûr. Maintenant!",
+                content: 'Et ça j\'en suis sûr. Maintenant!',
             },
         ])
             .pipe(ezs('TeeftSentenceTokenize'))
@@ -90,7 +90,7 @@ describe('sentence-tokenize', () => {
                     },
                     {
                         path: '/path/2',
-                        sentences: ["Et ça j'en suis sûr.", 'Maintenant!'],
+                        sentences: ['Et ça j\'en suis sûr.', 'Maintenant!'],
                     },
                 ]);
                 done();

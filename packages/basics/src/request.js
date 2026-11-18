@@ -12,9 +12,9 @@ const request = (url, parameters) => async (bail) => {
             raw instanceof Error
                 ? raw
                 : Object.assign(new Error(raw?.message ?? String(raw)), {
-                      name: raw?.name ?? 'FetchError',
-                      cause: raw,
-                  });
+                    name: raw?.name ?? 'FetchError',
+                    cause: raw,
+                });
         if (err.name === 'AbortError' || err.name === 'TimeoutError') {
             return bail(err);
         }

@@ -1,5 +1,5 @@
-import settings from '../settings.js';
 import set  from 'lodash/set.js';
+import settings from '../settings.js';
 
 /**
  * Take all `chunk`s, and throw them grouped by `length`.

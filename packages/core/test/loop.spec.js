@@ -32,7 +32,7 @@ describe('one loop for ', () => {
             { a: 1, b: 1 },
         ])
             .pipe(ezs('loop', {
-                test: new Expression("get('a').isEqual(2)"),
+                test: new Expression('get(\'a\').isEqual(2)'),
                 script,
             }))
             .pipe(ezs.catch())
@@ -58,7 +58,7 @@ describe('one loop for ', () => {
             { a: 1, b: 1 },
         ])
             .pipe(ezs('loop', {
-                test: new Expression("get('a').isEqual(2)"),
+                test: new Expression('get(\'a\').isEqual(2)'),
                 script,
             }))
             .pipe(ezs.catch())
@@ -101,7 +101,7 @@ describe('X loops ', () => {
             { a: 1, b: 1 },
         ])
             .pipe(ezs('loop', {
-                test: new Expression("get('a').isEqual('loop')"),
+                test: new Expression('get(\'a\').isEqual(\'loop\')'),
                 script: scriptX2,
             }))
             .pipe(ezs.catch())
@@ -127,7 +127,7 @@ describe('X loops ', () => {
             { a: 1, b: 1 },
         ])
             .pipe(ezs('loop', {
-                test: new Expression("get('a').isEqual('loop')"),
+                test: new Expression('get(\'a\').isEqual(\'loop\')'),
                 script: scriptX99,
             }))
             .pipe(ezs.catch())
@@ -153,7 +153,7 @@ describe('X loops ', () => {
             { a: 1, b: 1 },
         ])
             .pipe(ezs('loop', {
-                test: new Expression("get('a').isEqual('loop')"),
+                test: new Expression('get(\'a\').isEqual(\'loop\')'),
                 script: scriptX99,
                 maxDepth: 5,
             }))
@@ -186,7 +186,7 @@ describe('reverse test ', () => {
         ])
             .pipe(ezs('loop', {
                 reverse: true,
-                test: new Expression("has('b')"),
+                test: new Expression('has(\'b\')'),
                 script,
             }))
             .pipe(ezs.catch())
@@ -327,7 +327,7 @@ describe('error for ', () => {
             { a: 1, b: 9 },
         ])
             .pipe(ezs('loop', {
-                test: new Expression("get('b').isEqual(9)"),
+                test: new Expression('get(\'b\').isEqual(9)'),
                 commands,
             }))
             .pipe(ezs.catch())
@@ -353,7 +353,7 @@ describe('error for ', () => {
             { a: 1, b: 9 },
         ])
             .pipe(ezs('loop', {
-                test: new Expression("get('b').isEqual(9)"),
+                test: new Expression('get(\'b\').isEqual(9)'),
                 commands,
             }))
             .pipe(ezs.catch())
@@ -379,7 +379,7 @@ describe('error for ', () => {
             { a: 1, b: 9 },
         ])
             .pipe(ezs('loop', {
-                test: new Expression("get('b').isEqual(9)"),
+                test: new Expression('get(\'b\').isEqual(9)'),
                 commands,
             }))
             .pipe(ezs.catch())

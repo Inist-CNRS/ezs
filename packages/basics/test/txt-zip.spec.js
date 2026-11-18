@@ -10,7 +10,7 @@ describe('txt-zip', () => {
     it('should zip a stream containing a string', (done) => {
         let length = 0;
         const input =
-            "Ahahahaha this is a longer string, to see if it's more efficient! " +
+            'Ahahahaha this is a longer string, to see if it\'s more efficient! ' +
             'When there is a gzip wrapper, the text should be longer';
         from([input])
             .pipe(ezs('TXTZip'))
@@ -28,7 +28,7 @@ describe('txt-zip', () => {
         let length = 0;
         let chunksNb = 0;
         const input1 =
-            "Ahahahaha this is a longer string, to see if it's more efficient!";
+            'Ahahahaha this is a longer string, to see if it\'s more efficient!';
         const input2 =
             'And this is the second string, that should be long to see a compression rate.';
         from([input1, input2])
@@ -49,7 +49,7 @@ describe('txt-zip', () => {
         const inflate = new pako.Inflate({ to: 'string' });
 
         const input1 =
-            "Ahahahaha this is a longer string, to see if it's more efficient!";
+            'Ahahahaha this is a longer string, to see if it\'s more efficient!';
         const input2 =
             'And this is the second string, that should be long to see a compression rate.';
         from([input1, input2])
@@ -76,7 +76,7 @@ describe('txt-zip', () => {
         const input1 =
             'Ahahahaha je fais une chaîne assez longue pour constater une compression.';
         const input2 =
-            "Et ça c'est la seconde chaîne, avec des accents insérés, pour vérifier l'encodage.";
+            'Et ça c\'est la seconde chaîne, avec des accents insérés, pour vérifier l\'encodage.';
         from([input1, input2])
             .pipe(ezs('TXTZip'))
             .on('data', (chunk) => {
@@ -97,7 +97,7 @@ describe('txt-zip', () => {
         const input1 =
             'Ahahahaha je fais une chaîne assez longue pour constater une compression.';
         const input2 =
-            "Et ça c'est la seconde chaîne, avec des accents insérés, pour vérifier l'encodage.";
+            'Et ça c\'est la seconde chaîne, avec des accents insérés, pour vérifier l\'encodage.';
         from([input1, input2])
             .pipe(ezs('TXTZip'))
             .on('data', (chunk) => {
@@ -121,7 +121,7 @@ describe('txt-zip', () => {
         const input1 =
             'Ahahahaha je fais une chaîne assez longue pour constater une compression.';
         const input2 =
-            "Et ça c'est la seconde chaîne, avec des accents insérés, pour vérifier l'encodage.";
+            'Et ça c\'est la seconde chaîne, avec des accents insérés, pour vérifier l\'encodage.';
         const chunks = [];
         from([input1, input2])
             .pipe(ezs('TXTZip', { unzip: false }))

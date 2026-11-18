@@ -30,6 +30,9 @@ jobs:
             - name: Install dependencies
               run: yarn run ci:install
 
+            - name: Linting all packages
+              run: yarn run lint
+
             - name: Testing all packages
               env:
                   DEBUG: 'ezs:error,ezs:warn'

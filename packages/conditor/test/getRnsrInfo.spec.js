@@ -152,7 +152,7 @@ describe('getRnsrInfo', () => {
                             {
                                 etab: {
                                     libelle:
-                                        "Institut national de recherche pour l'agriculture, l'alimentation et l'environnement",
+                                        'Institut national de recherche pour l\'agriculture, l\'alimentation et l\'environnement',
                                     libelleAppauvri:
                                         'institut national de recherche pour l agriculture, l alimentation et l environnement',
                                     sigle: 'INRAE',
@@ -297,7 +297,7 @@ describe('getRnsrInfo', () => {
                             {
                                 etab: {
                                     libelle:
-                                        "Commissariat à l'énergie atomique et aux énergies alternatives",
+                                        'Commissariat à l\'énergie atomique et aux énergies alternatives',
                                     libelleAppauvri:
                                         'commissariat a l energie atomique et aux energies alternatives',
                                     sigle: 'CEA',
@@ -309,7 +309,7 @@ describe('getRnsrInfo', () => {
                             },
                         ],
                         intitule:
-                            "Laboratoire des Sciences du Climat et de l'Environnement UMR 8212",
+                            'Laboratoire des Sciences du Climat et de l\'Environnement UMR 8212',
                         intituleAppauvri:
                             'laboratoire des sciences du climat et de l environnement umr 8212',
                         num_nat_struct: '200611689J',
@@ -371,7 +371,7 @@ describe('getRnsrInfo', () => {
                             {
                                 etab: {
                                     libelle:
-                                        "Commissariat à l'énergie atomique et aux énergies alternatives",
+                                        'Commissariat à l\'énergie atomique et aux énergies alternatives',
                                     libelleAppauvri:
                                         'commissariat a l energie atomique et aux energies alternatives',
                                     sigle: 'CEA',
@@ -383,7 +383,7 @@ describe('getRnsrInfo', () => {
                             },
                         ],
                         intitule:
-                            "Laboratoire des Sciences du Climat et de l'Environnement UMR 8212",
+                            'Laboratoire des Sciences du Climat et de l\'Environnement UMR 8212',
                         intituleAppauvri:
                             'laboratoire des sciences du climat et de l environnement umr 8212',
                         num_nat_struct: '200611689J',
@@ -445,7 +445,7 @@ describe('getRnsrInfo', () => {
                             {
                                 etab: {
                                     libelle:
-                                        "Commissariat à l'énergie atomique et aux énergies alternatives",
+                                        'Commissariat à l\'énergie atomique et aux énergies alternatives',
                                     libelleAppauvri:
                                         'commissariat a l energie atomique et aux energies alternatives',
                                     sigle: 'CEA',
@@ -457,7 +457,7 @@ describe('getRnsrInfo', () => {
                             },
                         ],
                         intitule:
-                            "Laboratoire des Sciences du Climat et de l'Environnement UMR 8212",
+                            'Laboratoire des Sciences du Climat et de l\'Environnement UMR 8212',
                         intituleAppauvri:
                             'laboratoire des sciences du climat et de l environnement umr 8212',
                         num_nat_struct: '200611689J',

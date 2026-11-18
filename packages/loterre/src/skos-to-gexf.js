@@ -73,14 +73,14 @@ async function SKOSToGexf(data, feed) {
             feed.close();
         });
     } else {
-        const paths = Array()
+        const paths = []
             .concat(this.getParam('path'))
             .filter(path => has(data, path));
-        const uriPath = Array()
+        const uriPath = []
             .concat(this.getParam('uri', 'rdf$about'))
             .filter(Boolean)
             .shift();
-        const labelPath = Array()
+        const labelPath = []
             .concat(this.getParam('label', 'skos$prefLabel'))
             .filter(Boolean)
             .shift();

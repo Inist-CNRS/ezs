@@ -1328,7 +1328,7 @@ La description
             }))
             .pipe(ezs('assign', {
                 path: 'c',
-                value: new Expression("env('c')"),
+                value: new Expression('env(\'c\')'),
             }, env))
             .on('data', (chunk) => {
                 res += chunk.c;
@@ -1356,7 +1356,7 @@ La description
             }, env))
             .pipe(ezs('assign', {
                 path: 'b',
-                value: new Expression("env('c')"),
+                value: new Expression('env(\'c\')'),
             }, env))
             .on('data', (chunk) => {
                 res += chunk.b;
@@ -1384,7 +1384,7 @@ La description
             }, env))
             .pipe(ezs('assign', {
                 path: 'check',
-                value: new Expression("env('check')"),
+                value: new Expression('env(\'check\')'),
             }, env))
             .on('data', (chunk) => {
                 res += chunk.a;
@@ -1431,9 +1431,9 @@ La description
             { a: 4, b: 5 },
             { a: 5, b: 5 },
         ])
-            .pipe(ezs('env', { path: 'b', value: new Expression("get('b')") }, env))
+            .pipe(ezs('env', { path: 'b', value: new Expression('get(\'b\')') }, env))
             .pipe(ezs('replace', { path: 'toto', value: 'truc' }, env))
-            .pipe(ezs('assign', { path: 'b', value: new Expression("env('b')") }, env))
+            .pipe(ezs('assign', { path: 'b', value: new Expression('env(\'b\')') }, env))
             .on('data', (chunk) => {
                 assert(typeof chunk === 'object');
                 res.push(chunk);

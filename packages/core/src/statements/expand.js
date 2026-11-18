@@ -163,7 +163,7 @@ export default async function expand(data, feed) {
             const originData = this.store[key];
             delete this.store[key];
             if (originData === undefined || originData === null) {
-                feed.stop(new Error(`id was corrupted with`));
+                feed.stop(new Error('id was corrupted with'));
             }
             else {
                 _.set(originData, path, new Error('The value has not been processed'));
@@ -218,7 +218,7 @@ export default async function expand(data, feed) {
                 const originData = this.store[e.sourceID];
                 delete this.store[e.sourceID];
                 if (originData === undefined || originData === null) {
-                    feed.stop(new Error(`id was corrupted with`));
+                    feed.stop(new Error('id was corrupted with'));
                 }
                 else  {
                     _.set(originData, path, e);

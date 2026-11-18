@@ -3,7 +3,7 @@ import assert from 'assert';
 import from from 'from';
 import ezs from '../../core/src';
 import statements from '../src';
-import basics from '../../basics/src';
+import basics from '../src';
 
 ezs.addPath(__dirname);
 

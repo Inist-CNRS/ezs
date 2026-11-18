@@ -13,7 +13,7 @@ describe('generateARK', () => {
         { key: 'value' },
         { key: 'value' },
         { key: 'value' },
-    ]
+    ];
     test('basic', (done) => {
         let cnt = 0;
         from(input)
@@ -34,7 +34,7 @@ describe('generateARK', () => {
             });
     });
     test('without naan', (done) => {
-        let cnt = 0;
+        const cnt = 0;
         from(input)
             .pipe(ezs('generateARK', { }))
             .pipe(ezs.catch())
@@ -52,7 +52,7 @@ describe('generateARK', () => {
             });
     });
     test('without subpublisher', (done) => {
-        let cnt = 0;
+        const cnt = 0;
         from(input)
             .pipe(ezs('generateARK', {
                 naan: '12345',
@@ -72,7 +72,7 @@ describe('generateARK', () => {
             });
     });
     test('without databasePath', (done) => {
-        let cnt = 0;
+        const cnt = 0;
         from(input)
             .pipe(ezs('generateARK', {
                 naan: '12345',

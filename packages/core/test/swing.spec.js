@@ -33,7 +33,7 @@ describe('swing through file(s)', () => {
         ])
             .pipe(ezs('swing', {
                 reverse: true,
-                test: new Expression("get('a').isEqual(2)"),
+                test: new Expression('get(\'a\').isEqual(2)'),
                 script,
             }))
             .pipe(ezs.catch())
@@ -59,7 +59,7 @@ describe('swing through file(s)', () => {
             { a: 1, b: 9 },
         ])
             .pipe(ezs('swing', {
-                test: new Expression("get('a').isEqual(2)"),
+                test: new Expression('get(\'a\').isEqual(2)'),
                 script,
             }))
             .pipe(ezs.catch())
@@ -203,7 +203,7 @@ describe('swing through file(s)', () => {
             { a: 1, b: 9 },
         ])
             .pipe(ezs('swing', {
-                test: new Expression("get('b').isEqual(9)"),
+                test: new Expression('get(\'b\').isEqual(9)'),
                 commands,
             }))
             .pipe(ezs.catch())
@@ -229,7 +229,7 @@ describe('swing through file(s)', () => {
             { a: 1, b: 9 },
         ])
             .pipe(ezs('swing', {
-                test: new Expression("get('b').isEqual(9)"),
+                test: new Expression('get(\'b\').isEqual(9)'),
                 commands,
             }))
             .pipe(ezs.catch())
@@ -255,7 +255,7 @@ describe('swing through file(s)', () => {
             { a: 1, b: 9 },
         ])
             .pipe(ezs('swing', {
-                test: new Expression("get('b').isEqual(9)"),
+                test: new Expression('get(\'b\').isEqual(9)'),
                 commands,
             }))
             .pipe(ezs.catch())

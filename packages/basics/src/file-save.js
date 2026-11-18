@@ -53,7 +53,7 @@ export default function FILESave(data, feed) {
         const identifier = String(this.getParam('identifier', uuid()));
         const location = path.normalize(this.getParam('location', tmpdir()));
         const compress = this.getParam('compress', false);
-        const flags = Boolean(this.getParam('append', false)) ? 'a' : 'w';
+        const flags = this.getParam('append', false) ? 'a' : 'w';
         if (location.indexOf(tmpdir()) !== 0 && location.indexOf(process.cwd()) !== 0) {
             feed.stop(new Error('File location check failed.'));
             return;
