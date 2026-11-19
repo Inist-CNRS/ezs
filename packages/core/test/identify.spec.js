@@ -1,4 +1,5 @@
 import assert from 'assert';
+import { Readable } from 'stream';
 import from from 'from';
 import ezs from '../src';
 import statements from '../src/statements';
@@ -14,6 +15,23 @@ const data = [
     { a: 5, b: 'e' },
     { a: 6, b: 'f', uri: 'uid:/ezs-V9neThkw-e' },
 ];
+
+class Upto extends Readable {
+    constructor(m) {
+        super({ objectMode: true });
+        this.i = -1;
+        this.m = m;
+    }
+
+    _read() {
+        this.i += 1;
+        if (this.i >= this.m) {
+            this.push(null);
+        } else {
+            this.push(this.i);
+        }
+    }
+}
 
 describe('[identify]', () => {
     it('with no uri #1', (done) => {
@@ -63,7 +81,9 @@ describe('[identify]', () => {
                 done();
             });
     });
+});
 
+describe('identify (scheme sha)', () => {
     it('identify #1', (done) => {
         const res = [];
         from([
@@ -84,26 +104,80 @@ describe('[identify]', () => {
                 assert.equal(res[0].b, 3);
                 assert.equal(res[1].b, 2);
                 assert.equal(res[2].a, 'toto:/abracadabra');
-                assert.equal(res[3].a, 'doi:/10.1111/j.1564-9121.2012.00150.x(ISSN)');
+                assert.equal(
+                    res[3].a,
+                    'doi:/10.1111/j.1564-9121.2012.00150.x(ISSN)'
+                );
                 assert.equal(res[0].a.split(':').shift(), 'sha');
                 assert.equal(res[4].a.split(':').shift(), 'sha');
                 done();
             });
     });
+    it('identify 1bis', (done) => {
+        const res = [];
+        const script = `
+[identify]
+scheme = sha
+content = get('b')
+`;
+        from([
+            { a: 'a', b: 3 },
+            { a: 'b', b: 2 },
+            { a: 'c', b: 2 },
+            { a: 'd', b: 3 },
+        ])
+            .pipe(ezs('delegate', { script }))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.length, 4);
+                assert.notEqual(res[0].uri, res[1].uri);
+                assert.notEqual(res[2].uri, res[3].uri);
+                assert.equal(res[0].uri, res[3].uri);
+                assert.equal(res[1].uri, res[2].uri);
+                done();
+            });
+    });
+    it('identify 1ter', (done) => {
+        const res = [];
+        const script = `
+[identify]
+scheme = sha
+`;
+        from([
+            { a: 'a', b: 3 },
+            { a: 'b', b: 2 },
+            { a: 'c', b: 2 },
+            { a: 'd', b: 3 },
+        ])
+            .pipe(ezs('delegate', { script }))
+            .on('data', (chunk) => {
+                assert(typeof chunk === 'object');
+                res.push(chunk);
+            })
+            .on('end', () => {
+                assert.equal(res.length, 4);
+                assert.notEqual(res[0].uri, res[1].uri);
+                assert.notEqual(res[1].uri, res[2].uri);
+                assert.notEqual(res[2].uri, res[3].uri);
+                assert.notEqual(res[3].uri, res[0].uri);
+                done();
+            });
+    });
 
     it('identify #2', (done) => {
-        from([
-            { id: 1, b: 'a' },
-            undefined,
-            { id: 1, b: 'a' },
-        ])
+        from([{ id: 1, b: 'a' }, undefined, { id: 1, b: 'a' }])
             .pipe(ezs('identify', { path: 'uuid', scheme: 'sha' }))
             .pipe(ezs.catch())
             .on('error', (e) => {
                 try {
-                    expect(e.message).toEqual(expect.stringContaining('Received undefined'));
+                    expect(e.message).toEqual(
+                        expect.stringContaining('Received undefined')
+                    );
                     done();
-                } catch(ee) {
+                } catch (ee) {
                     done(ee);
                 }
             })
@@ -112,7 +186,67 @@ describe('[identify]', () => {
                 done(new Error('Error is the right behavior'));
             });
     });
+    it('identify #3', (done) => {
+        const script = `
+[replace]
+path = value
+value = self()
 
+[identify]
+scheme = sha
+
+[dedupe]
+ignore = true
+`;
+        let counter = 0;
+        const size = 1000000;
+        const bcp = new Upto(size);
+        bcp.pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', (error) => {
+                assert.ok(error instanceof Error);
+                done();
+            })
+            .on('data', () => {
+                counter += 1;
+            })
+            .on('end', () => {
+                expect(counter).toBe(size);
+                done();
+            });
+    }, 60000);
+    it('identify #4', (done) => {
+        const script = `
+[replace]
+path = value
+value = self()
+
+[identify]
+scheme = sha
+content = get('value')
+
+[debug]
+
+[dedupe]
+ignore = true
+`;
+        let counter = 0;
+        const size = 100;
+        const bcp = new Upto(size);
+        bcp.pipe(ezs('delegate', { script }))
+            .pipe(ezs.catch())
+            .on('error', (error) => {
+                assert.ok(error instanceof Error);
+                done();
+            })
+            .on('data', () => {
+                counter += 1;
+            })
+            .on('end', () => {
+                expect(counter).toBe(size);
+                done();
+            });
+    }, 60000);
 });
 
 describe('validKey', () => {
