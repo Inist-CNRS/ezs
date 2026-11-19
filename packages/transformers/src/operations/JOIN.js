@@ -5,6 +5,10 @@ export const join = (value, separator) => {
         return '';
     }
 
+    if (typeof value === 'string') {
+        return value;
+    }
+
     if (!Array.isArray(value)) {
         throw new Error('Invalid value: need an array');
     }
@@ -12,7 +16,7 @@ export const join = (value, separator) => {
     return value.join(separator);
 };
 
-const transformation = (_, args) => value =>
+const transformation = (_, args) => (value) =>
     rawTransformerWithArg(join, 'separator', value, args);
 
 transformation.getMetas = () => ({
