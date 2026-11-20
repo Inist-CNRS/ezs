@@ -128,40 +128,65 @@ describe(' through server(s)', () => {
                     })
                     .catch(done);
             });
-            it('buggy4.ini', (done) => {
-                const output = [];
+            // the error comes after the first data: too late for an error status
+            const failAfterHeaders = (script) => (done) => {
                 const input = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-                const stream = from(input);
-                fetch('http://127.0.0.1:33333/buggy4.ini', { method: 'POST', body: stream })
+                fetch(`http://127.0.0.1:33333/${script}`, { method: 'POST', body: from(input) })
                     .then((res) => {
-                        res.body.on('data', (chunk) => {
-                            output.push(chunk);
-                        });
-                        res.body.on('error', done);
-                        res.body.on('end', () => {
-                            assert.equal(output.length, 0);
+                        assert.equal(res.status, 200);
+                        res.body.on('data', () => true);
+                        res.body.on('error', (e) => {
+                            // the connection is broken, not ended as if all was fine
+                            assert.equal(e.message, 'Premature close');
                             done();
                         });
+                        res.body.on('end', () => done(new Error('The response should not end cleanly')));
                     })
                     .catch(done);
-            });
-            it('buggy5.ini', (done) => {
+            };
+            it('buggy4.ini', failAfterHeaders('buggy4.ini'));
+            it('buggy5.ini', failAfterHeaders('buggy5.ini'));
+
+            // with pack, the error is the last line, and unpack throws it
+            // an error sent as an item (plof) comes after all the data before it, but
+            // an error thrown by feed.stop (plaf) can overtake the data still in progress
+            const failInPack = (script, message, encoding, { unpackParams, allDataFirst = true } = {}) => (done) => {
                 const output = [];
                 const input = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-                const stream = from(input);
-                fetch('http://127.0.0.1:33333/buggy5.ini', { method: 'POST', body: stream })
+                fetch(`http://127.0.0.1:33333/${script}`, {
+                    method: 'POST',
+                    body: from(input),
+                    headers: { 'Accept-Encoding': encoding },
+                })
                     .then((res) => {
-                        res.body.on('data', (chunk) => {
-                            output.push(chunk);
-                        });
-                        res.body.on('error', done);
-                        res.body.on('end', () => {
-                            assert.equal(output.length, 0);
-                            done();
-                        });
+                        assert.equal(res.status, 200);
+                        // the error line must not break the compressed stream
+                        assert.equal(res.headers.get('content-encoding'), encoding);
+                        res.body
+                            .pipe(ezs('unpack', unpackParams))
+                            .pipe(ezs.catch())
+                            .on('data', (chunk) => output.push(chunk))
+                            .on('error', (e) => {
+                                // unpack catches what this listener throws: report it to jest
+                                try {
+                                    const before = [1, 2, 3, 4, 5, 6];
+                                    // the 200 status means some data came first
+                                    assert.ok(output.length > 0);
+                                    assert.deepEqual(output, allDataFirst ? before : before.slice(0, output.length));
+                                    assert.ok(ezs.serializeError(e).includes(message));
+                                    done();
+                                } catch (assertion) {
+                                    done(assertion);
+                                }
+                            })
+                            .on('end', () => done(new Error('unpack should throw the error')));
                     })
                     .catch(done);
-            });
+            };
+            it('buggy6.ini (pack, error thrown, gzip)', failInPack('buggy6.ini', 'Plaf!', 'gzip', { allDataFirst: false }));
+            it('buggy6.ini (pack, error thrown)', failInPack('buggy6.ini', 'Plaf!', 'identity', { allDataFirst: false }));
+            it('buggy7.ini (pack, error sent, gzip)', failInPack('buggy7.ini', 'Plof!', 'gzip'));
+            it('buggy8.ini (pack with a path)', failInPack('buggy8.ini', 'Plof!', 'gzip', { unpackParams: { path: 'value' } }));
         });
     }
 

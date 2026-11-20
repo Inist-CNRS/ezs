@@ -1,15 +1,16 @@
 import { join, basename, dirname } from 'path';
 import debug from 'debug';
 import sizeof from 'object-sizeof';
-import { PassThrough } from 'readable-stream';
+import { PassThrough, Transform } from 'readable-stream';
 import { pipeline } from 'stream';
 import once from 'once';
 import merge from 'lodash/merge.js';
 import cloneDeep from 'lodash/cloneDeep.js';
 import { metricsHandle } from './metrics.js';
-import errorHandler from './errorHandler.js';
+import errorHandler, { reportError } from './errorHandler.js';
 import { isFile } from '../file.js';
 import breaker from '../statements/breaker.js';
+import { packLine } from '../statements/pack.js';
 import settings from '../settings.js';
 
 const dispositionFrom = ({ extension }) => (extension ? `attachment; filename="dump.${extension}"` : 'inline');
@@ -126,31 +127,58 @@ const knownPipeline = (ezs) => (request, response, next) => {
 
     const outputStream = new PassThrough();
     outputStream.pipe(response);
-    const transformedStream = ezs.createPipeline(decodedStream, statements)
+    // with pack, the client reads the output with unpack, which throws { __Error } lines
+    const packedOutput = Boolean(append2Pipeline && append2Pipeline.name === 'pack');
+    let failed = false;
+    // a plain Transform (not a SafeTransform), so that an error stops here
+    // and the output can still end cleanly
+    const errorStream = new Transform({
+        objectMode: true,
+        transform(chunk, encoding, done) {
+            if (chunk instanceof Error) {
+                fail(chunk); // eslint-disable-line no-use-before-define
+            } else if (!failed) {
+                this.push(chunk);
+            }
+            done();
+        },
+    });
+    // the only way out on error: the first one wins, the next ones
+    // (such as the output closed below) are ignored
+    const fail = (e, code = 400) => {
+        if (failed) {
+            return;
+        }
+        failed = true;
+        rawStream.destroy();
+        decodedStream.destroy();
+        if (code === 400 && response.headersSent && packedOutput) {
+            // too late for an error status: the error is the last line of the output
+            reportError(ezs, request)(e, code);
+            errorStream.push(packLine(ezs, e, append2Pipeline.args.path));
+            errorStream.push(null);
+            return;
+        }
+        outputStream.unpipe(response);
+        errorStream.destroy();
+        bufferStream.destroy(); // eslint-disable-line no-use-before-define
+        triggerError(e, code);
+    };
+    errorStream.on('error', fail);
+    const bufferStream = ezs.toBuffer();
+    ezs.createPipeline(decodedStream, statements)
         .on('unpipe', () => {
             request.unpipe(rawStream);
             rawStream.end();
         })
-        .pipe(ezs.catch((e) => e))
-        .on('error', (e) => {
-            outputStream.unpipe(response);
-            triggerError(e, 400);
-            rawStream.destroy();
-            decodedStream.destroy();
-            transformedStream.destroy();
-        });
+        .pipe(errorStream) // passes on its errors (see SafeTransform)
+        .pipe(bufferStream); // does not
 
     pipeline(
-        transformedStream,
-        ezs.toBuffer(),
+        bufferStream,
         ezs.compress(response.getHeaders()),
         outputStream,
-        (e) => {
-            if (e) {
-                outputStream.unpipe(response);
-                triggerError(e, 500);
-            }
-        }
+        (e) => e && fail(e, 500),
     );
 
     request

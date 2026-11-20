@@ -45,7 +45,7 @@ export default function time(data, feed) {
         const logger = ezs.createTrap(this.getParam('logger'), this.getEnv());
         const output = ezs.createPipeline(this.input, streams, logger)
             .pipe(ezs.catch((e) => feed.write(e)))
-            .once('error', (e) => feed.stop(e))
+            .on('error', (e) => feed.stop(e))
             .on('data', () => feed.write());
 
         this.whenFinish = new Promise((resolve) => {
