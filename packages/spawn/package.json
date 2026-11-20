@@ -1,36 +1,36 @@
 {
-  "name": "@ezs/spawn",
-  "description": "...",
-  "version": "1.4.10",
-  "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
-  "bugs": "https://github.com/Inist-CNRS/ezs/issues",
-  "dependencies": {
-    "debug": "4.3.3",
-    "semver": "7.5.2",
-    "stream-iterate": "1.2.0"
-  },
-  "directories": {
-    "test": "test"
-  },
-  "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/spawn#readme",
-  "keywords": [
-    "ezs"
-  ],
-  "license": "MIT",
-  "main": "./lib/index.js",
-  "peerDependencies": {
-    "@ezs/core": "*"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "repository": "Inist-CNRS/ezs.git",
-  "scripts": {
-    "build": "babel --root-mode upward src --out-dir lib",
-    "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-spawn.md --section=usage  && cp ../../docs/plugin-spawn.md ./README.md",
-    "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
-    "prepublish": "npm run build",
-    "pretest": "npm run build",
-    "preversion": "npm run doc"
-  }
+    "name": "@ezs/spawn",
+    "description": "...",
+    "version": "1.4.11",
+    "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
+    "bugs": "https://github.com/Inist-CNRS/ezs/issues",
+    "dependencies": {
+        "debug": "4.3.3",
+        "semver": "7.5.2",
+        "stream-iterate": "1.2.0"
+    },
+    "directories": {
+        "test": "test"
+    },
+    "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/spawn#readme",
+    "keywords": [
+        "ezs"
+    ],
+    "license": "MIT",
+    "main": "./lib/index.js",
+    "peerDependencies": {
+        "@ezs/core": "*"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": "Inist-CNRS/ezs.git",
+    "scripts": {
+        "build": "babel --root-mode upward src --out-dir lib",
+        "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-spawn.md --section=usage  && cp ../../docs/plugin-spawn.md ./README.md",
+        "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
+        "prepublish": "npm run build",
+        "pretest": "npm run build",
+        "preversion": "npm run doc"
+    }
 }

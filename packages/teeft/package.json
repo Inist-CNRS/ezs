@@ -1,40 +1,40 @@
 {
-  "name": "@ezs/teeft",
-  "description": "ezs statements for teeft",
-  "version": "2.3.5",
-  "author": "François Parmentier <francois.parmentier@gmail.com>",
-  "bugs": "https://github.com/Inist-CNRS/ezs/issues",
-  "dependencies": {
-    "fs-readfile-promise": "3.0.1",
-    "glob": "7.2.0",
-    "natural": "5.1.11",
-    "ramda": "0.27.1",
-    "talisman": "1.1.4"
-  },
-  "homepage": "https://github.com/Inist-CNRS/ezs/packages/teeft#readme",
-  "keywords": [
-    "extraction",
-    "ezs",
-    "nlp",
-    "stream",
-    "teeft",
-    "term"
-  ],
-  "license": "CECILL-2.1",
-  "main": "lib/index.js",
-  "peerDependencies": {
-    "@ezs/core": "*"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "repository": "Inist-CNRS/ezs.git",
-  "scripts": {
-    "build": "babel src --out-dir lib",
-    "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-teeft.md --section=usage && cp ../../docs/plugin-teeft.md ./README.md",
-    "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
-    "prepublish": "npm run build",
-    "pretest": "npm run build",
-    "preversion": "npm run doc"
-  }
+    "name": "@ezs/teeft",
+    "description": "ezs statements for teeft",
+    "version": "2.3.6",
+    "author": "François Parmentier <francois.parmentier@gmail.com>",
+    "bugs": "https://github.com/Inist-CNRS/ezs/issues",
+    "dependencies": {
+        "fs-readfile-promise": "3.0.1",
+        "glob": "7.2.0",
+        "natural": "5.1.11",
+        "ramda": "0.27.1",
+        "talisman": "1.1.4"
+    },
+    "homepage": "https://github.com/Inist-CNRS/ezs/packages/teeft#readme",
+    "keywords": [
+        "extraction",
+        "ezs",
+        "nlp",
+        "stream",
+        "teeft",
+        "term"
+    ],
+    "license": "CECILL-2.1",
+    "main": "lib/index.js",
+    "peerDependencies": {
+        "@ezs/core": "*"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": "Inist-CNRS/ezs.git",
+    "scripts": {
+        "build": "babel src --out-dir lib",
+        "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-teeft.md --section=usage && cp ../../docs/plugin-teeft.md ./README.md",
+        "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
+        "prepublish": "npm run build",
+        "pretest": "npm run build",
+        "preversion": "npm run doc"
+    }
 }

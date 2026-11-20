@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.10](https://github.com/Inist-CNRS/ezs/compare/@ezs/transformers@1.4.9...@ezs/transformers@1.4.10) (2026-11-20)
+
+### Bug Fixes
+
+-   🐛 avoid error with string value ([d877634](https://github.com/Inist-CNRS/ezs/commit/d87763445ce05179af0e6d7a12d6b14c5902f146))
+
 ## [1.4.9](https://github.com/Inist-CNRS/ezs/compare/@ezs/transformers@1.4.8...@ezs/transformers@1.4.9) (2026-11-17)
 
 **Note:** Version bump only for package @ezs/transformers

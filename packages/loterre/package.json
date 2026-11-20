@@ -1,44 +1,44 @@
 {
-  "name": "@ezs/loterre",
-  "description": "Loterre statements for EZS",
-  "version": "2.0.10",
-  "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
-  "bugs": "https://github.com/Inist-CNRS/ezs/issues",
-  "dependencies": {
-    "@ezs/store": "2.0.8",
-    "lodash": "4.18.1"
-  },
-  "directories": {
-    "test": "test"
-  },
-  "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/loterre#readme",
-  "jest": {
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "locals.js",
-      "testOne.js",
-      "testAll.js"
-    ]
-  },
-  "keywords": [
-    "ezs"
-  ],
-  "license": "MIT",
-  "main": "./lib/index.js",
-  "peerDependencies": {
-    "@ezs/core": "*"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "repository": "Inist-CNRS/ezs.git",
-  "scripts": {
-    "build": "babel --root-mode upward src --out-dir lib",
-    "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-loterre.md --section=usage && cp ../../docs/plugin-loterre.md ./README.md",
-    "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
-    "prepublish": "npm run build",
-    "pretest": "npm run build",
-    "preversion": "npm run doc",
-    "test": "NODE_ENV=test jest --maxWorkers 4 --config jest.config.js"
-  }
+    "name": "@ezs/loterre",
+    "description": "Loterre statements for EZS",
+    "version": "2.0.11",
+    "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
+    "bugs": "https://github.com/Inist-CNRS/ezs/issues",
+    "dependencies": {
+        "@ezs/store": "2.0.8",
+        "lodash": "4.18.1"
+    },
+    "directories": {
+        "test": "test"
+    },
+    "homepage": "https://github.com/Inist-CNRS/ezs/tree/master/packages/loterre#readme",
+    "jest": {
+        "testPathIgnorePatterns": [
+            "/node_modules/",
+            "locals.js",
+            "testOne.js",
+            "testAll.js"
+        ]
+    },
+    "keywords": [
+        "ezs"
+    ],
+    "license": "MIT",
+    "main": "./lib/index.js",
+    "peerDependencies": {
+        "@ezs/core": "*"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": "Inist-CNRS/ezs.git",
+    "scripts": {
+        "build": "babel --root-mode upward src --out-dir lib",
+        "doc": "documentation readme src/* --sort-order=alpha --shallow --markdown-toc-max-depth=2 --readme-file=../../docs/plugin-loterre.md --section=usage && cp ../../docs/plugin-loterre.md ./README.md",
+        "lint": "eslint --ext=.js ./test/*.js ./src/*.js",
+        "prepublish": "npm run build",
+        "pretest": "npm run build",
+        "preversion": "npm run doc",
+        "test": "NODE_ENV=test jest --maxWorkers 4 --config jest.config.js"
+    }
 }
