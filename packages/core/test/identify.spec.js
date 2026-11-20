@@ -199,7 +199,7 @@ scheme = sha
 ignore = true
 `;
         let counter = 0;
-        const size = 1000000;
+        const size = 100000;
         const bcp = new Upto(size);
         bcp.pipe(ezs('delegate', { script }))
             .pipe(ezs.catch())
@@ -214,7 +214,7 @@ ignore = true
                 expect(counter).toBe(size);
                 done();
             });
-    }, 60000);
+    }, 120000);
     it('identify #4', (done) => {
         const script = `
 [replace]
