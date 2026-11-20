@@ -13,6 +13,10 @@ import settings from '../settings.js';
 
 export const aggregatorRegistry = new AggregatorRegistry();
 
+// The aggregator is local: this agent must never inherit the proxy settings
+// of http.globalAgent (HTTP_PROXY / NODE_USE_ENV_PROXY)
+const localAgent = new http.Agent();
+
 export const httpConnectionTotal = new Counter({
     name: 'http_connection_total',
     help: 'Number of connections'
@@ -114,12 +118,15 @@ export const metrics = () => (request, response, next) => {
         port: port + 1,
         path: '/',
         method: 'GET',
+        agent: localAgent,
         headers: {
             'Content-Type': 'text/plain',
         }
     };
 
-    request.pipe(http.request(options, (source) => source.pipe(response)));
+    const upstream = http.request(options, (source) => source.pipe(response));
+    upstream.on('error', next);
+    request.pipe(upstream);
     return true;
 };
 
