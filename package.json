@@ -15,7 +15,6 @@
         "packages/store",
         "packages/strings",
         "packages/teeft",
-        "packages/transformers",
         "packages/xslt"
     ],
     "engines": {
