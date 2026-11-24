@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.2.8](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@4.2.7...@ezs/core@4.2.8) (2026-11-24)
+
+### Bug Fixes
+
+-   🐛 better way to use sha scheme with [identify] ([4031969](https://github.com/Inist-CNRS/ezs/commit/4031969a038bb33de7f92ee96d474fc57ac1be63))
+-   **core:** close the output after an error, and keep the pack path in sync ([2cb0d09](https://github.com/Inist-CNRS/ezs/commit/2cb0d096a73932569362d8067f2e1f6118dce77a))
+-   **core:** log and count the errors sent as the last line of the output ([4fd0247](https://github.com/Inist-CNRS/ezs/commit/4fd0247b6b15c70f7393683b069ef77745ec6f45))
+-   **core:** report the errors that happen after the server has answered ([c71495d](https://github.com/Inist-CNRS/ezs/commit/c71495da78bb3eac89f4ea535fa3aab98bad0846))
+-   **core:** stop a failed feed's timer and keep listening to its stream errors ([1c7e50f](https://github.com/Inist-CNRS/ezs/commit/1c7e50fd8543ce0640960723571f1348453533bc))
+-   **core:** Use local agent and handle errors in metrics proxy ([c9a87ef](https://github.com/Inist-CNRS/ezs/commit/c9a87ef88a1f2af6ea3f7ead88420d92f67f22b6))
+
 ## [4.2.7](https://github.com/Inist-CNRS/ezs/compare/@ezs/core@4.2.6...@ezs/core@4.2.7) (2026-11-20)
 
 ### Bug Fixes
