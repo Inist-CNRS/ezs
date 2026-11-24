@@ -3,19 +3,10 @@ import debug from 'debug';
 import { URL, URLSearchParams } from 'url';
 import AbortController from 'node-abort-controller';
 import retry from 'async-retry';
-import fetch from 'fetch-with-proxy';
 import writeTo from 'stream-write';
 import each from 'async-each-series';
+import request from './request';
 
-const request = (url, parameters) => async () => {
-    const response = await fetch(url, parameters);
-    if (!response.ok) {
-        const err = new Error(response.statusText);
-        err.body = await response.json();
-        throw err;
-    }
-    return response;
-};
 const write = (output, notices) => new Promise((resolve, reject) => each(
     notices,
     (notice, next) => writeTo(output, notice, next),
