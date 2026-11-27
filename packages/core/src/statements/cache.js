@@ -8,8 +8,6 @@ import { pipeline } from 'stream';
 const DEFAULT_TTL_MS = 24 * 60 * 60 * 1000;
 const DEFAULT_CLEANUP_INTERVAL_MS = 60 * 60 * 1000;
 
-const lastCleanup = new Map();
-
 function collectExpiredKeys(cachePath, ttlMs) {
     return new Promise((resolve, reject) => {
         const now = Date.now();
@@ -40,19 +38,38 @@ export async function cleanupCache(cachePath, ttlMs = DEFAULT_TTL_MS) {
     await cacache.verify(cachePath);
 }
 
+const lastCleanup = new Map();
+const cleanupTimers = new Map();
+
 export function scheduleCleanup(
     cachePath,
     ttlMs = DEFAULT_TTL_MS,
     cleanupIntervalMs = DEFAULT_CLEANUP_INTERVAL_MS
 ) {
     const now = Date.now();
+
+    if (cleanupTimers.has(cachePath)) {
+        return;
+    }
+
     if (now - (lastCleanup.get(cachePath) ?? 0) < cleanupIntervalMs) {
         return;
     }
+
     lastCleanup.set(cachePath, now);
-    cleanupCache(cachePath, ttlMs).catch((error) =>
-        console.error('Cache cleanup failed', error)
-    );
+
+    const timer = setTimeout(async () => {
+        cleanupTimers.delete(cachePath);
+
+        try {
+            await cleanupCache(cachePath, ttlMs);
+        } catch (error) {
+            console.error('Cache cleanup failed', error);
+        }
+    }, cleanupIntervalMs);
+
+    timer.unref?.();
+    cleanupTimers.set(cachePath, timer);
 }
 
 export async function cacheGet(cachePath, cacheKey, ttlMs = DEFAULT_TTL_MS) {
@@ -171,12 +188,6 @@ export default async function spawnCache(data, feed) {
             .update(
                 JSON.stringify({
                     data,
-                    file,
-                    script,
-                    command,
-                    commands,
-                    prepend,
-                    append,
                 })
             )
             .digest('hex');
@@ -185,6 +196,7 @@ export default async function spawnCache(data, feed) {
     try {
         const cached = await cacheGetStream(ezs, cachePath, key, ttl);
         if (cached) {
+            //    debug('ezs:info')(`${key} hit the cache`);
             return await feed.flow(cached);
         }
     } catch (e) {
@@ -240,7 +252,6 @@ export default async function spawnCache(data, feed) {
         await new Promise((resolve) => ezs.writeTo(packed, item, resolve));
         return tapFeed.send(item);
     });
-
     const output = ezs
         .createPipeline(input, statements, logger)
         .pipe(
