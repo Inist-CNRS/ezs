@@ -1,10 +1,10 @@
-import { resolve  as resolvePath } from 'path';
+import { resolve as resolvePath } from 'path';
 import from from 'from';
 import { tmpdir } from 'os';
 import _ from 'lodash';
-import cacache from 'cacache';
 import makeDir from 'make-dir';
 import pathExists from 'path-exists';
+import { cacheGet, cachePut } from './cache.js';
 
 const core = (id, value, token) => {
     if (token) {
@@ -13,31 +13,11 @@ const core = (id, value, token) => {
     return { id, value };
 };
 
-async function cacheGet(cachePath, cacheKey) {
-    const cacheObject = await cacache.get.info(cachePath, cacheKey);
-    if (!cacheObject) {
-        return null;
-    }
-    const cacheData = await cacache.get.byDigest(cachePath, cacheObject.integrity);
-    return JSON.parse(cacheData.toString());
-}
-
-async function cachePut(cachePath, cacheKey, cacheValue) {
-    if (cacheValue) {
-        const integity = await cacache.put(cachePath, cacheKey, JSON.stringify(cacheValue));
-        return integity;
-    }
-    return false;
-}
-
 async function mergeWith(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
-    const {
-        store,
-        cachePath,
-    } = this.getEnv();
+    const { store, cachePath } = this.getEnv();
     const { id, value } = data;
     const path = this.getParam('path');
     try {
@@ -58,7 +38,6 @@ async function mergeWith(data, feed) {
         return feed.send(e);
     }
 }
-
 
 /**
  * Takes an `Object` and substitute a field with the corresponding value found in a external pipeline
@@ -121,14 +100,21 @@ export default async function expand(data, feed) {
     if (this.isFirst()) {
         if (cacheName && !this.cachePath) {
             const location = this.getParam('location');
-            this.cachePath = resolvePath(location || tmpdir(), 'memory', `expand${cacheName}`);
+            this.cachePath = resolvePath(
+                location || tmpdir(),
+                'memory',
+                `expand${cacheName}`
+            );
             if (!pathExists.sync(this.cachePath)) {
                 makeDir.sync(this.cachePath);
             }
         }
     }
     if (this.isLast()) {
-        if (this.buffer[this.bufferIndex] && this.buffer[this.bufferIndex].length > 0) {
+        if (
+            this.buffer[this.bufferIndex] &&
+            this.buffer[this.bufferIndex].length > 0
+        ) {
             const input = from(this.buffer[this.bufferIndex]);
             const commands = ezs.createCommands({
                 file: this.getParam('file'),
@@ -139,34 +125,49 @@ export default async function expand(data, feed) {
                 append: this.getParam('append'),
             });
             const statements = ezs.compileCommands(commands, this.getEnv());
-            const logger = ezs.createTrap(this.getParam('logger'), this.getEnv());
-            const output = ezs.createPipeline(input, statements, logger)
-                .pipe(ezs(mergeWith, { path }, {
-                    store: this.store,
-                    cachePath: this.cachePath,
-                }))
-                .pipe(ezs.catch((e) => {
-                    const originData = this.store[e.sourceID];
-                    delete this.store[e.sourceID];
-                    if (originData) {
-                        _.set(originData, path, e);
-                        feed.write(originData);
-                    }
-                })) // avoid to break pipeline at each error
+            const logger = ezs.createTrap(
+                this.getParam('logger'),
+                this.getEnv()
+            );
+            const output = ezs
+                .createPipeline(input, statements, logger)
+                .pipe(
+                    ezs(
+                        mergeWith,
+                        { path },
+                        {
+                            store: this.store,
+                            cachePath: this.cachePath,
+                        }
+                    )
+                )
+                .pipe(
+                    ezs.catch((e) => {
+                        const originData = this.store[e.sourceID];
+                        delete this.store[e.sourceID];
+                        if (originData) {
+                            _.set(originData, path, e);
+                            feed.write(originData);
+                        }
+                    })
+                ) // avoid to break pipeline at each error
                 .once('end', () => {
                     delete this.buffer[this.bufferIndex];
                 });
             this.bufferPromises[this.bufferIndex] = await feed.flow(output);
         }
         await Promise.all(this.bufferPromises);
-        Object.keys(this.store).forEach(key => {
+        Object.keys(this.store).forEach((key) => {
             const originData = this.store[key];
             delete this.store[key];
             if (originData === undefined || originData === null) {
                 feed.stop(new Error('id was corrupted with'));
-            }
-            else {
-                _.set(originData, path, new Error('The value has not been processed'));
+            } else {
+                _.set(
+                    originData,
+                    path,
+                    new Error('The value has not been processed')
+                );
                 feed.write(originData);
             }
         });
@@ -209,22 +210,30 @@ export default async function expand(data, feed) {
         });
         const statements = ezs.compileCommands(commands, this.getEnv());
         const logger = ezs.createTrap(this.getParam('logger'), this.getEnv());
-        const output = ezs.createPipeline(input, statements, logger)
-            .pipe(ezs(mergeWith, { path }, {
-                store: this.store,
-                cachePath: this.cachePath,
-            }))
-            .pipe(ezs.catch((e) => {
-                const originData = this.store[e.sourceID];
-                delete this.store[e.sourceID];
-                if (originData === undefined || originData === null) {
-                    feed.stop(new Error('id was corrupted with'));
-                }
-                else  {
-                    _.set(originData, path, e);
-                    feed.write(originData);
-                }
-            })) // avoid to break pipeline at each error
+        const output = ezs
+            .createPipeline(input, statements, logger)
+            .pipe(
+                ezs(
+                    mergeWith,
+                    { path },
+                    {
+                        store: this.store,
+                        cachePath: this.cachePath,
+                    }
+                )
+            )
+            .pipe(
+                ezs.catch((e) => {
+                    const originData = this.store[e.sourceID];
+                    delete this.store[e.sourceID];
+                    if (originData === undefined || originData === null) {
+                        feed.stop(new Error('id was corrupted with'));
+                    } else {
+                        _.set(originData, path, e);
+                        feed.write(originData);
+                    }
+                })
+            ) // avoid to break pipeline at each error
 
             .once('end', () => {
                 delete this.buffer[index];

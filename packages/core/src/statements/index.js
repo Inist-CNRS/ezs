@@ -40,6 +40,7 @@ import breaker from './breaker.js';
 import detach from './detach.js';
 import encode from './encode.js';
 import decode from './decode.js';
+import cache from './cache.js';
 
 export default {
     extract,
@@ -84,4 +85,5 @@ export default {
     detach,
     encode,
     decode,
+    cache,
 };
