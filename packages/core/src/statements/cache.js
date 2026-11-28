@@ -4,6 +4,7 @@ import { join } from 'path';
 import cacache from 'cacache';
 import debug from 'debug';
 import { pipeline } from 'stream';
+import { sha } from './identify.js';
 
 const DEFAULT_TTL_MS = 24 * 60 * 60 * 1000;
 const DEFAULT_CLEANUP_INTERVAL_MS = 60 * 60 * 1000;
@@ -152,7 +153,7 @@ export async function cacheGetStream(
  *   au fil de l'eau tout en étant transmises au statement suivant.
  *   Le cache n'est validé qu'à la fin du flux, et seulement s'il n'y a eu aucune erreur.
  *
- * @name spawnCache
+ * @name cache
  * @param {String} [file] fichier du sous-pipeline
  * @param {String} [script] script du sous-pipeline
  * @param {String} [command] commande du sous-pipeline
@@ -164,7 +165,7 @@ export async function cacheGetStream(
  * @param {Number} [ttl=86400000] durée de vie du cache en ms
  * @returns {Object}
  */
-export default async function spawnCache(data, feed) {
+export default async function cache(data, feed) {
     if (this.isLast()) {
         return feed.close();
     }
@@ -182,15 +183,7 @@ export default async function spawnCache(data, feed) {
     );
 
     // La définition du sous-pipeline fait partie de la clé : si le script change, le cache est invalidé
-    const key =
-        this.getParam('key') ||
-        createHash('sha1')
-            .update(
-                JSON.stringify({
-                    data,
-                })
-            )
-            .digest('hex');
+    const key = await sha(this.getParam('key') || data);
 
     // 1. Cache hit : lecture en flux
     try {

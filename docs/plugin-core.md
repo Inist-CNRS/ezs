@@ -32,6 +32,8 @@ peuvent apparaître comme similaires mais leur fonctionnement est différent :
 
 *   [assign](#assign)
 *   [breaker](#breaker)
+*   [cache](#cache)
+*   [cacheGetStream](#cachegetstream)
 *   [combine](#combine)
 *   [concat](#concat)
 *   [debug](#debug)
@@ -153,6 +155,40 @@ Break the stream  if the control file cannot be checked
 *   `fusible` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** file to check
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
+
+### cache
+
+sous-pipeline exécuté uniqument si il n'est pas en cache
+
+*   si le résultat est en cache, il est renvoyé en flux sans exécuter le sous-pipeline ;
+*   sinon le sous-pipeline est exécuté, et ses sorties sont écrites dans le cache
+    au fil de l'eau tout en étant transmises au statement suivant.
+    Le cache n'est validé qu'à la fin du flux, et seulement s'il n'y a eu aucune erreur.
+
+#### Parameters
+
+*   `file` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** fichier du sous-pipeline
+*   `script` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** script du sous-pipeline
+*   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** commande du sous-pipeline
+*   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** commandes du sous-pipeline
+*   `prepend` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** commandes ajoutées avant
+*   `append` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** commandes ajoutées après
+*   `key` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** clé de cache (défaut : hash de l'objet + définition du sous-pipeline)
+*   `location` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** répertoire du cache (défaut : tmpdir)
+*   `ttl` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** durée de vie du cache en ms (optional, default `86400000`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
+
+### cacheGetStream
+
+Renvoie un flux d'objets lu depuis le cache (cacache -> unpack), ou null si absent / expiré.
+
+#### Parameters
+
+*   `ezs` &#x20;
+*   `cachePath` &#x20;
+*   `cacheKey` &#x20;
+*   `ttlMs`   (optional, default `DEFAULT_TTL_MS`)
 
 ### combine
 
@@ -1229,7 +1265,6 @@ Delegate processing to an external pipeline, throw each chunk from the result.
 *   `commands` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in an object
 *   `command` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the external pipeline is described in an URL-like command
 *   `logger` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** A dedicaded pipeline described in a file to trap or log errors
-*   `cache` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Use a specific ezs statement to run commands (advanced)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 

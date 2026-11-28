@@ -8,7 +8,7 @@ export const validKey = (input) =>
     typeof input === 'string' &&
     input.search(/^[a-z]+:(\/?\/?)[^\s]+$/g) === 0;
 
-const sha = (input) =>
+export const sha = (input) =>
     Promise.resolve(
         createHash('sha256').update(JSON.stringify(input)).digest('hex')
     );
