@@ -27,7 +27,7 @@ describe('group', () => {
         ]);
     });
 
-    it("n'émet pas de groupe vide quand le nombre de chunks est un multiple de la taille", async () => {
+    it('n\'émet pas de groupe vide quand le nombre de chunks est un multiple de la taille', async () => {
         const res = await run(['a', 'b', 'c', 'd'], 'group', { length: 2 });
         expect(res).toEqual([
             ['a', 'b'],
@@ -89,7 +89,7 @@ describe('group', () => {
         expect(res).toEqual([]);
     });
 
-    it("avec une taille de 1, chaque chunk devient un tableau d'un élément", async () => {
+    it('avec une taille de 1, chaque chunk devient un tableau d\'un élément', async () => {
         const res = await run(['a', 'b'], 'group', { length: 1 });
         expect(res).toEqual([['a'], ['b']]);
     });
