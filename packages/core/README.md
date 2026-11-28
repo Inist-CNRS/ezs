@@ -33,7 +33,6 @@ peuvent apparaître comme similaires mais leur fonctionnement est différent :
 *   [assign](#assign)
 *   [breaker](#breaker)
 *   [cache](#cache)
-*   [cacheGetStream](#cachegetstream)
 *   [combine](#combine)
 *   [concat](#concat)
 *   [debug](#debug)
@@ -178,17 +177,6 @@ sous-pipeline exécuté uniqument si il n'est pas en cache
 *   `ttl` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** durée de vie du cache en ms (optional, default `86400000`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
-
-### cacheGetStream
-
-Renvoie un flux d'objets lu depuis le cache (cacache -> unpack), ou null si absent / expiré.
-
-#### Parameters
-
-*   `ezs` &#x20;
-*   `cachePath` &#x20;
-*   `cacheKey` &#x20;
-*   `ttlMs`   (optional, default `DEFAULT_TTL_MS`)
 
 ### combine
 

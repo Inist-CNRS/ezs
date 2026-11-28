@@ -117,9 +117,6 @@ export async function cachePut(
     return integrity;
 }
 
-/**
- * Renvoie un flux d'objets lu depuis le cache (cacache -> unpack), ou null si absent / expiré.
- */
 export async function cacheGetStream(
     ezs,
     cachePath,
