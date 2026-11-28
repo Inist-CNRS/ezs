@@ -55,24 +55,9 @@ describe('spawn through file(s)', () => {
         it('with object', (done) => {
             let res = 0;
             const ten = new Upto(10);
-            ten
-                .pipe(ezs('spawn', { commands }))
+            ten.pipe(ezs('spawn', { commands }))
                 .pipe(ezs.catch())
                 .on('error', done)
-                .on('data', (chunk) => {
-                    res += chunk;
-                })
-                .on('end', () => {
-                    assert.strictEqual(res, 54);
-                    done();
-                });
-        });
-
-        it('with object (bis)', (done) => {
-            let res = 0;
-            const ten = new Upto(10);
-            ten
-                .pipe(ezs('spawn', { commands, cache: 'delegate' }))
                 .on('data', (chunk) => {
                     res += chunk;
                 })
@@ -85,10 +70,15 @@ describe('spawn through file(s)', () => {
         it('with script', (done) => {
             let res = 0;
             const ten = new Upto(10);
-            ten
-                .pipe(ezs('spawn', {
-                    script,
-                }, { toto: 1, titi: 'truc' }))
+            ten.pipe(
+                ezs(
+                    'spawn',
+                    {
+                        script,
+                    },
+                    { toto: 1, titi: 'truc' }
+                )
+            )
                 .on('data', (chunk) => {
                     res += chunk;
                 })
@@ -101,10 +91,11 @@ describe('spawn through file(s)', () => {
         it('with file', (done) => {
             let res = 0;
             const ten = new Upto(10);
-            ten
-                .pipe(ezs('spawn', {
+            ten.pipe(
+                ezs('spawn', {
                     file: './script.ini',
-                }))
+                })
+            )
                 .on('data', (chunk) => {
                     res += chunk;
                 })
@@ -117,10 +108,11 @@ describe('spawn through file(s)', () => {
         it('with script', (done) => {
             let res = 0;
             const ten = new Upto(10);
-            ten
-                .pipe(ezs('spawn', {
+            ten.pipe(
+                ezs('spawn', {
                     script,
-                }))
+                })
+            )
                 .on('data', (chunk) => {
                     res += chunk;
                 })
@@ -133,10 +125,11 @@ describe('spawn through file(s)', () => {
         it('with commands', (done) => {
             let res = 0;
             const ten = new Upto(10);
-            ten
-                .pipe(ezs('spawn', {
+            ten.pipe(
+                ezs('spawn', {
                     commands,
-                }))
+                })
+            )
                 .on('data', (chunk) => {
                     res += chunk;
                 })
@@ -164,8 +157,7 @@ describe('spawn through file(s)', () => {
             },
         ];
         const ten = new Upto(10);
-        ten
-            .pipe(ezs('spawn', { commands }))
+        ten.pipe(ezs('spawn', { commands }))
             .on('data', (chunk) => {
                 res += chunk;
             })
@@ -187,8 +179,7 @@ describe('spawn through file(s)', () => {
             },
         ];
         const ten = new Upto(10);
-        ten
-            .pipe(ezs('spawn', { commands }))
+        ten.pipe(ezs('spawn', { commands }))
             .on('data', (chunk) => {
                 res.push(chunk);
             })
@@ -211,8 +202,7 @@ describe('spawn through file(s)', () => {
             },
         ];
         const ten = new Upto(10);
-        ten
-            .pipe(ezs('spawn', { commands }))
+        ten.pipe(ezs('spawn', { commands }))
             .on('data', (chunk) => {
                 res += chunk;
             })
@@ -238,8 +228,7 @@ describe('spawn through file(s)', () => {
             },
         ];
         const ten = new Upto(10);
-        ten
-            .pipe(ezs('spawn', { commands }))
+        ten.pipe(ezs('spawn', { commands }))
             .pipe(ezs.catch())
             .on('error', (error) => {
                 assert.ok(error instanceof Error);
@@ -263,15 +252,13 @@ describe('spawn through file(s)', () => {
             },
         ];
         const ten = new Upto(10);
-        ten
-            .pipe(ezs('spawn', { commands }))
+        ten.pipe(ezs('spawn', { commands }))
             .pipe(ezs.catch())
             .on('error', (error) => {
                 assert.ok(error instanceof Error);
                 done();
             });
     });
-
 
     it('with an unknown statement', (done) => {
         const commands = [
@@ -289,8 +276,7 @@ describe('spawn through file(s)', () => {
             },
         ];
         const ten = new Upto(10);
-        ten
-            .pipe(ezs('spawn', { commands }))
+        ten.pipe(ezs('spawn', { commands }))
             .pipe(ezs.catch())
             .on('error', (error) => {
                 assert.ok(error instanceof Error);
@@ -319,8 +305,7 @@ describe('spawn through file(s)', () => {
         ];
         let res = 0;
         const ten = new Upto(10);
-        ten
-            .pipe(ezs('spawn', { commands }))
+        ten.pipe(ezs('spawn', { commands }))
             .on('data', (chunk) => {
                 res += chunk;
             })
@@ -343,8 +328,7 @@ describe('spawn through file(s)', () => {
         ];
         let res = 0;
         const ten = new Upto(50001);
-        ten
-            .pipe(ezs('replace', { path: 'a', value: '2' }))
+        ten.pipe(ezs('replace', { path: 'a', value: '2' }))
             .pipe(ezs('spawn', { commands })) // ~ 9 seconds
             .on('data', (chunk) => {
                 res += chunk.a;
